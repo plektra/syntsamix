@@ -68,4 +68,4 @@ Untrimmed frequency-control offset up to ±10 mV at -19 mV/octave is up to ±0.5
 1. **Hot drive works but is more coloured than the spec assumed.** With the cutoff open, +4 dBu gives under 0.1% THD. With the cutoff lowered toward the signal, it gives about 1.3% at +4 dBu and saturates clearly from about +8 dBu, not +12 dBu as `SPEC.md` assumed. The datasheet's "nominal ±20 mV" lines up with its 1%-THD reference, which is consistent with this.
 2. **The trade is about 8 dB of SNR for about 6x less distortion.** Hot: about 93 dB SNR, about 1.3% THD at nominal with the cutoff low. Clean: about 85 dB, about 0.2%.
 3. **Use half resonance compensation**, scaled with the Q control: passband loss at maximum Q drops from -12 dB to -6 dB and the resonant peak stays within the stage's headroom.
-4. **Bench verification is required** for the real chip's distortion, noise and output scale before the channel card layout.
+4. **Bench verification is required** for the real chip's distortion, noise and output scale before the channel card layout. Test plan and result tables: `BREADBOARD.md`.

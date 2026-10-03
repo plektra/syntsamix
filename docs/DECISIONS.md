@@ -73,7 +73,7 @@
 - [x] SSI2144 supply, headroom and noise (datasheet Rev 3.0, January 2018; facts in SPEC.md section 3)
 - [x] Part availability, checked 2026-10-03 (details in the availability notes below)
 - [x] Simulate one filter channel to set the gain structure (behavioural model; `simulation/filter/README.md`)
-- [ ] Breadboard one SSI2144 channel to verify the real chip's distortion, noise and output scale, and pick the drive jumper setting by ear
+- [ ] Breadboard one SSI2144 channel to verify the real chip's distortion, noise and output scale, and pick the drive jumper setting by ear (plan: `simulation/filter/BREADBOARD.md`)
 - [x] Fader part (item 48)
 - [x] Pin assignment of the 34-pin audio and 8-pin power connectors (`CHAIN.md`)
 - [x] Chain voltage headroom: raised to about ±20 V nominal (item 40)
