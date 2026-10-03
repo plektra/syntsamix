@@ -1,0 +1,34 @@
+* Behavioural 4-pole transistor-ladder lowpass ("tanh" ladder model).
+*
+* This is NOT a vendor model of the SSI2144 (none is published). It is the
+* standard large-signal ladder approximation: four gm-C stages whose
+* transconductors saturate as tanh(v / 2Vt), with resonance as negative
+* feedback k from the output to the input stage. It is used to study gain
+* structure (level vs distortion), the passband loss caused by resonance,
+* and resonance compensation. Calibration against the SSI2144 datasheet
+* (Rev 3.0): input clips around +-50 mV, nominal level +-20 mV, oscillation
+* at a loop gain of 4 (12 dB of feedback). See README.md for limits.
+*
+* Ports:  in  = differential input voltage at the chip pins (V)
+*         out = ladder output, unity DC gain at k = 0
+* Params: fc  = cutoff frequency (Hz)
+*         k   = resonance feedback (0 = none, 4 = self-oscillation)
+
+.subckt ladder4 in out params: fc=1k k=0
+.param vt=25.85m cst=1n
+.param ifc={fc*4*3.14159265*vt*cst}
+* stage 1 (input stage, sees input minus feedback)
+B1 0 n1 I={ifc*(tanh((V(in)-k*V(n4))/(2*vt)) - tanh(V(n1)/(2*vt)))}
+C1 n1 0 {cst}
+R1 n1 0 1G
+B2 0 n2 I={ifc*(tanh(V(n1)/(2*vt)) - tanh(V(n2)/(2*vt)))}
+C2 n2 0 {cst}
+R2 n2 0 1G
+B3 0 n3 I={ifc*(tanh(V(n2)/(2*vt)) - tanh(V(n3)/(2*vt)))}
+C3 n3 0 {cst}
+R3 n3 0 1G
+B4 0 n4 I={ifc*(tanh(V(n3)/(2*vt)) - tanh(V(n4)/(2*vt)))}
+C4 n4 0 {cst}
+R4 n4 0 1G
+Eout out 0 n4 0 1
+.ends ladder4

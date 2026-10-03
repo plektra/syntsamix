@@ -23,7 +23,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 24 dB/oct (4-pole) ladder LPF, resonance on the LPF only. Not required to be Moog-style.
 - Baseline: Sound Semiconductor SSI2144 (SSM2044 reissue). Datasheet Rev 3.0 facts are recorded in `docs/SPEC.md` section 3
 - Fallback: AS3320 / V3320 (CEM3320 clone)
-- Gain structure: "hot" drive at the datasheet nominal level, with a per-channel bypass
+- Gain structure: "hot" drive at the datasheet nominal level by default, a prototype jumper for medium drive, per-channel bypass, half resonance compensation. Simulation in `simulation/filter/`
 - Distributor availability is still unverified.
 
 ## How to work on this project
@@ -51,10 +51,10 @@ simulation/      ngspice netlists and results
 
 ## Current status and next steps
 
-Status: spec v0.6 drafted. All feature proposals confirmed. Open: filter simulation, supply rating.
+Status: spec v0.6 drafted. All feature proposals confirmed. Filter simulated (behavioural model). Open: breadboard verification, supply rating.
 
 Next:
 1. Settle the open items in `docs/DECISIONS.md`
 2. Write the block diagram and the chain pinouts (34-pin audio, 8-pin power)
-3. Simulate or breadboard one SSI2144 filter channel (headroom, noise, tracking)
+3. Breadboard one SSI2144 filter channel to verify the simulation (distortion, noise, output scale) and pick the drive setting
 4. Start the channel card schematic in KiCad

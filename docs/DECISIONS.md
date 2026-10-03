@@ -13,13 +13,13 @@
 9. Filter part: SSI2144 baseline, AS3320 fallback
 10. Design tool: KiCad, using its MCP server
 11. Write the specification before starting implementation
-12. Filter gain structure: "hot" drive (+4 dBu at the datasheet nominal ±20 mV, musical saturation above about +12 dBu), with a per-channel filter bypass
+12. Filter gain structure: "hot" drive by default (+4 dBu at the datasheet nominal ±20 mV), with a per-channel filter bypass. Updated after simulation (item 50): saturation starts around +8 dBu when the cutoff is lowered, and a prototype jumper offers a medium drive
 13. The compressor processes a dedicated compressor bus; each channel assigns to main or compressor bus
 14. AUX sends and returns are stereo by default; the design must also support mono inputs and therefore mono AUX sends
 15. Prototype master section has a headphone output fed from the master bus (cue/PFL was first moved to the backlog; see item 28)
 16. L/R filter tracking: shared control path plus a per-chip frequency offset trim and temperature-compensating resistor
 17. Resonance limited by a fixed maximum Q current (about 300 µA) so no chip self-oscillates
-18. Compensate the passband/bass gain loss that comes with resonance
+18. Compensate the passband/bass gain loss that comes with resonance (half compensation, item 50)
 19. Fader controls a VCA; part chosen in item 31
 20. Per-channel cutoff CV input is included
 21. Mono input: L/MONO jack normalling (L alone feeds both sides); no panel mono switch
@@ -51,6 +51,7 @@
 47. Tooling: one KiCad project per module with hierarchical sheets, custom symbol and footprint libraries, ngspice simulation, ERC/DRC checks, BOM export
 48. Fader part: Bourns PTA6043-2015DPB103 (60 mm, single gang, linear, 10 kΩ, PCB pins, no detent, 15 mm metal lever). Fallback: Taiwan Alpha 60 mm 10k linear (check footprint). An RC filter smooths the fader's control voltage against wiper noise (datasheet: up to 100 mV sliding noise). Rated life 15,000 cycles: fine for the prototype; look for a longer-life fader for a product version
 49. Master meter: stereo, 12 segments per side (-30, -20, -15, -10, -6, -3, 0, +3, +6, +9, +12, clip), measuring the master bus after the master level control. 0 = +4 dBu; clip lights about 3 dB below the internal limit (about +17 dBu internal, +23 dBu at the balanced outputs). All meters (channel and master) are peak-reading with a slow fall of about 1 to 2 s
+50. Filter simulation outcome: keep hot drive as the default and add a prototype jumper for a medium drive 4 to 6 dB lower (pre-filter attenuator and make-up gain switched together), to choose by ear on the breadboard. Resonance uses half compensation (make-up gain √(1+k) tied to the Q control): -6 dB bass loss and about +9.5 dB peak at maximum Q. Per-chip cutoff trim must inject at least ±12 mV at the frequency control pin
 
 ## Proposed but NOT confirmed
 
@@ -60,7 +61,8 @@
 
 - [x] SSI2144 supply, headroom and noise (datasheet Rev 3.0, January 2018; facts in SPEC.md section 3)
 - [x] Part availability, checked 2026-10-03 (details in the availability notes below)
-- [ ] Simulate or breadboard one filter channel to set the gain structure
+- [x] Simulate one filter channel to set the gain structure (behavioural model; `simulation/filter/README.md`)
+- [ ] Breadboard one SSI2144 channel to verify the real chip's distortion, noise and output scale, and pick the drive jumper setting by ear
 - [x] Fader part (item 48)
 - [x] Pin assignment of the 34-pin audio and 8-pin power connectors (`CHAIN.md`)
 - [x] Chain voltage headroom: raised to about ±20 V nominal (item 40)
@@ -97,7 +99,7 @@ The backlog is kept in `ROADMAP.md`. Items moved there by decision: channel HPF.
 
 - Why SSI2144: a 4-pole ladder character without the hard parts of a discrete ladder (transistor matching and temperature compensation). It is a reissue of the SSM2044 (Rossum improved ladder), not a Moog transistor ladder; the user accepted this by dropping "Moog-style". Rejected: discrete OTA ladder (limited headroom, more noise, more tuning) and a state-variable filter (clean but not ladder character).
 - Why HPF was dropped: build simplification. Resonance loop count would have doubled to 16 with HPF.
-- Why hot drive plus bypass: the SSI2144 clips at ±50 mV and has 92 dB dynamic range. Driving it at its nominal level gains about 8 dB SNR over a clean +20 dBu headroom design, and its overdrive is musical. The bypass keeps the clean path within the pro targets, and avoids the 20 kHz roll-off of an open 4-pole filter.
+- Why hot drive plus bypass: the SSI2144 clips at ±50 mV and has 92 dB dynamic range. Driving it at its nominal level gains about 8 dB SNR over a clean +20 dBu headroom design (simulated: about 93 versus 85 dB), and its overdrive is musical. The simulation showed about 1.3% THD at +4 dBu when the cutoff is lowered, more colour than first assumed, so a medium-drive jumper lets the prototype settle it by ear. The bypass keeps the clean path within the pro targets, and avoids the 20 kHz roll-off of an open 4-pole filter.
 - Why L/MONO jacks: standard on pro mixers, no extra panel controls, nothing to forget on stage. Mono handling for AUX sits on the master card, so channel cards stay simple.
 - Why a -6 dB receiver: Eurorack peaks reach ±12 V. Gain ½ passes them on ±15 V rails with margin, at a small noise cost that the hot source levels more than make up for.
 - Why AD8273 over the THAT1246: dual (one chip per card, like the SSI2162), active and widely stocked, about $4, noise similar to the 1246. Trade-off: 77 dB minimum CMRR versus the 1246's 90 dB typical, still far above a discrete op amp with 0.1% resistors (about 54 dB).

@@ -1,0 +1,37 @@
+== Passband loss vs resonance (fc = 1 kHz, small signal) ==
+k is the resonance loop gain; 4 = self-oscillation.
+Q current at k: about k x 100 uA (datasheet: oscillation at 350-450 uA).
+    k  20 Hz dB  peak dB  peak Hz  half-comp 20Hz  half-comp peak
+    0     -0.01    -0.01        -           -0.01           -0.01
+    1     -6.02    -3.73      617           -3.01           -0.72
+    2     -9.54    -1.75      818           -4.77            3.02
+    3    -12.04     3.48      928           -6.02            9.50
+ 3.43    -12.93     8.11      961           -6.46           14.58
+
+== THD vs internal level, filter open (fc = 20 kHz, k = 0), 100 Hz tone ==
+  dBu  hot THD %  clean THD %
+  -10      0.003        0.000
+   -6      0.008        0.001
+    0      0.030        0.005
+    4      0.078        0.012
+    8      0.206        0.030
+   12      0.596        0.077
+   16      2.094        0.204
+   20      9.968        0.589
+
+== THD vs internal level, cutoff lowered (fc = 1 kHz, k = 0), 100 Hz tone ==
+  dBu  hot THD %  clean THD %
+  -10      0.053        0.008
+   -6      0.132        0.021
+    0      0.530        0.083
+    4      1.344        0.208
+    8      3.438        0.525
+   12      8.684        1.331
+   16     18.503        3.404
+   20     26.127        8.605
+
+== THD at +4 dBu with resonance (fc = 1 kHz, 100 Hz tone, hot drive) ==
+k = 0: THD 1.344 %
+k = 1: THD 0.232 %
+k = 2: THD 0.069 %
+k = 3: THD 0.029 %

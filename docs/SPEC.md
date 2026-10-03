@@ -42,10 +42,10 @@ Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL
 | Filter | 24 dB/oct (4-pole) ladder LPF with resonance and cutoff controls | confirmed |
 | Filter part | SSI2144 baseline, AS3320 fallback | confirmed |
 | Filter bypass | Per-channel bypass switch around the filter | confirmed |
-| Filter gain structure | "Hot" drive: +4 dBu maps to the datasheet nominal of ±20 mV at the SSI2144 input; the filter saturates musically from about +12 dBu. Make-up gain after the filter | confirmed |
+| Filter gain structure | "Hot" drive by default: +4 dBu maps to the datasheet nominal of ±20 mV at the SSI2144 input. Simulated: under 0.1% THD at +4 dBu with the cutoff open, about 1.3% with the cutoff lowered toward the signal, clear saturation from about +8 dBu; SNR about 93 dB A-weighted with the filter engaged. A jumper on the prototype selects a "medium" drive 4 to 6 dB lower (switching the pre-filter attenuator and the make-up gain together) so the final choice can be made by ear. Make-up gain after the filter. See `simulation/filter/README.md` | confirmed |
 | Filter tracking | One control path drives L and R, plus a frequency offset trim and a temperature-compensating resistor per chip | confirmed |
 | Resonance limit | Fixed maximum Q current of about 300 µA so no chip self-oscillates | confirmed |
-| Resonance bass loss | Compensate the passband gain drop that comes with resonance | confirmed |
+| Resonance bass loss | Half compensation: make-up gain of √(1+k) tied to the resonance control, so the bass loss at maximum Q drops from -12 dB to -6 dB and the resonant peak stays about +9.5 dB above nominal (full compensation would put it at about +15.5 dB and clip the next stage) | confirmed |
 | Level | Level fader | confirmed |
 | Fader type | Linear 60 mm fader (Bourns PTA6043-2015DPB103) generating the control voltage for an SSI2162 dual VCA (one chip per card covers L and R); a resistor network shapes a console-style dB law | confirmed |
 | Fader range | +10 dB at the top, -∞ at the bottom (the VCA's -100 dB attenuation, with the control overdriven at the end stop) | confirmed |
@@ -119,8 +119,8 @@ With the filter bypassed:
 - Crosstalk below -80 dB
 
 With the filter engaged:
-- Dynamic range about 85 to 90 dB (limited by the SSI2144's 92 dB)
-- Distortion above +12 dBu is accepted as part of the filter character
+- SNR at +4 dBu: about 93 dB A-weighted with hot drive, about 89 dB with medium drive (estimated from the datasheet's 92 dB dynamic range and the simulated 1% THD point)
+- Distortion is part of the filter character: with hot drive and the cutoff lowered, about 1.3% THD at +4 dBu and clear saturation from about +8 dBu (simulated)
 
 ## 6. Tooling
 
