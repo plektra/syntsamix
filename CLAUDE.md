@@ -51,7 +51,7 @@ simulation/      ngspice netlists and results
 
 ## Current status and next steps
 
-Status: spec v0.6 drafted. All feature proposals confirmed. Filter simulated (behavioural model). Open: breadboard verification, supply rating.
+Status: spec v0.7 drafted. All decisions needed for the channel and master card schematics are made; filter simulated (behavioural model). Open: breadboard verification, supply rating for 16 cards.
 
 Next:
 1. Settle the open items in `docs/DECISIONS.md`

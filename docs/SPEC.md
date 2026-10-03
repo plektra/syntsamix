@@ -1,4 +1,4 @@
-# Specification v0.6 (draft)
+# Specification v0.7 (draft)
 
 Items marked **[confirmed]** were agreed with the user. Items marked **[proposed]** are defaults suggested during the design chat and still need confirmation. See `DECISIONS.md`.
 
@@ -16,13 +16,14 @@ Items marked **[confirmed]** were agreed with the user. Items marked **[proposed
 
 - Identical stereo channel cards, 1 to 16 (the prototype has 4), daisy-chained by ribbon cables, with the master card at one end. No backplane PCB **[confirmed]**
 - Each channel card has identical IN and OUT connectors wired straight through: a 34-pin IDC audio ribbon (buses, logic lines, interleaved audio grounds, spares) and a keyed 8-pin IDC power ribbon (2× V+, 2× V−, 4× ground; 10- and 16-pin avoided so Eurorack cables cannot be plugged in) **[confirmed]**
-- Chain power: unregulated about ±20 V nominal, entering at the master card; each card regulates its own ±15 V; audio ground and power ground on separate conductors **[confirmed]**
+- Chain power: about ±20 V nominal (unregulated in general; on the prototype it comes from a DC-DC module), entering at the master card; each card regulates its own ±15 V; audio ground and power ground on separate conductors **[confirmed]**
 - Pinouts, signal definitions and grounding rules: see `CHAIN.md` **[confirmed]**
 - Summing buses: main L/R, compressor L/R, AUX1 L/R, AUX2 L/R (8 lines), plus cue L/R (2 lines), a "PFL active" logic line and the sidechain bus (pinout in `CHAIN.md`) **[confirmed]**
 - Channel independence rules: every slot is identical (no slot-specific signals); audio buses are summed on the master card, so adding a card only adds a source; logic lines such as "PFL active" are wired-OR; no part is shared between channel cards; each card regulates its own supply **[confirmed]**
 - Expansion by the chain: adding a channel means adding one card and one pair of ribbon cables **[confirmed]**
 - Master/compressor card **[confirmed]**
-- Power card / external supply delivering unregulated about ±20 V into the power chain at the master card; supply rating for 16 cards is open **[open]**
+- Prototype power: a certified off-the-shelf DC power brick (24 or 48 V) plugs into a locking DC connector on the master section; an isolated DC-DC module there makes about ±20 V for the chain, followed by an LC filter; per-card linear ±15 V regulators reject the remaining switching ripple. Power switch, resettable fuse, reverse-polarity protection and a power LED at the input. No mains wiring inside the mixer **[confirmed]**
+- DC-DC module chosen from a family with larger, footprint-compatible versions for 16 cards; supply rating for 16 cards is open **[open]**
 - Each module is its own KiCad project with hierarchical sheets and its own PCB **[confirmed]**
 
 Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL, meter and SC send tap] → level VCA (fader + mute) → AUX sends and bus assign (main or compressor bus).
@@ -41,6 +42,7 @@ Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL
 | Level meter | 8-segment mono LED meter (louder of L/R), post-filter and pre-fader (same point as PFL): -30, -20, -10, -5, 0, +3, +6, clip, relative to +4 dBu nominal. Peak-reading with a 1 to 2 s fall. Peak detector plus comparators; low-current LEDs returning to power ground. Replaces the peak LED | confirmed |
 | Filter | 24 dB/oct (4-pole) ladder LPF with resonance and cutoff controls | confirmed |
 | Filter part | SSI2144 baseline, AS3320 fallback | confirmed |
+| Cutoff range | 20 Hz to 20 kHz (10 octaves, about 190 mV at the frequency control pin); one linear pot drives L and R, which gives an even octave-per-turn feel (noon about 630 Hz) through the chip's exponential control | confirmed |
 | Filter bypass | Per-channel bypass switch around the filter | confirmed |
 | Filter gain structure | "Hot" drive by default: +4 dBu maps to the datasheet nominal of ±20 mV at the SSI2144 input. Simulated: under 0.1% THD at +4 dBu with the cutoff open, about 1.3% with the cutoff lowered toward the signal, clear saturation from about +8 dBu; SNR about 93 dB A-weighted with the filter engaged. A jumper on the prototype selects a "medium" drive 4 to 6 dB lower (switching the pre-filter attenuator and the make-up gain together) so the final choice can be made by ear. Make-up gain after the filter. See `simulation/filter/README.md` | confirmed |
 | Filter tracking | One control path drives L and R, plus a frequency offset trim and a temperature-compensating resistor per chip | confirmed |
@@ -52,12 +54,17 @@ Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL
 | Fader scale | 0 dB at about 75% of travel; markings +10, +5, 0, -5, -10, -20, -30, -40, -60, -∞ | confirmed |
 | Mute | Mute; click-free via VCA | confirmed |
 | Bus assign | Per-channel switch: main bus or compressor bus | confirmed |
+| Buttons | Mute, PFL, SC send, filter bypass, bus assign: latching push switches with two contact sets; one set switches the function, the other drives the button's LED. State survives power cycles. Mute switches the VCA control voltage (click-free); switched audio paths are DC-free to avoid clicks. Low-current LEDs (1 to 2 mA) returning to power ground; colours to be chosen | confirmed |
 | SC send | Button: adds L+R to the mono sidechain bus, tapped at the same point as PFL (pre-fader, pre-mute) | confirmed |
 | PFL | Latching button; taps the stereo signal after the filter and before the fader VCA (so also pre-mute) onto the cue bus, and pulls the "PFL active" line | confirmed |
 | AUX | Two stereo AUX sends, each a level control feeding a stereo AUX bus | confirmed |
 | AUX pre/post | Post-fader by default; a PCB jumper per send selects pre-fader | confirmed |
-| Cutoff CV input | Per-channel jack into the filter control summer | confirmed |
+| Cutoff CV input | Per-channel 6.3 mm jack into the filter control summer, driving L and R together; fixed scale of about 1 V/octave (Eurorack convention), no amount knob; DC-coupled, about 100 kΩ input impedance, survives ±12 V; knob plus CV is limited to the chip's safe control range | confirmed |
 | HPF | Dropped from the prototype; reserve space for later | confirmed |
+
+Panel layout, top to bottom, following the signal flow (post-fader AUX knobs sit above the fader, as on any console) **[confirmed]**:
+TRIM, CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
+Channel jacks (inputs L/MONO and R, CV) on the rear panel; strip width about 35 mm **[confirmed]**
 
 Notes on the filter (SSI2144 datasheet Rev 3.0, January 2018, verified):
 - Supply ±4 V to ±16 V, absolute maximum ±18 V; datasheet specs are measured at ±12 V.
@@ -99,16 +106,35 @@ Notes on mono/stereo (L/MONO convention everywhere):
   - **On/off button:** click-free bypass
   - **Gain-reduction LEDs:** about 5 segments
   - Sidechain LPF frequency and bypass, and the sidechain source selector (below)
-- Preset inside (trimmers or jumpers, no panel knobs): fast attack tuned for pumping, fixed ratio (about 4:1), makeup range tied to Amount **[confirmed]**
+- Preset inside (trimmers or jumpers, no panel knobs): attack about 1 ms, ratio 4:1, makeup range tied to Amount **[confirmed]**
+- Detector: feed-forward, peak-sensing, log conversion with a matched transistor array (Alfa AS3046 / CA3046 class or THAT300 series; the THAT2252 RMS detector is obsolete) **[confirmed]**
+- Ranges: Amount 0 to about 30 dB (threshold down to -30 dB below nominal, makeup tied); Release about 50 ms to 1.5 s; gain-reduction LEDs at 1, 3, 6, 10, 15 dB **[confirmed]**
 - Master level: linear pot controlling an SSI2162 VCA (accurate L/R tracking) **[confirmed]**
-- Headphone volume knob **[confirmed]**
-- AUX send outputs: L/MONO and R jacks per send; with only L plugged in, L outputs (L+R)/2 **[confirmed]**
-- AUX returns: stereo, L/MONO normalled (only L plugged in feeds both sides); controls: level and a main/compressor bus switch, so for example a reverb return can pump with the kick **[confirmed]**
+- Headphone output **[confirmed for the prototype]**: dual-gang volume pot; NJM4556A-class high-current dual op amp driver with small series output resistors (part and output figures to verify from the datasheet); for 32 to 600 Ω headphones; 6.3 mm stereo jack on the front or top panel, the only jack not on the rear
+- AUX send outputs: L/MONO and R jacks per send (impedance-balanced TRS, TS works); with only L plugged in, L outputs (L+R)/2 **[confirmed]**
+- AUX send master: dual-gang pot per send, -∞ to 0 dB, ahead of the output stage; full up gives +4 dBu nominal, turned down suits pedals and other low-level gear **[confirmed]**
+- AUX returns: stereo, L/MONO normalled (only L plugged in feeds both sides) **[confirmed]**
+  - Input stage: AD8273, the same circuit as the channel inputs (DC-coupled, about 3 Hz AC coupling after it, accepts up to ±12 V peak); a jumper per return sets the receiver gain to -6 dB (pro and Eurorack effects) or +6 dB (pedals at about -10 dBV)
+  - Level: linear pot controlling an SSI2162 VCA, -∞ to +10 dB
+  - Mute button (click-free via the VCA)
+  - Main/compressor bus switch, so for example a reverb return can pump with the kick
 - Headphone output: master bus normally, cue bus automatically while any PFL is active **[confirmed]**
 - PFL-active LED **[confirmed]**
 - Stereo LED level meter on the master bus after the master level control (no cue switching): 12 segments per side, -30, -20, -15, -10, -6, -3, 0, +3, +6, +9, +12, clip; 0 = +4 dBu; clip about +17 dBu internal (+23 dBu at the balanced outputs); peak-reading with a 1 to 2 s fall **[confirmed]**
 - Balanced stereo outputs on 6.3 mm TRS **[confirmed]**
 - No solo-in-place **[confirmed]**
+- Ground-lift switch for the frame bond at the master card (see `CHAIN.md`, Grounding) **[confirmed]**
+- Output protection: relays in series with the main outputs and the headphone output; open (outputs grounded through a resistor) when unpowered, closing about 2 s after the rails are stable, opening at once when a comparator sees the incoming chain voltage start to drop. AUX send outputs are not relay-protected **[confirmed]**
+
+## 4b. Mechanical format **[confirmed]**
+
+- Desktop unit, not rack. Sixteen strips plus master section are about 650 to 700 mm wide
+- One module per channel strip: a horizontal PCB carrying the pots, fader and buttons, with its own top panel strip about 35 mm wide
+- Top and rear panel strips are black FR4 with white printed legends, made by the PCB maker (aluminium panels can come with a product version)
+- Channel jacks are right-angle PCB-mount 6.3 mm jacks at the rear edge of the channel PCB, behind a small FR4 rear panel strip; the headphone jack is on the master section's top or front
+- Frame: front and back aluminium rails (for example 2020 extrusion, cut to length) that the strips screw onto, with side cheeks; longer rails for more strips
+- Chain ribbons run under the strips between neighbours
+- Knobs and fader caps chosen with the panel design
 
 ## 5. Performance targets (confirmed; refine after simulation and measurement)
 

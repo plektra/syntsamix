@@ -38,9 +38,9 @@ Signal definitions:
 
 | Pin | Name |
 |---|---|
-| 1, 2 | V- (unregulated negative rail, about -20 V nominal) |
+| 1, 2 | V- (negative rail, about -20 V nominal; unregulated in general, from a DC-DC module on the prototype) |
 | 3, 4, 5, 6 | PGND |
-| 7, 8 | V+ (unregulated positive rail, about +20 V nominal) |
+| 7, 8 | V+ (positive rail, about +20 V nominal; unregulated in general, from a DC-DC module on the prototype) |
 
 - Pin 1 (red stripe) is the negative rail, the same habit as Eurorack, so the stripe always marks "negative".
 - 10- and 16-pin sizes are deliberately avoided so a Eurorack power cable cannot be plugged in.
@@ -51,8 +51,11 @@ Signal definitions:
 - AGND (audio ribbon) and PGND (power ribbon) are separate all along the chain and join at **one point only: the master card**. Power enters the chain there.
 - On a channel card, the regulator input capacitors return to PGND; the regulators' reference and all audio circuits use AGND.
 - Keep ground current on channel cards small: LEDs and logic return to PGND, not AGND; op amps run rail to rail, so their supply current does not flow in ground.
+- Jack sleeves connect to their own card's AGND. FR4 panels do not conduct, so jacks never touch the frame.
+- The metal frame (rails, metal side cheeks) is bonded to the system star point at the master card only, through a ground-lift switch (lifted position: frame connected through a small resistor and capacitor).
+- With the DC power brick the mixer floats from mains earth and takes its reference from connected gear, normally through the balanced outputs.
 
 ## Points still open
 
 - Supply rating for 16 cards.
-- Connector and cable parts, and their current ratings.
+- Connector and cable part numbers and their per-pin current ratings: chosen during the channel card schematic (2.54 mm shrouded keyed box headers, 2x17 and 2x4; 28 AWG flat ribbon with IDC sockets).

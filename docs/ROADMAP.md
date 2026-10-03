@@ -6,7 +6,7 @@
 2. **Simulation**: ngspice or breadboard for the critical blocks: ladder filter gain structure and noise, VCA, compressor detector with sidechain LPF
 3. **Channel card**: schematic, then PCB
 4. **Master/compressor card**: schematic, then PCB
-5. **Power card**
+5. **Power input section** (DC brick input, DC-DC to ±20 V, protection; on the master card or a small card beside it)
 6. **Prototype build and measurement** against the targets in SPEC.md section 5
 
 ## Backlog (after the prototype)
@@ -15,6 +15,7 @@
 - Digital output per channel for recording: ADAT or similar
 - Interchangeable input module on the channel strip, with variants: 3.5 mm TRS, 6.3 mm TRS, XLR, or D-SUB (for example one connector carrying a four-channel bundle)
 - More CV control options
+- Momentary buttons with flip-flop logic and LEDs instead of latching switches, enabling CV/MIDI control and mute groups over the spare chain lines
 - Insert points on the channel strips
 - Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources
 - Mixer variant with external channel strips, for bands or groups of performers who each connect and control their own instrument submix
