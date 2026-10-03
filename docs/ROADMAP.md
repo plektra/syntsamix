@@ -2,10 +2,10 @@
 
 ## Phases
 
-1. **Specification**: finalize SPEC.md, block diagram, backplane pinout; close the open items in DECISIONS.md *(in progress)*
+1. **Specification**: finalize SPEC.md, block diagram, chain pinouts; close the open items in DECISIONS.md *(in progress)*
 2. **Simulation**: ngspice or breadboard for the critical blocks: ladder filter gain structure and noise, VCA, compressor detector with sidechain LPF
 3. **Channel card**: schematic, then PCB
-4. **Master/compressor card and backplane**: schematic, then PCB
+4. **Master/compressor card**: schematic, then PCB
 5. **Power card**
 6. **Prototype build and measurement** against the targets in SPEC.md section 5
 
@@ -16,6 +16,7 @@
 - Interchangeable input module on the channel strip, with variants: 3.5 mm TRS, 6.3 mm TRS, XLR, or D-SUB (for example one connector carrying a four-channel bundle)
 - More CV control options
 - Insert points on the channel strips
+- Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources
 - Mixer variant with external channel strips, for bands or groups of performers who each connect and control their own instrument submix
 
 ## KiCad workflow

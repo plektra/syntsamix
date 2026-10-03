@@ -20,7 +20,7 @@
 16. L/R filter tracking: shared control path plus a per-chip frequency offset trim and temperature-compensating resistor
 17. Resonance limited by a fixed maximum Q current (about 300 µA) so no chip self-oscillates
 18. Compensate the passband/bass gain loss that comes with resonance
-19. Fader controls a VCA; SSI2164 quad is a candidate alongside THAT 2180-class (part choice open)
+19. Fader controls a VCA; part chosen in item 31
 20. Per-channel cutoff CV input is included
 21. Mono input: L/MONO jack normalling (L alone feeds both sides); no panel mono switch
 22. No balance/pan control on the channel
@@ -28,30 +28,66 @@
 24. Mono AUX: L/MONO jacks on the master card. Send outputs give (L+R)/2 on L when R is unplugged; returns normal L to R. Returns have level and a main/compressor bus switch
 25. Inputs accept hot Eurorack modular levels (up to ±12 V peak) as well as line levels, without an external attenuator
 26. One wide input trim (about -20 to +20 dB overall), no pad switch
-27. The prototype has 3.5 mm input jacks for Eurorack cables, alongside the 6.3 mm jacks
+27. All jacks on the mixer are 6.3 mm (channel inputs: 2x 6.3 mm TRS, L/MONO and R; also AUX sends and returns, sidechain input, outputs and headphones). No 3.5 mm jacks on the prototype; Eurorack users connect with 3.5 mm to 6.3 mm cables. Replaces the earlier plans of 3.5 mm alongside 6.3 mm and of 3.5 mm only. Other jack sizes can come later through the interchangeable input module (backlog)
 28. PFL is in the prototype: a button per channel (post-filter, pre-fader, pre-mute) feeding a stereo cue bus; headphones switch to cue automatically while any PFL is active; PFL-active LED. No solo-in-place
-29. Stereo LED level meter on the master card: shows the cue bus during PFL, the master bus otherwise
+29. Stereo LED level meter on the master card, always showing the master bus (changed by item 43: it no longer switches to cue)
+30. Channel strips can be added one at a time; each stereo channel card has no direct dependency on other channel cards
+31. VCA: SSI2162 dual, one per channel card (L/R) and one for the compressor. The clean-path THD+N target is relaxed from 0.01% to 0.05% to fit a tight budget
+32. Budget: relatively tight; prefer cost-effective parts where the audible difference is small
+33. Input receiver: AD8273 dual difference amplifier at G = ½, one chip per channel card
+34. Expansion: chainable bus from the start, so the system can grow without a fixed slot count (form chosen in item 38)
+35. Fader: linear 60 mm fader generating the VCA control voltage; a resistor network shapes the law to a pro console feel (fine resolution near 0 dB, fast fade to silence at the bottom)
+36. Fader range: +10 dB at the top, -∞ (fully off) at the bottom
+37. Fader scale: 0 dB at about 75% of travel; markings +10, +5, 0, -5, -10, -20, -30, -40, -60, -∞
+38. Chain unit: per card. Each channel card has identical IN and OUT connectors wired straight through, linked to its neighbour by short ribbon cables; the master card sits at one end. No backplane PCB
+39. Practical maximum: 16 channel cards
+40. Chain power: unregulated about ±20 V nominal (raised from ±18 V so the far card's regulators stay out of dropout after ripple and cable drop); each card regulates its own ±15 V. Audio ground and power ground use separate conductors
+41. Separate ribbons: a 34-pin IDC audio ribbon (buses, logic lines, interleaved audio grounds, spares) and a keyed 8-pin IDC power ribbon (2× V+, 2× V−, 4× ground). The 10- and 16-pin sizes are avoided so a Eurorack power cable cannot be plugged in
+42. Chain pinouts, signal definitions and grounding rules as in `CHAIN.md`. Sidechain bus is mono. Power enters the chain at the master card, which is also the only point where audio ground and power ground join
+43. Each channel card has an 8-segment mono LED level meter (louder of L/R), measuring after the filter and before the fader (same point as PFL); scale -30, -20, -10, -5, 0, +3, +6, clip relative to +4 dBu nominal. It replaces the peak LED. Built from a peak detector and comparators, not LM3915-type driver chips. Low-current LEDs returning to power ground. PFL is kept for listening
+44. Compressor uses a performance control set: Amount (threshold and makeup gain together), Release, Mix (dry/wet parallel compression), click-free on/off button, about 5 gain-reduction LEDs, plus sidechain LPF frequency/bypass and source select. Attack (fast), ratio (about 4:1) and makeup range are preset inside
+45. Sidechain source: 3-position switch INT (compressor bus) / BUS (sidechain bus) / EXT (jack). Per-channel SC send button tapped pre-fader and pre-mute (ghost triggering from muted channels). EXT input DC-coupled for audio and Eurorack envelopes/gates up to ±12 V. SC listen button routes the filtered sidechain to the cue bus
+46. Confirmed in one batch: analog signal path; +4 dBu nominal, about +20 dBu internal maximum, +24 dBu only at balanced outputs; performance targets in SPEC.md section 5; DC-coupled receiver inputs with AC coupling about 3 Hz after the receiver; click-free mute via the VCA; fader bottom drives the VCA past -100 dB (fully off); sidechain LPF 40 to 500 Hz, 12 dB/octave, with bypass; channel independence rules (identical slots, master-side bus summing, wired-OR logic, no shared parts, per-card regulation); master level through an SSI2162 VCA and linear pot; headphone volume knob; balanced outputs on 6.3 mm TRS; external supply delivering unregulated about ±20 V
+47. Tooling: one KiCad project per module with hierarchical sheets, custom symbol and footprint libraries, ngspice simulation, ERC/DRC checks, BOM export
+48. Fader part: Bourns PTA6043-2015DPB103 (60 mm, single gang, linear, 10 kΩ, PCB pins, no detent, 15 mm metal lever). Fallback: Taiwan Alpha 60 mm 10k linear (check footprint). An RC filter smooths the fader's control voltage against wiper noise (datasheet: up to 100 mV sliding noise). Rated life 15,000 cycles: fine for the prototype; look for a longer-life fader for a product version
+49. Master meter: stereo, 12 segments per side (-30, -20, -15, -10, -6, -3, 0, +3, +6, +9, +12, clip), measuring the master bus after the master level control. 0 = +4 dBu; clip lights about 3 dB below the internal limit (about +17 dBu internal, +23 dBu at the balanced outputs). All meters (channel and master) are peak-reading with a slow fall of about 1 to 2 s
 
 ## Proposed but NOT confirmed
 
-- TRS 6.3 mm input connectors, with the 6.3 mm jack taking priority over its 3.5 mm partner
-- Input receiver THAT1246 at -6 dB with DC-coupled inputs (availability unverified)
-- AC coupling about 3 Hz after the receiver; per-channel peak LED
-- 60 mm fader; click-free mute via the VCA
-- ±15 V external supply with local regulation; backplane architecture with plug-in cards
-- +4 dBu nominal; about +20 dBu internal maximum, +24 dBu only at balanced outputs; performance targets in SPEC.md section 5, split into filter bypassed and filter engaged
-- Sidechain LPF 40 to 500 Hz with bypass; stereo-linked compressor; fast attack and long release
-- Sidechain source select: compressor bus, external jack, or a backplane bus
-- Master level control
+(none at the moment)
 
 ## Open items to settle before schematics
 
 - [x] SSI2144 supply, headroom and noise (datasheet Rev 3.0, January 2018; facts in SPEC.md section 3)
-- [ ] SSI2144 and THAT1246 availability from distributors
+- [x] Part availability, checked 2026-10-03 (details in the availability notes below)
 - [ ] Simulate or breadboard one filter channel to set the gain structure
-- [ ] Fader law and VCA part (THAT 2180 vs SSI2164; check availability)
-- [ ] Backplane connector and pinout
-- [ ] Confirm the proposed items above, or replace them
+- [x] Fader part (item 48)
+- [x] Pin assignment of the 34-pin audio and 8-pin power connectors (`CHAIN.md`)
+- [x] Chain voltage headroom: raised to about ±20 V nominal (item 40)
+- [ ] Supply rating for 16 cards (include channel meter LEDs, about 10–15 mA per card)
+- [x] Master meter scale and segment count (item 49)
+
+## Availability notes (checked 2026-10-03; recheck before ordering)
+
+- SSI2144 (SSOP-16): not at the big distributors; sold through Sound Semiconductor's resellers. In stock at Thonk (about £3.75), also listed by synthCube and Modular Addict.
+- SSI2164 (SOP-16): widely in stock (Thonk, Modular Addict, CE Distribution, AI Synthesis).
+- THAT 2180A/B (SIP-8, through-hole): in stock at Newark, Farnell and element14 (tens to a few hundred units).
+- Bourns PTA6043-2015DPB103 fader: active, about $1.92 at Mouser (about 1,300 in stock), €2.01 at Farnell. Alps RS60N11 is no longer manufactured.
+- AD8273 (SOIC-14): active, widely stocked (DigiKey, Mouser, Arrow, Farnell), about $4.11. ADI's suggested replacement for the obsolete SSM2143.
+- INA2137 (TI, dual, G = ½ or 2): active, $7.37 at quantity 1 at Mouser.
+- SSM2143: obsolete.
+- THAT1246: the SOIC-8 version (THAT1246S08-U) was in stock at Farnell and Newark, but one Farnell listing marks it "No Longer Manufactured"; the DIP-8 version shows a 20-week lead time. Treat it as at risk: buy prototype quantities plus spares early, and keep a fallback. Replaced by the AD8273 (proposed).
+
+## VCA comparison (datasheets: THAT 2180 Rev 02, SSI2164 Rev 3.4; ±15 V, 20 kΩ converter resistors)
+
+| | THAT 2180A | THAT 2180B | SSI2164 class AB | SSI2164 class A |
+|---|---|---|---|---|
+| THD at about 0 dBu, 0 dB gain | 0.005% typ, 0.010% max | 0.010% typ, 0.020% max | 0.05% typ | 0.025% typ |
+| Output noise, 20 Hz to 20 kHz | -98 dBV (about -96 dBu) | -98 dBV | -96 dBu | -84 dBu |
+| Channels per package | 1 (SIP-8) | 1 (SIP-8) | 4 (SOP-16) | 4 (SOP-16) |
+| Control constant | 6.1 mV/dB | 6.1 mV/dB | -33 mV/dB | -33 mV/dB |
+
+The THD+N target of 0.01% (filter bypassed) is only met by the 2180A. Because of the tight budget and the one-chip-per-card rule, the SSI2162 (dual, same family as the SSI2164, 3 dB lower noise) was chosen instead and the target relaxed to 0.05% (item 31). Both parts are current-in/current-out, so each needs a voltage-to-current input resistor and a current-to-voltage output op amp.
 
 ## Backlog (after the prototype)
 
@@ -63,6 +99,11 @@ The backlog is kept in `ROADMAP.md`. Items moved there by decision: channel HPF.
 - Why HPF was dropped: build simplification. Resonance loop count would have doubled to 16 with HPF.
 - Why hot drive plus bypass: the SSI2144 clips at ±50 mV and has 92 dB dynamic range. Driving it at its nominal level gains about 8 dB SNR over a clean +20 dBu headroom design, and its overdrive is musical. The bypass keeps the clean path within the pro targets, and avoids the 20 kHz roll-off of an open 4-pole filter.
 - Why L/MONO jacks: standard on pro mixers, no extra panel controls, nothing to forget on stage. Mono handling for AUX sits on the master card, so channel cards stay simple.
-- Why THAT1246 rather than the 1243 THAT recommends for pro inputs: Eurorack peaks reach ±12 V. The 1246's -6 dB gain passes them on ±15 V rails with margin, at a small noise cost that the hot source levels more than make up for.
+- Why a -6 dB receiver: Eurorack peaks reach ±12 V. Gain ½ passes them on ±15 V rails with margin, at a small noise cost that the hot source levels more than make up for.
+- Why AD8273 over the THAT1246: dual (one chip per card, like the SSI2162), active and widely stocked, about $4, noise similar to the 1246. Trade-off: 77 dB minimum CMRR versus the 1246's 90 dB typical, still far above a discrete op amp with 0.1% resistors (about 54 dB).
 - Why PFL in the prototype: without it, trimming a channel by ear happens in the main mix where the audience hears it. Tapping before the VCA makes PFL pre-mute, so a channel can be prepared while muted. Solo-in-place was rejected because an accidental press silences the main mix.
+- Why separate power and audio ribbons: with 16 cards, the card nearest the supply carries every card's current (estimated 1.3 A per rail). A separate power cable keeps that current, the rectifier ripple and switching spikes away from the sensitive mix bus lines, and can be heavier or fed from both ends. Separate ground conductors matter most: shared ground with power return current would put hum on the buses.
+- Why no submix per block of cards: the noise is dominated by the sum of the channels' own noise, which grouping cannot change; a local submix lowers the total by only about 0.3 dB at 16 channels (estimate) and would break per-card independence.
+- Why keep PFL with channel meters: the meter shows level, PFL lets the performer hear a channel (patch, tuning, filter, hum, timing) before the audience does. The channel meters take over trimming, so the master meter no longer needs to switch to cue.
+- Why a performance compressor: the mixer is played during the set, so the compressor gets a few controls with an obvious musical effect (Amount, Release, Mix, on/off) and the technical settings are preset for pumping. Mix keeps the kick's punch while the rest pumps.
 - Why a compressor bus: classic pumping keys the music from the kick. On a master-bus compressor the kick would duck itself; a separate bus lets the kick stay on main and trigger the compressor.
