@@ -5,6 +5,68 @@
 	(uuid "44b8098e-8b91-4d90-8e36-746977844050")
 	(paper "A4")
 	(lib_symbols)
+	(sheet
+		(at 25.4 38.1)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "b4324f0d-c65d-4b78-a405-07e291a1f7ef")
+		(property "Sheetname" "Input"
+			(at 25.4 37.3884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "input.kicad_sch"
+			(at 25.4 59.0046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "L_PREFILT" output
+			(at 55.88 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "35390a44-85f3-45c0-8505-81e040bbec7f")
+		)
+		(pin "R_PREFILT" output
+			(at 55.88 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "4cc54dc7-4fda-4e06-ac7d-7b961cf4081e")
+		)
+		(instances
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050"
+					(page "2")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")

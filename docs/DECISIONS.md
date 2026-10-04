@@ -70,6 +70,7 @@
 66. Sidechain ducking through the channel VCAs (inspired by the Boredbrain Xcelon SL): the master card turns the filtered sidechain into an envelope (THRESHOLD, DEPTH, DECAY; fast fixed attack) on chain line SC_ENV (was SPARE1); each channel has a DUCK button that adds it to its VCA control; AUX returns get a DUCK switch too. Complements the compressor bus
 67. The cutoff CV jack moves from the input module to the channel card's filter section, keeping filter controls together and and frees header capacity for the backlog direct output
 68. Input header grows to 10 pins (1x10 Molex KK 254 style): pins 8 and 9 reserved for a stereo pre-fader direct output (backlog), pin 10 AGND. The cutoff CV jack sits on the top panel next to CUTOFF
+69. Stereo button functions are switched electronically: each latching button has two contact sets, one driving a logic line into a DG413 quad analog switch (Vishay, SOIC-16; 2 NO + 2 NC, so one chip selects between two stereo signals) and one lighting its LED. Audio never runs through mechanical contacts. Each channel card makes a +5 V logic supply locally (for the DG413 VL pins). Refines decision 54
 
 ## Proposed but NOT confirmed
 

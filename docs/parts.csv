@@ -5,3 +5,22 @@ SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,AD8273 (S
 SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify
 SX-CONN-001,6.3 mm stereo jack switched (T R S all switched) horizontal PCB,Neutrik,NMJ6HCD2,Mouser,,Pinout verified from Neutrik drawing ST-NMJ6HCD2; >10000 mating cycles; Mouser part number to verify
 SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),Molex,,Mouser,,Footprint Molex_KK-254_AE-6410-10A; MPN and mating housing/crimps to verify
+SX-IC-004,Dual low-noise op amp SOIC-8,Texas Instruments,,Mouser,,NE5532 (SOIC-8); exact orderable MPN to verify
+SX-IC-005,Quad SPST analog switch 2NO+2NC SOIC-16,Vishay,,Mouser,,DG413DY; pinout verified from Vishay doc 70050 Rev E; MPN suffix to verify
+SX-R-001,Resistor 100 Ohm 1% 0805,,,,,
+SX-R-002,Resistor 10 kOhm 1% 0805,,,,,
+SX-R-003,Resistor 2 kOhm 1% 0805,,,,,
+SX-R-004,Resistor 4.7 kOhm 1% 0805,,,,,
+SX-R-005,Resistor 16 kOhm 1% 0805,,,,,
+SX-R-006,Resistor 33 kOhm 1% 0805,,,,,
+SX-R-007,Resistor 100 kOhm 1% 0805,,,,,
+SX-R-008,Resistor 12 kOhm 1% 0805,,,,,
+SX-C-001,Capacitor 220 pF C0G 50 V 0805,,,,,
+SX-C-002,Capacitor 100 nF X7R 50 V 0805,,,,,
+SX-C-003,Capacitor 10 uF bipolar electrolytic 25 V+ radial 5 mm,,,,,
+SX-C-004,Capacitor 22 pF C0G 50 V 0805,,,,,
+SX-C-005,Capacitor 47 nF film 5% 5 mm pitch,,,,,
+SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,Alpha,,,,Footprint Alpha RD902F-40-00D; MPN to verify
+SX-D-001,Zener diode 6.2 V SOD-123,,,,,For example BZT52C6V2; to verify
+SX-D-002,LED 3 mm low current,,,,,Colour per button function; to choose
+SX-SW-001,Latching push button DPDT,,,,,Part and footprint to choose; check which throw is active when pressed

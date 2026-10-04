@@ -2,10 +2,17 @@
 
 ## Phases
 
-1. **Specification**: finalize SPEC.md, block diagram, chain pinouts; close the open items in DECISIONS.md *(in progress)*
-2. **Simulation**: ngspice or breadboard for the critical blocks: ladder filter gain structure and noise, VCA, compressor detector with sidechain LPF
-3. **Channel card**: schematic, then PCB
-4. **Master/compressor card**: schematic, then PCB
+1. **Specification** *(done: spec v0.7, decisions 1-69, chain pinouts in CHAIN.md, input module interface in INPUT-MODULE.md)*. Still open: supply rating for 16 cards
+2. **Simulation and breadboard**: filter simulated in ngspice *(done, `simulation/filter/`)*; SSI2144 breadboard *(parts ordered; plan, schematic, layout and BOM in `simulation/filter/`)*. Later: VCA and compressor detector with sidechain LPF
+3. **Input module** (`hardware/input-module-6p3`): schematic *(done, ERC clean)*, then PCB
+4. **Channel card** (`hardware/channel-card`): schematic sheet by sheet *(in progress)*, then PCB
+   - Input: header, AD8273 receiver, trim with soft clip, 150 Hz low-cut, DG413 switching *(done, ERC clean apart from sheet links)*
+   - Filter: 2x SSI2144, cutoff and CV, resonance, bypass, make-up gain *(next; final values after the breadboard)*
+   - Level: SSI2162 VCA, fader law, mute, DUCK
+   - Routing: AUX sends, bus assign, PFL and SC send taps, chain bus drivers
+   - Meter: 8-segment peak meter
+   - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply
+5. **Master/compressor card**: schematic, then PCB
 5. **Power input section** (DC brick input, DC-DC to ±20 V, protection; on the master card or a small card beside it)
 6. **Prototype build and measurement** against the targets in SPEC.md section 5
 
@@ -25,7 +32,10 @@
 
 - One KiCad project per module; hierarchical sheets inside a module for sub-blocks (input stage, filter, VCA, AUX sends)
 - Custom symbols and footprints live in `hardware/libs/`
-- Edit schematics and PCBs through the KiCad MCP server; pause for the user's review before each commit
+- Edit schematics and PCBs through the KiCad MCP server (kicad-mcp-pro, profile `schematic_authoring`); pause for the user's review before each commit
+- The server's circuit builder connects nets by labels and cannot handle multi-unit symbols (dual op amps, DG413): build with temporary references per unit, then rename them in the file, and verify with ERC plus a netlist check against the intended nets
+- Shared project symbols: `hardware/libs/syntsamix.kicad_sym` (AD8273), registered in each project's `sym-lib-table`
+- Give every placed symbol the BOM fields in `docs/PART-NUMBERING.md`
 - Run ERC after schematic changes and DRC after layout changes
 - Keep a BOM export per module
 - Keep simulation netlists and results in `simulation/`

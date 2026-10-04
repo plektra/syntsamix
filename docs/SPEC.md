@@ -57,7 +57,7 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | Fader scale | 0 dB at about 75% of travel; markings +10, +5, 0, -5, -10, -20, -30, -40, -60, -∞ | confirmed |
 | Mute | Mute; click-free via VCA | confirmed |
 | Bus assign | Per-channel switch: main bus or compressor bus | confirmed |
-| Buttons | Low-cut, mute, PFL, SC send, duck, filter bypass, bus assign: latching push switches with two contact sets; one set switches the function, the other drives the button's LED. State survives power cycles. Mute switches the VCA control voltage (click-free); switched audio paths are DC-free to avoid clicks. Low-current LEDs (1 to 2 mA) returning to power ground; colours to be chosen | confirmed |
+| Buttons | Low-cut, mute, PFL, SC send, duck, filter bypass, bus assign: latching push switches with two contact sets; one set drives a logic line to a DG413 analog switch that switches L and R, the other drives the button's LED (decision 69). A local +5 V supply feeds the switch logic. State survives power cycles. Mute switches the VCA control voltage (click-free); switched audio paths are DC-free to avoid clicks. Low-current LEDs (1 to 2 mA) returning to power ground; colours to be chosen | confirmed |
 | Duck | DUCK button: adds the master's SC_ENV ducking envelope to this channel's VCA control (post-fader level ducks with the sidechain trigger) | confirmed |
 | SC send | Button: adds L+R to the mono sidechain bus, tapped at the same point as PFL (pre-fader, pre-mute) | confirmed |
 | PFL | Latching button; taps the stereo signal after the filter and before the fader VCA (so also pre-mute) onto the cue bus, and pulls the "PFL active" line | confirmed |

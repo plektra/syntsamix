@@ -4,7 +4,7 @@ Project context for Claude Code. Read this first, then `docs/SPEC.md`, `docs/DEC
 
 ## Project
 
-A modular, analog pro audio mixer for connecting synthesizers and instruments in electronic music live performances. Designed in KiCad. We are currently in the **specification phase**: no schematics or PCBs exist yet.
+A modular, analog pro audio mixer for connecting synthesizers and instruments in electronic music live performances. Designed in KiCad. The specification is complete (v0.7); we are now in the **schematic phase**.
 
 ## Prototype scope (confirmed by the user)
 
@@ -17,7 +17,9 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 - Master: headphone output, stereo LED meter on the master bus
 - Modular by design: channel strips can be added one at a time; no channel card depends on another
 - Inputs accept hot Eurorack levels (up to ±12 V peak) as well as line levels
-- Channel HPF is dropped from the prototype to simplify the build (keep room to add it later)
+- Channel HPF is dropped from the prototype to simplify the build (keep room to add it later); a fixed switchable 150 Hz low-cut is included instead
+- Input jacks sit on a separate passive input module (10-pin header, `docs/INPUT-MODULE.md`); the cutoff CV jack is on the channel card's top panel
+- Stereo button functions switch through DG413 analog switches; buttons only carry logic and LED current
 
 ## Filter decision
 
@@ -25,7 +27,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 - Baseline: Sound Semiconductor SSI2144 (SSM2044 reissue). Datasheet Rev 3.0 facts are recorded in `docs/SPEC.md` section 3
 - Fallback: AS3320 / V3320 (CEM3320 clone)
 - Gain structure: "hot" drive at the datasheet nominal level by default, a prototype jumper for medium drive, per-channel bypass, half resonance compensation. Simulation in `simulation/filter/`
-- Distributor availability is still unverified.
+- Sold by synth-DIY resellers (Electrokit, Thonk), not by Mouser or DigiKey.
 
 ## How to work on this project
 
@@ -37,7 +39,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 6. **Number every part.** Give each placed symbol the BOM fields in `docs/PART-NUMBERING.md` and register new part types in `docs/parts.csv`.
 7. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something.
 
-## Proposed repo layout (not created yet)
+## Repo layout
 
 ```
 CLAUDE.md
@@ -45,19 +47,18 @@ docs/            SPEC.md, DECISIONS.md, CHAIN.md, INPUT-MODULE.md, PART-NUMBERIN
 hardware/
   channel-card/  KiCad project (stereo channel)
   input-module-6p3/  KiCad project (6.3 mm input module)
-  master/        KiCad project (compressor, master, outputs)
-  power/         KiCad project (supply)
-  chain/         ribbon interface definition (pinouts, shared footprints)
-  libs/          custom symbols and footprints
-simulation/      ngspice netlists and results
+  libs/          shared symbols (syntsamix.kicad_sym) and footprints
+  master/        KiCad project (compressor, master, outputs), not created yet
+  power/         power input section, not created yet
+simulation/      ngspice model, filter results, breadboard plan, BOM and order files
 ```
 
 ## Current status and next steps
 
-Status: spec v0.7 drafted. All decisions needed for the channel and master card schematics are made; filter simulated (behavioural model). Open: breadboard verification, supply rating for 16 cards.
+Status: spec v0.7 complete (decisions 1-69). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input sheet done (ERC clean apart from sheet links to the next sheet).
 
 Next:
-1. Settle the open items in `docs/DECISIONS.md`
-2. Write the block diagram and the chain pinouts (34-pin audio, 8-pin power)
-3. Breadboard one SSI2144 filter channel to verify the simulation (distortion, noise, output scale) and pick the drive setting
-4. Start the channel card schematic in KiCad
+1. Channel card Filter sheet (2x SSI2144); use simulated values and mark the ones the breadboard will set
+2. Remaining channel card sheets: Level, Routing, Meter, Chain and power (see `docs/ROADMAP.md`)
+3. Breadboard the SSI2144 when parts arrive; update filter values from the measurements
+4. Master/compressor card, then the power input section
