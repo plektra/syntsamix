@@ -34,6 +34,7 @@ Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL
 |---|---|---|
 | Input | Balanced inputs | confirmed |
 | Mono sources | L/MONO input: with only the L jack plugged in, the signal feeds both sides through the R jack's switch contacts. No panel switch, no balance/pan control | confirmed |
+| Input module | Jacks sit on a separate passive input module on an 8-pin header (`INPUT-MODULE.md`); the prototype module is 6.3 mm, with 3.5 mm and D-SUB bundle modules later | confirmed |
 | Input connectors | 2x 6.3 mm TRS (L/MONO and R), balanced; an unbalanced TS plug works with ring and sleeve shorted, so Eurorack gear connects with a 3.5 mm TS to 6.3 mm TS cable. The R jack needs switch contacts on tip and ring for L/MONO normalling (part to be chosen from datasheets). All jacks on the mixer are 6.3 mm | confirmed |
 | Input level range | From -10 dBV consumer line up to Eurorack hot signals of ±12 V peak (24 Vpp), with no clipping at minimum trim | confirmed |
 | Input receiver | AD8273 dual difference amplifier at G = ½ (-6 dB), one chip per card for L and R | confirmed; DC-coupled inputs confirmed |

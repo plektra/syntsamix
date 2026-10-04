@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Project context for Claude Code. Read this first, then `docs/SPEC.md`, `docs/DECISIONS.md`, `docs/CHAIN.md` and `docs/ROADMAP.md`.
+Project context for Claude Code. Read this first, then `docs/SPEC.md`, `docs/DECISIONS.md`, `docs/CHAIN.md`, `docs/INPUT-MODULE.md` and `docs/ROADMAP.md`.
 
 ## Project
 
@@ -39,9 +39,10 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 
 ```
 CLAUDE.md
-docs/            SPEC.md, DECISIONS.md, CHAIN.md, ROADMAP.md
+docs/            SPEC.md, DECISIONS.md, CHAIN.md, INPUT-MODULE.md, ROADMAP.md
 hardware/
   channel-card/  KiCad project (stereo channel)
+  input-module-6p3/  KiCad project (6.3 mm input module)
   master/        KiCad project (compressor, master, outputs)
   power/         KiCad project (supply)
   chain/         ribbon interface definition (pinouts, shared footprints)
