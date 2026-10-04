@@ -7,3 +7,7 @@ __pycache__/
 *-backups/
 fp-info-cache
 _autosave-*
+# kicad-mcp-pro working files and generated reports
+.kicad-mcp/
+hardware/*/output/
+*.kicad_sch.*.bak

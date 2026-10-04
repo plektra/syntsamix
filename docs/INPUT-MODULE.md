@@ -1,18 +1,18 @@
 # Input module interface
 
-Status: **[confirmed]** by the user (decision 62). Pinout **[proposed]** until the first schematic review.
+Status: **[confirmed]** by the user (decisions 62, 67 and 68). Pinout **[proposed]** until the first schematic review.
 
 The channel card carries no input jacks. Its input sockets connect to a small **input module** that holds the connectors. The module options are interchangeable:
 
 | Module | Connectors | Mono handling | Status |
 |---|---|---|---|
-| `input-module-6p3` | 2x 6.3 mm TRS (L/MONO, R) and a 6.3 mm CV jack | R jack switch contacts normal L to R | Prototype |
-| `input-module-3p5` | 2x 3.5 mm stereo switched jacks and a 3.5 mm CV jack | Same as 6.3 mm | Backlog |
+| `input-module-6p3` | 2x 6.3 mm TRS (L/MONO, R) | R jack switch contacts normal L to R | Prototype |
+| `input-module-3p5` | 2x 3.5 mm stereo switched jacks | Same as 6.3 mm | Backlog |
 | `input-module-dsub` | One DB-25 carrying several channels (common 8-channel analog pinout), cables to each card's header | Jumper or switch per channel | Backlog |
 
 The module is passive: connectors, normalling and nothing that needs power. The input receiver (AD8273), its protection, the AC coupling and the trim stay on the channel card, so every module gets the same hot-level handling (up to ±12 V peak, decision 25).
 
-## Input header: 8 pins, 2.54 mm, single row, polarised
+## Input header: 10 pins, 2.54 mm, single row, polarised
 
 | Pin | Signal | Notes |
 |---|---|---|
@@ -23,8 +23,12 @@ The module is passive: connectors, normalling and nothing that needs power. The 
 | 5 | R+ | Hot, right. Carries L+ when the module normals mono |
 | 6 | R− | Cold, right. Carries L− when the module normals mono |
 | 7 | AGND | |
-| 8 | CV | Cutoff CV, single-ended, referenced to AGND |
+| 8 | DO_L | Reserved for the pre-fader direct output, left (backlog). Unconnected on the prototype |
+| 9 | DO_R | Reserved for the pre-fader direct output, right (backlog). Unconnected on the prototype |
+| 10 | AGND | |
 
-- Ground between the two channels and between audio and CV.
-- Connector: a keyed, polarised single-row header (for example a KK 254-style friction-lock header). Exact part chosen during the schematic. Its size must not match the chain connectors (`CHAIN.md`).
+- Ground between the two channels.
+- The cutoff CV jack is not on the input module: it belongs to the filter section on the channel card (decision 67).
+- Pins 8 and 9 are reserved for the stereo pre-fader direct output in the backlog (decision 68), so adding it later needs no interface change. Direct output jacks would sit on the input module.
+- Connector: a keyed, polarised single-row 1x10 header (Molex KK 254-style friction lock, footprint `Molex_KK-254_AE-6410-10A`). Exact part chosen during the schematic. Its size must not match the chain connectors (`CHAIN.md`).
 - The jack sleeves and the D-SUB shell connect to AGND through the module's AGND pins, matching the grounding rules in `CHAIN.md`.

@@ -3,3 +3,5 @@ SX-IC-001,4-pole ladder VCF,Sound Semiconductor,SSI2144SS-TU,Electrokit,41019301
 SX-IC-002,Dual VCA,Sound Semiconductor,,,,SSI2162 (10-lead SSOP); MPN and supplier to verify
 SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,AD8273 (SOIC-14); exact orderable MPN to verify
 SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify
+SX-CONN-001,6.3 mm stereo jack switched (T R S all switched) horizontal PCB,Neutrik,NMJ6HCD2,Mouser,,Pinout verified from Neutrik drawing ST-NMJ6HCD2; >10000 mating cycles; Mouser part number to verify
+SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),Molex,,Mouser,,Footprint Molex_KK-254_AE-6410-10A; MPN and mating housing/crimps to verify

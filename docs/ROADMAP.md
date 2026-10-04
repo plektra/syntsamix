@@ -15,7 +15,7 @@
 - Digital output per channel for recording: ADAT or similar
 - More input modules (the interface exists from the prototype, `INPUT-MODULE.md`): 3.5 mm, D-SUB bundle, XLR
 - More CV control options
-- Pre-fader direct output per channel for multitrack recording (needs a pin or connector beyond the 8-pin input header)
+- Pre-fader direct output per channel for multitrack recording (input header pins 8 and 9 already reserved; jacks on the input module)
 - Momentary buttons with flip-flop logic and LEDs instead of latching switches, enabling CV/MIDI control and mute groups over the spare chain lines
 - Insert points on the channel strips
 - Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources

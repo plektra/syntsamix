@@ -34,7 +34,7 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 |---|---|---|
 | Input | Balanced inputs | confirmed |
 | Mono sources | L/MONO input: with only the L jack plugged in, the signal feeds both sides through the R jack's switch contacts. No panel switch, no balance/pan control | confirmed |
-| Input module | Jacks sit on a separate passive input module on an 8-pin header (`INPUT-MODULE.md`); the prototype module is 6.3 mm, with 3.5 mm and D-SUB bundle modules later | confirmed |
+| Input module | Jacks sit on a separate passive input module on a 10-pin header (`INPUT-MODULE.md`); the prototype module is 6.3 mm, with 3.5 mm and D-SUB bundle modules later | confirmed |
 | Input connectors | 2x 6.3 mm TRS (L/MONO and R), balanced; an unbalanced TS plug works with ring and sleeve shorted, so Eurorack gear connects with a 3.5 mm TS to 6.3 mm TS cable. The R jack needs switch contacts on tip and ring for L/MONO normalling (part to be chosen from datasheets). All jacks on the mixer are 6.3 mm | confirmed |
 | Input level range | From -10 dBV consumer line up to Eurorack hot signals of ±12 V peak (24 Vpp), with no clipping at minimum trim | confirmed |
 | Input receiver | AD8273 dual difference amplifier at G = ½ (-6 dB), one chip per card for L and R | confirmed; DC-coupled inputs confirmed |
@@ -67,8 +67,8 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | HPF | Sweepable resonant HPF dropped from the prototype; reserve space for later. A fixed switchable 150 Hz low-cut is included instead | confirmed |
 
 Panel layout, top to bottom, following the signal flow (post-fader AUX knobs sit above the fader, as on any console) **[confirmed]**:
-TRIM, [LOW-CUT], CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [DUCK] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
-Channel jacks (inputs L/MONO and R, CV) on the rear panel; strip width about 35 mm **[confirmed]**
+TRIM, [LOW-CUT], CUTOFF with the CV jack beside it, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [DUCK] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
+Channel input jacks (L/MONO and R, on the input module) on the rear panel; the cutoff CV jack sits on the top panel next to CUTOFF, mounted on the channel card; strip width about 35 mm **[confirmed]**
 
 Notes on the filter (SSI2144 datasheet Rev 3.0, January 2018, verified):
 - Supply ±4 V to ±16 V, absolute maximum ±18 V; datasheet specs are measured at ±12 V.
