@@ -1,0 +1,5 @@
+ProjectPN,Description,Manufacturer,MPN,Supplier,SupplierPN,Notes
+SX-IC-001,4-pole ladder VCF,Sound Semiconductor,SSI2144SS-TU,Electrokit,41019301,QSOP-16 0.635 mm pitch; not stocked at Mouser
+SX-IC-002,Dual VCA,Sound Semiconductor,,,,SSI2162 (10-lead SSOP); MPN and supplier to verify
+SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,AD8273 (SOIC-14); exact orderable MPN to verify
+SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify

@@ -64,6 +64,7 @@
 60. Prototype power: certified DC power brick (24 or 48 V) into the master section, isolated DC-DC module to about ±20 V, LC filter, per-card linear regulation. Power switch, resettable fuse, reverse-polarity protection, locking DC connector, power LED. A linear external supply box can be considered for a product version
 61. Grounding: jack sleeves to their card's AGND; FR4 panels isolate jacks from the frame; frame bonded to the star point at the master card only, with a ground-lift switch (RC when lifted). Chain connectors are 2.54 mm shrouded keyed box headers (2x17, 2x4) with 28 AWG IDC ribbon; part numbers chosen during the schematic
 62. Input connectors live on a separate passive input module plugged into an 8-pin header on the channel card (interface in `INPUT-MODULE.md`). Mono normalling happens on the module. The prototype builds the 6.3 mm module; 3.5 mm and D-SUB bundle modules come later. Receiver, protection, AC coupling and trim stay on the channel card
+63. Part numbering: each unique part type gets a project part number `SX-<category>-<nnn>` (register `docs/parts.csv`), used as Mouser's customer part number. KiCad symbols carry ProjectPN, Manufacturer, MPN, Supplier and SupplierPN fields, and BOMs are exported grouped by ProjectPN (`docs/PART-NUMBERING.md`)
 
 ## Proposed but NOT confirmed
 

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Project context for Claude Code. Read this first, then `docs/SPEC.md`, `docs/DECISIONS.md`, `docs/CHAIN.md`, `docs/INPUT-MODULE.md` and `docs/ROADMAP.md`.
+Project context for Claude Code. Read this first, then `docs/SPEC.md`, `docs/DECISIONS.md`, `docs/CHAIN.md`, `docs/INPUT-MODULE.md`, `docs/PART-NUMBERING.md` and `docs/ROADMAP.md`.
 
 ## Project
 
@@ -33,13 +33,14 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 3. **Simulate before layout.** Prove the filter gain structure (headroom and noise) in ngspice or on a breadboard before committing the channel card design.
 4. **Use the KiCad MCP server** for schematic and PCB edits. Pause for the user's review before each commit. Run ERC after schematic changes and DRC after layout changes.
 5. **Keep modules independent.** Each module is its own KiCad project or hierarchical sheet with a documented chain interface (audio and power ribbon pinouts).
-6. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something.
+6. **Number every part.** Give each placed symbol the BOM fields in `docs/PART-NUMBERING.md` and register new part types in `docs/parts.csv`.
+7. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something.
 
 ## Proposed repo layout (not created yet)
 
 ```
 CLAUDE.md
-docs/            SPEC.md, DECISIONS.md, CHAIN.md, INPUT-MODULE.md, ROADMAP.md
+docs/            SPEC.md, DECISIONS.md, CHAIN.md, INPUT-MODULE.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
 hardware/
   channel-card/  KiCad project (stereo channel)
   input-module-6p3/  KiCad project (6.3 mm input module)
