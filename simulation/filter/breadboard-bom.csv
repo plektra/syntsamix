@@ -1,0 +1,30 @@
+Ref,Qty to order,Value,Spec,E24 substitute (hobby-shop stock),Where,Notes
+U1,3,SSI2144,Sound Semiconductor SSI2144SS-TU (QSOP-16 / SSOP-16 MO-137-AB 0.635 mm pitch),,Electrokit,1 test + 1 for L/R tracking test + 1 spare
+—,2,SSOP-16 to DIP-16 adapter,SparkFun BOB-13994 (0.635 mm pads; 0.3 in / 300 mil DIP; 2 boards per pack),,Electrokit if stocked; else Melopero or Mouser,Must be 300 mil to match the layout. Electrokit's own SOIC/TSSOP-16 adapter is 600 mil and does not fit
+—,1,Pin header,2.54 mm break-away male header 1x40,,Electrokit,For the adapters (2 x 8 pins each)
+U2,3,TL072,Dual JFET op amp DIP-8,,Electrokit,1 used + spares
+R1,2,17.4 kΩ,1% metal film 0.25 W,18 kΩ (gives ±19.0 mV instead of ±19.7 mV at +4 dBu),Electrokit,Input attenuator
+"R2, R4, R3 alt",4,200 Ω,1% metal film 0.25 W,(E24 value),Electrokit,R2 and R4 plus a spare to try as R3 (-6 dB)
+R3,2,330 Ω,1% metal film 0.25 W,(E24 value),Electrokit,Medium drive (-4 dB)
+R6,2,33.2 kΩ,1% metal film 0.25 W,33 kΩ,Electrokit,Resonance test 2 (finds oscillation onset)
+R6 final,2,49.9 kΩ,1% metal film 0.25 W,51 kΩ (limits Q current to about 294 µA),Electrokit,Resonance limit
+R7,2,499 Ω,1% metal film 0.25 W,510 Ω,Electrokit,Resonance input filter
+R8,2,1 kΩ,1% metal film 0.25 W,(E24 value),Electrokit,Cutoff pin to ground
+"R9, R13",3,100 kΩ,1% metal film 0.25 W,(E24 value),Electrokit,Summer output and CV input
+R10,2,499 kΩ,1% metal film 0.25 W,510 kΩ (offset range about ±29 mV),Electrokit,Cutoff offset
+R11,2,162 kΩ,1% metal film 0.25 W,160 kΩ,Electrokit,Summer feedback (RV5 trims)
+R12,2,301 kΩ,1% metal film 0.25 W,300 kΩ,Electrokit,Cutoff pot scaling
+"C1, C2, C3",4,6.8 nF,C0G/NP0 ceramic 5% (or polypropylene film 5%),,Electrokit,Ladder capacitors
+C4,2,560 pF,C0G/NP0 ceramic 5%,,Electrokit,Ladder capacitor
+C6,2,100 pF,C0G/NP0 ceramic 5%,,Electrokit,Output stage
+C8,2,10 nF,C0G ceramic or film,,Electrokit,Resonance input filter
+C9,2,3.3 nF,C0G/NP0 ceramic 5%,,Electrokit,Optional
+C10–C13,6,100 nF,X7R ceramic 50 V 2.54/5.08 mm,,Electrokit,Rail decoupling
+"C5, C7",2,10 µF,Bipolar (non-polarised) electrolytic 25 V or more,,Electrokit,Input and output coupling
+—,2,10 µF,Electrolytic 35 V,,Electrokit,Bulk decoupling where the supply enters the rails
+RV1,1,10 kΩ lin,Panel potentiometer linear (B),,Electrokit,Cutoff
+RV2,1,10 kΩ,Panel potentiometer reverse-audio (Bourns PDB181 class) or linear,,Electrokit,Resonance
+"RV3, RV4, RV5",3,50 kΩ,Multiturn trimmer with in-line pins (Bourns 3296W-1-503),,Electrokit,Output gain / cutoff offset / V per octave
+—,3,6.3 mm jack,Panel jack (mono TS is enough for the test),,Electrokit,IN / OUT / CV
+—,1,Breadboard,830 tie-point solderless breadboard,,Electrokit,
+—,1,Jumper wires,Pre-cut breadboard jumper kit plus some flexible hook-up wire,,Electrokit,Flying leads to pots and jacks
