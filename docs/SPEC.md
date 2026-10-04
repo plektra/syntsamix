@@ -57,7 +57,8 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | Fader scale | 0 dB at about 75% of travel; markings +10, +5, 0, -5, -10, -20, -30, -40, -60, -∞ | confirmed |
 | Mute | Mute; click-free via VCA | confirmed |
 | Bus assign | Per-channel switch: main bus or compressor bus | confirmed |
-| Buttons | Low-cut, mute, PFL, SC send, filter bypass, bus assign: latching push switches with two contact sets; one set switches the function, the other drives the button's LED. State survives power cycles. Mute switches the VCA control voltage (click-free); switched audio paths are DC-free to avoid clicks. Low-current LEDs (1 to 2 mA) returning to power ground; colours to be chosen | confirmed |
+| Buttons | Low-cut, mute, PFL, SC send, duck, filter bypass, bus assign: latching push switches with two contact sets; one set switches the function, the other drives the button's LED. State survives power cycles. Mute switches the VCA control voltage (click-free); switched audio paths are DC-free to avoid clicks. Low-current LEDs (1 to 2 mA) returning to power ground; colours to be chosen | confirmed |
+| Duck | DUCK button: adds the master's SC_ENV ducking envelope to this channel's VCA control (post-fader level ducks with the sidechain trigger) | confirmed |
 | SC send | Button: adds L+R to the mono sidechain bus, tapped at the same point as PFL (pre-fader, pre-mute) | confirmed |
 | PFL | Latching button; taps the stereo signal after the filter and before the fader VCA (so also pre-mute) onto the cue bus, and pulls the "PFL active" line | confirmed |
 | AUX | Two stereo AUX sends, each a level control feeding a stereo AUX bus | confirmed |
@@ -66,7 +67,7 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | HPF | Sweepable resonant HPF dropped from the prototype; reserve space for later. A fixed switchable 150 Hz low-cut is included instead | confirmed |
 
 Panel layout, top to bottom, following the signal flow (post-fader AUX knobs sit above the fader, as on any console) **[confirmed]**:
-TRIM, [LOW-CUT], CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
+TRIM, [LOW-CUT], CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [DUCK] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
 Channel jacks (inputs L/MONO and R, CV) on the rear panel; strip width about 35 mm **[confirmed]**
 
 Notes on the filter (SSI2144 datasheet Rev 3.0, January 2018, verified):
@@ -101,6 +102,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - Sidechain source: 3-position switch INT (the compressor bus itself, L+R) / BUS (the mono sidechain bus) / EXT (external jack) **[confirmed]**
 - Channels feed the sidechain bus through a per-channel SC send button, tapped after the filter and before fader and mute (same point as PFL and the meter), so a muted channel can still trigger the pumping ("ghost triggering"). The master card never addresses a specific slot **[confirmed]**
 - EXT sidechain input: 6.3 mm jack, DC-coupled, accepts audio and Eurorack envelopes or gates up to ±12 V **[confirmed]**
+- Sidechain ducking (decision 66): an envelope follower on the master card takes the sidechain signal after the source switch and the sidechain LPF and drives the SC_ENV chain line. Controls: THRESHOLD, DEPTH and DECAY; attack fast and fixed. Each channel's DUCK button adds SC_ENV to its VCA control, so the channel ducks with the trigger independently of the compressor bus. Each AUX return also has a DUCK switch **[confirmed]**
 - SC listen button: sends the filtered sidechain signal to the cue bus (headphones) and pulls the PFL-active line **[confirmed]**
 - Stereo-linked VCA compressor (SSI2162) with a performance control set **[confirmed]**:
   - **Amount:** one knob that lowers the threshold and raises makeup gain together, through the VCA control circuit

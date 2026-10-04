@@ -67,6 +67,7 @@
 63. Part numbering: each unique part type gets a project part number `SX-<category>-<nnn>` (register `docs/parts.csv`), used as Mouser's customer part number. KiCad symbols carry ProjectPN, Manufacturer, MPN, Supplier and SupplierPN fields, and BOMs are exported grouped by ProjectPN (`docs/PART-NUMBERING.md`)
 64. Soft clipping after each channel's input trim stage and on the master bus output, onset about 6 dB below the internal maximum (about +14 dBu). Inspired by the Intellijel Jellymix
 65. Switchable fixed low-cut per channel at about 150 Hz (12 dB/octave proposed), film capacitors, after the trim stage and before the ladder filter; one more latching button with LED. The sweepable resonant HPF stays in the backlog
+66. Sidechain ducking through the channel VCAs (inspired by the Boredbrain Xcelon SL): the master card turns the filtered sidechain into an envelope (THRESHOLD, DEPTH, DECAY; fast fixed attack) on chain line SC_ENV (was SPARE1); each channel has a DUCK button that adds it to its VCA control; AUX returns get a DUCK switch too. Complements the compressor bus
 
 ## Proposed but NOT confirmed
 

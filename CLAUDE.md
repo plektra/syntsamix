@@ -10,6 +10,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 
 - 4 stereo channels
 - Per channel: balanced inputs, level fader, mute, switchable 150 Hz low-cut, soft-clipping input stage, 24 dB/oct ladder LPF with resonance and bypass, 2 AUX sends and returns (stereo by default, mono-capable), main/compressor bus assign
+- Sidechain ducking: per-channel DUCK button applies the master's sidechain envelope to the channel VCA
 - Compressor on a dedicated compressor bus, with selectable/routable sidechain input; the sidechain has an LPF (main intent is bass pumping)
 - PFL per channel (post-filter, pre-fader, pre-mute); headphones switch to the cue bus automatically while any PFL is active
 - 8-segment LED level meter per channel (post-filter, pre-fader)

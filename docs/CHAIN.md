@@ -1,6 +1,6 @@
 # Chain interface
 
-Status: **[confirmed]** by the user. Decisions behind this file: `DECISIONS.md` items 30, 38 to 42.
+Status: **[confirmed]** by the user. Decisions behind this file: `DECISIONS.md` items 30, 38 to 42 and 66.
 
 Every channel card has two identical copies of each connector (IN and OUT), wired pin-for-pin straight through. The master card has one copy of each and sits at one end of the chain. Pin numbers follow the IDC convention: on the flat cable, pin n lies next to pin n+1, and pin 1 is on the red stripe.
 
@@ -21,7 +21,7 @@ Pattern: ground on every odd pin, signal on every even pin, so each signal has a
 | 17 | AGND | 18 | CUE_L |
 | 19 | AGND | 20 | CUE_R |
 | 21 | AGND | 22 | SC |
-| 23 | AGND | 24 | SPARE1 |
+| 23 | AGND | 24 | SC_ENV |
 | 25 | AGND | 26 | SPARE2 |
 | 27 | AGND | 28 | SPARE3 |
 | 29 | AGND | 30 | SPARE4 |
@@ -32,7 +32,8 @@ Signal definitions:
 - **MAIN, COMP, AUX1, AUX2, CUE (L/R):** current-summing buses. Each channel card drives them through a series resistor; the master card holds the virtual-earth summing amplifier for each. Bus resistor values are set during the schematic phase.
 - **SC:** sidechain bus, mono. A channel with SC send on adds (L+R) through resistors, tapped pre-fader and pre-mute; the master sums it like the audio buses.
 - **PFL_ACT:** logic, active low, open-collector (wired-OR). Pulled up on the master card; any channel with PFL pressed (or the master's SC listen button) pulls it to AGND. Placed at the cable edge, away from the audio buses, with the spares as a buffer.
-- **SPARE1 to SPARE5:** unconnected on the prototype; reserved for future CV, mute groups and similar. Channel cards pass them through.
+- **SC_ENV:** ducking envelope (decision 66), a control voltage driven by the master card at low impedance: 0 V = no ducking, rising positive with ducking depth (scale set in the master card schematic). Channel cards only read it, through a high-impedance input, and only when their DUCK button is on.
+- **SPARE2 to SPARE5:** unconnected on the prototype; reserved for future CV, mute groups and similar. Channel cards pass them through.
 
 ## Power ribbon: 8-pin IDC (2x4), shrouded and keyed
 
