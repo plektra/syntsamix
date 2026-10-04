@@ -26,7 +26,7 @@ Items marked **[confirmed]** were agreed with the user. Items marked **[proposed
 - DC-DC module chosen from a family with larger, footprint-compatible versions for 16 cards; supply rating for 16 cards is open **[open]**
 - Each module is its own KiCad project with hierarchical sheets and its own PCB **[confirmed]**
 
-Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL, meter and SC send tap] → level VCA (fader + mute) → AUX sends and bus assign (main or compressor bus).
+Signal flow per channel: input receiver and trim (with soft clip) → low-cut (switchable) → filter (or bypass) → [PFL, meter and SC send tap] → level VCA (fader + mute) → AUX sends and bus assign (main or compressor bus).
 
 ## 3. Channel strip (per stereo channel; every element is an L/R pair)
 
@@ -38,6 +38,8 @@ Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL
 | Input connectors | 2x 6.3 mm TRS (L/MONO and R), balanced; an unbalanced TS plug works with ring and sleeve shorted, so Eurorack gear connects with a 3.5 mm TS to 6.3 mm TS cable. The R jack needs switch contacts on tip and ring for L/MONO normalling (part to be chosen from datasheets). All jacks on the mixer are 6.3 mm | confirmed |
 | Input level range | From -10 dBV consumer line up to Eurorack hot signals of ±12 V peak (24 Vpp), with no clipping at minimum trim | confirmed |
 | Input receiver | AD8273 dual difference amplifier at G = ½ (-6 dB), one chip per card for L and R | confirmed; DC-coupled inputs confirmed |
+| Soft clipping | Soft clipper after the input trim stage, so overloads saturate gradually instead of hard-clipping. Onset about 6 dB below the internal maximum (about +14 dBu); exact circuit set in the schematic | confirmed |
+| Low-cut | Switchable fixed low-cut at about 150 Hz, 12 dB/octave, film capacitors, after the trim stage and before the ladder filter (so meter, PFL and sends all see it) | confirmed (slope proposed) |
 | Input trim | One wide trim, no pad switch: overall gain about -20 to +20 dB (input to internal +4 dBu nominal); the trim stage after the receiver spans about -14 to +26 dB | confirmed |
 | Input DC blocking | AC coupling after the receiver, corner about 3 Hz; Eurorack outputs can carry DC offsets | confirmed |
 | Level meter | 8-segment mono LED meter (louder of L/R), post-filter and pre-fader (same point as PFL): -30, -20, -10, -5, 0, +3, +6, clip, relative to +4 dBu nominal. Peak-reading with a 1 to 2 s fall. Peak detector plus comparators; low-current LEDs returning to power ground. Replaces the peak LED | confirmed |
@@ -55,16 +57,16 @@ Signal flow per channel: input receiver and trim → filter (or bypass) → [PFL
 | Fader scale | 0 dB at about 75% of travel; markings +10, +5, 0, -5, -10, -20, -30, -40, -60, -∞ | confirmed |
 | Mute | Mute; click-free via VCA | confirmed |
 | Bus assign | Per-channel switch: main bus or compressor bus | confirmed |
-| Buttons | Mute, PFL, SC send, filter bypass, bus assign: latching push switches with two contact sets; one set switches the function, the other drives the button's LED. State survives power cycles. Mute switches the VCA control voltage (click-free); switched audio paths are DC-free to avoid clicks. Low-current LEDs (1 to 2 mA) returning to power ground; colours to be chosen | confirmed |
+| Buttons | Low-cut, mute, PFL, SC send, filter bypass, bus assign: latching push switches with two contact sets; one set switches the function, the other drives the button's LED. State survives power cycles. Mute switches the VCA control voltage (click-free); switched audio paths are DC-free to avoid clicks. Low-current LEDs (1 to 2 mA) returning to power ground; colours to be chosen | confirmed |
 | SC send | Button: adds L+R to the mono sidechain bus, tapped at the same point as PFL (pre-fader, pre-mute) | confirmed |
 | PFL | Latching button; taps the stereo signal after the filter and before the fader VCA (so also pre-mute) onto the cue bus, and pulls the "PFL active" line | confirmed |
 | AUX | Two stereo AUX sends, each a level control feeding a stereo AUX bus | confirmed |
 | AUX pre/post | Post-fader by default; a PCB jumper per send selects pre-fader | confirmed |
 | Cutoff CV input | Per-channel 6.3 mm jack into the filter control summer, driving L and R together; fixed scale of about 1 V/octave (Eurorack convention), no amount knob; DC-coupled, about 100 kΩ input impedance, survives ±12 V; knob plus CV is limited to the chip's safe control range | confirmed |
-| HPF | Dropped from the prototype; reserve space for later | confirmed |
+| HPF | Sweepable resonant HPF dropped from the prototype; reserve space for later. A fixed switchable 150 Hz low-cut is included instead | confirmed |
 
 Panel layout, top to bottom, following the signal flow (post-fader AUX knobs sit above the fader, as on any console) **[confirmed]**:
-TRIM, CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
+TRIM, [LOW-CUT], CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
 Channel jacks (inputs L/MONO and R, CV) on the rear panel; strip width about 35 mm **[confirmed]**
 
 Notes on the filter (SSI2144 datasheet Rev 3.0, January 2018, verified):
@@ -110,6 +112,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - Preset inside (trimmers or jumpers, no panel knobs): attack about 1 ms, ratio 4:1, makeup range tied to Amount **[confirmed]**
 - Detector: feed-forward, peak-sensing, log conversion with a matched transistor array (Alfa AS3046 / CA3046 class or THAT300 series; the THAT2252 RMS detector is obsolete) **[confirmed]**
 - Ranges: Amount 0 to about 30 dB (threshold down to -30 dB below nominal, makeup tied); Release about 50 ms to 1.5 s; gain-reduction LEDs at 1, 3, 6, 10, 15 dB **[confirmed]**
+- Soft clipping on the master bus output, same onset as the channels **[confirmed]**
 - Master level: linear pot controlling an SSI2162 VCA (accurate L/R tracking) **[confirmed]**
 - Headphone output **[confirmed for the prototype]**: dual-gang volume pot; NJM4556A-class high-current dual op amp driver with small series output resistors (part and output figures to verify from the datasheet); for 32 to 600 Ω headphones; 6.3 mm stereo jack on the front or top panel, the only jack not on the rear
 - AUX send outputs: L/MONO and R jacks per send (impedance-balanced TRS, TS works); with only L plugged in, L outputs (L+R)/2 **[confirmed]**

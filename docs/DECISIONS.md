@@ -65,6 +65,8 @@
 61. Grounding: jack sleeves to their card's AGND; FR4 panels isolate jacks from the frame; frame bonded to the star point at the master card only, with a ground-lift switch (RC when lifted). Chain connectors are 2.54 mm shrouded keyed box headers (2x17, 2x4) with 28 AWG IDC ribbon; part numbers chosen during the schematic
 62. Input connectors live on a separate passive input module plugged into an 8-pin header on the channel card (interface in `INPUT-MODULE.md`). Mono normalling happens on the module. The prototype builds the 6.3 mm module; 3.5 mm and D-SUB bundle modules come later. Receiver, protection, AC coupling and trim stay on the channel card
 63. Part numbering: each unique part type gets a project part number `SX-<category>-<nnn>` (register `docs/parts.csv`), used as Mouser's customer part number. KiCad symbols carry ProjectPN, Manufacturer, MPN, Supplier and SupplierPN fields, and BOMs are exported grouped by ProjectPN (`docs/PART-NUMBERING.md`)
+64. Soft clipping after each channel's input trim stage and on the master bus output, onset about 6 dB below the internal maximum (about +14 dBu). Inspired by the Intellijel Jellymix
+65. Switchable fixed low-cut per channel at about 150 Hz (12 dB/octave proposed), film capacitors, after the trim stage and before the ladder filter; one more latching button with LED. The sweepable resonant HPF stays in the backlog
 
 ## Proposed but NOT confirmed
 
