@@ -7,7 +7,7 @@
 3. **Input module** (`hardware/input-module-6p3`): schematic *(done, ERC clean)*, then PCB
 4. **Channel card** (`hardware/channel-card`): schematic sheet by sheet *(in progress)*, then PCB
    - Input: header, AD8273 receiver, trim with soft clip, 150 Hz low-cut, DG413 switching *(done, ERC clean apart from sheet links)*
-   - Filter: 2x SSI2144, cutoff and CV, resonance, bypass, make-up gain *(next; final values after the breadboard)*
+   - Filter: 2x SSI2144, LM13700 Q VCA (resonance compensation), cutoff summer and CV, drive and compensation jumpers, DG413 bypass *(done, ERC clean apart from sheet links; output scale and Q limit provisional until the breadboard)*
    - Level: SSI2162 VCA, fader law, mute, DUCK
    - Routing: AUX sends, bus assign, PFL and SC send taps, chain bus drivers
    - Meter: 8-segment peak meter
@@ -33,9 +33,10 @@
 
 - One KiCad project per module; hierarchical sheets inside a module for sub-blocks (input stage, filter, VCA, AUX sends)
 - Custom symbols and footprints live in `hardware/libs/`
+- Large sheets: describe the circuit in a script and send it to `sch_build_circuit` through an MCP stdio client; keep same-axis two-pin parts at least about 25 mm apart, or their label stubs touch and short nets. Then remove the builder's PWR_FLAGs (the Input sheet already flags the rails) and check the exported netlist against the intended nets
 - Edit schematics and PCBs through the KiCad MCP server (kicad-mcp-pro, profile `schematic_authoring`); pause for the user's review before each commit
 - The server's circuit builder connects nets by labels and cannot handle multi-unit symbols (dual op amps, DG413): build with temporary references per unit, then rename them in the file, and verify with ERC plus a netlist check against the intended nets
-- Shared project symbols: `hardware/libs/syntsamix.kicad_sym` (AD8273), registered in each project's `sym-lib-table`
+- Shared project symbols: `hardware/libs/syntsamix.kicad_sym` (AD8273, SSI2144), registered in each project's `sym-lib-table`
 - Give every placed symbol the BOM fields in `docs/PART-NUMBERING.md`
 - Run ERC after schematic changes and DRC after layout changes
 - Keep a BOM export per module

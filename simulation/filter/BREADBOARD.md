@@ -103,7 +103,7 @@ Repeat the +4 dBu row with the medium drive jumper (both values):
 | 200 Ω (about -6 dB) | | |
 
 ### Test 5: Output scale
-With the cutoff fully open and resonance 0, set RV3 so +4 dBu in gives +4 dBu out. With power off, measure RV3's resistance between its pin 1 and wiper.
+With the cutoff fully open and resonance 0, set RV3 so +4 dBu in gives +4 dBu out. Scaling the datasheet's Figure 1 values (68.1 kΩ in, 33.2 kΩ out for unity) to the 17.4 kΩ hot attenuator predicts about 8.6 kΩ; the channel card uses 8.66 kΩ until this test sets it. With power off, measure RV3's resistance between its pin 1 and wiper.
 
 | Measurement | Value |
 |---|---|
@@ -133,7 +133,23 @@ Build a second core sharing the same control voltage. With both cutoffs at the s
 | Untrimmed cutoff difference (octaves) | |
 | Trimmer range needed (mV at the frequency pin) | (plan: at least ±12 mV) |
 
+### Test 9: Q VCA (resonance compensation, decision 71)
+Rebuild the resonance section per datasheet Figure 9 with one LM13700N (DIP-16): Q pin 14 to ground through 13 kΩ; OTA A output (pin 5) to SIG IN- (pin 2, keep its 200 Ω to ground); OTA + input (pin 3) through 560 Ω or 620 Ω to ground (channel card: 604 Ω); OTA - input (pin 4) through the same value to ground, through 18 kΩ (R14) from the output stage, and through R10 from the input attenuator's input node; bias input (pin 1) through about 41 kΩ (kit: 39 kΩ) from the RESONANCE pot wiper; pot from +15 V through 10 kΩ, its other end through two 1N4148 in series to -15 V; diode bias and buffer outputs open, buffer inputs (pins 7, 10) to ground. Note: the datasheet circuit inverts at the output stage, so the input node here is the 17.4 kΩ's input end.
+
+| R10 | Expected 20 Hz gain at max resonance | Measured | Oscillates at max? |
+|---|---|---|---|
+| Open (none) | -12 dB | | No |
+| 51 kΩ (half) | -6 dB | | No |
+| 18 kΩ (full) | 0 dB | | No |
+
+| Measurement | Value |
+|---|---|
+| Bias current at oscillation onset (wiper voltage minus about -13.8 V, divided by the series resistor) | (datasheet: about 375 µA) |
+| Series resistor for k = 3 maximum (75% of onset) | (channel card provisional: 41.2 kΩ) |
+| Listening: none / half / full preferred | |
+
 ## 4. After the tests
 
 - Copy the measured values into `README.md` next to the simulated ones.
-- Update `docs/DECISIONS.md`: drive default, resonance series resistor, output feedback resistance, any differences from the model.
+- Update `docs/DECISIONS.md`: drive default, Q VCA series resistor and compensation setting, output feedback resistance, any differences from the model.
+- Update the channel card Filter sheet: R111/R161 (output scale) and R120/R170 (Q limit).

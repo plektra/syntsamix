@@ -26,7 +26,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 24 dB/oct (4-pole) ladder LPF, resonance on the LPF only. Not required to be Moog-style.
 - Baseline: Sound Semiconductor SSI2144 (SSM2044 reissue). Datasheet Rev 3.0 facts are recorded in `docs/SPEC.md` section 3
 - Fallback: AS3320 / V3320 (CEM3320 clone)
-- Gain structure: "hot" drive at the datasheet nominal level by default, a prototype jumper for medium drive, per-channel bypass, half resonance compensation. Simulation in `simulation/filter/`
+- Gain structure: "hot" drive at the datasheet nominal level by default, a prototype jumper for medium drive, per-channel bypass, half resonance compensation through the datasheet's LM13700 Q VCA (jumper: none/half/full). Simulation in `simulation/filter/`
 - Sold by synth-DIY resellers (Electrokit, Thonk), not by Mouser or DigiKey.
 
 ## How to work on this project
@@ -57,10 +57,9 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status and next steps
 
-Status: spec v0.7 complete (decisions 1-70). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input sheet done (ERC clean apart from sheet links to the next sheet).
+Status: spec v0.7 complete (decisions 1-71). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input and Filter sheets done (ERC clean apart from the Filter outputs, which wait for the Level sheet). Filter output scale and Q current limit are provisional until the breadboard.
 
 Next:
-1. Channel card Filter sheet (2x SSI2144); use simulated values and mark the ones the breadboard will set
-2. Remaining channel card sheets: Level, Routing, Meter, Chain and power (see `docs/ROADMAP.md`)
-3. Breadboard the SSI2144 when parts arrive; update filter values from the measurements
+1. Remaining channel card sheets: Level, Routing, Meter, Chain and power (see `docs/ROADMAP.md`)
+2. Breadboard the SSI2144 when parts arrive (including the LM13700 Q VCA test); update filter values from the measurements
 4. Master/compressor card, then the power input section

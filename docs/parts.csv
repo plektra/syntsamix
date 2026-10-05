@@ -24,3 +24,28 @@ SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,Alpha,,,,Footprint Alpha RD
 SX-D-001,Zener diode 6.2 V SOD-123,,,,,For example BZT52C6V2; to verify
 SX-D-002,LED 3 mm low current,,,,,Colour per button function; to choose
 SX-SW-001,Latching push button DPDT,,,,,Part and footprint to choose; check which throw is active when pressed
+SX-IC-006,Dual OTA with linearizing diodes and buffers SOIC-16,Texas Instruments,,Mouser,,LM13700 (SOIC-16); pinout verified from TI SNOSBW2F; orderable MPN to verify. Q VCA per SSI2144 datasheet Figure 9
+SX-R-009,Resistor 17.4 kOhm 1% 0805,,,,,
+SX-R-010,Resistor 200 Ohm 1% 0805,,,,,
+SX-R-011,Resistor 13 kOhm 1% 0805,,,,,
+SX-R-012,Resistor 604 Ohm 1% 0805,,,,,Datasheet Figure 9 shows 599 Ohm (not an E96 value)
+SX-R-013,Resistor 52.3 kOhm 1% 0805,,,,,
+SX-R-014,Resistor 8.66 kOhm 1% 0805,,,,,Filter output scale; provisional until the breadboard
+SX-R-015,Resistor 41.2 kOhm 1% 0805,,,,,Q current limit; provisional until the breadboard
+SX-R-016,Resistor 6.04 kOhm 1% 0805,,,,,
+SX-R-017,Resistor 16.9 kOhm 1% 0805,,,,,
+SX-R-018,Resistor 301 kOhm 1% 0805,,,,,
+SX-R-019,Resistor 162 kOhm 1% 0805,,,,,
+SX-R-020,Resistor 499 kOhm 1% 0805,,,,,
+SX-R-021,Resistor 1 kOhm +3300 ppm/K temperature-compensating 0603,Panasonic,ERA-V33J102V,,,Named in SSI2144 datasheet Rev 3.0; place against the SSI2144
+SX-C-006,Capacitor 6.8 nF C0G 5% 50 V 0805,,,,,Ladder capacitor
+SX-C-007,Capacitor 560 pF C0G 5% 50 V 0805,,,,,Ladder capacitor
+SX-C-008,Capacitor 100 pF C0G 5% 50 V 0805,,,,,
+SX-D-003,Small-signal diode 1N4148W SOD-123,,,,,
+SX-POT-003,Pot 50 kOhm linear single 9 mm vertical,Alpha,,,,Footprint Alpha RD901F-40-00D; MPN to verify. CUTOFF
+SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,RESONANCE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose
+SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,,,
+SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,CUTOFF CV input; part and footprint to choose
+SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,Jumper header
+SX-CONN-005,Pin header 1x3 2.54 mm vertical,,,,,Jumper header
+SX-MECH-001,Jumper cap 2.54 mm,,,,,For SX-CONN-004/005

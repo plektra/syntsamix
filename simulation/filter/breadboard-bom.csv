@@ -43,3 +43,7 @@ Supp,2,100 kΩ,Multiturn trimmer in-line pins (Bourns 3296W-1-104),,Electrokit,W
 Supp,1,10 kΩ lin,Panel potentiometer linear (B),,Electrokit,Spare
 Supp,1 pack,SSOP-16 to DIP-16 adapter,SparkFun BOB-13994,,Electrokit if stocked; else Melopero or Mouser,Extra pack for soldering mistakes
 Supp,1,Solder wick,Desoldering braid 1.5–2 mm,,Electrokit,Fixing bridges on the QSOP pins
+Order 2,2,LM13700N,Dual OTA DIP-16 (TI LM13700N),,Electrokit,"Datasheet Figure 9 Q VCA test (resonance compensation, decision 71); 1 used + 1 spare"
+Order 2,10,1N4148,Small-signal diode DO-35,,Electrokit,Q pot bias diodes (D1 and D2 in datasheet Figure 9) plus spares
+Order 2,3,6.8 nF,Same film capacitor as the first order (41015666),,Electrokit,Second core for test 8 (L/R tracking) needs 3 more; first order had 4
+Order 2,1,Breadboard,840 tie-point solderless breadboard (same as first order),,Electrokit,Room for the second core (test 8) and the LM13700 Q VCA (test 9)

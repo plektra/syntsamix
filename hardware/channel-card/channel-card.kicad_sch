@@ -40,24 +40,24 @@
 			)
 		)
 		(pin "L_PREFILT" output
-			(at 55.88 40.64 0)
+			(at 55.88 40.64 0.0000)
+			(uuid "35390a44-85f3-45c0-8505-81e040bbec7f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "35390a44-85f3-45c0-8505-81e040bbec7f")
 		)
 		(pin "R_PREFILT" output
-			(at 55.88 43.18 0)
+			(at 55.88 43.18 0.0000)
+			(uuid "4cc54dc7-4fda-4e06-ac7d-7b961cf4081e")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "4cc54dc7-4fda-4e06-ac7d-7b961cf4081e")
 		)
 		(instances
 			(project "channel-card"
@@ -67,6 +67,90 @@
 			)
 		)
 	)
+	(sheet
+		(at 76.2 38.1)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7dc6661c-44f8-4834-8026-15f42523c90c")
+		(property "Sheetname" "Filter"
+			(at 76.2 37.3884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "filter.kicad_sch"
+			(at 76.2 59.0046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "L_PREFILT" input
+			(at 76.2 40.64 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "341f6c9c-5fed-4661-97ff-c4c533183bfa")
+		)
+		(pin "R_PREFILT" input
+			(at 76.2 43.18 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "28a2e1ca-77ac-4558-8618-63e6fc99cfc5")
+		)
+		(pin "L_POSTFILT" output
+			(at 106.68 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "77aa22ff-c37d-429a-8f4c-c17927aeec8a")
+		)
+		(pin "R_POSTFILT" output
+			(at 106.68 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "96bdb860-9ec8-4e01-87d9-ce07d5debda2")
+		)
+		(instances
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050"
+					(page "2")
+				)
+			)
+		)
+	)
+	(wire (pts (xy 55.88 40.64) (xy 76.2 40.64)) (stroke (width 0) (type default)) (uuid "895b0c7d-54b2-4866-8088-d15224aa74a1"))
+	(wire (pts (xy 55.88 43.18) (xy 76.2 43.18)) (stroke (width 0) (type default)) (uuid "4ec0e1c7-82d2-4ecf-8402-fcf474915187"))
 	(sheet_instances
 		(path "/"
 			(page "1")
