@@ -45,7 +45,7 @@ Signal definitions:
 
 - Pin 1 (red stripe) is the negative rail, the same habit as Eurorack, so the stripe always marks "negative".
 - 10- and 16-pin sizes are deliberately avoided so a Eurorack power cable cannot be plugged in.
-- Estimated current per rail at 16 cards: about 1.3 A, so about 0.65 A per pin (estimate; recheck once the card schematic exists, and check the connector's per-pin current rating).
+- Estimated current per rail: about 130 mA per card from the channel card schematic (decision 78), so about 2.1 A per rail at 16 cards, about 1.05 A per pin. That is at or above the usual 1 A rating of IDC contacts and 28 AWG ribbon: **open**, to be solved in the master card design (for example power injection every 8 cards, a heavier power connector, or fewer cards per power ribbon).
 
 ## Grounding
 

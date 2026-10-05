@@ -158,7 +158,6 @@ def button(name,sw,led,rl,rp,x,y):
     b=s.place("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
-    if sw=="SW201": s.wire(lt(b(5),5.08),lt(b(5),10.16)); s.power("PWR_FLAG",lt(b(5),10.16))
     nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
     rpd=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,rpd(2)); gnd(rpd(1),180)
     ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))

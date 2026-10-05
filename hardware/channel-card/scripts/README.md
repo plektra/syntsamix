@@ -11,6 +11,7 @@ Rebuilding **replaces the whole sheet**. Edits made by hand in KiCad are lost.
 | Level | `level_wired.py` | `level_build.py` (writes `build/level.json`) |
 | Routing | `routing_wired.py` | `routing_build.py` (writes `build/routing.json`) |
 | Meter | `meter_wired.py` | `meter_build.py` (writes `build/meter.json`) |
+| Chain and power | `chain_wired.py` | `chain_build.py` (writes `build/chain.json`) |
 
 The reference netlist is written separately from the drawing on purpose: `check_netlist.py` compares every pin of the drawn sheet with it, so a wiring mistake in a layout cannot slip through.
 
@@ -29,7 +30,7 @@ python3 fix_paths.py
 python3 check_netlist.py level.json             # must report 0 problems and no duplicate references
 ```
 
-Use `filter` with power-reference prefix `1`, `input` with `0`, `routing` with `3` and `meter` with `4` the same way. After adding a sheet, run `root_links.py`: it labels the root sheet pins that appear on more than one sheet, so outputs of one sheet reach inputs of another. Then run ERC on `channel-card.kicad_sch`.
+Use `filter` with power-reference prefix `1`, `input` with `0`, `routing` with `3`, `meter` with `4` and `chain` with `5` the same way. After adding a sheet, run `root_links.py`: it labels the root sheet pins that appear on more than one sheet, so outputs of one sheet reach inputs of another. Then run ERC on `channel-card.kicad_sch`.
 
 ## The scripts
 
@@ -51,5 +52,5 @@ Use `filter` with power-reference prefix `1`, `input` with `0`, `routing` with `
 - Keep labels at wire ends. Keep two-pin parts at least about 10 mm apart on the same axis so their text does not collide.
 - Multi-gang parts (the dual trim pot) are drawn as their own block with labels.
 - Test pads: `Sheet.tp()` puts a bare pad on a short stub from a wire point; give it the net name as value and add it to the reference netlist. `post_wired.py` keeps `TP` references out of the BOM.
-- Reference blocks per sheet: Input 1-99, Filter 101-199 (decoupling C191-C206), Level 201-299 (capacitors from C221), Routing 301-399, Meter 401-499.
+- Reference blocks per sheet: Input 1-99, Filter 101-199 (decoupling C191-C206), Level 201-299 (capacitors from C221), Routing 301-399, Meter 401-499, Chain and power 501-599. Power flags live only on the Chain and power sheet.
 - KiCad files allow no comments; generated root items are marked by the uuid prefix `c0ffee00` instead.

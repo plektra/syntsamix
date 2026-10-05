@@ -152,9 +152,7 @@ for k in range(13,21,2):
     cp=place(f"C{k}",x,Y2-7.62,0); s.power("+15V",cp("1")); gnd(cp("2"))
     cn=place(f"C{k+1}",x,Y2+20.32,0); s.wire(cn("1"),up(cn("1"),2.54)); s.power("-15V",up(cn("1"),2.54),180); gnd(cn("2"))
     x+=12.7
-for i,net in enumerate(("+15V","-15V","+5V","GNDA")):
-    at=(330.2+i*12.7,Y2+2.54); s.power("PWR_FLAG",at); s.wire(at,dn(at,5.08))
-    s.power(net,dn(at,5.08))
+# power flags live on the Chain and power sheet, where the rails enter the card
 
 json.dump([["kicad_set_project",{"project_dir":CARD.rstrip('/'),"sch_file":CARD+'input.kicad_sch'}],["sch_build_circuit",s.build_args()]],open(T+'calls_input_wired.json','w'))
 json.dump({"no_connect":NOCONNECT},open(T+'input_wired_extra.json','w'))

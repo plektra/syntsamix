@@ -5,13 +5,13 @@
 1. **Specification** *(done: spec v0.7, decisions 1-69, chain pinouts in CHAIN.md, input module interface in INPUT-MODULE.md)*. Still open: supply rating for 16 cards
 2. **Simulation and breadboard**: filter simulated in ngspice *(done, `simulation/filter/`)*; SSI2144 breadboard *(parts ordered; plan, schematic, layout and BOM in `simulation/filter/`)*. Later: VCA and compressor detector with sidechain LPF
 3. **Input module** (`hardware/input-module-6p3`): schematic *(done, ERC clean)*, then PCB
-4. **Channel card** (`hardware/channel-card`): schematic sheet by sheet *(in progress)*, then PCB
+4. **Channel card** (`hardware/channel-card`): schematic *(done)*, then PCB
    - Input: header, AD8273 receiver, trim with soft clip, 100 Hz low-cut, DG413 switching *(done, ERC clean apart from sheet links)*
    - Filter: 2x SSI2144, LM13700 Q VCA (resonance compensation), cutoff summer and CV, drive and compensation jumpers, DG413 bypass *(done, ERC clean apart from sheet links; output scale and Q limit provisional until the breadboard)*
    - Level: SSI2162 VCA, 3-segment fader law, DG413 mute and DUCK *(done, ERC clean apart from sheet links)*
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
-   - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND
+   - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
 5. **Master/compressor card**: schematic, then PCB
 5. **Power input section** (DC brick input, DC-DC to ±20 V, protection; on the master card or a small card beside it)
 6. **Prototype build and measurement** against the targets in SPEC.md section 5

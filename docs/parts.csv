@@ -83,3 +83,13 @@ SX-R-044,Resistor 1.5 kOhm 1% 0805,,,,,Meter LED (about 2 mA from +5 V)
 SX-D-004,LED 3 mm green low current,,,,,Meter segments -30 to 0; part to choose
 SX-D-005,LED 3 mm yellow low current,,,,,Meter segments +3 and +6; part to choose
 SX-D-006,LED 3 mm red low current,,,,,Meter clip segment; part to choose
+SX-CONN-007,IDC box header 2x17 2.54 mm vertical shrouded keyed,,,,,Audio ribbon (docs/CHAIN.md); part to choose
+SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,,,,,Power ribbon (docs/CHAIN.md); check per-pin current rating
+SX-IC-010,Adjustable positive regulator TO-220,Texas Instruments,LM317,,,Pinout 1 ADJ 2 OUT(tab) 3 IN from TI SLVS044Z; orderable MPN to verify
+SX-IC-011,Adjustable negative regulator TO-220,Texas Instruments,LM337,,,Pinout 1 ADJ 2 IN(tab) 3 OUT from TI SLVS047L; orderable MPN to verify
+SX-IC-012,5 V 100 mA regulator SOT-89,STMicroelectronics,L78L05ACUTR,,,Pinout 1 OUT 2 GND 3 IN (KiCad library); MPN to verify
+SX-R-045,Resistor 120 Ohm 1% 0805,,,,,Regulator divider
+SX-R-046,Resistor 1.33 kOhm 1% 0805,,,,,Regulator divider (15.2 V)
+SX-C-011,Capacitor 47 uF 35 V electrolytic radial 6.3 mm,,,,,Regulator input
+SX-C-012,Capacitor 10 uF 25 V electrolytic radial 5 mm,,,,,Regulator ADJ and output
+SX-D-007,Schottky diode 1 A 40 V SMA,,,,,SS14 class; rail clamp to AGND
