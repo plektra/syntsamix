@@ -10,7 +10,7 @@
    - Filter: 2x SSI2144, LM13700 Q VCA (resonance compensation), cutoff summer and CV, drive and compensation jumpers, DG413 bypass *(done, ERC clean apart from sheet links; output scale and Q limit provisional until the breadboard)*
    - Level: SSI2162 VCA, 3-segment fader law, DG413 mute and DUCK *(done, ERC clean apart from sheet links)*
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
-   - Meter: 8-segment peak meter
+   - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply
 5. **Master/compressor card**: schematic, then PCB
 5. **Power input section** (DC brick input, DC-DC to ±20 V, protection; on the master card or a small card beside it)

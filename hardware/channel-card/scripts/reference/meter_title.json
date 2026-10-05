@@ -1,0 +1,5 @@
+{"title":"Channel card: meter","date":"2026-10-06","rev":"0.1","dnp":[],
+ "comments":["8-segment peak meter, louder of L/R, pre-fader (decision 43); thresholds re +4 dBu peak",
+ "-30 -20 -10 -5 0 +3 +6 dB and CLIP at +10 dB (+14 dBu, soft-clip onset)",
+ "Attack 1 ms (1k into C401), fall 20 dB in about 1.5 s (R409 680k)",
+ "LEDs from +5 V into LM339 outputs; LM339 ground is PGND"]}

@@ -69,3 +69,17 @@ SX-R-033,Resistor 22.1 kOhm 1% 0805,,,,,Bus resistor
 SX-R-034,Resistor 44.2 kOhm 1% 0805,,,,,SC send (L+R)/2
 SX-POT-005,Dual pot 10 kOhm audio (A) 9 mm vertical,Alpha,,,,AUX level; footprint Alpha RD902F-40-00D; MPN to verify
 SX-CONN-006,Pin header 2x3 2.54 mm vertical,,,,,AUX pre/post jumper
+SX-IC-009,Quad comparator SOIC-14,Texas Instruments,,Mouser,,LM339 (SOIC-14); pinout from TI SLCS006Z (pin pairs 2/4-5, 1/6-7, 14/8-9, 13/10-11); MPN to verify
+SX-R-035,Resistor 1 kOhm 1% 0805,,,,,
+SX-R-036,Resistor 680 kOhm 1% 0805,,,,,Meter decay
+SX-R-037,Resistor 19.1 kOhm 1% 0805,,,,,Meter ladder
+SX-R-038,Resistor 4.02 kOhm 1% 0805,,,,,Meter ladder
+SX-R-039,Resistor 1.43 kOhm 1% 0805,,,,,Meter ladder
+SX-R-040,Resistor 1.54 kOhm 1% 0805,,,,,Meter ladder
+SX-R-041,Resistor 845 Ohm 1% 0805,,,,,Meter ladder
+SX-R-042,Resistor 750 Ohm 1% 0805,,,,,Meter ladder
+SX-R-043,Resistor 237 Ohm 1% 0805,,,,,Meter ladder
+SX-R-044,Resistor 1.5 kOhm 1% 0805,,,,,Meter LED (about 2 mA from +5 V)
+SX-D-004,LED 3 mm green low current,,,,,Meter segments -30 to 0; part to choose
+SX-D-005,LED 3 mm yellow low current,,,,,Meter segments +3 and +6; part to choose
+SX-D-006,LED 3 mm red low current,,,,,Meter clip segment; part to choose

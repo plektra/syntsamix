@@ -9,6 +9,12 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	(sheet
 		(at 127 38.1)
 		(size 30.48 20.32)
@@ -271,7 +277,7 @@
 			)
 		)
 		(property "Sheetfile" "routing.kicad_sch"
-			(at 177.8 59.0046 0)
+			(at 177.8 76.7846 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -281,188 +287,250 @@
 		)
 		(pin "L_POSTFADE" input
 			(at 177.8 40.64 180)
+			(uuid "a1da9423-f826-444d-bebc-428e61facc62")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "a1da9423-f826-444d-bebc-428e61facc62")
 		)
 		(pin "L_POSTFILT" input
 			(at 177.8 43.18 180)
+			(uuid "fccd8d49-21a7-43a9-81c5-14d996c3446a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "fccd8d49-21a7-43a9-81c5-14d996c3446a")
 		)
 		(pin "R_POSTFADE" input
 			(at 177.8 45.72 180)
+			(uuid "f764abd1-8372-41c4-a95e-4b37623adf97")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "f764abd1-8372-41c4-a95e-4b37623adf97")
 		)
 		(pin "R_POSTFILT" input
 			(at 177.8 48.26 180)
+			(uuid "9f44d5a9-168f-4e9c-ab2f-310a676dfbf1")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "9f44d5a9-168f-4e9c-ab2f-310a676dfbf1")
 		)
 		(pin "AUX1_L" output
-			(at 208.28 40.64 0)
+			(at 208.28 40.64 0.0000)
+			(uuid "71ca1ef5-ae9b-4b09-b84a-22ee0e199244")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "71ca1ef5-ae9b-4b09-b84a-22ee0e199244")
 		)
 		(pin "AUX1_R" output
-			(at 208.28 43.18 0)
+			(at 208.28 43.18 0.0000)
+			(uuid "51aa0a2c-9f56-4a70-aa80-6cac5cc45fe3")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "51aa0a2c-9f56-4a70-aa80-6cac5cc45fe3")
 		)
 		(pin "AUX2_L" output
-			(at 208.28 45.72 0)
+			(at 208.28 45.72 0.0000)
+			(uuid "50394ee6-a637-40b1-b6ef-1a3c085fbfa0")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "50394ee6-a637-40b1-b6ef-1a3c085fbfa0")
 		)
 		(pin "AUX2_R" output
-			(at 208.28 48.26 0)
+			(at 208.28 48.26 0.0000)
+			(uuid "0f103c5a-8eec-4985-9e95-54dbea66cc7b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "0f103c5a-8eec-4985-9e95-54dbea66cc7b")
 		)
 		(pin "COMP_L" output
-			(at 208.28 50.8 0)
+			(at 208.28 50.8 0.0000)
+			(uuid "212c01a0-874d-4577-9341-5742c01315ab")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "212c01a0-874d-4577-9341-5742c01315ab")
 		)
 		(pin "COMP_R" output
-			(at 208.28 53.34 0)
+			(at 208.28 53.34 0.0000)
+			(uuid "8891d8e4-9a1d-4056-8e31-c01e06175f6b")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "8891d8e4-9a1d-4056-8e31-c01e06175f6b")
 		)
 		(pin "CUE_L" output
-			(at 208.28 55.88 0)
+			(at 208.28 55.88 0.0000)
+			(uuid "ff54b38c-f5d3-4100-8a06-bf5f628d6855")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "ff54b38c-f5d3-4100-8a06-bf5f628d6855")
 		)
 		(pin "CUE_R" output
-			(at 208.28 58.42 0)
+			(at 208.28 58.42 0.0000)
+			(uuid "9590e403-012b-4102-b05b-59a658c427bd")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "9590e403-012b-4102-b05b-59a658c427bd")
 		)
 		(pin "L_PRE" output
-			(at 208.28 60.96 0)
+			(at 208.28 60.96 0.0000)
+			(uuid "4dd02547-40e7-45d1-be16-db4bed224bc9")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "4dd02547-40e7-45d1-be16-db4bed224bc9")
 		)
 		(pin "MAIN_L" output
-			(at 208.28 63.5 0)
+			(at 208.28 63.5 0.0000)
+			(uuid "48fe7e88-2744-46e0-abe9-0657b35a10cb")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "48fe7e88-2744-46e0-abe9-0657b35a10cb")
 		)
 		(pin "MAIN_R" output
-			(at 208.28 66.04 0)
+			(at 208.28 66.04 0.0000)
+			(uuid "df8d14ff-f0f1-45b3-b5fd-5c9478d531fc")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "df8d14ff-f0f1-45b3-b5fd-5c9478d531fc")
 		)
 		(pin "PFL_ACT" output
-			(at 208.28 68.58 0)
+			(at 208.28 68.58 0.0000)
+			(uuid "e4e0aa0a-65b3-465e-b93a-378d48f85ea2")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "e4e0aa0a-65b3-465e-b93a-378d48f85ea2")
 		)
 		(pin "R_PRE" output
-			(at 208.28 71.12 0)
+			(at 208.28 71.12 0.0000)
+			(uuid "ba8e51dc-6a89-4e3e-b28c-445d0cd936e2")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "ba8e51dc-6a89-4e3e-b28c-445d0cd936e2")
 		)
 		(pin "SC" output
-			(at 208.28 73.66 0)
+			(at 208.28 73.66 0.0000)
+			(uuid "4709aa5d-e51e-408b-813d-cee97b619506")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "4709aa5d-e51e-408b-813d-cee97b619506")
 		)
 		(instances
 			(project "channel-card"
 				(path "/44b8098e-8b91-4d90-8e36-746977844050"
 					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 177.8 106.68)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "9c8a50d2-f5c7-45a8-b8ca-9b8f8919144a")
+		(property "Sheetname" "Meter"
+			(at 177.8 105.9684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "meter.kicad_sch"
+			(at 177.8 127.5846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "L_PRE" input
+			(at 177.8 109.22 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "5afc6595-b9c8-4691-bd2a-4e525c3c3f32")
+		)
+		(pin "R_PRE" input
+			(at 177.8 111.76 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "e91cbfcc-3f07-4b2d-8f2f-1e6221de4c3c")
+		)
+		(instances
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050"
+					(page "6")
 				)
 			)
 		)
@@ -487,26 +555,34 @@
 		(stroke (width 0) (type solid))
 		(uuid "fee9b6b8-8b3e-43c3-a5c6-7c42d1ee52d1")
 	)
-	(label "L_POSTFILT" (at 127 40.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-651b-4d22-b5f8-665e0ff480d2"))
-	(label "R_POSTFILT" (at 127 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-62ff-409e-8b66-fa931534c4b7"))
-	(wire (pts (xy 157.48 40.64) (xy 162.56 40.64)) (stroke (width 0) (type default)) (uuid "c0ffee00-f387-4d83-9982-1a27f3720b5a"))
-	(label "L_POSTFADE" (at 162.56 40.64 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-03f5-4270-9da2-cc1b5b18bdaf"))
-	(wire (pts (xy 157.48 43.18) (xy 162.56 43.18)) (stroke (width 0) (type default)) (uuid "c0ffee00-b619-4824-bcf8-d9f3f0ccafc4"))
-	(label "R_POSTFADE" (at 162.56 43.18 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-08d5-42e7-8b11-a325a6039a77"))
-	(label "L_PREFILT" (at 76.2 40.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-4336-4c2f-bed1-76908b1ea7c7"))
-	(label "R_PREFILT" (at 76.2 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-f6f2-4afd-9696-e7dde3b68aac"))
-	(label "L_POSTFILT" (at 106.68 40.64 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-7f88-4a7b-89ba-65f0200e8be4"))
-	(label "R_POSTFILT" (at 106.68 43.18 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-356f-41e8-8c33-2a913ed6aa7a"))
-	(label "L_PREFILT" (at 55.88 40.64 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-063e-45fd-bafa-cbc03cc94e9f"))
-	(label "R_PREFILT" (at 55.88 43.18 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-a052-4dcd-948b-c4809c423330"))
-	(wire (pts (xy 177.8 40.64) (xy 172.72 40.64)) (stroke (width 0) (type default)) (uuid "c0ffee00-9b1a-4ed8-8fb6-2889e53d7c06"))
-	(label "L_POSTFADE" (at 172.72 40.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-5f43-4a6c-9425-2d795dcdc69b"))
-	(wire (pts (xy 177.8 43.18) (xy 172.72 43.18)) (stroke (width 0) (type default)) (uuid "c0ffee00-6aeb-4ecc-9c1e-a00c27affb22"))
-	(label "L_POSTFILT" (at 172.72 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-081e-4f4b-bccd-9c23a7199aea"))
-	(wire (pts (xy 177.8 45.72) (xy 172.72 45.72)) (stroke (width 0) (type default)) (uuid "c0ffee00-bd9e-4095-a58b-cf203bae5584"))
-	(label "R_POSTFADE" (at 172.72 45.72 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-24b0-48df-8637-3f8034398af9"))
-	(wire (pts (xy 177.8 48.26) (xy 172.72 48.26)) (stroke (width 0) (type default)) (uuid "c0ffee00-4cbe-4c84-947b-21c834300a09"))
-	(label "R_POSTFILT" (at 172.72 48.26 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-1d5f-4b35-91b3-4482568fe0c8"))
+	(label "L_POSTFILT" (at 127 40.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-2e81-4d63-8193-173dedd53f7a"))
+	(label "R_POSTFILT" (at 127 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-2c78-40db-9cf1-37412e8e53ef"))
+	(wire (pts (xy 157.48 40.64) (xy 162.56 40.64)) (stroke (width 0) (type default)) (uuid "c0ffee00-9d2f-4a2b-88f1-07d5d0f93bc4"))
+	(label "L_POSTFADE" (at 162.56 40.64 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-4cc4-437f-a840-f46b5cdd5ced"))
+	(wire (pts (xy 157.48 43.18) (xy 162.56 43.18)) (stroke (width 0) (type default)) (uuid "c0ffee00-5602-449e-b5f4-4c8208dae856"))
+	(label "R_POSTFADE" (at 162.56 43.18 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-d12f-4927-bc13-07d5fc33bc66"))
+	(label "L_PREFILT" (at 76.2 40.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-21f6-4b1e-8262-1b95ebf93265"))
+	(label "R_PREFILT" (at 76.2 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-1db5-44d0-b7f0-d35cfdad7108"))
+	(label "L_POSTFILT" (at 106.68 40.64 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-304d-412b-afcc-ea18167a7c9a"))
+	(label "R_POSTFILT" (at 106.68 43.18 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-2135-49e2-9e1e-95fb7de7330c"))
+	(label "L_PREFILT" (at 55.88 40.64 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-53ba-47d6-bab6-c01e3dedf7c6"))
+	(label "R_PREFILT" (at 55.88 43.18 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-8df1-4633-a3a3-11f2d1d05002"))
+	(wire (pts (xy 177.8 40.64) (xy 172.72 40.64)) (stroke (width 0) (type default)) (uuid "c0ffee00-7724-456a-a86c-3a1fa465581e"))
+	(label "L_POSTFADE" (at 172.72 40.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-3c62-4758-a07a-e8144cc9ef9b"))
+	(wire (pts (xy 177.8 43.18) (xy 172.72 43.18)) (stroke (width 0) (type default)) (uuid "c0ffee00-26c7-4f91-8662-7f53ca3dd89a"))
+	(label "L_POSTFILT" (at 172.72 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-98b3-4c3a-bb48-24a10de7e17e"))
+	(wire (pts (xy 177.8 45.72) (xy 172.72 45.72)) (stroke (width 0) (type default)) (uuid "c0ffee00-f267-4389-8184-7168012a3dcf"))
+	(label "R_POSTFADE" (at 172.72 45.72 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-0768-41ef-973f-ac0dcda53817"))
+	(wire (pts (xy 177.8 48.26) (xy 172.72 48.26)) (stroke (width 0) (type default)) (uuid "c0ffee00-93f8-4b7f-aaf0-d62d065bb4cd"))
+	(label "R_POSTFILT" (at 172.72 48.26 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-fb07-4590-bfcd-6c8a6d59c182"))
+	(wire (pts (xy 208.28 60.96) (xy 213.36 60.96)) (stroke (width 0) (type default)) (uuid "c0ffee00-cfd3-499a-86ce-69e05e4745c1"))
+	(label "L_PRE" (at 213.36 60.96 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-ee57-4c90-bd37-b354cbe7e43c"))
+	(wire (pts (xy 208.28 71.12) (xy 213.36 71.12)) (stroke (width 0) (type default)) (uuid "c0ffee00-d289-4bd5-bdce-c4d123ad6478"))
+	(label "R_PRE" (at 213.36 71.12 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-1a2a-4832-94ed-878f3921f1d3"))
+	(wire (pts (xy 177.8 109.22) (xy 172.72 109.22)) (stroke (width 0) (type default)) (uuid "c0ffee00-2afb-40f8-8b8a-adfdfc28b10d"))
+	(label "L_PRE" (at 172.72 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-6061-473d-af0b-ab7e03705c51"))
+	(wire (pts (xy 177.8 111.76) (xy 172.72 111.76)) (stroke (width 0) (type default)) (uuid "c0ffee00-1007-4692-bbe1-62d98d4c7d8b"))
+	(label "R_PRE" (at 172.72 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-089b-4818-a4d5-257ea06bfd85"))
 	(sheet_instances
 		(path "/"
 			(page "1")
