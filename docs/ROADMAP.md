@@ -26,6 +26,7 @@
 - Momentary buttons with flip-flop logic and LEDs instead of latching switches, enabling CV/MIDI control and mute groups over the spare chain lines
 - Insert points on the channel strips
 - Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources
+- Expansion to 32 channels: power injector board every 16 cards (the 8-pin power ribbon carries only about 16 cards' current), mixing amps sized for 32 inputs (about 3 dB more bus noise), two frames of 16 strips linked by a longer ribbon. Channel cards and pinouts stay unchanged
 - Mixer variant with external channel strips, for bands or groups of performers who each connect and control their own instrument submix
 
 ## KiCad workflow
