@@ -4,8 +4,8 @@
 
 Pre-fader buffers, two stereo AUX sends (dual-gang pot, pre/post jumper),
 main/compressor bus assign (DG413), PFL and sidechain send (DG412), the
-open-collector PFL_ACT driver and the three buttons. Bus resistors 22.1 kΩ
-(unity gain into a 22.1 kΩ virtual-earth amplifier on the master card); the
+open-collector PFL_ACT driver and the three buttons. Bus resistors 22 kΩ
+(unity gain into a 22 kΩ virtual-earth amplifier on the master card); the
 sidechain send sums L and R through 44.2 kΩ each, so the SC bus carries (L+R)/2.
 Temporary references U9<ref><unit> mark extra units of multi-unit symbols.
 """

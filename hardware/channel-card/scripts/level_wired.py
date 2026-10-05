@@ -52,7 +52,7 @@ def audio(Pn,o,y,iin,iout,iv,inv,rc_up):
     # input stability network 110R + 2n2 (up for L, down for R)
     sgn=-1 if rc_up else 1
     rot=0
-    rn=R(rr(202),"110","SX-R-022",node[0],y+sgn*11.43,rot)
+    rn=R(rr(202),"100","SX-R-001",node[0],y+sgn*11.43,rot)
     cn=C(c(202),"2n2 C0G","SX-C-009",node[0],y+sgn*26.67,rot)
     if rc_up:
         s.wire(node,rn(2)); s.wire(rn(1),cn(2)); gnd(cn(1),180)

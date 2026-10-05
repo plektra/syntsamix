@@ -47,7 +47,7 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     C(c(105),"560p C0G","SX-C-007",f"{P}_C4A",f"{P}_C4B",222,y(110))
     R(r(107),"13k","SX-R-011",f"{P}_QP","AGND",155,y(135))
     R(r(108),"1k +3300ppm","SX-R-021",f"{P}_FC","AGND",165,y(145),"Resistor_SMD:R_0603_1608Metric",{"Manufacturer":"Panasonic","MPN":"ERA-V33J102V","Note":"Temperature-compensating; place against the SSI2144"})
-    R(r(109),"499k","SX-R-020",f"{P}_FC",f"{P}_OFS",145,y(145))
+    R(r(109),"470k","SX-R-048",f"{P}_FC",f"{P}_OFS",145,y(145))
     rv=f"RV{101+o}"
     S("Device","R_Potentiometer_Trim",rv,"50k (CUTOFF OFFSET)",125,y(145),"Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical","SX-TRIM-001",props={"Manufacturer":"Bourns","MPN":"3296W-1-503LF"})
     N("+15V",rv+".1"); N(f"{P}_OFS",rv+".2"); N("-15V",rv+".3")

@@ -93,3 +93,6 @@ SX-R-046,Resistor 1.33 kOhm 1% 0805,,,,,Regulator divider (15.2 V)
 SX-C-011,Capacitor 47 uF 35 V electrolytic radial 6.3 mm,,,,,Regulator input
 SX-C-012,Capacitor 10 uF 25 V electrolytic radial 5 mm,,,,,Regulator ADJ and output
 SX-D-007,Schottky diode 1 A 40 V SMA,,,,,SS14 class; rail clamp to AGND
+SX-R-047,Resistor 22 kOhm 1% 0805,,0805W8F2202T5E,,C17560,Bus resistor; JLC basic (decision 79)
+SX-R-048,Resistor 470 kOhm 1% 0805,,0805W8F4703T5E,,C17709,Cutoff offset injection; JLC basic (decision 79)
+SX-R-049,Resistor 2.2 kOhm 1% 0805,,0805W8F2201T5E,,C17520,Regulator divider with 200 Ohm (15.1 V); JLC basic (decision 79)

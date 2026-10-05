@@ -1,5 +1,5 @@
 {"title":"Channel card: chain and power","date":"2026-10-06","rev":"0.1","dnp":[],
  "comments":["Audio 34-pin and power 8-pin ribbons, IN and OUT wired straight through (docs/CHAIN.md)",
- "LM317/LM337 to +/-15.2 V (120R/1k33, 10uF ADJ), 78L05 +5 V for logic and LEDs",
+ "LM317/LM337 to +/-15.1 V (200R/2k2, 10uF ADJ), 78L05 +5 V for logic and LEDs",
  "Input caps to PGND; dividers, output caps and SS14 rail clamps to AGND",
  "Estimated load about 130 mA per rail: about 0.7 W in each TO-220 regulator"]}

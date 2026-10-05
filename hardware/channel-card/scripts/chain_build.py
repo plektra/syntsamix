@@ -3,8 +3,8 @@
 """Chain and power sheet reference netlist (build/chain.json), written independently of the drawing.
 
 Audio ribbon 34-pin and power ribbon 8-pin, each as an IN/OUT pair wired straight
-through (docs/CHAIN.md). LM317/LM337 make ±15.2 V from the raw ±20 V rails
-(120 Ω / 1.33 kΩ, 10 µF on ADJ, protection diodes per the TI datasheets), a 78L05
+through (docs/CHAIN.md). LM317/LM337 make ±15.1 V from the raw ±20 V rails
+(200 Ω / 2.2 kΩ, 10 µF on ADJ, protection diodes per the TI datasheets), a 78L05
 makes +5 V for logic and LEDs. Input capacitors return to PGND; dividers, output
 capacitors and the rail clamp Schottkys return to AGND (grounding rules in CHAIN.md).
 """

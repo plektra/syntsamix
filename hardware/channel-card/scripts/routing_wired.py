@@ -25,7 +25,7 @@ def rt(p,d=2.54): return (p[0]+d,p[1])
 def lab(p,name,rot): s.label(name,p,rot)
 def hier(p,name,rot,shape): s.label(name,p,rot,"hierarchical",shape)
 NOCONNECT=[]
-BUS="22k1"
+BUS="22k"
 
 # ------------------------------------------------------------- pre-fader buffers
 for Pn,ref,unit,pins,y in (("L","U301",1,(3,2,1),50.8),("R","U93012",2,(5,6,7),76.2)):
@@ -44,7 +44,7 @@ def switch(lib,ref,unit,x,y,pn,left,right,ctrl,ctrl_net):
 for Pn,rref,y,main,comp in (("L","R301",50.8,("U93024",4,15,14,16),("U302",1,2,3,1)),
                             ("R","R302",101.6,("U93023",3,10,11,9),("U93022",2,6,7,8))):
     hier((101.6,y),f"{Pn}_POSTFADE",180,"input")
-    r=R(rref,BUS,"SX-R-033",114.3,y); s.wire((101.6,y),r(1))
+    r=R(rref,BUS,"SX-R-047",114.3,y); s.wire((101.6,y),r(1))
     node=(124.46,y); s.wire(r(2),node)
     for (ref,unit,pl,pr,pc),yy,bus in ((main,y,f"MAIN_{Pn}"),(comp,y+20.32,f"COMP_{Pn}")):
         l,rr=switch("DG413xY",ref,unit,137.16,yy,"SX-IC-005",pl,pr,pc,"COMP_CTRL")
@@ -55,7 +55,7 @@ for Pn,rref,y,main,comp in (("L","R301",50.8,("U93024",4,15,14,16),("U302",1,2,3
 def tap(name,ref,val,pn,y):
     lab((101.6,y),name,180); r=R(ref,val,pn,114.3,y); s.wire((101.6,y),r(1)); return r(2)
 for Pn,rref,y,(ref,unit,pl,pr,pc) in (("L","R303",147.32,("U303",1,2,3,1)),("R","R304",167.64,("U93034",4,15,14,16))):
-    e=tap(f"{Pn}_PRE",rref,BUS,"SX-R-033",y)
+    e=tap(f"{Pn}_PRE",rref,BUS,"SX-R-047",y)
     l,rr=switch("DG412xY",ref,unit,137.16,y,"SX-IC-008",pl,pr,pc,"PFL_CTRL")
     s.wire(e,l); s.wire(rr,(154.94,y)); hier((154.94,y),f"CUE_{Pn}",0,"output")
 e1=tap("L_PRE","R305","44k2","SX-R-034",193.04); e2=tap("R_PRE","R306","44k2","SX-R-034",203.2)
@@ -88,7 +88,7 @@ for n,j,rv,rl,rr,YA in ((1,"J301","RV301","R307","R308",50.8),(2,"J302","RV302",
     s.wire(p(3),dn(p(3),5.08)); lab(dn(p(3),5.08),f"L_AUX{n}_SRC",270)
     s.wire(p(6),rt(p(6),5.08)); lab(rt(p(6),5.08),f"R_AUX{n}_SRC",0)
     for wpin,ref,bus in ((2,rl,f"AUX{n}_L"),(5,rr,f"AUX{n}_R")):
-        w=p(wpin); r=R(ref,BUS,"SX-R-033",w[0],w[1]-10.16,0); s.wire(w,r(2))
+        w=p(wpin); r=R(ref,BUS,"SX-R-047",w[0],w[1]-10.16,0); s.wire(w,r(2))
         s.wire(r(1),up(r(1),2.54)); hier(up(r(1),2.54),bus,90,"output")
 
 # ------------------------------------------------------------- buttons

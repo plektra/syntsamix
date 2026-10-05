@@ -25,7 +25,7 @@ def side(P,o,y,iv,inv):
     C(c(201),"10u bipolar","SX-C-003",f"{P}_POSTFILT",f"{P}_VIN",40,y,CBIP)
     R(r(201),"10k","SX-R-002",f"{P}_VIN",f"{P}_IIN",65,y)
     a,b=(f"{P}_RC",f"{P}_IIN") if P=="L" else (f"{P}_IIN",f"{P}_RC")   # pin order matches the wired drawing
-    R(r(202),"110","SX-R-022",a,b,90,y+20)
+    R(r(202),"100","SX-R-001",a,b,90,y+20)
     C(c(202),"2n2 C0G","SX-C-009",*(("AGND",f"{P}_RC") if P=="L" else (f"{P}_RC","AGND")),115,y+20)
     OA("NE5532",iv[0],iv[1],185,y,((f"{P}_IOUT",iv[2][0]),("AGND",iv[2][1]),(f"{P}_VO",iv[2][2])),"SX-IC-004")
     R(r(203),"10k","SX-R-002",f"{P}_IOUT",f"{P}_VO",175,y-25)

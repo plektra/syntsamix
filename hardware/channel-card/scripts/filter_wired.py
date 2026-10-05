@@ -78,7 +78,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     s.wire(fq,n1); s.wire(n1,n2)
     r8=R(rr(108),"1k +3300ppm","SX-R-021",n1[0],fq[1]+3.81,0,fp="Resistor_SMD:R_0603_1608Metric",Manufacturer="Panasonic",MPN="ERA-V33J102V",Note="Temperature-compensating; place against the SSI2144")
     s.wire(n1,r8(1)); gnd(r8(2))
-    r9=R(rr(109),"499k","SX-R-020",n2[0],fq[1]+3.81,0); s.wire(n2,r9(1))
+    r9=R(rr(109),"470k","SX-R-048",n2[0],fq[1]+3.81,0); s.wire(n2,r9(1))
     tv=s.place("Device","R_Potentiometer_Trim",f"RV{101+o}","50k CUTOFF OFFSET",144.78,fq[1]+11.43,0,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF"))
     s.wire(r9(2),(n2[0],tv(2)[1]),tv(2))
     s.wire(tv(1),up(tv(1),2.54)); s.power("+15V",up(tv(1),2.54))
