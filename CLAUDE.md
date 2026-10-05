@@ -57,9 +57,9 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status and next steps
 
-Status: spec v0.7 complete (decisions 1-73). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input, Filter and Level sheets done (ERC clean apart from sheet links that wait for the Routing and Chain sheets). Filter output scale and Q current limit are provisional until the breadboard.
+Status: spec v0.7 complete (decisions 1-74). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input, Filter, Level and Routing sheets done and drawn with real wires (ERC clean apart from sheet links that wait for the Meter and Chain sheets). Filter output scale and Q current limit are provisional until the breadboard.
 
 Next:
-1. Remaining channel card sheets: Routing, Meter, Chain and power (see `docs/ROADMAP.md`)
+1. Remaining channel card sheets: Meter, Chain and power (see `docs/ROADMAP.md`)
 2. Breadboard the SSI2144 when parts arrive (including the LM13700 Q VCA test); update filter values from the measurements
 4. Master/compressor card, then the power input section

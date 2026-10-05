@@ -63,3 +63,9 @@ SX-C-009,Capacitor 2.2 nF C0G 5% 50 V 0805,,,,,SSI2162 input RC
 SX-C-010,Capacitor 1 uF X7R 50 V 0805,,,,,
 SX-R-031,Resistor 24 kOhm 1% 0805,,,,,Low-cut 100 Hz
 SX-R-032,Resistor 47 kOhm 1% 0805,,,,,Low-cut 100 Hz
+SX-IC-008,Quad SPST analog switch 4x NO SOIC-16,Vishay,,Mouser,,DG412DY; truth table and pinout from Vishay doc 61564 Rev B; MPN suffix to verify
+SX-Q-001,NPN transistor SOT-23,onsemi,MMBT3904LT1G,Mouser,,PFL_ACT open-collector driver; pinout B-E-C (1-2-3)
+SX-R-033,Resistor 22.1 kOhm 1% 0805,,,,,Bus resistor
+SX-R-034,Resistor 44.2 kOhm 1% 0805,,,,,SC send (L+R)/2
+SX-POT-005,Dual pot 10 kOhm audio (A) 9 mm vertical,Alpha,,,,AUX level; footprint Alpha RD902F-40-00D; MPN to verify
+SX-CONN-006,Pin header 2x3 2.54 mm vertical,,,,,AUX pre/post jumper

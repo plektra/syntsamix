@@ -1,0 +1,5 @@
+{"title":"Channel card: routing","date":"2026-10-06","rev":"0.1","dnp":[],"left_fields":["R307","R309"],
+ "comments":["Pre-fader buffers U301 feed PFL, SC send, meter and AUX pre option",
+ "Bus resistors 22k1 into 22k1 virtual-earth amps on the master card (unity); SC = (L+R)/2",
+ "AUX pre/post: J301/J302, default POST; COMP BUS button pressed = compressor bus",
+ "PFL_ACT: open collector to AGND, pulled up on the master card"]}
