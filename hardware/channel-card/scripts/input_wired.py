@@ -125,12 +125,12 @@ s.wire(rv("6"),rt(rv("6"),5.08)); s.label("R_TRIM",rt(rv("6"),5.08),0)
 b=place("SW1",127.0,254.0)
 s.wire(b("2"),lt(b("2"),5.08)); s.power("+5V",lt(b("2"),5.08))
 s.wire(b("5"),lt(b("5"),5.08)); s.power("GNDPWR",lt(b("5"),5.08))
-nd=rt(b("1"),5.08); s.wire(b("1"),nd)
+nd=rt(b("3"),5.08); s.wire(b("3"),nd)
 rpd=place("R17",nd[0]+7.62,nd[1],90); s.wire(nd,rpd(1)); s.wire(rpd(2),rt(rpd(2),2.54)); gnd(rt(rpd(2),2.54))
 s.wire(nd,up(nd,5.08)); s.label("LC_CTRL",up(nd,5.08),90)
-ld=place("D5",b("4")[0]+22.86,b("4")[1],0); s.wire(b("4"),ld("1"))
-rl=place("R18",ld("2")[0]+8.89,b("4")[1],270); s.wire(ld("2"),rl("2")); s.wire(rl("1"),rt(rl("1"),3.81)); s.power("+15V",rt(rl("1"),3.81),270)
-NOCONNECT+=[b("3"),b("6")]
+ld=place("D5",b("6")[0]+22.86,b("6")[1],0); s.wire(b("6"),ld("1"))
+rl=place("R18",ld("2")[0]+8.89,b("6")[1],270); s.wire(ld("2"),rl("2")); s.wire(rl("1"),rt(rl("1"),3.81)); s.power("+15V",rt(rl("1"),3.81),270)
+NOCONNECT+=[b("1"),b("4")]
 
 # ------------------------------------------------------------- supplies, decoupling, power flags
 x=200.66; Y2=254.0

@@ -48,3 +48,4 @@ Order 2,10,1N4148,Small-signal diode DO-35,,Electrokit,Q pot bias diodes (D1 and
 Order 2,3,6.8 nF,Same film capacitor as the first order (41015666),,Electrokit,Second core for test 8 (L/R tracking) needs 3 more; first order had 4
 Order 2,1,Breadboard,840 tie-point solderless breadboard (same as first order),,Electrokit,Room for the second core (test 8) and the LM13700 Q VCA (test 9)
 Order 2,2,TL072,Dual JFET op amp DIP-8,,Electrokit,Test 10 fader law (Level sheet control circuit)
+Order 2,10,Latching push switch,CW Industries GPBS850N DPDT 8.5x8.5 mm,,Electrokit,"Button switch for the channel cards (decision 75): test fit and feel, and print translucent cap prototypes"

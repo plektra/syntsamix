@@ -22,8 +22,8 @@ SX-C-004,Capacitor 22 pF C0G 50 V 0805,,,,,
 SX-C-005,Capacitor 47 nF film 5% 5 mm pitch,,,,,
 SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,Alpha,,,,Footprint Alpha RD902F-40-00D; MPN to verify
 SX-D-001,Zener diode 6.2 V SOD-123,,,,,For example BZT52C6V2; to verify
-SX-D-002,LED 3 mm low current,,,,,Colour per button function; to choose
-SX-SW-001,Latching push button DPDT,,,,,Part and footprint to choose; check which throw is active when pressed
+SX-D-002,LED 0805 low current,,,,,Under a 3D-printed translucent button cap (decision 75); colour per button function; part to choose
+SX-SW-001,Latching push button DPDT 8.5x8.5 mm PCB,CW Industries,GPBS850N,Electrokit,41012905,Datasheet Rev 1 (2012): pressed = 2-3 and 5-6 closed; 100k mechanical cycles; footprint syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N
 SX-IC-006,Dual OTA with linearizing diodes and buffers SOIC-16,Texas Instruments,,Mouser,,LM13700 (SOIC-16); pinout verified from TI SNOSBW2F; orderable MPN to verify. Q VCA per SSI2144 datasheet Figure 9
 SX-R-009,Resistor 17.4 kOhm 1% 0805,,,,,
 SX-R-010,Resistor 200 Ohm 1% 0805,,,,,

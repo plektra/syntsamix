@@ -109,7 +109,7 @@ S("Device","D","D181","1N4148W",200,Y+25,"Diode_SMD:D_SOD-123","SX-D-003"); N("Q
 S("Device","D","D182","1N4148W",228,Y+25,"Diode_SMD:D_SOD-123","SX-D-003"); N("-15V","D182.1"); N("QMID","D182.2")
 # bypass button
 S("Switch","SW_Push_DPDT","SW181","FILTER BYPASS (latching)",260,Y+25,"","SX-SW-001")
-N("BYP","SW181.1"); N("+5V","SW181.2"); N("BYP_LEDK","SW181.4"); N("PGND","SW181.5")
+N("BYP","SW181.3"); N("+5V","SW181.2"); N("BYP_LEDK","SW181.6"); N("PGND","SW181.5")
 S("Device","LED","D183","BYPASS LED",290,Y+25,"LED_THT:LED_D3.0mm","SX-D-002"); N("BYP_LEDK","D183.1"); N("BYP_LED","D183.2")
 R("R185","12k","SX-R-008","+15V","BYP_LED",305,Y+25)
 R("R186","100k","SX-R-007","AGND","BYP",245,Y+40)

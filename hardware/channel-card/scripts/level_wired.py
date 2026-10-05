@@ -151,19 +151,19 @@ for ref,unit,y in (("U92063",3,264.16),("U92064",4,289.56)):
 
 # ------------------------------------------------------------- buttons
 def button(name,sw,led,rl,rp,x,y):
-    b=s.place("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,0,props=P("SX-SW-001"))
+    b=s.place("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
     if sw=="SW201": s.wire(lt(b(5),5.08),lt(b(5),10.16)); s.power("PWR_FLAG",lt(b(5),10.16))
-    nd=(b(1)[0]+10.16,b(1)[1]); s.wire(b(1),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
+    nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
     rpd=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,rpd(2)); gnd(rpd(1),180)
-    ld=s.place("Device","LED",led,f"{name} LED",b(4)[0]+22.86,b(4)[1],0,fp="LED_THT:LED_D3.0mm",props=P("SX-D-002"))
-    s.wire(b(4),ld(1))
-    r=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(4)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
+    ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+    s.wire(b(6),ld(1))
+    r=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
     return b
 b1=button("MUTE","SW201","D203","R219","R220",60.96,358.14)
 b2=button("DUCK","SW202","D204","R221","R222",157.48,358.14)
-NOCONNECT=[b1(3),b1(6),b2(3),b2(6)]
+NOCONNECT=[b1(1),b1(4),b2(1),b2(4)]
 
 # ------------------------------------------------------------- supplies and decoupling
 x=210.82

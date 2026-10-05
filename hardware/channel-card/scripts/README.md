@@ -13,7 +13,9 @@ Rebuilding **replaces the whole sheet**. Edits made by hand in KiCad are lost.
 
 The reference netlist is written separately from the drawing on purpose: `check_netlist.py` compares every pin of the drawn sheet with it, so a wiring mistake in a layout cannot slip through.
 
-## Rebuild a sheet
+## Rebuild
+
+`./rebuild_all.sh` regenerates every wired sheet, runs all post-processing and the netlist checks, and ERC. The steps for a single sheet:
 
 From this folder. Needs KiCad 10, `uvx` and the `mcp` Python package; run `mcpcall.py` with the Python from the kicad-mcp-pro uv environment, which has it.
 

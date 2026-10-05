@@ -71,7 +71,7 @@ S("Analog_Switch","DG413xY","U92064","DG413DY",330,Y+85,SO16,"SX-IC-005",4,DG); 
 # buttons
 def button(n,ref,sw,led,rl,rp,x,y,name):
     S("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,"","SX-SW-001")
-    N(f"{n}_CTRL",sw+".1"); N("+5V",sw+".2"); N(f"{n}_LEDK",sw+".4"); N("PGND",sw+".5")
+    N(f"{n}_CTRL",sw+".3"); N("+5V",sw+".2"); N(f"{n}_LEDK",sw+".6"); N("PGND",sw+".5")
     S("Device","LED",led,f"{name} LED",x+30,y,"LED_THT:LED_D3.0mm","SX-D-002"); N(f"{n}_LEDK",led+".1"); N(f"{n}_LED",led+".2")
     R(rl,"12k","SX-R-008","+15V",f"{n}_LED",x+55,y)
     R(rp,"100k","SX-R-007","AGND",f"{n}_CTRL",x-25,y+15)

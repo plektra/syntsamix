@@ -352,7 +352,7 @@
  "D5": {
   "lib": "Device:LED",
   "value": "LOW-CUT LED",
-  "footprint": "LED_THT:LED_D3.0mm",
+  "footprint": "LED_SMD:LED_0805_2012Metric",
   "props": {
    "ProjectPN": "SX-D-002"
   },
@@ -486,9 +486,13 @@
  "SW1": {
   "lib": "Switch:SW_Push_DPDT",
   "value": "LOW-CUT (latching)",
-  "footprint": "",
+  "footprint": "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",
   "props": {
-   "ProjectPN": "SX-SW-001"
+   "ProjectPN": "SX-SW-001",
+   "Manufacturer": "CW Industries",
+   "MPN": "GPBS850N",
+   "Supplier": "Electrokit",
+   "SupplierPN": "41012905"
   },
   "units": [
    1

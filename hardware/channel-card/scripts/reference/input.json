@@ -186,7 +186,7 @@
 },
 {
 "ref": "SW1",
-"pin": "1"
+"pin": "3"
 },
 {
 "ref": "U4",
@@ -228,7 +228,7 @@
 },
 {
 "ref": "SW1",
-"pin": "4"
+"pin": "6"
 }
 ]
 },
@@ -801,20 +801,20 @@
 ]
 },
 {
-"name": "unconnected-(SW1-C-Pad3)",
+"name": "unconnected-(SW1-C-PadX1)",
 "pins": [
 {
 "ref": "SW1",
-"pin": "3"
+"pin": "1"
 }
 ]
 },
 {
-"name": "unconnected-(SW1-C-Pad6)",
+"name": "unconnected-(SW1-C-PadX4)",
 "pins": [
 {
 "ref": "SW1",
-"pin": "6"
+"pin": "4"
 }
 ]
 },

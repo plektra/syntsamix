@@ -92,15 +92,15 @@ for n,j,rv,rl,rr,YA in ((1,"J301","RV301","R307","R308",50.8),(2,"J302","RV302",
 
 # ------------------------------------------------------------- buttons
 def button(name,sw,led,rl,rp,x,y,title):
-    b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,props=P("SX-SW-001"))
+    b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
-    nd=(b(1)[0]+10.16,b(1)[1]); s.wire(b(1),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
+    nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
     r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2)); gnd(r(1),180)
-    ld=s.place("Device","LED",led,f"{title} LED",b(4)[0]+22.86,b(4)[1],0,fp="LED_THT:LED_D3.0mm",props=P("SX-D-002"))
-    s.wire(b(4),ld(1))
-    r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(4)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)
-    NOCONNECT.extend([b(3),b(6)])
+    ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+    s.wire(b(6),ld(1))
+    r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)
+    NOCONNECT.extend([b(1),b(4)])
 button("PFL","SW301","D301","R312","R313",40.64,279.4,"PFL")
 button("SC","SW302","D302","R314","R315",137.16,279.4,"SC SEND")
 button("COMP","SW303","D303","R316","R317",233.68,279.4,"COMP BUS")
