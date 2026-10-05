@@ -658,13 +658,30 @@
       {
         "filename": "channel-card.kicad_sch",
         "name": "channel-card",
-        "uuid": "00000000-0000-0000-0000-000000000000"
+        "uuid": "44b8098e-8b91-4d90-8e36-746977844050"
       }
     ],
     "used_designators": "",
     "variants": []
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "44b8098e-8b91-4d90-8e36-746977844050",
+      "channel-card"
+    ],
+    [
+      "b4324f0d-c65d-4b78-a405-07e291a1f7ef",
+      "Input"
+    ],
+    [
+      "7dc6661c-44f8-4834-8026-15f42523c90c",
+      "Filter"
+    ],
+    [
+      "51ddd9cc-28e5-42cf-9aba-58a8d9b31612",
+      "Level"
+    ]
+  ],
   "text_variables": {},
   "tuning_profiles": {
     "meta": {

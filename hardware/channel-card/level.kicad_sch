@@ -3560,6 +3560,22 @@
 			(embedded_fonts no)
 		)
 	)
+	(no_connect
+		(at 180.34 382.27)
+		(uuid "55e95dc3-a218-4e19-9a8f-ad0daeb3d449")
+	)
+	(no_connect
+		(at 180.34 372.11)
+		(uuid "6dbe7a78-455a-4262-8382-fdbf1dbb7f97")
+	)
+	(no_connect
+		(at 64.77 382.27)
+		(uuid "a8399647-64b3-45ef-9979-f2aef5c5e8e8")
+	)
+	(no_connect
+		(at 64.77 372.11)
+		(uuid "b9a48cc1-097a-4bc5-a738-7205f720ee5d")
+	)
 	(wire
 		(pts
 			(xy 344.17 130.81) (xy 344.17 135.89)
@@ -6954,8 +6970,8 @@
 			(uuid "5f93c590-97c2-4cd9-b81d-80089e0238cf")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR215")
 					(unit 1)
 				)
@@ -7043,8 +7059,8 @@
 			(uuid "d508e9ea-19b0-4fc4-b4b5-981eb7113708")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R211")
 					(unit 1)
 				)
@@ -7132,8 +7148,8 @@
 			(uuid "1b8ebb7a-6234-49dd-80ca-edad069b14e7")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C273")
 					(unit 1)
 				)
@@ -7221,8 +7237,8 @@
 			(uuid "2970f9e8-ed6d-4ac8-94d7-467965aa9a58")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R218")
 					(unit 1)
 				)
@@ -7310,8 +7326,8 @@
 			(uuid "7b591b34-cde5-44af-ad3a-83c87a6d6908")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C226")
 					(unit 1)
 				)
@@ -7399,8 +7415,8 @@
 			(uuid "86a076fb-1bb5-4a3b-970f-a6cdf8e1ab35")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R210")
 					(unit 1)
 				)
@@ -7488,8 +7504,8 @@
 			(uuid "2e5ae354-3151-4094-8daa-70a2bfc334a8")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R205")
 					(unit 1)
 				)
@@ -7564,8 +7580,8 @@
 			(uuid "0273671e-9740-42cc-a741-2b6dc98f8a4a")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR223")
 					(unit 1)
 				)
@@ -7653,8 +7669,8 @@
 			(uuid "5c7f85dc-87f5-4eac-9ec0-c66a542b1e0a")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "D201")
 					(unit 1)
 				)
@@ -7742,8 +7758,8 @@
 			(uuid "6726c2af-1c62-4420-8751-edc4c2865c08")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C236")
 					(unit 1)
 				)
@@ -7818,8 +7834,8 @@
 			(uuid "7fad9953-0d2b-44f9-93b3-cc5012d3ebf9")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR212")
 					(unit 1)
 				)
@@ -7907,8 +7923,8 @@
 			(uuid "d3d48811-e59a-424a-8a08-2320eda4e968")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R213")
 					(unit 1)
 				)
@@ -7996,8 +8012,8 @@
 			(uuid "a9fe687f-ca30-4444-9465-eba96671d709")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R252")
 					(unit 1)
 				)
@@ -8085,8 +8101,8 @@
 			(uuid "edbdadb7-3440-4f2f-ba3b-b2c27fddeaf8")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C221")
 					(unit 1)
 				)
@@ -8203,8 +8219,8 @@
 			(uuid "71ff8dcc-830e-4d0c-bab6-00fed063f576")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U204")
 					(unit 2)
 				)
@@ -8279,8 +8295,8 @@
 			(uuid "e972b09c-cc42-403b-956f-bf279b74f7da")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR23")
 					(unit 1)
 				)
@@ -8368,8 +8384,8 @@
 			(uuid "a9f74185-f714-4e3c-a13b-cae71888fd5c")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R254")
 					(unit 1)
 				)
@@ -8457,8 +8473,8 @@
 			(uuid "5dfdbbe8-8983-4073-a2f1-56349043afc9")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R253")
 					(unit 1)
 				)
@@ -8546,8 +8562,8 @@
 			(uuid "d9599dec-55af-4bd6-b4cb-57e90ec9147c")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "D203")
 					(unit 1)
 				)
@@ -8622,8 +8638,8 @@
 			(uuid "41784a94-3030-4c22-be66-fb5cb0ae25c1")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR232")
 					(unit 1)
 				)
@@ -8711,8 +8727,8 @@
 			(uuid "f13d7030-52ad-415b-b8b6-11c9abd2d88c")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R216")
 					(unit 1)
 				)
@@ -8787,8 +8803,8 @@
 			(uuid "8c86209a-c387-4205-8662-2590eccc3bab")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR21")
 					(unit 1)
 				)
@@ -8905,8 +8921,8 @@
 			(uuid "3f87bfd3-36fc-4a38-9e86-ca869dc45456")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U205")
 					(unit 2)
 				)
@@ -9023,8 +9039,8 @@
 			(uuid "170bbca0-53eb-4590-824f-b69bf1b067bb")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U205")
 					(unit 1)
 				)
@@ -9099,8 +9115,8 @@
 			(uuid "d9b3f114-c58d-4226-9a34-d88e349ec14a")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR26")
 					(unit 1)
 				)
@@ -9188,8 +9204,8 @@
 			(uuid "4d974ee2-d14f-41f9-a252-9f8b5e0e5dd0")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C222")
 					(unit 1)
 				)
@@ -9264,8 +9280,8 @@
 			(uuid "c9ea1186-d3ba-4eab-99fd-2d646c8af046")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR28")
 					(unit 1)
 				)
@@ -9353,8 +9369,8 @@
 			(uuid "d29d76e3-c2b8-4eac-b1e0-f218519ada76")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R222")
 					(unit 1)
 				)
@@ -9429,8 +9445,8 @@
 			(uuid "b993b4f6-9568-40db-be17-0464c61dafc8")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR25")
 					(unit 1)
 				)
@@ -9518,8 +9534,8 @@
 			(uuid "abd1f2f1-7dfd-4ca0-9bed-3db41bbf771c")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C232")
 					(unit 1)
 				)
@@ -9594,8 +9610,8 @@
 			(uuid "7a28e5bf-6873-41dd-96fd-19f47d454e8e")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR210")
 					(unit 1)
 				)
@@ -9670,8 +9686,8 @@
 			(uuid "490f1a4d-e642-4223-8a68-6b10b5160c5b")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR216")
 					(unit 1)
 				)
@@ -9759,8 +9775,8 @@
 			(uuid "4b91076a-5c72-4c90-bb96-c92f95a1cd34")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "D202")
 					(unit 1)
 				)
@@ -9905,8 +9921,8 @@
 			(uuid "adc473d3-b839-48ef-a09f-1951354f0648")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U201")
 					(unit 1)
 				)
@@ -10006,8 +10022,8 @@
 			(uuid "aca08588-c577-4c1c-aa20-6ecb58698d16")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "SW201")
 					(unit 1)
 				)
@@ -10082,8 +10098,8 @@
 			(uuid "8c3a3d03-6a5d-4e12-a5e3-ad19fd1792db")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR228")
 					(unit 1)
 				)
@@ -10171,8 +10187,8 @@
 			(uuid "6fa81185-0866-4496-8cc2-60357cc8a1ab")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C225")
 					(unit 1)
 				)
@@ -10313,8 +10329,8 @@
 			(uuid "4f45531b-708c-4ad7-baf8-8ad6b366410a")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U206")
 					(unit 3)
 				)
@@ -10402,8 +10418,8 @@
 			(uuid "84ed7c4d-7330-401f-aedc-efb1becc5eb7")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R220")
 					(unit 1)
 				)
@@ -10491,8 +10507,8 @@
 			(uuid "07a00c5e-38f4-41a9-b1a6-edae571ff24f")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "D204")
 					(unit 1)
 				)
@@ -10580,8 +10596,8 @@
 			(uuid "7c8c825e-6f96-4bfa-b8a1-7be82ac209ca")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C223")
 					(unit 1)
 				)
@@ -10681,8 +10697,8 @@
 			(uuid "fa2d68c3-3b8d-42bd-96d8-acaea202f411")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "SW202")
 					(unit 1)
 				)
@@ -10770,8 +10786,8 @@
 			(uuid "8c8eb4f0-2c34-4556-9935-7c3b16643c2f")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C235")
 					(unit 1)
 				)
@@ -10846,8 +10862,8 @@
 			(uuid "da7adce3-94fb-43b1-a20d-10841c4da718")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR229")
 					(unit 1)
 				)
@@ -10922,8 +10938,8 @@
 			(uuid "458a8102-979f-4964-9dda-70305459c4ea")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR222")
 					(unit 1)
 				)
@@ -10998,8 +11014,8 @@
 			(uuid "95d27359-2dde-41ae-971c-104727c92473")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR225")
 					(unit 1)
 				)
@@ -11074,8 +11090,8 @@
 			(uuid "e44c5076-b012-4d79-97b5-93db8140a485")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR227")
 					(unit 1)
 				)
@@ -11150,8 +11166,8 @@
 			(uuid "e61b52d6-801e-41f9-a1a0-63ccac40f9c8")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR211")
 					(unit 1)
 				)
@@ -11268,8 +11284,8 @@
 			(uuid "071f52a4-1994-40c9-9701-40b74a674e28")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U204")
 					(unit 1)
 				)
@@ -11357,8 +11373,8 @@
 			(uuid "377e9839-0bc8-4960-bd38-32bbfe727472")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R209")
 					(unit 1)
 				)
@@ -11433,8 +11449,8 @@
 			(uuid "885ad779-04cd-4f13-8432-b0be7f7d651e")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR221")
 					(unit 1)
 				)
@@ -11551,8 +11567,8 @@
 			(uuid "9265dada-5338-4054-8c4c-64497f57058a")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U203")
 					(unit 1)
 				)
@@ -11627,8 +11643,8 @@
 			(uuid "332115c1-e432-4f7a-8448-7a273f633078")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR233")
 					(unit 1)
 				)
@@ -11716,8 +11732,8 @@
 			(uuid "2c11bed7-6f51-46d5-8fc6-94991b92e5d5")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C227")
 					(unit 1)
 				)
@@ -11805,8 +11821,8 @@
 			(uuid "f5cc858a-989a-48bd-9e2f-83368c5eb4ec")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R217")
 					(unit 1)
 				)
@@ -11923,8 +11939,8 @@
 			(uuid "64446694-cd88-4b6b-b69c-0abf5a2f33cf")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U204")
 					(unit 3)
 				)
@@ -11999,8 +12015,8 @@
 			(uuid "c759a762-bde9-449a-b105-e1e56cdcfa4e")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR220")
 					(unit 1)
 				)
@@ -12075,8 +12091,8 @@
 			(uuid "c14f38f5-8d32-44c1-bc0a-c87a64a63e41")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR24")
 					(unit 1)
 				)
@@ -12151,8 +12167,8 @@
 			(uuid "89efa30a-249a-4076-8eb3-a1c3d218a05e")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR27")
 					(unit 1)
 				)
@@ -12269,8 +12285,8 @@
 			(uuid "0c8dab3b-f4aa-4cb7-959b-167a1cab172f")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U202")
 					(unit 1)
 				)
@@ -12411,8 +12427,8 @@
 			(uuid "d9dee7dd-0cd8-431c-8da4-431243d6d4f8")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U206")
 					(unit 5)
 				)
@@ -12553,8 +12569,8 @@
 			(uuid "310315e6-bada-4591-a592-427f5b54699f")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U206")
 					(unit 1)
 				)
@@ -12629,8 +12645,8 @@
 			(uuid "bcb3565e-7cd6-4f1f-b720-4b48f62c2531")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR234")
 					(unit 1)
 				)
@@ -12718,8 +12734,8 @@
 			(uuid "0158237b-99d8-41f5-91ac-1089f8579564")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C272")
 					(unit 1)
 				)
@@ -12836,8 +12852,8 @@
 			(uuid "df40270f-65fc-47ed-bfb1-378e540d61f5")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U202")
 					(unit 3)
 				)
@@ -12978,8 +12994,8 @@
 			(uuid "cc12b199-522b-456f-a455-b6ac8155ce4b")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U206")
 					(unit 2)
 				)
@@ -13096,8 +13112,8 @@
 			(uuid "6f7a7bea-c0fb-49f4-9a63-e869121b4286")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U202")
 					(unit 2)
 				)
@@ -13185,8 +13201,8 @@
 			(uuid "5c01142b-8f27-4d65-85ad-2b3c679952fc")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R201")
 					(unit 1)
 				)
@@ -13261,8 +13277,8 @@
 			(uuid "35019609-5306-47b9-a6a4-039349467395")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR230")
 					(unit 1)
 				)
@@ -13350,8 +13366,8 @@
 			(uuid "5fe23bb8-1757-44c0-b992-8d03f6f6951c")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C230")
 					(unit 1)
 				)
@@ -13492,8 +13508,8 @@
 			(uuid "b2ab74c3-aa3e-41e4-9309-716282849b54")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U206")
 					(unit 4)
 				)
@@ -13568,8 +13584,8 @@
 			(uuid "825cdec3-59db-444c-af09-b3cda2ddf48c")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR224")
 					(unit 1)
 				)
@@ -13644,8 +13660,8 @@
 			(uuid "13772bf2-18cc-4873-afdd-59ec5965f507")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR213")
 					(unit 1)
 				)
@@ -13733,8 +13749,8 @@
 			(uuid "7f538739-bc73-478f-8a31-81dd75ea2677")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C234")
 					(unit 1)
 				)
@@ -13833,8 +13849,8 @@
 			(uuid "afe2c4f4-d922-48e0-9041-ae009d261089")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C224")
 					(unit 1)
 				)
@@ -13922,8 +13938,8 @@
 			(uuid "706d3241-4d08-4484-aaea-519631e164ff")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R203")
 					(unit 1)
 				)
@@ -13998,8 +14014,8 @@
 			(uuid "4042c756-6b78-494b-9393-f24592c8bc42")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR219")
 					(unit 1)
 				)
@@ -14074,8 +14090,8 @@
 			(uuid "0f6c10ef-f642-4771-831c-0b6e5210d60d")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR29")
 					(unit 1)
 				)
@@ -14163,8 +14179,8 @@
 			(uuid "59d962a7-e518-4896-9c79-39e2937251af")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R207")
 					(unit 1)
 				)
@@ -14239,8 +14255,8 @@
 			(uuid "99a1102c-c9b0-4284-8f1f-8fb2013874a7")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR235")
 					(unit 1)
 				)
@@ -14328,8 +14344,8 @@
 			(uuid "6009ca9e-a227-4070-a462-cf4a7255e143")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R212")
 					(unit 1)
 				)
@@ -14446,8 +14462,8 @@
 			(uuid "b9b0588b-24b0-488c-a22b-7d1ac45ad3ea")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U205")
 					(unit 3)
 				)
@@ -14564,8 +14580,8 @@
 			(uuid "d9fab56b-967b-43d7-9183-ac30c38db5f5")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U203")
 					(unit 2)
 				)
@@ -14640,8 +14656,8 @@
 			(uuid "22ebd7b7-94da-4dbf-a869-6a874420119a")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR217")
 					(unit 1)
 				)
@@ -14740,8 +14756,8 @@
 			(uuid "0a3d3e75-ee23-4a70-9f7b-d62f98ca3b9f")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R206")
 					(unit 1)
 				)
@@ -14829,8 +14845,8 @@
 			(uuid "bf4280cd-986b-4ea1-acb6-ce0afe989c66")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R255")
 					(unit 1)
 				)
@@ -14905,8 +14921,8 @@
 			(uuid "7ae391f1-57f4-47df-9751-ddbad056339a")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR214")
 					(unit 1)
 				)
@@ -14994,8 +15010,8 @@
 			(uuid "fabb9bf7-51da-45ba-b0e4-cabddf7f39d8")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R219")
 					(unit 1)
 				)
@@ -15070,8 +15086,8 @@
 			(uuid "b920d611-51ca-4dc0-b48d-c7c9bfb88546")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR22")
 					(unit 1)
 				)
@@ -15146,8 +15162,8 @@
 			(uuid "4416b61c-01ee-4f3c-adad-abe9be68fc8b")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR226")
 					(unit 1)
 				)
@@ -15235,8 +15251,8 @@
 			(uuid "a18e9784-2605-4723-8418-579c49d39473")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R208")
 					(unit 1)
 				)
@@ -15324,8 +15340,8 @@
 			(uuid "2517e72a-1537-4407-b996-1a8b6bd86140")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R204")
 					(unit 1)
 				)
@@ -15400,8 +15416,8 @@
 			(uuid "5a123f7a-dab7-45b4-a508-77e1ab87d5d5")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR218")
 					(unit 1)
 				)
@@ -15489,8 +15505,8 @@
 			(uuid "5a7a3870-6fbd-4708-8283-961cd12282c0")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C229")
 					(unit 1)
 				)
@@ -15614,8 +15630,8 @@
 			(uuid "a7dca06a-b74b-41f8-8341-f8fb19878e18")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "RV201")
 					(unit 1)
 				)
@@ -15703,8 +15719,8 @@
 			(uuid "800281cf-fade-4984-9c58-9cd04b355c40")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C228")
 					(unit 1)
 				)
@@ -15792,8 +15808,8 @@
 			(uuid "4df3cf5a-8cca-489c-b989-038a72dd79c2")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C231")
 					(unit 1)
 				)
@@ -15881,8 +15897,8 @@
 			(uuid "3dbcdea4-03fb-48d9-91f9-caddcdf0f052")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C271")
 					(unit 1)
 				)
@@ -15970,8 +15986,8 @@
 			(uuid "1319503b-026e-42ed-900d-741663af5641")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R215")
 					(unit 1)
 				)
@@ -16059,8 +16075,8 @@
 			(uuid "eb794df3-0fa6-4ea6-8e58-764ab5b8a7bd")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R202")
 					(unit 1)
 				)
@@ -16135,8 +16151,8 @@
 			(uuid "448ececc-d461-4df6-8ad0-eaf58fb7d246")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "#PWR231")
 					(unit 1)
 				)
@@ -16253,8 +16269,8 @@
 			(uuid "7781def9-4cdd-46ab-97ae-e8e8820a9ad9")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "U203")
 					(unit 3)
 				)
@@ -16342,8 +16358,8 @@
 			(uuid "bbe8cc17-17b4-4a81-8bf1-a966f0f04dda")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R221")
 					(unit 1)
 				)
@@ -16431,8 +16447,8 @@
 			(uuid "184e0da7-5c9a-4912-813a-d7acac9bba24")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "C233")
 					(unit 1)
 				)
@@ -16520,8 +16536,8 @@
 			(uuid "1178d5ec-a03a-4159-a3b8-316b03d02eb8")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R251")
 					(unit 1)
 				)
@@ -16609,21 +16625,12 @@
 			(uuid "a6f0567b-2228-43f0-8c47-c0f9e5cc9f3b")
 		)
 		(instances
-			(project ""
-				(path "/dcede359-2273-4c1e-a496-352a3701da12"
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050/51ddd9cc-28e5-42cf-9aba-58a8d9b31612"
 					(reference "R214")
 					(unit 1)
 				)
 			)
-		)
-	)
-	(no_connect (at 64.77 372.11) (uuid "b9a48cc1-097a-4bc5-a738-7205f720ee5d"))
-	(no_connect (at 64.77 382.27) (uuid "a8399647-64b3-45ef-9979-f2aef5c5e8e8"))
-	(no_connect (at 180.34 372.11) (uuid "6dbe7a78-455a-4262-8382-fdbf1dbb7f97"))
-	(no_connect (at 180.34 382.27) (uuid "55e95dc3-a218-4e19-9a8f-ad0daeb3d449"))
-	(sheet_instances
-		(path "/"
-			(page "1")
 		)
 	)
 )

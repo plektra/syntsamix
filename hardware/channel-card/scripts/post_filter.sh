@@ -13,6 +13,7 @@ sed -i '' -E 's/\(paper "A[0-4]"\)/(paper "A2")/' $F
 python3 "$HERE/rmflags.py"
 python3 "$HERE/fixup_filter.py"
 python3 "$HERE/title_filter.py"
+python3 "$HERE/fix_paths.py"
 "$KICAD_CLI" sch erc -o "$HERE/build/erc.rpt" channel-card.kicad_sch >/dev/null 2>&1 || true
 grep "ERC messages" "$HERE/build/erc.rpt"
 python3 "$HERE/check_netlist.py" filter.json

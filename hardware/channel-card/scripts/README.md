@@ -18,6 +18,7 @@ python3 mcpcall.py build/calls_filter.json    # runs sch_build_circuit through k
 python3 level_build.py
 python3 mcpcall.py build/calls_level.json
 python3 post_level.py 64.77,372.11 64.77,382.27 180.34,372.11 180.34,382.27   # no-connects on SW201/SW202 pins 3 and 6
+python3 fix_paths.py
 python3 check_netlist.py level.json
 ```
 
@@ -29,6 +30,7 @@ Run `mcpcall.py` with the Python from the kicad-mcp-pro uv environment (it has t
 - **Power references.** Power symbols get a per-sheet prefix (`#PWR1xx` Filter, `#PWR2xx` Level) so they do not clash with the Input sheet.
 - **Power flags.** The builder's PWR_FLAGs are removed; the Input sheet already flags the rails.
 - **No-connects and the title block** are added again, since a rebuild wipes them.
+- **Hierarchy paths.** `fix_paths.py` rewrites the symbol instance paths to `/<root>/<sheet>`, sets the project name and gives each sheet a unique page number (`sch_create_sheet` numbers every new sheet page 2). Without it the KiCad app reports "An error was found when loading the schematic" and repairs the file itself.
 - **Netlist check.** `check_netlist.py` exports the card's netlist and compares every pin with the intended nets. It also lists duplicate references across sheets, which ERC does not report.
 
 ## Layout rules learned the hard way
