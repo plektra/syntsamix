@@ -1,5 +1,22 @@
 # Channel card sheet generators
 
+**Wired sheets (Level, pilot).** `level_wired.py` draws the Level sheet like a person would: real wires inside each circuit block, labels only between blocks and to other sheets. It uses `schlayout.py`, which reads pin positions from the KiCad symbol libraries. `level_build.py` stays as the reference netlist: `check_netlist.py level.json` proves the drawing has exactly the intended connections.
+
+```sh
+python3 level_build.py                         # reference netlist (build/level.json)
+python3 level_wired.py                         # drawing (build/calls_level_wired.json)
+python3 mcpcall.py build/calls_level_wired.json
+python3 post_wired.py ../level.kicad_sch 2 build/level_wired_extra.json build/level_title.json
+python3 fix_paths.py
+python3 check_netlist.py level.json
+```
+
+`post_wired.py` renames temporary unit references, renames the GNDA/GNDPWR ground symbols to the project nets AGND/PGND, adds junctions, no-connects, the title block and DNP flags, and places reference and value text beside each part. `build/level_title.json` holds the title block text.
+
+Rules for wired layouts: keep pin 1 of resistors and capacitors where the reference netlist has it (change the reference's pin order rather than rotating a part 180 degrees, which turns its text upside down); never end a wire on another wire unless a connection is intended; keep labels at wire ends.
+
+## Label-connected sheets (Filter)
+
 The Filter and Level sheets are generated, not hand-drawn. Each `*_build.py` script describes one sheet's symbols, values, part numbers and nets; the KiCad MCP server's `sch_build_circuit` places them and connects every net by label. Edit the script and rebuild when a value changes (for example after the breadboard tests), instead of editing the sheet by hand.
 
 Rebuilding **replaces the whole sheet**. Hand edits made in KiCad are lost.

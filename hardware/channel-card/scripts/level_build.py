@@ -24,8 +24,9 @@ def side(P,o,y,iv,inv):
     r=lambda n:f"R{n+o}"; c=lambda n:f"C{n+o+20}"
     C(c(201),"10u bipolar","SX-C-003",f"{P}_POSTFILT",f"{P}_VIN",40,y,CBIP)
     R(r(201),"10k","SX-R-002",f"{P}_VIN",f"{P}_IIN",65,y)
-    R(r(202),"110","SX-R-022",f"{P}_IIN",f"{P}_RC",90,y+20)
-    C(c(202),"2n2 C0G","SX-C-009",f"{P}_RC","AGND",115,y+20)
+    a,b=(f"{P}_RC",f"{P}_IIN") if P=="L" else (f"{P}_IIN",f"{P}_RC")   # pin order matches the wired drawing
+    R(r(202),"110","SX-R-022",a,b,90,y+20)
+    C(c(202),"2n2 C0G","SX-C-009",*(("AGND",f"{P}_RC") if P=="L" else (f"{P}_RC","AGND")),115,y+20)
     OA("NE5532",iv[0],iv[1],185,y,((f"{P}_IOUT",iv[2][0]),("AGND",iv[2][1]),(f"{P}_VO",iv[2][2])),"SX-IC-004")
     R(r(203),"10k","SX-R-002",f"{P}_IOUT",f"{P}_VO",175,y-25)
     C(c(203),"100p C0G","SX-C-008",f"{P}_IOUT",f"{P}_VO",205,y-25)
@@ -37,7 +38,7 @@ side("R",50,160,("U92022",2,(6,5,7)),("U92032",2,(6,5,7)))
 S("syntsamix","SSI2162","U201","SSI2162",145,115,"Package_SO:SSOP-10_3.9x4.9mm_P1.00mm","SX-IC-002",props={"Manufacturer":"Sound Semiconductor","MPN":"SSI2162SS-TU","Supplier":"Electrokit"})
 for pn,net in ((2,"L_IIN"),(3,"VC"),(4,"L_IOUT"),(1,"MODE"),(9,"R_IIN"),(8,"VC"),(7,"R_IOUT")): N(net,f"U201.{pn}")
 N("+15V","U201.10"); N("-15V","U201.6"); N("AGND","U201.5")
-R("R206","14k3","SX-R-030","MODE","+15V",120,125,props={"Note":"DNP = Class AB (default); fit for Class A, mode current about 1 mA (datasheet Rev 1.2)"})
+R("R206","14k3","SX-R-030","+15V","MODE",120,125,props={"Note":"DNP = Class AB (default); fit for Class A, mode current about 1 mA (datasheet Rev 1.2)"})
 # ---- fader law (shared)
 Y=250
 S("Device","R_Potentiometer","RV201","10k lin FADER",40,Y,"Potentiometer_THT:Potentiometer_Bourns_PTA6043_Single_Slide","SX-POT-001",props={"Manufacturer":"Bourns","MPN":"PTA6043-2015DPB103","Note":"Pin 1 = bottom of travel (datasheet: output rises from terminal 1)"})
@@ -73,7 +74,7 @@ def button(n,ref,sw,led,rl,rp,x,y,name):
     N(f"{n}_CTRL",sw+".1"); N("+5V",sw+".2"); N(f"{n}_LEDK",sw+".4"); N("PGND",sw+".5")
     S("Device","LED",led,f"{name} LED",x+30,y,"LED_THT:LED_D3.0mm","SX-D-002"); N(f"{n}_LEDK",led+".1"); N(f"{n}_LED",led+".2")
     R(rl,"12k","SX-R-008","+15V",f"{n}_LED",x+55,y)
-    R(rp,"100k","SX-R-007",f"{n}_CTRL","AGND",x-25,y+15)
+    R(rp,"100k","SX-R-007","AGND",f"{n}_CTRL",x-25,y+15)
 button("MUTE","",  "SW201","D203","R219","R220",60,375,"MUTE")
 button("DUCK","",  "SW202","D204","R221","R222",175,375,"DUCK")
 # power units
