@@ -71,6 +71,7 @@
 67. The cutoff CV jack moves from the input module to the channel card's filter section, keeping filter controls together and and frees header capacity for the backlog direct output
 68. Input header grows to 10 pins (1x10 Molex KK 254 style): pins 8 and 9 reserved for a stereo pre-fader direct output (backlog), pin 10 AGND. The cutoff CV jack sits on the top panel next to CUTOFF
 69. Stereo button functions are switched electronically: each latching button has two contact sets, one driving a logic line into a DG413 quad analog switch (Vishay, SOIC-16; 2 NO + 2 NC, so one chip selects between two stereo signals) and one lighting its LED. Audio never runs through mechanical contacts. Each channel card makes a +5 V logic supply locally (for the DG413 VL pins). Refines decision 54
+70. Licensing is non-commercial source-available; the author keeps all commercial rights (`LICENSE.md`, `REUSE.toml`, texts in `LICENSES/`): hardware design files and documentation CC-BY-NC-SA-4.0, source code PolyForm-Noncommercial-1.0.0 with SPDX headers, repository configuration CC0-1.0. Applies from this change on; earlier commits stay under GPL-3.0
 
 ## Proposed but NOT confirmed
 

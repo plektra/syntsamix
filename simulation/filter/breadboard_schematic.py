@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Lari Mahlio
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
 """Draw the SSI2144 breadboard schematic as SVG.
 
 Pinout and the ladder/output/Q component values follow the SSI2144 datasheet

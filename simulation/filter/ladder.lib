@@ -1,3 +1,6 @@
+* SPDX-FileCopyrightText: 2026 Lari Mahlio
+* SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+*
 * Behavioural 4-pole transistor-ladder lowpass ("tanh" ladder model).
 *
 * This is NOT a vendor model of the SSI2144 (none is published). It is the

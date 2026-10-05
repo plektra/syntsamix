@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Lari Mahlio
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
 """Filter gain-structure simulations for the SSI2144 channel filter.
 
 Generates ngspice netlists from the behavioural ladder model in ladder.lib,

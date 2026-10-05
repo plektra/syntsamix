@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Lari Mahlio
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
 """Breadboard layout for the SSI2144 test circuit, with a netlist check.
 
 Describes where every part goes on a standard solderless breadboard, checks

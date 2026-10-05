@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Lari Mahlio
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
 """Build breadboard.html: schematic, breadboard layout and wiring tables.
 
 Run breadboard_schematic.py and breadboard_layout.py first (they write the

@@ -37,12 +37,14 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 4. **Use the KiCad MCP server** for schematic and PCB edits. Pause for the user's review before each commit. Run ERC after schematic changes and DRC after layout changes.
 5. **Keep modules independent.** Each module is its own KiCad project or hierarchical sheet with a documented chain interface (audio and power ribbon pinouts).
 6. **Number every part.** Give each placed symbol the BOM fields in `docs/PART-NUMBERING.md` and register new part types in `docs/parts.csv`.
-7. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something.
+7. **Keep licensing tidy.** New code files get the two-line SPDX header (`PolyForm-Noncommercial-1.0.0`); other new paths must be covered by `REUSE.toml`. Run `reuse lint` before committing.
+8. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something.
 
 ## Repo layout
 
 ```
 CLAUDE.md
+LICENSE.md, REUSE.toml, LICENSES/  licensing (decision 70)
 docs/            SPEC.md, DECISIONS.md, CHAIN.md, INPUT-MODULE.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
 hardware/
   channel-card/  KiCad project (stereo channel)
@@ -55,7 +57,7 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status and next steps
 
-Status: spec v0.7 complete (decisions 1-69). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input sheet done (ERC clean apart from sheet links to the next sheet).
+Status: spec v0.7 complete (decisions 1-70). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input sheet done (ERC clean apart from sheet links to the next sheet).
 
 Next:
 1. Channel card Filter sheet (2x SSI2144); use simulated values and mark the ones the breadboard will set
