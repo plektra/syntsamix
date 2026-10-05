@@ -148,6 +148,23 @@ Rebuild the resonance section per datasheet Figure 9 with one LM13700N (DIP-16):
 | Series resistor for k = 3 maximum (75% of onset) | (channel card provisional: 41.2 kΩ) |
 | Listening: none / half / full preferred | |
 
+### Test 10: Fader law (channel card Level sheet, decision 72)
+This tests the control-voltage circuit only; no VCA is needed. Build it on the second breadboard with two TL072s, two 1N4148 and a 10 kΩ linear pot as the fader (pin 1 to -15 V, pin 3 to ground). Follow `hardware/channel-card/level.kicad_sch` (U204, U205 and the resistors around them). E24 kit values are close enough: 110k for 113k, 470k for 453k, 220k for 221k, 62k for 63.4k, 120k for 124k, 8.2k for 8.66k. Leave out C224 and the DG413 for this test.
+
+Measure the pot wiper voltage Vw (travel x = 1 + Vw / 15 V) and the summer output VC (U205 pin 7). Gain in dB = -VC / 33 mV.
+
+| Travel x | Wiper Vw | Expected VC | Expected gain | Measured VC |
+|---|---|---|---|---|
+| 100 % | 0 V | -0.33 V | +10 dB | |
+| 75 % | -3.75 V | 0.00 V | 0 dB | |
+| 53 % | -7.05 V | +0.33 V | -10 dB | |
+| 42 % | -8.70 V | +0.66 V | -20 dB | |
+| 19 % | -12.15 V | +1.32 V | -40 dB | |
+| 14 % | -12.90 V | +1.98 V | -60 dB | |
+| 0 % | -15 V | +3.74 V | -113 dB (off) | |
+
+Mute check: connect a 33 kΩ resistor from -15 V to U205 pin 6; VC must rise by about 4.5 V at any fader position.
+
 ## 4. After the tests
 
 - Copy the measured values into `README.md` next to the simulated ones.

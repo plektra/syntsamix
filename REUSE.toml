@@ -11,18 +11,18 @@ version = 1
 
 [[annotations]]
 path = ["hardware/**", "docs/parts.csv", "simulation/filter/breadboard*", "simulation/filter/electrokit-order*.csv"]
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
 
 [[annotations]]
 path = ["docs/*.md", "simulation/**/*.md", "simulation/filter/results.txt"]
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
 
 [[annotations]]
 path = [".gitignore", "CLAUDE.md"]
-precedence = "aggregate"
+precedence = "closest"
 SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC0-1.0"

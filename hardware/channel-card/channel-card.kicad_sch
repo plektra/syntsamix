@@ -5,6 +5,8 @@
 	(uuid "44b8098e-8b91-4d90-8e36-746977844050")
 	(paper "A4")
 	(lib_symbols)
+	
+	
 	(sheet
 		(at 25.4 38.1)
 		(size 30.48 20.32)
@@ -103,43 +105,43 @@
 		)
 		(pin "L_PREFILT" input
 			(at 76.2 40.64 180)
+			(uuid "341f6c9c-5fed-4661-97ff-c4c533183bfa")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "341f6c9c-5fed-4661-97ff-c4c533183bfa")
 		)
 		(pin "R_PREFILT" input
 			(at 76.2 43.18 180)
+			(uuid "28a2e1ca-77ac-4558-8618-63e6fc99cfc5")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "28a2e1ca-77ac-4558-8618-63e6fc99cfc5")
 		)
 		(pin "L_POSTFILT" output
-			(at 106.68 40.64 0)
+			(at 106.68 40.64 0.0000)
+			(uuid "77aa22ff-c37d-429a-8f4c-c17927aeec8a")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "77aa22ff-c37d-429a-8f4c-c17927aeec8a")
 		)
 		(pin "R_POSTFILT" output
-			(at 106.68 43.18 0)
+			(at 106.68 43.18 0.0000)
+			(uuid "96bdb860-9ec8-4e01-87d9-ce07d5debda2")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "96bdb860-9ec8-4e01-87d9-ce07d5debda2")
 		)
 		(instances
 			(project "channel-card"
@@ -149,8 +151,110 @@
 			)
 		)
 	)
-	(wire (pts (xy 55.88 40.64) (xy 76.2 40.64)) (stroke (width 0) (type default)) (uuid "895b0c7d-54b2-4866-8088-d15224aa74a1"))
-	(wire (pts (xy 55.88 43.18) (xy 76.2 43.18)) (stroke (width 0) (type default)) (uuid "4ec0e1c7-82d2-4ecf-8402-fcf474915187"))
+	(sheet
+		(at 127 38.1)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "51ddd9cc-28e5-42cf-9aba-58a8d9b31612")
+		(property "Sheetname" "Level"
+			(at 127 37.3884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "level.kicad_sch"
+			(at 127 59.0046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "L_POSTFILT" input
+			(at 127 40.64 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "47c77889-b0e9-4e37-9d73-ee581a1dc1da")
+		)
+		(pin "R_POSTFILT" input
+			(at 127 43.18 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1bf911a3-f558-4b60-a0a4-829ecb8e3d89")
+		)
+		(pin "SC_ENV" input
+			(at 127 45.72 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "febfe760-2c6a-4bb8-8554-a1cebe0cc01e")
+		)
+		(pin "L_POSTFADE" output
+			(at 157.48 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "290c53ba-d231-4f8a-988a-db3de728cb2d")
+		)
+		(pin "R_POSTFADE" output
+			(at 157.48 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "e35f1fc6-7968-4df7-86c1-3491cf1f585b")
+		)
+		(instances
+			(project "channel-card"
+				(path "/44b8098e-8b91-4d90-8e36-746977844050"
+					(page "2")
+				)
+			)
+		)
+	)
+	(wire
+		(pts (xy 55.88 40.64) (xy 76.2 40.64))
+		(stroke (width 0) (type solid))
+		(uuid "895b0c7d-54b2-4866-8088-d15224aa74a1")
+	)
+	(wire
+		(pts (xy 55.88 43.18) (xy 76.2 43.18))
+		(stroke (width 0) (type solid))
+		(uuid "4ec0e1c7-82d2-4ecf-8402-fcf474915187")
+	)
+	(wire (pts (xy 106.68 40.64) (xy 127 40.64)) (stroke (width 0) (type default)) (uuid "fee9b6b8-8b3e-43c3-a5c6-7c42d1ee52d1"))
+	(wire (pts (xy 106.68 43.18) (xy 127 43.18)) (stroke (width 0) (type default)) (uuid "b8417f4f-1f63-4612-9364-ed00b7dd78eb"))
 	(sheet_instances
 		(path "/"
 			(page "1")

@@ -47,3 +47,4 @@ Order 2,2,LM13700N,Dual OTA DIP-16 (TI LM13700N),,Electrokit,"Datasheet Figure 9
 Order 2,10,1N4148,Small-signal diode DO-35,,Electrokit,Q pot bias diodes (D1 and D2 in datasheet Figure 9) plus spares
 Order 2,3,6.8 nF,Same film capacitor as the first order (41015666),,Electrokit,Second core for test 8 (L/R tracking) needs 3 more; first order had 4
 Order 2,1,Breadboard,840 tie-point solderless breadboard (same as first order),,Electrokit,Room for the second core (test 8) and the LM13700 Q VCA (test 9)
+Order 2,2,TL072,Dual JFET op amp DIP-8,,Electrokit,Test 10 fader law (Level sheet control circuit)

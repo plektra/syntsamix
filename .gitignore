@@ -11,3 +11,4 @@ _autosave-*
 .kicad-mcp/
 hardware/*/output/
 *.kicad_sch.*.bak
+hardware/*/scripts/build/

@@ -32,7 +32,7 @@ Signal definitions:
 - **MAIN, COMP, AUX1, AUX2, CUE (L/R):** current-summing buses. Each channel card drives them through a series resistor; the master card holds the virtual-earth summing amplifier for each. Bus resistor values are set during the schematic phase.
 - **SC:** sidechain bus, mono. A channel with SC send on adds (L+R) through resistors, tapped pre-fader and pre-mute; the master sums it like the audio buses.
 - **PFL_ACT:** logic, active low, open-collector (wired-OR). Pulled up on the master card; any channel with PFL pressed (or the master's SC listen button) pulls it to AGND. Placed at the cable edge, away from the audio buses, with the spares as a buffer.
-- **SC_ENV:** ducking envelope (decision 66), a control voltage driven by the master card at low impedance: 0 V = no ducking, rising positive with ducking depth (scale set in the master card schematic). Channel cards only read it, through a high-impedance input, and only when their DUCK button is on.
+- **SC_ENV:** ducking envelope (decision 66), a control voltage driven by the master card at low impedance: 0 V = no ducking, rising positive with ducking depth. **[proposed]** scale: +1 V = 10 dB of gain reduction at the channel VCA (decision 72); the master's DEPTH sets the peak, about 0 to +4 V. Channel cards only read it, through a high-impedance input, and only when their DUCK button is on.
 - **SPARE2 to SPARE5:** unconnected on the prototype; reserved for future CV, mute groups and similar. Channel cards pass them through.
 
 ## Power ribbon: 8-pin IDC (2x4), shrouded and keyed

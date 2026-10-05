@@ -1,6 +1,6 @@
 ProjectPN,Description,Manufacturer,MPN,Supplier,SupplierPN,Notes
 SX-IC-001,4-pole ladder VCF,Sound Semiconductor,SSI2144SS-TU,Electrokit,41019301,QSOP-16 0.635 mm pitch; not stocked at Mouser
-SX-IC-002,Dual VCA,Sound Semiconductor,,,,SSI2162 (10-lead SSOP); MPN and supplier to verify
+SX-IC-002,Dual VCA SSOP-10 1.00 mm pitch,Sound Semiconductor,SSI2162SS-TU,Electrokit,41019302,Pinout from datasheet Rev 1.2; package PSSL10 (1.00 mm pitch) from Sound Semiconductor drawing
 SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,AD8273 (SOIC-14); exact orderable MPN to verify
 SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify
 SX-CONN-001,6.3 mm stereo jack switched (T R S all switched) horizontal PCB,Neutrik,NMJ6HCD2,Mouser,,Pinout verified from Neutrik drawing ST-NMJ6HCD2; >10000 mating cycles; Mouser part number to verify
@@ -49,3 +49,15 @@ SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,CUTOFF CV input; 
 SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,Jumper header
 SX-CONN-005,Pin header 1x3 2.54 mm vertical,,,,,Jumper header
 SX-MECH-001,Jumper cap 2.54 mm,,,,,For SX-CONN-004/005
+SX-IC-007,Dual JFET op amp SOIC-8,Texas Instruments,,Mouser,,TL072 (SOIC-8); used for low-bias control circuits; orderable MPN to verify
+SX-R-022,Resistor 110 Ohm 1% 0805,,,,,
+SX-R-023,Resistor 113 kOhm 1% 0805,,,,,
+SX-R-024,Resistor 453 kOhm 1% 0805,,,,,
+SX-R-025,Resistor 221 kOhm 1% 0805,,,,,
+SX-R-026,Resistor 63.4 kOhm 1% 0805,,,,,
+SX-R-027,Resistor 124 kOhm 1% 0805,,,,,
+SX-R-028,Resistor 33.2 kOhm 1% 0805,,,,,
+SX-R-029,Resistor 15.8 kOhm 1% 0805,,,,,
+SX-R-030,Resistor 14.3 kOhm 1% 0805,,,,,SSI2162 Class A mode resistor; DNP by default
+SX-C-009,Capacitor 2.2 nF C0G 5% 50 V 0805,,,,,SSI2162 input RC
+SX-C-010,Capacitor 1 uF X7R 50 V 0805,,,,,
