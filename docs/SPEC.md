@@ -39,7 +39,7 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | Input level range | From -10 dBV consumer line up to Eurorack hot signals of ±12 V peak (24 Vpp), with no clipping at minimum trim | confirmed |
 | Input receiver | AD8273 dual difference amplifier at G = ½ (-6 dB), one chip per card for L and R | confirmed; DC-coupled inputs confirmed |
 | Soft clipping | Soft clipper after the input trim stage, so overloads saturate gradually instead of hard-clipping. Onset about 6 dB below the internal maximum (about +14 dBu); exact circuit set in the schematic | confirmed |
-| Low-cut | Switchable fixed low-cut at about 150 Hz, 12 dB/octave, film capacitors, after the trim stage and before the ladder filter (so meter, PFL and sends all see it) | confirmed (slope proposed) |
+| Low-cut | Switchable fixed low-cut at 100 Hz (decision 73), 12 dB/octave Butterworth, film capacitors, after the trim stage and before the ladder filter (so meter, PFL and sends all see it) | confirmed (slope proposed) |
 | Input trim | One wide trim, no pad switch: overall gain about -20 to +20 dB (input to internal +4 dBu nominal); the trim stage after the receiver spans about -14 to +26 dB | confirmed |
 | Input DC blocking | AC coupling after the receiver, corner about 3 Hz; Eurorack outputs can carry DC offsets | confirmed |
 | Level meter | 8-segment mono LED meter (louder of L/R), post-filter and pre-fader (same point as PFL): -30, -20, -10, -5, 0, +3, +6, clip, relative to +4 dBu nominal. Peak-reading with a 1 to 2 s fall. Peak detector plus comparators; low-current LEDs returning to power ground. Replaces the peak LED | confirmed |
@@ -64,7 +64,7 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | AUX | Two stereo AUX sends, each a level control feeding a stereo AUX bus | confirmed |
 | AUX pre/post | Post-fader by default; a PCB jumper per send selects pre-fader | confirmed |
 | Cutoff CV input | Per-channel 6.3 mm jack into the filter control summer, driving L and R together; fixed scale of about 1 V/octave (Eurorack convention), no amount knob; DC-coupled, about 100 kΩ input impedance, survives ±12 V; knob plus CV is limited to the chip's safe control range | confirmed |
-| HPF | Sweepable resonant HPF dropped from the prototype; reserve space for later. A fixed switchable 150 Hz low-cut is included instead | confirmed |
+| HPF | Sweepable resonant HPF dropped from the prototype; reserve space for later. A fixed switchable 100 Hz low-cut is included instead | confirmed |
 
 Panel layout, top to bottom, following the signal flow (post-fader AUX knobs sit above the fader, as on any console) **[confirmed]**:
 TRIM, [LOW-CUT], CUTOFF with the CV jack beside it, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [DUCK] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.

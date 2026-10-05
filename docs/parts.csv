@@ -61,3 +61,5 @@ SX-R-029,Resistor 15.8 kOhm 1% 0805,,,,,
 SX-R-030,Resistor 14.3 kOhm 1% 0805,,,,,SSI2162 Class A mode resistor; DNP by default
 SX-C-009,Capacitor 2.2 nF C0G 5% 50 V 0805,,,,,SSI2162 input RC
 SX-C-010,Capacitor 1 uF X7R 50 V 0805,,,,,
+SX-R-031,Resistor 24 kOhm 1% 0805,,,,,Low-cut 100 Hz
+SX-R-032,Resistor 47 kOhm 1% 0805,,,,,Low-cut 100 Hz

@@ -35,7 +35,7 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     u,pins=pre; N(f"{P}_PSUM",f"{u}.{pins[0]}"); N("AGND",f"{u}.{pins[1]}"); N(f"{P}_FIN",f"{u}.{pins[2]}")
     R(r(104),"17k4","SX-R-009",f"{P}_FIN",f"{P}_SIN",120,y(75))
     R(r(105),"200","SX-R-010",f"{P}_SIN","AGND",140,y(90))
-    R(r(106),"200","SX-R-010",f"{P}_SINN","AGND",140,y(118))
+    R(r(106),"200","SX-R-010","AGND",f"{P}_SINN",140,y(118))
     U=ssi
     S("syntsamix","SSI2144",U,"SSI2144",175,y(85),"Package_SO:QSOP-16_3.9x4.9mm_P0.635mm","SX-IC-001",props={"Manufacturer":"Sound Semiconductor","MPN":"SSI2144SS-TU","Supplier":"Electrokit","SupplierPN":"41019301"})
     for pn,net in ((1,"SIN"),(2,"SINN"),(3,"OUTI"),(15,"FC"),(14,"QP"),(13,"C1A"),(12,"C1B"),(11,"C2A"),(10,"C2B"),(6,"C3A"),(7,"C3B"),(4,"C4A"),(5,"C4B")):
@@ -65,14 +65,14 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     S("Amplifier_Operational","LM13700",ota_ref,"LM13700",200,y(140),"Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","SX-IC-006",ota_unit,{"Manufacturer":"Texas Instruments"})
     N(f"{P}_QPLUS",f"{ota_ref}.{pplus}"); N(f"{P}_QSUM",f"{ota_ref}.{pminus}"); N(f"{P}_SINN",f"{ota_ref}.{pout}"); N(f"{P}_IABC",f"{ota_ref}.{piabc}")
     R(r(115),"604","SX-R-012",f"{P}_QPLUS","AGND",215,y(160))
-    R(r(116),"604","SX-R-012",f"{P}_QSUM","AGND",232,y(160))
+    R(r(116),"604","SX-R-012","AGND",f"{P}_QSUM",232,y(160))
     R(r(117),"17k4","SX-R-009",f"{P}_IV",f"{P}_QSUM",240,y(118))
-    R(r(118),"52k3","SX-R-013",f"{P}_FIN",f"{P}_RHALF",255,y(150),props={"Note":"Half compensation (default)"})
+    R(r(118),"52k3","SX-R-013",f"{P}_RHALF",f"{P}_FIN",255,y(150),props={"Note":"Half compensation (default)"})
     R(r(119),"17k4","SX-R-009",f"{P}_FIN",f"{P}_RFULL",272,y(150),props={"Note":"Full compensation"})
     jq=f"JP{102+o}"
     S("Connector_Generic","Conn_01x03",jq,"Q COMP (1-2 HALF, 2-3 FULL, open NONE)",295,y(135),"Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical","SX-CONN-005")
     N(f"{P}_RHALF",jq+".1"); N(f"{P}_QSUM",jq+".2"); N(f"{P}_RFULL",jq+".3")
-    R(r(120),"41k2","SX-R-015","QW",f"{P}_IABC",185,y(125),props=PROV)
+    R(r(120),"41k2","SX-R-015",f"{P}_IABC","QW",185,y(125),props=PROV)
     R(r(121),"100k","SX-R-007",f"{P}_POSTFILT","AGND",395,y(90))
     for (u,unit,pin_in,pin_d,pin_s,src) in (dgA,dgB):
         S("Analog_Switch","DG413xY",u,"DG413DY",370,y(60 if src=='FAC' else 100),"Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","SX-IC-005",unit,{"Manufacturer":"Vishay"})
@@ -112,7 +112,7 @@ S("Switch","SW_Push_DPDT","SW181","FILTER BYPASS (latching)",260,Y+25,"","SX-SW-
 N("BYP","SW181.1"); N("+5V","SW181.2"); N("BYP_LEDK","SW181.4"); N("PGND","SW181.5")
 S("Device","LED","D183","BYPASS LED",290,Y+25,"LED_THT:LED_D3.0mm","SX-D-002"); N("BYP_LEDK","D183.1"); N("BYP_LED","D183.2")
 R("R185","12k","SX-R-008","+15V","BYP_LED",305,Y+25)
-R("R186","100k","SX-R-007","BYP","AGND",245,Y+40)
+R("R186","100k","SX-R-007","AGND","BYP",245,Y+40)
 # power units and unused LM13700 parts
 S("Amplifier_Operational","LM13700","U91035","LM13700",335,Y+25,"Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","SX-IC-006",5,{"Manufacturer":"Texas Instruments"}); N("-15V","U91035.6"); N("+15V","U91035.11")
 S("Amplifier_Operational","LM13700","U91034","LM13700",350,Y+10,"Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","SX-IC-006",4,{"Manufacturer":"Texas Instruments"}); N("AGND","U91034.7")

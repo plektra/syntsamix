@@ -1,0 +1,566 @@
+{
+ "R3": {
+  "lib": "Device:R",
+  "value": "100",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R18": {
+  "lib": "Device:R",
+  "value": "12k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-008"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R8": {
+  "lib": "Device:R",
+  "value": "2k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-003"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R5": {
+  "lib": "Device:R",
+  "value": "10k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C2": {
+  "lib": "Device:C",
+  "value": "220p C0G",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C20": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C10": {
+  "lib": "Device:C",
+  "value": "47n film",
+  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "props": {
+   "ProjectPN": "SX-C-005"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R7": {
+  "lib": "Device:R",
+  "value": "2k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-003"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R2": {
+  "lib": "Device:R",
+  "value": "100",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R12": {
+  "lib": "Device:R",
+  "value": "47k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-032"
+  },
+  "units": [
+   1
+  ]
+ },
+ "U4": {
+  "lib": "Analog_Switch:DG413xY",
+  "value": "DG413DY",
+  "footprint": "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm",
+  "props": {
+   "ProjectPN": "SX-IC-005",
+   "Manufacturer": "Vishay"
+  },
+  "units": [
+   4,
+   2,
+   1,
+   5,
+   3
+  ]
+ },
+ "R4": {
+  "lib": "Device:R",
+  "value": "100",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "D2": {
+  "lib": "Device:D_Zener",
+  "value": "6V2",
+  "footprint": "Diode_SMD:D_SOD-123",
+  "props": {
+   "ProjectPN": "SX-D-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R15": {
+  "lib": "Device:R",
+  "value": "100k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-007"
+  },
+  "units": [
+   1
+  ]
+ },
+ "U3": {
+  "lib": "Amplifier_Operational:NE5532",
+  "value": "NE5532",
+  "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+  "props": {
+   "ProjectPN": "SX-IC-004"
+  },
+  "units": [
+   3,
+   2,
+   1
+  ]
+ },
+ "R11": {
+  "lib": "Device:R",
+  "value": "24k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-031"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C11": {
+  "lib": "Device:C",
+  "value": "47n film",
+  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "props": {
+   "ProjectPN": "SX-C-005"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R1": {
+  "lib": "Device:R",
+  "value": "100",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R14": {
+  "lib": "Device:R",
+  "value": "47k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-032"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C19": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R10": {
+  "lib": "Device:R",
+  "value": "4k7",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-004"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C4": {
+  "lib": "Device:C",
+  "value": "220p C0G",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C6": {
+  "lib": "Device:C",
+  "value": "10u bipolar",
+  "footprint": "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm",
+  "props": {
+   "ProjectPN": "SX-C-003"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C5": {
+  "lib": "Device:C",
+  "value": "10u bipolar",
+  "footprint": "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm",
+  "props": {
+   "ProjectPN": "SX-C-003"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R13": {
+  "lib": "Device:R",
+  "value": "24k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-031"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C16": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "D4": {
+  "lib": "Device:D_Zener",
+  "value": "6V2",
+  "footprint": "Diode_SMD:D_SOD-123",
+  "props": {
+   "ProjectPN": "SX-D-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C8": {
+  "lib": "Device:C",
+  "value": "22p C0G",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-004"
+  },
+  "units": [
+   1
+  ]
+ },
+ "U2": {
+  "lib": "Amplifier_Operational:NE5532",
+  "value": "NE5532",
+  "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+  "props": {
+   "ProjectPN": "SX-IC-004"
+  },
+  "units": [
+   2,
+   1,
+   3
+  ]
+ },
+ "C18": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R6": {
+  "lib": "Device:R",
+  "value": "10k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "D5": {
+  "lib": "Device:LED",
+  "value": "LOW-CUT LED",
+  "footprint": "LED_THT:LED_D3.0mm",
+  "props": {
+   "ProjectPN": "SX-D-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C1": {
+  "lib": "Device:C",
+  "value": "220p C0G",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C9": {
+  "lib": "Device:C",
+  "value": "47n film",
+  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "props": {
+   "ProjectPN": "SX-C-005"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C12": {
+  "lib": "Device:C",
+  "value": "47n film",
+  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "props": {
+   "ProjectPN": "SX-C-005"
+  },
+  "units": [
+   1
+  ]
+ },
+ "J1": {
+  "lib": "Connector_Generic:Conn_01x10",
+  "value": "INPUT MODULE",
+  "footprint": "Connector_Molex:Molex_KK-254_AE-6410-10A_1x10_P2.54mm_Vertical",
+  "props": {
+   "ProjectPN": "SX-CONN-002",
+   "Manufacturer": "Molex",
+   "Supplier": "Mouser"
+  },
+  "units": [
+   1
+  ]
+ },
+ "D3": {
+  "lib": "Device:D_Zener",
+  "value": "6V2",
+  "footprint": "Diode_SMD:D_SOD-123",
+  "props": {
+   "ProjectPN": "SX-D-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C7": {
+  "lib": "Device:C",
+  "value": "22p C0G",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-004"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C14": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C3": {
+  "lib": "Device:C",
+  "value": "220p C0G",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R16": {
+  "lib": "Device:R",
+  "value": "100k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-007"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C15": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "D1": {
+  "lib": "Device:D_Zener",
+  "value": "6V2",
+  "footprint": "Diode_SMD:D_SOD-123",
+  "props": {
+   "ProjectPN": "SX-D-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "SW1": {
+  "lib": "Switch:SW_Push_DPDT",
+  "value": "LOW-CUT (latching)",
+  "footprint": "",
+  "props": {
+   "ProjectPN": "SX-SW-001"
+  },
+  "units": [
+   1
+  ]
+ },
+ "RV1": {
+  "lib": "Device:R_Potentiometer_Dual",
+  "value": "TRIM 250k A",
+  "footprint": "Potentiometer_THT:Potentiometer_Alpha_RD902F-40-00D_Dual_Vertical",
+  "props": {
+   "ProjectPN": "SX-POT-002",
+   "Manufacturer": "Alpha"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C17": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C13": {
+  "lib": "Device:C",
+  "value": "100n",
+  "footprint": "Capacitor_SMD:C_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-C-002"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R17": {
+  "lib": "Device:R",
+  "value": "100k",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-007"
+  },
+  "units": [
+   1
+  ]
+ },
+ "U1": {
+  "lib": "syntsamix:AD8273",
+  "value": "AD8273",
+  "footprint": "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",
+  "props": {
+   "ProjectPN": "SX-IC-003",
+   "Manufacturer": "Analog Devices",
+   "Supplier": "Mouser"
+  },
+  "units": [
+   1
+  ]
+ },
+ "R9": {
+  "lib": "Device:R",
+  "value": "4k7",
+  "footprint": "Resistor_SMD:R_0805_2012Metric",
+  "props": {
+   "ProjectPN": "SX-R-004"
+  },
+  "units": [
+   1
+  ]
+ }
+}

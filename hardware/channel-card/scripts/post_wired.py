@@ -10,8 +10,9 @@ no-connect markers, the title block and DNP flags.
 import json,re,sys,uuid,os
 from schlayout import add_junctions
 p,pre,extra,title=sys.argv[1],sys.argv[2],json.load(open(sys.argv[3])),json.load(open(sys.argv[4]))
+LEFT=set(title.get('left_fields',[]))
 s=open(p).read()
-s=re.sub(r'"U9(\d{3})[1-5]"',r'"U\1"',s)
+s=re.sub(r'"U9(\d{3})[1-5]"',lambda m:f'"U{int(m.group(1))}"',s)
 s=re.sub(r'"#PWR0*([0-9]+)"',lambda m:f'"#PWR{pre}{int(m.group(1)):03d}"',s)
 s=re.sub(r'\(paper "A[0-4]"\)','(paper "A2")',s)
 ls=s.find('\n\t(lib_symbols'); le=s.find('\n\t)\n',ls)+4   # leave the embedded library copies untouched
@@ -33,20 +34,23 @@ def place_fields(blk):
     def setf(b,name,fx,fy,just):
         def r(mm):
             prop=mm.group(0)
-            prop=re.sub(r'\(at [-\d.]+ [-\d.]+ [-\d.]+\)',f'(at {fx:g} {fy:g} {90 if rot in (90,270) else 0})',prop,count=1)
+            prop=re.sub(r'\(at [-\d.]+ [-\d.]+ [-\d.]+\)',f'(at {fx:g} {fy:g} {0 if lib in ("Device:D","Device:LED") else (90 if rot in (90,270) else 0)})',prop,count=1)
             prop=re.sub(r'\s*\(justify[^)]*\)','',prop)
             if just:
-                j={'left':'right','right':'left'}[just] if rot==180 else just   # KiCad mirrors justification on 180-degree parts
+                j={'left':'right','right':'left'}[just] if rot in (180,270) else just   # KiCad mirrors justification on these rotations
                 prop=prop.replace('(effects','(effects (justify '+j+')',1)
             return prop
         return re.sub(r'\(property "'+name+r'" "[^"]*"\s*\(at [^)]*\).*?\(effects',r,b,count=1,flags=re.S)
+    ref=re.search(r'\(property "Reference" "([^"]+)"',blk).group(1)
     if lib.startswith('power:'):
         return re.sub(r'(\(property "(?:Value|Reference)" "[^"]*"\s*\(at [-\d.]+ [-\d.]+ )180\)',r'\g<1>0)',blk)
-    if lib in ('Device:R','Device:C','Device:R_Potentiometer_Trim') and rot in (0,180):
-        blk=setf(blk,'Reference',x+2.54,y-1.27,'left'); blk=setf(blk,'Value',x+2.54,y+1.27,'left')
-    elif lib=='Device:R_Potentiometer' and rot in (0,180):
-        blk=setf(blk,'Reference',x-2.54,y-1.27,'right'); blk=setf(blk,'Value',x-2.54,y+1.27,'right')
-    elif lib in ('Device:R','Device:C') or (lib in ('Device:D','Device:LED') and rot in (0,180)):
+    vertical=(lib in ('Device:R','Device:C','Device:R_Potentiometer','Device:R_Potentiometer_Trim') and rot in (0,180)) or (lib in ('Device:D','Device:LED') and rot in (90,270))
+    horizontal=(lib in ('Device:R','Device:C') and rot in (90,270)) or (lib in ('Device:D','Device:LED') and rot in (0,180))
+    if vertical:
+        left=(ref in LEFT) or (lib=='Device:R_Potentiometer' and rot==0)
+        dx=-2.54 if left else 2.54; just='right' if left else 'left'
+        blk=setf(blk,'Reference',x+dx,y-1.27,just); blk=setf(blk,'Value',x+dx,y+1.27,just)
+    elif horizontal:
         blk=setf(blk,'Reference',x,y-2.54,None); blk=setf(blk,'Value',x,y+2.54,None)
     else:
         blk=re.sub(r'(\(property "(?:Value|Reference)" "[^"]*"\s*\(at [-\d.]+ [-\d.]+ )180\)',r'\g<1>0)',blk)

@@ -9,7 +9,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 ## Prototype scope (confirmed by the user)
 
 - 4 stereo channels
-- Per channel: balanced inputs, level fader, mute, switchable 150 Hz low-cut, soft-clipping input stage, 24 dB/oct ladder LPF with resonance and bypass, 2 AUX sends and returns (stereo by default, mono-capable), main/compressor bus assign
+- Per channel: balanced inputs, level fader, mute, switchable 100 Hz low-cut, soft-clipping input stage, 24 dB/oct ladder LPF with resonance and bypass, 2 AUX sends and returns (stereo by default, mono-capable), main/compressor bus assign
 - Sidechain ducking: per-channel DUCK button applies the master's sidechain envelope to the channel VCA
 - Compressor on a dedicated compressor bus, with selectable/routable sidechain input; the sidechain has an LPF (main intent is bass pumping)
 - PFL per channel (post-filter, pre-fader, pre-mute); headphones switch to the cue bus automatically while any PFL is active
@@ -17,7 +17,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 - Master: headphone output, stereo LED meter on the master bus
 - Modular by design: channel strips can be added one at a time; no channel card depends on another
 - Inputs accept hot Eurorack levels (up to ±12 V peak) as well as line levels
-- Channel HPF is dropped from the prototype to simplify the build (keep room to add it later); a fixed switchable 150 Hz low-cut is included instead
+- Channel HPF is dropped from the prototype to simplify the build (keep room to add it later); a fixed switchable 100 Hz low-cut is included instead
 - Input jacks sit on a separate passive input module (10-pin header, `docs/INPUT-MODULE.md`); the cutoff CV jack is on the channel card's top panel
 - Stereo button functions switch through DG413 analog switches; buttons only carry logic and LED current
 
@@ -57,7 +57,7 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status and next steps
 
-Status: spec v0.7 complete (decisions 1-72). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input, Filter and Level sheets done (ERC clean apart from sheet links that wait for the Routing and Chain sheets). Filter output scale and Q current limit are provisional until the breadboard.
+Status: spec v0.7 complete (decisions 1-73). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input, Filter and Level sheets done (ERC clean apart from sheet links that wait for the Routing and Chain sheets). Filter output scale and Q current limit are provisional until the breadboard.
 
 Next:
 1. Remaining channel card sheets: Routing, Meter, Chain and power (see `docs/ROADMAP.md`)

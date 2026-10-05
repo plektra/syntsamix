@@ -1,0 +1,20 @@
+{
+ "title": "Channel card: filter",
+ "date": "2026-10-05",
+ "rev": "0.2",
+ "dnp": [],
+ "comments": [
+  "SSI2144 x2 (datasheet Fig. 1), LM13700 Q VCA (Fig. 9)",
+  "JP102/JP152 bass comp: 1-2 half (default), 2-3 full, open none",
+  "JP101/JP151 open = hot drive; both fitted = medium",
+  "Provisional: R111/R161, R120/R170 (set by breadboard)"
+ ],
+ "left_fields": [
+  "R120",
+  "R170",
+  "R106",
+  "R156",
+  "R105",
+  "R155"
+ ]
+}

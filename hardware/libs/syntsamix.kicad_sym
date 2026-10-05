@@ -341,7 +341,7 @@
 		(in_pos_files yes)
 		(duplicate_pin_numbers_are_jumpers no)
 		(property "Reference" "U"
-			(at -7.62 16.51 0)
+			(at -7.62 24.13 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -351,7 +351,7 @@
 			)
 		)
 		(property "Value" "SSI2144"
-			(at 5.08 16.51 0)
+			(at 5.08 24.13 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -395,8 +395,8 @@
 		)
 		(symbol "SSI2144_1_1"
 			(rectangle
-				(start -10.16 12.7)
-				(end 10.16 -15.24)
+				(start -10.16 20.32)
+				(end 10.16 -38.1)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -406,7 +406,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 10.16 0)
+				(at -12.7 7.62 0)
 				(length 2.54)
 				(name "SIG_IN+"
 					(effects
@@ -424,7 +424,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 7.62 0)
+				(at -12.7 15.24 0)
 				(length 2.54)
 				(name "SIG_IN-"
 					(effects
@@ -442,7 +442,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 2.54 0)
+				(at -12.7 -15.24 0)
 				(length 2.54)
 				(name "FREQ_CTRL"
 					(effects
@@ -460,7 +460,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 0 0)
+				(at -12.7 -27.94 0)
 				(length 2.54)
 				(name "Q_CTRL"
 					(effects
@@ -478,7 +478,7 @@
 				)
 			)
 			(pin output line
-				(at 12.7 10.16 180)
+				(at 12.7 17.78 180)
 				(length 2.54)
 				(name "OUT"
 					(effects
@@ -496,7 +496,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 5.08 180)
+				(at 12.7 10.16 180)
 				(length 2.54)
 				(name "C1A"
 					(effects
@@ -532,7 +532,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 0 180)
+				(at 12.7 -2.54 180)
 				(length 2.54)
 				(name "C2A"
 					(effects
@@ -550,7 +550,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 -2.54 180)
+				(at 12.7 -10.16 180)
 				(length 2.54)
 				(name "C2B"
 					(effects
@@ -568,7 +568,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 -5.08 180)
+				(at 12.7 -15.24 180)
 				(length 2.54)
 				(name "C3A"
 					(effects
@@ -586,7 +586,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 -7.62 180)
+				(at 12.7 -22.86 180)
 				(length 2.54)
 				(name "C3B"
 					(effects
@@ -604,7 +604,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 -10.16 180)
+				(at 12.7 -27.94 180)
 				(length 2.54)
 				(name "C4A"
 					(effects
@@ -622,7 +622,7 @@
 				)
 			)
 			(pin passive line
-				(at 12.7 -12.7 180)
+				(at 12.7 -35.56 180)
 				(length 2.54)
 				(name "C4B"
 					(effects
@@ -640,7 +640,7 @@
 				)
 			)
 			(pin power_in line
-				(at 0 15.24 270)
+				(at 0 22.86 270)
 				(length 2.54)
 				(name "V+"
 					(effects
@@ -658,7 +658,7 @@
 				)
 			)
 			(pin power_in line
-				(at -2.54 -17.78 90)
+				(at -2.54 -40.64 90)
 				(length 2.54)
 				(name "V-"
 					(effects
@@ -676,7 +676,7 @@
 				)
 			)
 			(pin power_in line
-				(at 2.54 -17.78 90)
+				(at 2.54 -40.64 90)
 				(length 2.54)
 				(name "GND"
 					(effects

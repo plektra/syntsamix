@@ -5,9 +5,11 @@ T=os.path.join(os.path.dirname(os.path.abspath(__file__)),'build')+'/'
 D=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+'/'
 subprocess.run([os.environ.get('KICAD_CLI','/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'),'sch','export','netlist','--format','kicadxml','-o',T+'cc.xml',D+'channel-card.kicad_sch'],capture_output=True)
 import sys
-want=json.load(open(T+sys.argv[1]))
+_h=os.path.dirname(os.path.abspath(__file__))
+_r=os.path.join(_h,'reference',sys.argv[1])
+want=json.load(open(_r if os.path.exists(_r) else T+sys.argv[1]))
 import re
-fix=lambda r: re.sub(r'^U9(\d{3})[1-5]$',r'U\1',r)
+fix=lambda r: re.sub(r'^U9(\d{3})[1-5]$',lambda m:f'U{int(m.group(1))}',r)
 intended={}
 for n in want['nets']:
     for p in n['pins']: intended[(fix(p['ref']),p['pin'])]=n['name']

@@ -1,0 +1,11 @@
+{
+ "title": "Channel card: input stage",
+ "date": "2026-10-05",
+ "rev": "0.2",
+ "dnp": [],
+ "comments": [
+  "AD8273 receiver G=1/2 wired inverting; trim stage inverts back (net non-inverting)",
+  "Trim -20..+20 dB overall, 6V2 zener soft clip; 100 Hz 12 dB/oct low-cut via DG413",
+  "SW1 throw A assumed = pressed; verify against the chosen latching switch"
+ ]
+}
