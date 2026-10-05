@@ -74,6 +74,8 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     N(f"{P}_RHALF",jq+".1"); N(f"{P}_QSUM",jq+".2"); N(f"{P}_RFULL",jq+".3")
     R(r(120),"41k2","SX-R-015",f"{P}_IABC","QW",185,y(125),props=PROV)
     R(r(121),"100k","SX-R-007",f"{P}_POSTFILT","AGND",395,y(90))
+    for k,net in ((101,"SIN"),(102,"IV"),(103,"POSTFILT")):
+        S("Connector","TestPoint",f"TP{k+o}",f"{P}_{net}",400,y(100),"TestPoint:TestPoint_Pad_D1.5mm","none (PCB test pad)"); N(f"{P}_{net}",f"TP{k+o}.1")
     for (u,unit,pin_in,pin_d,pin_s,src) in (dgA,dgB):
         S("Analog_Switch","DG413xY",u,"DG413DY",370,y(60 if src=='FAC' else 100),"Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","SX-IC-005",unit,{"Manufacturer":"Vishay"})
         N("BYP",f"{u}.{pin_in}"); N(f"{P}_POSTFILT",f"{u}.{pin_d}"); N(f"{P}_{src}",f"{u}.{pin_s}")
@@ -113,6 +115,8 @@ N("BYP","SW181.3"); N("+5V","SW181.2"); N("BYP_LEDK","SW181.6"); N("PGND","SW181
 S("Device","LED","D183","BYPASS LED",290,Y+25,"LED_THT:LED_D3.0mm","SX-D-002"); N("BYP_LEDK","D183.1"); N("BYP_LED","D183.2")
 R("R185","12k","SX-R-008","+15V","BYP_LED",305,Y+25)
 R("R186","100k","SX-R-007","AGND","BYP",245,Y+40)
+for k,net in ((181,"FCV"),(182,"QW"),(183,"AGND")):
+    S("Connector","TestPoint",f"TP{k}",net,500,Y+k-180,"TestPoint:TestPoint_Pad_D1.5mm","none (PCB test pad)"); N(net,f"TP{k}.1")
 # power units and unused LM13700 parts
 S("Amplifier_Operational","LM13700","U91035","LM13700",335,Y+25,"Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","SX-IC-006",5,{"Manufacturer":"Texas Instruments"}); N("-15V","U91035.6"); N("+15V","U91035.11")
 S("Amplifier_Operational","LM13700","U91034","LM13700",350,Y+10,"Package_SO:SOIC-16_3.9x9.9mm_P1.27mm","SX-IC-006",4,{"Manufacturer":"Texas Instruments"}); N("AGND","U91034.7")

@@ -141,6 +141,9 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     s.wire((pnode[0],fo[1]-15.24),pnode)
     rpd=R(rr(121),"100k","SX-R-007",pnode[0],pnode[1]+6.35,0); s.wire(pnode,rpd(1)); gnd(rpd(2))
     s.wire(pnode,(350.52,pnode[1])); s.label(f"{Pn}_POSTFILT",(350.52,pnode[1]),0,"hierarchical","output")
+    s.tp(f"TP{101+o}",f"{Pn}_SIN",(147.32,sin[1]),"down")
+    s.tp(f"TP{102+o}",f"{Pn}_IV",(ivn[0],ivn[1]-5.08),"right")
+    s.tp(f"TP{103+o}",f"{Pn}_POSTFILT",(342.9,pnode[1]),"up")
 
 # DG413 units: L dry SW1 (pins 1 IN, 3 S, 2 D), L filtered SW2 (16, 14, 15); R dry SW4 (8, 6, 7), R filtered SW3 (9, 11, 10)
 side("L",0,85.09,"U101",("U103",3,(4,3,2,5,1)),("U104",1,(2,3,1)),("U105",1,(2,3,1)),("U106",1,(3,2,1)),
@@ -179,6 +182,9 @@ rp=s.place("Device","R_Potentiometer","RV183","10k rev. audio RESONANCE",134.62,
            props=P("SX-POT-004",Note="Reverse-audio (C) taper per SSI2144 datasheet Figure 3; part to choose"))
 s.wire(r184(2),rp(3))
 s.wire(rp(2),lt(rp(2),5.08)); s.label("QW",lt(rp(2),5.08),180)
+s.tp("TP182","QW",lt(rp(2),2.54),"up")
+s.tp("TP181","FCV",(104.14,fcv[1]),"up")
+gnd((25.4,365.76)); s.tp("TP183","AGND",(25.4,365.76),"up")
 yd=Y+8.89
 d1=s.place("Device","D","D181","1N4148W",144.78,yd,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
 d2=s.place("Device","D","D182","1N4148W",157.48,yd,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))

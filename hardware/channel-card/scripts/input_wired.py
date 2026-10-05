@@ -105,12 +105,18 @@ def channel(Pn,dy,rx,cpl,rin,trim_unit,c_fb,r_fb,r_z,dz1,dz2,c_a,c_b,r_a,r_b,hp_
     s.wire((pn[0],tn[1]-17.78),pn)
     rp=place(r_pd,pn[0],pn[1]+3.81,0); s.wire(pn,rp(1)); gnd(rp(2))
     s.wire(pn,(299.72,pn[1])); s.label(f"{Pn}_PREFILT",(299.72,pn[1]),0,"hierarchical","output")
+    k=1 if Pn=="L" else 4
+    s.tp(f"TP{k}",f"{Pn}_RX",(xo,y),"up" if dy==0 else "down")
+    s.tp(f"TP{k+1}",f"{Pn}_TRIM",(182.88,tn[1]),"up")
+    s.tp(f"TP{k+2}",f"{Pn}_PREFILT",(292.1,pn[1]),"up")
 
 # TRIM wire to the DG413 runs up from the trim node: tn -> (TX, ys) is drawn inside channel()
 channel("L",0,("13","12"),"C5","R5",("U2",1,"U2",("2","3","1")),"C7","R7","R9","D1","D2","C9","C10","R11","R12",
         ("U3",1,"U3",("3","2","1")),("U4",1,180,"1","3","2"),("U90044",4,180,"16","14","15"),"R15")
 channel("R",76.2,("9","10"),"C6","R6",("U2",2,"U90022",("6","5","7")),"C8","R8","R10","D3","D4","C11","C12","R13","R14",
         ("U3",2,"U90032",("5","6","7")),("U90042",2,0,"8","6","7"),("U90043",3,180,"9","11","10"),"R16")
+
+gnd((25.4,180.34)); s.tp("TP7","AGND",(25.4,180.34),"up")
 
 # ------------------------------------------------------------- trim pot (both gangs), labels to the trim stages
 rv=place("RV1",76.2,254.0,0)

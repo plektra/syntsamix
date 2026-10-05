@@ -50,5 +50,6 @@ Use `filter` with power-reference prefix `1`, `input` with `0`, `routing` with `
 - Never end a wire on another wire, or on a pin, unless a connection is intended: KiCad connects them.
 - Keep labels at wire ends. Keep two-pin parts at least about 10 mm apart on the same axis so their text does not collide.
 - Multi-gang parts (the dual trim pot) are drawn as their own block with labels.
+- Test pads: `Sheet.tp()` puts a bare pad on a short stub from a wire point; give it the net name as value and add it to the reference netlist. `post_wired.py` keeps `TP` references out of the BOM.
 - Reference blocks per sheet: Input 1-99, Filter 101-199 (decoupling C191-C206), Level 201-299 (capacitors from C221), Routing 301-399, Meter 401-499.
 - KiCad files allow no comments; generated root items are marked by the uuid prefix `c0ffee00` instead.

@@ -37,6 +37,7 @@ units=[("U405",5,4,2),("U94052",7,6,1),("U94053",11,10,13),("U94054",9,8,14),
 for k,(ref,pp,pm,po) in enumerate(units,start=1):      # k = 1 (-30 dB) ... 8 (clip)
     N(f"T{k}",f"{ref}.{pp}"); N("MV",f"{ref}.{pm}"); N(f"SEG{k}",f"{ref}.{po}",f"D{410+k}.1")
     N(f"LEDA{k}",f"D{410+k}.2",f"R{418+k}.2"); N("+5V",f"R{418+k}.1")
+N("MV","TP401.1")
 # supplies and decoupling
 for ref in ("U94013","U94023","U94033","U94043"): N("+15V",f"{ref}.8"); N("-15V",f"{ref}.4")
 for ref in ("U94055","U94065"): N("+15V",f"{ref}.3"); N("PGND",f"{ref}.12")

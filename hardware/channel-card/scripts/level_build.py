@@ -87,6 +87,8 @@ for i in range(6):
     x=330+i*14
     C(f"C{k}","100n","SX-C-002","+15V","AGND",x,140); k+=1
     C(f"C{k}","100n","SX-C-002","-15V","AGND",x,170); k+=1
+for k,net in ((201,"VC"),(202,"VB"),(203,"L_POSTFADE"),(204,"R_POSTFADE"),(205,"SC_ENV")):
+    S("Connector","TestPoint",f"TP{k}",net,500,k,"TestPoint:TestPoint_Pad_D1.5mm","none (PCB test pad)"); N(net,f"TP{k}.1")
 netl=[]
 for n,p in nets.items():
     d={"name":n,"pins":p}

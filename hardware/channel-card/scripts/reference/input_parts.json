@@ -566,5 +566,82 @@
   "units": [
    1
   ]
+ },
+ "TP1": {
+  "lib": "Connector:TestPoint",
+  "value": "L_RX",
+  "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+  "props": {
+   "ProjectPN": "none (PCB test pad)"
+  },
+  "units": [
+   1
+  ]
+ },
+ "TP2": {
+  "lib": "Connector:TestPoint",
+  "value": "L_TRIM",
+  "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+  "props": {
+   "ProjectPN": "none (PCB test pad)"
+  },
+  "units": [
+   1
+  ]
+ },
+ "TP3": {
+  "lib": "Connector:TestPoint",
+  "value": "L_PREFILT",
+  "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+  "props": {
+   "ProjectPN": "none (PCB test pad)"
+  },
+  "units": [
+   1
+  ]
+ },
+ "TP4": {
+  "lib": "Connector:TestPoint",
+  "value": "R_RX",
+  "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+  "props": {
+   "ProjectPN": "none (PCB test pad)"
+  },
+  "units": [
+   1
+  ]
+ },
+ "TP5": {
+  "lib": "Connector:TestPoint",
+  "value": "R_TRIM",
+  "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+  "props": {
+   "ProjectPN": "none (PCB test pad)"
+  },
+  "units": [
+   1
+  ]
+ },
+ "TP6": {
+  "lib": "Connector:TestPoint",
+  "value": "R_PREFILT",
+  "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+  "props": {
+   "ProjectPN": "none (PCB test pad)"
+  },
+  "units": [
+   1
+  ]
+ },
+ "TP7": {
+  "lib": "Connector:TestPoint",
+  "value": "AGND",
+  "footprint": "TestPoint:TestPoint_Pad_D1.5mm",
+  "props": {
+   "ProjectPN": "none (PCB test pad)"
+  },
+  "units": [
+   1
+  ]
  }
 }

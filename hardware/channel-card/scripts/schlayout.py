@@ -58,6 +58,12 @@ class Sheet:
         s.wire(a,(b[0],a[1]),b)
     def vh(s,a,b):
         s.wire(a,(a[0],b[1]),b)
+    def tp(s,ref,name,at,direction="up",length=5.08):
+        """Bare test pad on a short stub from a wire point or pin end, valued with the net name (not in the BOM)."""
+        dx,dy,rot={"up":(0,-1,0),"down":(0,1,180),"right":(1,0,270),"left":(-1,0,90)}[direction]
+        end=(at[0]+dx*length,at[1]+dy*length); s.wire(at,end)
+        s.place("Connector","TestPoint",ref,name,end[0],end[1],rot,fp="TestPoint:TestPoint_Pad_D1.5mm",props={"ProjectPN":"none (PCB test pad)"})
+        return end
     def label(s,name,at,rot=0,kind="local",shape=None):
         d={"name":name,"x_mm":snap(at[0]),"y_mm":snap(at[1]),"rotation":rot}
         if kind=="global": d["kind"]="global_label"

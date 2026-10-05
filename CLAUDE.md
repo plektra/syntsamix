@@ -57,7 +57,7 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status and next steps
 
-Status: spec v0.7 complete (decisions 1-76). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input, Filter, Level, Routing and Meter sheets done and drawn with real wires (ERC clean apart from sheet links that wait for the Chain sheet). Filter output scale and Q current limit are provisional until the breadboard.
+Status: spec v0.7 complete (decisions 1-77). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic in progress: Input, Filter, Level, Routing and Meter sheets done and drawn with real wires (ERC clean apart from sheet links that wait for the Chain sheet). Filter output scale and Q current limit are provisional until the breadboard.
 
 Next:
 1. Remaining channel card sheet: Chain and power (see `docs/ROADMAP.md`)

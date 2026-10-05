@@ -33,6 +33,7 @@ for Pn,ref,unit,pins,y in (("L","U301",1,(3,2,1),50.8),("R","U93012",2,(5,6,7),7
     pp,pm,po=pins
     s.wire((25.4,y),a(pp)); hier((25.4,y),f"{Pn}_POSTFILT",180,"input")
     o=(55.88,a(po)[1]); s.wire(a(po),o,(68.58,o[1])); hier((68.58,o[1]),f"{Pn}_PRE",0,"output")
+    s.tp("TP301" if Pn=="L" else "TP302",f"{Pn}_PRE",(63.5,o[1]),"up")
     s.wire(o,(o[0],o[1]+7.62),(35.56,o[1]+7.62),(35.56,a(pm)[1]),a(pm))
 
 # ------------------------------------------------------------- bus assign (DG413, pressed = compressor bus)

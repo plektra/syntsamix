@@ -40,6 +40,7 @@ N("PFL_CTRL","R311.1"); N("Q_B","R311.2","Q301.1"); N("AGND","Q301.2"); N("PFL_A
 for name,sw,led,rl,rp in (("PFL","SW301","D301","R312","R313"),("SC","SW302","D302","R314","R315"),("COMP","SW303","D303","R316","R317")):
     N(f"{name}_CTRL",f"{sw}.3",f"{rp}.2"); N("+5V",f"{sw}.2"); N(f"{name}_LEDK",f"{sw}.6",f"{led}.1"); N("PGND",f"{sw}.5")
     N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("AGND",f"{rp}.1")
+N("L_PRE","TP301.1"); N("R_PRE","TP302.1")
 # supplies and decoupling
 N("+15V","U93013.8","U93025.13","U93035.13"); N("-15V","U93013.4","U93025.4","U93035.4")
 N("+5V","U93025.12","U93035.12"); N("AGND","U93025.5","U93035.5")
