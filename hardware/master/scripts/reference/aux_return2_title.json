@@ -1,0 +1,5 @@
+{"title":"Master card: AUX return 2","date":"2026-10-06","rev":"0.1","dnp":["R321"],
+ "comments":["AD8273 receiver at G = 1/2, gain jumper J303: fitted -6 dB (pro/Eurorack), open +6 dB (pedal)",
+ "SSI2162 VCA with the channel fader law on RV301 (10k lin): -inf to +10 dB; mute and duck via DG413",
+ "22k bus resistors into MAIN or COMP (pressed = COMP); signal reaches the bus non-inverted",
+ "Decision 51; implementation as the channel Input, Level and Routing sheets"]}

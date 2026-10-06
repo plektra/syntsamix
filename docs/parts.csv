@@ -103,3 +103,5 @@ SX-K-001,Signal relay DPDT 12 V coil SMD,Omron,G6K-2F-Y DC12,LCSC,C397194,Output
 SX-IC-016,5 V 1.5 A regulator TO-220,STMicroelectronics,L7805CV,,,Master +5 V (decision 87); pinout 1 IN 2 GND 3 OUT (KiCad library)
 SX-SW-002,Ground lift switch SPST panel,,,,,Master rear panel (decision 87); part to choose
 SX-C-013,Capacitor 100 nF X7R 100 V 0805,,,,,Ground lift RC (decision 87)
+SX-R-050,Resistor 30 kOhm 1% 0805,,0805W8F3002T5E,,C17621,AUX return gain jumper (decision 88); JLC basic
+SX-POT-006,Pot 10 kOhm linear single 9 mm vertical,Alpha,,,,AUX return level (decision 88); footprint Alpha RD901F-40-00D; MPN to verify
