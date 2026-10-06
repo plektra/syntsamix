@@ -121,3 +121,10 @@ SX-R-063,Resistor 3 kOhm 1% 0805,,,,,Gain-reduction LED ladder
 SX-R-064,Resistor 5.1 kOhm 1% 0805,,,,,Gain-reduction LED ladder
 SX-C-014,Capacitor 220 nF X7R 50 V 0805,,,,,Compressor on/off ramps
 SX-POT-007,Dual pot 10 kOhm linear 9 mm vertical,Alpha,,,,Compressor MIX; footprint Alpha RD902F-40-00D; MPN to verify
+SX-R-065,Resistor 27 kOhm 1% 0805,,,,,Ducker DEPTH pot top (4 V)
+SX-C-015,Capacitor 2.2 uF X7R 25 V 0805,,,,,Ducker hold
+SX-C-016,Capacitor 47 nF C0G 5% 50 V 0805,,,,,Sidechain LPF
+SX-C-017,Capacitor 22 nF C0G 5% 50 V 0805,,,,,Sidechain LPF
+SX-POT-008,Dual pot 100 kOhm reverse-audio (C) 9 mm vertical,Alpha,,,,SC LPF; footprint Alpha RD902F-40-00D; C taper availability and MPN to verify
+SX-POT-009,Pot 10 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker THRESHOLD; footprint Alpha RD901F-40-00D; MPN to verify
+SX-POT-010,Pot 500 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker DECAY; footprint Alpha RD901F-40-00D; MPN to verify

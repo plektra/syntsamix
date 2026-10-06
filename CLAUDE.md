@@ -57,7 +57,7 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status and next steps
 
-Status: spec v0.7 complete (decisions 1-89). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic complete: Input, Filter, Level, Routing, Meter and Chain and power sheets, drawn with real wires, ERC 0 errors 0 warnings. Master card schematic in progress (Bus summing, Power, AUX returns, Compressor done; see `docs/CONTINUE-FROM-HERE.md`). Filter output scale and Q current limit are provisional until the breadboard.
+Status: spec v0.7 complete (decisions 1-90). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic complete: Input, Filter, Level, Routing, Meter and Chain and power sheets, drawn with real wires, ERC 0 errors 0 warnings. Master card schematic in progress (Bus summing, Power, AUX returns, Compressor, Sidechain done; see `docs/CONTINUE-FROM-HERE.md`). Filter output scale and Q current limit are provisional until the breadboard.
 
 Next:
 1. Master/compressor card schematic (power injected in groups of 8, decision 80), then the power input section (see `docs/ROADMAP.md`)

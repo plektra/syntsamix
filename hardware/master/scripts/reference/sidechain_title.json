@@ -1,0 +1,5 @@
+{"title":"Master card: sidechain and ducking","date":"2026-10-06","rev":"0.1","dnp":[],
+ "comments":["Source: SC BUS button picks BUS (SC_SUM) or INT (COMP L+R)/2; a plug in SC EXT overrides (ring switch)",
+ "Sallen-Key LPF 46-510 Hz (RV501, bypass button); SC_DET feeds the compressor, the ducker and SC LISTEN (cue)",
+ "Ducker: window comparator on THRESHOLD, charges 2u2 to DEPTH (0-4 V, +1 V = 10 dB) in about 3 ms, DECAY 48 ms-1.15 s",
+ "Decision 90; simulated in simulation/sidechain/run.py"]}

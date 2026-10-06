@@ -99,7 +99,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - The compressor processes a dedicated **compressor bus**; each channel chooses main or compressor bus, and the compressor output sums into the main bus **[confirmed]**
 - Sidechain has an LPF so the detector reacts mainly to bass; purpose is bass pumping **[confirmed]**
 - Sidechain LPF adjustable about 40 to 500 Hz, 12 dB/octave, with bypass switch **[confirmed]**
-- Sidechain source: 3-position switch INT (the compressor bus itself, L+R) / BUS (the mono sidechain bus) / EXT (external jack) **[confirmed]**
+- Sidechain source: INT (the compressor bus itself, L+R) / BUS (the mono sidechain bus) / EXT (external jack). A plug in the EXT jack overrides; otherwise an SC BUS button picks BUS or INT (decision 90) **[confirmed]**
 - Channels feed the sidechain bus through a per-channel SC send button, tapped after the filter and before fader and mute (same point as PFL and the meter), so a muted channel can still trigger the pumping ("ghost triggering"). The master card never addresses a specific slot **[confirmed]**
 - EXT sidechain input: 6.3 mm jack, DC-coupled, accepts audio and Eurorack envelopes or gates up to ±12 V **[confirmed]**
 - Sidechain ducking (decision 66): an envelope follower on the master card takes the sidechain signal after the source switch and the sidechain LPF and drives the SC_ENV chain line. Controls: THRESHOLD, DEPTH and DECAY; attack fast and fixed. Each channel's DUCK button adds SC_ENV to its VCA control, so the channel ducks with the trigger independently of the compressor bus. Each AUX return also has a DUCK switch **[confirmed]**
