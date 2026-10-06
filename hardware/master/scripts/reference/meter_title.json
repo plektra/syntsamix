@@ -1,0 +1,5 @@
+{"title":"Master card: master meter","date":"2026-10-06","rev":"0.1","dnp":[],
+ "comments":["Stereo peak meter after the master level: 12 segments per side, 0 = +4 dBu, clip +13 dB (about +17 dBu)",
+ "Per side: two superdiodes into 1u via 1k (about 1 ms attack), 680k fall (20 dB in about 1.5 s), follower",
+ "One shared 1 % ladder from +15 V (within 0.04 dB); LEDs about 2 mA from +5 V into LM339 outputs (PGND)",
+ "Spec section 4; decisions 76, 86 and 93"]}

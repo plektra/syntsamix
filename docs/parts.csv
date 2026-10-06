@@ -132,3 +132,16 @@ SX-IC-017,Quad SPST analog switch 4x NC SOIC-16,Vishay,,Mouser,,DG411DY; on at l
 SX-D-008,Rectifier diode 1 A 1000 V SMA (M7 / 1N4007),,,,,Balanced output phantom-power clamps (THAT doc 600078 Figure 8 uses 1N4004)
 SX-R-066,Resistor 330 Ohm 1% 0805,,,,,Relay coil series resistor (12 V coil from +15 V)
 SX-R-067,Resistor 6.8 kOhm 1% 0805,,,,,Relay drop-out reference
+SX-R-068,Resistor 115 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-069,Resistor 13.3 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-070,Resistor 31.6 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-071,Resistor 22.6 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-072,Resistor 16.2 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-073,Resistor 11.3 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-074,Resistor 8.06 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-075,Resistor 5.62 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-076,Resistor 5.11 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-077,Resistor 3.83 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-078,Resistor 2.15 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-079,Resistor 1.87 kOhm 1% 0805,,,,,Master meter ladder
+SX-R-080,Resistor 866 Ohm 1% 0805,,,,,Master meter ladder
