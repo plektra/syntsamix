@@ -25,9 +25,14 @@ Updated 2026-10-06.
 
 ## Next
 
+0. **Decision 97 (from /system), before layout:**
+   - Sidechain sheet: the SC_ENV buffer U505B becomes a unity inverter (two equal resistors), its feedback taken from after R521 (100 Ω), so SC_ENV runs 0 to −4 V. Add a small Schottky diode (for example BAT54; check its reverse leakage at 4 V) with the anode on SC_ENV and the cathode on AGND, so SC_ENV cannot rise above about +0.3 V; in normal use (0 to −4 V) it is reverse biased. Rerun `simulation/sidechain/run.py` with the inverted output and a 1.7 kΩ load.
+   - Both AUX return sheets: the same change as the channel Level sheet (R232/R332 to VSUM as 30k1, remove R233/R333, VPLUS to AGND).
+   - Decision 98: Q501's emitter (Sidechain) and the button pull-downs R523, R525, R527 (Sidechain), R455 (Compressor), R237, R239, R241 and R337, R339, R341 (AUX returns) go from AGND to PGND.
+   - Rebuild, check the netlists, ERC.
+
 PCB layout, after the power board schematic and the channel card layout.
 
 ## For /system
 
-- SC_ENV ducking scale depends on the fader position (finding 1, MAJOR): once `/system` settles the scale and circuit, change the AUX return control summers (R230/R232/R233 on return 1, R280-R283 on return 2). `docs/reviews/2026-10-06-system.md`
-- PFL LED D752 and pull-up R101 return through AGND (finding 4, MINOR).
+(none)

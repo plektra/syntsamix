@@ -2,7 +2,7 @@
 
 ## Phases
 
-1. **Specification** *(done: spec v0.7, decisions 1-69, chain pinouts in CHAIN.md, input module interface in INPUT-MODULE.md)*. Still open: supply rating for 16 cards
+1. **Specification** *(done: spec v0.7, decisions 1-69, chain pinouts in CHAIN.md, input module interface in INPUT-MODULE.md)*. Supply rating for 16 cards settled by decision 96 (system decisions 96-99 settle the 2026-10-06 system validation)
 2. **Simulation and breadboard**: filter simulated in ngspice *(done, `simulation/filter/`)*; SSI2144 breadboard *(parts ordered; plan, schematic, layout and BOM in `simulation/filter/`)*. compressor side chain and sidechain/ducker simulated in ngspice *(done, `simulation/compressor/`, `simulation/sidechain/`)*. Later: VCA and compressor detector on the breadboard, sidechain LPF
 3. **Input module** (`hardware/input-module-6p3`): schematic *(done, ERC clean)*, then PCB
 4. **Channel card** (`hardware/channel-card`): schematic *(done)*, then PCB

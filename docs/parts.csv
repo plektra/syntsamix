@@ -4,7 +4,7 @@ SX-IC-002,Dual VCA SSOP-10 1.00 mm pitch,Sound Semiconductor,SSI2162SS-TU,Electr
 SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,AD8273 (SOIC-14); exact orderable MPN to verify
 SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify
 SX-CONN-001,6.3 mm stereo jack switched (T R S all switched) horizontal PCB,Neutrik,NMJ6HCD2,Mouser,,Pinout verified from Neutrik drawing ST-NMJ6HCD2; >10000 mating cycles; Mouser part number to verify
-SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),Molex,,Mouser,,Footprint Molex_KK-254_AE-6410-10A; MPN and mating housing/crimps to verify
+SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),Molex,,Mouser,,Footprint Molex_KK-254_AE-6410-10A; MPN to verify; mates with SX-CONN-009/010 (decision 99)
 SX-IC-004,Dual low-noise op amp SOIC-8,Texas Instruments,,Mouser,,NE5532 (SOIC-8); exact orderable MPN to verify
 SX-IC-005,Quad SPST analog switch 2NO+2NC SOIC-16,Vishay,,Mouser,,DG413DY; pinout verified from Vishay doc 70050 Rev E; normally open (on at logic 1): SW1 pins 1-3 and SW4 pins 6-8 = KiCad units 1 and 2; normally closed: SW3 pins 9-11 and SW2 pins 14-16 = KiCad units 3 and 4; MPN suffix to verify
 SX-R-001,Resistor 100 Ohm 1% 0805,,,,,
@@ -148,3 +148,5 @@ SX-R-080,Resistor 866 Ohm 1% 0805,,,,,Master meter ladder
 SX-R-081,Resistor 51 Ohm 1% 0805,,,,,Headphone amplifier series input (TI SLOS431B suggests 50 Ohm)
 SX-R-082,Resistor 39.2 Ohm 1% 2512 1 W,,,,,Headphone amplifier output resistor (TI SLOS431B 39.2 Ohm); 2512 for full level into 32 Ohm
 SX-MECH-002,Heatsink board-mount TO-220 <= 10 C/W,,,,,Master LM317 and LM337 (decision 95); live at the regulator tab; part and footprint to choose at layout
+SX-CONN-009,Crimp housing 1x10 2.54 mm KK 254 friction ramp,Molex,22-01-3107,,,Input-module cable both ends (decision 99); from distributor listings (Farnell/Heilind) - verify against Molex drawing
+SX-CONN-010,Crimp terminal KK 254 22-30 AWG tin,Molex,08-50-0114,,,For SX-CONN-009 (decision 99); from distributor listings (RS) - verify against Molex drawing

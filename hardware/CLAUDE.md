@@ -22,6 +22,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 
 ## Parts
 
+- Supply budgets: each board has `scripts/power_budget.py`; `tools/system_power_budget.py` adds them up (decision 96). Rerun both after adding or changing parts that draw current, and update `docs/ARCHITECTURE.md` if the totals move.
 - Verify every pinout and limit from the maker's datasheet before drawing; record the source in `docs/parts.csv`. Every placed symbol gets the BOM fields in `docs/PART-NUMBERING.md`.
 - Custom symbols: `hardware/libs/syntsamix.kicad_sym` (AD8273, SSI2144, SSI2162, AS3046, THAT1646, TPA6120A2).
 - Datasheets: `pdftoppm` is not installed, so the Read tool cannot take `pages`; reading a whole PDF works up to about 30 pages. WebFetch often cannot parse TI/ADI PDFs; download with curl and Read the file.

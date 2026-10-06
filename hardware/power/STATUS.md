@@ -1,6 +1,6 @@
 # Power board status
 
-Updated 2026-10-06.
+Updated 2026-10-06. Unblocked: the power budget is settled (decision 96).
 
 ## Where it stands
 
@@ -13,13 +13,14 @@ Not started.
 
 ## Inputs
 
-**Blocked on `/system power budget`** (system validation finding 2): the worst-case load is about 4.65 A (+15 V) and 4.0 A (−15 V), not 2.8 A, if the channel cards are counted like the master. Settle the budget and the sizing rule before choosing the DC-DC module.
+Load from decision 96 (`docs/decisions/system.md`; figures from `tools/system_power_budget.py` at 20 V raw):
 
-- Load (under review): about 2.4 to 2.8 A per rail at ±20 V for 16 channel cards plus the master (about 100 to 115 W). Master card share from decision 95 (`hardware/master/scripts/power_budget.py`): typical +15 V 345 mA, −15 V 275 mA; worst case 730 / 606 mA.
+- **Prototype (4 channel cards + master):** sizing figure 1.35 A (+20 V) and 1.11 A (−20 V), about 49 W; typical 0.83 / 0.69 A. Choose a DC-DC rated about 2 A per rail, from a family with larger versions (decision 60).
+- **Full size (16 cards + master):** sizing figure 3.6 / 3.0 A per rail, about 132 W. This is the supply rating for 16 cards; the full-size module is bought only after the prototype cards are measured (decision 96).
 - The raw rails must stay above about 19 V under load: the master's relay drop-out comparator trips at 17.9 V, and the LM317 needs about 2 V headroom.
-- Capacitive load at switch-on: about 1.2 mF per raw rail at full size, 0.37 mF for the prototype (finding 6); check the module's capacitive-load and start-up limits.
-- Open item: the supply rating for 16 cards (`docs/decisions/power.md`).
+- Capacitive load at switch-on: about 0.37 mF per raw rail for the prototype, 1.2 mF at full size (system validation finding 6); check the module's capacitive-load and start-up limits.
+- Power ribbon headers on this board: up to about 0.76 A per pin; choose IDC headers rated at least 1 A per contact (decision 96).
 
 ## For /system
 
-- Power budget and sizing rule (`docs/reviews/2026-10-06-system.md`, findings 2 and 6).
+(none)

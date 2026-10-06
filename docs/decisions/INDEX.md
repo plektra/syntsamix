@@ -93,7 +93,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 69 | Stereo buttons switch through DG413 | confirmed | [system](system.md) |
 | 70 | Licensing: non-commercial source-available | confirmed | [process](process.md) |
 | 71 | Resonance compensation via LM13700 Q VCA | confirmed | [channel-card](channel-card.md) |
-| 72 | Level sheet: SSI2162 implementation | confirmed, parts proposed | [channel-card](channel-card.md) |
+| 72 | Level sheet: SSI2162 implementation | confirmed | [channel-card](channel-card.md) |
 | 73 | Low-cut at 100 Hz | confirmed | [channel-card](channel-card.md) |
 | 74 | Routing sheet: buffers and bus resistors | confirmed | [channel-card](channel-card.md) |
 | 75 | Buttons: GPBS850N with printed caps | confirmed | [mechanical](mechanical.md) |
@@ -117,6 +117,10 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 93 | Master meter implementation | confirmed, parts proposed | [master-card](master-card.md) |
 | 94 | Headphones implementation | confirmed, parts proposed | [master-card](master-card.md) |
 | 95 | Master card power recheck | confirmed | [master-card](master-card.md) |
+| 96 | Power sizing rule: own parts worst case, shared parts typical × 1.5 plus use loads | confirmed | [system](system.md) |
+| 97 | SC_ENV negative, −1 V = 10 dB, summed into the control summer's virtual earth | confirmed | [system](system.md) |
+| 98 | PFL_ACT drivers and button pull-downs return to PGND | confirmed | [system](system.md) |
+| 99 | Input-module cable: 1:1 KK 254 crimp cable | confirmed | [input-module](input-module.md) |
 
 ## Proposed but not confirmed
 
@@ -131,7 +135,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 - [x] Fader part (item 48)
 - [x] Pin assignment of the 34-pin audio and 8-pin power connectors (`CHAIN.md`)
 - [x] Chain voltage headroom: raised to about ±20 V nominal (item 40)
-- [ ] Supply rating for 16 cards (include channel meter LEDs, about 10–15 mA per card)
+- [x] Supply rating for 16 cards (decision 96)
 - [x] Master meter scale and segment count (item 49)
 
 ## Backlog

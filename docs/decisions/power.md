@@ -11,4 +11,4 @@ Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are 
 
 ## Open items
 
-- [ ] Supply rating for 16 cards plus the master (include channel meter LEDs, about 10-15 mA per card). Inputs from decision 95: about 2.4 to 2.8 A per rail at ±20 V; raw rails above about 19 V under load
+- [x] Supply rating for 16 cards plus the master: decision 96 (`system.md`), 3.6 / 3.0 A per rail, about 132 W; prototype 1.35 / 1.11 A, DC-DC about 2 A per rail. Raw rails above about 19 V under load

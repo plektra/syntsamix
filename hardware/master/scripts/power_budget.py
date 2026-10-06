@@ -9,6 +9,7 @@ Rev 1.2 (Class AB 6 / 8 mA); THAT1646 doc 600078 (4.9 / 5.75 mA); TPA6120A2 TI S
 G6K-2F-Y DC12 coil 1315 Ω with 330 Ω in series. TL072 (1.4 / 2.5 mA per amplifier),
 LM339 (0.8 / 2.5 mA) and L7805 quiescent (5 / 8 mA) are standard values not re-checked
 against the datasheets here.
+Also prints the decision 96 sizing figure.
 Usage: python3 power_budget.py [raw rail, default 20]
 """
 import sys
@@ -52,3 +53,10 @@ p,m,_=total("max"); pw=(RAW-V15)*max(p,m)/1000
 print(f"worst regulator {pw:.2f} W: heatsink at most {(100-40)/pw-6:.1f} C/W for TJ <= 100 C at 40 C ambient")
 p,m,_=total("typ"); pw=(RAW-V15)*max(p,m)/1000
 print(f"typical regulator {pw:.2f} W: free-air TO-220 (about 50 C/W) would reach TJ {40+pw*50:.0f} C")
+# Sizing for shared supply parts (decision 96): IC quiescent current at typical x 1.5,
+# use-dependent loads (relays, LEDs, signal, headphones) at their maximum.
+K=1.5
+ic_p=sum(n*t for n,t,m,r in parts.values()); ic_m=sum(n*t for n,t,m,r in parts.values() if r=="pm")
+sp=K*(ic_p+l7805_iq[0])+sum(v[1] for v in fixed_p.values())+led5_max+sum(sig_max.values())
+sm=K*ic_m+sum(v[1] for v in fixed_m.values())+sum(sig_max.values())
+print(f"sizing: +15 V {sp:.0f} mA, -15 V {sm:.0f} mA")
