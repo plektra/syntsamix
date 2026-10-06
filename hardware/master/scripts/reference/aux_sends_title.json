@@ -1,0 +1,5 @@
+{"title":"Master card: AUX sends","date":"2026-10-06","rev":"0.1","dnp":[],
+ "comments":["Dual-gang 10k log send masters on the inverted bus sums; 47k/47k inverters restore polarity",
+ "Impedance-balanced TRS outputs: tip via 100R, ring via 100R to AGND; +4 dBu nominal",
+ "L/MONO: R jack ring switch detects the plug; unplugged, the DG411 adds R and halves the L gain -> (L+R)/2",
+ "Decisions 24 and 51"]}

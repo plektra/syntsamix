@@ -12,7 +12,7 @@
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
-5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(in progress: Bus summing, Power, both AUX returns, Compressor and Sidechain done)*, then PCB
+5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(in progress: Bus summing, Power, both AUX returns, Compressor, Sidechain and AUX sends done)*, then PCB
 5. **Power input section** (DC brick input, DC-DC to ±20 V, protection; on the master card or a small card beside it)
 6. **Prototype build and measurement** against the targets in SPEC.md section 5
 

@@ -128,3 +128,4 @@ SX-C-017,Capacitor 22 nF C0G 5% 50 V 0805,,,,,Sidechain LPF
 SX-POT-008,Dual pot 100 kOhm reverse-audio (C) 9 mm vertical,Alpha,,,,SC LPF; footprint Alpha RD902F-40-00D; C taper availability and MPN to verify
 SX-POT-009,Pot 10 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker THRESHOLD; footprint Alpha RD901F-40-00D; MPN to verify
 SX-POT-010,Pot 500 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker DECAY; footprint Alpha RD901F-40-00D; MPN to verify
+SX-IC-017,Quad SPST analog switch 4x NC SOIC-16,Vishay,,Mouser,,DG411DY; on at logic 0; pinout as DG413 (Vishay doc 70050 Rev D); AUX send mono switching; MPN suffix to verify

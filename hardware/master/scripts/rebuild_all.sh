@@ -6,7 +6,7 @@ set -e
 HERE=$(cd "$(dirname "$0")" && pwd); cd "$HERE"
 PY=${PY:-$(ls -d ~/.cache/uv/archive-v0/*/bin/python 2>/dev/null | while read p; do "$p" -c "import mcp" 2>/dev/null && echo "$p" && break; done)}
 KICAD_CLI=${KICAD_CLI:-/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli}
-SHEETS="bus:1 aux_return1:2 aux_return2:3 compressor:4 sidechain:5 power:9"   # sheet file name : power-reference prefix
+SHEETS="bus:1 aux_return1:2 aux_return2:3 compressor:4 sidechain:5 aux_sends:6 power:9"   # sheet file name : power-reference prefix
 for f in *_build.py *_wired.py; do [ "$f" = post_wired.py ] || python3 "$f" >/dev/null; done
 for spec in $SHEETS; do
   name=${spec%%:*}; pre=${spec##*:}
