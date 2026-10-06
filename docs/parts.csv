@@ -96,3 +96,7 @@ SX-D-007,Schottky diode 1 A 40 V SMA,,,,,SS14 class; rail clamp to AGND
 SX-R-047,Resistor 22 kOhm 1% 0805,,0805W8F2202T5E,,C17560,Bus resistor; JLC basic (decision 79)
 SX-R-048,Resistor 470 kOhm 1% 0805,,0805W8F4703T5E,,C17709,Cutoff offset injection; JLC basic (decision 79)
 SX-R-049,Resistor 2.2 kOhm 1% 0805,,0805W8F2201T5E,,C17520,Regulator divider with 200 Ohm (15.1 V); JLC basic (decision 79)
+SX-IC-013,NPN transistor array with matched pair SOIC-14,Alfa,AS3046D,Electric Druid,,Compressor log detector (decision 82); pinout to verify from the Alfa datasheet before drawing
+SX-IC-014,Balanced line driver OutSmarts SOIC-8,THAT Corporation,THAT1646S08-U,Mouser,,Main outputs (decision 83, cost-cut candidate); pinout to verify from the THAT datasheet before drawing
+SX-IC-015,Headphone amplifier HSOP-20 PowerPAD,Texas Instruments,TPA6120A2DWPR,LCSC,C70439,Decision 84; pinout to verify from the TI datasheet before drawing
+SX-K-001,Signal relay DPDT 12 V coil SMD,Omron,G6K-2F-Y DC12,LCSC,C397194,Output protection (decision 85); coil and contact data to verify from the Omron datasheet

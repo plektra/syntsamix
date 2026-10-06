@@ -21,6 +21,7 @@ SX-<category>-<nnn>
 | Q | Transistors |
 | CONN | Connectors, jacks, headers |
 | SW | Switches and buttons |
+| K | Relays |
 | MECH | Mechanical parts (knobs, standoffs, panels) |
 
 - The number names a part type, not a board position: every 100 nF X7R capacitor on every board shares one number. Board positions stay in the reference designators (C12, U3).

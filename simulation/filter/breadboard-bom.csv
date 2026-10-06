@@ -49,4 +49,3 @@ Order 2,3,6.8 nF,Same film capacitor as the first order (41015666),,Electrokit,S
 Order 2,1,Breadboard,840 tie-point solderless breadboard (same as first order),,Electrokit,Room for the second core (test 8) and the LM13700 Q VCA (test 9)
 Order 2,2,TL072,Dual JFET op amp DIP-8,,Electrokit,Test 10 fader law (Level sheet control circuit)
 Order 2,10,Latching push switch,CW Industries GPBS850N DPDT 8.5x8.5 mm,,Electrokit,"Button switch for the channel cards (decision 75): test fit and feel, and print translucent cap prototypes"
-Order 2,1,LED bar graph 10 segment gauge,Green-orange-red 10-segment bar (Electrokit 41010574),,Electrokit,"Sample for the channel meter: check the colour split, brightness at 2 mA and forward voltage before redesigning the meter for 10 segments"

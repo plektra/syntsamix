@@ -116,7 +116,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - Ranges: Amount 0 to about 30 dB (threshold down to -30 dB below nominal, makeup tied); Release about 50 ms to 1.5 s; gain-reduction LEDs at 1, 3, 6, 10, 15 dB **[confirmed]**
 - Soft clipping on the master bus output, same onset as the channels **[confirmed]**
 - Master level: linear pot controlling an SSI2162 VCA (accurate L/R tracking) **[confirmed]**
-- Headphone output **[confirmed for the prototype]**: dual-gang volume pot; NJM4556A-class high-current dual op amp driver with small series output resistors (part and output figures to verify from the datasheet); for 32 to 600 Ω headphones; 6.3 mm stereo jack on the front or top panel, the only jack not on the rear
+- Headphone output **[confirmed for the prototype]**: dual-gang volume pot; TI TPA6120A2 headphone amplifier on ±15 V (decision 84, replaces the NJM4556A whose package cannot dissipate the power); for 32 to 600 Ω headphones; 6.3 mm stereo jack on the front or top panel, the only jack not on the rear
 - AUX send outputs: L/MONO and R jacks per send (impedance-balanced TRS, TS works); with only L plugged in, L outputs (L+R)/2 **[confirmed]**
 - AUX send master: dual-gang pot per send, -∞ to 0 dB, ahead of the output stage; full up gives +4 dBu nominal, turned down suits pedals and other low-level gear **[confirmed]**
 - AUX returns: stereo, L/MONO normalled (only L plugged in feeds both sides) **[confirmed]**

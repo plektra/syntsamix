@@ -27,7 +27,14 @@
 - Insert points on the channel strips
 - Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources
 - Expansion to 32 channels: power injector board every 16 cards (the 8-pin power ribbon carries only about 16 cards' current), mixing amps sized for 32 inputs (about 3 dB more bus noise), two frames of 16 strips linked by a longer ribbon. Channel cards and pinouts stay unchanged
+- 3D-printed LED bar diffuser for the meters: an opaque printed bezel with square windows (for example 4 x 4 mm at 5 mm pitch) and a translucent diffuser over 0805 SMD LEDs, replacing the round 3 mm meter LEDs (decision 86). Same look as the printed button caps; walls between the windows stop light bleeding between segments
 - Mixer variant with external channel strips, for bands or groups of performers who each connect and control their own instrument submix
+
+## Cost-cut candidates
+
+Decisions that can fall back to a cheaper option if the budget needs it:
+
+- Main balanced outputs: THAT1646 line drivers → NE5532 buffer + inverter (decision 83)
 
 ## KiCad workflow
 
