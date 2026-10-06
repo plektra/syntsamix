@@ -50,8 +50,8 @@ hardware/
   channel-card/  KiCad project (stereo channel)
   input-module-6p3/  KiCad project (6.3 mm input module)
   libs/          shared symbols (syntsamix.kicad_sym) and footprints
-  master/        KiCad project (compressor, master, outputs), not created yet
-  power/         power input section, not created yet
+  master/        KiCad project (compressor, master, outputs); schematic in progress
+  power/         power board (DC input, DC-DC to ±20 V; decision 81), not created yet
 simulation/      ngspice model, filter results, breadboard plan, BOM and order files
 ```
 

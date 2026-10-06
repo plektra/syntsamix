@@ -3,7 +3,7 @@
 import json,os,subprocess,xml.etree.ElementTree as ET
 T=os.path.join(os.path.dirname(os.path.abspath(__file__)),'build')+'/'
 D=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+'/'
-subprocess.run([os.environ.get('KICAD_CLI','/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'),'sch','export','netlist','--format','kicadxml','-o',T+'cc.xml',D+'channel-card.kicad_sch'],capture_output=True)
+subprocess.run([os.environ.get('KICAD_CLI','/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'),'sch','export','netlist','--format','kicadxml','-o',T+'cc.xml',D+os.path.basename(D.rstrip('/'))+'.kicad_sch'],capture_output=True)
 import sys
 _h=os.path.dirname(os.path.abspath(__file__))
 _r=os.path.join(_h,'reference',sys.argv[1])

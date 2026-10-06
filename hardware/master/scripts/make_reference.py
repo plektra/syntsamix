@@ -1,0 +1,1 @@
+../../channel-card/scripts/make_reference.py

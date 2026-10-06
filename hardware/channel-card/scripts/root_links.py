@@ -8,7 +8,8 @@ are removed and rewritten each run.
 """
 import os,re,uuid
 CARD=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+'/'
-p=CARD+'channel-card.kicad_sch'; s=open(p).read()
+PROJ=os.path.basename(CARD.rstrip('/'))   # project name = folder name (channel-card, master, ...)
+p=CARD+PROJ+'.kicad_sch'; s=open(p).read()
 # drop labels written by an earlier run
 MARK='c0ffee00'   # uuid prefix of items written by this script (KiCad files allow no comments)
 def uid(): return MARK+str(uuid.uuid4())[8:]

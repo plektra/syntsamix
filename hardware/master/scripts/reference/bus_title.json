@@ -1,0 +1,5 @@
+{"title":"Master card: bus summing","date":"2026-10-06","rev":"0.1","dnp":[],
+ "comments":["Virtual-earth summing amps for the chain buses, 22k || 100p feedback (unity per 22k bus resistor)",
+ "Bus nodes are hierarchical so returns, compressor and SC listen can sum into them",
+ "Outputs <bus>_SUM are inverted; PFL_ACT pulled up to +5 V here",
+ "Pinout docs/CHAIN.md; master card is the end of the audio chain"]}

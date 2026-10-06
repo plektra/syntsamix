@@ -1,0 +1,295 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "e58f7b8d-79d3-4449-9042-9214947ce872")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 25.4 38.1)
+		(size 30.48 60.96)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "66a04315-1ca2-43ad-bd1f-76140cc5a257")
+		(property "Sheetname" "Bus summing"
+			(at 25.4 37.3884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "bus.kicad_sch"
+			(at 25.4 59.0046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "SC_ENV" input
+			(at 25.4 40.64 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "4e3f3e37-23d1-45c0-b84e-54bed4ffe0a9")
+		)
+		(pin "AUX1_L" bidirectional
+			(at 55.88 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "6be24db0-ba23-442d-b4a4-0cd83f795233")
+		)
+		(pin "AUX1_L_SUM" output
+			(at 55.88 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "9511b741-9208-465d-9b65-1380102c381a")
+		)
+		(pin "AUX1_R" bidirectional
+			(at 55.88 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "c229860a-0dff-4460-82b7-433346398dcd")
+		)
+		(pin "AUX1_R_SUM" output
+			(at 55.88 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "f8964757-533f-45fd-9d02-e402ea961df2")
+		)
+		(pin "AUX2_L" bidirectional
+			(at 55.88 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "90ff1139-939f-41b0-9b4c-626f4c5dc1c3")
+		)
+		(pin "AUX2_L_SUM" output
+			(at 55.88 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "1e558663-c5a6-4947-af5f-224b0f0f025c")
+		)
+		(pin "AUX2_R" bidirectional
+			(at 55.88 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "8a5f7958-d3ff-4be6-b943-0fb6846da70e")
+		)
+		(pin "AUX2_R_SUM" output
+			(at 55.88 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "02141fd9-2c19-4d10-800d-2eda37f4546a")
+		)
+		(pin "COMP_L" bidirectional
+			(at 55.88 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "98adde49-c7d7-498b-88dc-44e5167f8efe")
+		)
+		(pin "COMP_L_SUM" output
+			(at 55.88 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "7a538f6f-970a-4547-8cba-314449c59565")
+		)
+		(pin "COMP_R" bidirectional
+			(at 55.88 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "582a6209-875a-43d4-93fd-e7241ddefed9")
+		)
+		(pin "COMP_R_SUM" output
+			(at 55.88 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "ed2338ec-e2c7-4631-846b-285317a690b0")
+		)
+		(pin "CUE_L" bidirectional
+			(at 55.88 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "fc990b19-1f28-4c67-8fb5-23ef8e3aeece")
+		)
+		(pin "CUE_L_SUM" output
+			(at 55.88 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "65735e25-74c2-4b9f-8d59-bdc666120a72")
+		)
+		(pin "CUE_R" bidirectional
+			(at 55.88 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "aab6aaad-3b9f-4641-afdb-395c64aa4d77")
+		)
+		(pin "CUE_R_SUM" output
+			(at 55.88 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "8760585a-79f9-4b9f-b61d-aa0d439e1a4b")
+		)
+		(pin "MAIN_L" bidirectional
+			(at 55.88 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "4c003911-25f1-4bda-8317-f428002f79c2")
+		)
+		(pin "MAIN_L_SUM" output
+			(at 55.88 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "b95466e7-f56d-42be-bb26-127d5cc668a2")
+		)
+		(pin "MAIN_R" bidirectional
+			(at 55.88 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "df288ec8-0443-42f6-8119-b0b54683bb16")
+		)
+		(pin "MAIN_R_SUM" output
+			(at 55.88 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "c8b60652-d448-4123-9ec7-dae55c2fbf12")
+		)
+		(pin "PFL_ACT" output
+			(at 55.88 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "1e50b82b-33d0-4512-bbf4-dcc3702b3067")
+		)
+		(pin "SC" bidirectional
+			(at 55.88 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "e3c56300-6932-4357-993a-02652cd64a90")
+		)
+		(pin "SC_SUM" output
+			(at 55.88 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "019dd160-8afe-448c-be88-48f60a90114f")
+		)
+		(instances
+			(project "master"
+				(path "/e58f7b8d-79d3-4449-9042-9214947ce872"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

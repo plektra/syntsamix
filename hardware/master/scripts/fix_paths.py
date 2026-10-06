@@ -1,0 +1,1 @@
+../../channel-card/scripts/fix_paths.py

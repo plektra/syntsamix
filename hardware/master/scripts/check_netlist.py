@@ -1,0 +1,1 @@
+../../channel-card/scripts/check_netlist.py

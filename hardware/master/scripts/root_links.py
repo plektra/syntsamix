@@ -1,0 +1,1 @@
+../../channel-card/scripts/root_links.py

@@ -7,9 +7,10 @@ Use before redrawing a sheet that has no build script, so check_netlist.py can p
 """
 import json,os,re,subprocess,sys,xml.etree.ElementTree as ET
 HERE=os.path.dirname(os.path.abspath(__file__)); CARD=os.path.dirname(HERE)+'/'; T=os.path.join(HERE,'build')+'/'; REF=os.path.join(HERE,'reference')+'/'
+PROJ=os.path.basename(CARD.rstrip('/'))   # project name = folder name (channel-card, master, ...)
 os.makedirs(T,exist_ok=True)
 name,stem=sys.argv[1],sys.argv[2]
-subprocess.run([os.environ.get('KICAD_CLI','/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'),'sch','export','netlist','--format','kicadxml','-o',T+'ref.xml',CARD+'channel-card.kicad_sch'],capture_output=True,check=True)
+subprocess.run([os.environ.get('KICAD_CLI','/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli'),'sch','export','netlist','--format','kicadxml','-o',T+'ref.xml',CARD+PROJ+'.kicad_sch'],capture_output=True,check=True)
 x=ET.parse(T+'ref.xml')
 refs={c.get('ref') for c in x.iter('comp') if c.find('sheetpath').get('names')==f'/{name}/'}
 nets=[]

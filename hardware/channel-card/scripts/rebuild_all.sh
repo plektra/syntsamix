@@ -17,5 +17,5 @@ done
 python3 fix_paths.py >/dev/null
 python3 root_links.py >/dev/null
 for t in input filter level routing meter chain; do printf '%s: ' $t; python3 check_netlist.py $t.json | tr '\n' ' '; echo; done
-"$KICAD_CLI" sch erc -o build/erc.rpt ../channel-card.kicad_sch >/dev/null 2>&1 || true
+"$KICAD_CLI" sch erc -o build/erc.rpt ../$(basename "$(cd .. && pwd)").kicad_sch >/dev/null 2>&1 || true
 grep "ERC messages" build/erc.rpt
