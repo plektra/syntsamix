@@ -26,4 +26,6 @@ Resonance pot (10k reverse audio), CV jack (vertical 6.3 mm), meter and button L
 
 ## For /system
 
-(none)
+- SC_ENV ducking scale depends on the fader position (finding 1, MAJOR): once `/system` settles the scale and circuit, change the Level sheet's control summer (R215, R217, R218, U205B). `docs/reviews/2026-10-06-system.md`
+- Q301 base current and the button pull-downs return through AGND (finding 4, MINOR).
+- The channel card budget script (finding 2) belongs to the `/system power budget` session.

@@ -12,3 +12,5 @@ _autosave-*
 hardware/*/output/
 *.kicad_sch.*.bak
 hardware/*/scripts/build/
+# Claude Code worktrees
+.claude/worktrees/

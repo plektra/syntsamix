@@ -15,9 +15,10 @@ Decisions 1-95; last pushed commit: see `git log -1`.
 
 ## Order of work
 
-1. **Power board schematic**: choose the DC-DC module family and the brick voltage (24 or 48 V), then draw it. Inputs in `hardware/power/STATUS.md`.
-2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
-3. **Channel card PCB**, then the input module, master card and power board PCBs.
+1. **`/system power budget`**: the system validation (`docs/reviews/2026-10-06-system.md`, finding 2) found the worst-case load about 4.65 A per rail, not 2.8 A. Write the channel card budget script and settle the sizing rule. Then a `/system` session on the SC_ENV ducking scale (finding 1).
+2. **Power board schematic**: choose the DC-DC module family and the brick voltage (24 or 48 V), then draw it. Inputs in `hardware/power/STATUS.md`.
+3. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
+4. **Channel card PCB**, then the input module, master card and power board PCBs.
 
 ## System
 

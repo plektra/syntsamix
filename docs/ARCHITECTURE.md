@@ -37,6 +37,8 @@ Each channel card has identical IN and OUT copies of both ribbons, wired straigh
 
 ### Power
 
+**Under review** (system validation finding 2): the totals below mix a typical channel figure with the master's worst case; see the open system items.
+
 | Item | Value | Source |
 |---|---|---|
 | Raw rails | ±20 V nominal, unregulated in general, from an isolated DC-DC on the prototype | decisions 40, 60, 81 |
@@ -82,6 +84,11 @@ Each channel card has identical IN and OUT copies of both ribbons, wired straigh
 
 ## Open system items
 
-- Channel card power budget script (replace the 130 mA estimate), then recheck the total and the DC-DC rating.
-- Supply rating for 16 cards (`docs/decisions/power.md`).
-- SC_ENV scale (decision 72, proposed).
+From the system validation `docs/reviews/2026-10-06-system.md` (finding numbers in brackets):
+
+- **[2, MAJOR]** The power budget mixes a typical channel figure with the master's worst case. Counted like the master, a channel card draws about 120/105 mA typical and 245/214 mA worst case (+15/−15 V), so 16 cards plus the master reach about 4.65 A (+15 V) and 4.0 A (−15 V) worst case, about 0.98 A per power-ribbon pin. Write the channel card budget script, choose one sizing rule for the DC-DC and the ribbon, then restate the power table above, decision 95's last sentence and `hardware/power/STATUS.md`. Until then the power figures above are **under review**. Includes the supply rating for 16 cards (`docs/decisions/power.md`).
+- **[1, MAJOR]** SC_ENV ducking is about 4.6 dB per volt at normal fader positions (10 dB/V only below about 19 % of travel), because SC_ENV enters the control summer's non-inverting input and the noise gain changes with the fader's superdiode breakpoints. Decide the SC_ENV scale (decision 72, proposed) and a circuit whose ducking does not depend on the fader, then recheck decision 90's DEPTH range; the change applies to the channel Level sheet and both master AUX returns.
+- **[6, MINOR]** About 1.2 mF of capacitance per raw rail at full size (0.37 mF for the prototype) charges at switch-on: an input for the DC-DC choice (capacitive-load and start-up limits).
+- **[4, MINOR]** PFL LED, PFL_ACT pull-up and button pull-down currents return through AGND, against invariant 4 (`CHAIN.md` says PFL_ACT is pulled to AGND). About 10 µV, inaudible: note the exception, or buffer the PFL LED to PGND on the master.
+- **[5, MINOR]** Stale wording: `CHAIN.md` and decision 42 say power enters at the master (it enters at the power board since decisions 80 and 81; the star point stays on the master); current figures in `CHAIN.md` (2.1 A), the rationale in `system.md` (1.3 A) and decision 78 (1.05 A per pin, superseded by decision 80) disagree with each other.
+- **[7, MINOR]** The input-module cable is not defined: both boards have male KK 254 headers, so the link needs a 1:1 crimp-housing cable (housing, crimps, length, pin 1 to pin 1). Record it in `INPUT-MODULE.md`, or put a socket on one side, before the input module PCB.

@@ -20,6 +20,7 @@ Updated 2026-10-06.
 
 - G6K NC/NO contact assignment against Omron's terminal diagram (taken from KiCad's G6K-2 symbol).
 - The dual 100 kΩ reverse-log (C) pot for the sidechain LPF may not exist in Alpha's range.
+- R421 (compressor, SX-R-021, ERA-V33J102V) has an 0805 footprint; the part is 0603 (as on the channel card). Fix in the compressor scripts (`docs/reviews/2026-10-06-system.md`, finding 3, MAJOR).
 - LCSC stock check not yet rerun for the master card parts (`tools/lcsc_check.py`).
 
 ## Next
@@ -28,4 +29,5 @@ PCB layout, after the power board schematic and the channel card layout.
 
 ## For /system
 
-(none)
+- SC_ENV ducking scale depends on the fader position (finding 1, MAJOR): once `/system` settles the scale and circuit, change the AUX return control summers (R230/R232/R233 on return 1, R280-R283 on return 2). `docs/reviews/2026-10-06-system.md`
+- PFL LED D752 and pull-up R101 return through AGND (finding 4, MINOR).
