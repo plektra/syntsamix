@@ -1,0 +1,2 @@
+{"pins":["AUX1_L","AUX1_R","AUX2_L","AUX2_R","SC"],
+ "why":"Bus nodes on the Bus summing sheet that no master sheet sums into (channels reach them only through the audio ribbon)"}

@@ -4,24 +4,19 @@ Session handoff, 2026-10-06. Read `CLAUDE.md` first; this file holds what the ot
 
 ## Where we are
 
-- Spec complete, decisions 1-93 (`docs/DECISIONS.md`).
+- Spec complete, decisions 1-94 (`docs/DECISIONS.md`).
 - **Channel card schematic complete**: Input, Filter, Level, Routing, Meter, Chain and power. ERC 0/0. Rebuild and check everything with `hardware/channel-card/scripts/rebuild_all.sh`.
-- **Master card schematic in progress** (`hardware/master`): Bus summing, Power, AUX return 1 and 2, Compressor, Sidechain, AUX sends, Master out, Master meter done (`hardware/master/scripts/rebuild_all.sh`). Remaining ERC items are Bus summing outputs that later sheets will use.
+- **Master card schematic complete** (`hardware/master`, decisions 87-94): Bus summing, Power, AUX return 1 and 2, Compressor, Sidechain, AUX sends, Master out, Master meter, Headphones. ERC 0/0 (`hardware/master/scripts/rebuild_all.sh`; unused bus-node pins listed in `scripts/reference/root_nc.json`).
 - Input module schematic done (`hardware/input-module-6p3`). Power board (`hardware/power`, decision 81) not started.
 - Last pushed commit: `6b86189`.
 
-## Next: remaining master card sheets
+## Next
 
-Reference prefixes so far: Bus 1xx, AUX return 1 2xx, AUX return 2 3xx, Compressor 4xx, Sidechain 5xx, AUX sends 6xx, Master out 7xx, Master meter 8xx, Power 9xx. Suggested order and notes (specs in `docs/SPEC.md` section 4):
+1. **Recheck the master card power** (decision 87): add up the +15 V, -15 V and +5 V loads of all ten sheets, including the TPA6120A2 (about 30 mA quiescent, peaks of a few hundred mA at full level into 32 ohm), three relay coils (about 27 mA from +15 V) and about 75 LEDs on +5 V (the L7805 draws its current from +15 V). Then size the LM317/LM337/L7805 heatsinks.
+2. **Power board** (`hardware/power`, decision 81): choose the isolated DC-DC module family and brick voltage, then draw it.
+3. **Channel card PCB layout**, after the breadboard has settled the filter values.
 
-1. **Compressor** (4xx): done (decision 89, `simulation/compressor/`). Its detector input is SC_DET: the filtered sidechain after the source switch and LPF, at low impedance, with INT = (COMP_L + COMP_R)/2 at unity so the threshold (+14.6 dBu sine peak at AMOUNT 0) refers to the bus level.
-2. **Sidechain and ducking** (5xx): done (decision 90, `simulation/sidechain/`).
-3. **AUX sends** (6xx): done (decision 91).
-4. **Master out** (7xx): done (decision 92). Leaves MAIN_L/R_OUT (meter, headphones) and RLY_N (headphone relay coil: +15 V through 330 Ω, flyback 1N4148W, to RLY_N). At the end of the master card, add no-connect flags for the bus sheet pins AUX1_L/R, AUX2_L/R and SC on the root (no master sheet sums into them).
-5. **Master meter** (8xx): done (decision 93).
-6. **Headphones**: main normally, cue when PFL_ACT is low; TPA6120A2 (decision 84; pinout and thermal pad to verify), dual-gang volume pot, 6.3 mm jack, PFL-active LED, relay in series.
-
-After the master card: recheck the master's rail currents and regulator heat (decision 87), then the power board (choose the isolated DC-DC module and brick voltage).
+Reference prefixes on the master: Bus 1xx, AUX return 1 2xx, AUX return 2 3xx, Compressor 4xx, Sidechain 5xx, AUX sends 6xx, Master out 701-731, Headphones 751+, Master meter 8xx, Power 9xx (power-symbol prefix 0 for Headphones).
 
 ## Pending outside the schematics
 

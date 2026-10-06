@@ -3,7 +3,9 @@
 """Label root sheet pins that appear on more than one sheet with their name, so they connect.
 
 Pins that already have a wire get the label right on the pin; free pins get a short stub
-(left for inputs, right for outputs) ending in the label. Idempotent: existing root labels
+(left for inputs, right for outputs) ending in the label. Pins named in
+scripts/reference/root_nc.json (deliberately unused, for example bus nodes no sheet sums
+into) get a no-connect marker instead. Idempotent: existing root labels, wires and markers
 are removed and rewritten each run.
 """
 import os,re,uuid
@@ -14,7 +16,10 @@ p=CARD+PROJ+'.kicad_sch'; s=open(p).read()
 MARK='c0ffee00'   # uuid prefix of items written by this script (KiCad files allow no comments)
 def uid(): return MARK+str(uuid.uuid4())[8:]
 # drop items written by an earlier run: one-line blocks with our uuid prefix, or KiCad's multi-line re-save of them
-s=re.sub(r'\n\t\((?:label|wire)\b(?:(?!\n\t\().)*?\(uuid "'+MARK+r'[^"]*"\)\s*\)','',s,flags=re.S)
+s=re.sub(r'\n\t\((?:label|wire|no_connect)\b(?:(?!\n\t\().)*?\(uuid "'+MARK+r'[^"]*"\)\s*\)','',s,flags=re.S)
+import json
+ncf=CARD+'scripts/reference/root_nc.json'
+unused=set(json.load(open(ncf))["pins"]) if os.path.exists(ncf) else set()
 ends=set()
 for m in re.finditer(r'\(xy ([-\d.]+) ([-\d.]+)\)',s): ends.add((float(m.group(1)),float(m.group(2))))
 from collections import Counter
@@ -23,6 +28,8 @@ shared={n for n,c in Counter(m.group(1) for m in pins).items() if c>1}   # only 
 add=[]
 for m in re.finditer(r'\(pin "([^"]+)" (input|output|bidirectional|passive)\s*\(at ([-\d.]+) ([-\d.]+) ([-\d.]+)\)',s):
     name,kind,x,y,a=m.group(1),m.group(2),float(m.group(3)),float(m.group(4)),float(m.group(5))
+    if name in unused and name not in shared:
+        add.append(f'\n\t(no_connect (at {x:g} {y:g}) (uuid "{uid()}"))'); continue
     if name not in shared: continue
     out=1 if int(a)==0 else -1          # pin angle 0: pin on the sheet's right edge
     if (x,y) in ends: lx,ly=x,y

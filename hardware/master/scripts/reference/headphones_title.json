@@ -1,0 +1,5 @@
+{"title":"Master card: headphones","date":"2026-10-06","rev":"0.1","dnp":[],
+ "comments":["Source: main normally, cue while PFL_ACT is low (DG413); dual 10k log volume pot",
+ "TPA6120A2 (TI SLOS431B) non-inverting gain 2: 51R in, 1k/1k feedback, 39R2 2512 out; thermal pad to AGND",
+ "Third G6K relay on RLY_N: released = jack to AGND via 1k; PFL-active LED sinks into PFL_ACT",
+ "Decisions 84 and 94"]}

@@ -98,7 +98,7 @@ SX-R-048,Resistor 470 kOhm 1% 0805,,0805W8F4703T5E,,C17709,Cutoff offset injecti
 SX-R-049,Resistor 2.2 kOhm 1% 0805,,0805W8F2201T5E,,C17520,Regulator divider with 200 Ohm (15.1 V); JLC basic (decision 79)
 SX-IC-013,NPN transistor array with matched pair SOIC-14,Alfa,AS3046D,Electric Druid,,Compressor log detector (decision 82); pinout from Alfa datasheet 2019 v.2: 1 C1 2 B1 3 E1/E2 (matched pair) 4 B2 5 C2 6 B3 7 E3 8 C3 9 B4 10 E4 11 C4 12 B5 13 E5 and substrate (to the most negative rail) 14 C5
 SX-IC-014,Balanced line driver OutSmarts SOIC-8,THAT Corporation,THAT1646S08-U,Mouser,,Main outputs (decision 83, cost-cut candidate); pinout from THAT doc 600078 Rev 07: 1 Out- 2 Sns- 3 Gnd 4 In 5 Vee 6 Vcc 7 Sns+ 8 Out+; +6 dB, 5 kOhm input; symbol syntsamix:THAT1646
-SX-IC-015,Headphone amplifier HSOP-20 PowerPAD,Texas Instruments,TPA6120A2DWPR,LCSC,C70439,Decision 84; pinout to verify from the TI datasheet before drawing
+SX-IC-015,Headphone amplifier HSOP-20 PowerPAD,Texas Instruments,TPA6120A2DWPR,LCSC,C70439,Decision 84; pinout from TI SLOS431B: 1 LVCC- 2 LOUT 3 LVCC+ 4 LIN+ 5 LIN- 6-15 NC 16 RIN- 17 RIN+ 18 RVCC+ 19 ROUT 20 RVCC-, thermal pad (21) to ground; footprint Package_SO:SO-20-1EP_7.52x12.825mm..._ThermalVias (TI DWP); symbol syntsamix:TPA6120A2
 SX-K-001,Signal relay DPDT 12 V coil SMD,Omron,G6K-2F-Y DC12,LCSC,C397194,Output protection (decision 85); Omron cat. K106-E1-11: 12 V coil 9.1 mA 1315 Ohm, operate 80 % max, max 150 %; contacts 1 A 30 VDC, min 10 uA 10 mV; pins (KiCad Relay:G6K-2) 1 coil+ 8 coil- / COM 3 NC 2 NO 4 / COM 6 NC 7 NO 5; NC/NO assignment to re-check against the Omron terminal diagram
 SX-IC-016,5 V 1.5 A regulator TO-220,STMicroelectronics,L7805CV,,,Master +5 V (decision 87); pinout 1 IN 2 GND 3 OUT (KiCad library)
 SX-SW-002,Ground lift switch SPST panel,,,,,Master rear panel (decision 87); part to choose
@@ -145,3 +145,5 @@ SX-R-077,Resistor 3.83 kOhm 1% 0805,,,,,Master meter ladder
 SX-R-078,Resistor 2.15 kOhm 1% 0805,,,,,Master meter ladder
 SX-R-079,Resistor 1.87 kOhm 1% 0805,,,,,Master meter ladder
 SX-R-080,Resistor 866 Ohm 1% 0805,,,,,Master meter ladder
+SX-R-081,Resistor 51 Ohm 1% 0805,,,,,Headphone amplifier series input (TI SLOS431B suggests 50 Ohm)
+SX-R-082,Resistor 39.2 Ohm 1% 2512 1 W,,,,,Headphone amplifier output resistor (TI SLOS431B 39.2 Ohm); 2512 for full level into 32 Ohm
