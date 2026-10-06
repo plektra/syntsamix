@@ -1,10 +1,19 @@
 # CLAUDE.md
 
-Project context for Claude Code. Read this first, then `docs/CONTINUE-FROM-HERE.md` (session handoff: current state, next steps, working knowledge), `docs/SPEC.md`, `docs/DECISIONS.md`, `docs/CHAIN.md`, `docs/INPUT-MODULE.md`, `docs/PART-NUMBERING.md` and `docs/ROADMAP.md`.
+Project context for Claude Code. Read this first, then:
+
+1. `docs/CONTINUE-FROM-HERE.md`: project-level handoff (which board is where, what is next)
+2. `docs/decisions/INDEX.md`: every decision with its status and area file
+3. `docs/ARCHITECTURE.md`: system diagram, cross-board budgets, chain lines, invariants (the constitution; changed only in `/system` sessions)
+4. For the work at hand: the board's `CLAUDE.md` and `STATUS.md` (`hardware/<board>/`), its decision file in `docs/decisions/`, and `hardware/CLAUDE.md` for the shared schematic workflow
+
+Read the rest only when the task needs it: `docs/SPEC.md` (full specification), `docs/CHAIN.md` and `docs/INPUT-MODULE.md` (interfaces between boards), `docs/PART-NUMBERING.md`, `docs/ROADMAP.md` (phases, backlog), `simulation/CLAUDE.md`.
+
+For the user: `docs/WORKING-WITH-CLAUDE.md` describes the roles and the session loop: `/board <board> [phase]` for board work, `/system [topic]` for architecture, `/handoff` to wrap up, `/validate <scope>` for an independent check (the `architect` and `validator` sub-agents live in `.claude/agents/`). Work one board and phase per session (for example "power board schematic"), and update that board's `STATUS.md` before ending. Use sub-agents only for bounded jobs with a short result (datasheet fact checks, build-and-check loops, simulation runs, stock checks); design choices stay in the main conversation with the user.
 
 ## Project
 
-A modular, analog pro audio mixer for connecting synthesizers and instruments in electronic music live performances. Designed in KiCad. The specification is complete (v0.7); we are now in the **schematic phase**.
+A modular, analog pro audio mixer for connecting synthesizers and instruments in electronic music live performances. Designed in KiCad. The specification is complete (v0.7); we are in the **schematic phase** (power board next), then PCB layout.
 
 ## Prototype scope (confirmed by the user)
 
@@ -21,18 +30,10 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 - Input jacks sit on a separate passive input module (10-pin header, `docs/INPUT-MODULE.md`); the cutoff CV jack is on the channel card's top panel
 - Stereo button functions switch through DG413 analog switches; buttons only carry logic and LED current
 
-## Filter decision
-
-24 dB/oct (4-pole) ladder LPF, resonance on the LPF only. Not required to be Moog-style.
-- Baseline: Sound Semiconductor SSI2144 (SSM2044 reissue). Datasheet Rev 3.0 facts are recorded in `docs/SPEC.md` section 3
-- Fallback: AS3320 / V3320 (CEM3320 clone)
-- Gain structure: "hot" drive at the datasheet nominal level by default, a prototype jumper for medium drive, per-channel bypass, half resonance compensation through the datasheet's LM13700 Q VCA (jumper: none/half/full). Simulation in `simulation/filter/`
-- Sold by synth-DIY resellers (Electrokit, Thonk), not by Mouser or DigiKey.
-
 ## How to work on this project
 
-1. **Separate confirmed from assumed.** `docs/DECISIONS.md` lists what the user confirmed and what was only proposed. Never treat a proposal as settled. Ask before changing a confirmed decision.
-2. **Spec first.** Settle the open items in `docs/DECISIONS.md` before drawing schematics.
+1. **Separate confirmed from assumed.** `docs/decisions/` records what the user confirmed; text marked **[proposed]** is only proposed. Never treat a proposal as settled. Ask before changing a confirmed decision.
+2. **Spec first.** Settle the open items in `docs/decisions/INDEX.md` before drawing schematics. New decisions take the next free number, go into their area file, and get a row in the index.
 3. **Simulate before layout.** Prove the filter gain structure (headroom and noise) in ngspice or on a breadboard before committing the channel card design.
 4. **Use the KiCad MCP server** for schematic and PCB edits. Pause for the user's review before each commit. Run ERC after schematic changes and DRC after layout changes.
 5. **Keep modules independent.** Each module is its own KiCad project or hierarchical sheet with a documented chain interface (audio and power ribbon pinouts).
@@ -44,22 +45,21 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 
 ```
 CLAUDE.md
+.claude/commands/  /board, /system, /handoff, /validate
+.claude/agents/    architect (contract reviewer), validator (independent design checks)
 LICENSE.md, REUSE.toml, LICENSES/  licensing (decision 70)
-docs/            CONTINUE-FROM-HERE.md, SPEC.md, DECISIONS.md, CHAIN.md, INPUT-MODULE.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
-hardware/
+docs/            CONTINUE-FROM-HERE.md, ARCHITECTURE.md, WORKING-WITH-CLAUDE.md, SPEC.md, CHAIN.md, INPUT-MODULE.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
+  decisions/     decision log by area, INDEX.md (DECISIONS.md is a pointer to it)
+  reviews/       validator reports
+hardware/        CLAUDE.md: shared schematic workflow; each board has CLAUDE.md and STATUS.md
   channel-card/  KiCad project (stereo channel)
   input-module-6p3/  KiCad project (6.3 mm input module)
   libs/          shared symbols (syntsamix.kicad_sym) and footprints
-  master/        KiCad project (compressor, master, outputs); schematic in progress
-  power/         power board (DC input, DC-DC to ±20 V; decision 81), not created yet
+  master/        KiCad project (compressor, master, outputs)
+  power/         power board (DC input, DC-DC to ±20 V; decision 81), no KiCad project yet
 simulation/      ngspice model, filter results, breadboard plan, BOM and order files
 ```
 
-## Current status and next steps
+## Current status
 
-Status: spec v0.7 complete (decisions 1-95). Filter simulated; breadboard parts ordered. Input module schematic done. Channel card schematic complete: Input, Filter, Level, Routing, Meter and Chain and power sheets, drawn with real wires, ERC 0 errors 0 warnings. Master card schematic complete (ten sheets, ERC 0 errors 0 warnings; see `docs/CONTINUE-FROM-HERE.md`). Filter output scale and Q current limit are provisional until the breadboard.
-
-Next:
-1. Master/compressor card schematic (power injected in groups of 8, decision 80), then the power input section (see `docs/ROADMAP.md`)
-2. Breadboard the SSI2144 when parts arrive (including the LM13700 Q VCA test); update filter values from the measurements
-3. Channel card PCB layout
+Spec v0.7 complete (decisions 1-95). Schematics done for the input module, channel card and master card (ERC 0/0); power board not started; no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

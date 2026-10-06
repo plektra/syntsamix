@@ -7,7 +7,7 @@
 Pinout and the ladder/output/Q component values follow the SSI2144 datasheet
 (Rev 3.0, Figures 1 and 3, read from the datasheet images). Input attenuator,
 drive jumper, resonance limit and cutoff scaling are this project's values
-(see BREADBOARD.md and ../../docs/DECISIONS.md items 12 and 50).
+(see BREADBOARD.md and ../../docs/decisions/channel-card.md items 12 and 50).
 
 Usage:  python3 simulation/filter/breadboard_schematic.py [--literal]
 Writes breadboard-schematic.svg next to this file. Colours come from CSS

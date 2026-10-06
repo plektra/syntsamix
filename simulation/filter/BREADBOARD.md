@@ -168,5 +168,5 @@ Mute check: connect a 33 kΩ resistor from -15 V to U205 pin 6; VC must rise by 
 ## 4. After the tests
 
 - Copy the measured values into `README.md` next to the simulated ones.
-- Update `docs/DECISIONS.md`: drive default, Q VCA series resistor and compensation setting, output feedback resistance, any differences from the model.
+- Update `docs/decisions/channel-card.md` (and its row in `INDEX.md`): drive default, Q VCA series resistor and compensation setting, output feedback resistance, any differences from the model.
 - Update the channel card Filter sheet: R111/R161 (output scale) and R120/R170 (Q limit).

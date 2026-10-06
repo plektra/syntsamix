@@ -16,7 +16,7 @@ What it is not good for:
 - The chip's output current scale is not modelled; the make-up gain after the filter is set on the breadboard.
 
 Levels: "internal dBu" is the level in the channel before the filter attenuator. Two gain structures are compared:
-- **hot** (confirmed, `DECISIONS.md` item 12): +4 dBu maps to ±20 mV at the chip, the datasheet nominal.
+- **hot** (confirmed, `docs/decisions/channel-card.md` item 12): +4 dBu maps to ±20 mV at the chip, the datasheet nominal.
 - **clean** (rejected alternative): +20 dBu maps to ±50 mV, the datasheet clip point. This puts +4 dBu at ±7.9 mV, 8 dB lower.
 
 ## Results

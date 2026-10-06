@@ -16,13 +16,13 @@ SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
 
 [[annotations]]
-path = ["docs/*.md", "simulation/**/*.md", "simulation/*/results.txt"]
+path = ["docs/*.md", "docs/decisions/*.md", "docs/reviews/*.md", "simulation/**/*.md", "simulation/*/results.txt"]
 precedence = "closest"
 SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
 
 [[annotations]]
-path = [".gitignore", "CLAUDE.md"]
+path = [".gitignore", "CLAUDE.md", "**/CLAUDE.md", ".claude/commands/*.md", ".claude/agents/*.md"]
 precedence = "closest"
 SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC0-1.0"

@@ -1,6 +1,6 @@
 # Specification v0.7 (draft)
 
-Items marked **[confirmed]** were agreed with the user. Items marked **[proposed]** are defaults suggested during the design chat and still need confirmation. See `DECISIONS.md`.
+Items marked **[confirmed]** were agreed with the user. Items marked **[proposed]** are defaults suggested during the design chat and still need confirmation. See `decisions/INDEX.md`.
 
 ## 1. Goals
 

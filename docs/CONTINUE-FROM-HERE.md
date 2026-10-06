@@ -1,64 +1,37 @@
 # Continue from here
 
-Session handoff, 2026-10-06. Read `CLAUDE.md` first; this file holds what the other docs do not: where the work stands, what is pending, and the working knowledge behind the scripts.
+Project-level handoff, updated 2026-10-06. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`).
 
-## Where we are
+## Boards
 
-- Spec complete, decisions 1-95 (`docs/DECISIONS.md`).
-- **Channel card schematic complete**: Input, Filter, Level, Routing, Meter, Chain and power. ERC 0/0. Rebuild and check everything with `hardware/channel-card/scripts/rebuild_all.sh`.
-- **Master card schematic complete** (`hardware/master`, decisions 87-95): Bus summing, Power, AUX return 1 and 2, Compressor, Sidechain, AUX sends, Master out, Master meter, Headphones. ERC 0/0 (`hardware/master/scripts/rebuild_all.sh`; unused bus-node pins listed in `scripts/reference/root_nc.json`).
-- Input module schematic done (`hardware/input-module-6p3`). Power board (`hardware/power`, decision 81) not started.
-- Last pushed commit: see `git log -1` (master card complete with the power recheck, decision 95).
+| Board | Schematic | PCB | Status file |
+|---|---|---|---|
+| Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
+| Channel card | done, ERC 0/0 | not started (waits for the breadboard) | `hardware/channel-card/STATUS.md` |
+| Master card | done, ten sheets, ERC 0/0 | not started | `hardware/master/STATUS.md` |
+| Power board | not started | not started | `hardware/power/STATUS.md` |
 
-## Next
+Decisions 1-95; last pushed commit: see `git log -1`.
 
-1. **Master card power recheck**: done (decision 95, `hardware/master/scripts/power_budget.py`): heatsinks of 10 °C/W or better on the LM317 and LM337. Power board load: about 2.4 to 2.8 A per rail.
-2. **Power board** (`hardware/power`, decision 81; spec section 2 line "DC-DC module chosen from a family ... supply rating for 16 cards is open"): choose the isolated DC-DC module family and the brick voltage (24 or 48 V), then draw it. Inputs: about 2.4 to 2.8 A per rail at ±20 V for 16 channel cards plus the master (about 100 to 115 W); the raw rails must stay above about 19 V under load because the master's relay drop-out comparator trips at 17.9 V and the LM317 needs about 2 V headroom; LC filter after the module; fuse, reverse-polarity protection, power switch and LED, locking DC jack; ribbons to both chains and the master (decisions 80, 81).
-3. **Channel card PCB layout**, after the breadboard has settled the filter values.
+## Order of work
 
-Reference prefixes on the master: Bus 1xx, AUX return 1 2xx, AUX return 2 3xx, Compressor 4xx, Sidechain 5xx, AUX sends 6xx, Master out 701-731, Headphones 751+, Master meter 8xx, Power 9xx (power-symbol prefix 0 for Headphones).
+1. **Power board schematic**: choose the DC-DC module family and the brick voltage (24 or 48 V), then draw it. Inputs in `hardware/power/STATUS.md`.
+2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
+3. **Channel card PCB**, then the input module, master card and power board PCBs.
 
-## Proposals waiting for the user's confirmation (marked **[proposed]** in DECISIONS.md)
+## System
 
-- 89: Q5 of the AS3046D unused; makeup reaches +22 dB at full AMOUNT (2 dB past the SSI2162's +20 dB spec), check on the breadboard.
-- 90: a silent patched EXT cable still selects EXT; no separate EXT LED.
-- 91: no output coupling capacitors on the AUX sends.
-- 92: only the positive raw rail is monitored for relay drop-out.
-- 93: master meter colours (green -30 to 0, yellow +3 to +9, red +12 and clip).
-- 94: headphone gain 2; cue arrives inverted relative to main; PFL LED yellow.
-- 72: SC_ENV scale +1 V = 10 dB of ducking.
-- Also to check before layout: the G6K NC/NO contact assignment against Omron's terminal diagram (taken from KiCad's G6K-2 symbol); the dual 100 kΩ reverse-log (C) pot for the sidechain LPF may not exist in Alpha's range.
+Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (its open items: channel card power budget script to replace the 130 mA estimate, supply rating, SC_ENV scale). Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
 
-## Pending outside the schematics
+## Waiting for the user's confirmation
 
-- **Breadboard** (`simulation/filter/BREADBOARD.md`): parts ordered, not arrived. Tests 1-10 set the provisional values R111/R161 (filter output scale) and R120/R170 (Q current limit); then edit `filter_wired.py`/`filter_build.py` and run `rebuild_all.sh`.
-- **Second Electrokit order on hold**: `simulation/filter/electrokit-order-2.csv` (LM13700N, 1N4148, 6.8 nF, breadboard, TL072, 10 GPBS850N switches).
-- **Parts still to choose**: resonance pot (10k reverse audio), CV jack (vertical 6.3 mm), meter and button LED parts and colours, IDC headers, ground-lift switch, CUTOFF/level pot MPNs.
-- **Backlog** is in `docs/ROADMAP.md` (includes the 3D-printed LED bar diffuser and cost-cut candidates).
+The **[proposed]** parts of decisions 72 (channel card) and 89-94 (master card); listed in the two boards' `STATUS.md`.
 
-## Working knowledge (the scripts README has the full how-to)
+## Pending outside the boards
 
-- Sheets are scripts: `<sheet>_build.py` = independent reference netlist, `<sheet>_wired.py` = drawing with real wires. `check_netlist.py` compares them pin by pin; never skip it. Shared tools live in `hardware/channel-card/scripts/`; the master links to them.
-- `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. The KiCad MCP server itself is registered in Claude Code (profile `schematic_authoring`).
-- Rules learned the hard way:
-  - Keep resistor/capacitor pin 1 where the reference has it; swap the reference's pin order instead of rotating a part 180°.
-  - A wire end on another wire or a pin connects: never cross through endpoints.
-  - KiCad files allow no comments; generated root items are marked by the uuid prefix `c0ffee00`.
-  - `sch_create_sheet` numbers every new sheet page 2: `fix_paths.py` renumbers pages and fixes instance paths and project names (otherwise the KiCad app shows "An error was found when loading the schematic").
-  - Duplicate references across sheets are not reported by ERC; `check_netlist.py` checks them.
-  - Power flags live only on the power sheet of each project.
-  - Field text: diodes at 90/270° render vertical text; draw them horizontally where text matters.
-- Part facts: verify every pinout from the maker's datasheet before drawing (CLAUDE.md rule 8); record the source in `docs/parts.csv`.
-- LCSC stock check: `python3 tools/lcsc_check.py` (the public jlcsearch API is flaky; known-good codes are kept in the script). Not yet rerun for the master card parts.
-- Master card specifics:
-  - `rebuild_all.sh` regenerates every sheet with new UUIDs. After rebuilding for one sheet, restore the unchanged sheets and the root with `git checkout -- <files>` and rerun `check_netlist.py` and ERC, so commits stay focused.
-  - New sheet: `sch_create_sheet` through `mcpcall.py` (see `build/calls_*_sheet.json`), add `<name>:<power prefix>` to `SHEETS` in `rebuild_all.sh`, write `reference/<name>_title.json`. Power prefixes 0-9 are all used on the master (Headphones uses 0). Temporary unit references must be `U9<3 digits><unit>`, so references stay three digits.
-  - A local label may share a hierarchical label's name on the same sheet (no warning); two different names on one net give a multiple_net_names warning.
-  - Root pins nobody uses: list them in `scripts/reference/root_nc.json`; `root_links.py` puts no-connect markers on them.
-  - Custom symbols added this session to `hardware/libs/syntsamix.kicad_sym`: AS3046 (4 units), THAT1646, TPA6120A2.
-- Visual check: `kicad-cli sch export svg -o build/svg ../master.kicad_sch`, then crop and render with a small viewBox script plus `qlmanage -t` (no rsvg/ImageMagick on this Mac). Look at every new sheet before reporting.
-- Datasheets: `pdftoppm` is not installed, so the Read tool cannot take `pages`; reading a whole PDF works for short datasheets (up to about 30 pages). WebFetch often cannot parse TI/ADI PDFs; download with curl and Read the file instead.
-- Simulations: `simulation/compressor/run.py` (detector, gain computer) and `simulation/sidechain/run.py` (LPF, ducker) share a TL072-like op-amp model. ngspice `.measure` needs `.save v(node)` for AC analyses, and `vm()`/`vdb()` give a harmless parse warning.
+- Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`.
+- Ground-lift switch part to choose (decision 61).
+- Backlog and cost-cut candidates: `docs/ROADMAP.md`.
 
 ## How the user likes to work
 
