@@ -97,9 +97,9 @@ SX-R-047,Resistor 22 kOhm 1% 0805,,0805W8F2202T5E,,C17560,Bus resistor; JLC basi
 SX-R-048,Resistor 470 kOhm 1% 0805,,0805W8F4703T5E,,C17709,Cutoff offset injection; JLC basic (decision 79)
 SX-R-049,Resistor 2.2 kOhm 1% 0805,,0805W8F2201T5E,,C17520,Regulator divider with 200 Ohm (15.1 V); JLC basic (decision 79)
 SX-IC-013,NPN transistor array with matched pair SOIC-14,Alfa,AS3046D,Electric Druid,,Compressor log detector (decision 82); pinout from Alfa datasheet 2019 v.2: 1 C1 2 B1 3 E1/E2 (matched pair) 4 B2 5 C2 6 B3 7 E3 8 C3 9 B4 10 E4 11 C4 12 B5 13 E5 and substrate (to the most negative rail) 14 C5
-SX-IC-014,Balanced line driver OutSmarts SOIC-8,THAT Corporation,THAT1646S08-U,Mouser,,Main outputs (decision 83, cost-cut candidate); pinout to verify from the THAT datasheet before drawing
+SX-IC-014,Balanced line driver OutSmarts SOIC-8,THAT Corporation,THAT1646S08-U,Mouser,,Main outputs (decision 83, cost-cut candidate); pinout from THAT doc 600078 Rev 07: 1 Out- 2 Sns- 3 Gnd 4 In 5 Vee 6 Vcc 7 Sns+ 8 Out+; +6 dB, 5 kOhm input; symbol syntsamix:THAT1646
 SX-IC-015,Headphone amplifier HSOP-20 PowerPAD,Texas Instruments,TPA6120A2DWPR,LCSC,C70439,Decision 84; pinout to verify from the TI datasheet before drawing
-SX-K-001,Signal relay DPDT 12 V coil SMD,Omron,G6K-2F-Y DC12,LCSC,C397194,Output protection (decision 85); coil and contact data to verify from the Omron datasheet
+SX-K-001,Signal relay DPDT 12 V coil SMD,Omron,G6K-2F-Y DC12,LCSC,C397194,Output protection (decision 85); Omron cat. K106-E1-11: 12 V coil 9.1 mA 1315 Ohm, operate 80 % max, max 150 %; contacts 1 A 30 VDC, min 10 uA 10 mV; pins (KiCad Relay:G6K-2) 1 coil+ 8 coil- / COM 3 NC 2 NO 4 / COM 6 NC 7 NO 5; NC/NO assignment to re-check against the Omron terminal diagram
 SX-IC-016,5 V 1.5 A regulator TO-220,STMicroelectronics,L7805CV,,,Master +5 V (decision 87); pinout 1 IN 2 GND 3 OUT (KiCad library)
 SX-SW-002,Ground lift switch SPST panel,,,,,Master rear panel (decision 87); part to choose
 SX-C-013,Capacitor 100 nF X7R 100 V 0805,,,,,Ground lift RC (decision 87)
@@ -129,3 +129,6 @@ SX-POT-008,Dual pot 100 kOhm reverse-audio (C) 9 mm vertical,Alpha,,,,SC LPF; fo
 SX-POT-009,Pot 10 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker THRESHOLD; footprint Alpha RD901F-40-00D; MPN to verify
 SX-POT-010,Pot 500 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker DECAY; footprint Alpha RD901F-40-00D; MPN to verify
 SX-IC-017,Quad SPST analog switch 4x NC SOIC-16,Vishay,,Mouser,,DG411DY; on at logic 0; pinout as DG413 (Vishay doc 70050 Rev D); AUX send mono switching; MPN suffix to verify
+SX-D-008,Rectifier diode 1 A 1000 V SMA (M7 / 1N4007),,,,,Balanced output phantom-power clamps (THAT doc 600078 Figure 8 uses 1N4004)
+SX-R-066,Resistor 330 Ohm 1% 0805,,,,,Relay coil series resistor (12 V coil from +15 V)
+SX-R-067,Resistor 6.8 kOhm 1% 0805,,,,,Relay drop-out reference

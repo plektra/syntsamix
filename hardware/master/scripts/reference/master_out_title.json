@@ -1,0 +1,5 @@
+{"title":"Master card: master out","date":"2026-10-06","rev":"0.1","dnp":["R705"],
+ "comments":["SSI2162 master VCA, fader law on RV701 (+10 dB full, 0 dB at 75 %); soft clip about +14 dBu",
+ "THAT1646 drivers (+6 dB), CM offset caps and rail clamps (THAT doc 600078 Fig. 5, 8)",
+ "G6K relays: released = output to AGND via 1k; on 2 s after power-up, off below raw 17.9 V",
+ "Decisions 83, 85, 92; RLY_N also drives the headphone relay"]}

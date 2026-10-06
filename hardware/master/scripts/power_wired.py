@@ -55,6 +55,7 @@ def rail_out(y,vo,stops):
 Y1=180.34
 u=s.place("Regulator_Linear","LM317_TO-220","U901","LM317",XU,Y1,0,fp=TO220,props=P("SX-IC-010",Manufacturer="Texas Instruments",MPN="LM317"))
 vin=rail_in(Y1,"+20V_RAW","TP901","up","C901","C902",False); s.wire(vin,u(3))
+s.wire((119.38,Y1),(119.38,Y1+12.7)); s.label("+20V_RAW",(119.38,Y1+12.7),270,"hierarchical","output")   # to the relay drop-out comparator (Master out sheet)
 d=D("D901","1N4148W","SX-D-003","Diode_SMD:D_SOD-123",XU,Y1-7.62,0)
 s.wire(vin,(vin[0],Y1-7.62),d(1)); s.wire(d(2),(177.8,Y1-7.62),(177.8,Y1))
 s.wire(u(2),(177.8,Y1)); rail_out(Y1,(177.8,Y1),(185.42,195.58,208.28,218.44,228.6,233.68,238.76))
