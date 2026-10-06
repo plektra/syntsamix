@@ -6,7 +6,7 @@ SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser p
 SX-CONN-001,6.3 mm stereo jack switched (T R S all switched) horizontal PCB,Neutrik,NMJ6HCD2,Mouser,,Pinout verified from Neutrik drawing ST-NMJ6HCD2; >10000 mating cycles; Mouser part number to verify
 SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),Molex,,Mouser,,Footprint Molex_KK-254_AE-6410-10A; MPN and mating housing/crimps to verify
 SX-IC-004,Dual low-noise op amp SOIC-8,Texas Instruments,,Mouser,,NE5532 (SOIC-8); exact orderable MPN to verify
-SX-IC-005,Quad SPST analog switch 2NO+2NC SOIC-16,Vishay,,Mouser,,DG413DY; pinout verified from Vishay doc 70050 Rev E; MPN suffix to verify
+SX-IC-005,Quad SPST analog switch 2NO+2NC SOIC-16,Vishay,,Mouser,,DG413DY; pinout verified from Vishay doc 70050 Rev E; normally open (on at logic 1): SW1 pins 1-3 and SW4 pins 6-8 = KiCad units 1 and 2; normally closed: SW3 pins 9-11 and SW2 pins 14-16 = KiCad units 3 and 4; MPN suffix to verify
 SX-R-001,Resistor 100 Ohm 1% 0805,,,,,
 SX-R-002,Resistor 10 kOhm 1% 0805,,,,,
 SX-R-003,Resistor 2 kOhm 1% 0805,,,,,
@@ -43,7 +43,7 @@ SX-C-007,Capacitor 560 pF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-008,Capacitor 100 pF C0G 5% 50 V 0805,,,,,
 SX-D-003,Small-signal diode 1N4148W SOD-123,,,,,
 SX-POT-003,Pot 50 kOhm linear single 9 mm vertical,Alpha,,,,Footprint Alpha RD901F-40-00D; MPN to verify. CUTOFF
-SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,RESONANCE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose
+SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,RESONANCE and compressor RELEASE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose
 SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,,,
 SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,CUTOFF CV input; part and footprint to choose
 SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,Jumper header
@@ -81,7 +81,7 @@ SX-R-042,Resistor 750 Ohm 1% 0805,,,,,Meter ladder
 SX-R-043,Resistor 237 Ohm 1% 0805,,,,,Meter ladder
 SX-R-044,Resistor 1.5 kOhm 1% 0805,,,,,Meter LED (about 2 mA from +5 V)
 SX-D-004,LED 3 mm green low current,,,,,Meter segments -30 to 0; part to choose
-SX-D-005,LED 3 mm yellow low current,,,,,Meter segments +3 and +6; part to choose
+SX-D-005,LED 3 mm yellow low current,,,,,Meter segments +3 and +6; compressor gain-reduction LEDs (colour to confirm); part to choose
 SX-D-006,LED 3 mm red low current,,,,,Meter clip segment; part to choose
 SX-CONN-007,IDC box header 2x17 2.54 mm vertical shrouded keyed,,,,,Audio ribbon (docs/CHAIN.md); part to choose
 SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,,,,,Power ribbon (docs/CHAIN.md); check per-pin current rating
@@ -96,7 +96,7 @@ SX-D-007,Schottky diode 1 A 40 V SMA,,,,,SS14 class; rail clamp to AGND
 SX-R-047,Resistor 22 kOhm 1% 0805,,0805W8F2202T5E,,C17560,Bus resistor; JLC basic (decision 79)
 SX-R-048,Resistor 470 kOhm 1% 0805,,0805W8F4703T5E,,C17709,Cutoff offset injection; JLC basic (decision 79)
 SX-R-049,Resistor 2.2 kOhm 1% 0805,,0805W8F2201T5E,,C17520,Regulator divider with 200 Ohm (15.1 V); JLC basic (decision 79)
-SX-IC-013,NPN transistor array with matched pair SOIC-14,Alfa,AS3046D,Electric Druid,,Compressor log detector (decision 82); pinout to verify from the Alfa datasheet before drawing
+SX-IC-013,NPN transistor array with matched pair SOIC-14,Alfa,AS3046D,Electric Druid,,Compressor log detector (decision 82); pinout from Alfa datasheet 2019 v.2: 1 C1 2 B1 3 E1/E2 (matched pair) 4 B2 5 C2 6 B3 7 E3 8 C3 9 B4 10 E4 11 C4 12 B5 13 E5 and substrate (to the most negative rail) 14 C5
 SX-IC-014,Balanced line driver OutSmarts SOIC-8,THAT Corporation,THAT1646S08-U,Mouser,,Main outputs (decision 83, cost-cut candidate); pinout to verify from the THAT datasheet before drawing
 SX-IC-015,Headphone amplifier HSOP-20 PowerPAD,Texas Instruments,TPA6120A2DWPR,LCSC,C70439,Decision 84; pinout to verify from the TI datasheet before drawing
 SX-K-001,Signal relay DPDT 12 V coil SMD,Omron,G6K-2F-Y DC12,LCSC,C397194,Output protection (decision 85); coil and contact data to verify from the Omron datasheet
@@ -105,3 +105,19 @@ SX-SW-002,Ground lift switch SPST panel,,,,,Master rear panel (decision 87); par
 SX-C-013,Capacitor 100 nF X7R 100 V 0805,,,,,Ground lift RC (decision 87)
 SX-R-050,Resistor 30 kOhm 1% 0805,,0805W8F3002T5E,,C17621,AUX return gain jumper (decision 88); JLC basic
 SX-POT-006,Pot 10 kOhm linear single 9 mm vertical,Alpha,,,,AUX return level (decision 88); footprint Alpha RD901F-40-00D; MPN to verify
+SX-R-051,Resistor 20 kOhm 1% 0805,,,,,Compressor full-wave rectifier (sets the detector scale with SX-R-002)
+SX-R-052,Resistor 10 MOhm 1% 0805,,,,,Compressor log converter floor current
+SX-R-053,Resistor 560 kOhm 1% 0805,,,,,Compressor log reference current
+SX-R-054,Resistor 11 kOhm 1% 0805,,,,,Compressor detector gain -11 with SX-R-021
+SX-R-055,Resistor 470 Ohm 1% 0805,,,,,Compressor attack
+SX-R-056,Resistor 2.2 MOhm 1% 0805,,,,,Compressor release current and threshold offset
+SX-R-057,Resistor 620 Ohm 1% 0805,,,,,Compressor release range (slow end)
+SX-R-058,Resistor 140 kOhm 1% 0805,,,,,Compressor Amount pot top (about 1 V = 30 dB)
+SX-R-059,Resistor 3.3 MOhm 1% 0805,,,,,Compressor off-state threshold lift
+SX-R-060,Resistor 1 MOhm 1% 0805,,,,,Compressor off-state threshold lift
+SX-R-061,Resistor 75 kOhm 1% 0805,,,,,Compressor 4:1 ratio
+SX-R-062,Resistor 68 kOhm 1% 0805,,,,,Compressor makeup (0.735 x Amount)
+SX-R-063,Resistor 3 kOhm 1% 0805,,,,,Gain-reduction LED ladder
+SX-R-064,Resistor 5.1 kOhm 1% 0805,,,,,Gain-reduction LED ladder
+SX-C-014,Capacitor 220 nF X7R 50 V 0805,,,,,Compressor on/off ramps
+SX-POT-007,Dual pot 10 kOhm linear 9 mm vertical,Alpha,,,,Compressor MIX; footprint Alpha RD902F-40-00D; MPN to verify

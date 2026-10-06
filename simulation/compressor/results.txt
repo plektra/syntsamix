@@ -1,0 +1,32 @@
+Static curve (100 Hz sine, release at mid, 25 C). Gain = -VC / 33 mV
+Threshold at Amount 0 is about +14.6 dBu (sine peak); Amount 1 lowers it 30 dB, makeup 0.735 x drop
+level dBu | Amt 0.0: gain dB (ideal) | Amt 0.5: gain dB (ideal) | Amt 1.0: gain dB (ideal)
+      -30 |   +0.0 (  +0.0) ripple 0.00 dB |  +11.1 ( +10.9) ripple 0.00 dB |  +22.3 ( +21.8) ripple 0.00 dB
+      -20 |   +0.0 (  +0.0) ripple 0.00 dB |  +11.1 ( +10.9) ripple 0.00 dB |  +22.3 ( +21.8) ripple 0.00 dB
+      -16 |   +0.0 (  +0.0) ripple 0.00 dB |  +11.1 ( +10.9) ripple 0.00 dB |  +21.4 ( +21.8) ripple 0.08 dB
+      -10 |   +0.0 (  +0.0) ripple 0.00 dB |  +11.1 ( +10.9) ripple 0.00 dB |  +17.4 ( +18.0) ripple 0.08 dB
+       -4 |   +0.0 (  +0.0) ripple 0.00 dB |  +11.1 ( +10.9) ripple 0.00 dB |  +13.2 ( +13.5) ripple 0.08 dB
+        0 |   +0.0 (  +0.0) ripple 0.00 dB |  +10.6 ( +10.7) ripple 0.08 dB |  +10.4 ( +10.5) ripple 0.08 dB
+        4 |   +0.0 (  +0.0) ripple 0.00 dB |   +7.7 (  +7.7) ripple 0.08 dB |   +7.5 (  +7.5) ripple 0.08 dB
+        8 |   +0.0 (  +0.0) ripple 0.00 dB |   +4.8 (  +4.7) ripple 0.08 dB |   +4.6 (  +4.5) ripple 0.08 dB
+       14 |   +0.0 (  +0.0) ripple 0.00 dB |   +0.4 (  +0.2) ripple 0.08 dB |   +0.2 (  +0.0) ripple 0.08 dB
+       18 |   -2.3 (  -2.6) ripple 0.08 dB |   -2.5 (  -2.8) ripple 0.08 dB |   -2.7 (  -3.0) ripple 0.08 dB
+       20 |   -3.8 (  -4.1) ripple 0.08 dB |   -4.0 (  -4.3) ripple 0.08 dB |   -4.2 (  -4.5) ripple 0.08 dB
+Temperature drift at Amount 0.5, +8 dBu (gain dB):
+  15 C: +4.82 dB
+  25 C: +4.82 dB
+  45 C: +4.84 dB
+Half makeup (R426 fitted), Amount 1, -30 dBu (below threshold): +11.0 dB
+Attack: -20 dBu to +14 dBu step at 0.2 s, Amount 1 (gain reduction 63 % and 90 % times)
+  GR 21.9 dB; 63 % at 0.93 ms, 90 % at 2.22 ms
+Release: +14 dBu burst ends at 0.3 s, Amount 1 (recovery rate over the first 10 dB)
+  CCW (fast): 7.5 dB less gain reduction (10 dB of detector level) after 44 ms
+  middle: 7.5 dB less gain reduction (10 dB of detector level) after 351 ms
+  CW (slow): 7.5 dB less gain reduction (10 dB of detector level) after 1422 ms
+On/off ramp: switched on at 0.1 s and off at 0.4 s, Amount 1, 1 kHz (gain dB)
+  -10 dBu: off +0.0, on +17.6, off again +0.0; during the ramps +0.0 to +17.9
+  +8 dBu: off +0.0, on +4.8, off again +0.0; during the ramps +0.0 to +6.3
+  +18 dBu: off +0.0, on -2.6, off again +0.0; during the ramps -2.6 to +0.7
+Log converter stability: 10 kHz sine at -30 and +18 dBu, VL ripple above the signal (should be smooth)
+  -30 dBu: VL p-p 26.5 mV, log amp output p-p 0.03 V
+  +18 dBu: VL p-p 113.9 mV, log amp output p-p 1.07 V

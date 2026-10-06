@@ -16,7 +16,7 @@ SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC-BY-NC-SA-4.0"
 
 [[annotations]]
-path = ["docs/*.md", "simulation/**/*.md", "simulation/filter/results.txt"]
+path = ["docs/*.md", "simulation/**/*.md", "simulation/*/results.txt"]
 precedence = "closest"
 SPDX-FileCopyrightText = "2026 Lari Mahlio"
 SPDX-License-Identifier = "CC-BY-NC-SA-4.0"

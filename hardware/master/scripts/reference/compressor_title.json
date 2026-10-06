@@ -1,0 +1,5 @@
+{"title":"Master card: compressor","date":"2026-10-06","rev":"0.1","dnp":["R405","R439"],
+ "comments":["Stereo-linked SSI2162 on the COMP bus; MIX (RV401) crossfades dry/wet into MAIN via 22k",
+ "Log peak detector on the AS3046D pair, ERA-V33 tempco; attack 1 ms, RELEASE 44 ms-1.4 s/10 dB",
+ "4:1; AMOUNT 0-30 dB threshold, makeup 0.735x (fit R439: half); ON ramps Amount ~20 ms",
+ "Decisions 57, 82, 89; simulated in simulation/compressor/run.py"]}
