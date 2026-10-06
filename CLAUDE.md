@@ -44,6 +44,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 ## Repo layout
 
 ```
+README.md        landing page (project, features, status)
 CLAUDE.md
 .claude/commands/  /board, /system, /handoff, /validate
 .claude/agents/    architect (contract reviewer), validator (independent design checks)
