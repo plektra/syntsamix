@@ -100,3 +100,6 @@ SX-IC-013,NPN transistor array with matched pair SOIC-14,Alfa,AS3046D,Electric D
 SX-IC-014,Balanced line driver OutSmarts SOIC-8,THAT Corporation,THAT1646S08-U,Mouser,,Main outputs (decision 83, cost-cut candidate); pinout to verify from the THAT datasheet before drawing
 SX-IC-015,Headphone amplifier HSOP-20 PowerPAD,Texas Instruments,TPA6120A2DWPR,LCSC,C70439,Decision 84; pinout to verify from the TI datasheet before drawing
 SX-K-001,Signal relay DPDT 12 V coil SMD,Omron,G6K-2F-Y DC12,LCSC,C397194,Output protection (decision 85); coil and contact data to verify from the Omron datasheet
+SX-IC-016,5 V 1.5 A regulator TO-220,STMicroelectronics,L7805CV,,,Master +5 V (decision 87); pinout 1 IN 2 GND 3 OUT (KiCad library)
+SX-SW-002,Ground lift switch SPST panel,,,,,Master rear panel (decision 87); part to choose
+SX-C-013,Capacitor 100 nF X7R 100 V 0805,,,,,Ground lift RC (decision 87)

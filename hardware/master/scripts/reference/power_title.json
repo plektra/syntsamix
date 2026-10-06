@@ -1,0 +1,5 @@
+{"title":"Master card: power","date":"2026-10-06","rev":"0.1","dnp":[],
+ "comments":["Power ribbon in from the power board (decision 81); LM317/LM337 to +/-15.1 V, L7805 to +5 V",
+ "NT901 is the system star point: the only AGND-PGND connection (docs/CHAIN.md)",
+ "Frame bond J902 through ground lift SW901; lifted = 100R || 100n",
+ "Regulator heat to recheck once the master load is known (heatsinks may be needed)"]}

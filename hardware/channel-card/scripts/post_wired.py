@@ -55,9 +55,9 @@ def place_fields(blk):
     else:
         blk=re.sub(r'(\(property "(?:Value|Reference)" "[^"]*"\s*\(at [-\d.]+ [-\d.]+ )180\)',r'\g<1>0)',blk)
     return blk
-# test pads are PCB features, not purchased parts
+# test pads and other PCB-only features (ProjectPN "none ...") are not purchased parts
 def nobom(blk):
-    if re.search(r'\(property "Reference" "TP\d+"',blk): blk=blk.replace('(in_bom yes)','(in_bom no)',1)
+    if re.search(r'\(property "Reference" "TP\d+"',blk) or re.search(r'\(property "ProjectPN" "none',blk): blk=blk.replace('(in_bom yes)','(in_bom no)',1)
     return blk
 parts=re.split(r'(?=\n\t\(symbol\n\t\t\(lib_id)',s)
 s=parts[0]+''.join(nobom(place_fields(b)) for b in parts[1:])
