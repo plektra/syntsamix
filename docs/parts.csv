@@ -147,3 +147,4 @@ SX-R-079,Resistor 1.87 kOhm 1% 0805,,,,,Master meter ladder
 SX-R-080,Resistor 866 Ohm 1% 0805,,,,,Master meter ladder
 SX-R-081,Resistor 51 Ohm 1% 0805,,,,,Headphone amplifier series input (TI SLOS431B suggests 50 Ohm)
 SX-R-082,Resistor 39.2 Ohm 1% 2512 1 W,,,,,Headphone amplifier output resistor (TI SLOS431B 39.2 Ohm); 2512 for full level into 32 Ohm
+SX-MECH-002,Heatsink board-mount TO-220 <= 10 C/W,,,,,Master LM317 and LM337 (decision 95); live at the regulator tab; part and footprint to choose at layout

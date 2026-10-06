@@ -73,6 +73,10 @@ s.tp("TP903","+15V",(233.68,Y1),"up"); s.power("+15V",(238.76,Y1))
 
 Y2=236.22
 u=s.place("Regulator_Linear","LM337_TO220","U902","LM337",XU,Y2,0,fp=TO220,props=P("SX-IC-011",Manufacturer="Texas Instruments",MPN="LM337"))
+# board-mount TO-220 heatsinks (decision 95): tabs are live (LM317 = +15 V, LM337 = raw -20 V), keep them apart or insulate
+for ref,y in (("HS901",Y1),("HS902",Y2)):
+    s.place("Mechanical","Heatsink",ref,"TO-220 heatsink <= 10 C/W",XU+48.26,y-25.4,0,fp="",props=P("SX-MECH-002",Note="Board-mount, live at the regulator tab: do not touch the other heatsink or the frame (or use an insulating pad)"))
+
 vin=rail_in(Y2,"-20V_RAW","TP902","down","C906","C907",True); s.wire(vin,u(2))
 d=D("D903","1N4148W","SX-D-003","Diode_SMD:D_SOD-123",XU,Y2+7.62,180)
 s.wire(vin,(vin[0],Y2+7.62),d(2)); s.wire(d(1),(177.8,Y2+7.62),(177.8,Y2))
