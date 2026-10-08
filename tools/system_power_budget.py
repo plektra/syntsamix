@@ -3,7 +3,7 @@
 """System supply budget (decision 96): runs both card budget scripts and adds them up.
 
 Typical and worst case per rail for N channel cards plus the master, and the sizing figure
-for the shared parts (DC-DC, ribbon pins at the start of a chain): IC quiescent current at
+for the shared parts (power board converters, ribbon pins at the start of a chain): IC quiescent current at
 typical x 1.5, use-dependent loads at their maximum.
 Usage: python3 tools/system_power_budget.py [raw rail, default 20]
 """

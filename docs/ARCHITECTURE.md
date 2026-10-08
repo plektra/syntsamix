@@ -5,11 +5,11 @@ The system-level view: how the boards fit together, the numbers that cross board
 ## System diagram
 
 ```
- DC brick 24/48 V
+ DC brick 24 V (Class II, floating output)
       │
  ┌────▼──────────┐  power ribbon (8-pin)   ┌──────────────┐
  │ Power board   ├────────────────────────►│ Master card  │◄── star point: AGND-PGND join (net tie)
- │ DC-DC ±20 V   │                         │ ±15 V, +5 V  │──► main out (THAT1646), headphones,
+ │ buck/inverter │                         │ ±15 V, +5 V  │──► main out (THAT1646), headphones,
  └──┬─────────┬──┘                         │ bus summing, │    AUX sends/returns, SC EXT jack
     │ chain 1 │ chain 2                    │ compressor   │
     │ power   │ power                      └──────▲───────┘
@@ -37,19 +37,19 @@ Each channel card has identical IN and OUT copies of both ribbons, wired straigh
 
 ### Power
 
-Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (DC-DC, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py`. The 1.5 factor is a judgment until the prototype cards are measured.
+Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py`. The 1.5 factor is a judgment until the prototype cards are measured.
 
 | Item | Value | Source |
 |---|---|---|
-| Raw rails | ±20 V nominal, unregulated in general, from an isolated DC-DC on the prototype | decisions 40, 60, 81 |
+| Raw rails | ±20 V nominal, unregulated in general; on the prototype from non-isolated converters on the power board (TPS54560 buck and inverter), the 24 V brick providing the isolation | decisions 40, 60, 81, 100 |
 | Raw rail minimum under load | about 19 V: the master's relay drop-out comparator trips at 17.9 V; the LM317 needs about 2 V headroom above 15.1 V | decisions 92, 95 |
 | Local rails on every card | ±15.1 V (LM317/LM337), +5 V (78L05 on channel cards, L7805 on the master) | decisions 78, 87 |
 | Channel card load (+15 / −15 V) | typical 122 / 105 mA; worst case 253 / 218 mA; sizing 189 / 157 mA (AD8273 supply current **[unverified]**, 5 mA of the total) | decision 96, `hardware/channel-card/scripts/power_budget.py` |
 | Master card load (+15 / −15 V) | typical 345 / 275 mA; worst case 730 / 606 mA; sizing 597 / 485 mA | decisions 95, 96, `hardware/master/scripts/power_budget.py` |
-| Prototype, 4 cards + master | sizing 1.35 / 1.11 A, about 49 W (typical 0.83 / 0.69 A); DC-DC about 2 A per rail | decision 96 |
+| Prototype, 4 cards + master | sizing 1.35 / 1.11 A, about 49 W (typical 0.83 / 0.69 A); power board converters about 2 A per rail | decisions 96, 100 |
 | Full size, 16 cards + master | sizing 3.6 / 3.0 A, about 132 W (typical 2.3 / 2.0 A; worst case 4.8 / 4.1 A, not used for sizing) | decision 96 |
 | Power ribbon | injected in groups of 8 cards; about 0.76 A per pin (sizing); connectors and cable rated at least 1 A per contact | decisions 80, 96 |
-| Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size): an input for the DC-DC choice | system validation, finding 6 |
+| Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board: start-up into it is a check before the power board layout (`hardware/power/STATUS.md`) | system validation, finding 6; decision 100 |
 
 ### Signal levels
 
@@ -82,7 +82,10 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 5. **Contracts change only by a confirmed decision:** `CHAIN.md`, `INPUT-MODULE.md` and the budgets above.
 6. **Part facts are verified:** every pinout and limit comes from the maker's datasheet, recorded in `docs/parts.csv`.
 7. **Every sheet is double-entry:** a drawing script and an independent reference netlist, checked pin by pin, with ERC 0/0.
+8. **Floating supply:** whatever feeds the power ribbons has a DC output floating from mains earth (Class II brick on the prototype); PGND is earthed nowhere except through the master card's star point and the ground-lift switch, and the star point is the only ground reference (decision 101).
 
 ## Open system items
 
-(none; the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes; finding 3 is a master card fix listed in its `STATUS.md`)
+(none; the floating-brick rule is settled by decision 101)
+
+Earlier items are closed (the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes; finding 3 is a master card fix listed in its `STATUS.md`).

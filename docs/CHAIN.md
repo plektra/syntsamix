@@ -1,6 +1,6 @@
 # Chain interface
 
-Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97 and 98.
+Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98 and 101.
 
 Every channel card has two identical copies of each connector (IN and OUT), wired pin-for-pin straight through. The master card has one copy of each and sits at one end of the chain. Pin numbers follow the IDC convention: on the flat cable, pin n lies next to pin n+1, and pin 1 is on the red stripe.
 
@@ -39,9 +39,9 @@ Signal definitions:
 
 | Pin | Name |
 |---|---|
-| 1, 2 | V- (negative rail, about -20 V nominal; unregulated in general, from a DC-DC module on the prototype) |
+| 1, 2 | V- (negative rail, about -20 V nominal; unregulated in general, from the power board's non-isolated converters on the prototype, decision 100) |
 | 3, 4, 5, 6 | PGND |
-| 7, 8 | V+ (positive rail, about +20 V nominal; unregulated in general, from a DC-DC module on the prototype) |
+| 7, 8 | V+ (positive rail, about +20 V nominal; unregulated in general, from the power board's non-isolated converters on the prototype, decision 100) |
 
 - Pin 1 (red stripe) is the negative rail, the same habit as Eurorack, so the stripe always marks "negative".
 - 10- and 16-pin sizes are deliberately avoided so a Eurorack power cable cannot be plugged in.
@@ -50,11 +50,11 @@ Signal definitions:
 ## Grounding
 
 - AGND (audio ribbon) and PGND (power ribbon) are separate all along the chain and join at **one point only: the master card** (net tie NT901). Power enters at the power board (decisions 80 and 81), which feeds the master card and chains 1 and 2 through separate power ribbons; PGND from every ribbon returns to the power board and reaches AGND only through the master card's star point.
+- The supply feeding the power ribbons must have a DC output that floats from mains earth (a Class II brick on the prototype; decision 101). PGND is earthed nowhere except through the master card's star point and the ground-lift switch. The mixer then floats from mains earth and takes its reference from connected gear, normally through the balanced outputs.
 - On a channel card, the regulator input capacitors return to PGND; the regulators' reference and all audio circuits use AGND.
 - Keep ground current on channel cards small: LEDs and logic return to PGND, not AGND (this includes the PFL_ACT drivers and the button pull-downs, decision 98); op amps run rail to rail, so their supply current does not flow in ground.
 - Jack sleeves connect to their own card's AGND. FR4 panels do not conduct, so jacks never touch the frame.
 - The metal frame (rails, metal side cheeks) is bonded to the system star point at the master card only, through a ground-lift switch (lifted position: frame connected through a small resistor and capacitor).
-- With the DC power brick the mixer floats from mains earth and takes its reference from connected gear, normally through the balanced outputs.
 
 ## Points still open
 

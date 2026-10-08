@@ -1,14 +1,14 @@
 # Power decisions
 
-The power board (`hardware/power`): DC brick input, isolated DC-DC to the raw ±20 V chain rails, protection. Chain voltage and power injection (decisions 40 and 80) are in `system.md`.
+The power board (`hardware/power`): 24 V DC brick input, protection, non-isolated converters to the raw ±20 V chain rails (decision 100). Chain voltage and power injection (decisions 40 and 80) are in `system.md`.
 
 Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
 
 ## Decisions
 
-60. Prototype power: certified DC power brick (24 or 48 V) into the master section, isolated DC-DC module to about ±20 V, LC filter, per-card linear regulation. Power switch, resettable fuse, reverse-polarity protection, locking DC connector, power LED. A linear external supply box can be considered for a product version
-81. The power input section is a separate small power board (`hardware/power`) next to the master card: DC brick input, fuse, reverse-polarity protection, power switch and LED, isolated DC-DC to ±20 V and LC filter. It feeds the master card and both power chains with short power ribbons, keeping switching noise and its ground currents off the audio boards. The master card takes power like a channel card and regulates locally
-100. Power board conversion and parts (refines items 60 and 81; power board schematic session 2026-10-07). Isolated DC-DC modules were dropped as too expensive (about $260 for a ±20 V series pair of Traco TEP modules, the only family checked that trims down to 20 V). The certified brick provides the isolation; the power board converts without isolation and the brick's negative is PGND, so the brick's DC output must float (noted for `/system`)
+60. Prototype power: certified DC power brick (24 or 48 V) into the master section, isolated DC-DC module to about ±20 V, LC filter, per-card linear regulation. Power switch, resettable fuse, reverse-polarity protection, locking DC connector, power LED. A linear external supply box can be considered for a product version. (Item 100 replaces the isolated DC-DC module with non-isolated on-board converters and fixes the brick at 24 V; the brick provides the isolation)
+81. The power input section is a separate small power board (`hardware/power`) next to the master card: DC brick input, fuse, reverse-polarity protection, power switch and LED, isolated DC-DC to ±20 V and LC filter. It feeds the master card and both power chains with short power ribbons, keeping switching noise and its ground currents off the audio boards. The master card takes power like a channel card and regulates locally. (Item 100: the conversion is non-isolated; the brick provides the isolation)
+100. Power board conversion and parts (refines items 60 and 81; power board schematic session 2026-10-07). Isolated DC-DC modules were dropped as too expensive (about $260 for a ±20 V series pair of Traco TEP modules, the only family checked that trims down to 20 V). The certified brick provides the isolation; the power board converts without isolation and the brick's negative is PGND, so the brick's DC output must float (settled by item 101: invariant 8)
     - **Brick:** 24 V, Class II (2-pin C8 inlet) with a floating output: Mean Well GSM120B24-R7B (120 W) for the prototype, GSM160B24-R7B (160 W) for 16 cards. Same plug and pinout: R7B locking 4-pin power DIN (Kycon KPPX-4P type), pins 1 and 4 = +24 V, 2 and 3 = 0 V. Mean Well GST bricks were rejected: Class I, and the 120 and 160 W models tie −V to earth
     - **Jack:** Kycon KPJX-4S, PCB right-angle at the board's rear edge, 7.5 A per pin; the KPPX plug latches into it. Check polarity with a meter on the first brick (Mean Well's and Kycon's face drawings are rotated relative to each other)
     - **Converters:** two TPS54560 (60 V, 6.3 A minimum switch limit): a buck to +20 V and an inverting buck-boost to −20 V (TI SLVA317), about 2 A per rail. Both synchronised at 400 kHz in opposite phase from one on-board oscillator (74HC14); the timing resistors give 400 kHz if the clock fails. Light-load pulse skipping cannot be turned off, but the cards' quiescent load keeps both in fixed-frequency operation
@@ -20,4 +20,4 @@ Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are 
 
 ## Open items
 
-- [x] Supply rating for 16 cards plus the master: decision 96 (`system.md`), 3.6 / 3.0 A per rail, about 132 W; prototype 1.35 / 1.11 A, DC-DC about 2 A per rail. Raw rails above about 19 V under load
+- [x] Supply rating for 16 cards plus the master: decision 96 (`system.md`), 3.6 / 3.0 A per rail, about 132 W; prototype 1.35 / 1.11 A, converters about 2 A per rail. Raw rails above about 19 V under load

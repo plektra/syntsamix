@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-06.
+Updated 2026-10-08.
 
 ## Where it stands
 
@@ -21,6 +21,11 @@ Power ribbon IDC headers (J503/J504) and the ribbon cable: at least 1 A per cont
 
 
 Resonance pot (10k reverse audio), CV jack (vertical 6.3 mm), meter and button LED parts and colours, IDC headers, CUTOFF/level pot MPNs.
+
+## Check before layout
+
+- **Fader buffer input range (from /system, 2026-10-08):** the fader runs from −15 V to ground and its wiper drives the TL072 buffer's + input directly (U204A, Level sheet, `level_wired.py:93-98`). TI SLOS080W gives the TL072H's common-mode range as (VCC−) + 1.5 V to VCC+ (below about −13.6 V is outside it); the older TL072 die is specified at ±11 V minimum, −12 V typical, which puts the bottom fifth or more of the travel out of range. The classic TL07x reverses output phase when the input goes below that limit, which would swing VB positive and could send the VCA to full gain at the bottom of the fader; whether the orderable TL072 (MPN not yet chosen, SX-IC-007) does so is not verified. Possible fixes: a resistor from the fader's pin 1 to −15 V (the wiper then stops about 2 V above the rail; rescale the law resistors), or a part whose input range includes V−. Check the law's bottom end (−113 dB) after the change, and on the breadboard fader test (`simulation/filter/BREADBOARD.md`, control-voltage test).
+- **Power lever, [proposed] (from /system, 2026-10-08; `docs/ROADMAP.md`, Power-cut candidates 1 and 2):** U107 NE5532 → TL072; check U204, U205, U401 and U404 for a TL062 (swing, input range against the fader buffer item above, load, slew), then rerun `scripts/power_budget.py`.
 
 ## Next
 

@@ -28,6 +28,7 @@
 - Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources
 - Expansion to 32 channels: power injector board every 16 cards (the 8-pin power ribbon carries only about 16 cards' current), mixing amps sized for 32 inputs (about 3 dB more bus noise), two frames of 16 strips linked by a longer ribbon. Channel cards and pinouts stay unchanged
 - 3D-printed LED bar diffuser for the meters: an opaque printed bezel with square windows (for example 4 x 4 mm at 5 mm pitch) and a translucent diffuser over 0805 SMD LEDs, replacing the round 3 mm meter LEDs (decision 86). Same look as the printed button caps; walls between the windows stop light bleeding between segments
+- Mains power (decision 101): an external linear supply box (mains and toroid in their own earthed box, ±20 V on a locking connector; the power board shrinks to protection and fusing) or an internal mains supply (Class I, safety earth to the chassis, ground lift between signal ground and chassis). Either must keep the supply output floating (invariant 8)
 - Mixer variant with external channel strips, for bands or groups of performers who each connect and control their own instrument submix
 
 ## Cost-cut candidates
@@ -35,6 +36,16 @@
 Decisions that can fall back to a cheaper option if the budget needs it:
 
 - Main balanced outputs: THAT1646 line drivers → NE5532 buffer + inverter (decision 83)
+
+## Power-cut candidates
+
+From `/system power conversion` (2026-10-08). About three-quarters of the supply current is op amp quiescent current; the NE5532s in the core audio path stay. Supply currents per amplifier, typical / maximum (TI datasheets): NE5532 3 / 8 mA, TL072 1.4 / 2.5 mA, TL062 0.2 / 0.25 mA, OPA1678 2 / 2.5 mA.
+
+1. **[proposed]** Channel U107 (cutoff CV summer, one unit unused): NE5532 → TL072. Saves 3.2 / 11 mA per rail per card; DC accuracy improves (FET input bias into 100-300 kΩ)
+2. **[proposed]** TL072 → TL062 in DC control and meter stages with light loads, after a check per position (TL062: ±10 V minimum swing into 10 kΩ, input range 4 V inside the rails, about 10 mA output; not for peak detectors, comparators or the SC_ENV driver). Candidates: channel U204, U205, U401, U404; master fader-law stages (U206, U207, U306, U307, U705, U706), compressor U407, U409, U410, meter U802, U804. Saves 2.4 / 4.5 mA per package
+3. Later cost choice: NE5532 → OPA1678 in low-noise-gain audio stages (channel U3, U106; master U205, U305, U404, U405). Saves 2 / 11 mA per package with equal or better audio; costs more (price not checked)
+
+Options 1 and 2 save about 77 mA per rail on the prototype (about 3 W of 31 W typical) and 231 mA at full size (about 9 W of 85 W), and cut the channel card's worst-case LM317 dissipation from 1.24 W to about 1.10 W. NE5532 → TL072 in audio stages was rejected (measurably more noise and distortion).
 
 ## KiCad workflow
 

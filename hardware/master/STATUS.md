@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-06.
+Updated 2026-10-08.
 
 ## Where it stands
 
@@ -18,6 +18,8 @@ Updated 2026-10-06.
 
 ## Check before layout
 
+- **Fader buffer input range (from /system, 2026-10-08):** the fader runs from −15 V to ground and its wiper drives the TL072 buffer's + input directly (U206A and U306A on the AUX returns, U705A on master out). TI SLOS080W gives the TL072H's common-mode range as (VCC−) + 1.5 V to VCC+ (below about −13.6 V is outside it); the older TL072 die is specified at ±11 V minimum, −12 V typical, which puts the bottom fifth or more of the travel out of range. The classic TL07x reverses output phase when the input goes below that limit, which would swing VB positive and could send the VCA to full gain at the bottom of the fader; whether the orderable TL072 (MPN not yet chosen, SX-IC-007) does so is not verified. Possible fixes: a resistor from the fader's pin 1 to −15 V (the wiper then stops about 2 V above the rail; rescale the law resistors), or a part whose input range includes V−. Check the law's bottom end (−113 dB) after the change, and on the breadboard fader test (`simulation/filter/BREADBOARD.md`, control-voltage test).
+- **Power lever, [proposed] (from /system, 2026-10-08; `docs/ROADMAP.md`, Power-cut candidate 2):** check U206, U207, U306, U307, U705, U706, U407, U409, U410, U802 and U804 for a TL062 (swing, input range against the fader buffer item above, load, slew), then rerun `scripts/power_budget.py`.
 - Power ribbon header J901 (SX-CONN-008) is now Würth 61200821621 (3 A per contact, hand-soldered, not at LCSC; decision 100): check the footprint against Würth's drawing.
 - G6K NC/NO contact assignment against Omron's terminal diagram (taken from KiCad's G6K-2 symbol).
 - The dual 100 kΩ reverse-log (C) pot for the sidechain LPF may not exist in Alpha's range.

@@ -57,10 +57,10 @@ hardware/        CLAUDE.md: shared schematic workflow; each board has CLAUDE.md 
   input-module-6p3/  KiCad project (6.3 mm input module)
   libs/          shared symbols (syntsamix.kicad_sym) and footprints
   master/        KiCad project (compressor, master, outputs)
-  power/         power board (DC input, DC-DC to ±20 V; decision 81), no KiCad project yet
+  power/         KiCad project (24 V brick input, non-isolated converters to ±20 V; decisions 81, 100)
 simulation/      ngspice model, filter results, breadboard plan, BOM and order files
 ```
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-100). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-101). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

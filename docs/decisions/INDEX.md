@@ -122,6 +122,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 98 | PFL_ACT drivers and button pull-downs return to PGND | confirmed | [system](system.md) |
 | 99 | Input-module cable: 1:1 KK 254 crimp cable | confirmed | [input-module](input-module.md) |
 | 100 | Power board: 24 V Class II brick, non-isolated TPS54560 buck and inverter at 400 kHz, protection and output fusing | confirmed, values proposed | [power](power.md) |
+| 101 | Floating supply: the power ribbons' source floats from mains earth (invariant 8); mains supply to the backlog | confirmed | [system](system.md) |
 
 ## Proposed but not confirmed
 
@@ -141,4 +142,4 @@ The decision log, split by area. Read this index, then the area file for the wor
 
 ## Backlog
 
-The backlog is kept in `docs/ROADMAP.md`. Items moved there by decision: channel HPF. (Cue/PFL was in the backlog but is now in the prototype.)
+The backlog is kept in `docs/ROADMAP.md`. Items moved there by decision: channel HPF; mains supply, an external linear box or an internal supply (decision 101). (Cue/PFL was in the backlog but is now in the prototype.)

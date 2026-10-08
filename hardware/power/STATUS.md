@@ -36,14 +36,9 @@ Updated 2026-10-08.
 
 ## Next
 
-1. `/system` session for the items below.
-2. PCB layout (after the channel card PCB, per `docs/CONTINUE-FROM-HERE.md`).
-3. Full-size supply (about 4 A per rail) after the prototype cards are measured (decision 96): the −20 V inverter needs a controller with external MOSFETs.
+1. PCB layout (after the channel card PCB, per `docs/CONTINUE-FROM-HERE.md`).
+2. Full-size supply (about 4 A per rail) after the prototype cards are measured (decision 96): the −20 V inverter needs a controller with external MOSFETs.
 
 ## For /system
 
-- Decisions 60 and 81 say "isolated DC-DC"; decision 100 replaces it with non-isolated converters on the power board. Reword `docs/ARCHITECTURE.md` (power budget table: "from an isolated DC-DC on the prototype", the DC-DC "module" rows) and `docs/CHAIN.md` (power ribbon pins 1, 2, 7, 8: "from a DC-DC module on the prototype").
-- Grounding: PGND is now the brick's DC negative, so the brick's output must float (Class II, no earth on −V). Decide whether that becomes an invariant or a CHAIN.md requirement, and recheck the ground-lift switch (decision 61) with a floating brick.
-- `docs/ARCHITECTURE.md` system diagram ("DC brick 24/48 V", "DC-DC ±20 V") and the switch-on capacitance row ("an input for the DC-DC choice": point it at the start-up check above); "Open system items" should list these until the session runs.
-- Decisions 60 and 81 (confirmed) still say "isolated DC-DC" and "24 or 48 V": note there that decision 100 replaces those parts.
-- Decision 96 and this file speak of buying the "full-size module" after measurement; with on-board converters that becomes sizing or revising the converters for full size.
+(none; decision 101 settles the floating brick: invariant 8 in `docs/ARCHITECTURE.md`, `CHAIN.md` grounding)
