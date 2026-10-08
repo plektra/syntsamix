@@ -20,6 +20,7 @@ def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,f
 def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn))
 def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
 def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**TI))
+def OPA(ref,unit,x,y): return s.place("Amplifier_Operational","Opamp_Dual",ref,"OPA2171",x,y,0,unit,SO8,P("SX-IC-021",**TI,MPN="OPA2171AIDR"))   # no OPA2171 symbol in the KiCad library; same pinout
 def DZ(ref,x,y,rot): return s.place("Device","D_Zener",ref,"6V2",x,y,rot,fp="Diode_SMD:D_SOD-123",props=P("SX-D-001"))
 def DR(ref,x,y,rot): return s.place("Device","D",ref,"M7 (1N4007)",x,y,rot,fp="Diode_SMD:D_SMA",props=P("SX-D-008",Note="Phantom-power surge clamp (THAT doc 600078 Figure 8)"))
 def DS(ref,x,y,rot): return s.place("Device","D",ref,"1N4148W",x,y,rot,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
@@ -110,7 +111,9 @@ Y=279.4; VBX=96.52; SUMX=241.3
 fv=s.place("Device","R_Potentiometer","RV701","MASTER 10k lin",45.72,Y,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
            props=P("SX-POT-006",Note="Panel MASTER: pin 1 = fully counter-clockwise (off); 0 dB at 75 %, +10 dB at full"))
 s.wire(fv(1),up(fv(1),5.08)); s.power("-15V",up(fv(1),5.08),180); s.wire(fv(3),dn(fv(3),5.08)); gnd(dn(fv(3),5.08))
-bu=TL("U705",1,68.58,Y+2.54); s.wire(fv(2),bu(3))
+# U705 = OPA2171: input range includes V- (the wiper reaches -15 V), no phase reversal (TI SBOS516H).
+# Its inputs have back-to-back diodes, so the superdiodes (open loop when off) stay on the TL072 U706 (decision 102)
+bu=OPA("U705",1,68.58,Y+2.54); s.wire(fv(2),bu(3))
 bo=(78.74,Y+2.54); s.wire(bu(1),bo,(VBX,Y+2.54)); s.wire(bo,(78.74,Y+10.16),(58.42,Y+10.16),(58.42,bu(2)[1]),bu(2))
 ra=R("R714","113k","SX-R-023",170.18,Y-20.32); s.wire((VBX,Y-20.32),ra(1)); s.wire(ra(2),(SUMX,Y-20.32))
 rc=R("R715","453k","SX-R-024",170.18,Y-10.16); s.wire((152.4,Y-10.16),rc(1)); s.power("+15V",(152.4,Y-10.16)); s.wire(rc(2),(SUMX,Y-10.16))
@@ -121,12 +124,12 @@ def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn):
     dd=DS(d,144.78,y+2.54,0); s.wire(o(pins[2]),dd(1)); k=(152.4,y+2.54); s.wire(dd(2),k)
     s.wire(k,(k[0],y+10.16),(119.38,y+10.16),(119.38,o(pins[1])[1]),o(pins[1]))
     r=R(rs,rsval,rspn,200.66,y+2.54); s.wire(k,r(1)); s.wire(r(2),(SUMX,y+2.54))
-superdiode(Y+17.78,"R716","R717","221k","SX-R-025","U97052",2,(5,6,7),"D713","R718","63k4","SX-R-026")
+superdiode(Y+17.78,"R716","R717","221k","SX-R-025","U97062",2,(5,6,7),"D713","R718","63k4","SX-R-026")
 superdiode(Y+50.8,"R719","R720","124k","SX-R-027","U706",1,(3,2,1),"D714","R721","8k66","SX-R-014")
 for y1,y2 in ((Y-20.32,Y+2.54),(Y+2.54,Y+17.78),(Y+17.78,Y+50.8)): s.wire((VBX,y1),(VBX,y2))
 taps=sorted({Y-38.1,Y-30.48,Y-20.32,Y-10.16,Y+5.08,Y+20.32,Y+53.34})
 for y1,y2 in zip(taps,taps[1:]): s.wire((SUMX,y1),(SUMX,y2))
-su=TL("U97062",2,256.54,Y+2.54); s.wire((SUMX,Y+5.08),su(6)); gnd_plus(su(5))
+su=OPA("U97052",2,256.54,Y+2.54); s.wire((SUMX,Y+5.08),su(6)); gnd_plus(su(5))
 so=(266.7,Y+2.54); s.wire(su(7),so,(279.4,so[1])); lab((279.4,so[1]),"VC",0); s.tp("TP703","VC",(274.32,so[1]),"down")
 f1=R("R722","10k","SX-R-002",254.0,Y-30.48); f2=C("C711","1u","SX-C-010",254.0,Y-38.1)
 s.wire((SUMX,Y-30.48),f1(1)); s.wire((SUMX,Y-38.1),f2(1)); s.wire(f1(2),(so[0],Y-30.48)); s.wire(f2(2),(so[0],Y-38.1))
@@ -170,8 +173,8 @@ for i,(ref_,unit,(pp,pm,po)) in enumerate((("U97073",3,(11,10,13)),("U97074",4,(
 Y2=375.92; x=33.02
 for ref in ("U97023",):
     p=NE(ref,3,x,Y2); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
-for ref in ("U97053","U97063"):
-    p=TL(ref,3,x,Y2); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
+for ref,f in (("U97053",OPA),("U97063",TL)):
+    p=f(ref,3,x,Y2); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
 p=s.place("Comparator","LM339","U97075","LM339",x,Y2,0,5,SO14,P("SX-IC-009",**TI))
 s.wire(p(3),up(p(3),5.08)); s.power("+15V",up(p(3),5.08)); s.wire(p(12),dn(p(12),5.08)); pgnd(dn(p(12),5.08)); x+=20.32
 for k_ in range(6):

@@ -10,8 +10,9 @@ LPF: unity-gain Sallen-Key 22 nF / 47 nF with 10 kΩ + a 100 kΩ dual reverse-lo
 45-510 Hz), bypass button (U507). A follower drives SC_DET (compressor detector, ducker, SC listen).
 SC listen sums SC_DET into CUE_L/R through 22 kΩ and pulls PFL_ACT low (MMBT3904).
 Ducker: window comparator against ±THRESHOLD (0.1-5 V peak), two DG413 NO sections charge
-2.2 µF from the buffered DEPTH voltage (0-4 V) through 470 Ω; DECAY (500 kΩ log + 22 kΩ)
-discharges it; a follower drives SC_ENV through 100 Ω.
+2.2 µF from the buffered DEPTH voltage (0 to -4 V) through 470 Ω; DECAY (500 kΩ log + 22 kΩ)
+discharges it; a follower drives SC_ENV through 100 Ω with its feedback taken after the 100 Ω,
+and a BAT54 clamps SC_ENV below about +0.3 V (decision 97).
 DG413 sections: unit 1 (pins 1-3, NO), unit 2 (6-8, NO), unit 3 (9-11, NC), unit 4 (14-16, NC).
 """
 import json,os
@@ -37,22 +38,22 @@ N("BYP_CTRL","U507.1","U95073.9"); N("FILT_IN","U507.3","U95073.11","U503.3")
 N("SC_DET","U503.1","U503.2","U95072.6","U504.3","U95042.6","TP501.1")
 N("LISTEN_CTRL","U95072.8","R513.1"); N("LST","U95072.7","R511.1","R512.1"); N("CUE_L","R511.2"); N("CUE_R","R512.2")
 N("AGND","U95074.14","U95074.15","U95074.16")
-N("Q_B","R513.2","Q501.1"); N("AGND","Q501.2"); N("PFL_ACT","Q501.3")
+N("Q_B","R513.2","Q501.1"); N("PGND","Q501.2"); N("PFL_ACT","Q501.3")
 # ---------------------------------------------------------------- ducker: THRESHOLD, comparators (U504), inverter (U503B)
 N("THR_LO","RV502.1","R515.2"); N("AGND","R515.1"); N("THR","RV502.2","U504.2","R516.1"); N("THR_HI","RV502.3","R514.1"); N("+15V","R514.2")
 N("THR_INV","R516.2","R517.1","U95032.6"); N("AGND","U95032.5"); N("THRN","U95032.7","R517.2","U95042.5")
 N("TRIG1","U504.1","U508.1"); N("TRIG2","U95042.7","U95082.8")
 # DEPTH (U505A), charge switches (U508), hold, DECAY, SC_ENV buffer (U505B)
-N("AGND","RV503.1"); N("DEPTH_W","RV503.2","U505.3"); N("DEP_TOP","RV503.3","R518.1"); N("+15V","R518.2")
+N("AGND","RV503.1"); N("DEPTH_W","RV503.2","U505.3"); N("DEP_TOP","RV503.3","R518.1"); N("-15V","R518.2")   # DEPTH 0 to -4 V (decision 97)
 N("DEP","U505.1","U505.2","U508.2","U95082.6"); N("CHG","U508.3","U95082.7","R519.1")
 N("AGND","U95083.9","U95083.10","U95083.11","U95084.14","U95084.15","U95084.16")
 N("HOLD","R519.2","C504.1","R520.1","U95052.5"); N("AGND","C504.2")
 N("DK","R520.2","RV504.3","RV504.2"); N("AGND","RV504.1")
-N("ENV_O","U95052.6","U95052.7","R521.1"); N("SC_ENV","R521.2","TP502.1")
+N("ENV_O","U95052.7","R521.1"); N("SC_ENV","R521.2","TP502.1","U95052.6","D504.2"); N("AGND","D504.1")   # feedback after R521, Schottky clamp (decision 97)
 # ---------------------------------------------------------------- buttons
 for name,sw,led,rl,rp in (("BUS","SW501","D501","R522","R523"),("BYP","SW502","D502","R524","R525"),("LISTEN","SW503","D503","R526","R527")):
     N(f"{name}_CTRL",f"{sw}.3",f"{rp}.2"); N("+5V",f"{sw}.2"); N(f"{name}_LEDK",f"{sw}.6",f"{led}.1"); N("PGND",f"{sw}.5")
-    N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("AGND",f"{rp}.1")
+    N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("PGND",f"{rp}.1")   # pull-downs to PGND (decision 98)
 # ---------------------------------------------------------------- supplies and decoupling
 for ref in ("U95013","U95023","U95033","U95043","U95053"): N("+15V",f"{ref}.8"); N("-15V",f"{ref}.4")
 for ref in ("U95065","U95075","U95085"): N("+15V",f"{ref}.13"); N("-15V",f"{ref}.4"); N("+5V",f"{ref}.12"); N("AGND",f"{ref}.5")

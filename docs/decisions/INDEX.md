@@ -124,6 +124,8 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 100 | Power board: 24 V Class II brick, non-isolated TPS54560 buck and inverter at 400 kHz, protection and output fusing, start-up ramp | confirmed | [power](power.md) |
 | 101 | Floating supply: the power ribbons' source floats from mains earth (invariant 8); mains supply to the backlog | confirmed | [system](system.md) |
 | 102 | Channel fader buffer and control summer on an OPA2171 (input range includes V−) | confirmed | [channel-card](channel-card.md) |
+| 103 | Master fader-law buffers and summers (U206, U306, U705) on an OPA2171 | confirmed | [master-card](master-card.md) |
+| 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card](master-card.md) |
 
 ## Proposed but not confirmed
 

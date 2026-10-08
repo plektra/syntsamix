@@ -20,7 +20,8 @@ def draw(n):
     rr=lambda k:f"R{B+k}"; cc=lambda k:f"C{B+k}"; uu=lambda k:f"U{B+k}"; tt=lambda k,unit:f"U9{B+k}{unit}"
     def R(k,val,pn,x,y,rot=90,**kw): return s.place("Device","R",rr(k),val,x,y,rot,fp=R0805,props=P(pn,**kw))
     def C(k,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",cc(k),val,x,y,rot,fp=fp,props=P(pn))
-    def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",part,ref,part,x,y,0,unit,SO8,P(pn,**TI))
+    SYM={"OPA2171":"Opamp_Dual"}; MPN={"OPA2171":{"MPN":"OPA2171AIDR"}}   # no OPA2171 symbol in the KiCad library; same pinout
+    def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**TI,**MPN.get(part,{})))
     def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI))
     gnd=lambda at,rot=0: s.power("GNDA",at,rot)
     up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
@@ -132,7 +133,9 @@ def draw(n):
     fv=s.place("Device","R_Potentiometer",f"RV{B+1}",f"RETURN {n} LEVEL 10k lin",45.72,Y,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
                props=P("SX-POT-006",Note="Pin 1 = fully counter-clockwise (off)"))
     s.wire(fv(1),up(fv(1),5.08)); s.power("-15V",up(fv(1),5.08),180); s.wire(fv(3),dn(fv(3),5.08)); gnd(dn(fv(3),5.08))
-    bu=OA("TL072",uu(6),1,68.58,Y+2.54,"SX-IC-007"); s.wire(fv(2),bu(3))
+    # U+6 = OPA2171: input range includes V- (the wiper reaches -15 V), no phase reversal (TI SBOS516H).
+    # Its inputs have back-to-back diodes, so the superdiodes (open loop when off) stay on the TL072 U+7 (decision 102)
+    bu=OA("OPA2171",uu(6),1,68.58,Y+2.54,"SX-IC-021"); s.wire(fv(2),bu(3))
     bo=(78.74,Y+2.54); s.wire(bu(1),bo,(VBX,Y+2.54)); s.wire(bo,(78.74,Y+10.16),(58.42,Y+10.16),(58.42,bu(2)[1]),bu(2))
     ra=R(22,"113k","SX-R-023",170.18,Y-20.32); s.wire((VBX,Y-20.32),ra(1)); s.wire(ra(2),(SUMX,Y-20.32))
     rc=R(23,"453k","SX-R-024",170.18,Y-10.16); s.wire((152.4,Y-10.16),rc(1)); s.power("+15V",(152.4,Y-10.16)); s.wire(rc(2),(SUMX,Y-10.16))
@@ -144,14 +147,16 @@ def draw(n):
         s.wire(o(pins[2]),dd(1)); k=(152.4,y+2.54); s.wire(dd(2),k)
         s.wire(k,(k[0],y+10.16),(119.38,y+10.16),(119.38,o(pins[1])[1]),o(pins[1]))
         r=R(rs,rsval,rspn,200.66,y+2.54); s.wire(k,r(1)); s.wire(r(2),(SUMX,y+2.54))
-    superdiode(Y+17.78,24,25,"221k","SX-R-025",tt(6,2),2,(5,6,7),f"D{B+1}",26,"63k4","SX-R-026")
+    superdiode(Y+17.78,24,25,"221k","SX-R-025",tt(7,2),2,(5,6,7),f"D{B+1}",26,"63k4","SX-R-026")
     superdiode(Y+50.8,27,28,"124k","SX-R-027",uu(7),1,(3,2,1),f"D{B+2}",29,"8k66","SX-R-014")
     for y1,y2 in ((Y-20.32,Y+2.54),(Y+2.54,Y+17.78),(Y+17.78,Y+50.8)): s.wire((VBX,y1),(VBX,y2))
-    rm=R(31,"33k2","SX-R-028",220.98,Y+71.12); s.wire((208.28,Y+71.12),rm(1)); s.label("MUTE_V",(208.28,Y+71.12),180); s.wire(rm(2),(SUMX,Y+71.12))
-    taps=sorted({Y-38.1,Y-30.48,Y-20.32,Y-10.16,Y+5.08,Y+20.32,Y+53.34,Y+71.12})
+    rd=R(32,"30k1","SX-R-087",220.98,Y+30.48,Note="SC_ENV into the virtual earth: 0.332 V/V, 10 dB of ducking per -1 V (decision 97)")
+    s.wire((208.28,Y+30.48),rd(1)); s.label("DUCK_V",(208.28,Y+30.48),180); s.wire(rd(2),(SUMX,Y+30.48))
+    rm=R(31,"33k2","SX-R-028",220.98,Y+40.64); s.wire((208.28,Y+40.64),rm(1)); s.label("MUTE_V",(208.28,Y+40.64),180); s.wire(rm(2),(SUMX,Y+40.64))
+    taps=sorted({Y-38.1,Y-30.48,Y-20.32,Y-10.16,Y+5.08,Y+20.32,Y+30.48,Y+40.64,Y+53.34})
     for y1,y2 in zip(taps,taps[1:]): s.wire((SUMX,y1),(SUMX,y2))
-    su=OA("TL072",tt(7,2),2,256.54,Y+2.54,"SX-IC-007"); s.wire((SUMX,Y+5.08),su(6))
-    s.wire(su(5),lt(su(5),2.54),(su(5)[0]-2.54,Y-7.62),(su(5)[0]+12.7,Y-7.62)); s.label("VPLUS",(su(5)[0]+12.7,Y-7.62),0)
+    su=OA("OPA2171",tt(6,2),2,256.54,Y+2.54,"SX-IC-021"); s.wire((SUMX,Y+5.08),su(6))
+    s.wire(su(5),lt(su(5),2.54),up(lt(su(5),2.54),2.54)); gnd(up(lt(su(5),2.54),2.54),180)   # + input on AGND (decision 97)
     so=(266.7,Y+2.54); s.wire(su(7),so,(279.4,so[1])); s.label("VC",(279.4,so[1]),0)
     f1=R(30,"10k","SX-R-002",254.0,Y-30.48); f2=C(15,"1u","SX-C-010",254.0,Y-38.1)
     s.wire((SUMX,Y-30.48),f1(1)); s.wire((SUMX,Y-38.1),f2(1)); s.wire(f1(2),(so[0],Y-30.48)); s.wire(f2(2),(so[0],Y-38.1))
@@ -159,9 +164,7 @@ def draw(n):
     # ------------------------------------------------ mute and duck (DG413)
     DGX=330.2
     d1=DG(uu(8),1,DGX,Y-20.32)
-    r17=R(32,"100k","SX-R-007",309.88,Y-20.32,270); s.wire(r17(1),d1(2))
-    vp=(299.72,Y-20.32); s.wire(r17(2),vp); r18=R(33,"15k8","SX-R-029",vp[0],Y-12.7,0); s.wire(vp,r18(1)); gnd(r18(2))
-    s.wire(vp,(292.1,vp[1])); s.label("VPLUS",(292.1,vp[1]),180)
+    s.wire(d1(2),lt(d1(2),7.62)); s.label("DUCK_V",lt(d1(2),7.62),180)
     s.wire(d1(3),(350.52,d1(3)[1])); s.label("SC_ENV",(350.52,d1(3)[1]),0,"hierarchical","input")
     s.wire(d1(1),dn(d1(1),5.08)); s.label("DUCK_CTRL",dn(d1(1),5.08),270)
     d4=DG(tt(8,2),2,DGX,Y+15.24)
@@ -177,7 +180,8 @@ def draw(n):
         b=s.place("Switch","SW_Push_DPDT",sw,f"RETURN {n} {name} (latching)",x,y,0,fp=SWFP,props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
         s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
         nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
-        r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2)); gnd(r(1),180)
+        r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
+        g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
         ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
         s.wire(b(6),ld(1)); r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)
         NC.extend([b(1),b(4)])
@@ -186,8 +190,8 @@ def draw(n):
     Y2=396.24; x=40.64
     for ref in (tt(2,3),tt(4,3),tt(5,3)):
         p=OA("NE5532",ref,3,x,Y2,"SX-IC-004"); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
-    for ref in (tt(6,3),tt(7,3)):
-        p=OA("TL072",ref,3,x,Y2,"SX-IC-007"); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
+    for ref,part,pn in ((tt(6,3),"OPA2171","SX-IC-021"),(tt(7,3),"TL072","SX-IC-007")):
+        p=OA(part,ref,3,x,Y2,pn); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
     for ref in (tt(8,5),tt(9,5)):
         p=DG(ref,5,x+5.08,Y2-7.62)
         s.wire(p(13),up(p(13),5.08)); s.power("+15V",up(p(13),5.08)); s.wire(p(12),up(p(12),2.54),rt(up(p(12),2.54),5.08)); s.power("+5V",rt(up(p(12),2.54),5.08))

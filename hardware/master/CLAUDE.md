@@ -25,4 +25,6 @@ Power prefixes 0-9 are all used. References stay three digits.
 - Root sheet pins nobody uses: list them in `scripts/reference/root_nc.json`; `root_links.py` puts no-connect markers on them.
 - Shared scripts (`check_netlist.py`, `mcpcall.py`, `post_wired.py`, `fix_paths.py`, `root_links.py`, `schlayout.py`, `make_reference.py`) are symlinks to `hardware/channel-card/scripts/`.
 - Power budget: `scripts/power_budget.py [raw volts]` (decision 95). LM317/LM337 need heatsinks of 10 °C/W or better; the heatsinks are live (LM317 tab = +15 V, LM337 tab = raw −20 V), so keep them apart or insulate them.
-- Simulations behind the compressor and sidechain: `simulation/compressor/`, `simulation/sidechain/`.
+- Simulations behind the compressor and sidechain: `simulation/compressor/`, `simulation/sidechain/`. The shared op-amp model's 0.69 mA limit is its slew current; the output is a 50 Ω source, so it drives low-ohm loads like SC_ENV's 1.7 kΩ.
+- Never hang a resistor (inverter input, divider) on a hold capacitor (C504 in the ducker, the compressor's peak hold): it adds a discharge path and shortens the release. Get the polarity upstream instead (decision 104).
+- After `rebuild_all.sh`, restoring the root `master.kicad_sch` from git is safe: the sheet instance paths still resolve (checked with a netlist export, 2026-10-08).

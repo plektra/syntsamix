@@ -12,7 +12,7 @@
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
-5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0)*, then PCB
+5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn)*, then PCB
 6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB
 7. **Prototype build and measurement** against the targets in SPEC.md section 5
 
@@ -42,7 +42,7 @@ Decisions that can fall back to a cheaper option if the budget needs it:
 From `/system power conversion` (2026-10-08). About three-quarters of the supply current is op amp quiescent current; the NE5532s in the core audio path stay. Supply currents per amplifier, typical / maximum (TI datasheets): NE5532 3 / 8 mA, TL072 1.4 / 2.5 mA, TL062 0.2 / 0.25 mA, OPA1678 2 / 2.5 mA.
 
 1. **[proposed]** Channel U107 (cutoff CV summer, one unit unused): NE5532 → TL072. Saves 3.2 / 11 mA per rail per card; DC accuracy improves (FET input bias into 100-300 kΩ)
-2. **[proposed]** TL072 → TL062 in DC control and meter stages with light loads, after a check per position (TL062: ±10 V minimum swing into 10 kΩ, input range 4 V inside the rails, about 10 mA output; not for peak detectors, comparators or the SC_ENV driver). Candidates: channel U205, U401, U404 (U204 is an OPA2171 since decision 102); master fader-law stages (U206, U207, U306, U307, U705, U706), compressor U407, U409, U410, meter U802, U804. Saves 2.4 / 4.5 mA per package
+2. **[proposed]** TL072 → TL062 in DC control and meter stages with light loads, after a check per position (TL062: ±10 V minimum swing into 10 kΩ, input range 4 V inside the rails, about 10 mA output; not for peak detectors, comparators or the SC_ENV driver). Candidates: channel U205, U401, U404 (U204 is an OPA2171 since decision 102); master fader-law superdiodes (U207, U307, U706; U206, U306, U705 are OPA2171s since decision 103), compressor U407, U409, U410, meter U802, U804. Saves 2.4 / 4.5 mA per package
 3. Later cost choice: NE5532 → OPA1678 in low-noise-gain audio stages (channel U3, U106; master U205, U305, U404, U405). Saves 2 / 11 mA per package with equal or better audio; costs more (price not checked)
 
 Options 1 and 2 save about 68 mA per rail on the prototype (about 2.7 W of 30 W typical) and 193 mA at full size (about 7.7 W of 84 W), and cut the channel card's worst-case LM317 dissipation from 1.22 W to about 1.10 W (recomputed after decision 102 took U204 off the list). NE5532 → TL072 in audio stages was rejected (measurably more noise and distortion).

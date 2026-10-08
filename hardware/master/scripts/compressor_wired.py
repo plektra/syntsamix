@@ -17,7 +17,7 @@ TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
-def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**kw))
+def R(ref,val,pn,x,y,rot=90,fp=R0805,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**kw))
 def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn))
 def D(ref,x,y,rot=0): return s.place("Device","D",ref,"1N4148W",x,y,rot,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
 def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
@@ -125,7 +125,7 @@ r=R("R420","560k","SX-R-053",ref[0],ref[1]-8.89,0); s.wire(ref,r(2)); s.wire(r(1
 # reference buffer (A3) and gain -11 with the ERA-V33 (A4)
 a3=TL("U407",1,190.5,ref[1]+2.54); s.wire(ref,a3(3))
 vl=follower(a3,2,1,below=7.62)
-r421=R("R421","1k +3300 ppm/K","SX-R-021",210.82,vl[1],Manufacturer="Panasonic",MPN="ERA-V33J102V",Note="Place against U402 (AS3046D) for thermal tracking")
+r421=R("R421","1k +3300 ppm/K","SX-R-021",210.82,vl[1],fp="Resistor_SMD:R_0603_1608Metric",Manufacturer="Panasonic",MPN="ERA-V33J102V",Note="Place against U402 (AS3046D) for thermal tracking")
 s.wire(vl,r421(1))
 a4=TL("U94072",2,236.22,vl[1]-2.54); gn=(220.98,vl[1]); s.wire(r421(2),gn,a4(6)); gnd_plus(a4(5))
 va=(248.92,a4(7)[1]); s.wire(a4(7),va)
@@ -249,7 +249,8 @@ b=s.place("Switch","SW_Push_DPDT","SW401","COMP ON (latching)",439.42,236.22,0,f
           props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
 s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
 nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),"ON_CTRL",0)
-r=R("R455","100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2)); s.wire(r(1),up(r(1),2.54)); gnd(up(r(1),2.54),180)
+r=R("R455","100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2))
+g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
 ld=s.place("Device","LED","D412","COMP ON LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
 s.wire(b(6),ld(1)); r=R("R454","12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
 NC.extend([b(1),b(4)])

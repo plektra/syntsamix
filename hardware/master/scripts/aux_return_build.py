@@ -45,13 +45,14 @@ def build(n):
         N(f"{side}_OUT",f"{inv}.{invp[2]}",f"{r(rinvf)}.2",f"{r(34 if side=='L' else 35)}.1")
     N("VC",f"{u(3)}.3",f"{u(3)}.8"); N("MODE",f"{u(3)}.1",f"{r(21)}.2"); N("+15V",f"{r(21)}.1",f"{u(3)}.10"); N("-15V",f"{u(3)}.6"); N("AGND",f"{u(3)}.5")
     # level law (as the channel fader, decision 72): pot, buffer, two superdiodes, summer
+    # U+6 = OPA2171 (buffer A, summer B; input range includes V-), U+7 = TL072 (superdiodes), as decision 102
     RV=f"RV{B+1}"
     N("-15V",f"{RV}.1"); N("POTW",f"{RV}.2",f"{u(6)}.3"); N("AGND",f"{RV}.3"); N("VB",f"{u(6)}.2",f"{u(6)}.1",f"{r(22)}.1",f"{r(24)}.1",f"{r(27)}.1")
-    N("VSUM",f"{r(22)}.2",f"{r(23)}.2",f"{r(26)}.2",f"{r(29)}.2",f"{r(30)}.1",f"{c(15)}.1",f"{r(31)}.2",f"{t(7,2)}.6")
+    N("VSUM",f"{r(22)}.2",f"{r(23)}.2",f"{r(26)}.2",f"{r(29)}.2",f"{r(30)}.1",f"{c(15)}.1",f"{r(31)}.2",f"{r(32)}.2",f"{t(6,2)}.6")
     N("+15V",f"{r(23)}.1",f"{r(25)}.1",f"{r(28)}.1")
-    N("SD1IN",f"{r(24)}.2",f"{r(25)}.2",f"{t(6,2)}.5"); N("SD1K",f"{t(6,2)}.6",f"D{B+1}.2",f"{r(26)}.1"); N("SD1O",f"{t(6,2)}.7",f"D{B+1}.1")
+    N("SD1IN",f"{r(24)}.2",f"{r(25)}.2",f"{t(7,2)}.5"); N("SD1K",f"{t(7,2)}.6",f"D{B+1}.2",f"{r(26)}.1"); N("SD1O",f"{t(7,2)}.7",f"D{B+1}.1")
     N("SD2IN",f"{r(27)}.2",f"{r(28)}.2",f"{u(7)}.3"); N("SD2K",f"{u(7)}.2",f"D{B+2}.2",f"{r(29)}.1"); N("SD2O",f"{u(7)}.1",f"D{B+2}.1")
-    N("VC",f"{t(7,2)}.7",f"{r(30)}.2",f"{c(15)}.2"); N("VPLUS",f"{t(7,2)}.5",f"{r(32)}.2",f"{r(33)}.1"); N("AGND",f"{r(33)}.2")
+    N("VC",f"{t(6,2)}.7",f"{r(30)}.2",f"{c(15)}.2"); N("AGND",f"{t(6,2)}.5")   # summer + input on AGND (decision 97)
     N("MUTE_V",f"{r(31)}.1",f"{t(8,2)}.7"); N("DUCK_V",f"{r(32)}.1",f"{u(8)}.2")
     # DG413 U+8: SW1 duck (SC_ENV), SW4 mute (-15 V), SW2/SW3 unused
     N("DUCK_CTRL",f"{u(8)}.1"); N("SC_ENV",f"{u(8)}.3"); N("MUTE_CTRL",f"{t(8,2)}.8"); N("-15V",f"{t(8,2)}.6")
@@ -64,7 +65,7 @@ def build(n):
     for name,k in (("MUTE",1),("DUCK",2),("COMP",3)):
         sw,led,rl,rp=f"SW{B+k}",f"D{B+2+k}",r(35+2*k-1),r(35+2*k)
         N(f"{name}_CTRL",f"{sw}.3",f"{rp}.2"); N("+5V",f"{sw}.2"); N(f"{name}_LEDK",f"{sw}.6",f"{led}.1"); N("PGND",f"{sw}.5")
-        N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("AGND",f"{rp}.1")
+        N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("PGND",f"{rp}.1")   # pull-downs to PGND (decision 98)
     # test pads
     N("L_RET",f"TP{B+1}.1"); N("R_RET",f"TP{B+2}.1"); N("VC",f"TP{B+3}.1")
     # supplies and decoupling

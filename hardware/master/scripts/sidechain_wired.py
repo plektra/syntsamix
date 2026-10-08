@@ -112,7 +112,7 @@ for k,(ref,bus) in enumerate((("R511","CUE_L"),("R512","CUE_R"))):
 # PFL_ACT open-collector driver
 yq=ls[1]+40.64; r=R("R513","10k","SX-R-002",ls[0]+2.54,yq); s.wire((ls[0]-10.16,yq),r(1)); lab((ls[0]-10.16,yq),"LISTEN_CTRL",180)
 q=s.place("Transistor_BJT","Q_NPN_BEC","Q501","MMBT3904",r(2)[0]+7.62,yq,0,fp="Package_TO_SOT_SMD:SOT-23",props=P("SX-Q-001",Manufacturer="onsemi",MPN="MMBT3904LT1G"))
-s.wire(r(2),q(1)); s.wire(q(2),dn(q(2),2.54)); gnd(dn(q(2),2.54))
+s.wire(r(2),q(1)); s.wire(q(2),dn(q(2),2.54)); s.power("GNDPWR",dn(q(2),2.54))   # emitter to PGND (decision 98)
 s.wire(q(3),up(q(3),7.62)); hier(up(q(3),7.62),"PFL_ACT",90,"bidirectional")
 # spare section of U507
 sp=DG("U95074",4,XB+71.12,YF-27.94)
@@ -136,7 +136,7 @@ s.wire(c2(7),rt(c2(7),7.62)); lab(rt(c2(7),7.62),"TRIG2",0)
 YP=YD+66.04
 rv=s.place("Device","R_Potentiometer","RV503","DEPTH 10k lin",40.64,YP,0,fp=POT1,props=P("SX-POT-006",Note="Panel DEPTH: CCW = 0 dB, CW = 40 dB of ducking"))
 s.wire(rv(1),up(rv(1),5.08)); gnd(up(rv(1),5.08),180)
-r=R("R518","27k","SX-R-065",rv(3)[0],rv(3)[1]+7.62,0); s.wire(rv(3),r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("+15V",dn(r(2),5.08),180)
+r=R("R518","27k","SX-R-065",rv(3)[0],rv(3)[1]+7.62,0); s.wire(rv(3),r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("-15V",dn(r(2),5.08))   # DEPTH 0 to -4 V (decision 97)
 a=TL("U505",1,66.04,YP+2.54); s.wire(rv(2),a(3)); dep=follower(a,2,1)
 YQ=dep[1]
 # charge switches
@@ -151,9 +151,16 @@ rd=s.place("Device","R_Potentiometer","RV504","DECAY 500k log",152.4,YQ+30.48,18
 s.wire(dk,rd(3))
 s.wire(rd(2),lt(rd(2),2.54)); s.wire(lt(rd(2),2.54),(rd(2)[0]-2.54,rd(3)[1]-1.27),(rd(3)[0],rd(3)[1]-1.27))
 s.wire(rd(1),dn(rd(1),2.54)); gnd(dn(rd(1),2.54))
-a=TL("U95052",2,180.34,YQ+2.54); s.wire((152.4,YQ),a(5)); eo=follower(a,6,7)
-r=R("R521","100","SX-R-001",eo[0]+10.16,eo[1]); s.wire(eo,r(1)); se=(r(2)[0]+15.24,eo[1]); s.wire(r(2),se)
-hier(se,"SC_ENV",0,"output"); s.tp("TP502","SC_ENV",(r(2)[0]+7.62,eo[1]),"up")
+# SC_ENV follower, feedback taken after R521 so the line stays low impedance under up to 18 loads of 30k1 (decision 97)
+a=TL("U95052",2,180.34,YQ+2.54); s.wire((152.4,YQ),a(5)); o=a(7); m=a(6)
+r=R("R521","100","SX-R-001",o[0]+10.16,o[1]); s.wire(o,r(1)); n=(r(2)[0]+2.54,o[1]); s.wire(r(2),n)
+s.wire(n,(n[0],o[1]+7.62),(m[0]-2.54,o[1]+7.62),(m[0]-2.54,m[1]),m)
+tp=(n[0]+5.08,o[1]); q=(n[0]+10.16,o[1]); se=(n[0]+17.78,o[1]); s.wire(n,tp); s.wire(tp,q); s.wire(q,se)
+hier(se,"SC_ENV",0,"output"); s.tp("TP502","SC_ENV",tp,"up")
+# Schottky clamp: SC_ENV cannot rise above about +0.3 V (pin 1 = cathode to AGND, pin 2 = anode on SC_ENV)
+dc=(q[0]-3.81,o[1]+15.24); s.wire(q,(q[0],dc[1]))
+dd=s.place("Device","D","D504","BAT54T1G",dc[0],dc[1],0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-014",Manufacturer="onsemi",MPN="BAT54T1G",Note="SC_ENV clamp to AGND (decision 97)"))
+s.wire(dd(1),dn(dd(1),2.54)); gnd(dn(dd(1),2.54))
 # spare sections of U508
 for i,(ref,unit) in enumerate((("U95083",3),("U95084",4))):
     sp=DG(ref,unit,104.14+i*25.4,YQ+45.72)
@@ -166,7 +173,8 @@ def button(name,title,sw,led,rl,rp,x,y):
               props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
     nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
-    r=R(rp,"100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2)); s.wire(r(1),up(r(1),5.08)); gnd(up(r(1),5.08),180)
+    r=R(rp,"100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2))
+    g=lt(up(r(1),5.08),5.08); s.wire(r(1),up(r(1),5.08),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
     ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
     s.wire(b(6),ld(1)); r=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
     NC.extend([b(1),b(4)])

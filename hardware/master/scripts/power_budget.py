@@ -6,7 +6,8 @@ Counts the parts on the ten master sheets and adds their supply currents, typica
 worst case, per rail. Sources: NE5532 TI SLOS075K (6 / 16 mA per package); SSI2162
 Rev 1.2 (Class AB 6 / 8 mA); THAT1646 doc 600078 (4.9 / 5.75 mA); TPA6120A2 TI SLOS431B
 (about 13 / 15 mA per channel at ±15 V); AD8273 (2.5 mA max per amplifier);
-G6K-2F-Y DC12 coil 1315 Ω with 330 Ω in series. TL072 (1.4 / 2.5 mA per amplifier),
+G6K-2F-Y DC12 coil 1315 Ω with 330 Ω in series; OPA2171 TI SBOS516H
+(0.475 / 0.595 mA per amplifier). TL072 (1.4 / 2.5 mA per amplifier),
 LM339 (0.8 / 2.5 mA) and L7805 quiescent (5 / 8 mA) are standard values not re-checked
 against the datasheets here.
 Also prints the decision 96 sizing figure.
@@ -18,7 +19,8 @@ V15,V5=15.1,5.0
 # part: (count, typ mA, max mA, rails) -- rails "pm" = both ±15 V, "p" = +15 V only
 parts={
  "NE5532 (bus 6, returns 6, compressor 3, sends 2, master out 1)":(18,6.0,16.0,"pm"),
- "TL072 (returns 4, compressor 5, sidechain 5, master out 2, meter 4)":(20,2.8,5.0,"pm"),
+ "TL072 (returns 2, compressor 5, sidechain 5, master out 1, meter 4)":(17,2.8,5.0,"pm"),
+ "OPA2171 (U206, U306, U705: fader-law buffer and control summer)":(3,0.95,1.19,"pm"),
  "SSI2162 (returns 2, compressor 1, master out 1)":(4,6.0,8.0,"pm"),
  "AD8273 (returns)":(2,5.0,5.0,"pm"),
  "THAT1646 (main outputs)":(2,4.9,5.75,"pm"),

@@ -6,8 +6,9 @@
 
 LPF: unity-gain Sallen-Key, 22 nF / 47 nF, 10 kOhm + 100 kOhm dual reverse-log pot per side.
 Ducker: window comparator (TL072s) against +-THRESHOLD, two DG413 NO switches charge
-2.2 uF from DEPTH through 470 Ohm; DECAY (500 kOhm log + 22 kOhm) discharges it; a follower
-drives SC_ENV (+1 V = 10 dB of ducking). Uses the TL072-like model of simulation/compressor.
+2.2 uF from DEPTH (0 to -4 V) through 470 Ohm; DECAY (500 kOhm log + 22 kOhm) discharges it; a follower
+with its feedback taken after the 100 Ohm drives SC_ENV (-1 V = 10 dB of ducking, decision 97) into
+18 loads of 30k1 (1.7 kOhm); a BAT54 clamps SC_ENV to AGND. Uses the TL072-like model of simulation/compressor.
 
 Requires ngspice on PATH. Standard library only.
 
@@ -49,7 +50,7 @@ Vee vee 0 -15
 {src}
 Vthr tp 0 {thr}
 Vthn tn 0 {-thr}
-Vdep dep 0 {depth}
+Vdep dep 0 {-depth}
 X1 sc tp c1 opamp
 X2 tn sc c2 opamp
 S1 dep e c1 0 SWNO
@@ -59,9 +60,11 @@ R1 e h 470
 C1 h 0 2.2u
 R2 h d 22k
 R3 d 0 {decay + 1:g}
-X3 h env env opamp
+X3 h scenv env opamp
 Rout env scenv 100
-Rload scenv 0 6.2k
+Rload scenv 0 1.7k
+Dcl scenv 0 BAT54
+.model BAT54 D(IS=2e-7 N=1.05 RS=2 CJO=10p BV=30)
 .tran 50u {tstop} 0 50u
 {extra}
 {OPAMP}{MODELS}.end
@@ -75,20 +78,21 @@ def main():
         v = lpf(r)
         print(f"  {name}: -3 dB at {v['fc']:.0f} Hz, peak {20*math.log10(v['pk']):+.2f} dB")
 
-    print("\nDucker (THRESHOLD 0.6 V peak, DEPTH 4 V = 40 dB, 100 Hz kick burst of 30 ms at 0.1 s, load 16 channels)")
+    print("\nDucker (THRESHOLD 0.6 V peak, DEPTH -4 V = 40 dB, 100 Hz kick burst of 30 ms at 0.1 s, load 18 x 30k1 = 1.7 kOhm)")
     a = DBU * math.sqrt(2) * 10 ** (4 / 20)
     src = f"Bsc sc 0 V = (time > 0.1 && time < 0.13 ? {a:.4g} : 0) * sin(2*3.14159265*100*(time-0.1))"
     for decay, name in ((0.0, "DECAY CCW"), (500e3, "DECAY CW")):
         tstop = 0.6 if decay == 0 else 4.0
         extra = """
-.measure tran vpk MAX v(scenv)
-.measure tran t90 WHEN v(scenv)=3.5 RISE=1
-.measure tran thalf WHEN v(scenv)=1.95 FALL=1 FROM=0.13
+.measure tran vpk MIN v(scenv)
+.measure tran t90 WHEN v(scenv)=-3.5 FALL=1
+.measure tran thalf WHEN v(scenv)=-1.95 RISE=1 FROM=0.13
+.measure tran vmax MAX v(scenv)
 """
         v = ducker(src, tstop, decay=decay, extra=extra)
-        print(f"  {name}: peak {v['vpk']:.2f} V ({v['vpk']*10:.0f} dB), 90 % after {(v['t90']-0.1)*1e3:.1f} ms,"
-              f" half (20 dB) recovered {(v['thalf']-0.13)*1e3:.0f} ms after the burst")
-    extra = ".measure tran vpk MAX v(scenv)\n"
+        print(f"  {name}: peak {v['vpk']:.2f} V ({-v['vpk']*10:.0f} dB), 90 % after {(v['t90']-0.1)*1e3:.1f} ms,"
+              f" half (20 dB) recovered {(v['thalf']-0.13)*1e3:.0f} ms after the burst, most positive {v['vmax']*1e3:.1f} mV")
+    extra = ".measure tran vpk MIN v(scenv)\n"
     lo = 0.5 * 10 ** (-3 / 20)
     v = ducker(f"Bsc sc 0 V = {lo:.4g} * sin(2*3.14159265*100*time)", 0.3, extra=extra)
     print(f"  signal 3 dB below threshold: SC_ENV peak {v['vpk']*1e3:.1f} mV (no trigger)")

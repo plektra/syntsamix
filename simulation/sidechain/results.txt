@@ -2,8 +2,9 @@ Sidechain LPF (Sallen-Key, 22n/47n, 10k + 100k pot):
   CW (pot 0): -3 dB at 510 Hz, peak +0.02 dB
   middle (reverse-log, about 10 %): -3 dB at 255 Hz, peak +0.02 dB
   CCW (pot 100k): -3 dB at 46 Hz, peak +0.02 dB
-Ducker (THRESHOLD 0.6 V peak, DEPTH 4 V = 40 dB, 100 Hz kick burst of 30 ms at 0.1 s, load 16 channels)
-  DECAY CCW: peak 3.84 V (38 dB), 90 % after 3.2 ms, half (20 dB) recovered 32 ms after the burst
-  DECAY CW: peak 3.93 V (39 dB), 90 % after 3.1 ms, half (20 dB) recovered 805 ms after the burst
-  signal 3 dB below threshold: SC_ENV peak 0.0 mV (no trigger)
-  Eurorack gate 10 V for 100 ms: SC_ENV peak 3.85 V
+
+Ducker (THRESHOLD 0.6 V peak, DEPTH -4 V = 40 dB, 100 Hz kick burst of 30 ms at 0.1 s, load 18 x 30k1 = 1.7 kOhm)
+  DECAY CCW: peak -3.91 V (39 dB), 90 % after 3.1 ms, half (20 dB) recovered 33 ms after the burst, most positive -0.0 mV
+  DECAY CW: peak -4.00 V (40 dB), 90 % after 2.9 ms, half (20 dB) recovered 823 ms after the burst, most positive -0.0 mV
+  signal 3 dB below threshold: SC_ENV peak -0.0 mV (no trigger)
+  Eurorack gate 10 V for 100 ms: SC_ENV peak -3.91 V
