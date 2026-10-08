@@ -34,4 +34,4 @@ Resonance pot (10k reverse audio), CV jack (vertical 6.3 mm), meter and button L
 
 ## For /system
 
-- Decision 102 lowers the channel card budget (`scripts/power_budget.py`): typical 121 / 103 mA (was 122 / 105), worst case 249 / 214 mA (was 253 / 218), sizing 186 / 154 mA (was 189 / 157), LM317 1.22 W worst case. `tools/system_power_budget.py`: prototype sizing 1.34 / 1.10 A, 49 W; full size sizing 3.57 / 2.95 A, 130 W ; power ribbon sizing 0.74 A per pin (`docs/ARCHITECTURE.md` lines 47-51 still show 122 / 105, 253 / 218 and 189 / 157 mA, 1.35 / 1.11 A, 3.6 / 3.0 A at 132 W and 0.76 A per pin; `docs/CHAIN.md` line 48 shows the same old channel figures and 0.76 A). No budget is exceeded; update both in the next /system session.
+(none)

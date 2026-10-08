@@ -37,19 +37,19 @@ Each channel card has identical IN and OUT copies of both ribbons, wired straigh
 
 ### Power
 
-Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py`. The 1.5 factor is a judgment until the prototype cards are measured.
+Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py` (rerun 2026-10-08 after decisions 102 and 103). The 1.5 factor is a judgment until the prototype cards are measured.
 
 | Item | Value | Source |
 |---|---|---|
 | Raw rails | ±20 V nominal, unregulated in general; on the prototype from non-isolated converters on the power board (TPS54560 buck and inverter), the 24 V brick providing the isolation | decisions 40, 60, 81, 100 |
 | Raw rail minimum under load | about 19 V: the master's relay drop-out comparator trips at 17.9 V; the LM317 needs about 2 V headroom above 15.1 V | decisions 92, 95 |
 | Local rails on every card | ±15.1 V (LM317/LM337), +5 V (78L05 on channel cards, L7805 on the master) | decisions 78, 87 |
-| Channel card load (+15 / −15 V) | typical 122 / 105 mA; worst case 253 / 218 mA; sizing 189 / 157 mA (AD8273 supply current **[unverified]**, 5 mA of the total) | decision 96, `hardware/channel-card/scripts/power_budget.py` |
-| Master card load (+15 / −15 V) | typical 345 / 275 mA; worst case 730 / 606 mA; sizing 597 / 485 mA | decisions 95, 96, `hardware/master/scripts/power_budget.py` |
-| Prototype, 4 cards + master | sizing 1.35 / 1.11 A, about 49 W (typical 0.83 / 0.69 A); power board converters about 2 A per rail | decisions 96, 100 |
-| Full size, 16 cards + master | sizing 3.6 / 3.0 A, about 132 W (typical 2.3 / 2.0 A; worst case 4.8 / 4.1 A, not used for sizing) | decision 96 |
-| Power ribbon | injected in groups of 8 cards; about 0.76 A per pin (sizing); connectors and cable rated at least 1 A per contact | decisions 80, 96 |
-| Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board: start-up into it is a check before the power board layout (`hardware/power/STATUS.md`) | system validation, finding 6; decision 100 |
+| Channel card load (+15 / −15 V) | typical 121 / 103 mA; worst case 249 / 214 mA; sizing 186 / 154 mA (AD8273 supply current **[unverified]**, 5 mA of the total) | decisions 96, 102, `hardware/channel-card/scripts/power_budget.py` |
+| Master card load (+15 / −15 V) | typical 340 / 269 mA; worst case 719 / 594 mA; sizing 589 / 476 mA | decisions 95, 96, 103, `hardware/master/scripts/power_budget.py` |
+| Prototype, 4 cards + master | sizing 1.33 / 1.09 A, about 48 W (typical 0.82 / 0.68 A); power board converters about 2 A per rail | decisions 96, 100 |
+| Full size, 16 cards + master | sizing 3.56 / 2.94 A, about 130 W (typical 2.28 / 1.92 A; worst case 4.70 / 4.02 A, not used for sizing) | decision 96 |
+| Power ribbon | injected in groups of 8 cards; about 0.74 A per pin (sizing; 1.00 A at worst case); connectors and cable rated at least 1 A per contact (the chosen Würth 61200823021 IDC socket is the limit at 1 A, so the worst case sits at its rating; the header is 3 A) | decisions 80, 96, 100 |
+| Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board; the start-up ramp on both converters holds the brick at about 54 W while charging it (rails at 19 V about 40 ms after switch-on; bench check in `hardware/power/STATUS.md`) | system validation, finding 6; decision 100, `hardware/power/scripts/startup_sim.py` |
 
 ### Signal levels
 
@@ -69,7 +69,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 |---|---|---|---|
 | MAIN, COMP, AUX1, AUX2, CUE (L/R) | each channel card (22 kΩ) | master summing amps | |
 | SC | channel cards with SC send on | master sidechain | mono, pre-fader, pre-mute |
-| SC_ENV | master card, low impedance (inverter, feedback after 100 Ω) | channel cards and AUX returns with DUCK on, 30.1 kΩ into a virtual earth | 0 V = no ducking; −1 V = 10 dB, 0 to −4 V; clamped below +0.3 V (decision 97) |
+| SC_ENV | master card, low impedance (follower on a negative DEPTH, feedback after 100 Ω) | channel cards and AUX returns with DUCK on, 30.1 kΩ into a virtual earth | 0 V = no ducking; −1 V = 10 dB, 0 to −4 V; BAT54 clamp keeps it below about +0.3 V (decisions 97, 104) |
 | PFL_ACT | any channel PFL, the master's SC listen (open collector, active low) | master headphone switch, PFL LED | pulled up to +5 V on the master (bus sheet); drivers pull to PGND (decision 98) |
 | SPARE2 to SPARE5 | nobody | nobody | passed through; reserved (backlog: CV, mute groups) |
 
@@ -88,4 +88,4 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 
 (none; the floating-brick rule is settled by decision 101)
 
-Earlier items are closed (the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes; finding 3 is a master card fix listed in its `STATUS.md`).
+Earlier items are closed: the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes, finding 3 (R421 footprint) by the master card fix in bad26be.

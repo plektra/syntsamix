@@ -39,4 +39,4 @@ Updated 2026-10-08.
 
 ## For /system
 
-- `docs/ARCHITECTURE.md` (Power budget, "Capacitance on each raw rail at switch-on") still calls start-up a check before the power board layout: decision 100's start-up ramp now handles it (no budget changes). Update the wording in the next `/system` session.
+(none)

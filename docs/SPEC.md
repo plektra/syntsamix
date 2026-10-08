@@ -23,7 +23,7 @@ Items marked **[confirmed]** were agreed with the user. Items marked **[proposed
 - Expansion by the chain: adding a channel means adding one card and one pair of ribbon cables **[confirmed]**
 - Master/compressor card **[confirmed]**
 - Prototype power: a certified off-the-shelf 24 V Class II DC power brick (floating output) plugs into a locking 4-pin DIN connector on the power board next to the master card (decisions 81, 100); non-isolated converters there (TPS54560 buck and inverter, 400 kHz) make about ±20 V for the chain, followed by an LC filter; per-card linear ±15 V regulators reject the remaining switching ripple. Power switch, resettable fuse, reverse-polarity protection and a power LED at the input. No mains wiring inside the mixer **[confirmed]**
-- Supply rating for 16 cards: 3.6 / 3.0 A per rail (decision 96). The +20 V buck probably scales; the −20 V inverter needs a controller with external MOSFETs, settled after the prototype cards are measured (decision 100) **[open]**
+- Supply rating for 16 cards: 3.6 / 2.9 A per rail (decision 96, rerun after decisions 102 and 103; `docs/ARCHITECTURE.md`). The +20 V buck probably scales; the −20 V inverter needs a controller with external MOSFETs, settled after the prototype cards are measured (decision 100) **[open]**
 - Each module is its own KiCad project with hierarchical sheets and its own PCB **[confirmed]**
 
 Signal flow per channel: input receiver and trim (with soft clip) → low-cut (switchable) → filter (or bypass) → [PFL, meter and SC send tap] → level VCA (fader + mute) → AUX sends and bus assign (main or compressor bus).

@@ -7,7 +7,8 @@ The decision log, split by area. Read this index, then the area file for the wor
 | [system.md](system.md) | System scope, signal levels, buses, cross-board functions, chain and grounding |
 | [channel-card.md](channel-card.md) | Channel card |
 | [input-module.md](input-module.md) | Input module |
-| [master-card.md](master-card.md) | Master/compressor card |
+| [master-card.md](master-card.md) | Master/compressor card: scope and part choices |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, availability notes |
@@ -108,15 +109,15 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 84 | Headphone driver: TPA6120A2 | confirmed | [master-card](master-card.md) |
 | 85 | Relays: Omron G6K-2F-Y | confirmed | [master-card](master-card.md) |
 | 86 | Meters use 3 mm round LEDs | confirmed | [mechanical](mechanical.md) |
-| 87 | Master card power sheet | confirmed | [master-card](master-card.md) |
-| 88 | AUX return implementation | confirmed | [master-card](master-card.md) |
-| 89 | Compressor implementation | confirmed, parts proposed | [master-card](master-card.md) |
-| 90 | Sidechain and ducking sheet | confirmed, parts proposed | [master-card](master-card.md) |
-| 91 | AUX sends implementation | confirmed, parts proposed | [master-card](master-card.md) |
-| 92 | Master out implementation | confirmed, parts proposed | [master-card](master-card.md) |
-| 93 | Master meter implementation | confirmed, parts proposed | [master-card](master-card.md) |
-| 94 | Headphones implementation | confirmed, parts proposed | [master-card](master-card.md) |
-| 95 | Master card power recheck | confirmed | [master-card](master-card.md) |
+| 87 | Master card power sheet | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 88 | AUX return implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 89 | Compressor implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
+| 90 | Sidechain and ducking sheet | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
+| 91 | AUX sends implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
+| 92 | Master out implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
+| 93 | Master meter implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
+| 94 | Headphones implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
+| 95 | Master card power recheck | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 96 | Power sizing rule: own parts worst case, shared parts typical × 1.5 plus use loads | confirmed | [system](system.md) |
 | 97 | SC_ENV negative, −1 V = 10 dB, summed into the control summer's virtual earth | confirmed | [system](system.md) |
 | 98 | PFL_ACT drivers and button pull-downs return to PGND | confirmed | [system](system.md) |
@@ -124,8 +125,8 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 100 | Power board: 24 V Class II brick, non-isolated TPS54560 buck and inverter at 400 kHz, protection and output fusing, start-up ramp | confirmed | [power](power.md) |
 | 101 | Floating supply: the power ribbons' source floats from mains earth (invariant 8); mains supply to the backlog | confirmed | [system](system.md) |
 | 102 | Channel fader buffer and control summer on an OPA2171 (input range includes V−) | confirmed | [channel-card](channel-card.md) |
-| 103 | Master fader-law buffers and summers (U206, U306, U705) on an OPA2171 | confirmed | [master-card](master-card.md) |
-| 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card](master-card.md) |
+| 103 | Master fader-law buffers and summers (U206, U306, U705) on an OPA2171 | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card-sheets](master-card-sheets.md) |
 
 ## Proposed but not confirmed
 

@@ -1,6 +1,6 @@
 # Master card
 
-KiCad project `master.kicad_pro`: compressor, master section, outputs. Decisions: `docs/decisions/master-card.md` (and `system.md` for the chain). Shared workflow: `hardware/CLAUDE.md`. Status: `STATUS.md`.
+KiCad project `master.kicad_pro`: compressor, master section, outputs. Decisions: `docs/decisions/master-card.md` and `master-card-sheets.md` (and `system.md` for the chain). Shared workflow: `hardware/CLAUDE.md`. Status: `STATUS.md`.
 
 ## Sheets and reference prefixes
 

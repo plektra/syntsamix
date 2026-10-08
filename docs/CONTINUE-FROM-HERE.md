@@ -21,7 +21,7 @@ Decisions 1-104; last pushed commit: see `git log -1`.
 
 ## System
 
-Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (no open items after decisions 96-101; decision 101 adds invariant 8, floating supply). Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
+Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (no open items; budgets rerun after decisions 102 and 103 on 2026-10-08). Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
 
 ## Waiting for the user's confirmation
 

@@ -21,4 +21,4 @@ Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are 
 
 ## Open items
 
-- [x] Supply rating for 16 cards plus the master: decision 96 (`system.md`), 3.6 / 3.0 A per rail, about 132 W; prototype 1.35 / 1.11 A, converters about 2 A per rail. Raw rails above about 19 V under load
+- [x] Supply rating for 16 cards plus the master: decision 96 (`system.md`), 3.6 / 3.0 A per rail, about 132 W; prototype 1.35 / 1.11 A (rerun after decisions 102 and 103: 3.56 / 2.94 A, 130 W; prototype 1.33 / 1.09 A; `docs/ARCHITECTURE.md`), converters about 2 A per rail. Raw rails above about 19 V under load

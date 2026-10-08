@@ -11,7 +11,7 @@ Start a focused work session on: $ARGUMENTS
    - `docs/decisions/INDEX.md`
    - `docs/ARCHITECTURE.md`
    - the board's `CLAUDE.md` and `STATUS.md` (for `simulation/`: `simulation/CLAUDE.md` and the relevant README)
-   - the board's decision file in `docs/decisions/` (`master` → `master-card.md`, `input-module-6p3` → `input-module.md`; `power` also reads decisions 40 and 80 in `system.md`)
+   - the board's decision file in `docs/decisions/` (`master` → `master-card.md` and `master-card-sheets.md`, `input-module-6p3` → `input-module.md`; `power` also reads decisions 40 and 80 in `system.md`)
    - `hardware/CLAUDE.md`, when the phase involves schematics or PCB
    Read `docs/SPEC.md`, `docs/CHAIN.md`, `docs/INPUT-MODULE.md` or other boards' files only when the task needs them.
 3. Reply briefly: where the board stands, any **[proposed]** items waiting for the user, and the next step for the requested phase (or, if no phase was given, the next step from `STATUS.md`).
