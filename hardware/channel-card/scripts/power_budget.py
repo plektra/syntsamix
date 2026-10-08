@@ -5,7 +5,8 @@
 Same method as hardware/master/scripts/power_budget.py: count the parts on the channel
 sheets (scripts/build/bom.csv) and add their supply currents, typical and worst case
 (every IC at datasheet maximum, every LED lit), per rail. Sources: NE5532 TI SLOS075K
-(6 / 16 mA per package); TL072 TI SLOS080W (1.4 / 2.5 mA per amplifier); SSI2144 Rev 3.0
+(6 / 16 mA per package); TL072 TI SLOS080W (1.4 / 2.5 mA per amplifier); OPA2171 TI SBOS516H
+(0.475 / 0.595 mA per amplifier); SSI2144 Rev 3.0
 (ICC 5.0 / 6.2 mA, IEE 5.2 / 6.4 mA); SSI2162 Rev 1.2 (Class AB 6 / 8 mA); LM13700 TI
 SNOSBW2 (2.6 / 4 mA, both channels at IABC 500 uA) plus the Q current; LM339 TI SLCS006
 (0.8 / 2.5 mA, as in the master script; V- on PGND, so +15 V only); uA78L05 TI SLVS010X (3.6 / 6 mA, stand-in for the
@@ -20,7 +21,8 @@ V15,V5=15.1,5.0
 # part: (count, typ mA, max mA, rails) -- "pm" = both ±15 V, "p" = +15 V only
 parts={
  "NE5532":(9,6.0,16.0,"pm"),
- "TL072":(6,2.8,5.0,"pm"),
+ "TL072":(5,2.8,5.0,"pm"),
+ "OPA2171 (U204, fader buffer and control summer)":(1,0.95,1.19,"pm"),
  "SSI2144 (ICC/IEE, worse rail)":(2,5.2,6.4,"pm"),
  "SSI2162":(1,6.0,8.0,"pm"),
  "AD8273 (two amplifiers)":(1,5.0,5.0,"pm"),

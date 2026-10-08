@@ -17,6 +17,8 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
   - Duplicate references across sheets are not reported by ERC; `check_netlist.py` checks them.
   - Power flags live only on the power sheet of each project.
   - Diodes at 90/270° render vertical field text; draw them horizontally where text matters.
+  - `Device:D` pin 1 is the cathode, pin 2 the anode: read netlists (and write SPICE models from them) with that in mind.
+  - Op amps without a KiCad symbol (OPA2171): use `Amplifier_Operational:Opamp_Dual` (same pins and geometry as the TL072) with the part as the value.
   - A ground symbol pointing up (rotation 180) puts its "PGND" text on the part it hangs from; tie such pins to a short ground bar with one downward symbol instead.
   - A local label may share a hierarchical label's name on the same sheet; two different names on one net give a multiple_net_names warning.
 - Visual check: `kicad-cli sch export svg -o build/svg ../<project>.kicad_sch`, then crop with a small viewBox script and render with `qlmanage -t` (no rsvg/ImageMagick on this Mac). Look at every new sheet before reporting.
@@ -25,6 +27,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 
 - Supply budgets: each board has `scripts/power_budget.py`; `tools/system_power_budget.py` adds them up (decision 96). Rerun both after adding or changing parts that draw current, and update `docs/ARCHITECTURE.md` if the totals move.
 - Verify every pinout and limit from the maker's datasheet before drawing; record the source in `docs/parts.csv`. Every placed symbol gets the BOM fields in `docs/PART-NUMBERING.md`.
+- Op amps with back-to-back diodes across the inputs (OPA2171 and many bipolar or CMOS parts) do not belong in superdiodes, comparators or other open-loop stages: the diodes conduct and leak current into the circuit (decision 102). The TL072's JFET inputs have none.
 - Custom symbols: `hardware/libs/syntsamix.kicad_sym` (AD8273, SSI2144, SSI2162, AS3046, THAT1646, TPA6120A2).
 - Datasheets: `pdftoppm` is not installed, so the Read tool cannot take `pages`; reading a whole PDF works up to about 30 pages. WebFetch often cannot parse TI/ADI PDFs; download with curl and Read the file. `pdftotext` is missing too: for text search, install `pypdf` in a temporary venv. TI product pages can disagree with the datasheet table (NE5532: page 4 mA per channel, SLOS075K 6 mA per package): take figures from the datasheet.
 - LCSC stock check: `python3 tools/lcsc_check.py` (the jlcsearch API is flaky; known-good codes are kept in the script).

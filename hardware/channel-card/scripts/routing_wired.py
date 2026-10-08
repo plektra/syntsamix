@@ -68,7 +68,7 @@ for n,(px,py,ang) in pins_of("Analog_Switch","DG412xY",3).items():
 # PFL_ACT open-collector driver
 rb=R("R311","10k","SX-R-002",175.26,157.48); lab((166.37,157.48),"PFL_CTRL",180); s.wire((166.37,157.48),rb(1))
 q=s.place("Transistor_BJT","Q_NPN_BEC","Q301","MMBT3904",190.5,157.48,0,fp="Package_TO_SOT_SMD:SOT-23",props=P("SX-Q-001",Manufacturer="onsemi",MPN="MMBT3904LT1G"))
-s.wire(rb(2),q(1)); s.wire(q(2),dn(q(2),2.54)); gnd(dn(q(2),2.54))
+s.wire(rb(2),q(1)); s.wire(q(2),dn(q(2),2.54)); pgnd(dn(q(2),2.54))   # PGND (decision 98)
 s.wire(q(3),up(q(3),7.62)); hier(up(q(3),7.62),"PFL_ACT",90,"output")
 
 # ------------------------------------------------------------- AUX sends: pre/post jumper and dual-gang level pot
@@ -97,7 +97,8 @@ def button(name,sw,led,rl,rp,x,y,title):
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
     nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
-    r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2)); gnd(r(1),180)
+    r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
+    g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); pgnd(g)   # PGND (decision 98); symbol points down beside the resistor
     ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
     s.wire(b(6),ld(1))
     r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)

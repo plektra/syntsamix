@@ -1,0 +1,14 @@
+Fader law (OPA2171 buffer and summer, TL072 superdiodes)
+  position   VB (V)   gain (dB)   design (dB)   ducking at SC_ENV -1 V (dB)
+    100 %      0.00       10.0        10       -10.07
+     75 %     -3.75       -0.0         0       -10.07
+     53 %     -7.05       -9.7       -10       -10.07
+     50 %     -7.50      -12.4         -       -10.07
+     42 %     -8.70      -19.6       -20       -10.07
+     19 %    -12.15      -41.2       -40       -10.07
+     15 %    -12.75      -56.4         -       -10.07
+     14 %    -12.90      -60.2       -60       -10.07
+      0 %    -14.55     -102.1      -113       -10.07
+
+Ducking attack, SC_ENV 0 -> -4 V at fader 75 %
+  VC 0.001 V -> 1.329 V (-40.3 dB); 90 % after 23.0 ms

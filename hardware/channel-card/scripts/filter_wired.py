@@ -194,7 +194,8 @@ b=s.place("Switch","SW_Push_DPDT","SW181","FILTER BYPASS (latching)",185.42,Y,0,
 s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
 s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
 nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label("BYP",rt(nd,10.16),0)
-r186=R("R186","100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r186(2)); gnd(r186(1),180)
+r186=R("R186","100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r186(2))
+g=lt(up(r186(1),2.54),5.08); s.wire(r186(1),up(r186(1),2.54),g); pgnd(g)   # PGND (decision 98); symbol points down beside the resistor
 ld=s.place("Device","LED","D183","BYPASS LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
 s.wire(b(6),ld(1))
 r185=R("R185","12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r185(2)); s.wire(r185(1),rt(r185(1),3.81)); s.power("+15V",rt(r185(1),3.81),270)

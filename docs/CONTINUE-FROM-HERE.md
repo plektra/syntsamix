@@ -7,15 +7,15 @@ Project-level handoff, updated 2026-10-08. Read `CLAUDE.md` first. Board detail 
 | Board | Schematic | PCB | Status file |
 |---|---|---|---|
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
-| Channel card | done, ERC 0/0 | not started (waits for the breadboard) | `hardware/channel-card/STATUS.md` |
+| Channel card | done, ERC 0/0 (decisions 97, 98, 102 drawn) | not started (waits for the breadboard) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0 | not started | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-101; last pushed commit: see `git log -1`.
+Decisions 1-102; last pushed commit: see `git log -1`.
 
 ## Order of work
 
-1. **Decision 97 and 98 board changes** (SC_ENV negative into the control summer's virtual earth; PFL_ACT drivers and button pull-downs to PGND): `/board channel-card schematic` and `/board master schematic` (also the R421 footprint, finding 3). Details in each `STATUS.md`. In the same sessions, before layout: the fader buffer input range (TL072 input at −15 V at the bottom of the fader) and the [proposed] op amp power levers, both under "Check before layout" in each `STATUS.md`.
+1. **Decision 97 and 98 board changes** (SC_ENV negative into the control summer's virtual earth; PFL_ACT drivers and button pull-downs to PGND): done on the channel card (2026-10-08, with decision 102: fader buffer and summer on an OPA2171); still to do in `/board master schematic` (also the R421 footprint, finding 3). Details in `hardware/master/STATUS.md`. In the same session, before layout: the fader buffer input range (decision 102 is the channel card's answer) and the [proposed] op amp power levers, both under "Check before layout".
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
 3. **Channel card PCB**, then the input module, master card and power board PCBs.
 

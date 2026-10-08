@@ -3,7 +3,7 @@
 ## Phases
 
 1. **Specification** *(done: spec v0.7, decisions 1-69, chain pinouts in CHAIN.md, input module interface in INPUT-MODULE.md)*. Supply rating for 16 cards settled by decision 96 (system decisions 96-99 settle the 2026-10-06 system validation)
-2. **Simulation and breadboard**: filter simulated in ngspice *(done, `simulation/filter/`)*; SSI2144 breadboard *(parts ordered; plan, schematic, layout and BOM in `simulation/filter/`)*. compressor side chain and sidechain/ducker simulated in ngspice *(done, `simulation/compressor/`, `simulation/sidechain/`)*. Later: VCA and compressor detector on the breadboard, sidechain LPF
+2. **Simulation and breadboard**: filter simulated in ngspice *(done, `simulation/filter/`)*; channel fader law and ducking *(done, `simulation/level/`)*; SSI2144 breadboard *(parts ordered; plan, schematic, layout and BOM in `simulation/filter/`)*. compressor side chain and sidechain/ducker simulated in ngspice *(done, `simulation/compressor/`, `simulation/sidechain/`)*. Later: VCA and compressor detector on the breadboard, sidechain LPF
 3. **Input module** (`hardware/input-module-6p3`): schematic *(done, ERC clean)*, then PCB
 4. **Channel card** (`hardware/channel-card`): schematic *(done)*, then PCB
    - Input: header, AD8273 receiver, trim with soft clip, 100 Hz low-cut, DG413 switching *(done, ERC clean apart from sheet links)*
@@ -42,10 +42,10 @@ Decisions that can fall back to a cheaper option if the budget needs it:
 From `/system power conversion` (2026-10-08). About three-quarters of the supply current is op amp quiescent current; the NE5532s in the core audio path stay. Supply currents per amplifier, typical / maximum (TI datasheets): NE5532 3 / 8 mA, TL072 1.4 / 2.5 mA, TL062 0.2 / 0.25 mA, OPA1678 2 / 2.5 mA.
 
 1. **[proposed]** Channel U107 (cutoff CV summer, one unit unused): NE5532 → TL072. Saves 3.2 / 11 mA per rail per card; DC accuracy improves (FET input bias into 100-300 kΩ)
-2. **[proposed]** TL072 → TL062 in DC control and meter stages with light loads, after a check per position (TL062: ±10 V minimum swing into 10 kΩ, input range 4 V inside the rails, about 10 mA output; not for peak detectors, comparators or the SC_ENV driver). Candidates: channel U204, U205, U401, U404; master fader-law stages (U206, U207, U306, U307, U705, U706), compressor U407, U409, U410, meter U802, U804. Saves 2.4 / 4.5 mA per package
+2. **[proposed]** TL072 → TL062 in DC control and meter stages with light loads, after a check per position (TL062: ±10 V minimum swing into 10 kΩ, input range 4 V inside the rails, about 10 mA output; not for peak detectors, comparators or the SC_ENV driver). Candidates: channel U205, U401, U404 (U204 is an OPA2171 since decision 102); master fader-law stages (U206, U207, U306, U307, U705, U706), compressor U407, U409, U410, meter U802, U804. Saves 2.4 / 4.5 mA per package
 3. Later cost choice: NE5532 → OPA1678 in low-noise-gain audio stages (channel U3, U106; master U205, U305, U404, U405). Saves 2 / 11 mA per package with equal or better audio; costs more (price not checked)
 
-Options 1 and 2 save about 77 mA per rail on the prototype (about 3 W of 31 W typical) and 231 mA at full size (about 9 W of 85 W), and cut the channel card's worst-case LM317 dissipation from 1.24 W to about 1.10 W. NE5532 → TL072 in audio stages was rejected (measurably more noise and distortion).
+Options 1 and 2 save about 68 mA per rail on the prototype (about 2.7 W of 30 W typical) and 193 mA at full size (about 7.7 W of 84 W), and cut the channel card's worst-case LM317 dissipation from 1.22 W to about 1.10 W (recomputed after decision 102 took U204 off the list). NE5532 → TL072 in audio stages was rejected (measurably more noise and distortion).
 
 ## KiCad workflow
 

@@ -123,6 +123,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 99 | Input-module cable: 1:1 KK 254 crimp cable | confirmed | [input-module](input-module.md) |
 | 100 | Power board: 24 V Class II brick, non-isolated TPS54560 buck and inverter at 400 kHz, protection and output fusing, start-up ramp | confirmed | [power](power.md) |
 | 101 | Floating supply: the power ribbons' source floats from mains earth (invariant 8); mains supply to the backlog | confirmed | [system](system.md) |
+| 102 | Channel fader buffer and control summer on an OPA2171 (input range includes V−) | confirmed | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 
