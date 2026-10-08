@@ -31,6 +31,8 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 - Custom symbols: `hardware/libs/syntsamix.kicad_sym` (AD8273, SSI2144, SSI2162, AS3046, THAT1646, TPA6120A2).
 - Datasheets: `pdftoppm` is not installed, so the Read tool cannot take `pages`; reading a whole PDF works up to about 30 pages. WebFetch often cannot parse TI/ADI PDFs; download with curl and Read the file. `pdftotext` is missing too: for text search, install `pypdf` in a temporary venv. TI product pages can disagree with the datasheet table (NE5532: page 4 mA per channel, SLOS075K 6 mA per package): take figures from the datasheet.
 - LCSC stock check: `python3 tools/lcsc_check.py` (the jlcsearch API is flaky; known-good codes are kept in the script).
+- TME catalogue (parametric search, parameters, prices and stock, datasheets): `python3 tools/tme.py` (usage in its docstring; credentials in the macOS Keychain, service `tme-api`). Also available: the `pcbparts` MCP server (LCSC parametric search, SamacSys KiCad models as a starting point to check against the maker's drawing, Mouser/DigiKey lookup by MPN)).
+- Mouser catalogue (keyword and part-number search, stock, price breaks, datasheets; no parametric filters): `python3 tools/mouser.py` (key in the macOS Keychain, service `mouser-api`).
 
 ## Interfaces between boards
 
