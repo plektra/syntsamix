@@ -40,5 +40,6 @@ The **[proposed]** op amp power levers (`docs/ROADMAP.md`, Power-cut candidates 
 ## How the user likes to work
 
 - Commit and push only when asked; pause for review before each commit.
+- "Commit & push" means Claude puts the commit on `main` on origin itself; from a background worktree: `git push origin HEAD:main` (fast-forward only, rebase first if main moved, never force; allowed by the rule in `.claude/settings.json`). The user does not merge or push by hand.
 - Give a recommendation with alternatives; one topic at a time; tight budget (flag cost-cut candidates).
 - Mark proposals as proposed until confirmed; ask before changing a confirmed decision.
