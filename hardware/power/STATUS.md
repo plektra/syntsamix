@@ -4,20 +4,18 @@ Updated 2026-10-08.
 
 ## Where it stands
 
-- Schematic complete: four sheets (input and clock, +20 V buck, −20 V inverter, outputs), every netlist check 0 problems, ERC 0 errors 0 warnings (decision 100).
+- Schematic complete: four sheets (input and clock, +20 V buck, −20 V inverter, outputs), every netlist check 0 problems, ERC 0 errors 0 warnings (decision 100). 2026-10-08: start-up ramp added on both converters (C214/D202/D203/R207, C314/D302/D303/R307).
 - Converter values derived in `scripts/design.py`; LC filter simulated (about 47 dB at 400 kHz at the filter, 63 dB at the cards; peaking about 4.4 dB near 4 kHz).
 - PCB: not started.
 
-## Waiting for the user's confirmation (**[proposed]** in decision 100)
+## Waiting for the user's confirmation
 
-- UVLO start 21.1 V, stop 18.7 V on both converters (they wait for the 7 ms input ramp).
-- Oscillator 4.7 kΩ / 560 pF: 275 to 445 kHz over the 74HC14's threshold spread (inside the TPS54560's 160 kHz to 2.3 MHz sync range).
-- Power switch and power LED on the power board at its rear edge, next to the jack.
-- Part-number categories L (inductors) and F (fuses) in `docs/PART-NUMBERING.md`.
+(none: the UVLO, oscillator, switch and LED position and the L / F categories were confirmed 2026-10-08)
 
 ## Check before layout
 
-- **Start-up into the rail capacitance (architect review):** each raw rail carries about 1.1 mF at switch-on (0.37 mF on the prototype cards plus about 0.76 mF on this board). The fixed 2.6 ms soft-start would need about 9 A, so the buck rides its current limit (no hiccup) and reaches 20 V in about 5 ms; the inverter in about 11 ms. Near the end of the ramp the input current may exceed the brick's 5.25 A minimum overload threshold (hiccup). Simulate or bench-test; options if needed: start the inverter later (higher UVLO), less output capacitance on the board, or a larger brick.
+- **Start-up ramp (settled in decision 100, check on the bench):** `scripts/startup_sim.py` (averaged ngspice model) showed the fixed 2.6 ms soft-start into about 1.1 mF per rail takes 183 to 262 W from the brick (hiccup threshold 126 W). The 47 nF / 1N4148W ramp into FB keeps it at about 54 W; rails reach 19 V about 40 ms after switch-on. On the bench: the start-up with all prototype cards connected (brick input current, no hiccup), and that the output does not misbehave while FB is held up at low output voltage (frequency foldback does not act then; the ramp current is far below the switch limit, so the minimum on-time should only cause pulse skipping).
+- **Minimum off-time at 445 kHz:** the buck runs at about 83 % duty, an off-time near 375 ns at the fast end of the oscillator spread; the TPS54560 refreshes BOOT by skipping pulses near 100 % duty. Check SLVSBN0C for a minimum off-time figure before layout.
 - **Per-header fuse coordination:** BSMD1812-200 holds 1.66 A at 50 °C; a full chain at the sizing figure is 1.51 A (decision 96) but 2.0 A at worst case, and a 2-4 A fault may not trip it while the 1 A IDC socket contacts carry up to 2 A each. Recheck at full size (larger fuse or 3 pins per rail is a `/system` matter).
 - Voltage drop through the per-header fuse (resistance not found) and the 2.2 µH filter against the 19 V raw minimum.
 - Brick polarity: Mean Well R7B pins 1 and 4 = +24 V; the jack is wired by Kycon's numbering. Work the pin mapping through the key position on Mean Well's drawing, and check with a meter on the first brick.
@@ -41,4 +39,4 @@ Updated 2026-10-08.
 
 ## For /system
 
-(none; decision 101 settles the floating brick: invariant 8 in `docs/ARCHITECTURE.md`, `CHAIN.md` grounding)
+- `docs/ARCHITECTURE.md` (Power budget, "Capacitance on each raw rail at switch-on") still calls start-up a check before the power board layout: decision 100's start-up ramp now handles it (no budget changes). Update the wording in the next `/system` session.

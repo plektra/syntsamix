@@ -23,8 +23,8 @@ SX-<category>-<nnn>
 | SW | Switches and buttons |
 | K | Relays |
 | MECH | Mechanical parts (knobs, standoffs, panels) |
-| L | Inductors **[proposed]** (decision 100) |
-| F | Fuses, including resettable fuses **[proposed]** (decision 100) |
+| L | Inductors and ferrite beads (decision 100) |
+| F | Fuses, including resettable fuses (decision 100) |
 
 - The number names a part type, not a board position: every 100 nF X7R capacitor on every board shares one number. Board positions stay in the reference designators (C12, U3).
 - Numbers are never reused. A changed part (different value, tolerance or package) gets a new number.

@@ -9,7 +9,7 @@ Project-level handoff, updated 2026-10-08. Read `CLAUDE.md` first. Board detail 
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
 | Channel card | done, ERC 0/0 | not started (waits for the breadboard) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0 | not started | `hardware/master/STATUS.md` |
-| Power board | done, four sheets, ERC 0/0 | not started | `hardware/power/STATUS.md` |
+| Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
 Decisions 1-101; last pushed commit: see `git log -1`.
 
@@ -26,8 +26,6 @@ Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (no open
 ## Waiting for the user's confirmation
 
 The **[proposed]** parts of decisions 89-94 (master card); listed in `hardware/master/STATUS.md`.
-
-The **[proposed]** values of decision 100 (power board); listed in `hardware/power/STATUS.md`.
 
 The **[proposed]** op amp power levers (`docs/ROADMAP.md`, Power-cut candidates 1 and 2), checked per position in the channel and master `/board` sessions.
 
