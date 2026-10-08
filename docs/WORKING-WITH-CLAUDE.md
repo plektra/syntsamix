@@ -14,7 +14,7 @@ How to run development sessions so the conversation stays small and nothing gets
 | One board's specifics and status | `hardware/<board>/CLAUDE.md`, `hardware/<board>/STATUS.md` |
 | Simulation notes | `simulation/CLAUDE.md` |
 | System diagram, cross-board budgets, chain lines, invariants | `docs/ARCHITECTURE.md` |
-| Interfaces between boards (contracts) | `docs/CHAIN.md`, `docs/INPUT-MODULE.md` |
+| Interfaces between boards (contracts) | `docs/CHAIN.md`, `docs/INPUT-MODULE.md`, `docs/MECHANICAL.md` |
 | Validator reports | `docs/reviews/` |
 | Commands and sub-agents | `.claude/commands/`, `.claude/agents/` |
 
@@ -27,7 +27,7 @@ Claude has no memory between sessions; each role is a kind of session (or sub-ag
 | Role | How you start it | Owns | Decides? |
 |---|---|---|---|
 | **Board designer** | `/board <board> [phase]` | that board's files, its `STATUS.md`, its decision file | proposes; you decide |
-| **Architect** | `/system [topic]` | `docs/ARCHITECTURE.md`, `docs/decisions/system.md`, `CHAIN.md`, `INPUT-MODULE.md`, the root rules, the order of work | proposes; you decide |
+| **Architect** | `/system [topic]` | `docs/ARCHITECTURE.md`, `docs/decisions/system.md`, `CHAIN.md`, `INPUT-MODULE.md`, `MECHANICAL.md`, the root rules, the order of work | proposes; you decide |
 | **Architecture reviewer** | runs automatically in `/handoff` (sub-agent `architect`) | nothing (read-only) | no; reports conflicts with contracts, budgets and invariants |
 | **Validator** | `/validate <scope>` (sub-agent `validator`) | its reports in `docs/reviews/` | no; reports findings by severity |
 | **You** | | every decision | yes |
@@ -67,7 +67,7 @@ Claude has no memory between sessions; each role is a kind of session (or sub-ag
 - Each decision has a global number that is never reused; references like "decision 81" or "item 50" stay valid.
 - New decisions go into their area file and get one row in `INDEX.md` (`/handoff` does this).
 - Text marked **[proposed]** is not settled until you confirm it. Confirmed decisions change only when you ask.
-- `docs/CHAIN.md`, `docs/INPUT-MODULE.md` and the budgets and invariants in `docs/ARCHITECTURE.md` are contracts between boards: changing them needs a confirmed decision in a `/system` session, because every board depends on them.
+- `docs/CHAIN.md`, `docs/INPUT-MODULE.md`, `docs/MECHANICAL.md` and the budgets and invariants in `docs/ARCHITECTURE.md` are contracts between boards: changing them needs a confirmed decision in a `/system` session, because every board depends on them.
 
 ## Parallel sessions
 

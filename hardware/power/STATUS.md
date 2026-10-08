@@ -1,6 +1,6 @@
 # Power board status
 
-Updated 2026-10-08.
+Updated 2026-10-09.
 
 ## Where it stands
 
@@ -14,6 +14,7 @@ Updated 2026-10-08.
 
 ## Check before layout
 
+- **Placement (from /system, 2026-10-09, decision 109; `docs/MECHANICAL.md`):** the power board sits beside the master at the right end of the unit. Its output headers (master, chain 1, chain 2), the cable lengths to each group, and the rear-edge brick jack and power switch wait for the master section and power board topic in `MECHANICAL.md` (Open, item 2): do not place them before it.
 - **Start-up ramp (settled in decision 100, check on the bench):** `scripts/startup_sim.py` (averaged ngspice model) showed the fixed 2.6 ms soft-start into about 1.1 mF per rail takes 183 to 262 W from the brick (hiccup threshold 126 W). The 47 nF / 1N4148W ramp into FB keeps it at about 54 W; rails reach 19 V about 40 ms after switch-on. On the bench: the start-up with all prototype cards connected (brick input current, no hiccup), and that the output does not misbehave while FB is held up at low output voltage (frequency foldback does not act then; the ramp current is far below the switch limit, so the minimum on-time should only cause pulse skipping).
 - **Minimum off-time at 445 kHz:** the buck runs at about 83 % duty, an off-time near 375 ns at the fast end of the oscillator spread; the TPS54560 refreshes BOOT by skipping pulses near 100 % duty. Check SLVSBN0C for a minimum off-time figure before layout.
 - **Per-header fuse coordination:** BSMD1812-200 holds 1.66 A at 50 °C; a full chain at the sizing figure is 1.51 A (decision 96) but 2.0 A at worst case, and a 2-4 A fault may not trip it while the 1 A IDC socket contacts carry up to 2 A each. Recheck at full size (larger fuse or 3 pins per rail is a `/system` matter).

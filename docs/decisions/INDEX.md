@@ -17,7 +17,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 
 - **Confirmed** decisions were agreed by the user; ask before changing one. Text marked **[proposed]** inside a decision still needs confirmation.
 - New decision: next free number, appended to its area file, plus one row here. A decision that refines another says so ("refines item N").
-- Interface documents are contracts between boards: `docs/CHAIN.md` (ribbons), `docs/INPUT-MODULE.md` (input header). Change them only through a confirmed decision.
+- Interface documents are contracts between boards: `docs/CHAIN.md` (ribbons), `docs/INPUT-MODULE.md` (input header), `docs/MECHANICAL.md` (strip envelope, panels, frame). Change them only through a confirmed decision.
 
 ## All decisions
 
@@ -128,6 +128,10 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 103 | Master fader-law buffers and summers (U206, U306, U705) on an OPA2171 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 105 | Input header pinout confirmed as drawn | confirmed | [input-module](input-module.md) |
+| 106 | Strip envelope (35 mm pitch, card ≤ 33 mm, control area ≤ 320 mm), CV jack above CUTOFF, `MECHANICAL.md` contract | confirmed | [mechanical](mechanical.md) |
+| 107 | Panel stack: PCB 10 mm below the panel, pots hold the panel, fader screwed to the panel before soldering, top-side parts ≤ 9 mm | confirmed | [mechanical](mechanical.md) |
+| 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts; PCB between the rails, ≤ 318 mm | confirmed | [mechanical](mechanical.md) |
+| 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB | confirmed | [mechanical](mechanical.md) |
 
 ## Proposed but not confirmed
 

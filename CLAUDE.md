@@ -7,7 +7,7 @@ Project context for Claude Code. Read this first, then:
 3. `docs/ARCHITECTURE.md`: system diagram, cross-board budgets, chain lines, invariants (the constitution; changed only in `/system` sessions)
 4. For the work at hand: the board's `CLAUDE.md` and `STATUS.md` (`hardware/<board>/`), its decision file in `docs/decisions/`, and `hardware/CLAUDE.md` for the shared schematic workflow
 
-Read the rest only when the task needs it: `docs/SPEC.md` (full specification), `docs/CHAIN.md` and `docs/INPUT-MODULE.md` (interfaces between boards), `docs/PART-NUMBERING.md`, `docs/ROADMAP.md` (phases, backlog), `simulation/CLAUDE.md`.
+Read the rest only when the task needs it: `docs/SPEC.md` (full specification), `docs/CHAIN.md`, `docs/INPUT-MODULE.md` and `docs/MECHANICAL.md` (interfaces between boards), `docs/PART-NUMBERING.md`, `docs/ROADMAP.md` (phases, backlog), `simulation/CLAUDE.md`.
 
 For the user: `docs/WORKING-WITH-CLAUDE.md` describes the roles and the session loop: `/board <board> [phase]` for board work, `/system [topic]` for architecture, `/handoff` to wrap up, `/validate <scope>` for an independent check (the `architect` and `validator` sub-agents live in `.claude/agents/`). Work one board and phase per session (for example "power board schematic"), and update that board's `STATUS.md` before ending. Use sub-agents only for bounded jobs with a short result (datasheet fact checks, build-and-check loops, simulation runs, stock checks); design choices stay in the main conversation with the user.
 
@@ -49,7 +49,7 @@ CLAUDE.md
 .claude/commands/  /board, /system, /handoff, /validate
 .claude/agents/    architect (contract reviewer), validator (independent design checks)
 LICENSE.md, REUSE.toml, LICENSES/  licensing (decision 70)
-docs/            CONTINUE-FROM-HERE.md, ARCHITECTURE.md, WORKING-WITH-CLAUDE.md, SPEC.md, CHAIN.md, INPUT-MODULE.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
+docs/            CONTINUE-FROM-HERE.md, ARCHITECTURE.md, WORKING-WITH-CLAUDE.md, SPEC.md, CHAIN.md, INPUT-MODULE.md, MECHANICAL.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
   decisions/     decision log by area, INDEX.md (DECISIONS.md is a pointer to it)
   reviews/       validator reports
 hardware/        CLAUDE.md: shared schematic workflow; each board has CLAUDE.md and STATUS.md
@@ -63,4 +63,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-105). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-109). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

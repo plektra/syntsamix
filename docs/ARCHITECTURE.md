@@ -23,7 +23,7 @@ The system-level view: how the boards fit together, the numbers that cross board
                                            └──────────────┘
 ```
 
-Each channel card has identical IN and OUT copies of both ribbons, wired straight through (decision 38). The prototype has 4 channel cards on chain 1.
+The diagram is not to scale: the master section and power board sit at the right end of the unit (decision 109, `MECHANICAL.md`). Each channel card has identical IN and OUT copies of both ribbons, wired straight through (decision 38). The prototype has 4 channel cards on chain 1.
 
 ## Interfaces (contracts)
 
@@ -32,6 +32,7 @@ Each channel card has identical IN and OUT copies of both ribbons, wired straigh
 | Audio ribbon, 34-pin | `docs/CHAIN.md` | master card, every channel card |
 | Power ribbon, 8-pin | `docs/CHAIN.md` | power board, master card, channel cards |
 | Input header, 10-pin | `docs/INPUT-MODULE.md` | channel card, input module |
+| Strip envelope, panels, frame | `docs/MECHANICAL.md` | every board, panels, frame |
 
 ## Cross-board budgets
 
@@ -79,13 +80,14 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 2. **One star point:** AGND and PGND join only on the master card; jack sleeves to their card's AGND; frame bonded at the star point only, through the ground-lift switch (decisions 42, 61, 87).
 3. **Local regulation:** every card regulates its own rails from the raw chain voltage; no regulated rail crosses a ribbon (decision 40).
 4. **Ground currents:** LEDs, logic (including the PFL_ACT drivers and button pull-downs) and regulator input capacitors return to PGND; audio returns to AGND (`CHAIN.md`, decision 98).
-5. **Contracts change only by a confirmed decision:** `CHAIN.md`, `INPUT-MODULE.md` and the budgets above.
+5. **Contracts change only by a confirmed decision:** `CHAIN.md`, `INPUT-MODULE.md`, `MECHANICAL.md` and the budgets above.
 6. **Part facts are verified:** every pinout and limit comes from the maker's datasheet, recorded in `docs/parts.csv`.
 7. **Every sheet is double-entry:** a drawing script and an independent reference netlist, checked pin by pin, with ERC 0/0.
 8. **Floating supply:** whatever feeds the power ribbons has a DC output floating from mains earth (Class II brick on the prototype); PGND is earthed nowhere except through the master card's star point and the ground-lift switch, and the star point is the only ground reference (decision 101).
 
 ## Open system items
 
-(none; the floating-brick rule is settled by decision 101)
+- Mechanical (`/system mechanical`): rear panel and input module position, master section and power board, in that order (`MECHANICAL.md`, Open; strip envelope, panel stack and card fixing and chain headers settled by decisions 106 to 109).
+- Heat budget **[estimate]**: about 30 W (prototype) to 84 W (full size) typical dissipation inside the unit (typical rail currents above × 20 V); needs ventilation and a budget row once the frame is drawn.
 
 Earlier items are closed: the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes, finding 3 (R421 footprint) by the master card fix in bad26be.

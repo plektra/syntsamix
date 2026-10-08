@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-08 (decisions 97, 98, 103, 104 drawn).
+Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from decisions 107, 109).
 
 ## Where it stands
 
@@ -19,6 +19,8 @@ Updated 2026-10-08 (decisions 97, 98, 103, 104 drawn).
 
 ## Check before layout
 
+- **Chain headers (from /system, 2026-10-08, decision 109; `docs/MECHANICAL.md`):** the master sits at the right end of the unit, so J101 (audio) meets the OUT of the card to its left: place it along the master's left edge, on the underside, long axis front to back, at the distance from the front that the channel card layout records. J901 (power) comes from the power board beside the master; its position is free until the master section is settled (`MECHANICAL.md`, Open).
+- **Panel stack (from /system, 2026-10-08, decision 107; `docs/MECHANICAL.md`):** PCB 10.0 mm below the top panel, top-side parts at most 9.0 mm tall under it. Too tall as drawn: U901-U903 TO-220 vertical and the decision-95 heatsinks on U901/U902, the 10 µF bipolar radials (C205, C206, C209, C210, C305, C306, C309, C310, C401, C402, C701, C702, C707-C710), the electrolytics C755, C756, C901, C903, C904, C906, C908, C909, C912, and the G6K relays K701, K702, K751 (check their height). Where the heatsinks go (outside the panel area, on the rear edge, or the power board) is settled with the master section in a `/system mechanical` session.
 - **Power lever, [proposed] (from /system, 2026-10-08; `docs/ROADMAP.md`, Power-cut candidate 2):** check U207, U307, U706 (superdiodes; U206, U306, U705 are OPA2171s since decision 103), U407, U409, U410, U802 and U804 for a TL062 (swing, input range, load, slew), then rerun `scripts/power_budget.py`.
 - Power ribbon header J901 (SX-CONN-008) is now Würth 61200821621 (3 A per contact, hand-soldered, not at LCSC; decision 100): check the footprint against Würth's drawing.
 - G6K NC/NO contact assignment against Omron's terminal diagram (taken from KiCad's G6K-2 symbol).

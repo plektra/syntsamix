@@ -36,4 +36,4 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 
 ## Interfaces between boards
 
-`docs/CHAIN.md` (audio and power ribbons) and `docs/INPUT-MODULE.md` (input header) are contracts; `docs/ARCHITECTURE.md` holds the cross-board budgets and invariants. A board session reads them but does not change them: anything that would is noted under "For /system" in the board's `STATUS.md` and settled in a `/system` session.
+`docs/CHAIN.md` (audio and power ribbons) and `docs/INPUT-MODULE.md` (input header) and `docs/MECHANICAL.md` (strip envelope, panels, frame) are contracts; `docs/ARCHITECTURE.md` holds the cross-board budgets and invariants. A board session reads them but does not change them: anything that would is noted under "For /system" in the board's `STATUS.md` and settled in a `/system` session.
