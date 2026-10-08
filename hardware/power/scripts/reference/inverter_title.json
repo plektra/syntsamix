@@ -1,0 +1,13 @@
+{
+ "title": "Power board: -20 V inverter",
+ "date": "2026-10-07",
+ "rev": "0.1",
+ "dnp": [],
+ "left_fields": ["C306"],
+ "comments": [
+  "TPS54560 as inverting buck-boost (TI SLVA317B): IC ground = -20V_CONV, 22 uH from SW to PGND",
+  "IC sees VIN + 20 V (44.7 V max, 58.9 V at the TVS clamp); C301/C302/C304 and the sync cap rated 100 V",
+  "Synced to CLK_B (opposite phase to the buck); UVLO start 21.1 V, stop moot once running (SLVA317)",
+  "Compensation for the right-half-plane zero (about 43 kHz): crossover about 1.7 kHz (design.py)"
+ ]
+}

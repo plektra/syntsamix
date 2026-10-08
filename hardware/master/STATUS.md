@@ -18,6 +18,7 @@ Updated 2026-10-06.
 
 ## Check before layout
 
+- Power ribbon header J901 (SX-CONN-008) is now Würth 61200821621 (3 A per contact, hand-soldered, not at LCSC; decision 100): check the footprint against Würth's drawing.
 - G6K NC/NO contact assignment against Omron's terminal diagram (taken from KiCad's G6K-2 symbol).
 - The dual 100 kΩ reverse-log (C) pot for the sidechain LPF may not exist in Alpha's range.
 - R421 (compressor, SX-R-021, ERA-V33J102V) has an 0805 footprint; the part is 0603 (as on the channel card). Fix in the compressor scripts (`docs/reviews/2026-10-06-system.md`, finding 3, MAJOR).

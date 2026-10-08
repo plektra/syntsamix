@@ -13,7 +13,7 @@ For the user: `docs/WORKING-WITH-CLAUDE.md` describes the roles and the session 
 
 ## Project
 
-A modular, analog pro audio mixer for connecting synthesizers and instruments in electronic music live performances. Designed in KiCad. The specification is complete (v0.7); we are in the **schematic phase** (power board next), then PCB layout.
+A modular, analog pro audio mixer for connecting synthesizers and instruments in electronic music live performances. Designed in KiCad. The specification is complete (v0.7); all schematics are drawn; PCB layout is next.
 
 ## Prototype scope (confirmed by the user)
 
@@ -63,4 +63,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-99). Schematics done for the input module, channel card and master card (ERC 0/0); power board not started; no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-100). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

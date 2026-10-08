@@ -44,7 +44,7 @@ A modular, analog stereo mixer for live electronic music: synthesizers, drum mac
 ### Construction
 
 - Desktop unit: one PCB and a 35 mm FR4 top panel per channel strip, on an aluminium rail frame cut to length (about 650 to 700 mm wide at 16 strips)
-- Powered by an off-the-shelf DC brick through a separate power board (isolated DC-DC to ±20 V); every card regulates its own supply
+- Powered by an off-the-shelf DC brick through a separate power board (24 V brick, non-isolated converters to ±20 V); every card regulates its own supply
 - Separate audio and power ribbons, with audio and power grounds joined at a single star point
 
 ## Status

@@ -12,7 +12,7 @@ from schlayout import add_junctions
 p,pre,extra,title=sys.argv[1],sys.argv[2],json.load(open(sys.argv[3])),json.load(open(sys.argv[4]))
 LEFT=set(title.get('left_fields',[]))
 s=open(p).read()
-s=re.sub(r'"U9(\d{3})[1-5]"',lambda m:f'"U{int(m.group(1))}"',s)
+s=re.sub(r'"U9(\d{3})[1-9]"',lambda m:f'"U{int(m.group(1))}"',s)
 s=re.sub(r'"#PWR0*([0-9]+)"',lambda m:f'"#PWR{pre}{int(m.group(1)):03d}"',s)
 s=re.sub(r'\(paper "A[0-4]"\)','(paper "A2")',s)
 ls=s.find('\n\t(lib_symbols'); le=s.find('\n\t)\n',ls)+4   # leave the embedded library copies untouched

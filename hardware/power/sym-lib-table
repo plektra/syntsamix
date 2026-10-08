@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "syntsamix")(type "KiCad")(uri "${KIPRJMOD}/../libs/syntsamix.kicad_sym")(options "")(descr "Syntsamix project symbols"))
+)

@@ -1,0 +1,1 @@
+../../channel-card/scripts/post_wired.py

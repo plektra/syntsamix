@@ -17,7 +17,7 @@ Updated 2026-10-06.
 
 ## Parts still to choose
 
-Power ribbon IDC headers (J503/J504) and the ribbon cable: at least 1 A per contact (decision 96). Regulator cooling: the LM317 dissipates 1.24 W worst case (decision 96 sizes a card's own parts for its worst case); free air at about 50 °C/W (not checked against the datasheet) gives about 102 °C at 40 °C ambient, just over the 100 °C used for the master (decision 95). Choose copper area or a small heatsink at layout. Supply budget: `scripts/power_budget.py` (rerun it after changing parts that draw current).
+Power ribbon IDC headers (J503/J504) and the ribbon cable: at least 1 A per contact (decision 96); SX-CONN-008 is now Würth 61200821621 (3 A per contact, hand-soldered, not at LCSC; decision 100): add its ProjectPN field to J503/J504 and check the footprint against Würth's drawing at layout. Regulator cooling: the LM317 dissipates 1.24 W worst case (decision 96 sizes a card's own parts for its worst case); free air at about 50 °C/W (not checked against the datasheet) gives about 102 °C at 40 °C ambient, just over the 100 °C used for the master (decision 95). Choose copper area or a small heatsink at layout. Supply budget: `scripts/power_budget.py` (rerun it after changing parts that draw current).
 
 
 Resonance pot (10k reverse audio), CV jack (vertical 6.3 mm), meter and button LED parts and colours, IDC headers, CUTOFF/level pot MPNs.

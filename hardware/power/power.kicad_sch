@@ -1,0 +1,319 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "c6cce329-7b1c-4ebd-a14e-53a079eca520")
+	(paper "A4")
+	(title_block
+		(title "Power board")
+		(date "2026-10-07")
+		(rev "0.1")
+		(company "Syntsamix")
+	)
+	(lib_symbols)
+	(sheet
+		(at 25.4 38.1)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "e1e932b2-1483-44bb-918c-a489d68d26c3")
+		(property "Sheetname" "Input and clock"
+			(at 25.4 37.3884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "input.kicad_sch"
+			(at 25.4 59.0046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "CLK_A" output
+			(at 55.88 40.64 0.0000)
+			(uuid "f4494bc3-d61f-4420-a0a5-84f9dc2c4959")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CLK_B" output
+			(at 55.88 43.18 0.0000)
+			(uuid "83238cf9-a4fe-4296-a533-2d14471cc2d3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "VIN_SW" output
+			(at 55.88 45.72 0.0000)
+			(uuid "fed63fa4-803b-4692-9a42-a28b49d256f9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "power"
+				(path "/c6cce329-7b1c-4ebd-a14e-53a079eca520"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 101.6 25.4)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "81d68b64-5d25-429a-8b40-042259c2f58e")
+		(property "Sheetname" "+20 V buck"
+			(at 101.6 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "buck.kicad_sch"
+			(at 101.6 46.3046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "CLK_A" input
+			(at 101.6 27.94 180)
+			(uuid "0fb507a3-2028-41fa-97e6-9d0fcb96acd1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "VIN_SW" input
+			(at 101.6 30.48 180)
+			(uuid "f3a3c838-52f6-4bca-994a-faa6b3dd04ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+20V_RAW" output
+			(at 132.08 27.94 0.0000)
+			(uuid "82c5edee-08af-40bb-8ded-612e3b0ef1ed")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "power"
+				(path "/c6cce329-7b1c-4ebd-a14e-53a079eca520"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 101.6 76.2)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "a93fd373-dfd9-4170-9a9a-18887cd2f6f7")
+		(property "Sheetname" "-20 V inverter"
+			(at 101.6 75.4884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "inverter.kicad_sch"
+			(at 101.6 97.1046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "CLK_B" input
+			(at 101.6 78.74 180)
+			(uuid "511cac5f-3432-4c8b-baab-fdff8726658d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "VIN_SW" input
+			(at 101.6 81.28 180)
+			(uuid "9e73f98c-89ba-456f-9f18-9d39c6e6896e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "-20V_RAW" output
+			(at 132.08 78.74 0.0000)
+			(uuid "a95a7b5b-edc1-4883-8598-ad53e0d7f800")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "power"
+				(path "/c6cce329-7b1c-4ebd-a14e-53a079eca520"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 177.8 38.1)
+		(size 30.48 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "fafa61aa-7445-44e5-9748-35d2d7b9324f")
+		(property "Sheetname" "Outputs"
+			(at 177.8 37.3884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "outputs.kicad_sch"
+			(at 177.8 59.0046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+20V_RAW" input
+			(at 177.8 40.64 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "1c2c4c69-b854-4144-96a9-7157775fba5d")
+		)
+		(pin "-20V_RAW" input
+			(at 177.8 43.18 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "70158ed9-1b05-41f2-bcac-795345279a6d")
+		)
+		(instances
+			(project "power"
+				(path "/c6cce329-7b1c-4ebd-a14e-53a079eca520"
+					(page "5")
+				)
+			)
+		)
+	)
+	(wire (pts (xy 55.88 40.64) (xy 60.96 40.64)) (stroke (width 0) (type default)) (uuid "c0ffee00-8c47-4f14-ae0b-137bf0c5a790"))
+	(label "CLK_A" (at 60.96 40.64 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-b0f7-430b-990d-8581345d6519"))
+	(wire (pts (xy 55.88 43.18) (xy 60.96 43.18)) (stroke (width 0) (type default)) (uuid "c0ffee00-91c2-4dd4-a642-a03212955f6c"))
+	(label "CLK_B" (at 60.96 43.18 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-0536-4234-bd98-0f0f6eb6d110"))
+	(wire (pts (xy 55.88 45.72) (xy 60.96 45.72)) (stroke (width 0) (type default)) (uuid "c0ffee00-03ed-41a3-820e-ff35c4bbd2c9"))
+	(label "VIN_SW" (at 60.96 45.72 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-5e3b-4c63-a386-47474eccfaa8"))
+	(wire (pts (xy 101.6 27.94) (xy 96.52 27.94)) (stroke (width 0) (type default)) (uuid "c0ffee00-6a62-44ec-977c-0c95cc481c8c"))
+	(label "CLK_A" (at 96.52 27.94 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-d50d-49b8-8baa-9e81d4de21bf"))
+	(wire (pts (xy 101.6 30.48) (xy 96.52 30.48)) (stroke (width 0) (type default)) (uuid "c0ffee00-d40c-4770-876a-abfb0599aa55"))
+	(label "VIN_SW" (at 96.52 30.48 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-0b38-4e43-94b2-27553997d60e"))
+	(wire (pts (xy 132.08 27.94) (xy 137.16 27.94)) (stroke (width 0) (type default)) (uuid "c0ffee00-7223-41c2-92a1-25ef8000c791"))
+	(label "+20V_RAW" (at 137.16 27.94 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-3e79-4444-805b-a3b5d116afb2"))
+	(wire (pts (xy 101.6 78.74) (xy 96.52 78.74)) (stroke (width 0) (type default)) (uuid "c0ffee00-d73a-4d6b-8409-cba8d6e5ef93"))
+	(label "CLK_B" (at 96.52 78.74 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-bad5-4509-99d5-025f45f1dbf5"))
+	(wire (pts (xy 101.6 81.28) (xy 96.52 81.28)) (stroke (width 0) (type default)) (uuid "c0ffee00-bf55-4718-86c0-33f1b1f38227"))
+	(label "VIN_SW" (at 96.52 81.28 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-73ae-4a57-9c34-d9be76a57fb6"))
+	(wire (pts (xy 132.08 78.74) (xy 137.16 78.74)) (stroke (width 0) (type default)) (uuid "c0ffee00-21c4-4722-ac84-343cb47a16de"))
+	(label "-20V_RAW" (at 137.16 78.74 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c0ffee00-c052-42f1-a81b-3033f50b67eb"))
+	(wire (pts (xy 177.8 40.64) (xy 172.72 40.64)) (stroke (width 0) (type default)) (uuid "c0ffee00-3b5c-4d57-b76f-81a7c7c28f27"))
+	(label "+20V_RAW" (at 172.72 40.64 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-1ac3-4ec7-b800-2528073ea025"))
+	(wire (pts (xy 177.8 43.18) (xy 172.72 43.18)) (stroke (width 0) (type default)) (uuid "c0ffee00-0097-4e73-a115-9bf801e0cb92"))
+	(label "-20V_RAW" (at 172.72 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "c0ffee00-e5d5-4098-ac42-69ac65881954"))
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

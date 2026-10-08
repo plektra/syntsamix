@@ -84,7 +84,7 @@ SX-D-004,LED 3 mm green low current,,,,,Meter segments -30 to 0; part to choose
 SX-D-005,LED 3 mm yellow low current,,,,,Meter segments +3 and +6; compressor gain-reduction LEDs (colour to confirm); part to choose
 SX-D-006,LED 3 mm red low current,,,,,Meter clip segment; part to choose
 SX-CONN-007,IDC box header 2x17 2.54 mm vertical shrouded keyed,,,,,Audio ribbon (docs/CHAIN.md); part to choose
-SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,,,,,Power ribbon (docs/CHAIN.md); check per-pin current rating
+SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,Wurth Elektronik,61200821621,,,Power ribbon (docs/CHAIN.md); 3 A per contact (Wurth WR-BHD datasheet text; check the rendered page); not at LCSC: hand-solder (decision 100)
 SX-IC-010,Adjustable positive regulator TO-220,Texas Instruments,LM317,,,Pinout 1 ADJ 2 OUT(tab) 3 IN from TI SLVS044Z; orderable MPN to verify
 SX-IC-011,Adjustable negative regulator TO-220,Texas Instruments,LM337,,,Pinout 1 ADJ 2 IN(tab) 3 OUT from TI SLVS047L; orderable MPN to verify
 SX-IC-012,5 V 100 mA regulator SOT-89,STMicroelectronics,L78L05ACUTR,,,Pinout 1 OUT 2 GND 3 IN (KiCad library); MPN to verify
@@ -150,3 +150,30 @@ SX-R-082,Resistor 39.2 Ohm 1% 2512 1 W,,,,,Headphone amplifier output resistor (
 SX-MECH-002,Heatsink board-mount TO-220 <= 10 C/W,,,,,Master LM317 and LM337 (decision 95); live at the regulator tab; part and footprint to choose at layout
 SX-CONN-009,Crimp housing 1x10 2.54 mm KK 254 friction ramp,Molex,22-01-3107,,,Input-module cable both ends (decision 99); from distributor listings (Farnell/Heilind) - verify against Molex drawing
 SX-CONN-010,Crimp terminal KK 254 22-30 AWG tin,Molex,08-50-0114,,,For SX-CONN-009 (decision 99); from distributor listings (RS) - verify against Molex drawing
+SX-IC-018,Step-down converter 60 V 5 A HSOIC-8 PowerPAD,Texas Instruments,TPS54560DDAR,LCSC,C31966,Power board buck and inverter (decision 100); pinout 1 BOOT 2 VIN 3 EN 4 RT/CLK 5 FB 6 COMP 7 GND 8 SW + pad (TI SLVSBN0C); KiCad symbol TPS54560BDDA
+SX-IC-019,Hex Schmitt inverter SOIC-14,Nexperia,"74HC14D,653",LCSC,C5605,Power board 400 kHz clock; JLC basic
+SX-IC-020,5 V 0.5 A regulator DPAK,STMicroelectronics,L78M05ABDT-TR,LCSC,C58069,Power board clock supply; JLC basic; Vi max 35 V (ST DS0425); pinout 1 IN 2 GND (tab) 3 OUT from KiCad LM78M05_TO252: verify against DS0425 Figure 2
+SX-Q-002,P-channel MOSFET 60 V 25 mOhm PowerPAK SO-8L,Vishay,SQJ457EP-T1_GE3,LCSC,C511548,Power board reverse block and soft start; pins 1-3 S 4 G tab D (Vishay doc 76628); SOA about 2-3 A at 24 V for 10 ms
+SX-D-009,TVS unidirectional 24 V standoff 600 W SMB,,SMBJ24A,LCSC,C19077578,Power board input; VBR 26.7-29.5 V; VC 38.9 V at 15.5 A (Littelfuse SMBJ datasheet)
+SX-D-010,Zener diode 12 V SOD-123,,BZT52C12,LCSC,C19077410,Power board soft-start gate clamp
+SX-D-011,LED green 0805,,KT-0805G,LCSC,C2297,Power board power LED; JLC basic
+SX-D-012,Schottky diode 40 V 5 A SMC,MDD,SS54,LCSC,C22452,Power board buck catch diode; JLC basic; 5 A and VF from LCSC listing only
+SX-D-013,Schottky diode 100 V 5 A SMC,MDD,SS510C,LCSC,C19229,Power board inverter catch diode; VF 0.85 V at 5 A (MDD datasheet)
+SX-C-018,Capacitor 4.7 uF X7S 100 V 1210,Taiyo Yuden,HMK325C7475KMHPE,LCSC,C385986,Power board converter input and output ceramics; loses much of its capacitance under DC bias
+SX-C-019,Capacitor 330 uF 35 V hybrid polymer 10x10.2 mm,Panasonic,EEHZK1V331P,LCSC,C278516,Power board converter output and LC filter; ESR 20 mOhm; 2.8 A rms at 100 kHz (Panasonic ZK table)
+SX-C-020,Capacitor 100 uF 35 V electrolytic radial 6.3 mm,KNSCHA,KNM2100UF35V149EC0055,LCSC,C2982822,Power board LC filter damping; ESR 80 mOhm; ripple 1.516 A at 100 kHz (maker datasheet); radial footprint to verify
+SX-C-021,Capacitor 100 uF 50 V electrolytic SMD 8x10 mm,,,,,Power board input bulk after the soft-start FET; part to choose
+SX-C-022,Capacitor 10 pF C0G 100 V 0805,,,,,Power board sync coupling (TI SLVSBN0C 7.3.11); part to choose
+SX-L-001,Inductor 2.2 uH shielded 7.3x6.6 mm,Bourns,SRP7028A-2R2M,LCSC,C1329579,Power board LC filter; DCR 20 mOhm max; Isat 14 A; Irms 8 A (Bourns figures garbled in the PDF text; match the LCSC listing)
+SX-L-002,Inductor 15 uH shielded 13.5x12.5 mm,Bourns,SRP1265A-150M,LCSC,C189912,Power board buck; Isat 12.5 A; Irms 9 A; DCR 28 mOhm max (Bourns datasheet); footprint to draw
+SX-L-003,Inductor 22 uH shielded 13.5x12.5 mm,Bourns,SRP1265A-220M,LCSC,C2041465,Power board inverter; Isat 12 A; Irms 9 A; DCR 37 mOhm max (Bourns datasheet); footprint to draw
+SX-F-001,Resettable fuse 4 A hold 30 V 2920,LUTE,2920L400/30GR,LCSC,C19078761,Power board input; 3.01 A hold at 50 C; trip 8 A (LUTE datasheet)
+SX-F-002,Resettable fuse 2 A hold 33 V 1812,BHFUSE,BSMD1812-200-33V,LCSC,C7433877,Power board per-header fuses; 1.66 A hold at 50 C; trip 4 A
+SX-R-083,Resistor 243 kOhm 1% 0805,,,,,TPS54560 RT (400 kHz)
+SX-R-084,Resistor 240 kOhm 1% 0805,,,,,TPS54560 feedback (20.0 V with 10 k)
+SX-R-085,Resistor 732 kOhm 1% 0805,,,,,TPS54560 UVLO top
+SX-R-086,Resistor 42.2 kOhm 1% 0805,,,,,TPS54560 UVLO bottom
+SX-CONN-011,Power jack locking 4-pin DIN PCB right angle,Kycon,KPJX-4S,DigiKey,,Power board brick input; 7.5 A per pin at 48 V (Kycon drawing); mates KPPX-4P / Mean Well R7B; footprint to draw
+SX-CONN-012,IDC socket 2x4 2.54 mm with strain relief,Wurth Elektronik,61200823021,,,Power ribbon cable (not on a board); 1 A per contact (Wurth datasheet); 28 AWG fit to verify
+SX-SW-003,Power switch SPST,,,,,Power board rear edge; switches gate current only (about 0.1 mA); part to choose
+SX-MECH-003,DC power brick 24 V 120 W Class II R7B plug,Mean Well,GSM120B24-R7B,DigiKey,,Prototype supply (decision 100); C8 inlet needs a C7 mains cord; GSM160B24-R7B for 16 cards

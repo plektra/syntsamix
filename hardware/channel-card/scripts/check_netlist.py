@@ -9,7 +9,7 @@ _h=os.path.dirname(os.path.abspath(__file__))
 _r=os.path.join(_h,'reference',sys.argv[1])
 want=json.load(open(_r if os.path.exists(_r) else T+sys.argv[1]))
 import re
-fix=lambda r: re.sub(r'^U9(\d{3})[1-5]$',lambda m:f'U{int(m.group(1))}',r)
+fix=lambda r: re.sub(r'^U9(\d{3})[1-9]$',lambda m:f'U{int(m.group(1))}',r)
 intended={}
 for n in want['nets']:
     for p in n['pins']: intended[(fix(p['ref']),p['pin'])]=n['name']

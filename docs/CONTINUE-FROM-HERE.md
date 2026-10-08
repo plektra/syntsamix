@@ -1,6 +1,6 @@
 # Continue from here
 
-Project-level handoff, updated 2026-10-06. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`).
+Project-level handoff, updated 2026-10-08. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`).
 
 ## Boards
 
@@ -9,14 +9,14 @@ Project-level handoff, updated 2026-10-06. Read `CLAUDE.md` first. Board detail 
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
 | Channel card | done, ERC 0/0 | not started (waits for the breadboard) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0 | not started | `hardware/master/STATUS.md` |
-| Power board | not started | not started | `hardware/power/STATUS.md` |
+| Power board | done, four sheets, ERC 0/0 | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-99; last pushed commit: see `git log -1`.
+Decisions 1-100; last pushed commit: see `git log -1`.
 
 ## Order of work
 
 1. **Decision 97 and 98 board changes** (SC_ENV negative into the control summer's virtual earth; PFL_ACT drivers and button pull-downs to PGND): `/board channel-card schematic` and `/board master schematic` (also the R421 footprint, finding 3). Details in each `STATUS.md`.
-2. **Power board schematic**: choose the DC-DC module family (prototype about 2 A per rail) and the brick voltage (24 or 48 V), then draw it. Inputs in `hardware/power/STATUS.md`.
+2. **`/system power conversion`**: reword the isolated DC-DC wording and decide the floating-brick grounding rule (decision 100; items under "For /system" in `hardware/power/STATUS.md`).
 3. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
 4. **Channel card PCB**, then the input module, master card and power board PCBs.
 
@@ -27,6 +27,8 @@ Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (no open
 ## Waiting for the user's confirmation
 
 The **[proposed]** parts of decisions 89-94 (master card); listed in `hardware/master/STATUS.md`.
+
+The **[proposed]** values of decision 100 (power board); listed in `hardware/power/STATUS.md`.
 
 ## Pending outside the boards
 

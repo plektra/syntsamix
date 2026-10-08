@@ -16,14 +16,14 @@ Items marked **[confirmed]** were agreed with the user. Items marked **[proposed
 
 - Identical stereo channel cards, 1 to 16 (the prototype has 4), daisy-chained by ribbon cables, with the master card at one end. No backplane PCB **[confirmed]**
 - Each channel card has identical IN and OUT connectors wired straight through: a 34-pin IDC audio ribbon (buses, logic lines, interleaved audio grounds, spares) and a keyed 8-pin IDC power ribbon (2× V+, 2× V−, 4× ground; 10- and 16-pin avoided so Eurorack cables cannot be plugged in) **[confirmed]**
-- Chain power: about ±20 V nominal (unregulated in general; on the prototype it comes from a DC-DC module), entering at the master card; each card regulates its own ±15 V; audio ground and power ground on separate conductors **[confirmed]**
+- Chain power: about ±20 V nominal (unregulated in general; on the prototype it comes from the converters on the power board, decision 100), entering at the power board; each card regulates its own ±15 V; audio ground and power ground on separate conductors **[confirmed]**
 - Pinouts, signal definitions and grounding rules: see `CHAIN.md` **[confirmed]**
 - Summing buses: main L/R, compressor L/R, AUX1 L/R, AUX2 L/R (8 lines), plus cue L/R (2 lines), a "PFL active" logic line and the sidechain bus (pinout in `CHAIN.md`) **[confirmed]**
 - Channel independence rules: every slot is identical (no slot-specific signals); audio buses are summed on the master card, so adding a card only adds a source; logic lines such as "PFL active" are wired-OR; no part is shared between channel cards; each card regulates its own supply **[confirmed]**
 - Expansion by the chain: adding a channel means adding one card and one pair of ribbon cables **[confirmed]**
 - Master/compressor card **[confirmed]**
-- Prototype power: a certified off-the-shelf DC power brick (24 or 48 V) plugs into a locking DC connector on the power board next to the master card (decision 81); an isolated DC-DC module there makes about ±20 V for the chain, followed by an LC filter; per-card linear ±15 V regulators reject the remaining switching ripple. Power switch, resettable fuse, reverse-polarity protection and a power LED at the input. No mains wiring inside the mixer **[confirmed]**
-- DC-DC module chosen from a family with larger, footprint-compatible versions for 16 cards; supply rating for 16 cards is open **[open]**
+- Prototype power: a certified off-the-shelf 24 V Class II DC power brick (floating output) plugs into a locking 4-pin DIN connector on the power board next to the master card (decisions 81, 100); non-isolated converters there (TPS54560 buck and inverter, 400 kHz) make about ±20 V for the chain, followed by an LC filter; per-card linear ±15 V regulators reject the remaining switching ripple. Power switch, resettable fuse, reverse-polarity protection and a power LED at the input. No mains wiring inside the mixer **[confirmed]**
+- Supply rating for 16 cards: 3.6 / 3.0 A per rail (decision 96). The +20 V buck probably scales; the −20 V inverter needs a controller with external MOSFETs, settled after the prototype cards are measured (decision 100) **[open]**
 - Each module is its own KiCad project with hierarchical sheets and its own PCB **[confirmed]**
 
 Signal flow per channel: input receiver and trim (with soft clip) → low-cut (switchable) → filter (or bypass) → [PFL, meter and SC send tap] → level VCA (fader + mute) → AUX sends and bus assign (main or compressor bus).

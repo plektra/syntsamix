@@ -1,0 +1,13 @@
+{
+ "title": "Power board: +20 V buck",
+ "date": "2026-10-07",
+ "rev": "0.1",
+ "dnp": [],
+ "left_fields": ["C206"],
+ "comments": [
+  "TPS54560 buck, 24 V to +20 V at 2 A, synced to CLK_A (about 400 kHz; RT alone gives 400 kHz)",
+  "UVLO start 21.1 V, stop 18.7 V: waits for the input soft start (design.py)",
+  "Feedback before the LC filter; 2.2 uH + 330 uF polymer + 100 uF damping, about 47 dB at 400 kHz",
+  "Values from TI SLVSBN0C section 8.2.2 (design.py)"
+ ]
+}

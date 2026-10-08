@@ -1,0 +1,12 @@
+{
+ "title": "Power board: outputs",
+ "date": "2026-10-07",
+ "rev": "0.1",
+ "dnp": [],
+ "comments": [
+  "Power ribbons (docs/CHAIN.md): J401 master card, J402 chain 1 (cards 1-8), J403 chain 2 (cards 9-16)",
+  "One 2 A PTC per rail per header: a shorted card or ribbon trips its own fuse (decision 100)",
+  "Würth 61200821621 headers, 3 A per contact; IDC sockets 61200823021 are 1 A per contact (two per rail)",
+  "PGND reaches AGND only at the master card's star point (decision 42, invariant 2)"
+ ]
+}

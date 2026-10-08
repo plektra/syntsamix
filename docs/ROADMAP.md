@@ -13,7 +13,7 @@
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
 5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0)*, then PCB
-6. **Power board** (`hardware/power`, decision 81): DC brick input, DC-DC to ±20 V, protection; schematic, then PCB
+6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB
 7. **Prototype build and measurement** against the targets in SPEC.md section 5
 
 ## Backlog (after the prototype)

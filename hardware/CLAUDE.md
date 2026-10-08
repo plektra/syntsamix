@@ -13,10 +13,11 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
   - Op-amp symbols: the − input sits at symbol y+2.54 (screen), the + input at y−2.54.
   - KiCad files allow no comments; generated root items are marked by the uuid prefix `c0ffee00`.
   - `sch_create_sheet` numbers every new sheet page 2: `fix_paths.py` renumbers pages and fixes instance paths and project names (otherwise KiCad shows "An error was found when loading the schematic").
-  - Multi-unit parts are built with temporary references `U9<3-digit ref><unit>` and renamed by `post_wired.py`.
+  - Multi-unit parts are built with temporary references `U9<3-digit ref><unit>` (units 1-9) and renamed by `post_wired.py`.
   - Duplicate references across sheets are not reported by ERC; `check_netlist.py` checks them.
   - Power flags live only on the power sheet of each project.
   - Diodes at 90/270° render vertical field text; draw them horizontally where text matters.
+  - A ground symbol pointing up (rotation 180) puts its "PGND" text on the part it hangs from; tie such pins to a short ground bar with one downward symbol instead.
   - A local label may share a hierarchical label's name on the same sheet; two different names on one net give a multiple_net_names warning.
 - Visual check: `kicad-cli sch export svg -o build/svg ../<project>.kicad_sch`, then crop with a small viewBox script and render with `qlmanage -t` (no rsvg/ImageMagick on this Mac). Look at every new sheet before reporting.
 
