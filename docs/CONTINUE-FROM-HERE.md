@@ -11,7 +11,7 @@ Project-level handoff, updated 2026-10-08. Read `CLAUDE.md` first. Board detail 
 | Master card | done, ten sheets, ERC 0/0 (decisions 97, 98, 103, 104 drawn) | not started | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-104; last pushed commit: see `git log -1`.
+Decisions 1-105; last pushed commit: see `git log -1`.
 
 ## Order of work
 

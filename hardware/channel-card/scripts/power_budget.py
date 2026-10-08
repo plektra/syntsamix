@@ -10,7 +10,7 @@ sheets (scripts/build/bom.csv) and add their supply currents, typical and worst 
 (ICC 5.0 / 6.2 mA, IEE 5.2 / 6.4 mA); SSI2162 Rev 1.2 (Class AB 6 / 8 mA); LM13700 TI
 SNOSBW2 (2.6 / 4 mA, both channels at IABC 500 uA) plus the Q current; LM339 TI SLCS006
 (0.8 / 2.5 mA, as in the master script; V- on PGND, so +15 V only); uA78L05 TI SLVS010X (3.6 / 6 mA, stand-in for the
-ST part); AD8273 2.5 mA max per amplifier (UNVERIFIED: the ADI PDF was not reachable).
+ST part); AD8273 Rev. B Table 2 (2.5 mA max per amplifier at ±15 V, no typical given; max used for both).
 DG412/DG413 draw microamps and are left out.
 Also prints the decision 96 sizing figure.
 Usage: python3 power_budget.py [raw rail, default 20]

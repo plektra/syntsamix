@@ -44,7 +44,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 | Raw rails | ±20 V nominal, unregulated in general; on the prototype from non-isolated converters on the power board (TPS54560 buck and inverter), the 24 V brick providing the isolation | decisions 40, 60, 81, 100 |
 | Raw rail minimum under load | about 19 V: the master's relay drop-out comparator trips at 17.9 V; the LM317 needs about 2 V headroom above 15.1 V | decisions 92, 95 |
 | Local rails on every card | ±15.1 V (LM317/LM337), +5 V (78L05 on channel cards, L7805 on the master) | decisions 78, 87 |
-| Channel card load (+15 / −15 V) | typical 121 / 103 mA; worst case 249 / 214 mA; sizing 186 / 154 mA (AD8273 supply current **[unverified]**, 5 mA of the total) | decisions 96, 102, `hardware/channel-card/scripts/power_budget.py` |
+| Channel card load (+15 / −15 V) | typical 121 / 103 mA; worst case 249 / 214 mA; sizing 186 / 154 mA (AD8273 at its 5 mA package maximum, ADI Rev. B Table 2, also used as typical) | decisions 96, 102, `hardware/channel-card/scripts/power_budget.py` |
 | Master card load (+15 / −15 V) | typical 340 / 269 mA; worst case 719 / 594 mA; sizing 589 / 476 mA | decisions 95, 96, 103, `hardware/master/scripts/power_budget.py` |
 | Prototype, 4 cards + master | sizing 1.33 / 1.09 A, about 48 W (typical 0.82 / 0.68 A); power board converters about 2 A per rail | decisions 96, 100 |
 | Full size, 16 cards + master | sizing 3.56 / 2.94 A, about 130 W (typical 2.28 / 1.92 A; worst case 4.70 / 4.02 A, not used for sizing) | decision 96 |

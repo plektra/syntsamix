@@ -1,6 +1,6 @@
 # Input module interface
 
-Status: **[confirmed]** by the user (decisions 62, 67, 68 and 99). Pinout **[proposed]** until the first schematic review.
+Status: **[confirmed]** by the user (decisions 62, 67, 68, 99 and 105; the pinout below by decision 105).
 
 The channel card carries no input jacks. Its input sockets connect to a small **input module** that holds the connectors. The module options are interchangeable:
 

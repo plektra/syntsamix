@@ -127,6 +127,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 102 | Channel fader buffer and control summer on an OPA2171 (input range includes V−) | confirmed | [channel-card](channel-card.md) |
 | 103 | Master fader-law buffers and summers (U206, U306, U705) on an OPA2171 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 105 | Input header pinout confirmed as drawn | confirmed | [input-module](input-module.md) |
 
 ## Proposed but not confirmed
 
