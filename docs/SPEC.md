@@ -39,7 +39,7 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | Input level range | From -10 dBV consumer line up to Eurorack hot signals of ±12 V peak (24 Vpp), with no clipping at minimum trim | confirmed |
 | Input receiver | AD8273 dual difference amplifier at G = ½ (-6 dB), one chip per card for L and R | confirmed; DC-coupled inputs confirmed |
 | Soft clipping | Soft clipper after the input trim stage, so overloads saturate gradually instead of hard-clipping. Onset about 6 dB below the internal maximum (about +14 dBu); exact circuit set in the schematic | confirmed |
-| Low-cut | Switchable fixed low-cut at 100 Hz (decision 73), 12 dB/octave Butterworth, film capacitors, after the trim stage and before the ladder filter (so meter, PFL and sends all see it) | confirmed (slope proposed) |
+| Low-cut | Switchable fixed low-cut at 100 Hz (decision 73), 12 dB/octave Butterworth, C0G capacitors (decision 113; film before), after the trim stage and before the ladder filter (so meter, PFL and sends all see it) | confirmed (slope proposed) |
 | Input trim | One wide trim, no pad switch: overall gain about -20 to +20 dB (input to internal +4 dBu nominal); the trim stage after the receiver spans about -14 to +26 dB | confirmed |
 | Input DC blocking | AC coupling after the receiver, corner about 3 Hz; Eurorack outputs can carry DC offsets | confirmed |
 | Level meter | 8-segment mono LED meter (louder of L/R), post-filter and pre-fader (same point as PFL): -30, -20, -10, -5, 0, +3, +6, clip, relative to +4 dBu nominal. Peak-reading with a 1 to 2 s fall. Peak detector plus comparators; low-current LEDs returning to power ground. Replaces the peak LED | confirmed |

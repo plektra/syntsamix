@@ -7,6 +7,7 @@ KiCad project `channel-card.kicad_pro`: one stereo channel. Decisions: `docs/dec
 - The shared sheet tools live in `scripts/` here; the master card symlinks to them, so a change here affects both projects. Rerun both projects' checks after editing one.
 - Filter facts (SSI2144 Rev 3.0) are in `docs/SPEC.md` section 3; the simulation behind the gain structure is in `simulation/filter/`.
 - Layout cautions: keep each SSI2144's offset trim and tempco resistor close to the chip; 8 filter cores need significant board area.
+- Panel stack: top-side parts at most 9 mm under the panel (decision 107); trimmers and jumper headers go on the underside, adjustable through the bottom cover (decision 112); chain headers on the underside at the edges (decision 109). Chosen parts and open checks: `STATUS.md`.
 
 ## Filter
 

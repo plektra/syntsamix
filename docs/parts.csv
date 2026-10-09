@@ -2,7 +2,7 @@ ProjectPN,Description,Manufacturer,MPN,Supplier,SupplierPN,Notes
 SX-IC-001,4-pole ladder VCF,Sound Semiconductor,SSI2144SS-TU,Electrokit,41019301,QSOP-16 0.635 mm pitch; not stocked at Mouser
 SX-IC-002,Dual VCA SSOP-10 1.00 mm pitch,Sound Semiconductor,SSI2162SS-TU,Electrokit,41019302,Pinout from datasheet Rev 1.2; package PSSL10 (1.00 mm pitch) from Sound Semiconductor drawing
 SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,AD8273 (SOIC-14); exact orderable MPN to verify
-SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify
+SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify; RoHS: Mouser 652-PTA60432015DPB10 RoHS Compliant (checked 2026-10-09)
 SX-CONN-001,6.3 mm stereo jack switched (T R S all switched) horizontal PCB,Neutrik,NMJ6HCD2,Mouser,,Pinout verified from Neutrik drawing ST-NMJ6HCD2; >10000 mating cycles; Mouser part number to verify
 SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),Molex,,Mouser,,Footprint Molex_KK-254_AE-6410-10A; MPN to verify; mates with SX-CONN-009/010 (decision 99)
 SX-IC-004,Dual low-noise op amp SOIC-8,Texas Instruments,,Mouser,,NE5532 (SOIC-8); exact orderable MPN to verify
@@ -19,10 +19,10 @@ SX-C-001,Capacitor 220 pF C0G 50 V 0805,,,,,
 SX-C-002,Capacitor 100 nF X7R 50 V 0805,,,,,
 SX-C-003,Capacitor 10 uF bipolar electrolytic 25 V+ radial 5 mm,,,,,
 SX-C-004,Capacitor 22 pF C0G 50 V 0805,,,,,
-SX-C-005,Capacitor 47 nF film 5% 5 mm pitch,,,,,
-SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,Alpha,,,,Footprint Alpha RD902F-40-00D; MPN to verify
+SX-C-005,Capacitor 47 nF film 5% 5 mm pitch,,,,,Not used since decision 113 (channel low-cut now SX-C-026)
+SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,Alpha,,,,Footprint Alpha RD902F-40-00D; MPN to verify; not used since decision 115 (channel TRIM now SX-POT-011)
 SX-D-001,Zener diode 6.2 V SOD-123,,,,,For example BZT52C6V2; to verify
-SX-D-002,LED 0805 low current,,,,,Under a 3D-printed translucent button cap (decision 75); colour per button function; part to choose
+SX-D-002,LED 0805 low current,,,,,"Not used since 2026-10-09: the button LEDs take one part per colour (SX-D-011 green, SX-D-015 red, SX-D-016 yellow, SX-D-017 white)"
 SX-SW-001,Latching push button DPDT 8.5x8.5 mm PCB,CW Industries,GPBS850N,Electrokit,41012905,Datasheet Rev 1 (2012): pressed = 2-3 and 5-6 closed; 100k mechanical cycles; footprint syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N
 SX-IC-006,Dual OTA with linearizing diodes and buffers SOIC-16,Texas Instruments,,Mouser,,LM13700 (SOIC-16); pinout verified from TI SNOSBW2F; orderable MPN to verify. Q VCA per SSI2144 datasheet Figure 9
 SX-R-009,Resistor 17.4 kOhm 1% 0805,,,,,
@@ -42,10 +42,10 @@ SX-C-006,Capacitor 6.8 nF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-007,Capacitor 560 pF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-008,Capacitor 100 pF C0G 5% 50 V 0805,,,,,
 SX-D-003,Small-signal diode 1N4148W SOD-123,,,,,
-SX-POT-003,Pot 50 kOhm linear single 9 mm vertical,Alpha,,,,Footprint Alpha RD901F-40-00D; MPN to verify. CUTOFF
+SX-POT-003,Pot 50 kOhm linear single 9 mm vertical T18 knurled 15 mm,Alpha,,Thonk,,"Channel CUTOFF (decisions 114, 115); Thonk Alpha 9 mm vertical T18 B50K, 1.69 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vertical-t18/); Alpha order code not given by Thonk; footprint Alpha RD901F-40-00D; check M7x0.75 x 5 mm bushing on delivery; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
 SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,RESONANCE and compressor RELEASE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose
-SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,,,
-SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,CUTOFF CV input; part and footprint to choose
+SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,,,10.03 mm tall 25 turns (Bourns 3296 datasheet); channel card mounts it on the underside (decision 112); RoHS: Mouser 652-3296W-1-503LF RoHS Compliant By Exemption (checked 2026-10-09)
+SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,CUTOFF CV input; superseded by SX-CONN-013 once /system confirms the 3.5 mm jack (no 6.3 mm jack fits the 10 mm stack)
 SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,Jumper header
 SX-CONN-005,Pin header 1x3 2.54 mm vertical,,,,,Jumper header
 SX-MECH-001,Jumper cap 2.54 mm,,,,,For SX-CONN-004/005
@@ -80,11 +80,11 @@ SX-R-041,Resistor 845 Ohm 1% 0805,,,,,Meter ladder
 SX-R-042,Resistor 750 Ohm 1% 0805,,,,,Meter ladder
 SX-R-043,Resistor 237 Ohm 1% 0805,,,,,Meter ladder
 SX-R-044,Resistor 1.5 kOhm 1% 0805,,,,,Meter LED (about 2 mA from +5 V)
-SX-D-004,LED 3 mm green low current,,,,,Meter segments -30 to 0; part to choose
-SX-D-005,LED 3 mm yellow low current,,,,,Meter segments +3 and +6; compressor gain-reduction LEDs (colour to confirm); part to choose
-SX-D-006,LED 3 mm red low current,,,,,Meter clip segment; part to choose
-SX-CONN-007,IDC box header 2x17 2.54 mm vertical shrouded keyed,,,,,Audio ribbon (docs/CHAIN.md); part to choose
-SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,Wurth Elektronik,61200821621,,,Power ribbon (docs/CHAIN.md); 3 A per contact (Wurth WR-BHD datasheet text; check the rendered page); not at LCSC: hand-solder (decision 100)
+SX-D-004,LED 3 mm green low current,,,,,Meter segments -30 to 0; part to choose; to be replaced by 0805 (SX-D-011/015/016) if /system confirms the printed meter bezel (2026-10-09)
+SX-D-005,LED 3 mm yellow low current,,,,,Meter segments +3 and +6; compressor gain-reduction LEDs (colour to confirm); part to choose; to be replaced by 0805 (SX-D-011/015/016) if /system confirms the printed meter bezel (2026-10-09)
+SX-D-006,LED 3 mm red low current,,,,,Meter clip segment; part to choose; to be replaced by 0805 (SX-D-011/015/016) if /system confirms the printed meter bezel (2026-10-09)
+SX-CONN-007,IDC box header 2x17 2.54 mm vertical shrouded keyed,Wurth Elektronik,61203421621,Mouser,710-61203421621,"Audio ribbon (docs/CHAIN.md); WR-BHD straight THT (Wurth drawing rev 002.001 2026-08-30: L 50.84 mm, 9.1 mm above the board, key slot 4.5 mm, holes 1.1 +-0.15 mm; Mouser's title says 'Angld' in error, RS and the drawing say straight); about 1.02 EUR at 100, 1235 in stock 2026-10-09; hand-soldered (underside, decision 109); RoHS: Mouser RoHS Compliant, RoHS/REACh marks on the Wurth drawing (checked 2026-10-09)"
+SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,Wurth Elektronik,61200821621,Mouser,710-61200821621,"Power ribbon (docs/CHAIN.md); 3 A per contact (Wurth WR-BHD datasheet text; check the rendered page); not at LCSC: hand-solder (decision 100); about 0.78 EUR at 50, 6896 in stock 2026-10-09; RoHS: Mouser RoHS Compliant (checked 2026-10-09)"
 SX-IC-010,Adjustable positive regulator TO-220,Texas Instruments,LM317,,,Pinout 1 ADJ 2 OUT(tab) 3 IN from TI SLVS044Z; orderable MPN to verify
 SX-IC-011,Adjustable negative regulator TO-220,Texas Instruments,LM337,,,Pinout 1 ADJ 2 IN(tab) 3 OUT from TI SLVS047L; orderable MPN to verify
 SX-IC-012,5 V 100 mA regulator SOT-89,STMicroelectronics,L78L05ACUTR,,,Pinout 1 OUT 2 GND 3 IN (KiCad library); MPN to verify
@@ -128,6 +128,9 @@ SX-C-017,Capacitor 22 nF C0G 5% 50 V 0805,,,,,Sidechain LPF
 SX-POT-008,Dual pot 100 kOhm reverse-audio (C) 9 mm vertical,Alpha,,,,SC LPF; footprint Alpha RD902F-40-00D; C taper availability and MPN to verify
 SX-POT-009,Pot 10 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker THRESHOLD; footprint Alpha RD901F-40-00D; MPN to verify
 SX-POT-010,Pot 500 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker DECAY; footprint Alpha RD901F-40-00D; MPN to verify
+SX-POT-011,Dual pot 100 kOhm audio (A) 9 mm vertical T18 knurled 15 mm,Alpha,,Thonk,,"Channel TRIM (decision 115); Thonk Alpha 9 mm vertical T18 dual gang A100K, 1.99 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vert-t18-dual-gang/); footprint Alpha RD902F-40-00D (Alpha drawing RD902F-40-(L)R1: M7x0.75 bushing 5.0 mm, pin pattern matches); check bushing on delivery; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
+SX-POT-012,Pot 10 kOhm reverse-audio (C) single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-C10K,Tayda,A-5369,"Channel RESONANCE (decisions 71, 115); 1.29 USD, about 494 in stock (cached listing 2026-10-09, recheck); 5 mm thread, 9 mm body; not Tayda A-1845 (40-tooth knurl, 12.7 mm); footprint Alpha RD901F-40-00D; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
+SX-POT-013,Dual pot 10 kOhm audio (A) 9 mm vertical T18 knurled 15 mm,Alpha,,Thonk,,"Channel AUX1/AUX2 level (decision 115); Thonk Alpha 9 mm vertical T18 dual gang A10K, 1.99 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vert-t18-dual-gang/); footprint Alpha RD902F-40-00D; check bushing on delivery; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
 SX-IC-017,Quad SPST analog switch 4x NC SOIC-16,Vishay,,Mouser,,DG411DY; on at logic 0; pinout as DG413 (Vishay doc 70050 Rev D); AUX send mono switching; MPN suffix to verify
 SX-D-008,Rectifier diode 1 A 1000 V SMA (M7 / 1N4007),,,,,Balanced output phantom-power clamps (THAT doc 600078 Figure 8 uses 1N4004)
 SX-R-066,Resistor 330 Ohm 1% 0805,,,,,Relay coil series resistor (12 V coil from +15 V)
@@ -156,15 +159,23 @@ SX-IC-020,5 V 0.5 A regulator DPAK,STMicroelectronics,L78M05ABDT-TR,LCSC,C58069,
 SX-Q-002,P-channel MOSFET 60 V 25 mOhm PowerPAK SO-8L,Vishay,SQJ457EP-T1_GE3,LCSC,C511548,Power board reverse block and soft start; pins 1-3 S 4 G tab D (Vishay doc 76628); SOA about 2-3 A at 24 V for 10 ms
 SX-D-009,TVS unidirectional 24 V standoff 600 W SMB,,SMBJ24A,LCSC,C19077578,Power board input; VBR 26.7-29.5 V; VC 38.9 V at 15.5 A (Littelfuse SMBJ datasheet)
 SX-D-010,Zener diode 12 V SOD-123,,BZT52C12,LCSC,C19077410,Power board soft-start gate clamp
-SX-D-011,LED green 0805,,KT-0805G,LCSC,C2297,Power board power LED; JLC basic
+SX-D-011,LED green 0805,,KT-0805G,LCSC,C2297,"Power board power LED; JLC basic; also channel meter green segments if /system confirms the 0805 meter (2026-10-09); RoHS: LCSC C2297 ROHS (checked 2026-10-09); SC SEND, DUCK, COMP BUS button LEDs (user's colour scheme 2026-10-09)"
 SX-D-012,Schottky diode 40 V 5 A SMC,MDD,SS54,LCSC,C22452,Power board buck catch diode; JLC basic; 5 A and VF from LCSC listing only
 SX-D-013,Schottky diode 100 V 5 A SMC,MDD,SS510C,LCSC,C19229,Power board inverter catch diode; VF 0.85 V at 5 A (MDD datasheet)
 SX-D-014,Schottky diode 30 V 200 mA SOD-123,onsemi,BAT54T1G,,,"Master SC_ENV clamp to AGND (decision 97); from onsemi BAT54T1/D Rev. 12: pin 1 cathode, pin 2 anode, VR 30 V, VF 0.29 V typ at 1 mA, IR about 0.06 uA at 4 V and 25 C, about 5 uA at 85 C (Figure 3); LCSC code to find"
+SX-D-015,LED red 0805,Foshan NationStar,NCD0805R1,LCSC,C84256,"Channel meter clip segment (0805 meter pending /system, 2026-10-09); JLC basic; Vf 1.6-2.6 V; RoHS: LCSC C84256 ROHS (checked 2026-10-09); MUTE button LED (user's colour scheme 2026-10-09)"
+SX-D-016,LED yellow 0805,Hubei KENTO,KT-0805Y,LCSC,C2296,"Channel meter +3/+6 segments (0805 meter pending /system, 2026-10-09); JLC basic; Vf 1.8-2.4 V; RoHS: LCSC C2296 ROHS (checked 2026-10-09); PFL button LED (user's colour scheme 2026-10-09)"
+SX-D-017,LED white 0805,Hubei KENTO,KT-0805W,LCSC,C34499,Channel LOW-CUT and FILTER BYPASS button LEDs (user's colour scheme 2026-10-09); JLC basic; Vf 2.6-3.2 V (about 1 mA from +15 V through 12 k); RoHS: LCSC C34499 ROHS (checked 2026-10-09)
 SX-C-018,Capacitor 4.7 uF X7S 100 V 1210,Taiyo Yuden,HMK325C7475KMHPE,LCSC,C385986,Power board converter input and output ceramics; loses much of its capacitance under DC bias
 SX-C-019,Capacitor 330 uF 35 V hybrid polymer 10x10.2 mm,Panasonic,EEHZK1V331P,LCSC,C278516,Power board converter output and LC filter; ESR 20 mOhm; 2.8 A rms at 100 kHz (Panasonic ZK table)
 SX-C-020,Capacitor 100 uF 35 V electrolytic radial 6.3 mm,KNSCHA,KNM2100UF35V149EC0055,LCSC,C2982822,Power board LC filter damping; ESR 80 mOhm; ripple 1.516 A at 100 kHz (maker datasheet); radial footprint to verify
 SX-C-021,Capacitor 100 uF 50 V electrolytic SMD 8x10 mm,,,,,Power board input bulk after the soft-start FET; part to choose
 SX-C-022,Capacitor 10 pF C0G 100 V 0805,,,,,Power board sync coupling (TI SLVSBN0C 7.3.11); part to choose
+SX-C-023,Capacitor 10 uF 35 V bipolar electrolytic SMD 6.3x5.4 mm,Panasonic,EEE-1VA100NP,Mouser,667-EEE-1VA100NP,"Channel card audio coupling C5, C6, C101, C107, C151, C157, C221, C271 (decision 111); VS series bi-polar, 85 C; Ø6.3 x 5.4 mm (Panasonic size D) per Mouser, element14 and TME; land pattern checked 2026-10-09: KiCad C_Elec_6.3x5.4 (gap 1.75, pads 3.325 x 1.6 mm) matches Panasonic's size-D pattern (gap 1.8, pads 3.2 x 1.6 mm, FK-series sheet) within 0.1 mm; not at LCSC (hand-solder or JLC global sourcing); KiCad Capacitor_SMD:C_Elec_6.3x5.4; RoHS: Mouser 667-EEE-1VA100NP RoHS Compliant (checked 2026-10-09)"
+SX-C-024,Capacitor 10 uF 35 V electrolytic SMD 5x5.4 mm,ROQANG,RVT1V100M0505,LCSC,C72486,"Channel card regulator ADJ and output C503, C504, C508, C509, C512 (decision 111); -40 to 105 C, 2000 h; JLC extended; KiCad Capacitor_SMD:CP_Elec_5x5.4; RoHS: LCSC C72486 ROHS (distributor field only; checked 2026-10-09)"
+SX-C-025,Capacitor 47 uF 35 V electrolytic SMD 6.3x5.4 mm,ROQANG,RVT1V470M0605,LCSC,C72522,"Channel card regulator input C501, C506 (decision 111); -40 to 105 C, 2000 h, 54 mA ripple at 120 Hz; JLC extended; KiCad Capacitor_SMD:CP_Elec_6.3x5.4; RoHS: LCSC C72522 ROHS (distributor field only; checked 2026-10-09)"
+SX-C-026,Capacitor 47 nF C0G 5% 50 V 1206,Murata,GRM31M5C1H473JA01L,LCSC,C21812,"Channel card 100 Hz low-cut C9-C12 (decision 113, replaces film SX-C-005); JLC extended; KiCad Capacitor_SMD:C_1206_3216Metric; RoHS: Mouser 81-GRM31M5C1H473JA01 RoHS Compliant; LCSC C21812 ROHS (checked 2026-10-09)"
+SX-C-027,Capacitor 56 pF C0G 50 V 0805,,,,,Channel trim stage feedback C7/C8 (decision 115)
 SX-L-001,Inductor 2.2 uH shielded 7.3x6.6 mm,Bourns,SRP7028A-2R2M,LCSC,C1329579,Power board LC filter; DCR 20 mOhm max; Isat 14 A; Irms 8 A (Bourns figures garbled in the PDF text; match the LCSC listing)
 SX-L-002,Inductor 15 uH shielded 13.5x12.5 mm,Bourns,SRP1265A-150M,LCSC,C189912,Power board buck; Isat 12.5 A; Irms 9 A; DCR 28 mOhm max (Bourns datasheet); footprint to draw
 SX-L-003,Inductor 22 uH shielded 13.5x12.5 mm,Bourns,SRP1265A-220M,LCSC,C2041465,Power board inverter; Isat 12 A; Irms 9 A; DCR 37 mOhm max (Bourns datasheet); footprint to draw
@@ -176,7 +187,13 @@ SX-R-085,Resistor 732 kOhm 1% 0805,,,,,TPS54560 UVLO top
 SX-R-086,Resistor 42.2 kOhm 1% 0805,,,,,TPS54560 UVLO bottom
 SX-CONN-011,Power jack locking 4-pin DIN PCB right angle,Kycon,KPJX-4S,DigiKey,,Power board brick input; 7.5 A per pin at 48 V (Kycon drawing); mates KPPX-4P / Mean Well R7B; footprint to draw
 SX-CONN-012,IDC socket 2x4 2.54 mm with strain relief,Wurth Elektronik,61200823021,,,Power ribbon cable (not on a board); 1 A per contact (Wurth datasheet); 28 AWG fit to verify
+SX-CONN-013,(rejected) Jack 3.5 mm mono with tip switch vertical PCB threaded bushing,XKB Connection,PJ-301C,LCSC,C692433,"Channel CUTOFF CV input J181 (user choice 2026-10-09, pending /system: exception to decision 27); drawing X-PJ-301C rev A1 2025-06-26: body 10.10 mm PCB to shoulder, bushing 6.00 mm dia x 4.00 mm (thread not stated, M6x0.5 assumed), 3 slotted pins 0.6 x 2.5 mm in a triangle, pinout from the drawing's schematic (checked 2026-10-09): pin 1 sleeve, pin 3 tip, pin 2 tip-normalling switch (rests on the tip spring, opens on insertion), as the Thonkiconn convention; footprint pads named S (pin 1), T (pin 3), TN (pin 2) to match KiCad AudioJack2_SwitchT; no KiCad footprint (draw one; EasyEDA footprint at LCSC); LCSC only; RoHS: LCSC C692433 ROHS (checked 2026-10-09); REJECTED 2026-10-09: bushing unthreaded (no thread callout, no nut), so the jack would hang on its solder joints; replaced by SX-CONN-014"
+SX-CONN-014,Jack 3.5 mm mono with tip switch vertical PCB M6x0.5 threaded bushing (Thonkiconn),Qingpu,PJ398SM,Thonk,,"Channel CUTOFF CV input J181 (user choice 2026-10-09, pending /system: exception to decision 27); Thonk drawing PJ398SM: body 9 mm, bushing 6 mm dia x 5.5 mm, 4.5 mm threaded (brass, Ni), PBT housing; pinout 1 sleeve, 2 tip switch, 3 tip; 5,000 cycles; KiCad Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles (pads S/TN/T at 0/3.1/11.4 mm match the drawing); drill a 3 mm hole in the PCB under the barrel (Thonk note); about 0.38 GBP; RoHS: Thonk shop page 'All materials used are RoHS compliant' (supplier statement, checked 2026-10-09)"
 SX-SW-003,Power switch SPST,,,,,Power board rear edge; switches gate current only (about 0.1 mA); part to choose
 SX-MECH-003,DC power brick 24 V 120 W Class II R7B plug,Mean Well,GSM120B24-R7B,DigiKey,,Prototype supply (decision 100); C8 inlet needs a C7 mains cord; GSM160B24-R7B for 16 cards
+SX-MECH-004,"Washer M6 1.0 mm thick, 3D-printed",,,,,"Spacer under the panel for the Thonkiconn J181 (9 mm body to the 10 mm panel gap; sits on the 1 mm unthreaded bushing collar); printed in-house with the button caps and meter bezel (user, 2026-10-09): inner diameter about 6.2 mm, outer about 9 mm, 1.0 mm thick; not an electrical component (outside RoHS scope)"
 SX-IC-021,Dual op amp 36 V input range to V- rail-to-rail output SOIC-8,Texas Instruments,OPA2171AIDR,LCSC,C40904,"Channel fader buffer and control summer (decision 102); master U206, U306, U705 (decision 103); from TI SBOS516H: pinout 1 OUT A 2 -IN A 3 +IN A 4 V- 5 +IN B 6 -IN B 7 OUT B 8 V+ (as TL072), VCM (V-) - 0.1 V to (V+) - 2 V, no phase reversal, back-to-back diodes across the inputs (not for superdiodes or comparators), IQ 0.475 / 0.595 mA per amplifier; KiCad symbol Amplifier_Operational:Opamp_Dual; JLC extended"
+SX-IC-022,Adjustable positive regulator D2PAK,onsemi,LM317D2TR4G,LCSC,C12848,"Channel card U501 (decision 110); pinout 1 ADJ 2 VOUT 3 VIN, tab = pin 2 (onsemi LM317 Rev. 13); TJ 0 to 125 C; D2PAK RthJA 70 C/W minimum pad, about 36-45 C/W on 10-20 mm square of 2 oz copper (onsemi LM337 Rev. 11 Fig. 19, same case 936); KiCad Regulator_Linear:LM317_TO-263, Package_TO_SOT_SMD:TO-263-2; JLC extended; also at Mouser and TME; RoHS: Mouser 863-LM317D2TR4G RoHS Compliant By Exemption; LCSC C12848 ROHS (checked 2026-10-09)"
+SX-IC-023,Adjustable negative regulator D2PAK,onsemi,LM337D2TR4G,LCSC,C232416,"Channel card U502 (decision 110); pinout 1 ADJ 2 VIN 3 VOUT, tab = pin 2 (onsemi LM337 Rev. 11); TJ 0 to 125 C; RthJA 70 C/W minimum pad, RthJC 5 C/W, Fig. 19 for copper area; KiCad Regulator_Linear:LM337_TO263, Package_TO_SOT_SMD:TO-263-2; JLC extended; also at Mouser and TME; RoHS: Mouser 863-LM337D2TR4G RoHS Compliant By Exemption; LCSC C232416 ROHS (checked 2026-10-09)"
 SX-R-087,Resistor 30.1 kOhm 1% 0805,,,,,SC_ENV into the control summer's virtual earth (decision 97)
+SX-R-088,Resistor 806 Ohm 1% 0805,,,,,Channel trim stage fixed feedback R7/R8 (decision 115)

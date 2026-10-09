@@ -13,7 +13,7 @@ the bottom band.
 import json,os
 from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
+CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
 TRIM="Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 PROV="Provisional: set from the SSI2144 breadboard (simulation/filter/BREADBOARD.md)"
@@ -35,7 +35,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     # ---- input and drive stage
     yi=y0-10.16
     s.wire((25.4,yi),(31.75,yi)); s.label(f"{Pn}_PREFILT",(25.4,yi),180,"hierarchical","input")
-    ci=C(cc(101),"10u bipolar","SX-C-003",35.56,yi,fp=CBIP)
+    ci=C(cc(101),"10u bipolar","SX-C-023",35.56,yi,fp=CBIP,Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP")
     fac=(45.72,yi); s.wire(ci(2),fac)
     s.wire(fac,(fac[0],yi-10.16)); s.label(f"{Pn}_FAC",(fac[0],yi-10.16),90)
     r1=R(rr(101),"10k","SX-R-002",58.42,yi); s.wire(fac,r1(1))
@@ -119,7 +119,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     s.wire((ivn[0],out[1]+20.32),(ivn[0],out[1]+10.16)); s.wire((ivn[0],out[1]+10.16),ivn)
     s.wire(ivn,(ivn[0],ivn[1]-7.62)); s.label(f"{Pn}_IV",(ivn[0],ivn[1]-7.62),90)
     # ---- coupling and make-up stage (non-inverting)
-    c7=C(cc(107),"10u bipolar","SX-C-003",254.0,ivn[1],fp=CBIP); s.wire(ivn,c7(1))
+    c7=C(cc(107),"10u bipolar","SX-C-023",254.0,ivn[1],fp=CBIP,Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"); s.wire(ivn,c7(1))
     pa=(264.16,ivn[1]); s.wire(c7(2),pa)
     r12=R(rr(112),"100k","SX-R-007",pa[0],ivn[1]+6.35,0); s.wire(pa,r12(1)); gnd(r12(2))
     m=OA("NE5532",post[0],post[1],281.94,ivn[1]+2.54,"SX-IC-004")
@@ -154,12 +154,12 @@ side("R",50,205.74,"U102",("U91031",1,(13,14,15,12,16)),("U91042",2,(6,5,7)),("U
 # ------------------------------------------------------------- shared: cutoff summer
 Y=300.0
 cp=s.place("Device","R_Potentiometer","RV181","50k lin CUTOFF",40.64,Y,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
-           props=P("SX-POT-003",Note="Panel; clockwise end (pin 3) raises the cutoff"))
+           props=P("SX-POT-003",Manufacturer="Alpha",Supplier="Thonk",Note="Panel; clockwise end (pin 3) raises the cutoff"))
 s.wire(cp(1),up(cp(1),5.08)); s.power("-15V",up(cp(1),5.08),180)
 s.wire(cp(3),dn(cp(3),5.08)); s.power("+15V",dn(cp(3),5.08),180)
 r181=R("R181","301k","SX-R-018",55.88,Y); s.wire(cp(2),r181(1))
 FS=(71.12,Y); s.wire(r181(2),FS)
-jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV 1 V/oct",35.56,Y+20.32,0,props=P("SX-CONN-003",Note="6.3 mm mono switched jack on the top panel; part and footprint to choose"))
+jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV 1 V/oct",35.56,Y+20.32,0,fp="Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles",props=P("SX-CONN-014",Manufacturer="Qingpu",MPN="PJ398SM",Supplier="Thonk",Note="3.5 mm Thonkiconn on the top panel with a 1 mm M6 washer (SX-MECH-004); 3 mm PCB hole under the barrel"))
 r182=R("R182","100k","SX-R-007",55.88,jk("T")[1]); s.wire(jk("T"),r182(1)); s.wire(r182(2),(FS[0],jk("T")[1]))
 s.wire(jk("S"),rt(jk("S"),5.08)); gnd(rt(jk("S"),5.08),180)
 s.wire(jk("TN"),rt(jk("TN"),5.08),dn(rt(jk("TN"),5.08),2.54)); gnd(dn(rt(jk("TN"),5.08),2.54))
@@ -179,7 +179,7 @@ s.wire(sp(7),rt(sp(7),2.54),dn(rt(sp(7),2.54),5.08),(sp(6)[0]-2.54,sp(7)[1]+5.08
 # resonance pot with series resistor and bias diodes
 r184=R("R184","10k","SX-R-002",134.62,Y-12.7,0); s.wire(r184(1),up(r184(1),2.54)); s.power("+15V",up(r184(1),2.54))
 rp=s.place("Device","R_Potentiometer","RV183","10k rev. audio RESONANCE",134.62,Y,180,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
-           props=P("SX-POT-004",Note="Reverse-audio (C) taper per SSI2144 datasheet Figure 3; part to choose"))
+           props=P("SX-POT-012",Manufacturer="Alpha",MPN="RD901F-40-15K-C10K",Supplier="Tayda",SupplierPN="A-5369",Note="Reverse-audio (C) taper per SSI2144 datasheet Figure 3"))
 s.wire(r184(2),rp(3))
 s.wire(rp(2),lt(rp(2),5.08)); s.label("QW",lt(rp(2),5.08),180)
 s.tp("TP182","QW",lt(rp(2),2.54),"up")
@@ -196,7 +196,7 @@ s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
 nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label("BYP",rt(nd,10.16),0)
 r186=R("R186","100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r186(2))
 g=lt(up(r186(1),2.54),5.08); s.wire(r186(1),up(r186(1),2.54),g); pgnd(g)   # PGND (decision 98); symbol points down beside the resistor
-ld=s.place("Device","LED","D183","BYPASS LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+ld=s.place("Device","LED","D183","BYPASS LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-017",Manufacturer="Hubei KENTO",MPN="KT-0805W",Supplier="LCSC",SupplierPN="C34499"))
 s.wire(b(6),ld(1))
 r185=R("R185","12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r185(2)); s.wire(r185(1),rt(r185(1),3.81)); s.power("+15V",rt(r185(1),3.81),270)
 NOCONNECT+= [b(1),b(4)]

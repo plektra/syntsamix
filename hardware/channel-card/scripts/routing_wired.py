@@ -82,7 +82,7 @@ for n,j,rv,rl,rr,YA in ((1,"J301","RV301","R307","R308",50.8),(2,"J302","RV302",
         s.wire(h(pin),rt(h(pin),7.62)); lab(rt(h(pin),7.62),net,0)
     XP,YP=XA+60.96,YA+7.62
     p=s.place("Device","R_Potentiometer_Dual",rv,f"AUX{n} 10k A dual",XP,YP,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD902F-40-00D_Dual_Vertical",
-              props=P("SX-POT-005",Manufacturer="Alpha",Note="Panel AUX level; pin 3/6 = clockwise end"))
+              props=P("SX-POT-013",Manufacturer="Alpha",Supplier="Thonk",Note="Panel AUX level; pin 3/6 = clockwise end"))
     s.wire(p(1),lt(p(1),2.54),dn(lt(p(1),2.54),2.54)); gnd(dn(lt(p(1),2.54),2.54))
     s.wire(p(4),dn(p(4),5.08)); gnd(dn(p(4),5.08))
     s.wire(p(3),dn(p(3),5.08)); lab(dn(p(3),5.08),f"L_AUX{n}_SRC",270)
@@ -99,10 +99,11 @@ def button(name,sw,led,rl,rp,x,y,title):
     nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
     r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
     g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); pgnd(g)   # PGND (decision 98); symbol points down beside the resistor
-    ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+    ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=LEDPN[title])
     s.wire(b(6),ld(1))
     r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)
     NOCONNECT.extend([b(1),b(4)])
+LEDPN={"PFL":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296"),"SC SEND":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"COMP BUS":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297")}   # button LED colours (user, 2026-10-09)
 button("PFL","SW301","D301","R312","R313",40.64,279.4,"PFL")
 button("SC","SW302","D302","R314","R315",137.16,279.4,"SC SEND")
 button("COMP","SW303","D303","R316","R317",233.68,279.4,"COMP BUS")

@@ -11,7 +11,7 @@ mute/duck switches, the buttons and the supply decoupling.
 import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
+CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
@@ -46,7 +46,7 @@ def audio(Pn,o,y,iin,iout,iv,inv,rc_up):
     c=lambda n:f"C{n+o+20}"; rr=lambda n:f"R{n+o}"
     x0=30.48
     s.wire((x0,y),(41.91,y)); s.label(f"{Pn}_POSTFILT",(x0,y),180,"hierarchical","input")
-    ci=C(c(201),"10u bipolar","SX-C-003",45.72,y,fp=CBIP)
+    ci=C(c(201),"10u bipolar","SX-C-023",45.72,y,fp=CBIP,Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP")
     ri=R(rr(201),"10k","SX-R-002",63.5,y)
     s.wire(ci(2),ri(1))
     node=(78.74,y); s.wire(ri(2),node)
@@ -162,10 +162,11 @@ def button(name,sw,led,rl,rp,x,y):
     nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
     rpd=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,rpd(2))
     g=lt(up(rpd(1),2.54),5.08); s.wire(rpd(1),up(rpd(1),2.54),g); pgnd(g)   # PGND (decision 98); symbol points down beside the resistor
-    ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+    ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=LEDPN[name])
     s.wire(b(6),ld(1))
     r=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
     return b
+LEDPN={"MUTE":P("SX-D-015",Manufacturer="Foshan NationStar",MPN="NCD0805R1",Supplier="LCSC",SupplierPN="C84256"),"DUCK":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297")}   # button LED colours (user, 2026-10-09)
 b1=button("MUTE","SW201","D203","R219","R220",60.96,358.14)
 b2=button("DUCK","SW202","D204","R221","R222",157.48,358.14)
 NOCONNECT=[b1(1),b1(4),b2(1),b2(4)]

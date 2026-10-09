@@ -7,18 +7,19 @@ Project-level handoff, updated 2026-10-09. Read `CLAUDE.md` first. Board detail 
 | Board | Schematic | PCB | Status file |
 |---|---|---|---|
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
-| Channel card | done, ERC 0/0 (decisions 97, 98, 102 drawn) | not started (waits for the breadboard) | `hardware/channel-card/STATUS.md` |
+| Channel card | done, ERC 0/0; mechanical parts chosen 2026-10-09 (decisions 110-117) | not started (waits for the breadboard and /system mechanical) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0 (decisions 97, 98, 103, 104 drawn) | not started | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-109; last pushed commit: see `git log -1`.
+Decisions 1-117; last pushed commit: see `git log -1`.
 
 ## Order of work
 
 1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the [proposed] op amp power levers and the checks in each `STATUS.md`.
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
-3. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
-4. **Channel card PCB**, then the input module, master card and power board PCBs.
+3. **`/system mechanical`** for the channel card's flags (`hardware/channel-card/STATUS.md`, For /system): 3.5 mm CV jack, 0805 meter under a printed bezel, one panel screw per end, detachable bottom cover, underside keep-out, RoHS invariant (decision 116) and the parts audit.
+4. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
+5. **Channel card PCB**, then the input module, master card and power board PCBs.
 
 ## System
 
@@ -33,6 +34,8 @@ The **[proposed]** op amp power levers (`docs/ROADMAP.md`, Power-cut candidates 
 ## Pending outside the boards
 
 - Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`.
+- RoHS declarations requested by the user (2026-10-09) from Taiwan Alpha, Thonk and Tayda for the channel card's four panel pots; until they arrive the pots are blocked (decision 116; fallback in `hardware/channel-card/STATUS.md`).
+- RoHS is strict for every part on every board (decision 116): record a `RoHS: <source>` in `docs/parts.csv` when choosing a part.
 - Ground-lift switch part to choose (decision 61).
 - Backlog (now including mains power: external linear box or internal supply, decision 101), cost-cut and power-cut candidates: `docs/ROADMAP.md`.
 

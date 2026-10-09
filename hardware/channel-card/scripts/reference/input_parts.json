@@ -23,10 +23,10 @@
  },
  "R8": {
   "lib": "Device:R",
-  "value": "2k",
+  "value": "806",
   "footprint": "Resistor_SMD:R_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-R-003"
+   "ProjectPN": "SX-R-088"
   },
   "units": [
    1
@@ -34,10 +34,10 @@
  },
  "R5": {
   "lib": "Device:R",
-  "value": "10k",
+  "value": "4k02",
   "footprint": "Resistor_SMD:R_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-R-002"
+   "ProjectPN": "SX-R-038"
   },
   "units": [
    1
@@ -67,10 +67,14 @@
  },
  "C10": {
   "lib": "Device:C",
-  "value": "47n film",
-  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "value": "47n C0G",
+  "footprint": "Capacitor_SMD:C_1206_3216Metric",
   "props": {
-   "ProjectPN": "SX-C-005"
+   "ProjectPN": "SX-C-026",
+   "Manufacturer": "Murata",
+   "MPN": "GRM31M5C1H473JA01L",
+   "Supplier": "LCSC",
+   "SupplierPN": "C21812"
   },
   "units": [
    1
@@ -78,10 +82,10 @@
  },
  "R7": {
   "lib": "Device:R",
-  "value": "2k",
+  "value": "806",
   "footprint": "Resistor_SMD:R_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-R-003"
+   "ProjectPN": "SX-R-088"
   },
   "units": [
    1
@@ -184,10 +188,14 @@
  },
  "C11": {
   "lib": "Device:C",
-  "value": "47n film",
-  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "value": "47n C0G",
+  "footprint": "Capacitor_SMD:C_1206_3216Metric",
   "props": {
-   "ProjectPN": "SX-C-005"
+   "ProjectPN": "SX-C-026",
+   "Manufacturer": "Murata",
+   "MPN": "GRM31M5C1H473JA01L",
+   "Supplier": "LCSC",
+   "SupplierPN": "C21812"
   },
   "units": [
    1
@@ -228,10 +236,10 @@
  },
  "R10": {
   "lib": "Device:R",
-  "value": "4k7",
+  "value": "1k87",
   "footprint": "Resistor_SMD:R_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-R-004"
+   "ProjectPN": "SX-R-079"
   },
   "units": [
    1
@@ -251,9 +259,13 @@
  "C6": {
   "lib": "Device:C",
   "value": "10u bipolar",
-  "footprint": "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm",
+  "footprint": "Capacitor_SMD:C_Elec_6.3x5.4",
   "props": {
-   "ProjectPN": "SX-C-003"
+   "ProjectPN": "SX-C-023",
+   "Manufacturer": "Panasonic",
+   "MPN": "EEE-1VA100NP",
+   "Supplier": "Mouser",
+   "SupplierPN": "667-EEE-1VA100NP"
   },
   "units": [
    1
@@ -262,9 +274,13 @@
  "C5": {
   "lib": "Device:C",
   "value": "10u bipolar",
-  "footprint": "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm",
+  "footprint": "Capacitor_SMD:C_Elec_6.3x5.4",
   "props": {
-   "ProjectPN": "SX-C-003"
+   "ProjectPN": "SX-C-023",
+   "Manufacturer": "Panasonic",
+   "MPN": "EEE-1VA100NP",
+   "Supplier": "Mouser",
+   "SupplierPN": "667-EEE-1VA100NP"
   },
   "units": [
    1
@@ -305,10 +321,10 @@
  },
  "C8": {
   "lib": "Device:C",
-  "value": "22p C0G",
+  "value": "56p C0G",
   "footprint": "Capacitor_SMD:C_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-C-004"
+   "ProjectPN": "SX-C-027"
   },
   "units": [
    1
@@ -340,10 +356,10 @@
  },
  "R6": {
   "lib": "Device:R",
-  "value": "10k",
+  "value": "4k02",
   "footprint": "Resistor_SMD:R_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-R-002"
+   "ProjectPN": "SX-R-038"
   },
   "units": [
    1
@@ -354,7 +370,11 @@
   "value": "LOW-CUT LED",
   "footprint": "LED_SMD:LED_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-D-002"
+   "ProjectPN": "SX-D-017",
+   "Manufacturer": "Hubei KENTO",
+   "MPN": "KT-0805W",
+   "Supplier": "LCSC",
+   "SupplierPN": "C34499"
   },
   "units": [
    1
@@ -373,10 +393,14 @@
  },
  "C9": {
   "lib": "Device:C",
-  "value": "47n film",
-  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "value": "47n C0G",
+  "footprint": "Capacitor_SMD:C_1206_3216Metric",
   "props": {
-   "ProjectPN": "SX-C-005"
+   "ProjectPN": "SX-C-026",
+   "Manufacturer": "Murata",
+   "MPN": "GRM31M5C1H473JA01L",
+   "Supplier": "LCSC",
+   "SupplierPN": "C21812"
   },
   "units": [
    1
@@ -384,10 +408,14 @@
  },
  "C12": {
   "lib": "Device:C",
-  "value": "47n film",
-  "footprint": "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2",
+  "value": "47n C0G",
+  "footprint": "Capacitor_SMD:C_1206_3216Metric",
   "props": {
-   "ProjectPN": "SX-C-005"
+   "ProjectPN": "SX-C-026",
+   "Manufacturer": "Murata",
+   "MPN": "GRM31M5C1H473JA01L",
+   "Supplier": "LCSC",
+   "SupplierPN": "C21812"
   },
   "units": [
    1
@@ -419,10 +447,10 @@
  },
  "C7": {
   "lib": "Device:C",
-  "value": "22p C0G",
+  "value": "56p C0G",
   "footprint": "Capacitor_SMD:C_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-C-004"
+   "ProjectPN": "SX-C-027"
   },
   "units": [
    1
@@ -500,11 +528,12 @@
  },
  "RV1": {
   "lib": "Device:R_Potentiometer_Dual",
-  "value": "TRIM 250k A",
+  "value": "TRIM 100k A",
   "footprint": "Potentiometer_THT:Potentiometer_Alpha_RD902F-40-00D_Dual_Vertical",
   "props": {
-   "ProjectPN": "SX-POT-002",
-   "Manufacturer": "Alpha"
+   "ProjectPN": "SX-POT-011",
+   "Manufacturer": "Alpha",
+   "Supplier": "Thonk"
   },
   "units": [
    1
@@ -558,10 +587,10 @@
  },
  "R9": {
   "lib": "Device:R",
-  "value": "4k7",
+  "value": "1k87",
   "footprint": "Resistor_SMD:R_0805_2012Metric",
   "props": {
-   "ProjectPN": "SX-R-004"
+   "ProjectPN": "SX-R-079"
   },
   "units": [
    1

@@ -132,6 +132,14 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 107 | Panel stack: PCB 10 mm below the panel, pots hold the panel, fader screwed to the panel before soldering, top-side parts ≤ 9 mm | confirmed | [mechanical](mechanical.md) |
 | 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts; PCB between the rails, ≤ 318 mm | confirmed | [mechanical](mechanical.md) |
 | 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB | confirmed | [mechanical](mechanical.md) |
+| 110 | Channel regulators U501/U502 in D²PAK (onsemi LM317D2TR4G, LM337D2TR4G), tab on about 20 × 20 mm copper both sides | confirmed | [channel-card](channel-card.md) |
+| 111 | Channel electrolytics to SMD at most 5.4 mm tall: ROQANG 47 µF and 10 µF 35 V (LCSC), Panasonic EEE-1VA100NP bipolar | confirmed | [channel-card](channel-card.md) |
+| 112 | Trimmers RV101, RV151, RV182 (3296W, screws down) and jumper headers JP101, JP102, JP151, JP152, J301, J302 on the underside, set through a detachable bottom cover | confirmed; needs the bottom cover from /system | [channel-card](channel-card.md) |
+| 113 | Low-cut capacitors C9-C12: C0G 47 nF 5 % 1206 (Murata, LCSC C21812) instead of film | confirmed | [channel-card](channel-card.md) |
+| 114 | Panel pots: Alpha 9 mm with 6 mm T18 knurled shaft, 15 mm, push-on knobs | confirmed | [channel-card](channel-card.md) |
+| 115 | Trim stage scaled to a 100 k audio dual pot (same gain law); channel pots TRIM, CUTOFF, RESONANCE, AUX chosen (Thonk, Tayda) | confirmed; pots blocked until RoHS declarations (116) | [channel-card](channel-card.md) |
+| 116 | RoHS (2011/65/EU + 2015/863) strict for every component and board; compliance source recorded in `parts.csv`; lead-free finish, assembly and hand soldering | confirmed | [process](process.md) |
+| 117 | Button LED colours (JLCPCB basic 0805: MUTE red, PFL yellow, SC SEND/DUCK/COMP BUS green, LOW-CUT/BYPASS white); chain headers Würth 61203421621 and 61200821621 | confirmed | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 

@@ -40,4 +40,4 @@ Updated 2026-10-09.
 
 ## For /system
 
-(none)
+- **RoHS strict (decision 116, from the channel card session 2026-10-09):** every part on this board needs a maker or supplier RoHS statement recorded in `docs/parts.csv` as `RoHS: <source>` before ordering, and the board is ordered with a lead-free finish (lead-free HASL or ENIG) and lead-free assembly; the audit of this board's registered parts is planned in /system.
