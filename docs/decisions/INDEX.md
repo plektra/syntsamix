@@ -138,7 +138,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 112 | Trimmers RV101, RV151, RV182 (3296W, screws down) and jumper headers JP101, JP102, JP151, JP152, J301, J302 on the underside, set through a detachable bottom cover | confirmed (cover: 121) | [channel-card-parts](channel-card-parts.md) |
 | 113 | Low-cut capacitors C9-C12: C0G 47 nF 5 % 1206 (Murata, LCSC C21812) instead of film | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 114 | Panel pots: Alpha 9 mm with 6 mm T18 knurled shaft, 15 mm, push-on knobs | confirmed | [channel-card-parts](channel-card-parts.md) |
-| 115 | Trim stage scaled to a 100 k audio dual pot (same gain law); channel pots TRIM, CUTOFF, RESONANCE, AUX chosen (Thonk, Tayda) | confirmed; pots blocked until RoHS declarations (116) | [channel-card-parts](channel-card-parts.md) |
+| 115 | Trim stage scaled to a 100 k audio dual pot (same gain law); channel pots TRIM, CUTOFF, RESONANCE, AUX chosen (Thonk, Tayda) | confirmed; all four pots RoHS-cleared by Alpha's declaration (124) | [channel-card-parts](channel-card-parts.md) |
 | 116 | RoHS (2011/65/EU + 2015/863) strict for every component and board; compliance source recorded in `parts.csv`; lead-free finish, assembly and hand soldering (invariant 9, passives, audit: 122) | confirmed, refined | [process](process.md) |
 | 117 | Button LED colours (JLCPCB basic 0805: MUTE red, PFL yellow, SC SEND/DUCK/COMP BUS green, LOW-CUT/BYPASS white); chain headers Würth 61203421621 and 61200821621 | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 118 | Jack size by function: 6.3 mm default for audio to other gear, 3.5 mm for Eurorack-level CV/gate and where 6.3 mm does not fit; cutoff CV jack = 3.5 mm Thonkiconn | confirmed | [system](system.md) |
@@ -147,6 +147,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 121 | Underside: chain headers at the edges, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (provisional until the mock-up), detachable bottom cover with feet on cheeks or rails | confirmed | [mechanical](mechanical.md) |
 | 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system](system.md) |
 | 123 | Channel op amp power levers: U107 NE5532 → TL072, meter U401/U404 TL072 → TL062 | confirmed | [channel-card](channel-card.md) |
+| 124 | A maker's general RoHS declaration covers its standard parts: Taiwan Alpha's RoHS II declaration clears every standard Alpha pot (channel CUTOFF, TRIM, AUX, RESONANCE; master Alpha pots once chosen); declarations kept in git-ignored `docs/rohs/` | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 

@@ -42,7 +42,7 @@ SX-C-006,Capacitor 6.8 nF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-007,Capacitor 560 pF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-008,Capacitor 100 pF C0G 5% 50 V 0805,,,,,
 SX-D-003,Small-signal diode 1N4148W SOD-123,,,,,
-SX-POT-003,Pot 50 kOhm linear single 9 mm vertical T18 knurled 15 mm,Alpha,,Thonk,,"Channel CUTOFF (decisions 114, 115); Thonk Alpha 9 mm vertical T18 B50K, 1.69 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vertical-t18/); Alpha order code not given by Thonk; footprint Alpha RD901F-40-00D; check M7x0.75 x 5 mm bushing on delivery; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
+SX-POT-003,Pot 50 kOhm linear single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-B50K-0057,Thonk,,"Channel CUTOFF (decisions 114, 115); Thonk Alpha 9 mm vertical T18 B50K, 1.69 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vertical-t18/); Alpha order code from Thonk support 2026-10-09; footprint Alpha RD901F-40-00D; bushing M7x0.75 x 5 mm (confirmed by Thonk support 2026-10-09); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published)"
 SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,RESONANCE and compressor RELEASE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose
 SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,,,10.03 mm tall 25 turns (Bourns 3296 datasheet); channel card mounts it on the underside (decision 112); RoHS: Mouser 652-3296W-1-503LF RoHS Compliant By Exemption (checked 2026-10-09)
 SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,Not used: CUTOFF CV input is the 3.5 mm SX-CONN-014 (decision 118; no 6.3 mm jack fits the 10 mm panel gap)
@@ -67,7 +67,7 @@ SX-IC-008,Quad SPST analog switch 4x NO SOIC-16,Vishay,,Mouser,,DG412DY; truth t
 SX-Q-001,NPN transistor SOT-23,onsemi,MMBT3904LT1G,Mouser,,PFL_ACT open-collector driver; pinout B-E-C (1-2-3); RoHS: Mouser 863-MMBT3904LT1G RoHS Compliant (checked 2026-10-09)
 SX-R-033,Resistor 22.1 kOhm 1% 0805,,,,,Bus resistor
 SX-R-034,Resistor 44.2 kOhm 1% 0805,,,,,SC send (L+R)/2
-SX-POT-005,Dual pot 10 kOhm audio (A) 9 mm vertical,Alpha,,,,AUX level; footprint Alpha RD902F-40-00D; MPN to verify
+SX-POT-005,Dual pot 10 kOhm audio (A) 9 mm vertical,Alpha,,,,AUX level; footprint Alpha RD902F-40-00D; MPN to verify; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26 covers it once a standard Alpha model is chosen (decision 124)
 SX-CONN-006,Pin header 2x3 2.54 mm vertical,,,,,AUX pre/post jumper
 SX-IC-009,Quad comparator SOIC-14,Texas Instruments,,Mouser,,"LM339 (SOIC-14); pinout from TI SLCS006Z (pin pairs 2/4-5, 1/6-7, 14/8-9, 13/10-11); MPN to verify; RoHS: Mouser 595-LM339DR RoHS Compliant (orderable LM339DR; checked 2026-10-09)"
 SX-R-035,Resistor 1 kOhm 1% 0805,,,,,
@@ -104,7 +104,7 @@ SX-IC-016,5 V 1.5 A regulator TO-220,STMicroelectronics,L7805CV,,,Master +5 V (d
 SX-SW-002,Ground lift switch SPST panel,,,,,Master rear panel (decision 87); part to choose
 SX-C-013,Capacitor 100 nF X7R 100 V 0805,,,,,Ground lift RC (decision 87)
 SX-R-050,Resistor 30 kOhm 1% 0805,,0805W8F3002T5E,,C17621,AUX return gain jumper (decision 88); JLC basic; RoHS: LCSC C17621 ROHS (checked 2026-10-09)
-SX-POT-006,Pot 10 kOhm linear single 9 mm vertical,Alpha,,,,AUX return level (decision 88); footprint Alpha RD901F-40-00D; MPN to verify
+SX-POT-006,Pot 10 kOhm linear single 9 mm vertical,Alpha,,,,AUX return level (decision 88); footprint Alpha RD901F-40-00D; MPN to verify; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26 covers it once a standard Alpha model is chosen (decision 124)
 SX-R-051,Resistor 20 kOhm 1% 0805,,,,,Compressor full-wave rectifier (sets the detector scale with SX-R-002)
 SX-R-052,Resistor 10 MOhm 1% 0805,,,,,Compressor log converter floor current
 SX-R-053,Resistor 560 kOhm 1% 0805,,,,,Compressor log reference current
@@ -120,17 +120,17 @@ SX-R-062,Resistor 68 kOhm 1% 0805,,,,,Compressor makeup (0.735 x Amount)
 SX-R-063,Resistor 3 kOhm 1% 0805,,,,,Gain-reduction LED ladder
 SX-R-064,Resistor 5.1 kOhm 1% 0805,,,,,Gain-reduction LED ladder
 SX-C-014,Capacitor 220 nF X7R 50 V 0805,,,,,Compressor on/off ramps
-SX-POT-007,Dual pot 10 kOhm linear 9 mm vertical,Alpha,,,,Compressor MIX; footprint Alpha RD902F-40-00D; MPN to verify
+SX-POT-007,Dual pot 10 kOhm linear 9 mm vertical,Alpha,,,,Compressor MIX; footprint Alpha RD902F-40-00D; MPN to verify; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26 covers it once a standard Alpha model is chosen (decision 124)
 SX-R-065,Resistor 27 kOhm 1% 0805,,,,,Ducker DEPTH pot top (4 V)
 SX-C-015,Capacitor 2.2 uF X7R 25 V 0805,,,,,Ducker hold
 SX-C-016,Capacitor 47 nF C0G 5% 50 V 0805,,,,,Sidechain LPF
 SX-C-017,Capacitor 22 nF C0G 5% 50 V 0805,,,,,Sidechain LPF
-SX-POT-008,Dual pot 100 kOhm reverse-audio (C) 9 mm vertical,Alpha,,,,SC LPF; footprint Alpha RD902F-40-00D; C taper availability and MPN to verify
-SX-POT-009,Pot 10 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker THRESHOLD; footprint Alpha RD901F-40-00D; MPN to verify
-SX-POT-010,Pot 500 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker DECAY; footprint Alpha RD901F-40-00D; MPN to verify
-SX-POT-011,Dual pot 100 kOhm audio (A) 9 mm vertical T18 knurled 15 mm,Alpha,,Thonk,,"Channel TRIM (decision 115); Thonk Alpha 9 mm vertical T18 dual gang A100K, 1.99 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vert-t18-dual-gang/); footprint Alpha RD902F-40-00D (Alpha drawing RD902F-40-(L)R1: M7x0.75 bushing 5.0 mm, pin pattern matches); check bushing on delivery; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
-SX-POT-012,Pot 10 kOhm reverse-audio (C) single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-C10K,Tayda,A-5369,"Channel RESONANCE (decisions 71, 115); 1.29 USD, about 494 in stock (cached listing 2026-10-09, recheck); 5 mm thread, 9 mm body; not Tayda A-1845 (40-tooth knurl, 12.7 mm); footprint Alpha RD901F-40-00D; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
-SX-POT-013,Dual pot 10 kOhm audio (A) 9 mm vertical T18 knurled 15 mm,Alpha,,Thonk,,"Channel AUX1/AUX2 level (decision 115); Thonk Alpha 9 mm vertical T18 dual gang A10K, 1.99 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vert-t18-dual-gang/); footprint Alpha RD902F-40-00D; check bushing on delivery; RoHS: NO STATEMENT FOUND (2026-10-09): do not order until a declaration is obtained (decision 116)"
+SX-POT-008,Dual pot 100 kOhm reverse-audio (C) 9 mm vertical,Alpha,,,,SC LPF; footprint Alpha RD902F-40-00D; C taper availability and MPN to verify; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26 covers it once a standard Alpha model is chosen (decision 124)
+SX-POT-009,Pot 10 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker THRESHOLD; footprint Alpha RD901F-40-00D; MPN to verify; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26 covers it once a standard Alpha model is chosen (decision 124)
+SX-POT-010,Pot 500 kOhm audio (A) single 9 mm vertical,Alpha,,,,Ducker DECAY; footprint Alpha RD901F-40-00D; MPN to verify; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26 covers it once a standard Alpha model is chosen (decision 124)
+SX-POT-011,Dual pot 100 kOhm audio (A) 9 mm vertical T18 knurled 15 mm,Alpha,RD902F-40-15K-A100K-0057,Thonk,,"Channel TRIM (decision 115); Thonk Alpha 9 mm vertical T18 dual gang A100K, 1.99 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vert-t18-dual-gang/); Alpha order code from Thonk support 2026-10-09; footprint Alpha RD902F-40-00D (Alpha drawing RD902F-40-(L)R1: pin pattern matches); bushing M7x0.75 x 5 mm (confirmed by Thonk support 2026-10-09); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published)"
+SX-POT-012,Pot 10 kOhm reverse-audio (C) single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-C10K,Tayda,A-5369,"Channel RESONANCE (decisions 71, 115); 1.29 USD, about 494 in stock (cached listing 2026-10-09, recheck); 5 mm thread, 9 mm body; not Tayda A-1845 (40-tooth knurl, 12.7 mm); footprint Alpha RD901F-40-00D; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published); standard Alpha model, buy genuine Alpha (decision 124)"
+SX-POT-013,Dual pot 10 kOhm audio (A) 9 mm vertical T18 knurled 15 mm,Alpha,RD902F-40-15K-A10K-0057,Thonk,,"Channel AUX1/AUX2 level (decision 115); Thonk Alpha 9 mm vertical T18 dual gang A10K, 1.99 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vert-t18-dual-gang/); Alpha order code from Thonk support 2026-10-09; footprint Alpha RD902F-40-00D; bushing M7x0.75 x 5 mm (confirmed by Thonk support 2026-10-09); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published)"
 SX-IC-017,Quad SPST analog switch 4x NC SOIC-16,Vishay,,Mouser,,DG411DY; on at logic 0; pinout as DG413 (Vishay doc 70050 Rev D); AUX send mono switching; MPN suffix to verify; RoHS: Mouser 781-DG411DY-T1-E3 RoHS Compliant (orderable DG411DY-T1-E3; checked 2026-10-09)
 SX-D-008,Rectifier diode 1 A 1000 V SMA (M7 / 1N4007),,,,,Balanced output phantom-power clamps (THAT doc 600078 Figure 8 uses 1N4004)
 SX-R-066,Resistor 330 Ohm 1% 0805,,,,,Relay coil series resistor (12 V coil from +15 V)

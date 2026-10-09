@@ -2,7 +2,7 @@
 
 A modular, analog stereo mixer for live electronic music: synthesizers, drum machines and Eurorack modular gear on one desk, with a resonant ladder filter on every channel and a compressor built for bass pumping.
 
-> **Status: in design.** The specification is complete and the schematics for three of the four prototype boards are done. Nothing has been built yet: no PCB is laid out and the filter breadboard is still waiting for parts. Figures below are design targets, not measurements.
+> **Status: in design.** The specification is complete and the schematics for all four prototype boards are done. Nothing has been built yet: no PCB is laid out and the filter breadboard is still waiting for parts. Figures below are design targets, not measurements.
 
 ## Goals
 
@@ -46,17 +46,18 @@ A modular, analog stereo mixer for live electronic music: synthesizers, drum mac
 - Desktop unit: one PCB and a 35 mm FR4 top panel per channel strip, on an aluminium rail frame cut to length (about 650 to 700 mm wide at 16 strips)
 - Powered by an off-the-shelf DC brick through a separate power board (24 V brick, non-isolated converters to ±20 V); every card regulates its own supply
 - Separate audio and power ribbons, with audio and power grounds joined at a single star point
+- RoHS compliant: every part needs a maker or supplier RoHS statement before it is chosen, and the boards are built lead-free
 
 ## Status
 
 | Part | Schematic | PCB |
 |---|---|---|
-| Channel card | done (6 sheets, ERC clean) | waits for the filter breadboard |
+| Channel card | done (6 sheets, ERC clean; mechanical parts chosen) | waits for the filter breadboard, the RoHS declaration for the SSI2144/SSI2162 and the cable mock-up |
 | Master card | done (10 sheets, ERC clean) | not started |
 | Input module (6.3 mm) | done | not started |
-| Power board | not started | not started |
+| Power board | done (4 sheets, ERC clean) | not started |
 
-Also done: ngspice simulations of the filter gain structure, the compressor detector and the sidechain/ducking circuits (`simulation/`). Next: the power board schematic, then the SSI2144 breadboard, then PCB layout. The prototype has 4 channels.
+Also done: ngspice simulations of the filter gain structure, the compressor detector, the sidechain/ducking circuits and the fader level control (`simulation/`); the mechanical contract for strips, panels and frame ([`docs/MECHANICAL.md`](docs/MECHANICAL.md)); a RoHS audit of the parts register. Next: the SSI2144 breadboard, a chain cable mock-up, then PCB layout, starting with the channel card. The prototype has 4 channels.
 
 The full roadmap and backlog (more input modules, direct outputs, 32 channels, and more) are in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
@@ -68,6 +69,7 @@ The full roadmap and backlog (more input modules, direct outputs, 32 channels, a
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System diagram, cross-board budgets and invariants |
 | [`docs/decisions/`](docs/decisions/INDEX.md) | Every design decision, numbered and grouped by area |
 | [`docs/CHAIN.md`](docs/CHAIN.md), [`docs/INPUT-MODULE.md`](docs/INPUT-MODULE.md) | Ribbon and input header pinouts |
+| [`docs/MECHANICAL.md`](docs/MECHANICAL.md) | Strip envelope, panel stack, frame and card fixing |
 | [`docs/parts.csv`](docs/parts.csv) | Parts register (`SX-` part numbers) |
 | `hardware/` | KiCad projects: `channel-card`, `master`, `input-module-6p3`, `power`; shared libraries in `libs/` |
 | `simulation/` | ngspice models, results and the breadboard plan |

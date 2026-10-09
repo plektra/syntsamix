@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from decisions 107, 109; notes from the channel card's parts session, decisions 110, 111, 116, 117; RoHS audit findings).
+Updated 2026-10-09 (/system: Alpha pots covered by decision 124; decisions 97, 98, 103, 104 drawn; mechanical notes from decisions 107, 109; notes from the channel card's parts session, decisions 110, 111, 116, 117; RoHS audit findings).
 
 ## Where it stands
 
@@ -21,7 +21,7 @@ Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from deci
 
 - **AS3046D (SX-IC-013):** no RoHS statement from Alfa, Electric Druid or the datasheet; a declaration is needed before the PCB order (decision 116), otherwise a replacement. Declaration requested by the user by email (2026-10-09); waiting for the reply.
 - **THAT1646S08-U (SX-IC-014):** RoHS compliant, but End of Life at Mouser with no stock (2026-10-09). Buy prototype quantities with spares early, or choose a fallback for the main outputs (decision 83) in a master session.
-- Rows still without a part: SX-D-004/005/006 (master meter 3 mm LEDs), SX-POT-005 to -010, SX-SW-002 (ground lift), SX-SW-003; source RoHS when chosen.
+- Rows still without a part: SX-D-004/005/006 (master meter 3 mm LEDs), SX-POT-005 to -010, SX-SW-002 (ground lift), SX-SW-003; source RoHS when chosen. The Alpha pots SX-POT-005 to -010 are covered by Taiwan Alpha's general RoHS II declaration once a standard Alpha model is chosen (decision 124, /system 2026-10-09); a non-standard or special-order Alpha part (for example a C-taper dual for SX-POT-008, if Alpha makes it only to order) needs its own check.
 
 ## Check before layout
 

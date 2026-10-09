@@ -11,14 +11,14 @@ Project-level handoff, updated 2026-10-09. Read `CLAUDE.md` first. Board detail 
 | Master card | done, ten sheets, ERC 0/0 (decisions 97, 98, 103, 104 drawn) | not started | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-123; last pushed commit: see `git log -1`.
+Decisions 1-124; last pushed commit: see `git log -1`.
 
 ## Order of work
 
 1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the [proposed] op amp power levers and the checks in each `STATUS.md`.
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
 3. **Channel card schematic touch-up**: done 2026-10-09 (meter LEDs 0805, decision 119; power levers, decision 123).
-4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 and the four panel pots (channel) and the AS3046D (master), 25 rows with no part chosen yet, and End of Life at Mouser for the THAT1646S08-U (master) and the ERA-V33J102V tempco resistor (channel).
+4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 (channel) and the AS3046D (master; the Alpha pots are cleared by Alpha's declaration, decision 124), 25 rows with no part chosen yet, and End of Life at Mouser for the THAT1646S08-U (master) and the ERA-V33J102V tempco resistor (channel).
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
 6. **Channel card PCB**, then the input module, master card and power board PCBs.
 
@@ -36,7 +36,7 @@ The **[proposed]** op amp power levers for the master card (`docs/ROADMAP.md`, P
 
 - Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`. Not needed to start the breadboard (tests 1-7 and a reduced test 10 run on the first order, `BREADBOARD.md`); release it for tests 8 and 9 and for the GPBS850N buttons (button cap prints and LED brightness). The full test 10 also needs an OPA2171 on an SOIC-8 adapter (Mouser or LCSC).
 - RoHS declarations requested by the user (2026-10-09, by email) for the SSI2144 and SSI2162 (channel) and the AS3046D (master); without them these parts block the PCB order.
-- RoHS declarations requested by the user (2026-10-09) from Taiwan Alpha, Thonk and Tayda for the channel card's four panel pots; until they arrive the pots are blocked (decision 116; fallback in `hardware/channel-card/STATUS.md`).
+- Panel pots: Taiwan Alpha's RoHS II declaration (via Thonk, 2026-10-09) covers every standard Alpha pot (decision 124): the four channel pots are cleared, the master's Alpha pots get their source when chosen. Supplier declarations live in git-ignored `docs/rohs/` (not ours to publish).
 - RoHS is strict for every part on every board (decision 116): record a `RoHS: <source>` in `docs/parts.csv` when choosing a part.
 - Ground-lift switch part to choose (decision 61).
 - Backlog (now including mains power: external linear box or internal supply, decision 101), cost-cut and power-cut candidates: `docs/ROADMAP.md`.
