@@ -17,7 +17,11 @@ s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**k): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**k))
 def C(ref,val,pn,x,y,rot=0): return s.place("Device","C",ref,val,x,y,rot,fp=C0805,props=P(pn))
-def OA(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**TI))
+# U401 (inverters) and U404 (hold follower) are TL062s (power lever 2, 2026-10-09); the superdiodes U402/U403 stay TL072
+LOWP=("U401","U94012","U94013","U404","U94042","U94043")
+def OA(ref,unit,x,y):
+    part,pn=("TL062","SX-IC-024") if ref in LOWP else ("TL072","SX-IC-007")
+    return s.place("Amplifier_Operational",part,ref,part,x,y,0,unit,SO8,P(pn,**TI))
 def gnd(at,rot=0): s.power("GNDA",at,rot)
 def pgnd(at,rot=0): s.power("GNDPWR",at,rot)
 def up(p,d=2.54): return (p[0],p[1]-d)
@@ -70,7 +74,10 @@ vals=["19k1","4k02","2k","1k43","1k54","845","750","237","110"]
 pns=["SX-R-037","SX-R-038","SX-R-003","SX-R-039","SX-R-040","SX-R-041","SX-R-042","SX-R-043","SX-R-022"]
 names={1:"-30",2:"-20",3:"-10",4:"-5",5:"0",6:"+3",7:"+6",8:"CLIP"}
 colour={k:"green" for k in range(1,6)}; colour.update({6:"yellow",7:"yellow",8:"red"})
-ledpn={"green":"SX-D-004","yellow":"SX-D-005","red":"SX-D-006"}
+# 0805 LEDs under the printed bezel (decision 119)
+ledpn={"green":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),
+       "yellow":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296"),
+       "red":P("SX-D-015",Manufacturer="Foshan NationStar",MPN="NCD0805R1",Supplier="LCSC",SupplierPN="C84256")}
 taps={}
 for k in range(8,0,-1):
     yc=50.8+(8-k)*20.32
@@ -78,7 +85,7 @@ for k in range(8,0,-1):
     c=s.place("Comparator","LM339",ref,"LM339",XC,yc,0,unit,SO14,P("SX-IC-009",**TI))
     tap=(LX,c(pp)[1]); taps[k]=tap; s.wire(tap,c(pp))
     s.wire(c(pm),lt(c(pm),5.08)); s.label("MV",lt(c(pm),5.08),180)
-    led=s.place("Device","LED",f"D{410+k}",f"{names[k]} {colour[k]}",XC+17.78,yc,0,fp="LED_THT:LED_D3.0mm",props=P(ledpn[colour[k]]))
+    led=s.place("Device","LED",f"D{410+k}",f"{names[k]} {colour[k]}",XC+17.78,yc,0,fp="LED_SMD:LED_0805_2012Metric",props=ledpn[colour[k]])
     s.wire(c(po),led(1))
     rl=R(f"R{418+k}","1k5","SX-R-044",XC+30.48,yc,270); s.wire(led(2),rl(2)); s.wire(rl(1),rt(rl(1),2.54)); s.power("+5V",rt(rl(1),2.54),270)
 # ladder resistors between the taps

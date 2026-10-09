@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from decisions 107, 109; notes from the channel card's parts session, decisions 110, 111, 116, 117).
+Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from decisions 107, 109; notes from the channel card's parts session, decisions 110, 111, 116, 117; RoHS audit findings).
 
 ## Where it stands
 
@@ -16,6 +16,12 @@ Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from deci
 - 92: only the positive raw rail is monitored for relay drop-out.
 - 93: master meter colours (green -30 to 0, yellow +3 to +9, red +12 and clip).
 - 94: headphone gain 2; cue arrives inverted relative to main; PFL LED yellow.
+
+## RoHS audit findings (2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`)
+
+- **AS3046D (SX-IC-013):** no RoHS statement from Alfa, Electric Druid or the datasheet; a declaration is needed before the PCB order (decision 116), otherwise a replacement. The user decides whether to ask Alfa (Riga) or Electric Druid.
+- **THAT1646S08-U (SX-IC-014):** RoHS compliant, but End of Life at Mouser with no stock (2026-10-09). Buy prototype quantities with spares early, or choose a fallback for the main outputs (decision 83) in a master session.
+- Rows still without a part: SX-D-004/005/006 (master meter 3 mm LEDs), SX-POT-005 to -010, SX-SW-002 (ground lift), SX-SW-003; source RoHS when chosen.
 
 ## Check before layout
 

@@ -7,18 +7,18 @@ Project-level handoff, updated 2026-10-09. Read `CLAUDE.md` first. Board detail 
 | Board | Schematic | PCB | Status file |
 |---|---|---|---|
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
-| Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LED swap pending | not started (waits for the breadboard, RoHS audit and cable mock-up) | `hardware/channel-card/STATUS.md` |
+| Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LEDs 0805 and op amp power levers drawn (decision 123) | not started (waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0 (decisions 97, 98, 103, 104 drawn) | not started | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-122; last pushed commit: see `git log -1`.
+Decisions 1-123; last pushed commit: see `git log -1`.
 
 ## Order of work
 
 1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the [proposed] op amp power levers and the checks in each `STATUS.md`.
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
-3. **Channel card schematic touch-up** (`/board channel-card schematic`): meter LEDs to 0805 under the printed bezel (decision 119); the [proposed] op amp power levers if confirmed.
-4. **RoHS audit** of `docs/parts.csv` on all boards before the first PCB order (decision 122): a sub-agent records sources and lists the gaps for the board sessions.
+3. **Channel card schematic touch-up**: done 2026-10-09 (meter LEDs 0805, decision 119; power levers, decision 123).
+4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144 and SSI2162 (channel) and the AS3046D (master), 25 rows with no part chosen yet, and the THAT1646S08-U End of Life at Mouser (master).
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
 6. **Channel card PCB**, then the input module, master card and power board PCBs.
 
@@ -30,7 +30,9 @@ Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets
 
 The **[proposed]** parts of decisions 89-94 (master card); listed in `hardware/master/STATUS.md`.
 
-The **[proposed]** op amp power levers (`docs/ROADMAP.md`, Power-cut candidates 1 and 2), checked per position in the channel and master `/board` sessions.
+The **[proposed]** op amp power levers for the master card (`docs/ROADMAP.md`, Power-cut candidate 2); the channel card took them in decision 123.
+
+RoHS declarations to request (audit 2026-10-09): Sound Semiconductor for the SSI2144 and SSI2162, Alfa or Electric Druid for the AS3046D.
 
 ## Pending outside the boards
 

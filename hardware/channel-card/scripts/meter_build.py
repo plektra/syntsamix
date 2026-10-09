@@ -15,7 +15,7 @@ nets={}
 def N(net,*pins):
     for p in pins:
         r,n=p.split('.'); nets.setdefault(net,[]).append({"ref":r,"pin":n})
-# inverters (U401 TL072)
+# inverters (U401 TL062)
 N("L_PRE","R401.1"); N("INVL","R401.2","R402.1","U401.2"); N("AGND","U401.3"); N("L_NEG","R402.2","U401.1")
 N("R_PRE","R403.1"); N("INVR","R403.2","R404.1","U94012.6"); N("AGND","U94012.5"); N("R_NEG","R404.2","U94012.7")
 # superdiodes: + input, - input = X node, output -> diode (A) -> X (K) -> 1k -> HOLD

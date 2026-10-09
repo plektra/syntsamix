@@ -146,6 +146,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 120 | Panel fixing: one centred M3 button-head screw per end plus a printed locating key in the rail slot; second screw returns if the prototype twists | confirmed | [mechanical](mechanical.md) |
 | 121 | Underside: chain headers at the edges, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (provisional until the mock-up), detachable bottom cover with feet on cheeks or rails | confirmed | [mechanical](mechanical.md) |
 | 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system](system.md) |
+| 123 | Channel op amp power levers: U107 NE5532 → TL072, meter U401/U404 TL072 → TL062 | confirmed | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 

@@ -163,7 +163,7 @@ jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV 1 V/oct",35.
 r182=R("R182","100k","SX-R-007",55.88,jk("T")[1]); s.wire(jk("T"),r182(1)); s.wire(r182(2),(FS[0],jk("T")[1]))
 s.wire(jk("S"),rt(jk("S"),5.08)); gnd(rt(jk("S"),5.08),180)
 s.wire(jk("TN"),rt(jk("TN"),5.08),dn(rt(jk("TN"),5.08),2.54)); gnd(dn(rt(jk("TN"),5.08),2.54))
-sm=OA("NE5532","U107",1,86.36,Y-2.54,"SX-IC-004")
+sm=OA("TL072","U107",1,86.36,Y-2.54,"SX-IC-007")   # DC control stage: TL072 (power lever 1, 2026-10-09)
 s.wire(FS,sm(2)); s.wire(sm(3),lt(sm(3)),up(lt(sm(3)))); gnd(up(lt(sm(3))),180)
 fcv=(99.06,Y-2.54); s.wire(sm(1),fcv); s.wire(fcv,(106.68,fcv[1])); s.label("FCV",(106.68,fcv[1]),0)
 r183=R("R183","162k","SX-R-019",78.74,Y+10.16)
@@ -173,7 +173,7 @@ s.wire((FS[0],Y+10.16),r183(1)); s.wire(r183(2),tr(1))
 s.wire(tr(2),up(tr(2),2.54),(fcv[0],tr(2)[1]-2.54)); s.wire(tr(3),(fcv[0],Y+10.16))
 c181=C("C181","22p C0G","SX-C-004",85.09,Y+20.32); s.wire((FS[0],Y+20.32),c181(1)); s.wire(c181(2),(fcv[0],Y+20.32))
 for y1,y2 in ((fcv[1],tr(2)[1]-2.54),(tr(2)[1]-2.54,Y+10.16),(Y+10.16,Y+20.32)): s.wire((fcv[0],y1),(fcv[0],y2))
-sp=OA("NE5532","U91072",2,86.36,Y+38.1,"SX-IC-004")
+sp=OA("TL072","U91072",2,86.36,Y+38.1,"SX-IC-007")
 s.wire(sp(5),lt(sp(5)),up(lt(sp(5)))); gnd(up(lt(sp(5))),180)
 s.wire(sp(7),rt(sp(7),2.54),dn(rt(sp(7),2.54),5.08),(sp(6)[0]-2.54,sp(7)[1]+5.08),(sp(6)[0]-2.54,sp(6)[1]),sp(6))
 # resonance pot with series resistor and bias diodes
@@ -203,7 +203,7 @@ NOCONNECT+= [b(1),b(4)]
 # supplies: op-amp, OTA and switch power units, unused LM13700 buffers
 x=165.1; Y2=345.44
 for t in ("U91043","U91053","U91063","U91073"):
-    u=OA("NE5532",t,3,x,Y2,"SX-IC-004"); s.wire(u(8),up(u(8),5.08)); s.power("+15V",up(u(8),5.08)); s.wire(u(4),dn(u(4),5.08)); s.power("-15V",dn(u(4),5.08)); x+=17.78
+    u=OA("TL072",t,3,x,Y2,"SX-IC-007") if t=="U91073" else OA("NE5532",t,3,x,Y2,"SX-IC-004"); s.wire(u(8),up(u(8),5.08)); s.power("+15V",up(u(8),5.08)); s.wire(u(4),dn(u(4),5.08)); s.power("-15V",dn(u(4),5.08)); x+=17.78
 u=OA("LM13700","U91035",5,x,Y2,"SX-IC-006",SO16); s.wire(u(11),up(u(11),5.08)); s.power("+15V",up(u(11),5.08)); s.wire(u(6),dn(u(6),5.08)); s.power("-15V",dn(u(6),5.08)); x+=20.32
 for t,unit,pin_in,pin_out in (("U91034",4,7,8),("U91032",2,10,9)):
     u=OA("LM13700",t,unit,x,Y2,"SX-IC-006",SO16); s.wire(u(pin_in),lt(u(pin_in),2.54),dn(lt(u(pin_in),2.54),2.54)); gnd(dn(lt(u(pin_in),2.54),2.54)); NOCONNECT.append(u(pin_out)); x+=20.32
