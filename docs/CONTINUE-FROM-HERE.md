@@ -32,11 +32,10 @@ The **[proposed]** parts of decisions 89-94 (master card); listed in `hardware/m
 
 The **[proposed]** op amp power levers for the master card (`docs/ROADMAP.md`, Power-cut candidate 2); the channel card took them in decision 123.
 
-RoHS declarations to request (audit 2026-10-09): Sound Semiconductor for the SSI2144 and SSI2162, Alfa or Electric Druid for the AS3046D.
-
 ## Pending outside the boards
 
 - Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`. Not needed to start the breadboard (tests 1-7 and a reduced test 10 run on the first order, `BREADBOARD.md`); release it for tests 8 and 9 and for the GPBS850N buttons (button cap prints and LED brightness). The full test 10 also needs an OPA2171 on an SOIC-8 adapter (Mouser or LCSC).
+- RoHS declarations requested by the user (2026-10-09, by email) for the SSI2144 and SSI2162 (channel) and the AS3046D (master); without them these parts block the PCB order.
 - RoHS declarations requested by the user (2026-10-09) from Taiwan Alpha, Thonk and Tayda for the channel card's four panel pots; until they arrive the pots are blocked (decision 116; fallback in `hardware/channel-card/STATUS.md`).
 - RoHS is strict for every part on every board (decision 116): record a `RoHS: <source>` in `docs/parts.csv` when choosing a part.
 - Ground-lift switch part to choose (decision 61).

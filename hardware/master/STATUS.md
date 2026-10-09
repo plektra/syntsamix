@@ -19,7 +19,7 @@ Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from deci
 
 ## RoHS audit findings (2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`)
 
-- **AS3046D (SX-IC-013):** no RoHS statement from Alfa, Electric Druid or the datasheet; a declaration is needed before the PCB order (decision 116), otherwise a replacement. The user decides whether to ask Alfa (Riga) or Electric Druid.
+- **AS3046D (SX-IC-013):** no RoHS statement from Alfa, Electric Druid or the datasheet; a declaration is needed before the PCB order (decision 116), otherwise a replacement. Declaration requested by the user by email (2026-10-09); waiting for the reply.
 - **THAT1646S08-U (SX-IC-014):** RoHS compliant, but End of Life at Mouser with no stock (2026-10-09). Buy prototype quantities with spares early, or choose a fallback for the main outputs (decision 83) in a master session.
 - Rows still without a part: SX-D-004/005/006 (master meter 3 mm LEDs), SX-POT-005 to -010, SX-SW-002 (ground lift), SX-SW-003; source RoHS when chosen.
 

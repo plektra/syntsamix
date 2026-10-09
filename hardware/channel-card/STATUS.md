@@ -17,10 +17,11 @@ Updated 2026-10-09 (schematic session: meter LEDs to 0805, op amp power levers =
 
 ## Waiting for the user's confirmation
 
-- **RoHS gaps from the audit (decision 122):** SSI2144 (SX-IC-001) and SSI2162 (SX-IC-002) have no RoHS statement from Sound Semiconductor, Electrokit or the datasheets: a declaration from Sound Semiconductor (or Electrokit) is needed, otherwise they block the PCB order. The user decides whether to request it (one request covers both).
+(none)
 
 ## Waiting on others
 
+- **RoHS declaration for the SSI2144 (SX-IC-001) and SSI2162 (SX-IC-002) (decision 122):** no RoHS statement from Sound Semiconductor, Electrokit or the datasheets; requested by the user by email (2026-10-09). Without it they block the PCB order.
 - **RoHS declarations for the panel pots (decision 116):** no RoHS statement found for Thonk SX-POT-003 (CUTOFF B50K), SX-POT-011 (TRIM A100K dual), SX-POT-013 (AUX A10K dual) and Tayda SX-POT-012 (RESONANCE C10K); blocked in `parts.csv` until a declaration arrives. The user is asking Taiwan Alpha (sales@taiwanalpha.com), Thonk and Tayda (message drafted 2026-10-09). Mouser flags the Alpha RD901F family RoHS compliant but stocks no B50K, C10K or RD902F dual.
 - **Fallback if no declaration:** Same Sky PTN09x (Mouser "RoHS Compliant"; V version, M7×0.75 bushing 5 mm, 18-tooth knurl, L 15 mm, pins 2.5 mm, bracket slots 11.5 mm apart 7.5 mm from the pins) covers TRIM (PTN092-V100115K1A) and CUTOFF (PTN091-V50115K1B). RESONANCE then needs a circuit change (no RoHS-stated C taper; swapping an A pot's ends reverses the rotation, it does not make a C law). AUX needs either Alps RK09L12D0A1W (M9 bushing, flat shaft) or a 100 k dual with a buffer after each wiper (the wiper drives the 22 k bus resistor). Check the PTN092 dual row spacing (6 or 2.5 mm) and whether its 11.5 mm slot spacing is centre or outer before drawing a footprint.
 - **Tempco resistor SX-R-021 (Panasonic ERA-V33J102V):** RoHS compliant by exemption, but End of Life at Mouser: buy prototype quantities with spares, or find the successor before the PCB order.
@@ -52,7 +53,7 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 ## Next
 
 1. Breadboard the SSI2144 when parts arrive (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
-2. RoHS gaps: SSI2144/SSI2162 declaration (user); copy the orderable MPNs the audit checked (NE5532DR, TL072CDR, LM339DR, AD8273ARZ, DG413DY-T1-E3, DG412DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time.
+2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, TL072CDR, LM339DR, AD8273ARZ, DG413DY-T1-E3, DG412DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time.
 3. Cable mock-up (decision 109).
 4. PCB layout.
 
