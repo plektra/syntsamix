@@ -82,7 +82,7 @@ for n,j,rv,rl,rr,YA in ((1,"J301","RV301","R307","R308",50.8),(2,"J302","RV302",
         s.wire(h(pin),rt(h(pin),7.62)); lab(rt(h(pin),7.62),net,0)
     XP,YP=XA+60.96,YA+7.62
     p=s.place("Device","R_Potentiometer_Dual",rv,f"AUX{n} 10k A dual",XP,YP,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD902F-40-00D_Dual_Vertical",
-              props=P("SX-POT-013",Manufacturer="Alpha",Supplier="Thonk",Note="Panel AUX level; pin 3/6 = clockwise end"))
+              props=P("SX-POT-013",Manufacturer="Alpha",MPN="RD902F-40-15K-A10K-0057",Supplier="Thonk",Note="Panel AUX level; pin 3/6 = clockwise end"))
     s.wire(p(1),lt(p(1),2.54),dn(lt(p(1),2.54),2.54)); gnd(dn(lt(p(1),2.54),2.54))
     s.wire(p(4),dn(p(4),5.08)); gnd(dn(p(4),5.08))
     s.wire(p(3),dn(p(3),5.08)); lab(dn(p(3),5.08),f"L_AUX{n}_SRC",270)

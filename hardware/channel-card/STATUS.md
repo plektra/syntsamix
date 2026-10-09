@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-09 (/system: all four panel pots RoHS-cleared by Alpha's declaration, decision 124, Thonk pots' Alpha MPNs; schematic session: meter LEDs to 0805, op amp power levers = decision 123, RoHS audit; earlier the same day: mechanical parts 110-117 and /system mechanical 118-122).
+Updated 2026-10-09 (schematic: pot MPNs on the symbols, RV183 reference fixed, R184 10 k → 12 k = decision 129; /system: all four panel pots RoHS-cleared by Alpha's declaration, decision 124, Thonk pots' Alpha MPNs; schematic session: meter LEDs to 0805, op amp power levers = decision 123, RoHS audit; earlier the same day: mechanical parts 110-117 and /system mechanical 118-122).
 
 ## Where it stands
 
@@ -9,17 +9,21 @@ Updated 2026-10-09 (/system: all four panel pots RoHS-cleared by Alpha's declara
 - 2026-10-09, mechanical parts (decisions 110-117): every top-side part now fits the 9 mm limit under the panel. Regulators D²PAK on copper (110); electrolytics SMD at most 5.4 mm (111); trimmers and jumper headers on the underside (112); low-cut caps C0G 1206 (113); pot shaft standard T18 (114); trim stage scaled to a 100 k pot and the pots chosen (115); RoHS strict for every part (116, project-wide); button LEDs and chain headers chosen (117). Sheets rebuilt, netlists match, ERC 0/0.
 - 2026-10-09, /system mechanical: 3.5 mm CV jack by the new jack-size rule (118), meter as 0805 LEDs under a printed bezel at 6.0 mm pitch (119), one centred panel screw per end with a printed key (120), underside rules, keep-out and bottom cover (121), RoHS invariant 9 with standard passives at BOM time (122).
 - 2026-10-09, schematic: meter LEDs D411-D418 drawn as 0805 (KT-0805G, KT-0805Y, NCD0805R1; decision 119); power levers (decision 123): U107 NE5532 → TL072, meter U401/U404 TL072 → TL062CDR (SX-IC-024). Card load now 113 / 95 mA typical, 229 / 194 mA worst case, sizing 174 / 142 mA. Netlists match, ERC 0/0. RoHS audit of `parts.csv` done (report `docs/reviews/2026-10-09-rohs-audit.md`).
+- 2026-10-09, schematic (pots): Alpha MPNs on RV1, RV181, RV301/RV302 (Thonk `-0057` codes); RV183 is SX-POT-012 (Tayda RD901F-40-15K-C10K) in the reference too; R184 10 k → 12 k (SX-R-008) so RV183 stays within Alpha's 0.02 W rating for non-B tapers (decision 129; RD901F spec facts in `parts.csv`). Netlists match, ERC 0/0.
 - PCB: not started; waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up.
 
 ## Provisional until the breadboard
 
-`simulation/filter/BREADBOARD.md` tests 1-10 set R111/R161 (filter output scale) and R120/R170 (Q current limit). Then edit `filter_wired.py` / `filter_build.py`, run `scripts/rebuild_all.sh`, and update `docs/decisions/channel-card.md`.
+`simulation/filter/BREADBOARD.md` tests 1-10 set R111/R161 (filter output scale) and R120/R170 (Q current limit; with R184 = 12 k the maximum is about 254 µA, 36.5 k would restore about 280 µA, decision 129). Then edit `filter_wired.py` / `filter_build.py`, run `scripts/rebuild_all.sh`, and update `docs/decisions/channel-card.md`.
 
 ## Waiting for the user's confirmation
 
 (none)
 
 ## Waiting on others
+
+- **Alpha `-0057` suffix (left open by the user 2026-10-09):** the variant code on Thonk's three Alpha order codes is not defined in the RD901F spec; RV183 (Tayda) has none. Check the shaft and knurl of the Tayda RESONANCE pot against the Thonk pots on delivery.
+- **RD902F dual specification:** not read yet (the Mouser RD901F PDF is blocked to scripts; the Tayda copy covers the RD901F single); confirm the dual's power rating when it is found.
 
 - **RoHS declaration for the SSI2144 (SX-IC-001) and SSI2162 (SX-IC-002) (decision 122):** no RoHS statement from Sound Semiconductor, Electrokit or the datasheets; requested by the user by email (2026-10-09). Without it they block the PCB order.
 - **Tempco resistor SX-R-021 (Panasonic ERA-V33J102V):** RoHS compliant by exemption, but End of Life at Mouser: buy prototype quantities with spares, or find the successor before the PCB order.
@@ -57,9 +61,9 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 ## From /system 2026-10-09 (Thonk pots)
 
-- Thonk sent Taiwan Alpha's RoHS II declaration (2020-10-26, all standard models; local copy `docs/rohs/`, git-ignored, not ours to publish) and the Alpha order codes: CUTOFF SX-POT-003 = RD901F-40-15K-B50K-0057, TRIM SX-POT-011 = RD902F-40-15K-A100K-0057, AUX SX-POT-013 = RD902F-40-15K-A10K-0057; bushing M7×0.75, 5 mm long. Recorded in `docs/parts.csv`. Next schematic session: put these MPNs in the MPN field of the pot symbols (input, filter and routing sheet scripts and reference parts JSON), rebuild, and check that the netlists match and ERC is 0/0.
+- Thonk sent Taiwan Alpha's RoHS II declaration (2020-10-26, all standard models; local copy `docs/rohs/`, git-ignored, not ours to publish) and the Alpha order codes: CUTOFF SX-POT-003 = RD901F-40-15K-B50K-0057, TRIM SX-POT-011 = RD902F-40-15K-A100K-0057, AUX SX-POT-013 = RD902F-40-15K-A10K-0057; bushing M7×0.75, 5 mm long. Recorded in `docs/parts.csv`. Done 2026-10-09: the MPNs are on the pot symbols, netlists match, ERC 0/0.
 - Decision 124: the declaration covers every standard Alpha pot, so RESONANCE SX-POT-012 (Tayda RD901F-40-15K-C10K) is cleared too; buy genuine Alpha. All four panel pots are orderable.
-- Found by the architect review: RV183 is SX-POT-004 in `scripts/filter_build.py:108` but SX-POT-012 in `filter_wired.py:182`; make the reference match in the same session.
+- Found by the architect review: RV183 was SX-POT-004 in `scripts/filter_build.py` but SX-POT-012 in `filter_wired.py`; fixed 2026-10-09.
 
 ## For /system
 

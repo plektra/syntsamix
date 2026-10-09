@@ -152,6 +152,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 126 | Master op amp power levers: U409, U410, U802, U804 TL072 → TL062 | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
 | 127 | Master electrolytics to SMD (item 111 parts); TO-220 regulators still too tall | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
 | 128 | Relay drop-out watches both raw rails (U707C on −20V_RAW) | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
+| 129 | RESONANCE pot RV183 within Alpha's 0.02 W non-B rating: R184 10 k → 12 k (about 17 mW), maximum Q current about 254 µA, provisional with R120/R170 | confirmed | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 

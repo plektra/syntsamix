@@ -154,7 +154,7 @@ side("R",50,205.74,"U102",("U91031",1,(13,14,15,12,16)),("U91042",2,(6,5,7)),("U
 # ------------------------------------------------------------- shared: cutoff summer
 Y=300.0
 cp=s.place("Device","R_Potentiometer","RV181","50k lin CUTOFF",40.64,Y,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
-           props=P("SX-POT-003",Manufacturer="Alpha",Supplier="Thonk",Note="Panel; clockwise end (pin 3) raises the cutoff"))
+           props=P("SX-POT-003",Manufacturer="Alpha",MPN="RD901F-40-15K-B50K-0057",Supplier="Thonk",Note="Panel; clockwise end (pin 3) raises the cutoff"))
 s.wire(cp(1),up(cp(1),5.08)); s.power("-15V",up(cp(1),5.08),180)
 s.wire(cp(3),dn(cp(3),5.08)); s.power("+15V",dn(cp(3),5.08),180)
 r181=R("R181","301k","SX-R-018",55.88,Y); s.wire(cp(2),r181(1))
@@ -177,7 +177,7 @@ sp=OA("TL072","U91072",2,86.36,Y+38.1,"SX-IC-007")
 s.wire(sp(5),lt(sp(5)),up(lt(sp(5)))); gnd(up(lt(sp(5))),180)
 s.wire(sp(7),rt(sp(7),2.54),dn(rt(sp(7),2.54),5.08),(sp(6)[0]-2.54,sp(7)[1]+5.08),(sp(6)[0]-2.54,sp(6)[1]),sp(6))
 # resonance pot with series resistor and bias diodes
-r184=R("R184","10k","SX-R-002",134.62,Y-12.7,0); s.wire(r184(1),up(r184(1),2.54)); s.power("+15V",up(r184(1),2.54))
+r184=R("R184","12k","SX-R-008",134.62,Y-12.7,0,Note="R184 12k keeps RV183 within Alpha's 0.02 W non-B rating (17 mW, was 21 mW at 10k); provisional with R120/R170: set from the SSI2144 breadboard (simulation/filter/BREADBOARD.md)"); s.wire(r184(1),up(r184(1),2.54)); s.power("+15V",up(r184(1),2.54))
 rp=s.place("Device","R_Potentiometer","RV183","10k rev. audio RESONANCE",134.62,Y,180,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
            props=P("SX-POT-012",Manufacturer="Alpha",MPN="RD901F-40-15K-C10K",Supplier="Tayda",SupplierPN="A-5369",Note="Reverse-audio (C) taper per SSI2144 datasheet Figure 3"))
 s.wire(r184(2),rp(3))
