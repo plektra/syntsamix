@@ -155,6 +155,12 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 129 | RESONANCE pot RV183 within Alpha's 0.02 W non-B rating: R184 10 k → 12 k (about 17 mW), maximum Q current about 254 µA, provisional with R120/R170 | confirmed | [channel-card](channel-card.md) |
 | 130 | Tempco leg R108/R158: end-of-life ERA-V33J102V replaced by Vishay TFPT0603L8200FV 820 Ω plus 180 Ω in series (1 k, about +3370 ppm/K); new R122/R172 | confirmed | [channel-card](channel-card.md) |
 | 131 | RELEASE pot RV402 within Alpha's 0.02 W non-B rating: C10K → C100K (RD901F-40-15K-C100K) with R425 620 Ω → 6.2 kΩ, same release law, about 2 mW | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 132 | 6.3 mm jacks: Rean NYS216 replaces the Neutrik NMJ6HCD2 on every board (cost); new footprint, pin roles to check on the first part | confirmed (delegated) | [system](system.md) |
+| 133 | Through-hole parts hand-soldered by the user; JLCPCB places SMD only | confirmed | [process](process.md) |
+| 134 | Component values from E24 (capacitors preferably E12/E6); each board owns its value selection and lists justified exceptions in its STATUS.md | confirmed | [process](process.md) |
+| 135 | Cost principle: a live performance device, not studio equipment (what may be relaxed for cost, what must stay; the filter stays) | confirmed | [system](system.md) |
+| 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
+| 137 | Prefer JLCPCB fee-free parts: basic, then preferred, then extended, then consigned; exceptions with reasons in the board STATUS.md | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 

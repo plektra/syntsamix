@@ -61,6 +61,54 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 4. Tidy (any schematic session, no wiring change): the reference netlist scripts still give the button LEDs the 3 mm THT footprint and SX-D-002 (`filter_build.py` D183, `level_build.py` button LEDs); the drawings use 0805 with the decision 117 part numbers.
 5. PCB layout.
 
+## Cost-cut levers [proposed] (2026-10-09)
+
+Frame set by the user (2026-10-09): the prototype is 4 channel cards, maybe 2; the full 16-channel console's cost stays in view in case the mixer becomes a product; the filter stays. This card is about €75 in parts (prototype quantities), so a console carries it sixteen times; at production volume its parts and its labour (through-hole assembly, three trimmers to calibrate) are what count. Overview and prototype figures: `docs/ROADMAP.md`, Cost review. Prices rough (LCSC or Mouser 2026-10-09 where named, otherwise estimates). None of these is decided:
+
+1. **AD8273 → op-amp differential receiver** (about €4.50 per card; also one part fewer to consign, since LCSC does not stock the AD8273): one NE5532 half per side at G = ½ with 0.1 % resistors keeps the ±12 V headroom (decision 25). Costs CMRR (about 50-60 dB with 0.1 % resistors against 77 dB minimum) and needs the input stage checked again.
+2. **Mute and DUCK through the SSI2162 control voltage instead of DG413 sections** (about €1.90 per DG413 removed): needs a click-free CV ramp; check against `simulation/level/`.
+3. **Trimmers:** Bourns 3296W (CUTOFF OFFSET ×2, V/OCT; about €1.50 each) → a RoHS-declared 3296W-style trimmer from LCSC (about €0.20): about €4 per card. For a product, each trimmer is also a calibration step: look at the breadboard results for whether one offset trim per side, or matched SSI2144 pairs, could replace any of them.
+4. Value selection (E24, JLCPCB extended fees) is a standing rule now, not a lever: see "Component values" below (decision 134).
+5. Smaller and confirmed scope, listed only for completeness: the meter (about €2 per card), the PFL/SC SEND/DUCK/COMP BUS buttons and their switching (about €1 each).
+
+Rejected by the user (2026-10-09): the filter as a fitting option. The SSI2144 ladder filter is one of the essential features that make the mixer stand out; it stays on every card.
+
+## Component values (decision 134)
+
+This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on 2026-10-09 (from the BOM export; all 0805 resistors; every capacitor is already E24). Each needs a reason recorded here, or a move to E24 values or an E24 pair, before layout. Item 79 kept the filter scaling, fader law and meter ladder exact; that stands until this review.
+
+| Sheet | Value | References | Reason (to record) |
+|---|---|---|---|
+| Input | 4k02 | R5, R6 | |
+| Input | 806 | R7, R8 | trim stage fixed feedback (decision 115) |
+| Input | 1k87 | R9, R10 | |
+| Filter | 16k9 | R103, R153 | |
+| Filter | 17k4 | R104, R117, R119, R154, R167, R169 | |
+| Filter | 8k66 | R111, R161 | |
+| Filter | 6k04 | R113, R163 | |
+| Filter | 604 | R115, R116, R165, R166 | |
+| Filter | 52k3 | R118, R168 | |
+| Filter | 41k2 | R120, R170 | provisional until the breadboard |
+| Filter | 301k, 162k | R181, R183 | |
+| Level | 113k, 453k, 221k, 63k4, 124k, 8k66 | R207, R208, R210, R211, R213, R214 | Level sheet: fader law (item 79, to confirm per part) |
+| Level | 33k2, 30k1 | R216, R217 | R217: SC_ENV into the control summer (decision 97) |
+| Routing | 44k2 | R305, R306 | |
+| Meter | 4k02, 19k1, 1k43, 1k54, 845, 237 | R411, R410, R413, R414, R415, R417 | Meter sheet: ladder (item 79, to confirm per part) |
+
+25 types, 44 parts. The fader-law set (113k to 30k1) is shared with the master's AUX returns and master out, so the two boards should settle it together.
+
+### Fee-free candidates [proposed] (decision 137, LCSC search 2026-10-10)
+
+| Part | Now | Fee-free candidate | Check before the swap |
+|---|---|---|---|
+| TL072 (SX-IC-007, 4 here, 13 on the master) | extended | ST TL072CDT, LCSC C6961, basic | SO-8 pinout and limits from ST's datasheet (standard TL072 pinout expected) |
+| 78L05 (SX-IC-012) | L78L05ACUTR, extended | UTC 78L05G-AB3-R, LCSC C71136, basic | SOT-89 pin order against the footprint (UTC's suffix sets the pinout) |
+| 6.2 V zener (SX-D-001, 4 here, 4 on the master) | no part chosen | BZT52C6V2 (hongjiacheng), LCSC C19077403, preferred | RoHS and the SOD-123 land pattern |
+| 13k, 680k, 750 R | counted as extended | UNI-ROYAL 0805W8F series, LCSC C17455, C17797, C17818, preferred | none (same value and tolerance) |
+| 110 R (SX-R-022) | extended | none found: 110 Ω 1 % 0805 had no fee-free part | an E24 value the library holds, if the circuit allows (item 79 set the network) |
+
+No fee-free part was found for the LM339, the 220 pF C0G 0805 or the 10 µF 35 V SMD electrolytic. `python3 tools/costs.py extended` lists every type that still costs a fee.
+
 ## For /system
 
 - `docs/ARCHITECTURE.md`, Open system items, RoHS gaps: "End of Life THAT1646S08-U (master) and ERA-V33J102V (channel)" is out of date. The THAT1646 is replaced by the DRV135UA (decision 125); the channel card no longer uses the ERA-V33J102V (decision 130); it remains on the master's R421.

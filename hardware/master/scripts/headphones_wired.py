@@ -12,7 +12,7 @@ import json,os
 from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; R2512="Resistor_SMD:R_2512_6332Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"; CP="Capacitor_SMD:CP_Elec_5x5.4"
-JK="Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 VI={"Manufacturer":"Vishay"}
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
@@ -80,7 +80,7 @@ xn=kp[0]+12.7; s.wire((xn,kp[1]),(xn,k("8")[1]-2.54),(k("8")[0],k("8")[1]-2.54),
 s.wire((xn,k("8")[1]-2.54),(xn+7.62,k("8")[1]-2.54)); hier((xn+7.62,k("8")[1]-2.54),"RLY_N",0,"input")
 r=R("R761","330","SX-R-066",kp[0],kp[1]+7.62,0); s.wire(kp,r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("+15V",dn(r(2),5.08),180)
 j=s.place("Connector_Audio","AudioJack3_Switch","J751","PHONES",Xr-30.48,Yr-25.4,0,fp=JK,
-          props=P("SX-CONN-001",Manufacturer="Neutrik",MPN="NMJ6HCD2",Note="6.3 mm stereo headphone jack, front/top panel"))
+          props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216",Note="6.3 mm stereo headphone jack, front/top panel"))
 s.wire(j("R"),(k("3")[0],j("R")[1]),k("3")); s.wire(j("T"),(k("6")[0],j("T")[1]),k("6"))
 s.wire(j("S"),rt(j("S"),5.08)); gnd(rt(j("S"),5.08),90)
 NC.extend([j("SN"),j("RN"),j("TN")])

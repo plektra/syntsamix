@@ -15,7 +15,7 @@ import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; CBIP="Capacitor_SMD:C_Elec_6.3x5.4"
-JK="Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 TI={"Manufacturer":"Texas Instruments"}
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
@@ -102,7 +102,7 @@ def output(side,Yt,u_ref,ccp,ccn,dpp,dpn,dnp,dnn,k_ref,rgh,rgc,j_ref,coil_r,fly)
     s.wire((xn,k("8")[1]-2.54),(xn+7.62,k("8")[1]-2.54)); lab((xn+7.62,k("8")[1]-2.54),"RLY_N",0)
     r=R(coil_r,"330","SX-R-066",kp[0],kp[1]+7.62,0); s.wire(kp,r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("+15V",dn(r(2),5.08),180)
     # jack: ring to pole 1 COM (3), tip to pole 2 COM (6)
-    j=s.place("Connector_Audio","AudioJack3_Switch",j_ref,f"MAIN OUT {side}",Xj,Yt-55.88,0,fp=JK,props=P("SX-CONN-001",Manufacturer="Neutrik",MPN="NMJ6HCD2",Note="Balanced main output"))
+    j=s.place("Connector_Audio","AudioJack3_Switch",j_ref,f"MAIN OUT {side}",Xj,Yt-55.88,0,fp=JK,props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216",Note="Balanced main output"))
     s.wire(j("R"),(k("3")[0],j("R")[1]),k("3")); s.wire(j("T"),(k("6")[0],j("T")[1]),k("6"))
     s.wire(j("S"),rt(j("S"),5.08)); gnd(rt(j("S"),5.08),90)
     NC.extend([j("SN"),j("RN"),j("TN")])

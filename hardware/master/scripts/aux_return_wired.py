@@ -29,9 +29,9 @@ def draw(n):
     gnd=lambda at,rot=0: s.power("GNDA",at,rot)
     up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
     # ------------------------------------------------ jacks (labels to the RFI filters)
-    JK=dict(fp="Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal")
-    j1=s.place("Connector_Audio","AudioJack3_Switch",f"J{B+1}",f"RETURN {n} L/MONO",30.48,50.8,0,props=P("SX-CONN-001",Manufacturer="Neutrik",MPN="NMJ6HCD2"),**JK)
-    j2=s.place("Connector_Audio","AudioJack3_Switch",f"J{B+2}",f"RETURN {n} R",30.48,76.2,0,props=P("SX-CONN-001",Manufacturer="Neutrik",MPN="NMJ6HCD2"),**JK)
+    JK=dict(fp="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal")
+    j1=s.place("Connector_Audio","AudioJack3_Switch",f"J{B+1}",f"RETURN {n} L/MONO",30.48,50.8,0,props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216"),**JK)
+    j2=s.place("Connector_Audio","AudioJack3_Switch",f"J{B+2}",f"RETURN {n} R",30.48,76.2,0,props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216"),**JK)
     for jj,pins in ((j1,(("T","IN_L+"),("R","IN_L-"),("S",None))),(j2,(("T","IN_R+"),("R","IN_R-"),("S",None),("TN","IN_L+"),("RN","IN_L-")))):
         for pin,net in pins:
             e=rt(jj(pin),5.08); s.wire(jj(pin),e)

@@ -36,7 +36,56 @@
 
 Decisions that can fall back to a cheaper option if the budget needs it:
 
-- Main balanced outputs: THAT1646 line drivers → NE5532 buffer + inverter (decision 83)
+- Main balanced outputs: THAT1646 line drivers → NE5532 buffer + inverter (decision 83; the THAT1646 is now the DRV135UA, decision 125, about €3.40 each)
+
+### Cost review 2026-10-09
+
+The user asked for a large cost cut (2026-10-09), then set the frame: the prototype is 4 channels, maybe only 2 (first trial-and-error versions of the channel design); the cost of a full 16-channel console must stay in view in case it becomes a commercial product; the ladder filter stays, being the feature that sets this mixer apart. Prices below are rough, before VAT and shipping, from the four schematic BOMs (20-50 pieces; LCSC and Mouser checks on 2026-10-09 for the DG413DY, DRV135UA, PTA6043 and the jacks, the rest estimated, so ±25 %). Through-hole parts are hand-soldered by the user (decision 133).
+
+**Figures from `tools/costs.py` (decision 136), 2026-10-09:** the schematic BOMs priced from `docs/lcsc-check.csv` and `docs/costs/prices.csv`, with the overheads in `docs/costs/overheads.csv`. About a third of the part prices and every overhead figure are estimates (marked in those files), so treat the totals as ±25 %. Rerun `python3 tools/costs.py estimate --channels N` for current figures.
+
+| Build | Total |
+|---|---|
+| Prototype, 2 channels | ~€960 |
+| Prototype, 4 channels | ~€1,115 |
+| Full console, 16 channels, ordered like the prototype | ~€2,110 |
+
+The 4-channel prototype in detail:
+
+| Item | EUR |
+|---|---|
+| Channel card parts (4 boards, about €65 each) | 261 |
+| Input module parts (4) | 7 |
+| Master parts (JLCPCB assembles at least 2 boards per design, so a second set of SMD parts) | 182 |
+| Power board parts (2 assembled) | 30 |
+| JLCPCB fees (82 extended or consigned types, 3 assembled designs, placements) | 343 |
+| PCBs | 75 |
+| FR4 panels | 55 |
+| Frame, hardware, ribbons, 24 V brick | 110 |
+| Knobs and fader caps | 22 |
+| Consigned parts handling | 30 |
+| **Total** | **1,115** |
+
+These replace the first hand estimate of the same day (prototype about €1,450, console about €2,600), which guessed about 130 extended part types (the BOMs have 82 once JLCPCB's fee-free "preferred" parts are counted, decision 137) and a higher channel card cost (about €75; the BOMs give about €65). Includes decisions 130 and 131 (TFPT tempco pair, RELEASE C100K). At prototype size the JLCPCB fees are about a third of the cost; at 16 channels the channel cards are about half. The full-size power board still needs its 4 A design (or power lever 1).
+
+**As a product:** at production volume the set-up and extended-part fees spread over many units and the per-channel parts become the cost, together with labour: through-hole assembly (hand-soldered here, decision 133, not in a product) and calibration (three trimmers per channel: CUTOFF OFFSET ×2 and V/OCT, plus the TRIM and drive/Q jumpers). Per-channel levers therefore count sixteen times per console, and anything that removes a trimming step saves labour on every channel.
+
+Levers [proposed] (board details in each `STATUS.md`, "Cost-cut levers"):
+
+*For the prototype (fixed costs):*
+
+1. **JLCPCB fees:** one order for all boards (shared part types pay their fee once), and fewer extended types: JLCPCB basic or preferred (fee-free) parts wherever one fits (decision 137; candidates in each board's `STATUS.md`, all types with a fee from `python3 tools/costs.py extended`). Value selection is each board's job (decision 134: E24 by default, justified exceptions listed in the board's `STATUS.md`, "Component values"; now 25 types on the channel card, 23 on the master, 4 on the power board). Up to about €100-150 per order.
+2. **The second master and power board:** JLCPCB's two-board minimum buys a spare; place only one fully and leave the spare for repair, or hand-place the spare's SMD parts later. Check JLCPCB's current minimum and partial-assembly options when ordering.
+3. **Start with 2 channels:** about €150 less, at the cost of not testing 3- and 4-card chain effects (bus noise, chain current).
+
+*For the full console and a product (per channel, ×16):*
+
+4. **Op-amp receivers instead of the AD8273** (channel and AUX returns): about €4.50 per channel (€80 at 16) and one part fewer to consign; costs CMRR and needs the input stage checked again.
+5. **Fewer DG413s** (4 per channel, about €1.90 each) by using VCA control for mute and DUCK: about €2-4 per channel.
+6. **Cheaper trimmers** than the Bourns 3296W: about €4 per channel; and for a product, fewer trimmers (each is a calibration step).
+7. Done: Rean NYS216 jacks instead of the Neutrik NMJ6HCD2 (decision 132), about €1.15 per jack. For a product, recheck the 1,000-cycle rating against the inputs' expected use (the Neutrik is rated over 10,000).
+
+Rejected by the user (2026-10-09): **the filter as a fitting option** (about €25 per channel). The SSI2144 ladder filter is one of the essential features that make this mixer stand out; it stays on every channel.
 
 ## Power-cut candidates
 

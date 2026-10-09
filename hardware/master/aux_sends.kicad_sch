@@ -6349,7 +6349,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+		(property "Footprint" "syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 			(at 190.5 312.42 0)
 			(hide yes)
 			(show_name no)
@@ -6381,7 +6381,7 @@
 				)
 			)
 		)
-		(property "ProjectPN" "SX-CONN-001"
+		(property "ProjectPN" "SX-CONN-015"
 			(at 190.5 312.42 0)
 			(hide yes)
 			(show_name no)
@@ -6392,7 +6392,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Neutrik"
+		(property "Manufacturer" "Rean"
 			(at 190.5 312.42 0)
 			(hide yes)
 			(show_name no)
@@ -6403,7 +6403,7 @@
 				)
 			)
 		)
-		(property "MPN" "NMJ6HCD2"
+		(property "MPN" "NYS216"
 			(at 190.5 312.42 0)
 			(hide yes)
 			(show_name no)
@@ -11685,7 +11685,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+		(property "Footprint" "syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 			(at 190.5 246.38 0)
 			(hide yes)
 			(show_name no)
@@ -11717,7 +11717,7 @@
 				)
 			)
 		)
-		(property "ProjectPN" "SX-CONN-001"
+		(property "ProjectPN" "SX-CONN-015"
 			(at 190.5 246.38 0)
 			(hide yes)
 			(show_name no)
@@ -11728,7 +11728,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Neutrik"
+		(property "Manufacturer" "Rean"
 			(at 190.5 246.38 0)
 			(hide yes)
 			(show_name no)
@@ -11739,7 +11739,7 @@
 				)
 			)
 		)
-		(property "MPN" "NMJ6HCD2"
+		(property "MPN" "NYS216"
 			(at 190.5 246.38 0)
 			(hide yes)
 			(show_name no)
@@ -11808,7 +11808,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+		(property "Footprint" "syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 			(at 190.5 127 0)
 			(hide yes)
 			(show_name no)
@@ -11840,7 +11840,7 @@
 				)
 			)
 		)
-		(property "ProjectPN" "SX-CONN-001"
+		(property "ProjectPN" "SX-CONN-015"
 			(at 190.5 127 0)
 			(hide yes)
 			(show_name no)
@@ -11851,7 +11851,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Neutrik"
+		(property "Manufacturer" "Rean"
 			(at 190.5 127 0)
 			(hide yes)
 			(show_name no)
@@ -11862,7 +11862,7 @@
 				)
 			)
 		)
-		(property "MPN" "NMJ6HCD2"
+		(property "MPN" "NYS216"
 			(at 190.5 127 0)
 			(hide yes)
 			(show_name no)
@@ -12796,7 +12796,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+		(property "Footprint" "syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 			(at 190.5 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -12828,7 +12828,7 @@
 				)
 			)
 		)
-		(property "ProjectPN" "SX-CONN-001"
+		(property "ProjectPN" "SX-CONN-015"
 			(at 190.5 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -12839,7 +12839,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Neutrik"
+		(property "Manufacturer" "Rean"
 			(at 190.5 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -12850,7 +12850,7 @@
 				)
 			)
 		)
-		(property "MPN" "NMJ6HCD2"
+		(property "MPN" "NYS216"
 			(at 190.5 60.96 0)
 			(hide yes)
 			(show_name no)

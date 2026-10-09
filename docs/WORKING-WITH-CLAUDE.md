@@ -30,6 +30,7 @@ Claude has no memory between sessions; each role is a kind of session (or sub-ag
 | **Architect** | `/system [topic]` | `docs/ARCHITECTURE.md`, `docs/decisions/system.md`, `CHAIN.md`, `INPUT-MODULE.md`, `MECHANICAL.md`, the root rules, the order of work | proposes; you decide |
 | **Architecture reviewer** | runs automatically in `/handoff` (sub-agent `architect`) | nothing (read-only) | no; reports conflicts with contracts, budgets and invariants |
 | **Validator** | `/validate <scope>` (sub-agent `validator`) | its reports in `docs/reviews/` | no; reports findings by severity |
+| **Cost controller** | `/cost <scope>` (sub-agent `cost-controller`) | its reports in `docs/reviews/` | no; proposes cost levers judged by the live-device principle (decision 135) |
 | **You** | | every decision | yes |
 
 - The **board designer** stays on one board. When a choice would change a contract, a budget or an invariant, it stops and writes the question under "For /system" in the board's `STATUS.md`.
@@ -47,6 +48,8 @@ Claude has no memory between sessions; each role is a kind of session (or sub-ag
 
 - **`/system`**: when a board's `STATUS.md` has something under "For /system"; before starting a new board or phase; every few sessions to tidy the handoff.
 - **`/validate <board>`**: when a board's schematic is complete (before layout), and again before ordering PCBs. `/validate system` after any contract or budget change, and before the first full order.
+- **`/cost <board>`** or **`/cost system`**: before layout and before each order, and whenever the cost needs a fresh look; it prices the BOMs (`tools/costs.py`), checks them against decision 135 (live device, not studio gear) and the E24 rule (decision 134), and proposes new savings.
+- **`/cost ledger`**: to see the money spent so far against the estimate; tell Claude about each order or payment (or use `/cost ledger add ...`) so the private ledger stays complete.
 - **`/validate simulation`** or **`/validate <board> <sheet>`**: for a narrower check, for example after the breadboard changes the filter values.
 
 ## Keeping a session small

@@ -16,3 +16,9 @@ KiCad project `channel-card.kicad_pro`: one stereo channel. Decisions: `docs/dec
 - Fallback: AS3320 / V3320 (CEM3320 clone)
 - Gain structure: "hot" drive at the datasheet nominal level by default, a prototype jumper for medium drive, per-channel bypass, half resonance compensation through the datasheet's LM13700 Q VCA (jumper: none/half/full). Simulation in `simulation/filter/`
 - Sold by synth-DIY resellers (Electrokit, Thonk), not by Mouser or DigiKey.
+
+## Component values and parts (decisions 134, 137)
+
+This board owns its value selection. Choose every resistor and capacitor value from the E24 series (capacitors preferably E12 or E6). Keep a value outside E24 only where the circuit needs a ratio or accuracy that E24 values cannot give, singly or as a pair of E24 parts, and list it with its references and reason in `STATUS.md`, "Component values". Review that list before layout and after any value change. Each value outside the JLCPCB basic library costs a $3 fee per type per order.
+
+Parts (decision 137): for every SMD part JLCPCB places, take a JLCPCB basic part first, then a "preferred" part (no fee), then another LCSC extended part, and a part LCSC does not stock only as a last resort. Another maker's basic part with the same function is fine once its datasheet confirms pinout, package and limits. Record each part that still costs a fee, with its reason, in `STATUS.md`; `python3 tools/costs.py extended` lists them.

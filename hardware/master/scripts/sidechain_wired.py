@@ -46,9 +46,9 @@ o_int=inverting("U501",1,(2,3,1),45.72,40.64,r501,("R503","10k"),"SX-R-002",27.9
 hier((XA,76.2),"SC_SUM",180,"input"); r=R("R504","10k","SX-R-002",45.72,76.2); s.wire((XA,76.2),r(1))
 o_bus=inverting("U95012",2,(6,5,7),45.72,76.2,r,("R505","10k"),"SX-R-002",86.36)
 # EXT jack: tip to the inverting buffer, tip switch to AGND, ring and sleeve to AGND, ring switch = plug detect
-JK="Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 j=s.place("Connector_Audio","AudioJack3_Switch","J501","SC EXT IN",30.48,109.22,0,fp=JK,
-          props=P("SX-CONN-001",Manufacturer="Neutrik",MPN="NMJ6HCD2",Note="DC-coupled sidechain input; a plug overrides INT/BUS (ring switch RN)"))
+          props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216",Note="DC-coupled sidechain input; a plug overrides INT/BUS (ring switch RN)"))
 sx=j("S")[0]+2.54
 s.wire(j("S"),(sx,j("S")[1]),(sx,j("S")[1]-5.08)); gnd((sx,j("S")[1]-5.08),180); s.wire(j("R"),(sx,j("R")[1]),(sx,j("S")[1]))
 s.wire(j("TN"),rt(j("TN"),2.54),dn(rt(j("TN"),2.54),5.08)); gnd(dn(rt(j("TN"),2.54),5.08))

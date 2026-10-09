@@ -1,0 +1,21 @@
+item,value,notes
+rate_usd_eur,0.92,Exchange rate (2026-10-09 estimate); LCSC prices in docs/lcsc-check.csv are USD
+rate_gbp_eur,1.17,Exchange rate (2026-10-09 estimate); Thonk prices are GBP
+rate_sek_eur,0.087,Exchange rate (2026-10-09 estimate); Electrokit prices are SEK
+jlc_extended_fee_usd,3,JLCPCB fee per extended part type per order (item 110; not from an official JLCPCB page)
+jlc_setup_eur_per_design,35,JLCPCB assembly set-up and stencil per assembled design (estimate)
+jlc_per_smd_part_usd,0.005,JLCPCB placement per SMD part (about 3 joints at $0.0017; estimate)
+jlc_min_assembled,2,JLCPCB assembles at least this many boards of a design (to check when ordering)
+pcb_min_eur_per_design,15,Smallest PCB order per design (5 pieces; estimate)
+pcb_channel_eur,3.5,Channel card PCB 33 x 318 mm 2-layer lead-free per board (estimate)
+pcb_input_eur,0.8,Input module PCB per board (estimate)
+pcb_master_eur,15,Master PCB per board (estimate; size set at layout)
+pcb_power_eur,4,Power PCB per board (estimate)
+panel_strip_eur,3,FR4 top panel strip 34.8 x 360 mm per channel (estimate)
+panel_master_rear_eur,40,Master top panel and rear panel (estimate)
+frame_fixed_eur,40,"Rails for the master section, side cheeks, bottom cover, screws (estimate)"
+frame_eur_per_channel,5,"Rail length, T-nuts, screws, printed parts and ribbons per channel strip (estimate)"
+brick_eur,50,24 V 150 W Class II brick (estimate)
+knobs_eur_per_channel,3.5,Five knobs and a fader cap per channel strip (no schematic symbols; estimate)
+knobs_master_eur,8,Thirteen knobs on the master (estimate)
+consign_eur_per_order,30,"Handling and shipping of consigned parts LCSC does not stock (SSI2144, SSI2162, AD8273, AS3046D; estimate)"

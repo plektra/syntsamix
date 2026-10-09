@@ -3,7 +3,7 @@
 """Check every part in docs/parts.csv against the JLCPCB/LCSC catalogue (jlcsearch.tscircuit.com).
 
 Writes docs/lcsc-check.csv: project part number, what was searched, best match
-(basic parts first, then stock), LCSC code, JLC class (basic/extended), stock,
+(basic parts first, then stock), LCSC code, JLC class (basic, preferred = extended without the fee, or extended), stock,
 unit price, and a note. Parts meant for hand soldering are marked as such.
 Usage: python3 tools/lcsc_check.py
 """
@@ -73,7 +73,7 @@ for p in csv.DictReader(open(os.path.join(ROOT,'docs','parts.csv'))):
         out["Search"]="LED 0805"; hit=best(get("leds/list.json",package="0805").get("leds",[]))
         if hit: out["Note"]="colour to choose; any 0805 LED in this class"
     if hit:
-        out.update(LCSC=f"C{hit['lcsc']}",MPN=hit.get("mfr",""),Class="basic" if hit.get("is_basic") else "extended",Stock=hit.get("stock",""),
+        out.update(LCSC=f"C{hit['lcsc']}",MPN=hit.get("mfr",""),Class="basic" if hit.get("is_basic") else ("preferred" if hit.get("is_preferred") else "extended"),Stock=hit.get("stock",""),
                    Price=hit.get("price1") or str(hit.get("price","")).split(',')[0].split(':')[-1])
     elif pn in KNOWN:
         c,m,cl,st,pr=KNOWN[pn]; out.update(LCSC=c,MPN=m,Class=cl,Stock=st,Price=pr,Note="from an earlier query on 2026-10-06 (search flaky); recheck")

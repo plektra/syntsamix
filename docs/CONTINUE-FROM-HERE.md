@@ -28,7 +28,9 @@ Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets
 
 ## Waiting for the user's confirmation
 
-Nothing. The master's proposals (89-94, power levers) were decided on 2026-10-09 with the user's delegation (decisions 125-128; review them in `hardware/master/STATUS.md`).
+The master's proposals (89-94, power levers) were decided on 2026-10-09 with the user's delegation (decisions 125-128; review them in `hardware/master/STATUS.md`).
+
+- **Cost (2026-10-09):** the user asked for a large cost cut, then set the frame: the prototype is 4 channel cards, maybe 2 (first trial-and-error versions); the full 16-channel console's cost stays in view for a possible product; the ladder filter stays (rejected as a fitting option). Estimates from `tools/costs.py` (prototype about €1,115 for 4 channels, €960 for 2; full console about €2,110; before VAT and shipping) and levers: `docs/ROADMAP.md`, Cost review; board levers in each `STATUS.md`. Done: Rean NYS216 jacks (decision 132); through-hole parts hand-soldered by the user (decision 133). Value selection is each board's own job (decision 134: E24 by default; off-series lists in each `STATUS.md`). Cost principle: live device, not studio gear (decision 135). Fee-free JLCPCB parts first: basic, then preferred (decision 137; candidates in the board STATUS files). Cost control: `/cost <scope>` (cost-controller sub-agent), `tools/costs.py`, and the private ledger of realized costs, `/cost ledger` (decision 136); the first Electrokit breadboard order is recorded. Open, all [proposed]: prototype fees (one JLCPCB order, the two-board minimum), and the per-channel levers for the console (op-amp receiver, fewer DG413s, cheaper and fewer trimmers).
 
 ## Pending outside the boards
 

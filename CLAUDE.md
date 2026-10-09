@@ -9,7 +9,7 @@ Project context for Claude Code. Read this first, then:
 
 Read the rest only when the task needs it: `docs/SPEC.md` (full specification), `docs/CHAIN.md`, `docs/INPUT-MODULE.md` and `docs/MECHANICAL.md` (interfaces between boards), `docs/PART-NUMBERING.md`, `docs/ROADMAP.md` (phases, backlog), `simulation/CLAUDE.md`.
 
-For the user: `docs/WORKING-WITH-CLAUDE.md` describes the roles and the session loop: `/board <board> [phase]` for board work, `/system [topic]` for architecture, `/handoff` to wrap up, `/validate <scope>` for an independent check (the `architect` and `validator` sub-agents live in `.claude/agents/`). Work one board and phase per session (for example "power board schematic"), and update that board's `STATUS.md` before ending. Use sub-agents only for bounded jobs with a short result (datasheet fact checks, build-and-check loops, simulation runs, stock checks); design choices stay in the main conversation with the user.
+For the user: `docs/WORKING-WITH-CLAUDE.md` describes the roles and the session loop: `/board <board> [phase]` for board work, `/system [topic]` for architecture, `/handoff` to wrap up, `/validate <scope>` for an independent check, `/cost <scope>` for a cost review and `/cost ledger` for realized costs (the `architect`, `validator` and `cost-controller` sub-agents live in `.claude/agents/`). Work one board and phase per session (for example "power board schematic"), and update that board's `STATUS.md` before ending. Use sub-agents only for bounded jobs with a short result (datasheet fact checks, build-and-check loops, simulation runs, stock checks); design choices stay in the main conversation with the user.
 
 ## Project
 
@@ -39,19 +39,21 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 5. **Keep modules independent.** Each module is its own KiCad project or hierarchical sheet with a documented chain interface (audio and power ribbon pinouts).
 6. **Number every part.** Give each placed symbol the BOM fields in `docs/PART-NUMBERING.md` and register new part types in `docs/parts.csv`.
 7. **Keep licensing tidy.** New code files get the two-line SPDX header (`PolyForm-Noncommercial-1.0.0`); other new paths must be covered by `REUSE.toml`. Run `reuse lint` before committing.
-8. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something. Every part must be RoHS compliant, with its source recorded in `docs/parts.csv` (invariant 9, decisions 116 and 122).
+8. **Keep the cost down (decision 135).** This is a live performance device, not studio equipment: accuracy that the audience cannot hear may be traded for cost; reliability, headroom, click-free switching, a stage-quiet noise floor, the ladder filter, safety and RoHS may not. Values come from E24 (decision 134); SMD parts come from the JLCPCB basic or preferred library wherever one fits (decision 137). Estimates come from `tools/costs.py`; realized costs go in its private ledger (decision 136).
+9. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something. Every part must be RoHS compliant, with its source recorded in `docs/parts.csv` (invariant 9, decisions 116 and 122).
 
 ## Repo layout
 
 ```
 README.md        landing page (project, features, status)
 CLAUDE.md
-.claude/commands/  /board, /system, /handoff, /validate
-.claude/agents/    architect (contract reviewer), validator (independent design checks)
+.claude/commands/  /board, /system, /handoff, /validate, /cost
+.claude/agents/    architect (contract reviewer), validator (independent design checks), cost-controller (cost reviews)
 LICENSE.md, REUSE.toml, LICENSES/  licensing (decision 70)
 docs/            CONTINUE-FROM-HERE.md, ARCHITECTURE.md, WORKING-WITH-CLAUDE.md, SPEC.md, CHAIN.md, INPUT-MODULE.md, MECHANICAL.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
   decisions/     decision log by area, INDEX.md (DECISIONS.md is a pointer to it)
-  reviews/       validator reports
+  reviews/       validator and cost-controller reports
+  costs/         prices.csv, overheads.csv (inputs of tools/costs.py); ledger.csv of realized costs is private (git-ignored)
 hardware/        CLAUDE.md: shared schematic workflow; each board has CLAUDE.md and STATUS.md
   channel-card/  KiCad project (stereo channel)
   input-module-6p3/  KiCad project (6.3 mm input module)
@@ -63,4 +65,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-131; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-137; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

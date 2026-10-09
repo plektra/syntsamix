@@ -42,6 +42,32 @@ Updated 2026-10-09 (/system: chain current figures after decision 123).
 
 - **RoHS strict (decision 116, from the channel card session 2026-10-09):** every part on this board needs a maker or supplier RoHS statement recorded in `docs/parts.csv` as `RoHS: <source>` before ordering, and the board is ordered with a lead-free finish (lead-free HASL or ENIG) and lead-free assembly; invariant 9 (decision 122); standard passives get their source when the BOM is fixed; the audit of this board's registered parts runs before the first PCB order (`docs/CONTINUE-FROM-HERE.md`).
 
+## Cost-cut levers [proposed] (2026-10-09)
+
+Cost frame set by the user (2026-10-09): prototype of 4 channels (maybe 2; this board as drawn already covers it), the full console cost kept in view for a possible product; overview in `docs/ROADMAP.md`, Cost review. This board is about €40 in parts plus a 24 V brick (about €45-55 for 150 W). Through-hole parts are hand-soldered by the user (decision 133). None of these is decided:
+
+1. **Full size without a new 4 A design:** instead of the external-MOSFET inverter of Next item 2, use two copies of this board at full size, one per power group (each about the master plus 8 cards, or 8 cards alone). Saves the design work and a new set of extended parts; costs a second board (about €40) and changes how the master and the two chains are fed (decisions 80, 81, 96: a `/system` matter). First check whether this design carries 8 cards plus the master (about 2.0 / 1.6 A at the sizing figures) within the TPS54560 inverter's switch-current limit.
+2. **Brick:** one 150 W brick against two smaller ones if lever 1 is taken; compare prices when the full-size supply is settled.
+3. Value selection is a standing rule now: see "Component values" below (decision 134).
+4. Supply: the 330 µF hybrid capacitor EEHZK1V331P (SX-C-019, 4 per board) showed 0 stock at LCSC on 2026-10-09 (C278516, minimum order 15); check stock or an alternative before ordering.
+
+## Component values (decision 134)
+
+This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on 2026-10-09 (from the BOM export; all 0805 resistors; every capacitor is already E24):
+
+| Value | References | Reason (to record) |
+|---|---|---|
+| 732k, 42k2 | R201, R301, R202, R302 | converter dividers, set by `scripts/design.py` |
+| 15k8 | R203 | set by `scripts/design.py` |
+| 243k | R204, R304 | set by `scripts/design.py` |
+
+4 types, 7 parts. Check in `scripts/design.py` whether E24 values (or E24 pairs) keep the output voltages and UVLO thresholds within tolerance.
+
+### Fee-free parts (decision 137, LCSC search 2026-10-10)
+
+- BZT52C12 (SX-D-010, LCSC C19077410) is already a JLCPCB preferred part: no fee.
+- The converter parts (TPS54560, SQJ457EP, SRP inductors, hybrid and 100 V ceramic capacitors, SMC Schottkys, PTC fuses) are extended; not yet searched for fee-free equivalents. `python3 tools/costs.py extended` lists them.
+
 ## For /system
 
 (none)

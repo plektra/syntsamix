@@ -16,3 +16,5 @@ hardware/*/scripts/build/
 .claude/worktrees/
 # Supplier RoHS declarations: kept locally, not ours to publish
 docs/rohs/
+# Realized project costs: private, not published with the repo (decision 136)
+docs/costs/ledger.csv

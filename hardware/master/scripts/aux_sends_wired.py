@@ -10,7 +10,7 @@ the plug-detect pull-up. Supplies at the bottom.
 import json,os
 from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"; JK="Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
+SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"; JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
@@ -37,7 +37,7 @@ def stage(ref,unit,pins,y,src,rin,rf):
 def output(o,jref,title,rt_ref,rr_ref,tp,tpname,det=None):
     """Impedance-balanced output: O -> 100R -> tip; ring -> 100R -> AGND. Jack pins face right, tip routed round the right."""
     yj=o[1]+12.7
-    j=s.place("Connector_Audio","AudioJack3_Switch",jref,title,190.5,yj,0,fp=JK,props=P("SX-CONN-001",Manufacturer="Neutrik",MPN="NMJ6HCD2"))
+    j=s.place("Connector_Audio","AudioJack3_Switch",jref,title,190.5,yj,0,fp=JK,props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216"))
     r=R(rt_ref,"100","SX-R-001",157.48,o[1]); s.wire(o,r(1)); xv=236.22
     s.wire(r(2),(xv,o[1]),(xv,j("T")[1]),j("T"))
     s.tp(tp,tpname,(150.62,o[1]),"up")

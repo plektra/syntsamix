@@ -65,6 +65,41 @@ Updated 2026-10-09: `/board master` session, RELEASE pot to C100K (decision 131)
 
 PCB layout, after the SSI2144 breadboard and the channel card layout (`docs/CONTINUE-FROM-HERE.md`). Before it: `/system mechanical` for the master section (heatsinks, meter LED form, rear panel), the RV501 pot, and the AS3046D declaration.
 
+## Cost-cut levers [proposed] (2026-10-09)
+
+Cost frame set by the user (2026-10-09): prototype of 4 channels (maybe 2), the full console cost kept in view for a possible product, the filter stays; overview in `docs/ROADMAP.md`, Cost review. The master is a fixed cost of about €165 in parts (one per mixer), but JLCPCB assembles at least 2 boards per design, so the prototype pays for a second set of its SMD parts (about €100) unless only one is populated. Through-hole parts are hand-soldered by the user (decision 133). Done: the 13 jacks are Rean NYS216 (decision 132, about €15 saved). Rough prices at 20-50 pieces; none of these is decided:
+
+1. **AUX return receivers AD8273 ×2 → op-amp differential receivers** (as channel lever 2): about €9, and one part type fewer to consign.
+2. **DG413 ×9 (about €17):** check which switch sections could move to relay contacts already present or to VCA control (as channel lever 3); probably €4-8.
+3. Value selection (E24, JLCPCB extended fees) is a standing rule now, not a lever: see "Component values" below (decision 134).
+4. **Master meter:** 24 discrete 3 mm LEDs (meter form still open, decision 86 against 119); the 0805-under-bezel form of the channels saves little money but one hand-soldered part type.
+5. Not recommended: TPA6120A2 (about €4) → NE5532 with a discrete buffer; saves about €3 but weakens the headphone drive.
+
+## Component values (decision 134)
+
+This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on 2026-10-09 (from the BOM export; all resistors; every capacitor is already E24). Each needs a reason recorded here, or a move to E24 values or an E24 pair, before layout.
+
+| Sheet | Value | References | Reason (to record) |
+|---|---|---|---|
+| AUX returns, master out | 113k, 453k, 221k, 63k4, 124k, 8k66, 33k2, 30k1 | R222-R232, R322-R332, R714-R721 (and compressor R443: 453k) | same values as the channel card's Level set (fader law, decisions 79 and 103 to confirm); settle with the channel card |
+| Compressor | 140k, 4k02 | R426, R445 | |
+| Master out, meter | 22k6 | R732, R814 | |
+| Headphones | 39R2 (2512) | R754, R758 | |
+| Meter | 115k, 13k3, 31k6, 16k2, 11k3, 8k06, 5k62, 5k11, 3k83, 2k15, 1k87, 866 | R811-R813, R815-R823 | meter sheet (ladder, to confirm) |
+
+23 types, 39 parts.
+
+### Fee-free candidates [proposed] (decision 137, LCSC search 2026-10-10)
+
+| Part | Now | Fee-free candidate | Check before the swap |
+|---|---|---|---|
+| TL072 (SX-IC-007, 13 here, 4 on the channel card) | extended | ST TL072CDT, LCSC C6961, basic | SO-8 pinout and limits from ST's datasheet |
+| 6.2 V zener (SX-D-001, 4 here) | no part chosen | BZT52C6V2 (hongjiacheng), LCSC C19077403, preferred | RoHS and the SOD-123 land pattern |
+| BAT54T1G (SX-D-014, D504) | onsemi, extended | BAT54W (hongjiacheng), LCSC C7502705, preferred | leakage and forward voltage in the SC_ENV clamp (decision 104) |
+| 680k R | counted as extended | UNI-ROYAL 0805W8F6803T5E, LCSC C17797, preferred | none |
+
+No fee-free part was found for the LM339, the M7 (1N4007) SMA rectifier, the 220 pF C0G 0805 or the 10 µF 35 V SMD electrolytic. `python3 tools/costs.py extended` lists every type that still costs a fee.
+
 ## For /system
 
 - **Budgets after decisions 125-128 (2026-10-09):**
