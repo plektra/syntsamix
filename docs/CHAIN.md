@@ -62,4 +62,4 @@ Where the headers sit on each card and how neighbours are cabled: `MECHANICAL.md
 
 ## Points still open
 
-- Connector and cable part numbers and their per-pin current ratings: chosen during the channel card schematic (2.54 mm shrouded keyed box headers, 2x17 and 2x4; 28 AWG flat ribbon with IDC sockets); the power ribbon parts need at least 1 A per contact (decision 96).
+- Connectors chosen: box headers Würth WR-BHD 61203421621 (2x17, audio; decision 117) and 61200821621 (2x4, power, 3 A per contact; decision 100), PCB holes 1.1 mm; power ribbon IDC socket Würth 61200823021 (1 A per contact; decision 100). Still open: the 2x17 IDC socket and the 28 AWG flat cable, chosen with the cable mock-up (decision 109). The power ribbon parts meet the 1 A per contact requirement of decision 96.

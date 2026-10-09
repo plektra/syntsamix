@@ -84,10 +84,12 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 6. **Part facts are verified:** every pinout and limit comes from the maker's datasheet, recorded in `docs/parts.csv`.
 7. **Every sheet is double-entry:** a drawing script and an independent reference netlist, checked pin by pin, with ERC 0/0.
 8. **Floating supply:** whatever feeds the power ribbons has a DC output floating from mains earth (Class II brick on the prototype); PGND is earthed nowhere except through the master card's star point and the ground-lift switch, and the star point is the only ground reference (decision 101).
+9. **RoHS:** every component and every board complies with RoHS 2011/65/EU as amended by (EU) 2015/863; boards are fabricated and assembled lead-free (lead-free HASL or ENIG, lead-free assembly and hand soldering). Parts with a maker part number carry a `RoHS: <source>` in `docs/parts.csv` when chosen; standard passives get theirs when the BOM is fixed (decisions 116, 122).
 
 ## Open system items
 
-- Mechanical (`/system mechanical`): rear panel and input module position, master section and power board, in that order (`MECHANICAL.md`, Open; strip envelope, panel stack and card fixing and chain headers settled by decisions 106 to 109).
+- Mechanical (`/system mechanical`): rear panel and input module position (with the cover height and keep-out values from the cable mock-up), master section and power board, in that order (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109 and 118 to 121).
+- RoHS audit of `docs/parts.csv` before the first PCB order (decision 122).
 - Heat budget **[estimate]**: about 30 W (prototype) to 84 W (full size) typical dissipation inside the unit (typical rail currents above × 20 V); needs ventilation and a budget row once the frame is drawn.
 
 Earlier items are closed: the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes, finding 3 (R421 footprint) by the master card fix in bad26be.

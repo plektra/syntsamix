@@ -63,7 +63,7 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | PFL | Latching button; taps the stereo signal after the filter and before the fader VCA (so also pre-mute) onto the cue bus, and pulls the "PFL active" line | confirmed |
 | AUX | Two stereo AUX sends, each a level control feeding a stereo AUX bus | confirmed |
 | AUX pre/post | Post-fader by default; a PCB jumper per send selects pre-fader | confirmed |
-| Cutoff CV input | Per-channel 6.3 mm jack into the filter control summer, driving L and R together; fixed scale of about 1 V/octave (Eurorack convention), no amount knob; DC-coupled, about 100 kΩ input impedance, survives ±12 V; knob plus CV is limited to the chip's safe control range | confirmed |
+| Cutoff CV input | Per-channel 3.5 mm jack (Thonkiconn, decision 118) into the filter control summer, driving L and R together; fixed scale of about 1 V/octave (Eurorack convention), no amount knob; DC-coupled, about 100 kΩ input impedance, survives ±12 V; knob plus CV is limited to the chip's safe control range | confirmed |
 | HPF | Sweepable resonant HPF dropped from the prototype; reserve space for later. A fixed switchable 100 Hz low-cut is included instead | confirmed |
 
 Panel layout, top to bottom, following the signal flow (post-fader AUX knobs sit above the fader, as on any console) **[confirmed]**:
@@ -101,7 +101,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - Sidechain LPF adjustable about 40 to 500 Hz, 12 dB/octave, with bypass switch **[confirmed]**
 - Sidechain source: INT (the compressor bus itself, L+R) / BUS (the mono sidechain bus) / EXT (external jack). A plug in the EXT jack overrides; otherwise an SC BUS button picks BUS or INT (decision 90) **[confirmed]**
 - Channels feed the sidechain bus through a per-channel SC send button, tapped after the filter and before fader and mute (same point as PFL and the meter), so a muted channel can still trigger the pumping ("ghost triggering"). The master card never addresses a specific slot **[confirmed]**
-- EXT sidechain input: 6.3 mm jack, DC-coupled, accepts audio and Eurorack envelopes or gates up to ±12 V **[confirmed]**
+- EXT sidechain input: DC-coupled, accepts audio and Eurorack envelopes or gates up to ±12 V **[confirmed]**; jack size (3.5 mm or 6.3 mm) chosen with the master section (decision 118)
 - Sidechain ducking (decision 66): an envelope follower on the master card takes the sidechain signal after the source switch and the sidechain LPF and drives the SC_ENV chain line. Controls: THRESHOLD, DEPTH and DECAY; attack fast and fixed. Each channel's DUCK button adds SC_ENV (negative, −1 V = 10 dB; decision 97) to its VCA control, so the channel ducks with the trigger independently of the compressor bus. Each AUX return also has a DUCK switch **[confirmed]**
 - SC listen button: sends the filtered sidechain signal to the cue bus (headphones) and pulls the PFL-active line **[confirmed]**
 - Stereo-linked VCA compressor (SSI2162) with a performance control set **[confirmed]**:
@@ -138,7 +138,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - One module per channel strip: a horizontal PCB carrying the pots, fader and buttons, with its own top panel strip (35 mm pitch, 34.8 mm wide, control area at most 320 mm deep between the rails; decisions 106, 108, `MECHANICAL.md`); the PCB sits 10 mm below the panel, the pots hold the panel and the fader is screwed to it (decision 107)
 - Top and rear panel strips are black FR4 with white printed legends, made by the PCB maker (aluminium panels can come with a product version)
 - Channel input jacks are on the passive input module behind a small FR4 rear panel strip, cabled to the channel card (decisions 62, 99; position open in `MECHANICAL.md`); the headphone jack is on the master section's top or front
-- Frame: front and back aluminium rails (2020 extrusion, cut to length) that the strips screw onto (two M3 screws per panel end into T-nuts; decision 108), with side cheeks; longer rails for more strips
+- Frame: front and back aluminium rails (2020 extrusion, cut to length) that the strips screw onto (one centred M3 button-head screw per panel end into a T-nut, plus a printed locating key; decisions 108, 120), with side cheeks; longer rails for more strips
 - Chain ribbons run under the strips between neighbours
 - Knobs and fader caps chosen with the panel design
 

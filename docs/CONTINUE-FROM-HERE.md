@@ -7,23 +7,24 @@ Project-level handoff, updated 2026-10-09. Read `CLAUDE.md` first. Board detail 
 | Board | Schematic | PCB | Status file |
 |---|---|---|---|
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
-| Channel card | done, ERC 0/0; mechanical parts chosen 2026-10-09 (decisions 110-117) | not started (waits for the breadboard and /system mechanical) | `hardware/channel-card/STATUS.md` |
+| Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LED swap pending | not started (waits for the breadboard, RoHS audit and cable mock-up) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0 (decisions 97, 98, 103, 104 drawn) | not started | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-117; last pushed commit: see `git log -1`.
+Decisions 1-122; last pushed commit: see `git log -1`.
 
 ## Order of work
 
 1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the [proposed] op amp power levers and the checks in each `STATUS.md`.
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
-3. **`/system mechanical`** for the channel card's flags (`hardware/channel-card/STATUS.md`, For /system): 3.5 mm CV jack, 0805 meter under a printed bezel, one panel screw per end, detachable bottom cover, underside keep-out, RoHS invariant (decision 116) and the parts audit.
-4. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
-5. **Channel card PCB**, then the input module, master card and power board PCBs.
+3. **Channel card schematic touch-up** (`/board channel-card schematic`): meter LEDs to 0805 under the printed bezel (decision 119); the [proposed] op amp power levers if confirmed.
+4. **RoHS audit** of `docs/parts.csv` on all boards before the first PCB order (decision 122): a sub-agent records sources and lists the gaps for the board sessions.
+5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
+6. **Channel card PCB**, then the input module, master card and power board PCBs.
 
 ## System
 
-Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decisions 102 and 103 on 2026-10-08). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109); still open: the rear, the master section and power board, and the heat budget. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
+Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decisions 102 and 103 on 2026-10-08). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109), jack sizes, channel meter bezel, single panel screw, underside and bottom cover (decisions 118-121); invariant 9 RoHS (decision 122); still open: the rear (rear panel, input module position, cover height and keep-out values from the mock-up), the master section and power board, and the heat budget. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
 
 ## Waiting for the user's confirmation
 

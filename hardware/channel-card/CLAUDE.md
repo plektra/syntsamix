@@ -1,6 +1,6 @@
 # Channel card
 
-KiCad project `channel-card.kicad_pro`: one stereo channel. Decisions: `docs/decisions/channel-card.md` (and `system.md` for the chain and cross-board functions). Shared workflow: `hardware/CLAUDE.md`. Status: `STATUS.md`.
+KiCad project `channel-card.kicad_pro`: one stereo channel. Decisions: `docs/decisions/channel-card.md` and `channel-card-parts.md` (and `system.md` for the chain and cross-board functions). Shared workflow: `hardware/CLAUDE.md`. Status: `STATUS.md`.
 
 - Sheets: Input, Filter, Level, Routing, Meter, Chain and power. Generators and the full rebuild how-to: `scripts/README.md`; rebuild and check everything with `scripts/rebuild_all.sh`.
 - `rebuild_all.sh` regenerates every sheet with new UUIDs: restore the unchanged sheets and the root (`git checkout -- <files>`), then rerun `check_netlist.py` and ERC, so commits stay focused (as on the master).

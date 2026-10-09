@@ -28,11 +28,17 @@ Updated 2026-10-09 (decisions 97, 98, 103, 104 drawn; mechanical notes from deci
 - LCSC stock check not yet rerun for the master card parts (`tools/lcsc_check.py`); BAT54T1G (SX-D-014) still needs an LCSC code (the OPA2171 has C40904).
 - Breadboard: hear the ducking through the channel's 10 ms smoothing (decision 97) and the bottom of the master level pot (about −102 dB, decision 103).
 
-- **RoHS strict (decision 116, from the channel card session 2026-10-09):** every part on this board needs a maker or supplier RoHS statement recorded in `docs/parts.csv` as `RoHS: <source>` before ordering, and the board is ordered with a lead-free finish (lead-free HASL or ENIG) and lead-free assembly; the audit of this board's registered parts is planned in /system.
+- **RoHS strict (decision 116, from the channel card session 2026-10-09):** every part on this board needs a maker or supplier RoHS statement recorded in `docs/parts.csv` as `RoHS: <source>` before ordering, and the board is ordered with a lead-free finish (lead-free HASL or ENIG) and lead-free assembly; invariant 9 (decision 122); standard passives get their source when the BOM is fixed; the audit of this board's registered parts runs before the first PCB order (`docs/CONTINUE-FROM-HERE.md`).
 - **From the channel card (decision 111, 2026-10-09):** the channel card's electrolytics went SMD (ROQANG RVT 47 µF / 10 µF 35 V from LCSC, Panasonic EEE-1VA100NP bipolar); the same parts would clear the master's 9 mm limit for its radials listed above.
 - **From the channel card (decision 110, 2026-10-09):** the channel card moved its LM317/LM337 to D²PAK on PCB copper (onsemi LM317D2TR4G / LM337D2TR4G, about 36-45 °C/W). Not enough for the master's 10 °C/W need (decision 95; D²PAK floor about 32 °C/W), so the master keeps TO-220 with heatsinks unless its dissipation drops.
 
 - **From the channel card (2026-10-09):** the chain headers are now chosen: SX-CONN-007 = Würth 61203421621 (2×17 straight WR-BHD), SX-CONN-008 = Würth 61200821621; the channel card sets Manufacturer/MPN/Supplier fields on its symbols, the master's bus and power sheets still carry the bare part numbers (add the same fields); drill the header holes 1.1 mm (Würth recommendation; KiCad's IDC footprints use 1.0 mm).
+
+- **Jack sizes (from /system, 2026-10-09, decision 118):** 6.3 mm stays the default for the master's audio connections (main outputs, AUX sends and returns, headphones); the EXT sidechain input may be 3.5 mm or 6.3 mm: choose with the master section's front panel.
+
+- **Panel fixing (from /system, 2026-10-09, decision 120):** panel strips are fixed by one centred M3 button-head screw per end plus a printed locating key in the rail slot; the master section's panels follow the same pattern unless its own session decides otherwise.
+
+- **Underside (from /system, 2026-10-09, decision 121):** underside parts only at the chain headers and for hand-set parts (≤ 10.5 mm below the PCB); keep 10 mm from the header edges clear (provisional until the mock-up); the frame gets a detachable bottom cover, feet on the cheeks or rails.
 
 ## Next
 

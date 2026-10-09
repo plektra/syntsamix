@@ -9,7 +9,7 @@ How to run development sessions so the conversation stays small and nothing gets
 | Project overview and rules for Claude | `CLAUDE.md` |
 | Which board is where, order of work | `docs/CONTINUE-FROM-HERE.md` |
 | Every decision, with status and area file | `docs/decisions/INDEX.md` |
-| Decisions by area | `docs/decisions/system.md`, `channel-card.md`, `input-module.md`, `master-card.md`, `master-card-sheets.md`, `power.md`, `mechanical.md`, `process.md` |
+| Decisions by area | `docs/decisions/system.md`, `channel-card.md`, `channel-card-parts.md`, `input-module.md`, `master-card.md`, `master-card-sheets.md`, `power.md`, `mechanical.md`, `process.md` |
 | Shared schematic workflow and hard-won rules | `hardware/CLAUDE.md` |
 | One board's specifics and status | `hardware/<board>/CLAUDE.md`, `hardware/<board>/STATUS.md` |
 | Simulation notes | `simulation/CLAUDE.md` |

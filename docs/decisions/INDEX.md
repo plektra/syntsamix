@@ -6,6 +6,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 |---|---|
 | [system.md](system.md) | System scope, signal levels, buses, cross-board functions, chain and grounding |
 | [channel-card.md](channel-card.md) | Channel card |
+| [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
 | [master-card.md](master-card.md) | Master/compressor card: scope and part choices |
 | [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104) |
@@ -49,7 +50,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 24 | Mono AUX handling on the master card | confirmed | [master-card](master-card.md) |
 | 25 | Inputs take hot Eurorack levels | confirmed | [system](system.md) |
 | 26 | One wide input trim, no pad | confirmed | [channel-card](channel-card.md) |
-| 27 | All jacks 6.3 mm | confirmed | [system](system.md) |
+| 27 | All jacks 6.3 mm (size rule replaced by 118) | confirmed, refined | [system](system.md) |
 | 28 | PFL and cue bus in the prototype | confirmed | [system](system.md) |
 | 29 | Stereo master meter on the master bus | confirmed | [master-card](master-card.md) |
 | 30 | Channel cards independent, added one at a time | confirmed | [system](system.md) |
@@ -65,7 +66,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 40 | Chain power: unregulated ±20 V, local ±15 V | confirmed | [system](system.md) |
 | 41 | Separate 34-pin audio and 8-pin power ribbons | confirmed | [system](system.md) |
 | 42 | Chain pinouts and grounding (CHAIN.md) | confirmed | [system](system.md) |
-| 43 | 8-segment channel meter | confirmed | [channel-card](channel-card.md) |
+| 43 | 8-segment channel meter (meter form: 119) | confirmed, refined | [channel-card](channel-card.md) |
 | 44 | Compressor performance controls | confirmed | [master-card](master-card.md) |
 | 45 | Sidechain source selection INT/BUS/EXT | confirmed | [master-card](master-card.md) |
 | 46 | Signal levels, performance targets, coupling | confirmed | [system](system.md) |
@@ -77,7 +78,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 52 | Cutoff range 20 Hz to 20 kHz | confirmed | [channel-card](channel-card.md) |
 | 53 | Cutoff CV: 1 V/oct, protected | confirmed | [channel-card](channel-card.md) |
 | 54 | Latching channel buttons | confirmed | [channel-card](channel-card.md) |
-| 55 | Channel strip panel layout | confirmed | [mechanical](mechanical.md) |
+| 55 | Channel strip panel layout (meter form: 119) | confirmed, refined | [mechanical](mechanical.md) |
 | 56 | Headphone output design | confirmed | [master-card](master-card.md) |
 | 57 | Compressor detector: feed-forward log peak | confirmed | [master-card](master-card.md) |
 | 58 | Output protection relays | confirmed | [master-card](master-card.md) |
@@ -98,7 +99,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 73 | Low-cut at 100 Hz | confirmed | [channel-card](channel-card.md) |
 | 74 | Routing sheet: buffers and bus resistors | confirmed | [channel-card](channel-card.md) |
 | 75 | Buttons: GPBS850N with printed caps | confirmed | [mechanical](mechanical.md) |
-| 76 | Channel meter sheet | confirmed | [channel-card](channel-card.md) |
+| 76 | Channel meter sheet (LEDs 0805 under a printed bezel: 119) | confirmed, refined | [channel-card](channel-card.md) |
 | 77 | Test points: bare SMD pads | confirmed | [process](process.md) |
 | 78 | Channel chain and power sheet | confirmed | [channel-card](channel-card.md) |
 | 79 | Assembly at JLCPCB, LCSC basic parts | confirmed | [process](process.md) |
@@ -108,7 +109,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 83 | Main outputs: THAT1646 | confirmed | [master-card](master-card.md) |
 | 84 | Headphone driver: TPA6120A2 | confirmed | [master-card](master-card.md) |
 | 85 | Relays: Omron G6K-2F-Y | confirmed | [master-card](master-card.md) |
-| 86 | Meters use 3 mm round LEDs | confirmed | [mechanical](mechanical.md) |
+| 86 | Meters use 3 mm round LEDs (channel meter refined by 119) | confirmed, refined | [mechanical](mechanical.md) |
 | 87 | Master card power sheet | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 88 | AUX return implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 89 | Compressor implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
@@ -129,17 +130,22 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 105 | Input header pinout confirmed as drawn | confirmed | [input-module](input-module.md) |
 | 106 | Strip envelope (35 mm pitch, card ≤ 33 mm, control area ≤ 320 mm), CV jack above CUTOFF, `MECHANICAL.md` contract | confirmed | [mechanical](mechanical.md) |
-| 107 | Panel stack: PCB 10 mm below the panel, pots hold the panel, fader screwed to the panel before soldering, top-side parts ≤ 9 mm | confirmed | [mechanical](mechanical.md) |
-| 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts; PCB between the rails, ≤ 318 mm | confirmed | [mechanical](mechanical.md) |
-| 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB | confirmed | [mechanical](mechanical.md) |
-| 110 | Channel regulators U501/U502 in D²PAK (onsemi LM317D2TR4G, LM337D2TR4G), tab on about 20 × 20 mm copper both sides | confirmed | [channel-card](channel-card.md) |
-| 111 | Channel electrolytics to SMD at most 5.4 mm tall: ROQANG 47 µF and 10 µF 35 V (LCSC), Panasonic EEE-1VA100NP bipolar | confirmed | [channel-card](channel-card.md) |
-| 112 | Trimmers RV101, RV151, RV182 (3296W, screws down) and jumper headers JP101, JP102, JP151, JP152, J301, J302 on the underside, set through a detachable bottom cover | confirmed; needs the bottom cover from /system | [channel-card](channel-card.md) |
-| 113 | Low-cut capacitors C9-C12: C0G 47 nF 5 % 1206 (Murata, LCSC C21812) instead of film | confirmed | [channel-card](channel-card.md) |
-| 114 | Panel pots: Alpha 9 mm with 6 mm T18 knurled shaft, 15 mm, push-on knobs | confirmed | [channel-card](channel-card.md) |
-| 115 | Trim stage scaled to a 100 k audio dual pot (same gain law); channel pots TRIM, CUTOFF, RESONANCE, AUX chosen (Thonk, Tayda) | confirmed; pots blocked until RoHS declarations (116) | [channel-card](channel-card.md) |
-| 116 | RoHS (2011/65/EU + 2015/863) strict for every component and board; compliance source recorded in `parts.csv`; lead-free finish, assembly and hand soldering | confirmed | [process](process.md) |
-| 117 | Button LED colours (JLCPCB basic 0805: MUTE red, PFL yellow, SC SEND/DUCK/COMP BUS green, LOW-CUT/BYPASS white); chain headers Würth 61203421621 and 61200821621 | confirmed | [channel-card](channel-card.md) |
+| 107 | Panel stack: PCB 10 mm below the panel, pots hold the panel, fader screwed to the panel before soldering, top-side parts ≤ 9 mm (underside: 112, 121) | confirmed, refined | [mechanical](mechanical.md) |
+| 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts (now one per end, 120); PCB between the rails, ≤ 318 mm | confirmed, refined | [mechanical](mechanical.md) |
+| 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB (underside rules: 121) | confirmed, refined | [mechanical](mechanical.md) |
+| 110 | Channel regulators U501/U502 in D²PAK (onsemi LM317D2TR4G, LM337D2TR4G), tab on about 20 × 20 mm copper both sides | confirmed | [channel-card-parts](channel-card-parts.md) |
+| 111 | Channel electrolytics to SMD at most 5.4 mm tall: ROQANG 47 µF and 10 µF 35 V (LCSC), Panasonic EEE-1VA100NP bipolar | confirmed | [channel-card-parts](channel-card-parts.md) |
+| 112 | Trimmers RV101, RV151, RV182 (3296W, screws down) and jumper headers JP101, JP102, JP151, JP152, J301, J302 on the underside, set through a detachable bottom cover | confirmed (cover: 121) | [channel-card-parts](channel-card-parts.md) |
+| 113 | Low-cut capacitors C9-C12: C0G 47 nF 5 % 1206 (Murata, LCSC C21812) instead of film | confirmed | [channel-card-parts](channel-card-parts.md) |
+| 114 | Panel pots: Alpha 9 mm with 6 mm T18 knurled shaft, 15 mm, push-on knobs | confirmed | [channel-card-parts](channel-card-parts.md) |
+| 115 | Trim stage scaled to a 100 k audio dual pot (same gain law); channel pots TRIM, CUTOFF, RESONANCE, AUX chosen (Thonk, Tayda) | confirmed; pots blocked until RoHS declarations (116) | [channel-card-parts](channel-card-parts.md) |
+| 116 | RoHS (2011/65/EU + 2015/863) strict for every component and board; compliance source recorded in `parts.csv`; lead-free finish, assembly and hand soldering (invariant 9, passives, audit: 122) | confirmed, refined | [process](process.md) |
+| 117 | Button LED colours (JLCPCB basic 0805: MUTE red, PFL yellow, SC SEND/DUCK/COMP BUS green, LOW-CUT/BYPASS white); chain headers Würth 61203421621 and 61200821621 | confirmed | [channel-card-parts](channel-card-parts.md) |
+| 118 | Jack size by function: 6.3 mm default for audio to other gear, 3.5 mm for Eurorack-level CV/gate and where 6.3 mm does not fit; cutoff CV jack = 3.5 mm Thonkiconn | confirmed | [system](system.md) |
+| 119 | Channel meter: 0805 LEDs under a printed bezel flush in one panel slot, 6.0 mm pitch, column top level with the fader top, scales independent | confirmed | [mechanical](mechanical.md) |
+| 120 | Panel fixing: one centred M3 button-head screw per end plus a printed locating key in the rail slot; second screw returns if the prototype twists | confirmed | [mechanical](mechanical.md) |
+| 121 | Underside: chain headers at the edges, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (provisional until the mock-up), detachable bottom cover with feet on cheeks or rails | confirmed | [mechanical](mechanical.md) |
+| 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system](system.md) |
 
 ## Proposed but not confirmed
 

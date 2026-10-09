@@ -39,7 +39,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 5. **Keep modules independent.** Each module is its own KiCad project or hierarchical sheet with a documented chain interface (audio and power ribbon pinouts).
 6. **Number every part.** Give each placed symbol the BOM fields in `docs/PART-NUMBERING.md` and register new part types in `docs/parts.csv`.
 7. **Keep licensing tidy.** New code files get the two-line SPDX header (`PolyForm-Noncommercial-1.0.0`); other new paths must be covered by `REUSE.toml`. Run `reuse lint` before committing.
-8. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something.
+8. **Check part facts.** Do not invent pinouts, footprints or electrical limits. Look them up in datasheets, and say so when you cannot verify something. Every part must be RoHS compliant, with its source recorded in `docs/parts.csv` (invariant 9, decisions 116 and 122).
 
 ## Repo layout
 
@@ -63,4 +63,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-117; RoHS strict, decision 116). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-122; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
