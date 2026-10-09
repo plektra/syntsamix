@@ -90,4 +90,4 @@ Settled in this order, each by a decision:
 
 1. *Rear and underside:* rear panel height, input module position, input cable length (decision 99); the cover's inside height and the keep-out values from the cable mock-up (underside rules and cover settled by decision 121)
 2. *Master section and power board:* which end card 1 is (whether the prototype's chain 1 sits next to the master), where each power feed enters its group and how it is routed at full size (decisions 80, 81: about 280 mm or more to the far group), width in strips, headphone jack, heatsinks, brick jack, power and ground-lift switches
-3. *Heat:* ventilation for about 30 W (prototype) to 84 W (full size) typical dissipation inside the unit
+3. *Heat:* ventilation for about 29 W (prototype) to 79 W (full size) typical dissipation inside the unit

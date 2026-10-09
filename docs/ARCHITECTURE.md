@@ -38,18 +38,18 @@ The diagram is not to scale: the master section and power board sit at the right
 
 ### Power
 
-Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py` (rerun 2026-10-08 after decisions 102 and 103). The 1.5 factor is a judgment until the prototype cards are measured.
+Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py` (rerun 2026-10-09 after decision 123). The 1.5 factor is a judgment until the prototype cards are measured.
 
 | Item | Value | Source |
 |---|---|---|
 | Raw rails | ±20 V nominal, unregulated in general; on the prototype from non-isolated converters on the power board (TPS54560 buck and inverter), the 24 V brick providing the isolation | decisions 40, 60, 81, 100 |
 | Raw rail minimum under load | about 19 V: the master's relay drop-out comparator trips at 17.9 V; the LM317 needs about 2 V headroom above 15.1 V | decisions 92, 95 |
 | Local rails on every card | ±15.1 V (LM317/LM337), +5 V (78L05 on channel cards, L7805 on the master) | decisions 78, 87 |
-| Channel card load (+15 / −15 V) | typical 121 / 103 mA; worst case 249 / 214 mA; sizing 186 / 154 mA (AD8273 at its 5 mA package maximum, ADI Rev. B Table 2, also used as typical) | decisions 96, 102, `hardware/channel-card/scripts/power_budget.py` |
+| Channel card load (+15 / −15 V) | typical 113 / 95 mA; worst case 229 / 194 mA; sizing 174 / 142 mA (AD8273 at its 5 mA package maximum, ADI Rev. B Table 2, also used as typical) | decisions 96, 102, 123, `hardware/channel-card/scripts/power_budget.py` |
 | Master card load (+15 / −15 V) | typical 340 / 269 mA; worst case 719 / 594 mA; sizing 589 / 476 mA | decisions 95, 96, 103, `hardware/master/scripts/power_budget.py` |
-| Prototype, 4 cards + master | sizing 1.33 / 1.09 A, about 48 W (typical 0.82 / 0.68 A); power board converters about 2 A per rail | decisions 96, 100 |
-| Full size, 16 cards + master | sizing 3.56 / 2.94 A, about 130 W (typical 2.28 / 1.92 A; worst case 4.70 / 4.02 A, not used for sizing) | decision 96 |
-| Power ribbon | injected in groups of 8 cards; about 0.74 A per pin (sizing; 1.00 A at worst case); connectors and cable rated at least 1 A per contact (the chosen Würth 61200823021 IDC socket is the limit at 1 A, so the worst case sits at its rating; the header is 3 A) | decisions 80, 96, 100 |
+| Prototype, 4 cards + master | sizing 1.28 / 1.04 A, about 47 W (typical 0.79 / 0.65 A); power board converters about 2 A per rail | decisions 96, 100, 123 |
+| Full size, 16 cards + master | sizing 3.37 / 2.75 A, about 122 W (typical 2.15 / 1.79 A; worst case 4.38 / 3.70 A, not used for sizing) | decisions 96, 123 |
+| Power ribbon | injected in groups of 8 cards; about 0.70 A per pin (sizing; 0.92 A at worst case); connectors and cable rated at least 1 A per contact (the chosen Würth 61200823021 IDC socket is the limit at 1 A; the worst case sits 8 % below it; the header is 3 A) | decisions 80, 96, 100, 123 |
 | Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board; the start-up ramp on both converters holds the brick at about 54 W while charging it (rails at 19 V about 40 ms after switch-on; bench check in `hardware/power/STATUS.md`) | system validation, finding 6; decision 100, `hardware/power/scripts/startup_sim.py` |
 
 ### Signal levels
@@ -89,7 +89,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 ## Open system items
 
 - Mechanical (`/system mechanical`): rear panel and input module position (with the cover height and keep-out values from the cable mock-up), master section and power board, in that order (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109 and 118 to 121).
-- RoHS audit of `docs/parts.csv` before the first PCB order (decision 122).
-- Heat budget **[estimate]**: about 30 W (prototype) to 84 W (full size) typical dissipation inside the unit (typical rail currents above × 20 V); needs ventilation and a budget row once the frame is drawn.
+- RoHS gaps before the first PCB order (decision 122; audit done 2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`): declarations for the SSI2144, SSI2162 (channel) and AS3046D (master) and the channel card's four panel pots; End of Life THAT1646S08-U (master) and ERA-V33J102V (channel); rows with no part chosen yet get their source when chosen.
+- Heat budget **[estimate]**: about 29 W (prototype) to 79 W (full size) typical dissipation inside the unit (typical rail currents above × 20 V); needs ventilation and a budget row once the frame is drawn.
 
 Earlier items are closed: the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes, finding 3 (R421 footprint) by the master card fix in bad26be.

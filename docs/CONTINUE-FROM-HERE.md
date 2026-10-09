@@ -18,13 +18,13 @@ Decisions 1-123; last pushed commit: see `git log -1`.
 1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the [proposed] op amp power levers and the checks in each `STATUS.md`.
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
 3. **Channel card schematic touch-up**: done 2026-10-09 (meter LEDs 0805, decision 119; power levers, decision 123).
-4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144 and SSI2162 (channel) and the AS3046D (master), 25 rows with no part chosen yet, and the THAT1646S08-U End of Life at Mouser (master).
+4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 and the four panel pots (channel) and the AS3046D (master), 25 rows with no part chosen yet, and End of Life at Mouser for the THAT1646S08-U (master) and the ERA-V33J102V tempco resistor (channel).
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
 6. **Channel card PCB**, then the input module, master card and power board PCBs.
 
 ## System
 
-Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decisions 102 and 103 on 2026-10-08). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109), jack sizes, channel meter bezel, single panel screw, underside and bottom cover (decisions 118-121); invariant 9 RoHS (decision 122); still open: the rear (rear panel, input module position, cover height and keep-out values from the mock-up), the master section and power board, and the heat budget. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
+Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decision 123 on 2026-10-09). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109), jack sizes, channel meter bezel, single panel screw, underside and bottom cover (decisions 118-121); invariant 9 RoHS (decision 122); still open: the rear (rear panel, input module position, cover height and keep-out values from the mock-up), the master section and power board, and the heat budget. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
 
 ## Waiting for the user's confirmation
 

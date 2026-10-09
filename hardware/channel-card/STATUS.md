@@ -7,9 +7,9 @@ Updated 2026-10-09 (schematic session: meter LEDs to 0805, op amp power levers =
 - Schematic complete: Input, Filter, Level, Routing, Meter, Chain and power. ERC 0 errors 0 warnings; every sheet matches its reference netlist.
 - 2026-10-08: decisions 97, 98 and 102 drawn (SC_ENV into VSUM through R217; PGND returns for Q301 and the button pull-downs; U204 = OPA2171). The Level control is simulated in `simulation/level/`.
 - 2026-10-09, mechanical parts (decisions 110-117): every top-side part now fits the 9 mm limit under the panel. Regulators D²PAK on copper (110); electrolytics SMD at most 5.4 mm (111); trimmers and jumper headers on the underside (112); low-cut caps C0G 1206 (113); pot shaft standard T18 (114); trim stage scaled to a 100 k pot and the pots chosen (115); RoHS strict for every part (116, project-wide); button LEDs and chain headers chosen (117). Sheets rebuilt, netlists match, ERC 0/0.
-- 2026-10-09, /system mechanical: 3.5 mm CV jack by the new jack-size rule (118), meter as 0805 LEDs under a printed bezel at 6.0 mm pitch (119), one centred panel screw per end with a printed key (120), underside rules, keep-out and bottom cover (121), RoHS invariant 9 with standard passives at BOM time (122). Board work left: the meter LED swap (Check before layout).
+- 2026-10-09, /system mechanical: 3.5 mm CV jack by the new jack-size rule (118), meter as 0805 LEDs under a printed bezel at 6.0 mm pitch (119), one centred panel screw per end with a printed key (120), underside rules, keep-out and bottom cover (121), RoHS invariant 9 with standard passives at BOM time (122).
 - 2026-10-09, schematic: meter LEDs D411-D418 drawn as 0805 (KT-0805G, KT-0805Y, NCD0805R1; decision 119); power levers (decision 123): U107 NE5532 → TL072, meter U401/U404 TL072 → TL062CDR (SX-IC-024). Card load now 113 / 95 mA typical, 229 / 194 mA worst case, sizing 174 / 142 mA. Netlists match, ERC 0/0. RoHS audit of `parts.csv` done (report `docs/reviews/2026-10-09-rohs-audit.md`).
-- PCB: not started; waits for the breadboard, the RoHS audit and the cable mock-up.
+- PCB: not started; waits for the breadboard, the RoHS declarations (SSI2144/SSI2162, the four panel pots) and the cable mock-up.
 
 ## Provisional until the breadboard
 
@@ -58,4 +58,4 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 ## For /system
 
-- Channel card load after decision 123: typical 113 / 95 mA, worst case 229 / 194 mA, sizing 174 / 142 mA (was 121 / 103, 249 / 214, 186 / 154). `tools/system_power_budget.py` now gives 4 cards + master sizing 1.28 / 1.04 A, about 47 W; 16 cards + master sizing 3.37 / 2.75 A, about 122 W (typical 2.15 / 1.79 A, worst case 4.38 / 3.70 A); power ribbon 0.70 A per pin sizing, 0.92 A worst case. Update the Power table in `docs/ARCHITECTURE.md`.
+(none; the decision-123 load figures are in `docs/ARCHITECTURE.md`, Power, since /system 2026-10-09)

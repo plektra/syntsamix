@@ -45,7 +45,7 @@ Signal definitions:
 
 - Pin 1 (red stripe) is the negative rail, the same habit as Eurorack, so the stripe always marks "negative".
 - 10- and 16-pin sizes are deliberately avoided so a Eurorack power cable cannot be plugged in.
-- Current per rail (decision 96, `tools/system_power_budget.py`): a channel card draws about 121 mA typical, 249 mA worst case; the sizing figure for shared parts is 186 mA per card (after decision 102). Power is injected in groups of 8 cards (decision 80): the power board (decision 81) has three power headers: one for the master card, chain 1 for cards 1 to 8 and chain 2 for cards 9 to 16, so each pin carries up to about 0.74 A (sizing figure; 1.00 A at worst case). The IDC headers, sockets and cable must be rated at least 1 A per contact. The audio ribbon still runs through all cards.
+- Current per rail (decision 96, `tools/system_power_budget.py`): a channel card draws about 113 mA typical, 229 mA worst case on +15 V; the sizing figure for shared parts is 174 mA per card (after decision 123). Power is injected in groups of 8 cards (decision 80): the power board (decision 81) has three power headers: one for the master card, chain 1 for cards 1 to 8 and chain 2 for cards 9 to 16, so each pin carries up to about 0.70 A (sizing figure; 0.92 A at worst case). The IDC headers, sockets and cable must be rated at least 1 A per contact. The audio ribbon still runs through all cards.
 
 ## Grounding
 
