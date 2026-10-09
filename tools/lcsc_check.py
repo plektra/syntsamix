@@ -58,7 +58,7 @@ for p in csv.DictReader(open(os.path.join(ROOT,'docs','parts.csv'))):
             hit=best(cands)
             if hit: break
     elif pn.startswith("SX-R"):
-        v=val(desc,"(?:Ohm|kOhm)") ; m=re.search(r'([\d.]+)\s*(k?)Ohm',desc); v=float(m.group(1))*(1e3 if m.group(2) else 1)
+        v=val(desc,"(?:Ohm|kOhm)") ; m=re.search(r'([\d.]+)\s*([kM]?)Ohm',desc); v=float(m.group(1))*{"":1,"k":1e3,"M":1e6}[m.group(2)]
         out["Search"]=f"{v:g} Ohm 0805 1%"; r=get("resistors/list.json",resistance=v,package="0805")
         hit=best([c for c in r.get("resistors",[]) if (c.get("tolerance_fraction") or 1)<=0.01])
     elif pn.startswith("SX-C"):

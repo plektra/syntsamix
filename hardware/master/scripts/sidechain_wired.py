@@ -159,7 +159,7 @@ tp=(n[0]+5.08,o[1]); q=(n[0]+10.16,o[1]); se=(n[0]+17.78,o[1]); s.wire(n,tp); s.
 hier(se,"SC_ENV",0,"output"); s.tp("TP502","SC_ENV",tp,"up")
 # Schottky clamp: SC_ENV cannot rise above about +0.3 V (pin 1 = cathode to AGND, pin 2 = anode on SC_ENV)
 dc=(q[0]-3.81,o[1]+15.24); s.wire(q,(q[0],dc[1]))
-dd=s.place("Device","D","D504","BAT54T1G",dc[0],dc[1],0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-014",Manufacturer="onsemi",MPN="BAT54T1G",Note="SC_ENV clamp to AGND (decision 97)"))
+dd=s.place("Device","D","D504","BAT54T1G",dc[0],dc[1],0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-014",Manufacturer="onsemi",MPN="BAT54T1G",Supplier="LCSC",SupplierPN="C152458",Note="SC_ENV clamp to AGND (decision 97)"))
 s.wire(dd(1),dn(dd(1),2.54)); gnd(dn(dd(1),2.54))
 # spare sections of U508
 for i,(ref,unit) in enumerate((("U95083",3),("U95084",4))):

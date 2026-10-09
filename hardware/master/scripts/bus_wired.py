@@ -28,7 +28,7 @@ NOCONNECT=[]
 
 # ------------------------------------------------------------- audio ribbon header (master end of the chain)
 j=s.place("Connector_Generic","Conn_02x17_Odd_Even","J101","AUDIO CHAIN",45.72,101.6,0,fp="Connector_IDC:IDC-Header_2x17_P2.54mm_Vertical",
-          props=P("SX-CONN-007",Note="34-pin shrouded keyed box header, pinout docs/CHAIN.md"))
+          props=P("SX-CONN-007",Manufacturer="Wurth Elektronik",MPN="61203421621",Supplier="Mouser",SupplierPN="710-61203421621",Note="34-pin shrouded keyed box header, pinout docs/CHAIN.md; underside, left edge (decision 109); drill 1.1 mm"))
 bx=j(1)[0]-2.54
 for p in range(1,35,2): s.wire(j(p),(bx,j(p)[1]))
 ys=[j(p)[1] for p in range(1,35,2)]

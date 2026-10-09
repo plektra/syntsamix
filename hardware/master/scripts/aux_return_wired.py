@@ -7,10 +7,13 @@ Top: jacks, RFI filters, AD8273 receiver, gain stage with the PRO/PEDAL jumper,
 SSI2162 VCA with I-V stage and inverter, bus resistors and the MAIN/COMP switch.
 Bottom: level law (as the channel fader), mute/duck switch, buttons, supplies.
 """
+SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
+     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+     "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os,sys
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
+CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
 def draw(n):
@@ -19,7 +22,7 @@ def draw(n):
     P=lambda pn,**k: {"ProjectPN":pn,**k}
     rr=lambda k:f"R{B+k}"; cc=lambda k:f"C{B+k}"; uu=lambda k:f"U{B+k}"; tt=lambda k,unit:f"U9{B+k}{unit}"
     def R(k,val,pn,x,y,rot=90,**kw): return s.place("Device","R",rr(k),val,x,y,rot,fp=R0805,props=P(pn,**kw))
-    def C(k,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",cc(k),val,x,y,rot,fp=fp,props=P(pn))
+    def C(k,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",cc(k),val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
     SYM={"OPA2171":"Opamp_Dual"}; MPN={"OPA2171":{"MPN":"OPA2171AIDR"}}   # no OPA2171 symbol in the KiCad library; same pinout
     def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**TI,**MPN.get(part,{})))
     def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI))
@@ -68,7 +71,7 @@ def draw(n):
         xo=119.38
         if dy==0: s.wire(o,(xo,o[1])); s.wire(se,(xo,se[1]),(xo,o[1]))
         else: s.wire(se,(xo,se[1])); s.wire(o,(xo,o[1])); s.wire((xo,se[1]),(xo,o[1])); s.wire((xo,o[1]),(xo,y))
-        c=C(ccpl,"10u bipolar","SX-C-003",127.0,y,fp=CBIP); s.wire((xo,y),c(1))
+        c=C(ccpl,"10u bipolar","SX-C-023",127.0,y,fp=CBIP); s.wire((xo,y),c(1))
         r=R(rin,"10k","SX-R-002",140.97,y); s.wire(c(2),r(1))
         SX,TX=152.4,180.34
         s.wire(r(2),(SX,y))
@@ -93,7 +96,7 @@ def draw(n):
             s.wire((TX,yr+7.62),(TX,yr+10.16)); s.label("R_RET",(TX,yr+10.16),270)
         s.tp(f"TP{B+1 if side=='L' else B+2}",f"{side}_RET",(185.42,tn[1]),"up")
         # VCA input
-        cv=C(cvin,"10u bipolar","SX-C-003",195.58,tn[1],fp=CBIP); s.wire(tn,(185.42,tn[1])); s.wire((185.42,tn[1]),cv(1))
+        cv=C(cvin,"10u bipolar","SX-C-023",195.58,tn[1],fp=CBIP); s.wire(tn,(185.42,tn[1])); s.wire((185.42,tn[1]),cv(1))
         rv=R(rvin,"10k","SX-R-002",213.36,tn[1]); s.wire(cv(2),rv(1))
         node=(228.6,tn[1]); s.wire(rv(2),node)
         sgn=-1 if rc_up else 1

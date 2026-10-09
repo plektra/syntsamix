@@ -8,20 +8,26 @@ bus resistors). Middle: detector (full-wave rectifier, log converter on the AS30
 gain stage, peak hold, release mirror). Lower: Amount, on/off ramp, gain computer and
 VC summer. Right: gain-reduction LEDs and the ON button. Supplies at the bottom.
 """
+SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
+     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+     "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,fp=R0805,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**kw))
-def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn))
+def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
 def D(ref,x,y,rot=0): return s.place("Device","D",ref,"1N4148W",x,y,rot,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
 def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
-def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**TI))
+LOWP={"U409","U94092","U94093","U410","U94102","U94103"}   # TL062 (decision 126): light DC and meter loads
+def TL(ref,unit,x,y):
+    v="TL062" if ref in LOWP else "TL072"
+    return s.place("Amplifier_Operational",v,ref,v,x,y,0,unit,SO8,P("SX-IC-024" if ref in LOWP else "SX-IC-007",**TI,**({"MPN":"TL062CDR","Supplier":"LCSC","SupplierPN":"C67471"} if ref in LOWP else {})))
 def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI))
 def Q(ref,unit,x,y): return s.place("syntsamix","AS3046",ref,"AS3046D",x,y,0,unit,SO14,P("SX-IC-013",Manufacturer="Alfa",MPN="AS3046D",Supplier="Electric Druid"))
 gnd=lambda at,rot=0: s.power("GNDA",at,rot)
@@ -57,7 +63,7 @@ for side,(cin,rin,rrc,crc,riv,civ,rdi,rdf,iv,dinv,iin,iout,xrc,xjog,fb_up) in (
     yf=yd+7.62 if side=="L" else yd+7.62
     r2=R(rdf,"10k","SX-R-002",76.2,yf); s.wire(nd,(nd[0],yf),r2(1)); s.wire(r2(2),(on[0],yf),on)
     # VCA input: 10u, 10k, 100R + 2n2 towards the VCA, jog into IIN
-    c=C(cin,"10u bipolar","SX-C-003",50.8,yw,fp=CBIP); s.wire((XN,yw),c(1))
+    c=C(cin,"10u bipolar","SX-C-023",50.8,yw,fp=CBIP); s.wire((XN,yw),c(1))
     r=R(rin,"10k","SX-R-002",66.04,yw); s.wire(c(2),r(1)); node=(xrc,yw); s.wire(r(2),node)
     if side=="L":
         rn=R(rrc,"100","SX-R-001",xrc,yw+11.43,0); cn=C(crc,"2n2 C0G","SX-C-009",xrc,yw+21.59,0)

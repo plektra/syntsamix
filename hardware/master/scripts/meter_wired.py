@@ -17,7 +17,10 @@ s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**k): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**k))
 def C(ref,val,pn,x,y,rot=0): return s.place("Device","C",ref,val,x,y,rot,fp=C0805,props=P(pn))
-def OA(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**TI))
+LOWP={"U802","U98022","U98023","U804","U98042","U98043"}   # TL062 (decision 126): light DC and meter loads
+def OA(ref,unit,x,y):
+    v="TL062" if ref in LOWP else "TL072"
+    return s.place("Amplifier_Operational",v,ref,v,x,y,0,unit,SO8,P("SX-IC-024" if ref in LOWP else "SX-IC-007",**TI,**({"MPN":"TL062CDR","Supplier":"LCSC","SupplierPN":"C67471"} if ref in LOWP else {})))
 gnd=lambda at,rot=0: s.power("GNDA",at,rot); pgnd=lambda at,rot=0: s.power("GNDPWR",at,rot)
 up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
 

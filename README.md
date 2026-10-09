@@ -37,7 +37,7 @@ A modular, analog stereo mixer for live electronic music: synthesizers, drum mac
 - **Sidechain ducking**: an envelope follower (threshold, depth, decay) ducks any channel with DUCK on, independently of the compressor
 - Two stereo AUX returns (level, mute, main or compressor bus; jumper for pro or pedal levels) and two AUX send masters
 - Master level through a VCA, soft clipping on the master bus
-- Balanced main outputs (THAT1646, +24 dBu) and a headphone amplifier (TPA6120A2, 32 to 600 Ω)
+- Balanced main outputs (TI DRV135, +24 dBu) and a headphone amplifier (TPA6120A2, 32 to 600 Ω)
 - Stereo 12-segment master meter
 - Output protection relays: silent power-up and power-down on the main and headphone outputs
 

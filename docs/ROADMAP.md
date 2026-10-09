@@ -12,7 +12,7 @@
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
-5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn)*, then PCB
+5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then PCB (after `/system mechanical` on the master section)
 6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB
 7. **Prototype build and measurement** against the targets in SPEC.md section 5
 
@@ -43,10 +43,10 @@ Decisions that can fall back to a cheaper option if the budget needs it:
 From `/system power conversion` (2026-10-08). About three-quarters of the supply current is op amp quiescent current; the NE5532s in the core audio path stay. Supply currents per amplifier, typical / maximum (TI datasheets): NE5532 3 / 8 mA, TL072 1.4 / 2.5 mA, TL062 0.2 / 0.25 mA, OPA1678 2 / 2.5 mA.
 
 1. **Done on the channel card (decision 123):** Channel U107 (cutoff CV summer, one unit unused): NE5532 → TL072. Saves 3.2 / 11 mA per rail per card; DC accuracy improves (FET input bias into 100-300 kΩ)
-2. **[proposed] for the master; channel done (decision 123: U401, U404 to TL062; U205 stays TL072, superdiodes):** TL072 → TL062 in DC control and meter stages with light loads, after a check per position (TL062: ±10 V minimum swing into 10 kΩ, input range 4 V inside the rails, about 10 mA output; not for peak detectors, comparators or the SC_ENV driver). Candidates left: master fader-law superdiodes (U207, U307, U706; U206, U306, U705 are OPA2171s since decision 103), compressor U407, U409, U410, meter U802, U804. Saves 2.4 / 4.5 mA per package
+2. **Done (decisions 123, 126):** channel U401, U404 and master U409, U410, U802, U804 TL072 → TL062; the superdiodes (channel U205, master U207, U307, U706) and the master's log-detector U407 stay TL072. Master saves about 9.6 mA per rail typical
 3. Later cost choice: NE5532 → OPA1678 in low-noise-gain audio stages (channel U3, U106; master U205, U305, U404, U405). Saves 2 / 11 mA per package with equal or better audio; costs more (price not checked)
 
-The channel share is done: decision 123 cut the card from 121 / 103 to 113 / 95 mA typical (the budget in `ARCHITECTURE.md` includes it). The master's share, if all eight candidate packages pass the check, is about 8 × 2.4 ≈ 19 mA per rail typical. NE5532 → TL072 in audio stages was rejected (measurably more noise and distortion).
+The channel share is done: decision 123 cut the card from 121 / 103 to 113 / 95 mA typical (the budget in `ARCHITECTURE.md` includes it). The master's share is done too: decision 126 moved four packages (about 9.6 mA per rail typical; master 340 / 269 → 331 / 260 mA with decision 125); `ARCHITECTURE.md` still shows the old master figures until `/system` reruns the budget. NE5532 → TL072 in audio stages was rejected (measurably more noise and distortion).
 
 ## KiCad workflow
 

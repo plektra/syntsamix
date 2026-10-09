@@ -8,17 +8,17 @@ Project-level handoff, updated 2026-10-09. Read `CLAUDE.md` first. Board detail 
 |---|---|---|---|
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
 | Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LEDs 0805 and op amp power levers drawn (decision 123) | not started (waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up) | `hardware/channel-card/STATUS.md` |
-| Master card | done, ten sheets, ERC 0/0 (decisions 97, 98, 103, 104 drawn) | not started | `hardware/master/STATUS.md` |
+| Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form; and the RV501 C100K dual pot) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-124; last pushed commit: see `git log -1`.
+Decisions 1-128; last pushed commit: see `git log -1`.
 
 ## Order of work
 
-1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the [proposed] op amp power levers and the checks in each `STATUS.md`.
+1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the checks in each `STATUS.md` (master power levers done, decision 126).
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
 3. **Channel card schematic touch-up**: done 2026-10-09 (meter LEDs 0805, decision 119; power levers, decision 123).
-4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 (channel) and the AS3046D (master; the Alpha pots are cleared by Alpha's declaration, decision 124), 25 rows with no part chosen yet, and End of Life at Mouser for the THAT1646S08-U (master) and the ERA-V33J102V tempco resistor (channel).
+4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 (channel) and the AS3046D (master; the Alpha pots are cleared by Alpha's declaration, decision 124), 25 rows with no part chosen yet, and End of Life at Mouser for the ERA-V33J102V tempco resistor (channel card, and master R421). The THAT1646 End of Life is closed by decision 125 (DRV135UA).
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
 6. **Channel card PCB**, then the input module, master card and power board PCBs.
 
@@ -28,9 +28,7 @@ Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets
 
 ## Waiting for the user's confirmation
 
-The **[proposed]** parts of decisions 89-94 (master card); listed in `hardware/master/STATUS.md`.
-
-The **[proposed]** op amp power levers for the master card (`docs/ROADMAP.md`, Power-cut candidate 2); the channel card took them in decision 123.
+Nothing. The master's proposals (89-94, power levers) were decided on 2026-10-09 with the user's delegation (decisions 125-128; review them in `hardware/master/STATUS.md`).
 
 ## Pending outside the boards
 

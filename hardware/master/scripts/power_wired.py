@@ -6,17 +6,20 @@ Reference netlist: power_build.py (check_netlist.py power.json).
 Regulator blocks follow the channel card (chain_wired.py); +5 V uses an L7805 for the
 heavier LED load. AGND/PGND star point (net tie) and the frame ground lift.
 """
+SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
+     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+     "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CP47="Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"; CP10="Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+CP47="Capacitor_SMD:CP_Elec_6.3x5.4"; CP10="Capacitor_SMD:CP_Elec_5x5.4"
 TO220="Package_TO_SOT_THT:TO-220-3_Vertical"
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
-def R(ref,val,pn,x,y,rot=0): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn))
-def C(ref,val,pn,x,y,rot=0): return s.place("Device","C",ref,val,x,y,rot,fp=C0805,props=P(pn))
-def CP(ref,val,pn,fp,x,y,rot=0): return s.place("Device","C_Polarized",ref,val,x,y,rot,fp=fp,props=P(pn))
-def D(ref,val,pn,fp,x,y,rot): return s.place("Device","D",ref,val,x,y,rot,fp=fp,props=P(pn))
+def R(ref,val,pn,x,y,rot=0): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**SMD.get(pn,{})))
+def C(ref,val,pn,x,y,rot=0): return s.place("Device","C",ref,val,x,y,rot,fp=C0805,props=P(pn,**SMD.get(pn,{})))
+def CP(ref,val,pn,fp,x,y,rot=0): return s.place("Device","C_Polarized",ref,val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
+def D(ref,val,pn,fp,x,y,rot): return s.place("Device","D",ref,val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
 def gnd(at,rot=0): s.power("GNDA",at,rot)
 def pgnd(at,rot=0): s.power("GNDPWR",at,rot)
 def up(p,d=2.54): return (p[0],p[1]-d)
@@ -26,7 +29,7 @@ def rt(p,d=2.54): return (p[0]+d,p[1])
 
 # ------------------------------------------------------------- power ribbon in (from the power board)
 j=s.place("Connector_Generic","Conn_02x04_Odd_Even","J901","POWER IN",60.96,180.34,0,fp="Connector_IDC:IDC-Header_2x04_P2.54mm_Vertical",
-          props=P("SX-CONN-008",Note="8-pin shrouded keyed box header: 1-2 V-, 3-6 PGND, 7-8 V+ (docs/CHAIN.md)"))
+          props=P("SX-CONN-008",Manufacturer="Wurth Elektronik",MPN="61200821621",Supplier="Mouser",SupplierPN="710-61200821621",Note="8-pin shrouded keyed box header: 1-2 V-, 3-6 PGND, 7-8 V+ (docs/CHAIN.md); drill 1.1 mm"))
 for side,pins,x in (("L",(1,3,5,7),j(1)[0]-5.08),("R",(2,4,6,8),j(2)[0]+5.08)):
     a,b,c,d=pins
     for p in pins: s.wire(j(p),(x,j(p)[1]))
@@ -43,8 +46,8 @@ def rail_in(y,label,tpref,flag_dir,cap47,cap100,neg):
     x=(119.38,y)
     for xx in (124.46,132.08,137.16,142.24,152.4): s.wire(x,(xx,y)); x=(xx,y)
     s.power("PWR_FLAG",(124.46,y-5.08) if flag_dir=="up" else (124.46,y+5.08)); s.wire((124.46,y),(124.46,y-5.08) if flag_dir=="up" else (124.46,y+5.08))
-    if neg: c=CP(cap47,"47u 35V","SX-C-011",CP47,132.08,y-3.81); pgnd(c(1),180)
-    else:   c=CP(cap47,"47u 35V","SX-C-011",CP47,132.08,y+3.81); pgnd(c(2))
+    if neg: c=CP(cap47,"47u 35V","SX-C-025",CP47,132.08,y-3.81); pgnd(c(1),180)
+    else:   c=CP(cap47,"47u 35V","SX-C-025",CP47,132.08,y+3.81); pgnd(c(2))
     c=C(cap100,"100n","SX-C-002",142.24,y+3.81); pgnd(c(2))
     s.tp(tpref,label,(137.16,y),flag_dir)
     return (152.4,y)
@@ -61,12 +64,12 @@ s.wire(vin,(vin[0],Y1-7.62),d(1)); s.wire(d(2),(177.8,Y1-7.62),(177.8,Y1))
 s.wire(u(2),(177.8,Y1)); rail_out(Y1,(177.8,Y1),(185.42,195.58,208.28,218.44,228.6,233.68,238.76))
 adj=u(1)
 r2=R("R902","2k2","SX-R-049",XU,adj[1]+3.81); gnd(r2(2))
-ca=CP("C903","10u 25V","SX-C-012",CP10,175.26,adj[1]+3.81); gnd(ca(2))
+ca=CP("C903","10u 35V","SX-C-024",CP10,175.26,adj[1]+3.81); gnd(ca(2))
 r1=R("R901","200","SX-R-010",185.42,Y1+3.81)
 d2=D("D902","1N4148W","SX-D-003","Diode_SMD:D_SOD-123",195.58,Y1+3.81,270)
 x=adj
 for xx in (175.26,185.42,195.58): s.wire(x,(xx,adj[1])); x=(xx,adj[1])
-co=CP("C904","10u 25V","SX-C-012",CP10,208.28,Y1+3.81); gnd(co(2))
+co=CP("C904","10u 35V","SX-C-024",CP10,208.28,Y1+3.81); gnd(co(2))
 cc=C("C905","100n","SX-C-002",218.44,Y1+3.81); gnd(cc(2))
 ds=D("D905","SS14","SX-D-007","Diode_SMD:D_SMA",228.6,Y1+3.81,270); gnd(ds(2))
 s.tp("TP903","+15V",(233.68,Y1),"up"); s.power("+15V",(238.76,Y1))
@@ -78,17 +81,18 @@ for ref,y in (("HS901",Y1),("HS902",Y2)):
     s.place("Mechanical","Heatsink",ref,"TO-220 heatsink <= 10 C/W",XU+48.26,y-25.4,0,fp="",props=P("SX-MECH-002",Note="Board-mount, live at the regulator tab: do not touch the other heatsink or the frame (or use an insulating pad)"))
 
 vin=rail_in(Y2,"-20V_RAW","TP902","down","C906","C907",True); s.wire(vin,u(2))
+s.wire((119.38,Y2),(119.38,Y2-12.7)); s.label("-20V_RAW",(119.38,Y2-12.7),90,"hierarchical","output")   # to the relay drop-out comparator (Master out sheet, decision 128)
 d=D("D903","1N4148W","SX-D-003","Diode_SMD:D_SOD-123",XU,Y2+7.62,180)
 s.wire(vin,(vin[0],Y2+7.62),d(2)); s.wire(d(1),(177.8,Y2+7.62),(177.8,Y2))
 s.wire(u(3),(177.8,Y2)); rail_out(Y2,(177.8,Y2),(185.42,195.58,208.28,218.44,228.6,233.68,238.76))
 adj=u(1)
 r4=R("R904","2k2","SX-R-049",XU,adj[1]-3.81); gnd(r4(1),180)
-ca=CP("C908","10u 25V","SX-C-012",CP10,175.26,adj[1]-3.81); gnd(ca(1),180)
+ca=CP("C908","10u 35V","SX-C-024",CP10,175.26,adj[1]-3.81); gnd(ca(1),180)
 r3=R("R903","200","SX-R-010",185.42,Y2-3.81)
 d4=D("D904","1N4148W","SX-D-003","Diode_SMD:D_SOD-123",195.58,Y2-3.81,270)
 x=adj
 for xx in (175.26,185.42,195.58): s.wire(x,(xx,adj[1])); x=(xx,adj[1])
-co=CP("C909","10u 25V","SX-C-012",CP10,208.28,Y2-3.81); gnd(co(1),180)
+co=CP("C909","10u 35V","SX-C-024",CP10,208.28,Y2-3.81); gnd(co(1),180)
 cc=C("C910","100n","SX-C-002",218.44,Y2+3.81); gnd(cc(2))
 ds=D("D906","SS14","SX-D-007","Diode_SMD:D_SMA",228.6,Y2-3.81,270); gnd(ds(1),180)
 s.tp("TP904","-15V",(233.68,Y2),"down"); s.power("-15V",(238.76,Y2))
@@ -101,7 +105,7 @@ c=C("C911","100n","SX-C-002",147.32,Y3+3.81); pgnd(c(2))
 s.wire(u(2),dn(u(2),2.54)); pgnd(dn(u(2),2.54))
 x=u(3)
 for xx in (175.26,180.34,185.42): s.wire(x,(xx,Y3)); x=(xx,Y3)
-c=CP("C912","10u 25V","SX-C-012",CP10,175.26,Y3+3.81); pgnd(c(2))
+c=CP("C912","10u 35V","SX-C-024",CP10,175.26,Y3+3.81); pgnd(c(2))
 s.tp("TP905","+5V",(180.34,Y3),"up"); s.power("+5V",(185.42,Y3))
 pgnd((200.66,Y3+7.62)); s.tp("TP906","PGND",(200.66,Y3+7.62),"up")
 

@@ -8,8 +8,8 @@ The decision log, split by area. Read this index, then the area file for the wor
 | [channel-card.md](channel-card.md) | Channel card |
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
-| [master-card.md](master-card.md) | Master/compressor card: scope and part choices |
-| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104) |
+| [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135) |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, availability notes |
@@ -106,18 +106,18 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 80 | Power injected in groups of 8 cards | confirmed | [system](system.md) |
 | 81 | Separate power board | confirmed | [power](power.md) |
 | 82 | Log detector: AS3046D | confirmed | [master-card](master-card.md) |
-| 83 | Main outputs: THAT1646 | confirmed | [master-card](master-card.md) |
+| 83 | Main outputs: THAT1646 (part replaced by 125) | confirmed, refined | [master-card](master-card.md) |
 | 84 | Headphone driver: TPA6120A2 | confirmed | [master-card](master-card.md) |
 | 85 | Relays: Omron G6K-2F-Y | confirmed | [master-card](master-card.md) |
 | 86 | Meters use 3 mm round LEDs (channel meter refined by 119) | confirmed, refined | [mechanical](mechanical.md) |
 | 87 | Master card power sheet | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 88 | AUX return implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 89 | Compressor implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
-| 90 | Sidechain and ducking sheet | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
-| 91 | AUX sends implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
-| 92 | Master out implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
-| 93 | Master meter implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
-| 94 | Headphones implementation | confirmed, parts proposed | [master-card-sheets](master-card-sheets.md) |
+| 89 | Compressor implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 90 | Sidechain and ducking sheet | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 91 | AUX sends implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 92 | Master out implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 93 | Master meter implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 94 | Headphones implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 95 | Master card power recheck | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 96 | Power sizing rule: own parts worst case, shared parts typical × 1.5 plus use loads | confirmed | [system](system.md) |
 | 97 | SC_ENV negative, −1 V = 10 dB, summed into the control summer's virtual earth | confirmed | [system](system.md) |
@@ -148,6 +148,10 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system](system.md) |
 | 123 | Channel op amp power levers: U107 NE5532 → TL072, meter U401/U404 TL072 → TL062 | confirmed | [channel-card](channel-card.md) |
 | 124 | A maker's general RoHS declaration covers its standard parts: Taiwan Alpha's RoHS II declaration clears every standard Alpha pot (channel CUTOFF, TRIM, AUX, RESONANCE; master Alpha pots once chosen); declarations kept in git-ignored `docs/rohs/` | confirmed | [process](process.md) |
+| 125 | Main output driver DRV135UA replaces the end-of-life THAT1646 (same SO-8 pinout) | confirmed (delegated) | [master-card](master-card.md) |
+| 126 | Master op amp power levers: U409, U410, U802, U804 TL072 → TL062 | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
+| 127 | Master electrolytics to SMD (item 111 parts); TO-220 regulators still too tall | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
+| 128 | Relay drop-out watches both raw rails (U707C on −20V_RAW) | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
 
 ## Proposed but not confirmed
 

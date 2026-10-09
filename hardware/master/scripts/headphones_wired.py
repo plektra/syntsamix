@@ -11,7 +11,7 @@ Bottom: PFL-active LED, supplies and decoupling.
 import json,os
 from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; R2512="Resistor_SMD:R_2512_6332Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"; CP="Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
+SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"; CP="Capacitor_SMD:CP_Elec_5x5.4"
 JK="Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
 VI={"Manufacturer":"Vishay"}
 s=Sheet(); NC=[]
@@ -99,8 +99,8 @@ for ref,net in (("C751","+15V"),("C752","+15V"),("C757","+15V")):
 x=91.44
 for ref in ("C753","C754","C758"):
     c=C(ref,"100n","SX-C-002",x,Y2+17.78); s.wire(c(1),up(c(1),2.54)); s.power("-15V",up(c(1),2.54),180); gnd(c(2)); x+=12.7
-c=s.place("Device","C_Polarized","C755","10u 25V",x+5.08,Y2-7.62,0,fp=CP,props=P("SX-C-012",Note="TPA6120A2 bulk decoupling")); s.power("+15V",c(1)); gnd(c(2))
-c=s.place("Device","C_Polarized","C756","10u 25V",x+5.08,Y2+17.78,0,fp=CP,props=P("SX-C-012",Note="TPA6120A2 bulk decoupling")); s.wire(c(1),up(c(1),5.08)); gnd(up(c(1),5.08),180)
+c=s.place("Device","C_Polarized","C755","10u 35V",x+5.08,Y2-7.62,0,fp=CP,props=P("SX-C-024",Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486",Note="TPA6120A2 bulk decoupling")); s.power("+15V",c(1)); gnd(c(2))
+c=s.place("Device","C_Polarized","C756","10u 35V",x+5.08,Y2+17.78,0,fp=CP,props=P("SX-C-024",Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486",Note="TPA6120A2 bulk decoupling")); s.wire(c(1),up(c(1),5.08)); gnd(up(c(1),5.08),180)
 s.wire(c(2),dn(c(2),5.08)); s.power("-15V",dn(c(2),5.08))
 
 HERE=os.path.dirname(os.path.abspath(__file__)); CARD=os.path.dirname(HERE)+'/'

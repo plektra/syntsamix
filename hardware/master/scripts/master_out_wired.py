@@ -4,20 +4,23 @@
 
 Reference netlist: master_out_build.py (check_netlist.py master_out.json).
 Top left: SSI2162 with the I-V stages and their soft-clip zeners (MAIN_L/R_OUT).
-Right: per side the THAT1646 driver with its common-mode capacitors and rail clamps,
+Right: per side the DRV135 driver (THAT1646 pinout, decision 125) with its common-mode capacitors and rail clamps,
 the protection relay (drawn rotated, commons on top) and the output jack.
 Bottom: master level law (as the channel fader), relay control, supplies.
 """
+SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
+     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+     "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; CBIP="Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"
+SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; CBIP="Capacitor_SMD:C_Elec_6.3x5.4"
 JK="Connector_Audio:Jack_6.35mm_Neutrik_NMJ6HCD2_Horizontal"
 TI={"Manufacturer":"Texas Instruments"}
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**kw))
-def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn))
+def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
 def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
 def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**TI))
 def OPA(ref,unit,x,y): return s.place("Amplifier_Operational","Opamp_Dual",ref,"OPA2171",x,y,0,unit,SO8,P("SX-IC-021",**TI,MPN="OPA2171AIDR"))   # no OPA2171 symbol in the KiCad library; same pinout
@@ -43,7 +46,7 @@ for side,yw,(cin,rin,rrc,crc,riv,civ,rz,dza,dzb,iv,xrc,xjog,iin,iout,fb_up,tp) i
         ("L",55.88,("C701","R701","R703","C703","R706","C705","R708","D701","D702",("U702",1,(2,3,1)),68.58,83.82,v("2"),v("4"),True,"TP701")),
         ("R",106.68,("C702","R702","R704","C704","R707","C706","R709","D703","D704",("U97022",2,(6,5,7)),76.2,86.36,v("9"),v("7"),False,"TP702"))):
     s.label(f"MAIN_{side}_SUM",(25.4,yw),180,"hierarchical","input")
-    c=C(cin,"10u bipolar","SX-C-003",38.1,yw,fp=CBIP); s.wire((25.4,yw),c(1))
+    c=C(cin,"10u bipolar","SX-C-023",38.1,yw,fp=CBIP); s.wire((25.4,yw),c(1))
     r=R(rin,"10k","SX-R-002",53.34,yw); s.wire(c(2),r(1)); node=(xrc,yw); s.wire(r(2),node)
     if side=="L":
         rn=R(rrc,"100","SX-R-001",xrc,yw+11.43,0); cn=C(crc,"2n2 C0G","SX-C-009",xrc,yw+21.59,0); s.wire(node,rn(1)); s.wire(rn(2),cn(1)); gnd(cn(2))
@@ -68,16 +71,16 @@ for side,yw,(cin,rin,rrc,crc,riv,civ,rz,dza,dzb,iv,xrc,xjog,iin,iout,fb_up,tp) i
 def output(side,Yt,u_ref,ccp,ccn,dpp,dpn,dnp,dnn,k_ref,rgh,rgc,j_ref,coil_r,fly):
     Xt=223.52; Xr=Xt+76.2; Xj=Xr-30.48
     lab((Xt-20.32,Yt),f"MAIN_{side}_OUT",180)
-    u=s.place("syntsamix","THAT1646",u_ref,"THAT1646S08",Xt,Yt,0,fp=SO8,
-              props=P("SX-IC-014",Manufacturer="THAT Corporation",MPN="THAT1646S08-U",Supplier="Mouser",Note="Cost-cut candidate (decision 83)"))
+    u=s.place("syntsamix","THAT1646",u_ref,"DRV135UA",Xt,Yt,0,fp=SO8,
+              props=P("SX-IC-025",Manufacturer="Texas Instruments",MPN="DRV135UA/2K5",Supplier="LCSC",SupplierPN="C544663",Note="DRV135 replaces the end-of-life THAT1646 (decision 125); same SO-8 pinout (TI SBOS094B), symbol kept"))
     s.wire((Xt-20.32,Yt),u("4"))
     s.wire(u("6"),up(u("6"),5.08)); s.power("+15V",up(u("6"),5.08)); s.wire(u("5"),dn(u("5"),5.08)); s.power("-15V",dn(u("5"),5.08))
     s.wire(u("3"),dn(u("3"),5.08)); gnd(dn(u("3"),5.08))
     yop,yon=Yt-15.24,Yt+15.24
     s.wire(u("8"),(Xt+12.7,u("8")[1]),(Xt+12.7,yop))
     s.wire(u("1"),(Xt+12.7,u("1")[1]),(Xt+12.7,yon))
-    cp=C(ccp,"10u bipolar","SX-C-003",Xt+20.32,Yt-6.35,0,fp=CBIP); s.wire(u("7"),(Xt+20.32,u("7")[1])); s.wire(cp(1),(Xt+20.32,yop))
-    cn=C(ccn,"10u bipolar","SX-C-003",Xt+20.32,Yt+6.35,0,fp=CBIP); s.wire(u("2"),(Xt+20.32,u("2")[1])); s.wire(cn(2),(Xt+20.32,yon))
+    cp=C(ccp,"10u bipolar","SX-C-023",Xt+20.32,Yt-6.35,0,fp=CBIP); s.wire(u("7"),(Xt+20.32,u("7")[1])); s.wire(cp(1),(Xt+20.32,yop))
+    cn=C(ccn,"10u bipolar","SX-C-023",Xt+20.32,Yt+6.35,0,fp=CBIP); s.wire(u("2"),(Xt+20.32,u("2")[1])); s.wire(cn(2),(Xt+20.32,yon))
     k=s.place("Relay","G6K-2",k_ref,"G6K-2F-Y DC12",Xr,Yt-30.48,180,fp="Relay_SMD:Relay_DPDT_Omron_G6K-2F-Y",
               props=P("SX-K-001",Manufacturer="Omron",MPN="G6K-2F-Y DC12",Supplier="LCSC",SupplierPN="C397194",Note="Pole 2 (6/7/5) hot, pole 1 (3/2/4) cold; released = output grounded through 1k"))
     xc=Xt+30.48
@@ -162,8 +165,17 @@ q=s.place("Transistor_BJT","Q_NPN_BEC","Q701","MMBT3904",rb[0]+10.16,rb[1],0,fp=
 s.wire(rb,q(1)); s.wire(q(2),dn(q(2),2.54)); pgnd(dn(q(2),2.54))
 qc=up(q(3),5.08); s.wire(q(3),qc,rt(qc,10.16)); lab(rt(qc,10.16),"RLY_N",0)
 s.wire(qc,up(qc,7.62)); hier(up(qc,7.62),"RLY_N",90,"output")
-# spare comparators: + to PGND, - to +5 V
-for i,(ref_,unit,(pp,pm,po)) in enumerate((("U97073",3,(11,10,13)),("U97074",4,(9,8,14)))):
+# spare comparator D: + to PGND, - to +5 V
+# C: raw -20 V watch (decision 128): NEG_DIV = 0.816 x 15 V + 0.184 x raw -20 V, above REF when raw is weaker than -17.9 V
+cc=s.place("Comparator","LM339","U97073","LM339",XC+76.2,YC+50.8,0,3,SO14,P("SX-IC-009",**TI))
+s.wire(cc(11),lt(cc(11),5.08)); lab(lt(cc(11),5.08),"REF",180)
+nd=lt(cc(10),17.78); s.wire(cc(10),nd)
+r=R("R732","22k6","SX-R-071",nd[0],nd[1]-7.62,0); s.wire(nd,r(2)); s.wire(r(1),up(r(1),2.54)); s.power("+15V",up(r(1),2.54))
+r=R("R733","100k","SX-R-007",nd[0],nd[1]+7.62,0); s.wire(nd,r(1)); s.wire(r(2),dn(r(2),7.62)); hier(dn(r(2),7.62),"-20V_RAW",90,"input")
+s.wire(cc(13),rt(cc(13),5.08)); lab(rt(cc(13),5.08),"UV_O",0)
+s.wire(ref,dn(ref,15.24)); lab(dn(ref,15.24),"REF",0)
+s.wire(ca(2),dn(ca(2),5.08)); lab(dn(ca(2),5.08),"UV_O",0)
+for i,(ref_,unit,(pp,pm,po)) in enumerate((("U97074",4,(9,8,14)),),1):
     cs=s.place("Comparator","LM339",ref_,"LM339",XC+76.2,YC+50.8+i*17.78,0,unit,SO14,P("SX-IC-009",**TI))
     s.wire(cs(pp),lt(cs(pp),2.54),up(lt(cs(pp),2.54),5.08)); pgnd(up(lt(cs(pp),2.54),5.08),180)
     s.wire(cs(pm),lt(cs(pm),10.16)); s.power("+5V",lt(cs(pm),10.16),90)
