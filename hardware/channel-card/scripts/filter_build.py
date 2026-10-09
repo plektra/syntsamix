@@ -46,10 +46,11 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     C(c(104),"6n8 C0G","SX-C-006",f"{P}_C3A",f"{P}_C3B",210,y(96))
     C(c(105),"560p C0G","SX-C-007",f"{P}_C4A",f"{P}_C4B",222,y(110))
     R(r(107),"13k","SX-R-011",f"{P}_QP","AGND",155,y(135))
-    R(r(108),"1k +3300ppm","SX-R-021",f"{P}_FC","AGND",165,y(145),"Resistor_SMD:R_0603_1608Metric",{"Manufacturer":"Panasonic","MPN":"ERA-V33J102V","Note":"Temperature-compensating; place against the SSI2144"})
+    R(r(108),"820 TFPT","SX-R-089",f"{P}_FC",f"{P}_TC",165,y(145),"Resistor_SMD:R_0603_1608Metric",{"Manufacturer":"Vishay","MPN":"TFPT0603L8200FV","Supplier":"Mouser","SupplierPN":"71-TFPT0603L8200FV","Note":"Vishay TFPT linear PTC thin film, +4110 ppm/K; in series with R122/R172 180R = 1k at about +3370 ppm/K (decision 130); place against the SSI2144"})
+    R(r(122),"180","SX-R-090",f"{P}_TC","AGND",165,y(150),props={"Note":"Low-tempco part of the 1k tempco leg (decision 130); keep the TFPT next to the SSI2144, this one may sit further away"})
     R(r(109),"470k","SX-R-048",f"{P}_FC",f"{P}_OFS",145,y(145))
     rv=f"RV{101+o}"
-    S("Device","R_Potentiometer_Trim",rv,"50k (CUTOFF OFFSET)",125,y(145),"Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical","SX-TRIM-001",props={"Manufacturer":"Bourns","MPN":"3296W-1-503LF"})
+    S("Device","R_Potentiometer_Trim",rv,"50k (OFFSET)",125,y(145),"Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical","SX-TRIM-001",props={"Manufacturer":"Bourns","MPN":"3296W-1-503LF"})
     N("+15V",rv+".1"); N(f"{P}_OFS",rv+".2"); N("-15V",rv+".3")
     R(r(110),"100k","SX-R-007","FCV",f"{P}_FC",185,y(145))
     u,pins=iv; N(f"{P}_OUTI",f"{u}.{pins[0]}"); N("AGND",f"{u}.{pins[1]}"); N(f"{P}_IV",f"{u}.{pins[2]}")

@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-09 (schematic: pot MPNs on the symbols, RV183 reference fixed, R184 10 k → 12 k = decision 129; /system: all four panel pots RoHS-cleared by Alpha's declaration, decision 124, Thonk pots' Alpha MPNs; schematic session: meter LEDs to 0805, op amp power levers = decision 123, RoHS audit; earlier the same day: mechanical parts 110-117 and /system mechanical 118-122).
+Updated 2026-10-09 (schematic session: pot MPNs on the symbols and RV183 reference fixed; R184 10 k → 12 k for the RESONANCE pot rating, decision 129; tempco leg = Vishay TFPT 820 Ω + 180 Ω, decision 130. Earlier the same day: mechanical parts 110-117, /system 118-122 and 124, meter LEDs and power levers 123, RoHS audit).
 
 ## Where it stands
 
@@ -10,6 +10,7 @@ Updated 2026-10-09 (schematic: pot MPNs on the symbols, RV183 reference fixed, R
 - 2026-10-09, /system mechanical: 3.5 mm CV jack by the new jack-size rule (118), meter as 0805 LEDs under a printed bezel at 6.0 mm pitch (119), one centred panel screw per end with a printed key (120), underside rules, keep-out and bottom cover (121), RoHS invariant 9 with standard passives at BOM time (122).
 - 2026-10-09, schematic: meter LEDs D411-D418 drawn as 0805 (KT-0805G, KT-0805Y, NCD0805R1; decision 119); power levers (decision 123): U107 NE5532 → TL072, meter U401/U404 TL072 → TL062CDR (SX-IC-024). Card load now 113 / 95 mA typical, 229 / 194 mA worst case, sizing 174 / 142 mA. Netlists match, ERC 0/0. RoHS audit of `parts.csv` done (report `docs/reviews/2026-10-09-rohs-audit.md`).
 - 2026-10-09, schematic (pots): Alpha MPNs on RV1, RV181, RV301/RV302 (Thonk `-0057` codes); RV183 is SX-POT-012 (Tayda RD901F-40-15K-C10K) in the reference too; R184 10 k → 12 k (SX-R-008) so RV183 stays within Alpha's 0.02 W rating for non-B tapers (decision 129; RD901F spec facts in `parts.csv`). Netlists match, ERC 0/0.
+- 2026-10-09, schematic (tempco): R108/R158 Vishay TFPT0603L8200FV (820 Ω, +4110 ppm/K) with new R122/R172 180 Ω in series to AGND replace the end-of-life ERA-V33J102V: 1 k, about +3370 ppm/K (decision 130). Trim pot value text shortened to "50k OFFSET" for room. Netlists match (filter 80 nets), ERC 0/0, sheet looked at.
 - PCB: not started; waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up.
 
 ## Provisional until the breadboard
@@ -26,7 +27,6 @@ Updated 2026-10-09 (schematic: pot MPNs on the symbols, RV183 reference fixed, R
 - **RD902F dual specification:** not read yet (the Mouser RD901F PDF is blocked to scripts; the Tayda copy covers the RD901F single); confirm the dual's power rating when it is found.
 
 - **RoHS declaration for the SSI2144 (SX-IC-001) and SSI2162 (SX-IC-002) (decision 122):** no RoHS statement from Sound Semiconductor, Electrokit or the datasheets; requested by the user by email (2026-10-09). Without it they block the PCB order.
-- **Tempco resistor SX-R-021 (Panasonic ERA-V33J102V):** RoHS compliant by exemption, but End of Life at Mouser: buy prototype quantities with spares, or find the successor before the PCB order.
 - **Knobs:** after the pots (T18 push-on, up to about 19 mm across; for example Thonk Davies 1900H clone, Tall Satin Synthpointer, Mini MXR); need a RoHS source.
 
 ## Parts
@@ -40,6 +40,7 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 - **Regulator copper (decision 110):** about 20 × 20 mm of top copper per D²PAK tab, via-stitched to a bottom pour; U501 tab = +15V, U502 tab = −20V_RAW: keep apart and off AGND. The 89 / 82 °C worst case assumes 40 °C/W and 40 °C ambient; check against onsemi LM337 Figure 19 once placed.
 - **Chain header holes:** KiCad's `IDC-Header_2x17/2x04_P2.54mm_Vertical` drill 1.0 mm; Würth recommends 1.1 ± 0.15 mm for the 0.64 mm square pins: use 1.1 mm drills.
 - **Trimmers and jumpers on the underside (decision 112):** RV101, RV151, RV182 (3296W, screw facing down; RV101/RV151 next to their SSI2144s) and JP101/JP151, JP102/JP152, J301/J302 on the bottom side, L/R pairs side by side with matching bottom-silkscreen labels, leads soldered on the top side, outside the keep-out of decision 121 (10 mm from each long edge over the header length plus 15 mm front and back; provisional until the mock-up), at most 10.5 mm below the PCB; nothing tall around them.
+- **Tempco leg (decision 130):** R108/R158 (TFPT, 0603) against the top of its SSI2144, short traces, away from the regulators and other warm parts; R122/R172 (180 Ω) may sit a little further away.
 - **CV jack J181 (Thonkiconn):** 3 mm hole in the PCB under the barrel (Thonk note; the footprint has none), centred 6.48 mm from the S pad toward T; no traces or pour in it. Centred on the strip above CUTOFF (decision 106).
 - **Fader:** KiCad `Potentiometer_Bourns_PTA6043_Single_Slide` matches the Bourns PTA drawing (Rev. 08/25). The M2 holes are tapped in the top of the frame, 71 mm apart, for panel screws from above: no PCB feature; choose the M2 screw length (1.6 mm panel + 3.5 mm spacer + the frame's thread depth, not stated by Bourns) so it cannot reach the track. Screwed to the panel before soldering. Keep the footprint compatible with the product-version TT PS60-10MC2BR10K if that costs nothing.
 - **Pot footprints:** the stock KiCad RD901F/RD902F footprints (slots 9.6 mm centre to centre, 7.5 mm from the pins) match Alpha's drawing SLH-211-414 (its 11.4 mm spans the slot ends).
@@ -55,16 +56,11 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 ## Next
 
 1. Breadboard the SSI2144 when parts arrive (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
-2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, TL072CDR, LM339DR, AD8273ARZ, DG413DY-T1-E3, DG412DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time.
+2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, TL072CDR, LM339DR, AD8273ARZ, DG413DY-T1-E3, DG412DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
 3. Cable mock-up (decision 109).
-4. PCB layout.
-
-## From /system 2026-10-09 (Thonk pots)
-
-- Thonk sent Taiwan Alpha's RoHS II declaration (2020-10-26, all standard models; local copy `docs/rohs/`, git-ignored, not ours to publish) and the Alpha order codes: CUTOFF SX-POT-003 = RD901F-40-15K-B50K-0057, TRIM SX-POT-011 = RD902F-40-15K-A100K-0057, AUX SX-POT-013 = RD902F-40-15K-A10K-0057; bushing M7×0.75, 5 mm long. Recorded in `docs/parts.csv`. Done 2026-10-09: the MPNs are on the pot symbols, netlists match, ERC 0/0.
-- Decision 124: the declaration covers every standard Alpha pot, so RESONANCE SX-POT-012 (Tayda RD901F-40-15K-C10K) is cleared too; buy genuine Alpha. All four panel pots are orderable.
-- Found by the architect review: RV183 was SX-POT-004 in `scripts/filter_build.py` but SX-POT-012 in `filter_wired.py`; fixed 2026-10-09.
+4. Tidy (any schematic session, no wiring change): the reference netlist scripts still give the button LEDs the 3 mm THT footprint and SX-D-002 (`filter_build.py` D183, `level_build.py` button LEDs); the drawings use 0805 with the decision 117 part numbers.
+5. PCB layout.
 
 ## For /system
 
-(none)
+- `docs/ARCHITECTURE.md`, Open system items, RoHS gaps: "End of Life THAT1646S08-U (master) and ERA-V33J102V (channel)" is out of date. The THAT1646 is replaced by the DRV135UA (decision 125); the channel card no longer uses the ERA-V33J102V (decision 130); it remains on the master's R421.

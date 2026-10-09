@@ -153,6 +153,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 127 | Master electrolytics to SMD (item 111 parts); TO-220 regulators still too tall | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
 | 128 | Relay drop-out watches both raw rails (U707C on −20V_RAW) | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
 | 129 | RESONANCE pot RV183 within Alpha's 0.02 W non-B rating: R184 10 k → 12 k (about 17 mW), maximum Q current about 254 µA, provisional with R120/R170 | confirmed | [channel-card](channel-card.md) |
+| 130 | Tempco leg R108/R158: end-of-life ERA-V33J102V replaced by Vishay TFPT0603L8200FV 820 Ω plus 180 Ω in series (1 k, about +3370 ppm/K); new R122/R172 | confirmed | [channel-card](channel-card.md) |
 | 131 | RELEASE pot RV402 within Alpha's 0.02 W non-B rating: C10K → C100K (RD901F-40-15K-C100K) with R425 620 Ω → 6.2 kΩ, same release law, about 2 mW | confirmed | [master-card-sheets](master-card-sheets.md) |
 
 ## Proposed but not confirmed

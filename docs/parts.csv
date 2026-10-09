@@ -37,7 +37,7 @@ SX-R-017,Resistor 16.9 kOhm 1% 0805,,,,,
 SX-R-018,Resistor 301 kOhm 1% 0805,,,,,
 SX-R-019,Resistor 162 kOhm 1% 0805,,,,,
 SX-R-020,Resistor 499 kOhm 1% 0805,,,,,
-SX-R-021,Resistor 1 kOhm +3300 ppm/K temperature-compensating 0603,Panasonic,ERA-V33J102V,,,Named in SSI2144 datasheet Rev 3.0; place against the SSI2144; RoHS: Mouser 667-ERA-V33J102V RoHS Compliant By Exemption (Mouser lifecycle End of Life; checked 2026-10-09)
+SX-R-021,Resistor 1 kOhm +3300 ppm/K temperature-compensating 0603,Panasonic,ERA-V33J102V,,,Named in SSI2144 datasheet Rev 3.0; place against the SSI2144; RoHS: Mouser 667-ERA-V33J102V RoHS Compliant By Exemption (Mouser lifecycle End of Life; checked 2026-10-09); channel card R108/R158 replaced by SX-R-089 + SX-R-090 (decision 130); still on the master card R421
 SX-C-006,Capacitor 6.8 nF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-007,Capacitor 560 pF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-008,Capacitor 100 pF C0G 5% 50 V 0805,,,,,
@@ -199,5 +199,7 @@ SX-IC-024,Dual low-power JFET op amp SOIC-8,Texas Instruments,TL062CDR,LCSC,C674
 SX-IC-025,Balanced line driver +6 dB SOIC-8,Texas Instruments,DRV135UA/2K5,LCSC,C544663,"Main outputs U703, U704 (decision 125, replaces SX-IC-014); from TI SBOS094B: pinout 1 -Vo 2 -Sense 3 Gnd 4 Vin 5 V- 6 V+ 7 +Sense 8 +Vo (as THAT1646S08), +6 dB, 10 kOhm input, 50 Ohm outputs, swing (V+)-3 / (V-)+2 V, IQ 5.2 / 5.5 mA, 10 uF nonpolarised capacitor at each sense pin (Figure 29); symbol syntsamix:THAT1646 (same pins); JLC extended, 3.42 USD, 2322 in stock 2026-10-09; also Mouser 595-DRV135UA; RoHS: TI package addendum (10-Nov-2025) RoHS Yes; LCSC C544663 ROHS (checked 2026-10-09)"
 SX-R-087,Resistor 30.1 kOhm 1% 0805,,,,,SC_ENV into the control summer's virtual earth (decision 97)
 SX-R-088,Resistor 806 Ohm 1% 0805,,,,,Channel trim stage fixed feedback R7/R8 (decision 115)
+SX-R-089,Resistor 820 Ohm 1% linear PTC thin film +4110 ppm/K 0603,Vishay,TFPT0603L8200FV,Mouser,71-TFPT0603L8200FV,"Channel tempco leg R108/R158 with SX-R-090 in series: 1 k at about +3370 ppm/K (decision 130); place against the SSI2144; TCR +4110 ppm/K +/-400 at 25 C, 75 mW at 70 C, 30 V max (Vishay TFPT datasheet doc. 33017 rev. 15-Apr-2026); 1379 in stock at Mouser, about 0.96 EUR (2026-10-09); RoHS: Vishay TFPT datasheet RoHS compliant mark; Mouser RoHS Compliant By Exemption (2026-10-09)"
+SX-R-090,Resistor 180 Ohm 1% 0805,,,,,"Channel tempco leg R122/R172, low-tempco part in series with SX-R-089 (decision 130)"
 SX-R-091,Resistor 6.2 kOhm 1% 0805,,,,,Compressor release range (slow end): R425 under RELEASE RV402 100k (decision 131)
 SX-POT-014,Pot 100 kOhm reverse-audio (C) single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-C100K,Tayda,A-5370,"Compressor RELEASE RV402 (decision 131); footprint Alpha RD901F-40-00D; Tayda A-5370 from the 2026-10-09 listing check (same SKU run as A-5369 C10K), recheck the page by hand before ordering (Tayda answers 403 to scripts); Thonk has no C taper (2026-10-09); Alpha spec RD901F-(C) (Tayda copy SP26020021): 1 k to 500 k, tolerance +/-20 %, 0.05 W B taper / 0.02 W other tapers, hand solder only; dissipation here about 2.1 mW (15.1 V across 106 kOhm); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models, received via Thonk 2026-10-09; local copy docs/rohs/ (not published); buy genuine Alpha (decision 124)"

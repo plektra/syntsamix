@@ -44,7 +44,7 @@ Updated 2026-10-09: `/board master` session, RELEASE pot to C100K (decision 131)
   - accept CW = lower cutoff with an A100K dual.
 - **Other non-B master pots against Alpha's 0.02 W rating (decision 131 fixed RV402):** THRESHOLD RV502 (SX-POT-009, A10K), DECAY RV504 (SX-POT-010, A500K), AUX SEND and PHONES duals (SX-POT-005/-013, A10K), SC LPF RV501 (SX-POT-008, C100K dual); the RD902F dual's rating is not yet read.
 - **AS3046D RoHS declaration:** requested by the user (2026-10-09), waiting.
-- **ERA-V33J102V (R421, SX-R-021):** the same tempco resistor as the channel card. The RoHS audit lists it as End of Life at Mouser and RoHS by exemption. It affects the master's compressor detector too: choose a replacement together with the channel card.
+- **ERA-V33J102V (R421, SX-R-021):** the channel card replaced it with a Vishay TFPT0603L8200FV (820 Ω, +4110 ppm/K, in stock, RoHS) plus 180 Ω in series: 1 k at about +3370 ppm/K (decision 130); the same pair fits here if R421 needs 1 k at about +3300 ppm/K. R421 is End of Life at Mouser with no stock (2026-10-09) and RoHS by exemption; check whether the compressor detector needs exactly 1 k +3300 ppm/K before reusing the pair. The TFPT is Mouser-only (not at LCSC): hand-solder or consign it.
 - **Meter LEDs (SX-D-004/005/006):** candidates Kingbright WP710A10LGD/LYD/LID (Mouser). Their body height is unverified, and a 3 mm LED reaching the panel conflicts with the 9 mm top-side rule unless its panel hole is the exception. Settle the form (3 mm or 0805 under a bezel as decision 119) with the master section panel.
 - **Ground-lift switch SW901 (SX-SW-002):** part to choose with the rear panel.
 

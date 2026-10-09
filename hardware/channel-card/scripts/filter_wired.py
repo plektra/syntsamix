@@ -76,10 +76,13 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     # cutoff: FREQ pin network
     fq=u(15); n1=(162.56,fq[1]); n2=(152.4,fq[1])
     s.wire(fq,n1); s.wire(n1,n2)
-    r8=R(rr(108),"1k +3300ppm","SX-R-021",n1[0],fq[1]+3.81,0,fp="Resistor_SMD:R_0603_1608Metric",Manufacturer="Panasonic",MPN="ERA-V33J102V",Note="Temperature-compensating; place against the SSI2144")
-    s.wire(n1,r8(1)); gnd(r8(2))
+    r8=R(rr(108),"820 TFPT","SX-R-089",n1[0],fq[1]+3.81,0,fp="Resistor_SMD:R_0603_1608Metric",Manufacturer="Vishay",MPN="TFPT0603L8200FV",Supplier="Mouser",SupplierPN="71-TFPT0603L8200FV",Note="Vishay TFPT linear PTC thin film, +4110 ppm/K; in series with R122/R172 180R = 1k at about +3370 ppm/K (decision 130); place against the SSI2144")
+    s.wire(n1,r8(1))
+    # decision 130: tempco leg = TFPT 820R + 180R; R122 one column left, clear of the Q pin wire
+    tc=(157.48,r8(2)[1]); s.wire(r8(2),tc)
+    r22=R(rr(122),"180","SX-R-090",tc[0],tc[1]+3.81,0,Note="Low-tempco part of the 1k tempco leg (decision 130); keep the TFPT next to the SSI2144, this one may sit further away"); gnd(r22(2))
     r9=R(rr(109),"470k","SX-R-048",n2[0],fq[1]+3.81,0); s.wire(n2,r9(1))
-    tv=s.place("Device","R_Potentiometer_Trim",f"RV{101+o}","50k CUTOFF OFFSET",144.78,fq[1]+11.43,0,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF"))
+    tv=s.place("Device","R_Potentiometer_Trim",f"RV{101+o}","50k OFFSET",144.78,fq[1]+11.43,0,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF"))
     s.wire(r9(2),(n2[0],tv(2)[1]),tv(2))
     s.wire(tv(1),up(tv(1),2.54)); s.power("+15V",up(tv(1),2.54))
     s.wire(tv(3),dn(tv(3),2.54)); s.power("-15V",dn(tv(3),2.54))
