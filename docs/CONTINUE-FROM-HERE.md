@@ -34,7 +34,7 @@ The **[proposed]** op amp power levers (`docs/ROADMAP.md`, Power-cut candidates 
 
 ## Pending outside the boards
 
-- Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`.
+- Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`. Not needed to start the breadboard (tests 1-7 and a reduced test 10 run on the first order, `BREADBOARD.md`); release it for tests 8 and 9 and for the GPBS850N buttons (button cap prints and LED brightness). The full test 10 also needs an OPA2171 on an SOIC-8 adapter (Mouser or LCSC).
 - RoHS declarations requested by the user (2026-10-09) from Taiwan Alpha, Thonk and Tayda for the channel card's four panel pots; until they arrive the pots are blocked (decision 116; fallback in `hardware/channel-card/STATUS.md`).
 - RoHS is strict for every part on every board (decision 116): record a `RoHS: <source>` in `docs/parts.csv` when choosing a part.
 - Ground-lift switch part to choose (decision 61).
