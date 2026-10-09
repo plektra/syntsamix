@@ -22,7 +22,7 @@ The SSI2162 itself is not modelled: gain reduction is read from VC at 33 mV per 
 | Control ripple (100 Hz) | 0.08 dB |
 | Temperature drift (15 to 45 °C) | 0.02 dB |
 | Attack (-20 to +14 dBu step) | 63 % in 0.93 ms, 90 % in 2.2 ms |
-| Release per 10 dB | 44 ms (CCW), 351 ms (middle), 1.42 s (CW) |
+| Release per 10 dB | 44 ms (CCW), 353 ms (middle), 1.43 s (CW); RELEASE 100k C with 6.2 kΩ (decision 131), track ±20 % moves the CW end to 1.0 to 2.0 s |
 | On/off | smooth ramps of about 20 ms; at most 1.5 dB past the settled gain |
 | Log converter at 10 kHz | stable at -30 and +18 dBu |
 

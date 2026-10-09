@@ -21,8 +21,8 @@ Attack: -20 dBu to +14 dBu step at 0.2 s, Amount 1 (gain reduction 63 % and 90 %
   GR 21.9 dB; 63 % at 0.93 ms, 90 % at 2.22 ms
 Release: +14 dBu burst ends at 0.3 s, Amount 1 (recovery rate over the first 10 dB)
   CCW (fast): 7.5 dB less gain reduction (10 dB of detector level) after 44 ms
-  middle: 7.5 dB less gain reduction (10 dB of detector level) after 351 ms
-  CW (slow): 7.5 dB less gain reduction (10 dB of detector level) after 1422 ms
+  middle: 7.5 dB less gain reduction (10 dB of detector level) after 353 ms
+  CW (slow): 7.5 dB less gain reduction (10 dB of detector level) after 1427 ms
 On/off ramp: switched on at 0.1 s and off at 0.4 s, Amount 1, 1 kHz (gain dB)
   -10 dBu: off +0.0, on +17.6, off again +0.0; during the ramps +0.0 to +17.9
   +8 dBu: off +0.0, on +4.8, off again +0.0; during the ramps +0.0 to +6.3

@@ -8,10 +8,10 @@ Project-level handoff, updated 2026-10-09. Read `CLAUDE.md` first. Board detail 
 |---|---|---|---|
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
 | Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LEDs 0805 and op amp power levers drawn (decision 123); pot MPNs on the symbols, R184 12 k for the RESONANCE pot rating (decision 129) | not started (waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up) | `hardware/channel-card/STATUS.md` |
-| Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form; and the RV501 C100K dual pot) | `hardware/master/STATUS.md` |
+| Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form; and the RV501 C100K dual pot) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-129; last pushed commit: see `git log -1`.
+Decisions 1-131; last pushed commit: see `git log -1`.
 
 ## Order of work
 

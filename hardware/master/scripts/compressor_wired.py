@@ -155,10 +155,11 @@ s.wire(q4("11"),mir); s.wire(mir,(q3("6")[0]-2.54,mir[1]),(q3("6")[0]-2.54,q3("6
 s.wire(q4("9"),lt(q4("9"),2.54),(q4("9")[0]-2.54,mir[1]-5.08),(mir[0],mir[1]-5.08),mir)
 s.wire(q4("10"),dn(q4("10"),5.08)); s.power("-15V",dn(q4("10"),5.08))
 r424=R("R424","2M2","SX-R-056",q4("9")[0]-17.78,mir[1]-5.08); s.wire(r424(2),(q4("9")[0]-2.54,mir[1]-5.08))
-rv=s.place("Device","R_Potentiometer","RV402","RELEASE 10k rev. log",r424(1)[0]-12.7,r424(1)[1],0,fp=POT1,
-           props=P("SX-POT-004",Note="Panel RELEASE: reverse-log (C) taper, CCW = 44 ms, CW = 1.4 s per 10 dB"))
+rv=s.place("Device","R_Potentiometer","RV402","RELEASE 100k rev. log",r424(1)[0]-12.7,r424(1)[1],0,fp=POT1,
+           props=P("SX-POT-014",Manufacturer="Alpha",MPN="RD901F-40-15K-C100K",Supplier="Tayda",SupplierPN="A-5370",
+                   Note="Panel RELEASE: reverse-log (C) taper, CCW = 44 ms, CW = 1.4 s per 10 dB; 100k keeps it at about 2 mW (Alpha non-B rating 0.02 W, decision 131)"))
 s.wire(rv(2),r424(1)); s.wire(rv(1),up(rv(1),5.08)); gnd(up(rv(1),5.08),180)
-r=R("R425","620","SX-R-057",rv(3)[0],rv(3)[1]+7.62,0); s.wire(rv(3),r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("-15V",dn(r(2),5.08))
+r=R("R425","6k2","SX-R-091",rv(3)[0],rv(3)[1]+7.62,0); s.wire(rv(3),r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("-15V",dn(r(2),5.08))
 q5=Q("U94024",4,q3("8")[0]+20.32,q3("6")[1])
 s.wire(q5("12"),lt(q5("12"),2.54),(q5("12")[0]-2.54,q5("13")[1]+2.54),(q5("13")[0],q5("13")[1]+2.54)); s.wire(q5("13"),dn(q5("13"),5.08))
 s.power("-15V",dn(q5("13"),5.08)); NC.append(q5("14"))

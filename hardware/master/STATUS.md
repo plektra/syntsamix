@@ -1,11 +1,12 @@
 # Master card status
 
-Updated 2026-10-09, `/board master` pre-layout session (the user delegated the open points to Claude's recommendation): decisions 89-94 open points confirmed, decisions 125-128 drawn. Rebased on /system decision 124 (Alpha pots RoHS-cleared).
+Updated 2026-10-09: `/board master` session, RELEASE pot to C100K (decision 131). Before that, `/board master` pre-layout session (the user delegated the open points to Claude's recommendation): decisions 89-94 open points confirmed, decisions 125-128 drawn. Rebased on /system decision 124 (Alpha pots RoHS-cleared).
 
 ## Where it stands
 
-- Schematic complete: ten sheets, every netlist check 0 problems, ERC 0 errors 0 warnings (decisions 87-95, 103, 104, 125-128).
+- Schematic complete: ten sheets, every netlist check 0 problems, ERC 0 errors 0 warnings (decisions 87-95, 103, 104, 125-128, 131).
 - 2026-10-09:
+  - RELEASE RV402 is a C100K (Alpha RD901F-40-15K-C100K, Tayda A-5370, SX-POT-014) with R425 6.2 kΩ (decision 131): about 2 mW instead of 20 mW against Alpha's 0.02 W non-B rating; release law unchanged in simulation (44 ms to 1.43 s per 10 dB). Tayda A-5370 still to recheck by hand before ordering (Tayda answers 403 to scripts; Thonk has no C taper).
   - Main output drivers U703/U704 are TI DRV135UA (decision 125): the THAT1646 is end of life (THAT memo 2026-09-01, last-time buy closed 2026-09-30). Same SO-8 pinout, footprint and nets; LCSC C544663.
   - TL062 (SX-IC-024) for U409, U410, U802, U804 (decision 126). Superdiodes U207/U307/U706 and log detector U407 stay TL072.
   - All electrolytics SMD, 5.4 mm tall (decision 127): SX-C-023 bipolars, SX-C-024/025 ROQANG.
@@ -41,7 +42,7 @@ Updated 2026-10-09, `/board master` pre-layout session (the user delegated the o
   - ask Alpha or a distributor for RD902F-40-15K-C100K;
   - a dual 100k linear pot with a law-bending resistor (redraw);
   - accept CW = lower cutoff with an A100K dual.
-- **RELEASE pot RV402 power rating (from `/board channel-card schematic` 2026-10-09, decision 129):** Taiwan Alpha's RD901F specification rates the track at 0.05 W for B taper and only 0.02 W for other tapers (A, C). RV402 (C10K, `compressor_wired.py`; the symbol still says SX-POT-004 while `parts.csv` names the SX-POT-012 part) sits from AGND through R425 620 Ω to −15.1 V: 15.1 V / 10.62 kΩ = 1.42 mA, about 20.2 mW, at the limit (the 2M2 wiper load is negligible). The channel card had the same problem and raised R184 10 k → 12 k (decision 129). Here, raising R425 also moves the RELEASE range (44 ms to 1.4 s per 10 dB), so it needs a recheck of the release law; for example 1.5 k gives about 17 mW. Also check the other non-B master pots (SX-POT-005 to -010) against 0.02 W, and point RV402's ProjectPN at SX-POT-012.
+- **Other non-B master pots against Alpha's 0.02 W rating (decision 131 fixed RV402):** THRESHOLD RV502 (SX-POT-009, A10K), DECAY RV504 (SX-POT-010, A500K), AUX SEND and PHONES duals (SX-POT-005/-013, A10K), SC LPF RV501 (SX-POT-008, C100K dual); the RD902F dual's rating is not yet read.
 - **AS3046D RoHS declaration:** requested by the user (2026-10-09), waiting.
 - **ERA-V33J102V (R421, SX-R-021):** the same tempco resistor as the channel card. The RoHS audit lists it as End of Life at Mouser and RoHS by exemption. It affects the master's compressor detector too: choose a replacement together with the channel card.
 - **Meter LEDs (SX-D-004/005/006):** candidates Kingbright WP710A10LGD/LYD/LID (Mouser). Their body height is unverified, and a 3 mm LED reaching the panel conflicts with the 9 mm top-side rule unless its panel hole is the exception. Settle the form (3 mm or 0805 under a bezel as decision 119) with the master section panel.

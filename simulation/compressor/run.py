@@ -50,7 +50,7 @@ MODELS = """
 """
 
 
-def netlist(src, rel=1.0, amount=0.0, on=1, half=False, temp=25.0, analysis="", ratt="470", rrel="2.2Meg", rbot="620"):
+def netlist(src, rel=1.0, amount=0.0, on=1, half=False, temp=25.0, analysis="", ratt="470", rrel="2.2Meg", rbot="6.2k", rpot=100e3):
     """rel: release pot wiper position from the -15 V end (1 = CCW, fastest; 0 = CW, slowest).
     amount: Amount pot position (0..1)."""
     ctl = on if isinstance(on, str) else ("1" if on else "0")   # on/off control: 0/1 or a PWL source
@@ -72,7 +72,7 @@ def netlist(src, rel=1.0, amount=0.0, on=1, half=False, temp=25.0, analysis="", 
         f"X5 va k o5 opamp", "D404 o5 k D1N4148", f"R410 k ch {ratt}", "C402 ch 0 1u", "X6 ch vd vd opamp",
         # release: Q4 diode, Q3 sinks from the hold capacitor
         "Q4 m m vee QN", "Q3 ch m vee QN", f"R411 w m {rrel}",
-        f"Rp1 0 w {10e3*(1-rel)+1:g}", f"Rp2 w p3 {10e3*rel+1:g}", f"R412 p3 vee {rbot}",
+        f"Rp1 0 w {rpot*(1-rel)+1:g}", f"Rp2 w p3 {rpot*rel+1:g}", f"R412 p3 vee {rbot}",
         # Amount pot (10k lin, top at about +1 V); on/off ramps it through S1 (NO) / S2 (NC) and C403
         "R413 vcc top 140k", f"Rpa1 top wa {10e3*(1-amount)+1:g}", f"Rpa2 wa 0 {10e3*amount+1:g}",
         "S1 wa as ctl 0 SWNO", "R414 as ar 100k", "C403 ar 0 220n", "R415 ar ad 100k", "S2 ad 0 ctl 0 SWNC",

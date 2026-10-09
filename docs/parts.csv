@@ -43,7 +43,7 @@ SX-C-007,Capacitor 560 pF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-008,Capacitor 100 pF C0G 5% 50 V 0805,,,,,
 SX-D-003,Small-signal diode 1N4148W SOD-123,,,,,
 SX-POT-003,Pot 50 kOhm linear single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-B50K-0057,Thonk,,"Channel CUTOFF (decisions 114, 115); Thonk Alpha 9 mm vertical T18 B50K, 1.69 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vertical-t18/); Alpha order code from Thonk support 2026-10-09; footprint Alpha RD901F-40-00D; bushing M7x0.75 x 5 mm (confirmed by Thonk support 2026-10-09); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published); Alpha spec RD901F-(C) (Tayda copy SP26020021, 2026-02-04, drawing SLH-211-414): tolerance +/-20 %, 0.05 W B taper / 0.02 W other tapers, 300 deg, rotation noise 100 mV max, 15,000 cycles, hand solder at most 350 C for 3 s and once only, no reflow, use within 6 months of delivery; nut M7x0.75 2.0 mm thick 10 mm AF and 0.4 mm washer supplied"
-SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,"RESONANCE and compressor RELEASE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose; Master RELEASE: same part as SX-POT-012 (Tayda A-5369, RD901F-40-15K-C10K)"
+SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,"RESONANCE and compressor RELEASE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose; Master RELEASE moved to SX-POT-014 (C100K, decision 131)"
 SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,,,10.03 mm tall 25 turns (Bourns 3296 datasheet); channel card mounts it on the underside (decision 112); RoHS: Mouser 652-3296W-1-503LF RoHS Compliant By Exemption (checked 2026-10-09)
 SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,Not used: CUTOFF CV input is the 3.5 mm SX-CONN-014 (decision 118; no 6.3 mm jack fits the 10 mm panel gap)
 SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,Jumper header
@@ -111,7 +111,7 @@ SX-R-053,Resistor 560 kOhm 1% 0805,,,,,Compressor log reference current
 SX-R-054,Resistor 11 kOhm 1% 0805,,,,,Compressor detector gain -11 with SX-R-021
 SX-R-055,Resistor 470 Ohm 1% 0805,,,,,Compressor attack
 SX-R-056,Resistor 2.2 MOhm 1% 0805,,,,,Compressor release current and threshold offset
-SX-R-057,Resistor 620 Ohm 1% 0805,,,,,Compressor release range (slow end)
+SX-R-057,Resistor 620 Ohm 1% 0805,,,,,Compressor release range (slow end); not used since decision 131 (R425 now SX-R-091)
 SX-R-058,Resistor 140 kOhm 1% 0805,,,,,Compressor Amount pot top (about 1 V = 30 dB)
 SX-R-059,Resistor 3.3 MOhm 1% 0805,,,,,Compressor off-state threshold lift
 SX-R-060,Resistor 1 MOhm 1% 0805,,,,,Compressor off-state threshold lift
@@ -199,3 +199,5 @@ SX-IC-024,Dual low-power JFET op amp SOIC-8,Texas Instruments,TL062CDR,LCSC,C674
 SX-IC-025,Balanced line driver +6 dB SOIC-8,Texas Instruments,DRV135UA/2K5,LCSC,C544663,"Main outputs U703, U704 (decision 125, replaces SX-IC-014); from TI SBOS094B: pinout 1 -Vo 2 -Sense 3 Gnd 4 Vin 5 V- 6 V+ 7 +Sense 8 +Vo (as THAT1646S08), +6 dB, 10 kOhm input, 50 Ohm outputs, swing (V+)-3 / (V-)+2 V, IQ 5.2 / 5.5 mA, 10 uF nonpolarised capacitor at each sense pin (Figure 29); symbol syntsamix:THAT1646 (same pins); JLC extended, 3.42 USD, 2322 in stock 2026-10-09; also Mouser 595-DRV135UA; RoHS: TI package addendum (10-Nov-2025) RoHS Yes; LCSC C544663 ROHS (checked 2026-10-09)"
 SX-R-087,Resistor 30.1 kOhm 1% 0805,,,,,SC_ENV into the control summer's virtual earth (decision 97)
 SX-R-088,Resistor 806 Ohm 1% 0805,,,,,Channel trim stage fixed feedback R7/R8 (decision 115)
+SX-R-091,Resistor 6.2 kOhm 1% 0805,,,,,Compressor release range (slow end): R425 under RELEASE RV402 100k (decision 131)
+SX-POT-014,Pot 100 kOhm reverse-audio (C) single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-C100K,Tayda,A-5370,"Compressor RELEASE RV402 (decision 131); footprint Alpha RD901F-40-00D; Tayda A-5370 from the 2026-10-09 listing check (same SKU run as A-5369 C10K), recheck the page by hand before ordering (Tayda answers 403 to scripts); Thonk has no C taper (2026-10-09); Alpha spec RD901F-(C) (Tayda copy SP26020021): 1 k to 500 k, tolerance +/-20 %, 0.05 W B taper / 0.02 W other tapers, hand solder only; dissipation here about 2.1 mW (15.1 V across 106 kOhm); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models, received via Thonk 2026-10-09; local copy docs/rohs/ (not published); buy genuine Alpha (decision 124)"
