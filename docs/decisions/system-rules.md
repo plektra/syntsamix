@@ -1,0 +1,12 @@
+# System rules
+
+Project-wide rules that every board follows: jack sizes, RoHS, the shared jack part and the cost principle.
+
+Current rulings (decision 154): each entry says what holds now, with later refinements folded in. The full text (figures, sources, rationale, rejected options) is in `record/system-rules.md` under the same number; read it when a figure or source is needed or before reopening a decision. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+
+## Decisions
+
+118. Jack size by function: 6.3 mm for audio connections to other gear (channel inputs, balanced main outputs, AUX sends and returns, headphones); 3.5 mm allowed for Eurorack-level control connections (CV, gate) and wherever 6.3 mm does not fit. Each jack's size is recorded where it is specified (`SPEC.md`, `MECHANICAL.md`). The channel's cutoff CV jack is a 3.5 mm Thonkiconn PJ398SM with a 1 mm printed washer (no 6.3 mm jack fits the 10 mm card-to-panel gap)
+122. RoHS is invariant 9: every part and board complies with 2011/65/EU as amended by (EU) 2015/863, fabricated and assembled lead-free. Standard passives (no maker part number in `parts.csv`) get their RoHS source when the BOM is fixed for ordering; parts chosen by part number need it when chosen (116). Before the first PCB order a sub-agent audits `parts.csv` on all boards; board sessions fix gaps and the user decides what remains
+132. 6.3 mm jacks are the Rean NYS216 (SX-CONN-015) on every board, a cost cut from the Neutrik NMJ6HCD2. Own footprint `syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal`; its pin assignment is inferred and must be checked with a meter on the first delivered jack before input module and master PCBs are ordered. Rated 1,000 mating cycles: checked on the prototype; NYS215 (metal ferrule) is the fallback
+135. Cost principle: a live performance device, not studio equipment. May be relaxed for cost: accuracy beyond what is audible on stage (matching, meter within about ±1 dB, exact fader law, filter tracking), CMRR and distortion beyond stage needs, calibration, studio niceties such as very low noise at quiet levels. Must stay: reliability and robustness, headroom for hot Eurorack levels and the soft clip, click-free switching and no power-up pops, noise and hum low enough for a loud PA, the ladder filter on every channel, safety and RoHS. Every proposal that relaxes something names which side of this line it is on

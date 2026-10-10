@@ -1,0 +1,19 @@
+# Mechanical decisions
+
+Frame, panels, strip layout and front-panel parts. The numbers boards must fit are in the contract `docs/MECHANICAL.md`.
+
+Current rulings (decision 154): each entry says what holds now, with later refinements folded in. The full text (dimensions, datasheet sources, rejected options) is in `record/mechanical.md` under the same number; read it when a figure or source is needed or before reopening a decision. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+
+## Decisions
+
+55. Channel strip follows the signal flow top to bottom: cutoff CV jack (106), trim, cutoff, resonance, filter bypass, AUX 1, AUX 2, SC send and compressor bus buttons, PFL, mute; meter (printed bezel, 119) beside the fader
+59. Desktop unit: one PCB plus FR4 top panel per strip, rear-panel PCB-mount jacks, aluminium 2020 rail frame cut to length with side cheeks, chain ribbons under the strips
+75. Buttons: latching DPDT CW Industries GPBS850N with 3D-printed translucent caps lit by an 0805 LED beside each switch (latching keeps every state through a power cut). Pressed = pins 2-3 and 5-6 closed
+86. Master meter LEDs: small round 3 mm (form to be settled with the master panel, 93); no ready-made bar graphs. Channel meter: 119
+106. Strip envelope (contract `MECHANICAL.md`): pitch 35.0 mm, top panel strip 34.8 mm, channel PCB at most 33.0 mm wide, control area at most 320 mm deep. Cutoff CV jack centred on the strip directly above CUTOFF. Panels FR4 (aluminium a product option)
+107. Panel stack: PCB top 10.0 mm below the underside of the 1.6 mm FR4 panel, set by the Alpha 9 mm pots, which fix the panel with washer and nut. Fader screwed to the panel with two M2 screws through 3.5 mm spacers, screwed first and soldered after (the user's rule). Top-side parts under the panel at most 9 mm tall. Underside: 121
+108. Each top panel rests on the front and back 2020 rails over the full 20 mm top face (fixing: 120). The panel is at most 360 mm long; the PCB fits between the rails, at most 318 mm deep
+109. Master section at the right end, power board beside it. On every channel card the audio (2×17) and power (2×4) IN headers run along the left edge and OUT along the right, on the underside, long axis front to back, at one distance from the front set by the channel layout and recorded in `MECHANICAL.md` (master follows). Neighbours linked by identical short U-loop jumpers (about 60-80 mm). A mock-up before the first PCB order fixes header orientation, crimping (pin 1 to pin 1) and cable length
+119. Channel meter: eight 0805 LEDs placed by JLCPCB (KT-0805G, KT-0805Y, NCD0805R1) under a 3D-printed opaque bezel with translucent windows, 11.6 mm tall (flush with the panel top), through one slot (about 5 × 49 mm), located by the slot and two pegs in 1.5 mm NPTH holes. 6.0 mm pitch, 48 mm column, labels printed on the panel; top (CLIP) level with the fader's top end; meter and fader marks not aligned. Position across the strip set at layout and recorded in `MECHANICAL.md`
+120. Panel fixing: one M3 button-head screw per panel end on the strip centreline into a drop-in T-nut, plus a 3D-printed key in the rail slot against rotation. Check rattle and twist on the prototype; a second screw per end returns if needed
+121. Underside: only the edge chain headers and hand-set parts (trimmers, jumper headers, 112), at most 10.5 mm deep. Keep-out: no other underside parts within 10 mm of each long edge over the header length plus 15 mm front and back (provisional until the mock-up). Frame has a detachable bottom cover on a few captive or quarter-turn screws into the rails' bottom slots; feet on the cheeks or rails, not the cover; cover height (and frame height) from the mock-up

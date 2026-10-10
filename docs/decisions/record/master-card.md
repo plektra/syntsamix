@@ -2,7 +2,7 @@
 
 The master/compressor card (`hardware/master`): AUX returns and sends, compressor and sidechain, master out, master meter, headphones, output protection and the card's power sheet. This file holds the scope and part choices; the sheet-by-sheet implementations (87-95, 103, 104) are in `master-card-sheets.md`.
 
-Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+Full record (decision 154): the complete text of each decision as made, with figures, sources and rejected options. The current rulings, which sessions read first, are in `../master-card.md`; the index of all decisions is `../INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
 
 ## Decisions
 

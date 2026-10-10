@@ -18,7 +18,7 @@ Every lever you propose says which side of this line it touches. Never propose r
 
 ## Scope
 
-The caller gives a scope: a board (`channel-card`, `master`, `input-module-6p3`, `power`) or `system`, optionally with a focus. Read the root `CLAUDE.md`, `docs/ARCHITECTURE.md`, `hardware/CLAUDE.md`, the board's `CLAUDE.md`, `STATUS.md` and `CHECKLISTS.md` (sections "Cost-cut levers" and "Component values"), its decision file in `docs/decisions/`, `docs/ROADMAP.md` ("Cost-cut candidates"), and earlier cost reports in `docs/reviews/*-cost-*.md`. Levers the user already rejected or decided stay closed unless something changed; say what changed if you reopen one.
+The caller gives a scope: a board (`channel-card`, `master`, `input-module-6p3`, `power`) or `system`, optionally with a focus. Read the root `CLAUDE.md`, `docs/ARCHITECTURE.md`, `hardware/CLAUDE.md`, the board's `CLAUDE.md`, `STATUS.md` and `CHECKLISTS.md` (sections "Cost-cut levers" and "Component values"), its decision files in `docs/decisions/` (short current rulings; the full text with prices and rejected options is in `docs/decisions/record/`, read it for a lever that touches a decision), `docs/ROADMAP.md` ("Cost-cut candidates"), and earlier cost reports in `docs/reviews/*-cost-*.md`. Levers the user already rejected or decided stay closed unless something changed; say what changed if you reopen one.
 
 ## What to do
 

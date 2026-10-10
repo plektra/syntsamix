@@ -2,7 +2,7 @@
 
 Part choices that make the channel card (`hardware/channel-card`) fit the panel stack and the parts rules: regulators, electrolytics, underside parts, low-cut capacitors, panel pots and the trim stage, button LEDs and chain headers. Split from `channel-card.md` on 2026-10-09 (size); numbers unchanged.
 
-Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+Full record (decision 154): the complete text of each decision as made, with figures, sources and rejected options. The current rulings, which sessions read first, are in `../channel-card-parts.md`; the index of all decisions is `../INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
 
 ## Decisions
 

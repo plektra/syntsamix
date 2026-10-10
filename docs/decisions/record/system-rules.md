@@ -2,7 +2,7 @@
 
 Project-wide rules that every board follows: jack sizes, RoHS, the shared jack part and the cost principle. Split from `system.md` (2026-10-10, file size); numbers unchanged.
 
-Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+Full record (decision 154): the complete text of each decision as made, with figures, sources and rejected options. The current rulings, which sessions read first, are in `../system-rules.md`; the index of all decisions is `../INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
 
 ## Decisions
 

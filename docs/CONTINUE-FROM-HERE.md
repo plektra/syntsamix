@@ -1,6 +1,6 @@
 # Continue from here
 
-Project-level handoff, updated 2026-10-10. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`).
+Project-level handoff, updated 2026-10-10. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
 
 ## Boards
 
@@ -11,7 +11,7 @@ Project-level handoff, updated 2026-10-10. Read `CLAUDE.md` first. Board detail 
 | Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131); SC LPF pot RV501 a standard B100K dual (decision 138); 2026-10-10: fee-free parts and E24 values throughout (decisions 144, 146, 147), AUX return receivers TL072 difference amplifiers (148, the AD8273 is gone from the project), R421 a plain 1k (149, temperature compensation to the backlog), DG413/SSI2162/DRV135/AS3046D hand-soldered on the prototype (150) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added; full-size brick GSM220B24-R7B (decision 145) | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-153; last pushed commit: see `git log -1`.
+Decisions 1-154; last pushed commit: see `git log -1`.
 
 ## Order of work
 

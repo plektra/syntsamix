@@ -5,7 +5,7 @@ Project context for Claude Code. Read this first, then:
 1. `docs/CONTINUE-FROM-HERE.md`: project-level handoff (which board is where, what is next)
 2. `docs/decisions/INDEX.md`: every decision with its status and area file
 3. `docs/ARCHITECTURE.md`: system diagram, cross-board budgets, chain lines, invariants (the constitution; changed only in `/system` sessions)
-4. For the work at hand: the board's `CLAUDE.md` and `STATUS.md` (`hardware/<board>/`), its decision file in `docs/decisions/`, and `hardware/CLAUDE.md` for the shared schematic workflow
+4. For the work at hand: the board's `CLAUDE.md` and `STATUS.md` (`hardware/<board>/`), its decision file in `docs/decisions/` (short current rulings; full text in `docs/decisions/record/` only when needed, decision 154), and `hardware/CLAUDE.md` for the shared schematic workflow
 
 Read the rest only when the task needs it: `docs/SPEC.md` (full specification), `docs/CHAIN.md`, `docs/INPUT-MODULE.md` and `docs/MECHANICAL.md` (interfaces between boards), `docs/PART-NUMBERING.md`, `docs/ROADMAP.md` (phases, backlog), `simulation/CLAUDE.md`.
 
@@ -33,7 +33,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 ## How to work on this project
 
 1. **Separate confirmed from assumed.** `docs/decisions/` records what the user confirmed; text marked **[proposed]** is only proposed. Never treat a proposal as settled. Ask before changing a confirmed decision.
-2. **Spec first.** Settle the open items in `docs/decisions/INDEX.md` before drawing schematics. New decisions take the next free number, go into their area file, and get a row in the index.
+2. **Spec first.** Settle the open items in `docs/decisions/INDEX.md` before drawing schematics. New decisions take the next free number, go into their area file as a short ruling and into `docs/decisions/record/` in full, and get a row in the index (decision 154; check with `tools/check_decisions.py`).
 3. **Simulate before layout.** Prove the filter gain structure (headroom and noise) in ngspice or on a breadboard before committing the channel card design.
 4. **Use the KiCad MCP server** for schematic and PCB edits. Pause for the user's review before each commit. Run ERC after schematic changes and DRC after layout changes.
 5. **Keep modules independent.** Each module is its own KiCad project or hierarchical sheet with a documented chain interface (audio and power ribbon pinouts).
@@ -51,7 +51,8 @@ CLAUDE.md
 .claude/agents/    architect (contract reviewer), validator (independent design checks), cost-controller (cost reviews); helpers part-facts, build-check, sim-run, stock-check
 LICENSE.md, REUSE.toml, LICENSES/  licensing (decision 70)
 docs/            CONTINUE-FROM-HERE.md, ARCHITECTURE.md, WORKING-WITH-CLAUDE.md, SPEC.md, CHAIN.md, INPUT-MODULE.md, MECHANICAL.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
-  decisions/     decision log by area, INDEX.md (DECISIONS.md is a pointer to it)
+  decisions/     decision log by area (short current rulings), INDEX.md (DECISIONS.md is a pointer to it)
+    record/      full text of every decision
   reviews/       validator and cost-controller reports
   costs/         prices.csv, overheads.csv (inputs of tools/costs.py); ledger.csv of realized costs is private (git-ignored)
 hardware/        CLAUDE.md: shared schematic workflow; each board has CLAUDE.md and STATUS.md
@@ -65,4 +66,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-153; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-154; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

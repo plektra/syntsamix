@@ -2,7 +2,7 @@
 
 The stereo channel card (`hardware/channel-card`): receiver, trim, low-cut, ladder filter, VCA and fader, routing, meter, chain and power sheet.
 
-Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+Full record (decision 154): the complete text of each decision as made, with figures, sources and rejected options. The current rulings, which sessions read first, are in `../channel-card.md`; the index of all decisions is `../INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
 Part and mechanical choices made for the panel stack (decisions 110-115, 117) are in `channel-card-parts.md`.
 
 

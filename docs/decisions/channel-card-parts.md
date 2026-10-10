@@ -1,0 +1,15 @@
+# Channel card decisions: parts and mechanics
+
+Part choices that make the channel card (`hardware/channel-card`) fit the panel stack and the parts rules: regulators, electrolytics, underside parts, low-cut capacitors, panel pots and the trim stage, button LEDs and chain headers.
+
+Current rulings (decision 154): each entry says what holds now, with later refinements folded in. The full text (figures, sources, thermal and sourcing checks, rejected options) is in `record/channel-card-parts.md` under the same number; read it when a figure or source is needed or before reopening a decision. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+
+## Decisions
+
+110. Regulators in D²PAK (9 mm height limit): U501 onsemi LM317D2TR4G (C12848), U502 onsemi LM337D2TR4G (C232416), placed by JLCPCB. Each tab on about 20 × 20 mm top copper stitched to a bottom pour; the tabs are on different nets (+15.1 V, raw −20 V), so neither pour touches AGND. About 89 / 82 °C junction worst case at 40 °C ambient (to recheck with the heat budget). JLCPCB has no fee-free negative regulator
+111. Low-profile SMD electrolytics: C501/C506 47 µF 35 V ROQANG RVT1V470M0605 (C72522); C503, C504, C508, C509, C512 10 µF 35 V ROQANG RVT1V100M0505 (C72486). The 10 µF bipolar coupling capacitors (C5, C6, C101, C107, C151, C157, C221, C271) are Panasonic EEE-1VA100NP (not at LCSC: hand-soldered or global sourcing); confirm case code and land pattern at layout
+112. Trimmers RV101, RV151, RV182 (Bourns 3296W-1-503LF) and jumper headers JP101/JP151, JP102/JP152, J301/J302 sit on the underside, leads soldered on the top side, mid-card clear of the header edge zones, L/R pairs side by side with bottom silkscreen labels, so they can be set with the card mounted and the bottom cover off (121)
+113. Low-cut capacitors C9-C12: Murata GRM31M5C1H473JA01L, C0G 47 nF 5 % 50 V 1206 (C21812), placed by JLCPCB (as good as film here, no hand soldering)
+114. Panel pots: Alpha 9 mm vertical (RD901F-40, RD902F-40), 6 mm T18 knurled shaft 15 mm from the body face, push-on knobs (T18 up to about 19 mm across, chosen later). Bushing M7×0.75 × 5 mm (confirmed by Thonk)
+115. Trim stage scaled for a 100 k pot (no 9 mm 250 k audio dual exists): inverting NE5532 stage with RV1 A100K dual as variable feedback (values on E24 since 140), same taper feel and soft-clip shape. Pots: TRIM A100K dual and AUX A10K dual (Thonk, SX-POT-011/013), CUTOFF B50K (Thonk, SX-POT-003), RESONANCE C10K Alpha RD901F-40-15K-C10K (Tayda, SX-POT-012). RoHS cleared by Alpha's general declaration (124)
+117. Button LEDs (0805 under printed caps, about 1 mA from +15 V through 12 k), all JLCPCB basic: MUTE red NCD0805R1 (C84256), PFL yellow KT-0805Y (C2296), SC SEND, DUCK, COMP BUS green KT-0805G (C2297), LOW-CUT and FILTER BYPASS white KT-0805W (C34499); brightness evened per colour after a test with the caps. Chain headers J501/J502 Würth 61203421621 (2×17) and J503/J504 Würth 61200821621 (2×4), hand-soldered on the underside, holes 1.1 mm

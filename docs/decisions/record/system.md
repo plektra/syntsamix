@@ -2,7 +2,7 @@
 
 System scope, signal levels, buses, cross-board functions and the chain between cards (audio and power ribbons, grounding).
 
-Project-wide rules (jack sizes, RoHS, shared jack part, cost principle: items 118, 122, 132, 135) are in `system-rules.md`. Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+Project-wide rules (jack sizes, RoHS, shared jack part, cost principle: items 118, 122, 132, 135) are in `system-rules.md`. Full record (decision 154): the complete text of each decision as made, with figures, sources and rejected options. The current rulings, which sessions read first, are in `../system.md`; the index of all decisions is `../INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
 
 ## Decisions
 

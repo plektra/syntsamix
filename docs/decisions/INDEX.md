@@ -1,6 +1,6 @@
 # Decision index
 
-The decision log, split by area. Read this index, then the area file for the work at hand. Every decision keeps its global number (referenced elsewhere as "decision N" or "item N"); numbers are never reused.
+The decision log, split by area and kept in two tiers (decision 154). Read this index, then the area file for the work at hand: the area files hold the current ruling of each decision, short and with refinements folded in. `record/<area>.md` holds the full text of every decision (figures, sources, simulations, rejected options) under the same number; read it when a decision's figures or sources are needed or before reopening it. Every decision keeps its global number (referenced elsewhere as "decision N" or "item N"); numbers are never reused.
 
 | File | Area |
 |---|---|
@@ -13,12 +13,12 @@ The decision log, split by area. Read this index, then the area file for the wor
 | [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
-| [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, availability notes |
+| [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, workflow (availability notes in the record) |
 
 ## Rules
 
 - **Confirmed** decisions were agreed by the user; ask before changing one. Text marked **[proposed]** inside a decision still needs confirmation.
-- New decision: next free number, appended to its area file, plus one row here. A decision that refines another says so ("refines item N").
+- New decision: next free number. Append the full text to `record/<area>.md` and a short ruling (what holds now, at most a one-clause reason) to `<area>.md`, plus one row here. A decision that refines another says so ("refines item N") and rewrites the refined entries in the short file to the new state; the record entries of earlier decisions are not edited. Run `python3 tools/check_decisions.py` afterwards.
 - Interface documents are contracts between boards: `docs/CHAIN.md` (ribbons), `docs/INPUT-MODULE.md` (input header), `docs/MECHANICAL.md` (strip envelope, panels, frame). Change them only through a confirmed decision.
 
 ## All decisions
@@ -178,6 +178,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 151 | Models per role (design sessions Opus; architect, cost controller, validator Sonnet, `/validate … deep` and `/cost … deep` Opus; helpers part-facts Sonnet, build-check, sim-run, stock-check Haiku) and a lighter `/board` start-up (decision files by phase, `STATUS.md` split into `CHECKLISTS.md`, architect review only on contract changes) | confirmed | [process](process.md) |
 | 152 | Buttons may switch DC control voltages directly (sequence-independent wiring, smoothing ramp); audio still never through a button; refines 69, confirms 142 and the scope wording | confirmed | [system](system.md) |
 | 153 | SC_ENV load 30 kΩ (E24, basic) instead of 30k1 on channel R217 and master R232/R332; ducking 0.03 dB per volt deeper; refines 97 | confirmed | [system](system.md) |
+| 154 | Decision log in two tiers: short current rulings in the area files, full text in `record/` (`tools/check_decisions.py`) | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 

@@ -2,7 +2,7 @@
 
 The power board (`hardware/power`): 24 V DC brick input, protection, non-isolated converters to the raw ±20 V chain rails (decision 100). Chain voltage and power injection (decisions 40 and 80) are in `system.md`.
 
-Part of the decision log; the index of all decisions is `INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
+Full record (decision 154): the complete text of each decision as made, with figures, sources and rejected options. The current rulings, which sessions read first, are in `../power.md`; the index of all decisions is `../INDEX.md`. Numbers are global and never reused. Text marked **[proposed]** still needs the user's confirmation.
 
 ## Decisions
 
