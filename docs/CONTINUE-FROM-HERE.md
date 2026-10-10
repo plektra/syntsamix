@@ -11,7 +11,7 @@ Project-level handoff, updated 2026-10-10. Read `CLAUDE.md` first. Board detail 
 | Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131); SC LPF pot RV501 a standard B100K dual (decision 138) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added; full-size brick GSM220B24-R7B (decision 145) | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-143 and 145 (144 is taken by the unmerged worktree `master-fader-law-e24`); last pushed commit: see `git log -1`.
+Decisions 1-143, 145 and 150 (144 and 146-149 are taken by the unmerged worktree `master-fader-law-e24`); last pushed commit: see `git log -1`.
 
 ## Order of work
 

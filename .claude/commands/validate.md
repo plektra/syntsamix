@@ -1,9 +1,11 @@
 ---
 description: Run the independent validator on a board, a sheet, the simulations or the whole system
-argument-hint: <channel-card|master|input-module-6p3|power|simulation|system> [sheet or focus]
+argument-hint: <channel-card|master|input-module-6p3|power|simulation|system> [sheet or focus] [deep]
 ---
 
 Launch the `validator` sub-agent with this scope: $ARGUMENTS
+
+Model (decision 150): the validator runs on Sonnet by default. If the arguments contain the word `deep`, drop that word from the scope and launch it with the model override `opus`. Use `deep` for a full board before layout, before a PCB order, and for `system` before the first full order; Sonnet for sheets, `simulation`, rechecks and narrow focuses.
 
 Pass the scope and focus through unchanged, and add nothing from this conversation's design reasoning: the validator's value is that it checks from the files and datasheets alone. It may run for a long time; it writes its report to `docs/reviews/`.
 

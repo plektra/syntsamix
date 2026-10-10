@@ -168,6 +168,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed | confirmed (delegated) | [channel-card](channel-card.md) |
 | 143 | Channel input receiver: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (CMRR ≥ 51.5 dB) | confirmed (delegated) | [channel-card](channel-card.md) |
 | 145 | Full-size brick: Mean Well GSM220B24-R7B (221 W, Class II, same R7B plug) instead of the GSM160B24-R7B; prototype keeps the GSM120B24-R7B | confirmed | [power](power.md) |
+| 150 | Models per role (design sessions Opus; architect, cost controller, validator Sonnet, `/validate … deep` and `/cost … deep` Opus; helpers part-facts Sonnet, build-check, sim-run, stock-check Haiku) and a lighter `/board` start-up | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 

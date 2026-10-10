@@ -9,7 +9,7 @@ Project context for Claude Code. Read this first, then:
 
 Read the rest only when the task needs it: `docs/SPEC.md` (full specification), `docs/CHAIN.md`, `docs/INPUT-MODULE.md` and `docs/MECHANICAL.md` (interfaces between boards), `docs/PART-NUMBERING.md`, `docs/ROADMAP.md` (phases, backlog), `simulation/CLAUDE.md`.
 
-For the user: `docs/WORKING-WITH-CLAUDE.md` describes the roles and the session loop: `/board <board> [phase]` for board work, `/system [topic]` for architecture, `/handoff` to wrap up, `/validate <scope>` for an independent check, `/cost <scope>` for a cost review and `/cost ledger` for realized costs (the `architect`, `validator` and `cost-controller` sub-agents live in `.claude/agents/`). Work one board and phase per session (for example "power board schematic"), and update that board's `STATUS.md` before ending. Use sub-agents only for bounded jobs with a short result (datasheet fact checks, build-and-check loops, simulation runs, stock checks); design choices stay in the main conversation with the user.
+For the user: `docs/WORKING-WITH-CLAUDE.md` describes the roles and the session loop: `/board <board> [phase]` for board work, `/system [topic]` for architecture, `/handoff` to wrap up, `/validate <scope>` for an independent check, `/cost <scope>` for a cost review and `/cost ledger` for realized costs (the `architect`, `validator` and `cost-controller` sub-agents and the helpers `part-facts`, `build-check`, `sim-run` and `stock-check` live in `.claude/agents/`, each on a set model: decision 150). Work one board and phase per session (for example "power board schematic"), and update that board's `STATUS.md` before ending. Use sub-agents only for bounded jobs with a short result, through those helpers (datasheet fact checks, build-and-check loops, simulation runs, stock checks), never a general-purpose agent, which would run on Opus; design choices stay in the main conversation with the user.
 
 ## Project
 
@@ -48,7 +48,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 README.md        landing page (project, features, status)
 CLAUDE.md
 .claude/commands/  /board, /system, /handoff, /validate, /cost
-.claude/agents/    architect (contract reviewer), validator (independent design checks), cost-controller (cost reviews)
+.claude/agents/    architect (contract reviewer), validator (independent design checks), cost-controller (cost reviews); helpers part-facts, build-check, sim-run, stock-check
 LICENSE.md, REUSE.toml, LICENSES/  licensing (decision 70)
 docs/            CONTINUE-FROM-HERE.md, ARCHITECTURE.md, WORKING-WITH-CLAUDE.md, SPEC.md, CHAIN.md, INPUT-MODULE.md, MECHANICAL.md, PART-NUMBERING.md, parts.csv, ROADMAP.md
   decisions/     decision log by area, INDEX.md (DECISIONS.md is a pointer to it)
@@ -65,4 +65,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-143 and 145; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-143, 145 and 150; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
