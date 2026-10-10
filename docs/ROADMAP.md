@@ -49,9 +49,9 @@ The user asked for a large cost cut (2026-10-09), then set the frame: the protot
 
 | Build | Total |
 |---|---|
-| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794) |
-| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074) |
-| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671) |
+| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794; after 153, 155: €788) |
+| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074; after 153, 155: €1,069) |
+| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671; after 153, 155: €1,665) |
 
 The 2026-10-10 figures include decisions 139-143 and 145. The 8-channel build assumes one power board carries 8 cards plus the master (power lever 1's open check); the 16-channel figure still prices one power board, although the full-size supply is not designed yet (decision 100).
 

@@ -62,7 +62,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     # ---- SSI2144
     XS=180.34
     u=s.place("syntsamix","SSI2144",ssi,"SSI2144",XS,y0,0,fp="Package_SO:QSOP-16_3.9x4.9mm_P0.635mm",
-              props=P("SX-IC-001",Manufacturer="Sound Semiconductor",MPN="SSI2144SS-TU",Supplier="Electrokit",SupplierPN="41019301"))
+              props=P("SX-IC-001",Assembly="hand (decision 155)",Manufacturer="Sound Semiconductor",MPN="SSI2144SS-TU",Supplier="Electrokit",SupplierPN="41019301"))
     s.wire(sin,u(1))
     s.wire(u(16),up(u(16),5.08)); s.power("+15V",up(u(16),5.08))
     s.wire(u(8),dn(u(8),5.08)); s.power("-15V",dn(u(8),5.08))

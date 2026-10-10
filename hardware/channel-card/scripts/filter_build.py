@@ -37,7 +37,7 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     R(r(105),"200","SX-R-010",f"{P}_SIN","AGND",140,y(90))
     R(r(106),"200","SX-R-010","AGND",f"{P}_SINN",140,y(118))
     U=ssi
-    S("syntsamix","SSI2144",U,"SSI2144",175,y(85),"Package_SO:QSOP-16_3.9x4.9mm_P0.635mm","SX-IC-001",props={"Manufacturer":"Sound Semiconductor","MPN":"SSI2144SS-TU","Supplier":"Electrokit","SupplierPN":"41019301"})
+    S("syntsamix","SSI2144",U,"SSI2144",175,y(85),"Package_SO:QSOP-16_3.9x4.9mm_P0.635mm","SX-IC-001",props={"Assembly":"hand (decision 155)","Manufacturer":"Sound Semiconductor","MPN":"SSI2144SS-TU","Supplier":"Electrokit","SupplierPN":"41019301"})
     for pn,net in ((1,"SIN"),(2,"SINN"),(3,"OUTI"),(15,"FC"),(14,"QP"),(13,"C1A"),(12,"C1B"),(11,"C2A"),(10,"C2B"),(6,"C3A"),(7,"C3B"),(4,"C4A"),(5,"C4B")):
         N(f"{P}_{net}",f"{U}.{pn}")
     N("+15V",U+".16"); N("-15V",U+".8"); N("AGND",U+".9")

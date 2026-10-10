@@ -33,16 +33,16 @@ Done 2026-10-10: DG412 → DG413 (139), E24 values (140), tempco to the backlog 
 Open:
 
 7. **Ceramic coupling capacitors:** 10 µF bipolar electrolytics ×8 → 10 µF X5R ceramic (C13585 1206 50 V, JLCPCB basic): about €1.60 per card and one fee type. Breadboard test 11 decides (user, 2026-10-10). Touches decisions 72 and 111.
-11. **Hand-soldering consigned parts (user to decide):** the SSI2144 (QSOP-16, 0.635 mm) stays with JLCPCB. Each other consigned type hand-soldered saves one fee, about €2.76 per order (the $3 of `overheads.csv`, not from an official JLCPCB page); the €30 consignment handling stays while the SSI2144 is consigned. Channel candidates, easiest first: bipolar 10 µF SX-C-023 (large SMD electrolytic pads; 24 in the 4-channel order with the master; gone if test 11 passes) and the SSI2162 (SSOP-10, 1.0 mm pitch; 5 in the order). Both: €5.52 per order; with the master's AD8273 ×2, AS3046D and R421 (the master's call): €13.80; also hand-soldering the SSI2144 drops the €30 handling: €46.56 in all.
+11. **Hand-soldering consigned parts: decided (decision 155, 2026-10-10).** The user hand-solders the SSI2144 ×2 (U101/U102) and the SSI2162 (U201) on the prototype (Assembly = "hand (decision 155)"), so neither type is consigned: 38 → 36 fee types, €794 → €788 for 4 channels. The bipolar 10 µF SX-C-023 stays consigned (with the €30 handling) until breadboard test 11 (lever 7): if X5R passes it goes, and the handling with it; if it fails, decide then whether to hand-solder them (the fee goes only if the master does too, the master's call).
 13. **Fixed V/oct scale (product):** replace RV182 with an E24 pair if breadboard test 12 shows the chips' scales within about ±2 %; one part and one calibration step fewer per card.
 
 ## Component values (decision 134)
 
-This board owns its value selection (rule in `CLAUDE.md`). Since decision 140 (2026-10-10) every resistor and capacitor value is E24 with a JLCPCB basic or preferred part, with one exception:
+This board owns its value selection (rule in `CLAUDE.md`). Since decision 140 (2026-10-10) every resistor and capacitor value is E24 with a JLCPCB basic or preferred part, with no exceptions since R217 became 30k (SX-R-050, basic; decision 153, 2026-10-10).
 
 | Sheet | Value | References | Reason |
 |---|---|---|---|
-| Level | 30k1 | R217 | SC_ENV into the control summer (decision 97): `docs/ARCHITECTURE.md` names 30.1 kΩ in the SC_ENV chain line, so a change to 30k (E24, ducking scale 0.03 dB off) goes through /system |
+| (none) | | | |
 
 E24 pairs (one extra placement each, no fee): R183 + R187 (162k, V/oct feedback), R207 + R223 (113k), R208 + R224 (450k), R213 + R225 (124k) (fader law). R111/R161 and R120/R170 stay provisional until the breadboard. The master still uses the old fader-law set for its AUX returns and master out (its own session; noted in `hardware/master/STATUS.md`).
 

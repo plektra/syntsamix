@@ -19,4 +19,4 @@ frame_eur_per_channel,5,"Rail length, T-nuts, screws, printed parts and ribbons 
 brick_proto_max_channels,8,"Costing assumption, not a checked capacity (whether one power board carries 8 cards plus the master is power lever 1's open check): up to this many channels the estimate takes the prototype brick SX-MECH-003 (GSM120B24-R7B, one power board, chain 1); above it the full-size brick SX-MECH-005 (GSM220B24-R7B, decision 145); prices in prices.csv"
 knobs_eur_per_channel,3.5,Five knobs and a fader cap per channel strip (no schematic symbols; estimate)
 knobs_master_eur,8,Thirteen knobs on the master (estimate)
-consign_eur_per_order,30,"Handling and shipping of consigned parts LCSC does not stock (SSI2144, SSI2162, AD8273, AS3046D; estimate)"
+consign_eur_per_order,30,"Handling and shipping of consigned parts LCSC does not stock (since decisions 150 and 155 only the 10 µF bipolar SX-C-023; the SSI2144, SSI2162 and AS3046D are hand-soldered on the prototype; estimate)"

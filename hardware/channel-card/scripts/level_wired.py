@@ -30,7 +30,7 @@ def rt(p,d=2.54): return (p[0]+d,p[1])
 # ------------------------------------------------------------- VCA chip
 XV,YV=175.26,101.6
 v=s.place("syntsamix","SSI2162","U201","SSI2162",XV,YV,0,fp="Package_SO:SSOP-10_3.9x4.9mm_P1.00mm",
-          props=P("SX-IC-002",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
+          props=P("SX-IC-002",Assembly="hand (decision 155)",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
 s.wire(v(10),up(v(10),5.08)); s.power("+15V",up(v(10),5.08))
 s.wire(v(6),dn(v(6),5.08)); s.power("-15V",dn(v(6),5.08))
 s.wire(v(5),dn(v(5),5.08),rt(dn(v(5),5.08),5.08)); gnd(rt(dn(v(5),5.08),5.08))
@@ -126,7 +126,7 @@ superdiode(231.14,"R209","R210","220k","SX-R-103","U92052",2,(5,6,7),"D201","R21
 superdiode(264.16,"R212","R213","100k","SX-R-007","U205",1,(3,2,1),"D202","R214","9k1","SX-R-095",("R225","24k","SX-R-031"))
 s.wire((VBX,190.5),(VBX,213.36)); s.wire((VBX,213.36),(VBX,231.14)); s.wire((VBX,231.14),(VBX,264.16))
 # duck and mute inputs
-rd=R("R217","30k1","SX-R-087",220.98,279.4,Note="SC_ENV into the virtual earth: 0.332 V/V, 10 dB of ducking per -1 V (decision 97)")
+rd=R("R217","30k","SX-R-050",220.98,279.4,Note="SC_ENV into the virtual earth: 0.333 V/V, 10 dB of ducking per -1 V (decisions 97, 153)")
 s.wire((208.28,279.4),rd(1)); s.label("DUCK_V",(208.28,279.4),180); s.wire(rd(2),(SUMX,279.4))
 rm=R("R216","33k","SX-R-006",220.98,289.56); s.wire((208.28,289.56),rm(1)); s.label("MUTE_V",(208.28,289.56),180); s.wire(rm(2),(SUMX,289.56))
 # summing junction bus (split at every tap so each joint gets a junction)

@@ -9,7 +9,7 @@ the bottom, 0 V at the top) -> U204A follower (OPA2171) -> VB; 113k from VB (R20
 13k) and 450k from +15 V (R208 300k + R224 150k) into the summer's virtual earth VSUM; two
 superdiode breakpoints on the TL072 (U205) with 100k from VB, 220k / 124k (R213 100k + R225 24k)
 from +15 V and 62k / 9k1 into VSUM (E24 values, decision 140); DUCK_V (SC_ENV through
-the DG413) into VSUM through R217 30k1; mute through R216 33k from -15 V. Summer U204B
+the DUCK button, decision 142) into VSUM through R217 30k (decision 153); mute through R216 33k from -15 V. Summer U204B
 (OPA2171), + input on AGND, 10k || 1 uF feedback, output VC to the SSI2162 (-33 mV/dB: a
 positive VC lowers the gain).
 
@@ -70,7 +70,7 @@ R213 vcc s2 124k
 X3 s2 k2 o2 opamp
 D202 k2 o2 D1N4148
 R214 k2 vsum 9.1k
-R217 dv vsum 30.1k
+R217 dv vsum 30k
 R216 mv vsum 33k
 X4 0 vsum vc rro
 R215 vsum vc 10k

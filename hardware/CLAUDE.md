@@ -6,7 +6,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 
 - `<sheet>_build.py` = independent reference netlist, `<sheet>_wired.py` = drawing with real wires (`schlayout.Sheet`). `check_netlist.py` compares them pin by pin; never skip it. Full how-to: `hardware/channel-card/scripts/README.md`. Shared tools live in `hardware/channel-card/scripts/`; the master links to them.
 - Rebuilding replaces the whole sheet; edits made by hand in KiCad are lost.
-- `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. The KiCad MCP server is registered in Claude Code (profile `schematic_authoring`).
+- `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. In an isolated worktree session, shell loops or `$(...)` that pick that Python are refused: find it with `ls -d ~/.cache/uv/archive-v0/*/lib/python*/site-packages/mcp` and call `<env>/bin/python` by its plain path. The KiCad MCP server is registered in Claude Code (profile `schematic_authoring`).
 - Rules learned the hard way:
   - Keep resistor/capacitor pin 1 where the reference has it; swap the reference's pin order instead of rotating a part 180°.
   - A wire end on another wire or a pin connects: never cross through endpoints, and split a wire at every pin it should reach.

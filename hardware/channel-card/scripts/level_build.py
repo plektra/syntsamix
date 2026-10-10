@@ -37,7 +37,7 @@ def side(P,o,y,iv,inv):
     R(r(205),"10k","SX-R-002",f"{P}_INV",f"{P}_POSTFADE",255,y-25)
 side("L",0,70,("U202",1,(2,3,1)),("U203",1,(2,3,1)))
 side("R",50,160,("U92022",2,(6,5,7)),("U92032",2,(6,5,7)))
-S("syntsamix","SSI2162","U201","SSI2162",145,115,"Package_SO:SSOP-10_3.9x4.9mm_P1.00mm","SX-IC-002",props={"Manufacturer":"Sound Semiconductor","MPN":"SSI2162SS-TU","Supplier":"Electrokit"})
+S("syntsamix","SSI2162","U201","SSI2162",145,115,"Package_SO:SSOP-10_3.9x4.9mm_P1.00mm","SX-IC-002",props={"Assembly":"hand (decision 155)","Manufacturer":"Sound Semiconductor","MPN":"SSI2162SS-TU","Supplier":"Electrokit"})
 for pn,net in ((2,"L_IIN"),(3,"VC"),(4,"L_IOUT"),(1,"MODE"),(9,"R_IIN"),(8,"VC"),(7,"R_IOUT")): N(net,f"U201.{pn}")
 N("+15V","U201.10"); N("-15V","U201.6"); N("AGND","U201.5")
 R("R206","14k3","SX-R-030","+15V","MODE",120,125,props={"Note":"DNP = Class AB (default); fit for Class A, mode current about 1 mA (datasheet Rev 1.2)"})
@@ -64,7 +64,7 @@ OA("OPA2171","U92042",2,250,Y+20,(("AGND",5),("VSUM",6),("VC",7)),"SX-IC-021")
 R("R215","10k","SX-R-002","VSUM","VC",265,Y-30)
 C("C224","1u","SX-C-010","VSUM","VC",290,Y-30,props={"Note":"10 ms control smoothing: fader wiper noise and click-free mute ramp"})
 R("R216","33k","SX-R-006","MUTE_V","VSUM",215,Y+60)
-R("R217","30k1","SX-R-087","DUCK_V","VSUM",240,Y+60,props={"Note":"SC_ENV into the virtual earth: 0.332 V/V, 10 dB of ducking per -1 V (decision 97)"})
+R("R217","30k","SX-R-050","DUCK_V","VSUM",240,Y+60,props={"Note":"SC_ENV into the virtual earth: 0.333 V/V, 10 dB of ducking per -1 V (decisions 97, 153)"})
 # buttons
 # decision 142: pole 1 switches the control voltage itself (pressed 2-3: source into R216/R217); pin 1 open and a 100k holds the
 # resistor end at AGND when released, so no contact sequence can short the source to ground

@@ -179,6 +179,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 152 | Buttons may switch DC control voltages directly (sequence-independent wiring, smoothing ramp); audio still never through a button; refines 69, confirms 142 and the scope wording | confirmed | [system](system.md) |
 | 153 | SC_ENV load 30 kΩ (E24, basic) instead of 30k1 on channel R217 and master R232/R332; ducking 0.03 dB per volt deeper; refines 97 | confirmed | [system](system.md) |
 | 154 | Decision log in two tiers: short current rulings in the area files, full text in `record/` (`tools/check_decisions.py`) | confirmed | [process](process.md) |
+| 155 | Channel SSI2144 ×2 and SSI2162 hand-soldered by the user on the prototype (cost lever 11); bipolar caps wait for breadboard test 11 | confirmed | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 

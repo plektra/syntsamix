@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-10 (/system: decision 152 confirms the MUTE/DUCK button wiring, decision 153 asks for R217 30k; earlier, schematic sessions, delegated by the user: "work autonomously and follow recommendations", then "work on this autonomously"): U303 DG413 (139), all values E24 with fee-free parts (140), temperature compensation to the backlog (141), MUTE/DUCK switched by the buttons (142), TL072 difference receiver (143), trimmers from Mouser, CUTOFF pot from Tayda, breadboard tests 11 and 12. Earlier the same day: fee-free part swaps (decision 137). Before that, 2026-10-09: pots, R184, TFPT tempco, mechanical parts, meter LEDs and power levers (decisions 110-130).
+Updated 2026-10-10 (schematic: R217 30k, decision 153; SSI2144/SSI2162 hand-soldered, decision 155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -16,6 +16,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 - 2026-10-10, fee-free parts (decision 137, confirmed by the user): SX-IC-007 TL072 → ST TL072CDT (LCSC C6961, basic; U107, U205, U402, U403), SX-IC-012 78L05 → UTC 78L05G-AB3-R (C71136, basic; U503), SX-D-001 → hongjiacheng BZT52C6V2 (C19077403, preferred; D1-D4), SX-R-011/036/042 → UNI-ROYAL 0805W8F (C17455, C17797, C17818, preferred). Datasheets checked (facts and RoHS sources in `parts.csv`): TL072CDT pinout and limits as TI's, ICC the same, so the power budget is unchanged; 78L05G-AB3-R pins 1 O 2 G 3 I as the KiCad symbol (the -AB3-C-R variant is G I O); BZT52C6V2 SOD-123 matches KiCad `D_SOD-123`. Filter, level, meter and chain sheets rebuilt; netlists match, ERC 0/0. `costs.py extended`: 82 → 80 fee types.
 - 2026-10-10, schematic (levers, delegated): U303 is a DG413: PFL L/R on the NO sections 1 and 4, SC send on the NC section 2 driven by SC_OFF from SW302 pin 1 (released = high), R315 moved to pin 1, no part added (decision 139). Values on E24 with JLCPCB basic/preferred UNI-ROYAL parts (decision 140): input trim stage, filter scaling, cutoff summer (R183 = 150k + new R187 12k; RV182 redrawn in the FCV column), fader law (new pairs R207+R223, R208+R224, R213+R225; `simulation/level/` rerun, within 0.4 dB of the design from +10 to −60 dB), SC send 47k, meter ladder (within 0.21 dB). New SX-R-092 to SX-R-106. Reference scripts give the button LEDs their 0805 footprints and part numbers. Netlists match (filter 81, level 44, routing 46 nets), ERC 0/0, changed areas looked at. `tools/costs.py estimate` (4 channels): €1,035 → €963.
 - 2026-10-10, schematic (levers, delegated: "work on this autonomously"): TL072 difference receiver with 10k 0.1 % resistors instead of the AD8273 (decision 143; new R19-R26, SX-R-107); MUTE and DUCK switched by the buttons, U206 DG413 and C235/C236 removed, R220/R222 now 100k hold resistors on MUTE_V/DUCK_V with pin 1 open so no contact sequence can short the rail (decision 142, after the architect review); temperature compensation to the backlog, R108/R158 plain 820 Ω (decision 141); trimmers from Mouser, CUTOFF pot from Tayda A-4730. Netlists match (input 46, level 41 nets), ERC 0/0, drawings looked at. Card load 110 / 93 mA typical, sizing 171 / 139 mA. `tools/costs.py estimate` (4 channels): €946 (€1,035 on main before this day's sessions).
+- 2026-10-10, schematic: R217 30k (decision 153; ducking −10.10 dB per −1 V in `simulation/level/`); SSI2144 U101/U102 and SSI2162 U201 hand-soldered by the user on the prototype (decision 155). Netlists match (filter 81, level 41 nets), ERC 0/0. `tools/costs.py estimate`: €788 / €1,069 / €1,665 for 4 / 8 / 16 channels, 36 fee types.
 - PCB: not started; waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up.
 
 ## Provisional until the breadboard
@@ -24,7 +25,6 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## Waiting for the user's confirmation
 
-- **Lever 11, hand-soldering consigned parts:** which of the easy consigned types to hand-solder (estimate in `CHECKLISTS.md`, Cost-cut levers, item 11). The SSI2144 stays with JLCPCB (user, 2026-10-10).
 - Decisions 139-143 were made under the user's delegation ("confirmed (delegated)" in `INDEX.md`): review them in `docs/decisions/channel-card.md`.
 
 ## Waiting on others
@@ -41,9 +41,7 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 ## Next
 
-First, decision 153 (/system 2026-10-10): redraw R217 30k1 → 30k (SX-R-050, JLCPCB basic) in the level sheet and its reference netlist; rebuild, netlist check, ERC; update `CHECKLISTS.md` (component values) and the 30k1 in `simulation/level/run.py` (rerun; figures move by millivolts).
-
-1. Breadboard the SSI2144 when parts arrive (now with test 11, X5R coupling caps, and test 12, fixed V/oct and drift; buy two LCSC C13585 for test 11) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
+1. Breadboard the SSI2144 when parts arrive (now with test 11, X5R coupling caps: its result settles the bipolar caps, levers 7 and 11, and test 12, fixed V/oct and drift; buy two LCSC C13585 for test 11) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
 2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, LM339DR, DG413DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
 3. Cable mock-up (decision 109).
 4. PCB layout.
