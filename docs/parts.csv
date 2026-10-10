@@ -1,7 +1,7 @@
 ProjectPN,Description,Manufacturer,MPN,Supplier,SupplierPN,Notes
 SX-IC-001,4-pole ladder VCF,Sound Semiconductor,SSI2144SS-TU,Electrokit,41019301,QSOP-16 0.635 mm pitch; not stocked at Mouser
 SX-IC-002,Dual VCA SSOP-10 1.00 mm pitch,Sound Semiconductor,SSI2162SS-TU,Electrokit,41019302,Pinout from datasheet Rev 1.2; package PSSL10 (1.00 mm pitch) from Sound Semiconductor drawing
-SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,AD8273 (SOIC-14); exact orderable MPN to verify; RoHS: Mouser 584-AD8273ARZ RoHS Compliant (orderable AD8273ARZ; checked 2026-10-09)
+SX-IC-003,Dual difference amplifier G=1/2 or 2,Analog Devices,,Mouser,,Channel card: replaced by a TL072 difference amplifier (decision 143); still the master AUX returns. AD8273 (SOIC-14); exact orderable MPN to verify; RoHS: Mouser 584-AD8273ARZ RoHS Compliant (orderable AD8273ARZ; checked 2026-10-09)
 SX-POT-001,Fader 60 mm 10 kOhm linear,Bourns,PTA6043-2015DPB103,Mouser,,Mouser part number to verify; RoHS: Mouser 652-PTA60432015DPB10 RoHS Compliant (checked 2026-10-09)
 SX-CONN-001,(replaced by SX-CONN-015; decision 132) 6.3 mm stereo jack switched (T R S all switched) horizontal PCB,Neutrik,NMJ6HCD2,Mouser,,Pinout verified from Neutrik drawing ST-NMJ6HCD2; >10000 mating cycles; Mouser part number to verify; RoHS: Mouser 550-22302 RoHS Compliant (checked 2026-10-09)
 SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),Molex,,Mouser,,Footprint Molex_KK-254_AE-6410-10A; MPN to verify; mates with SX-CONN-009/010 (decision 99); RoHS: Mouser 538-22-27-2101 RoHS Compliant (Molex 22-27-2101 = current number for AE-6410-10A; checked 2026-10-09)
@@ -11,7 +11,7 @@ SX-R-001,Resistor 100 Ohm 1% 0805,,,,,
 SX-R-002,Resistor 10 kOhm 1% 0805,,,,,
 SX-R-003,Resistor 2 kOhm 1% 0805,,,,,
 SX-R-004,Resistor 4.7 kOhm 1% 0805,,,,,
-SX-R-005,Resistor 16 kOhm 1% 0805,,,,,
+SX-R-005,Resistor 16 kOhm 1% 0805,UNI-ROYAL,0805W8F1602T5E,LCSC,C17490,Channel medium drive R103/R153 (decision 140); JLC preferred; RoHS: LCSC C17490 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
 SX-R-006,Resistor 33 kOhm 1% 0805,,,,,
 SX-R-007,Resistor 100 kOhm 1% 0805,,,,,
 SX-R-008,Resistor 12 kOhm 1% 0805,,,,,
@@ -23,34 +23,34 @@ SX-C-005,Capacitor 47 nF film 5% 5 mm pitch,,,,,Not used since decision 113 (cha
 SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,Alpha,,,,Footprint Alpha RD902F-40-00D; MPN to verify; not used since decision 115 (channel TRIM now SX-POT-011)
 SX-D-001,Zener diode 6.2 V SOD-123,hongjiacheng,BZT52C6V2,LCSC,C19077403,"Soft-clip zeners (channel input, master out); hongjiacheng datasheet Rev 2.1: VZ 5.89-6.51 V at 5 mA, 350 mW, 357 C/W, SOD-123 (land pattern matches KiCad D_SOD-123); JLCPCB preferred (decision 137); RoHS: hongjiacheng datasheet Rev 2.1 (RoHS-compliant, halogen-free) and LCSC C19077403 ROHS (checked 2026-10-10)"
 SX-D-002,LED 0805 low current,,,,,"Not used since 2026-10-09: the button LEDs take one part per colour (SX-D-011 green, SX-D-015 red, SX-D-016 yellow, SX-D-017 white)"
-SX-SW-001,Latching push button DPDT 8.5x8.5 mm PCB,CW Industries,GPBS850N,Electrokit,41012905,Datasheet Rev 1 (2012): pressed = 2-3 and 5-6 closed; 100k mechanical cycles; footprint syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N; RoHS: Mouser 629-GPBS-850N RoHS Compliant (checked 2026-10-09)
+SX-SW-001,Latching push button DPDT 8.5x8.5 mm PCB,CW Industries,GPBS850N,Electrokit,41012905,Datasheet Rev 1 (2012): pressed = 2-3 and 5-6 closed; 100k mechanical cycles; footprint syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N; RoHS: Mouser 629-GPBS-850N RoHS Compliant (checked 2026-10-09); contact sequence (break-before-make or not) not recorded: circuits must not depend on it (decision 142)
 SX-IC-006,Dual OTA with linearizing diodes and buffers SOIC-16,Texas Instruments,,Mouser,,LM13700 (SOIC-16); pinout verified from TI SNOSBW2F; orderable MPN to verify. Q VCA per SSI2144 datasheet Figure 9; RoHS: Mouser 926-LM13700MX/NOPB RoHS Compliant (orderable LM13700MX/NOPB; checked 2026-10-09)
-SX-R-009,Resistor 17.4 kOhm 1% 0805,,,,,
+SX-R-009,Resistor 17.4 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140)
 SX-R-010,Resistor 200 Ohm 1% 0805,,,,,
 SX-R-011,Resistor 13 kOhm 1% 0805,,0805W8F1302T5E,,C17455,SSI2144 Q pin; JLC preferred (decision 137); RoHS: LCSC C17455 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
-SX-R-012,Resistor 604 Ohm 1% 0805,,,,,Datasheet Figure 9 shows 599 Ohm (not an E96 value)
-SX-R-013,Resistor 52.3 kOhm 1% 0805,,,,,
+SX-R-012,Resistor 604 Ohm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Datasheet Figure 9 shows 599 Ohm (not an E96 value)
+SX-R-013,Resistor 52.3 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140)
 SX-R-014,Resistor 8.66 kOhm 1% 0805,,,,,Filter output scale; provisional until the breadboard
-SX-R-015,Resistor 41.2 kOhm 1% 0805,,,,,Q current limit; provisional until the breadboard
-SX-R-016,Resistor 6.04 kOhm 1% 0805,,,,,
-SX-R-017,Resistor 16.9 kOhm 1% 0805,,,,,
-SX-R-018,Resistor 301 kOhm 1% 0805,,,,,
-SX-R-019,Resistor 162 kOhm 1% 0805,,,,,
+SX-R-015,Resistor 41.2 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Q current limit; provisional until the breadboard
+SX-R-016,Resistor 6.04 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140)
+SX-R-017,Resistor 16.9 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140)
+SX-R-018,Resistor 301 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140)
+SX-R-019,Resistor 162 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140)
 SX-R-020,Resistor 499 kOhm 1% 0805,,,,,
 SX-R-021,Resistor 1 kOhm +3300 ppm/K temperature-compensating 0603,Panasonic,ERA-V33J102V,,,Named in SSI2144 datasheet Rev 3.0; place against the SSI2144; RoHS: Mouser 667-ERA-V33J102V RoHS Compliant By Exemption (Mouser lifecycle End of Life; checked 2026-10-09); channel card R108/R158 replaced by SX-R-089 + SX-R-090 (decision 130); still on the master card R421
 SX-C-006,Capacitor 6.8 nF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-007,Capacitor 560 pF C0G 5% 50 V 0805,,,,,Ladder capacitor
 SX-C-008,Capacitor 100 pF C0G 5% 50 V 0805,,,,,
 SX-D-003,Small-signal diode 1N4148W SOD-123,,,,,
-SX-POT-003,Pot 50 kOhm linear single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-B50K-0057,Thonk,,"Channel CUTOFF (decisions 114, 115); Thonk Alpha 9 mm vertical T18 B50K, 1.69 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vertical-t18/); Alpha order code from Thonk support 2026-10-09; footprint Alpha RD901F-40-00D; bushing M7x0.75 x 5 mm (confirmed by Thonk support 2026-10-09); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published); Alpha spec RD901F-(C) (Tayda copy SP26020021, 2026-02-04, drawing SLH-211-414): tolerance +/-20 %, 0.05 W B taper / 0.02 W other tapers, 300 deg, rotation noise 100 mV max, 15,000 cycles, hand solder at most 350 C for 3 s and once only, no reflow, use within 6 months of delivery; nut M7x0.75 2.0 mm thick 10 mm AF and 0.4 mm washer supplied"
+SX-POT-003,Pot 50 kOhm linear single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-B50K,Tayda,A-4730,"Channel CUTOFF (decisions 114, 115); Thonk Alpha 9 mm vertical T18 B50K, 1.69 GBP, in stock 2026-10-09 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vertical-t18/); Alpha order code from Thonk support 2026-10-09; footprint Alpha RD901F-40-00D; bushing M7x0.75 x 5 mm (confirmed by Thonk support 2026-10-09); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published); Alpha spec RD901F-(C) (Tayda copy SP26020021, 2026-02-04, drawing SLH-211-414): tolerance +/-20 %, 0.05 W B taper / 0.02 W other tapers, 300 deg, rotation noise 100 mV max, 15,000 cycles, hand solder at most 350 C for 3 s and once only, no reflow, use within 6 months of delivery; nut M7x0.75 2.0 mm thick 10 mm AF and 0.4 mm washer supplied; Tayda A-4730 (USD 1.29), form checked on the listing (Wayback snapshot 2024-06: T18 knurled 6 mm, 15 mm, 9 mm base, PCB, vertical; 2026-10-10); Tayda carries no T18 9 mm A100K or A10K duals (round 6.35 mm shafts only), so TRIM and AUX stay at Thonk; RoHS: Alpha general declaration (decision 124)"
 SX-POT-004,Pot 10 kOhm reverse-audio (C) single,,,,,"RESONANCE and compressor RELEASE; SSI2144 datasheet suggests Bourns PDB181 class; part and footprint to choose; Master RELEASE moved to SX-POT-014 (C100K, decision 131)"
-SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,,,10.03 mm tall 25 turns (Bourns 3296 datasheet); channel card mounts it on the underside (decision 112); RoHS: Mouser 652-3296W-1-503LF RoHS Compliant By Exemption (checked 2026-10-09)
+SX-TRIM-001,Trimmer 50 kOhm multiturn top adjust,Bourns,3296W-1-503LF,Mouser,652-3296W-1-503LF,"10.03 mm tall 25 turns (Bourns 3296 datasheet); channel card mounts it on the underside (decision 112); RoHS: Mouser 652-3296W-1-503LF RoHS Compliant By Exemption (checked 2026-10-09); Mouser 652-3296W-1-503LF (5549 in stock, EUR 1.58 at 10+, 1.38 at 25+; 2026-10-10): bought with the other Mouser parts (fader, headers, jacks, bipolar caps)"
 SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,Not used: CUTOFF CV input is the 3.5 mm SX-CONN-014 (decision 118; no 6.3 mm jack fits the 10 mm panel gap)
 SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,Jumper header
 SX-CONN-005,Pin header 1x3 2.54 mm vertical,,,,,Jumper header
 SX-MECH-001,Jumper cap 2.54 mm,,,,,For SX-CONN-004/005
 SX-IC-007,Dual JFET op amp SOIC-8,STMicroelectronics,TL072CDT,LCSC,C6961,"TL072 (SOIC-8); used for low-bias control circuits; channel U107 cutoff CV summer since decision 123; JLCPCB basic (decision 137, 2026-10-10; was TI TL072CDR, extended): ST DocID 2298 Rev 7: pins 1 OUT1 2 -IN1 3 +IN1 4 V- 5 +IN2 6 -IN2 7 OUT2 8 V+ (same as TI and the KiCad TL072 symbol), supply max +-18 V, input max +-15 V, ICC 1.4 / 2.5 mA per amplifier, SO-8 125 C/W, TL072C 0 to 70 C; RoHS: LCSC C6961 ROHS (checked 2026-10-10); the master card symbols still say Texas Instruments (noted in its STATUS.md)"
-SX-R-022,Resistor 110 Ohm 1% 0805,,,,,
+SX-R-022,Resistor 110 Ohm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140)
 SX-R-023,Resistor 113 kOhm 1% 0805,,,,,
 SX-R-024,Resistor 453 kOhm 1% 0805,,,,,
 SX-R-025,Resistor 221 kOhm 1% 0805,,,,,
@@ -63,22 +63,22 @@ SX-C-009,Capacitor 2.2 nF C0G 5% 50 V 0805,,,,,SSI2162 input RC
 SX-C-010,Capacitor 1 uF X7R 50 V 0805,,,,,
 SX-R-031,Resistor 24 kOhm 1% 0805,,,,,Low-cut 100 Hz
 SX-R-032,Resistor 47 kOhm 1% 0805,,,,,Low-cut 100 Hz
-SX-IC-008,Quad SPST analog switch 4x NO SOIC-16,Vishay,,Mouser,,DG412DY; truth table and pinout from Vishay doc 61564 Rev B; MPN suffix to verify; RoHS: Mouser 781-DG412DY-T1-E3 RoHS Compliant (orderable DG412DY-T1-E3; checked 2026-10-09)
+SX-IC-008,Quad SPST analog switch 4x NO SOIC-16,Vishay,,Mouser,,Not used since 2026-10-10: the channel PFL/SC switch U303 is a DG413 (decision 139). DG412DY; truth table and pinout from Vishay doc 61564 Rev B; MPN suffix to verify; RoHS: Mouser 781-DG412DY-T1-E3 RoHS Compliant (orderable DG412DY-T1-E3; checked 2026-10-09)
 SX-Q-001,NPN transistor SOT-23,onsemi,MMBT3904LT1G,Mouser,,PFL_ACT open-collector driver; pinout B-E-C (1-2-3); RoHS: Mouser 863-MMBT3904LT1G RoHS Compliant (checked 2026-10-09)
 SX-R-033,Resistor 22.1 kOhm 1% 0805,,,,,Bus resistor
-SX-R-034,Resistor 44.2 kOhm 1% 0805,,,,,SC send (L+R)/2
+SX-R-034,Resistor 44.2 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); SC send (L+R)/2
 SX-POT-005,Dual pot 10 kOhm audio (A) 9 mm vertical,Alpha,,,,"AUX level; footprint Alpha RD902F-40-00D; MPN to verify; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26 covers it once a standard Alpha model is chosen (decision 124); Master AUX1/AUX2 SEND and PHONES: same part as SX-POT-013 (Thonk, RD902F-40-15K-A10K-0057)"
 SX-CONN-006,Pin header 2x3 2.54 mm vertical,,,,,AUX pre/post jumper
 SX-IC-009,Quad comparator SOIC-14,Texas Instruments,,Mouser,,"LM339 (SOIC-14); pinout from TI SLCS006Z (pin pairs 2/4-5, 1/6-7, 14/8-9, 13/10-11); MPN to verify; RoHS: Mouser 595-LM339DR RoHS Compliant (orderable LM339DR; checked 2026-10-09)"
 SX-R-035,Resistor 1 kOhm 1% 0805,,,,,
 SX-R-036,Resistor 680 kOhm 1% 0805,,0805W8F6803T5E,,C17797,Meter decay; JLC preferred (decision 137); RoHS: LCSC C17797 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
-SX-R-037,Resistor 19.1 kOhm 1% 0805,,,,,Meter ladder
+SX-R-037,Resistor 19.1 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Meter ladder
 SX-R-038,Resistor 4.02 kOhm 1% 0805,,,,,Meter ladder
-SX-R-039,Resistor 1.43 kOhm 1% 0805,,,,,Meter ladder
-SX-R-040,Resistor 1.54 kOhm 1% 0805,,,,,Meter ladder
-SX-R-041,Resistor 845 Ohm 1% 0805,,,,,Meter ladder
-SX-R-042,Resistor 750 Ohm 1% 0805,,0805W8F7500T5E,,C17818,Meter ladder; JLC preferred (decision 137); RoHS: LCSC C17818 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
-SX-R-043,Resistor 237 Ohm 1% 0805,,,,,Meter ladder
+SX-R-039,Resistor 1.43 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Meter ladder
+SX-R-040,Resistor 1.54 kOhm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Meter ladder
+SX-R-041,Resistor 845 Ohm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Meter ladder
+SX-R-042,Resistor 750 Ohm 1% 0805,,0805W8F7500T5E,,C17818,Not used since 2026-10-10: channel values moved to E24 (decision 140); Meter ladder; JLC preferred (decision 137); RoHS: LCSC C17818 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-043,Resistor 237 Ohm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Meter ladder
 SX-R-044,Resistor 1.5 kOhm 1% 0805,,,,,Meter LED (about 2 mA from +5 V)
 SX-D-004,LED 3 mm green low current,Kingbright,WP710A10LGD,Mouser,604-WP710A10LGD,"Meter segments -30 to 0; part to choose; channel meter now 0805 (decision 119); still the master meter's LEDs until its own session; Candidate (sub-agent search 2026-10-09): Kingbright WP710A10 low-current diffused series, 2 mcd at 2 mA, 0.27 USD, 15288 in stock; body height to read from the Kingbright drawing (DigiKey 5.9 mm max); RoHS: Kingbright datasheet 'RoHS compliant' and Mouser RoHS Compliant (from the sub-agent; recheck on the datasheet before ordering); LED form for the master (3 mm or 0805 as decision 119) is open for /system mechanical"
 SX-D-005,LED 3 mm yellow low current,Kingbright,WP710A10LYD,Mouser,604-WP710A10LYD,"Meter segments +3 and +6; compressor gain-reduction LEDs (colour to confirm); part to choose; channel meter now 0805 (decision 119); still the master meter's LEDs until its own session; Candidate (sub-agent search 2026-10-09): Kingbright WP710A10 low-current diffused series, 2 mcd at 2 mA, 0.25 USD, 2473 in stock; body height to read from the Kingbright drawing (DigiKey 5.9 mm max); RoHS: Kingbright datasheet 'RoHS compliant' and Mouser RoHS Compliant (from the sub-agent; recheck on the datasheet before ordering); LED form for the master (3 mm or 0805 as decision 119) is open for /system mechanical"
@@ -199,9 +199,25 @@ SX-IC-023,Adjustable negative regulator D2PAK,onsemi,LM337D2TR4G,LCSC,C232416,"C
 SX-IC-024,Dual low-power JFET op amp SOIC-8,Texas Instruments,TL062CDR,LCSC,C67471,"Channel meter U401 (inverters) and U404 (hold follower), decision 123; from TI SLOS078N (Aug 2023): pinout as TL072, VICR +-11 V min (-12 to +15 V typ), VOM +-10 V min into 10 k (+-13.5 V typ), ICC 0.2 / 0.25 mA per amplifier, 3.5 V/us, 1 MHz; not for superdiodes, comparators or heavy loads; KiCad symbol Amplifier_Operational:TL062; JLC extended; RoHS: LCSC C67471 ROHS (checked 2026-10-09); master U409, U410, U802, U804 since decision 126"
 SX-IC-025,Balanced line driver +6 dB SOIC-8,Texas Instruments,DRV135UA/2K5,LCSC,C544663,"Main outputs U703, U704 (decision 125, replaces SX-IC-014); from TI SBOS094B: pinout 1 -Vo 2 -Sense 3 Gnd 4 Vin 5 V- 6 V+ 7 +Sense 8 +Vo (as THAT1646S08), +6 dB, 10 kOhm input, 50 Ohm outputs, swing (V+)-3 / (V-)+2 V, IQ 5.2 / 5.5 mA, 10 uF nonpolarised capacitor at each sense pin (Figure 29); symbol syntsamix:THAT1646 (same pins); JLC extended, 3.42 USD, 2322 in stock 2026-10-09; also Mouser 595-DRV135UA; RoHS: TI package addendum (10-Nov-2025) RoHS Yes; LCSC C544663 ROHS (checked 2026-10-09)"
 SX-R-087,Resistor 30.1 kOhm 1% 0805,,,,,SC_ENV into the control summer's virtual earth (decision 97)
-SX-R-088,Resistor 806 Ohm 1% 0805,,,,,Channel trim stage fixed feedback R7/R8 (decision 115)
-SX-R-089,Resistor 820 Ohm 1% linear PTC thin film +4110 ppm/K 0603,Vishay,TFPT0603L8200FV,Mouser,71-TFPT0603L8200FV,"Channel tempco leg R108/R158 with SX-R-090 in series: 1 k at about +3370 ppm/K (decision 130); place against the SSI2144; TCR +4110 ppm/K +/-400 at 25 C, 75 mW at 70 C, 30 V max (Vishay TFPT datasheet doc. 33017 rev. 15-Apr-2026); 1379 in stock at Mouser, about 0.96 EUR (2026-10-09); RoHS: Vishay TFPT datasheet RoHS compliant mark; Mouser RoHS Compliant By Exemption (2026-10-09)"
+SX-R-088,Resistor 806 Ohm 1% 0805,,,,,Not used since 2026-10-10: channel values moved to E24 (decision 140); Channel trim stage fixed feedback R7/R8 (decision 115)
+SX-R-089,Resistor 820 Ohm 1% linear PTC thin film +4110 ppm/K 0603,Vishay,TFPT0603L8200FV,Mouser,71-TFPT0603L8200FV,"Not used since 2026-10-10: temperature compensation in the backlog (decision 141). Channel tempco leg R108/R158 with SX-R-090 in series: 1 k at about +3370 ppm/K (decision 130); place against the SSI2144; TCR +4110 ppm/K +/-400 at 25 C, 75 mW at 70 C, 30 V max (Vishay TFPT datasheet doc. 33017 rev. 15-Apr-2026); 1379 in stock at Mouser, about 0.96 EUR (2026-10-09); RoHS: Vishay TFPT datasheet RoHS compliant mark; Mouser RoHS Compliant By Exemption (2026-10-09)"
 SX-R-090,Resistor 180 Ohm 1% 0805,,,,,"Channel tempco leg R122/R172, low-tempco part in series with SX-R-089 (decision 130)"
 SX-R-091,Resistor 6.2 kOhm 1% 0805,,,,,Compressor release range (slow end): R425 under RELEASE RV402 100k (decision 131)
 SX-POT-014,Pot 100 kOhm reverse-audio (C) single 9 mm vertical T18 knurled 15 mm,Alpha,RD901F-40-15K-C100K,Tayda,A-5370,"Compressor RELEASE RV402 (decision 131); footprint Alpha RD901F-40-00D; Tayda A-5370 from the 2026-10-09 listing check (same SKU run as A-5369 C10K), recheck the page by hand before ordering (Tayda answers 403 to scripts); Thonk has no C taper (2026-10-09); Alpha spec RD901F-(C) (Tayda copy SP26020021): 1 k to 500 k, tolerance +/-20 %, 0.05 W B taper / 0.02 W other tapers, hand solder only; dissipation here about 2.1 mW (15.1 V across 106 kOhm); RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models, received via Thonk 2026-10-09; local copy docs/rohs/ (not published); buy genuine Alpha (decision 124)"
 SX-POT-015,Dual pot 100 kOhm linear (B) 9 mm vertical T18 knurled 15 mm,Alpha,RD902F-40-15K-B100K-0057,Thonk,,"SC LPF RV501 (decision 138); Thonk Alpha 9 mm vertical T18 dual gang B100K, 1.99 GBP excl. VAT, in stock 2026-10-10 (https://www.thonk.co.uk/shop/alpha-9mm-pots-vert-t18-dual-gang/); order code by analogy with Thonk's A10K/A100K codes from Thonk support (SX-POT-011, -013), confirm with the order; footprint Alpha RD902F-40-00D; bushing M7x0.75 x 5 mm as the Thonk dual family; B taper rated 0.05 W (RD901F spec; RD902F dual rating not yet read), dissipation here audio only, well under 1 mW; RoHS: Taiwan Alpha RoHS II declaration 2020-10-26, all standard models (2011/65/EU with 2015/863, ten substances), received via Thonk 2026-10-09; local copy docs/rohs/ (not published); buy genuine Alpha (decision 124)"
+SX-R-092,Resistor 18 kOhm 1% 0805,UNI-ROYAL,0805W8F1802T5E,LCSC,C17506,Channel hot attenuator R104/R154 and Q feedback R117/R119/R167/R169 (decision 140); JLC preferred (decision 137); RoHS: LCSC C17506 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-093,Resistor 51 kOhm 1% 0805,UNI-ROYAL,0805W8F5102T5E,LCSC,C17737,Channel half compensation R118/R168 (decision 140); JLC basic (decision 137); RoHS: LCSC C17737 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-094,Resistor 560 Ohm 1% 0805,UNI-ROYAL,0805W8F5600T5E,LCSC,C28636,"Channel Q VCA input divider R115/R116/R165/R166, the SSI2144 datasheet value (decision 140); JLC basic (decision 137); RoHS: LCSC C28636 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)"
+SX-R-095,Resistor 9.1 kOhm 1% 0805,UNI-ROYAL,0805W8F9101T5E,LCSC,C17855,Channel filter output scale R111/R161 (provisional) and fader law R214 (decision 140); JLC preferred (decision 137); RoHS: LCSC C17855 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-096,Resistor 300 kOhm 1% 0805,UNI-ROYAL,0805W8F3003T5E,LCSC,C17616,Channel CUTOFF knob R181 and fader law R208 (decision 140); JLC preferred (decision 137); RoHS: LCSC C17616 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-097,Resistor 36 kOhm 1% 0805,UNI-ROYAL,0805W8F3602T5E,LCSC,C4360,Channel Q current limit R120/R170 (provisional; decision 140); JLC preferred (decision 137); RoHS: LCSC C4360 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-098,Resistor 150 kOhm 1% 0805,UNI-ROYAL,0805W8F1503T5E,LCSC,C17470,Channel V/oct feedback R183 (with R187 12k) and fader law R224 (decision 140); JLC basic (decision 137); RoHS: LCSC C17470 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-099,Resistor 3.9 kOhm 1% 0805,UNI-ROYAL,0805W8F3901T5E,LCSC,C17614,Channel trim stage R5/R6 and meter ladder R412 (decision 140); JLC basic (decision 137); RoHS: LCSC C17614 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-100,Resistor 820 Ohm 1% 0805,UNI-ROYAL,0805W8F8200T5E,LCSC,C17837,Channel trim stage R7/R8 (decision 140) and FREQ leg R108/R158 (decision 141); JLC preferred (decision 137); RoHS: LCSC C17837 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-101,Resistor 1.8 kOhm 1% 0805,UNI-ROYAL,0805W8F1801T5E,LCSC,C17398,Channel soft-clip branch R9/R10 and meter ladder R415 (decision 140); JLC preferred (decision 137); RoHS: LCSC C17398 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-102,Resistor 62 kOhm 1% 0805,UNI-ROYAL,0805W8F6202T5E,LCSC,C17783,Channel fader law R211 (decision 140); JLC preferred (decision 137); RoHS: LCSC C17783 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-103,Resistor 220 kOhm 1% 0805,UNI-ROYAL,0805W8F2203T5E,LCSC,C17556,Channel fader law R210 (decision 140); JLC basic (decision 137); RoHS: LCSC C17556 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-104,Resistor 39 kOhm 1% 0805,UNI-ROYAL,0805W8F3902T5E,LCSC,C25826,Channel meter ladder R410 (decision 140); JLC preferred (decision 137); RoHS: LCSC C25826 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-105,Resistor 8.2 kOhm 1% 0805,UNI-ROYAL,0805W8F8201T5E,LCSC,C17828,Channel meter ladder R411 (decision 140); JLC basic (decision 137); RoHS: LCSC C17828 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-106,Resistor 220 Ohm 1% 0805,UNI-ROYAL,0805W8F2200T5E,LCSC,C17557,Channel meter ladder R418 (decision 140); JLC basic (decision 137); RoHS: LCSC C17557 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
+SX-R-107,Resistor 10 kOhm 0.1% 25 ppm/K thin film 0805,YAGEO,RT0805BRD0710KL,LCSC,C110775,"Channel input receiver R1-R4, R19-R26 (decision 143); JLC extended (no 0.1 % part is fee-free); RoHS: LCSC C110775 ROHS (checked 2026-10-10)"

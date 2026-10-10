@@ -6,9 +6,9 @@
 2. **Simulation and breadboard**: filter simulated in ngspice *(done, `simulation/filter/`)*; channel fader law and ducking *(done, `simulation/level/`)*; SSI2144 breadboard *(parts ordered; plan, schematic, layout and BOM in `simulation/filter/`)*. compressor side chain and sidechain/ducker simulated in ngspice *(done, `simulation/compressor/`, `simulation/sidechain/`)*. Later: VCA and compressor detector on the breadboard, sidechain LPF
 3. **Input module** (`hardware/input-module-6p3`): schematic *(done, ERC clean)*, then PCB
 4. **Channel card** (`hardware/channel-card`): schematic *(done)*, mechanical parts *(chosen 2026-10-09, decisions 110-122; pots RoHS-cleared by Alpha's declaration, decision 124; meter LEDs drawn)*, then PCB
-   - Input: header, AD8273 receiver, trim with soft clip, 100 Hz low-cut, DG413 switching *(done, ERC clean apart from sheet links)*
+   - Input: header, TL072 difference receiver (decision 143), trim with soft clip, 100 Hz low-cut, DG413 switching *(done, ERC clean apart from sheet links)*
    - Filter: 2x SSI2144, LM13700 Q VCA (resonance compensation), cutoff summer and CV, drive and compensation jumpers, DG413 bypass *(done, ERC clean apart from sheet links; output scale and Q limit provisional until the breadboard)*
-   - Level: SSI2162 VCA, 3-segment fader law, DG413 mute and DUCK *(done, ERC clean apart from sheet links)*
+   - Level: SSI2162 VCA, 3-segment fader law, mute and DUCK switched by the buttons (decision 142) *(done, ERC clean apart from sheet links)*
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
@@ -19,6 +19,7 @@
 ## Backlog (after the prototype)
 
 - Channel HPF
+- Filter temperature compensation (decision 141): put a +3300 ppm/K resistor back in the SSI2144 FREQ leg (R108/R158, now a plain 820 Ω with 180 Ω; Vishay TFPT 820 Ω +4110 ppm/K as in decision 130, in 0805 or with a 0603 footprint) if breadboard test 12 or the prototype shows the cutoff drifting audibly with warm-up
 - Digital output per channel for recording: ADAT or similar
 - More input modules (the interface exists from the prototype, `INPUT-MODULE.md`): 3.5 mm, D-SUB bundle, XLR
 - More CV control options
@@ -82,9 +83,10 @@ Levers [proposed] (board details in each `STATUS.md`, "Cost-cut levers"):
 
 *For the full console and a product (per channel, ×16):*
 
-4. **Op-amp receivers instead of the AD8273** (channel and AUX returns): about €4.50 per channel (€80 at 16) and one part fewer to consign; costs CMRR and needs the input stage checked again.
-5. **Fewer DG413s** (4 per channel, about €1.90 each) by using VCA control for mute and DUCK: about €2-4 per channel.
+4. **Op-amp receivers instead of the AD8273** (channel: done 2026-10-10, decision 143; AUX returns open) (channel and AUX returns): about €4.50 per channel (€80 at 16) and one part fewer to consign; costs CMRR and needs the input stage checked again.
+5. **Fewer DG413s** (channel: done 2026-10-10, decision 142, one DG413 fewer) (4 per channel, about €1.90 each) by using VCA control for mute and DUCK: about €2-4 per channel.
 6. **Cheaper trimmers** than the Bourns 3296W: about €4 per channel; and for a product, fewer trimmers (each is a calibration step).
+   - Note (2026-10-10): the channel trimmers are now bought at Mouser to keep the hand-soldered parts in one order (652-3296W-1-503LF, €1.58 at 10+, €1.38 at 25+). The same Bourns part is cheaper at LCSC (C83686, 0.75 USD at 10+, 0.64 USD at 50+): about €0.90 less per trimmer, €2.70 per channel card (3 trimmers), about €11 for 4 channels and €43 for a 16-channel console. Worth switching if the order goes to LCSC/JLCPCB anyway.
 7. Done: Rean NYS216 jacks instead of the Neutrik NMJ6HCD2 (decision 132), about €1.15 per jack. For a product, recheck the 1,000-cycle rating against the inputs' expected use (the Neutrik is rated over 10,000).
 
 Rejected by the user (2026-10-09): **the filter as a fitting option** (about €25 per channel). The SSI2144 ladder filter is one of the essential features that make this mixer stand out; it stays on every channel.
@@ -115,6 +117,6 @@ The channel share is done: decision 123 cut the card from 121 / 103 to 113 / 95 
 ## Design cautions
 
 - Ladder filters need low-level signals; do the gain structure before layout
-- L/R filter tracking needs a per-chip offset trim and a temperature-compensating resistor close to each SSI2144; plan layout accordingly
+- L/R filter tracking needs a per-chip offset trim close to each SSI2144 (the temperature-compensating resistor is in the backlog, decision 141); plan layout accordingly
 - 8 filter cores means significant board area per channel card
 - Verify every part's pinout, footprint and limits against its datasheet

@@ -5,7 +5,7 @@
 The reference netlist and part fields come from the label-connected sheet that was
 verified before this redraw (make_reference.py Input input -> reference/input.json,
 reference/input_parts.json); check_netlist.py input.json proves the drawing is identical.
-Layout: input header and RFI filters, AD8273 receiver, trim stage with soft clip,
+Layout: input header, RFI filters and TL072 difference receiver (decision 143), trim stage with soft clip,
 150 Hz low-cut, DG413 low-cut select; L above, R below; trim pot, button and supplies
 along the bottom.
 """
@@ -33,36 +33,35 @@ for pin,net in (("1","AGND"),("4","AGND"),("7","AGND"),("10","AGND"),("2","IN_L+
     else: s.label(net,e,0)
 NOCONNECT+=[j("8"),j("9")]
 
-# ------------------------------------------------------------- receiver
-XU,YU=101.6,127.0
-u=place("U1",XU,YU)
-NOCONNECT+=[u("1"),u("7")]
-s.wire(u("11"),up(u("11"),5.08)); s.power("+15V",up(u("11"),5.08))
-s.wire(u("4"),dn(u("4"),5.08)); s.power("-15V",dn(u("4"),5.08))
-s.wire(u("14"),(116.84,u("14")[1]),(116.84,YU)); s.wire(u("8"),(116.84,u("8")[1]),(116.84,YU)); s.wire((116.84,YU),(121.92,YU)); gnd((121.92,YU))
-def rfi(rref,cref,label,row,pin,xr,xn,jog,cap_up=False):
-    s.label(label,(48.26,row),180)
-    r=place(rref,xr,row,90); s.wire((48.26,row),r(1))
-    n=(xn,row); s.wire(r(2),n)
-    if cap_up: c=place(cref,xn,row-3.81,180); s.wire(n,c(1)); gnd(c(2),180)
-    else: c=place(cref,xn,row+3.81,0); s.wire(n,c(1)); gnd(c(2))
-    if jog: s.wire(n,(83.82,row),(83.82,u(pin)[1]),u(pin))
-    else: s.wire(n,u(pin))
-rfi("R1","C1","IN_L+",109.22,"2",60.96,76.2,True)
-rfi("R2","C2","IN_L-",u("3")[1],"3",60.96,71.12,False,True)
-rfi("R4","C4","IN_R-",u("5")[1],"5",60.96,71.12,False)
-rfi("R3","C3","IN_R+",147.32,"6",60.96,76.2,True)
+# ------------------------------------------------------------- receiver: TL072 difference amplifier, G = 1/2 (decision 143)
+# R1-R4 (10k 0.1 %, with the 220p RFI caps) are the first half of each 20k input leg. IN+ drives the inverting leg and
+# IN- the non-inverting one, as the AD8273 was wired (-INA, +INA): the receiver inverts and the trim stage inverts back.
+def receiver(Pn,ych,legs,unit,ref,pins):
+    (rp_,cp_,lp,ri,rf),(rn_,cn_,ln,rni,rg)=legs
+    a=place("U1",109.22,ych,0,unit,ref)
+    pp,pm,po=pins
+    A,B,F=ych-12.7,ych+10.16,ych+20.32
+    # non-inverting leg on row A (RFI cap up), R to ground above the + node column
+    s.label(ln,(48.26,A),180); r=place(rn_,60.96,A,90); s.wire((48.26,A),r(1)); n=(71.12,A); s.wire(r(2),n)
+    c=place(cn_,n[0],A+3.81,0); s.wire(n,c(1)); gnd(c(2))
+    r2=place(rni,83.82,A,90); s.wire(n,r2(1)); s.wire(r2(2),(93.98,A),(93.98,a(pp)[1]),a(pp))
+    g=place(rg,93.98,A-3.81,0); s.wire((93.98,A),g(2)); t=up(g(1),2.54); s.wire(g(1),t,rt(t,5.08)); gnd(rt(t,5.08))   # ground beside the resistor
+    # inverting leg on row B (RFI cap down), feedback on row F
+    s.label(lp,(48.26,B),180); r=place(rp_,60.96,B,90); s.wire((48.26,B),r(1)); n=(71.12,B); s.wire(r(2),n)
+    c=place(cp_,n[0],B+3.81,0); s.wire(n,c(1)); gnd(c(2))
+    r2=place(ri,83.82,B,90); s.wire(n,r2(1)); s.wire(r2(2),(91.44,B))
+    s.wire((91.44,B),(91.44,a(pm)[1]),a(pm)); s.wire((91.44,B),(91.44,F))
+    f=place(rf,104.14,F,90); s.wire((91.44,F),f(1)); s.wire(f(2),(a(po)[0],F),a(po))
+    return a(po)
+outL=receiver("L",119.38,(("R1","C1","IN_L+","R19","R20"),("R2","C2","IN_L-","R21","R22")),1,"U1",("3","2","1"))
+outR=receiver("R",195.58,(("R3","C3","IN_R+","R23","R24"),("R4","C4","IN_R-","R25","R26")),2,"U90012",("5","6","7"))
 
 # ------------------------------------------------------------- trim stage, low-cut, low-cut select (one per side)
 def channel(Pn,dy,rx,cpl,rin,trim_unit,c_fb,r_fb,r_z,dz1,dz2,c_a,c_b,r_a,r_b,hp_unit,dg_hp,dg_trim,r_pd):
     y=119.38+dy
-    # receiver output: OUT and SENSE tied
-    o,se=u(rx[0]),u(rx[1])
+    # receiver output (TL072, decision 143)
     xo=119.38
-    if dy==0:
-        s.wire(o,(xo,o[1])); s.wire(se,(xo,se[1]),(xo,o[1]))
-    else:
-        s.wire(se,(xo,se[1])); s.wire(o,(xo,o[1])); s.wire((xo,se[1]),(xo,o[1])); s.wire((xo,o[1]),(xo,y))
+    s.wire(rx,(xo,y))
     c=place(cpl,127.0,y,90); s.wire((xo,y),c(1))
     r=place(rin,140.97,y,90); s.wire(c(2),r(1))
     SX,TX=152.4,180.34
@@ -111,9 +110,9 @@ def channel(Pn,dy,rx,cpl,rin,trim_unit,c_fb,r_fb,r_z,dz1,dz2,c_a,c_b,r_a,r_b,hp_
     s.tp(f"TP{k+2}",f"{Pn}_PREFILT",(292.1,pn[1]),"up")
 
 # TRIM wire to the DG413 runs up from the trim node: tn -> (TX, ys) is drawn inside channel()
-channel("L",0,("13","12"),"C5","R5",("U2",1,"U2",("2","3","1")),"C7","R7","R9","D1","D2","C9","C10","R11","R12",
+channel("L",0,outL,"C5","R5",("U2",1,"U2",("2","3","1")),"C7","R7","R9","D1","D2","C9","C10","R11","R12",
         ("U3",1,"U3",("3","2","1")),("U4",1,180,"1","3","2"),("U90044",4,180,"16","14","15"),"R15")
-channel("R",76.2,("9","10"),"C6","R6",("U2",2,"U90022",("6","5","7")),"C8","R8","R10","D3","D4","C11","C12","R13","R14",
+channel("R",76.2,outR,"C6","R6",("U2",2,"U90022",("6","5","7")),"C8","R8","R10","D3","D4","C11","C12","R13","R14",
         ("U3",2,"U90032",("5","6","7")),("U90042",2,0,"8","6","7"),("U90043",3,180,"9","11","10"),"R16")
 
 gnd((25.4,180.34)); s.tp("TP7","AGND",(25.4,180.34),"up")
@@ -140,8 +139,8 @@ NOCONNECT+=[b("1"),b("4")]
 
 # ------------------------------------------------------------- supplies, decoupling, power flags
 x=200.66; Y2=254.0
-for t,ref in (("U2","U90023"),("U3","U90033")):
-    p=place(t,x,Y2,0,3,ref); s.wire(p("8"),up(p("8"),5.08)); s.power("+15V",up(p("8"),5.08)); s.wire(p("4"),dn(p("4"),5.08)); s.power("-15V",dn(p("4"),5.08)); x+=17.78
+for t,ref in (("U1","U90013"),("U2","U90023"),("U3","U90033")):
+    p=place(t,x,Y2,0,3,ref); s.wire(p("8"),up(p("8"),5.08)); s.power("+15V",up(p("8"),5.08)); s.wire(p("4"),dn(p("4"),5.08)); s.power("-15V",dn(p("4"),5.08)); x+=12.7
 p=place("U4",x+5.08,Y2,0,5,"U90045")
 s.wire(p("13"),up(p("13"),5.08)); s.power("+15V",up(p("13"),5.08))
 s.wire(p("12"),up(p("12"),2.54),rt(up(p("12"),2.54),5.08)); s.power("+5V",rt(up(p("12"),2.54),5.08))

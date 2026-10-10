@@ -51,19 +51,19 @@ for Pn,rref,y,main,comp in (("L","R301",50.8,("U93024",4,15,14,16),("U302",1,2,3
         s.wire(node,(node[0],yy)) if yy!=y else None
         s.wire((node[0],yy),l); s.wire(rr,(154.94,yy)); hier((154.94,yy),bus,0,"output")
 
-# ------------------------------------------------------------- PFL to the cue bus, SC send (DG412)
+# ------------------------------------------------------------- PFL to the cue bus (NO sections 1, 4), SC send (NC section 2, on while SW302 pin 1 is open)
 def tap(name,ref,val,pn,y):
     lab((101.6,y),name,180); r=R(ref,val,pn,114.3,y); s.wire((101.6,y),r(1)); return r(2)
-for Pn,rref,y,(ref,unit,pl,pr,pc) in (("L","R303",147.32,("U303",1,2,3,1)),("R","R304",167.64,("U93034",4,15,14,16))):
+for Pn,rref,y,(ref,unit,pl,pr,pc) in (("L","R303",147.32,("U303",1,2,3,1)),("R","R304",167.64,("U93032",2,6,7,8))):
     e=tap(f"{Pn}_PRE",rref,BUS,"SX-R-047",y)
-    l,rr=switch("DG412xY",ref,unit,137.16,y,"SX-IC-008",pl,pr,pc,"PFL_CTRL")
+    l,rr=switch("DG413xY",ref,unit,137.16,y,"SX-IC-005",pl,pr,pc,"PFL_CTRL")
     s.wire(e,l); s.wire(rr,(154.94,y)); hier((154.94,y),f"CUE_{Pn}",0,"output")
-e1=tap("L_PRE","R305","44k2","SX-R-034",193.04); e2=tap("R_PRE","R306","44k2","SX-R-034",203.2)
+e1=tap("L_PRE","R305","47k","SX-R-032",193.04); e2=tap("R_PRE","R306","47k","SX-R-032",203.2)
 nd=(124.46,193.04); s.wire(e1,nd); s.wire(e2,(nd[0],203.2),nd)
-l,rr=switch("DG412xY","U93032",2,137.16,193.04,"SX-IC-008",6,7,8,"SC_CTRL")
+l,rr=switch("DG413xY","U93034",4,137.16,193.04,"SX-IC-005",15,14,16,"SC_OFF")
 s.wire(nd,l); s.wire(rr,(154.94,193.04)); hier((154.94,193.04),"SC",0,"output")
-u=s.place("Analog_Switch","DG412xY","U93033","DG412DY",137.16,223.52,0,3,SO16,P("SX-IC-008",**VI))
-for n,(px,py,ang) in pins_of("Analog_Switch","DG412xY",3).items():
+u=s.place("Analog_Switch","DG413xY","U93033","DG413DY",137.16,223.52,0,3,SO16,P("SX-IC-005",**VI))
+for n,(px,py,ang) in pins_of("Analog_Switch","DG413xY",3).items():
     p=u(n); e={0:lt(p,5.08),180:rt(p,5.08),90:dn(p,5.08)}[int(ang)]; s.wire(p,e); gnd(e)
 # PFL_ACT open-collector driver
 rb=R("R311","10k","SX-R-002",175.26,157.48); lab((166.37,157.48),"PFL_CTRL",180); s.wire((166.37,157.48),rb(1))
@@ -92,27 +92,27 @@ for n,j,rv,rl,rr,YA in ((1,"J301","RV301","R307","R308",50.8),(2,"J302","RV302",
         s.wire(r(1),up(r(1),2.54)); hier(up(r(1),2.54),bus,90,"output")
 
 # ------------------------------------------------------------- buttons
-def button(name,sw,led,rl,rp,x,y,title):
+def button(name,sw,led,rl,rp,x,y,title,ctrl=3,net=None):
     b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
-    nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
+    nd=(b(ctrl)[0]+10.16,b(ctrl)[1]); s.wire(b(ctrl),nd,rt(nd,10.16)); lab(rt(nd,10.16),net or f"{name}_CTRL",0)
     r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
     g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); pgnd(g)   # PGND (decision 98); symbol points down beside the resistor
     ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=LEDPN[title])
     s.wire(b(6),ld(1))
     r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)
-    NOCONNECT.extend([b(1),b(4)])
+    NOCONNECT.extend([b(4-ctrl),b(4)])   # the unused throw of the logic pole
 LEDPN={"PFL":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296"),"SC SEND":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"COMP BUS":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297")}   # button LED colours (user, 2026-10-09)
 button("PFL","SW301","D301","R312","R313",40.64,279.4,"PFL")
-button("SC","SW302","D302","R314","R315",137.16,279.4,"SC SEND")
+button("SC","SW302","D302","R314","R315",137.16,279.4,"SC SEND",ctrl=1,net="SC_OFF")   # released = 1-2 closed: SC_OFF high, NC section off
 button("COMP","SW303","D303","R316","R317",233.68,279.4,"COMP BUS")
 
 # ------------------------------------------------------------- supplies and decoupling
 Y2=340.36
 u=s.place("Amplifier_Operational","NE5532","U93013","NE5532",50.8,Y2,0,3,SO8,P("SX-IC-004",**TI))
 s.wire(u(8),up(u(8),5.08)); s.power("+15V",up(u(8),5.08)); s.wire(u(4),dn(u(4),5.08)); s.power("-15V",dn(u(4),5.08))
-for ref,lib,pn,x in (("U93025","DG413xY","SX-IC-005",76.2),("U93035","DG412xY","SX-IC-008",101.6)):
+for ref,lib,pn,x in (("U93025","DG413xY","SX-IC-005",76.2),("U93035","DG413xY","SX-IC-005",101.6)):
     u=s.place("Analog_Switch",lib,ref,lib[:5]+"DY",x,Y2,0,5,SO16,P(pn,**VI))
     s.wire(u(13),up(u(13),5.08)); s.power("+15V",up(u(13),5.08))
     s.wire(u(12),up(u(12),2.54),rt(up(u(12),2.54),5.08)); s.power("+5V",rt(up(u(12),2.54),5.08))

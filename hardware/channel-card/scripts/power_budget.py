@@ -10,7 +10,7 @@ sheets (scripts/build/bom.csv) and add their supply currents, typical and worst 
 (ICC 5.0 / 6.2 mA, IEE 5.2 / 6.4 mA); SSI2162 Rev 1.2 (Class AB 6 / 8 mA); LM13700 TI
 SNOSBW2 (2.6 / 4 mA, both channels at IABC 500 uA) plus the Q current; LM339 TI SLCS006
 (0.8 / 2.5 mA, as in the master script; V- on PGND, so +15 V only); uA78L05 TI SLVS010X (3.6 / 6 mA, stand-in for the
-ST part); AD8273 Rev. B Table 2 (2.5 mA max per amplifier at ±15 V, no typical given; max used for both).
+ST part). The AD8273 receiver became a TL072 (decision 143).
 DG412/DG413 draw microamps and are left out.
 Also prints the decision 96 sizing figure.
 Usage: python3 power_budget.py [raw rail, default 20]
@@ -21,12 +21,11 @@ V15,V5=15.1,5.0
 # part: (count, typ mA, max mA, rails) -- "pm" = both ±15 V, "p" = +15 V only
 parts={
  "NE5532":(8,6.0,16.0,"pm"),
- "TL072":(4,2.8,5.0,"pm"),
+ "TL072 (incl. U1 receiver, decision 143)":(5,2.8,5.0,"pm"),
  "TL062 (U401, U404)":(2,0.4,0.5,"pm"),
  "OPA2171 (U204, fader buffer and control summer)":(1,0.95,1.19,"pm"),
  "SSI2144 (ICC/IEE, worse rail)":(2,5.2,6.4,"pm"),
  "SSI2162":(1,6.0,8.0,"pm"),
- "AD8273 (two amplifiers)":(1,5.0,5.0,"pm"),
  "LM13700 incl. Q current":(1,3.2,4.6,"pm"),
  "LM339 (meter)":(2,0.8,2.5,"p"),
 }

@@ -1,5 +1,5 @@
-{"title":"Channel card: level","date":"2026-10-05","rev":"0.2","dnp":["R206"],
+{"title":"Channel card: level","date":"2026-10-10","rev":"0.2","dnp":["R206"],
  "comments":["SSI2162 dual VCA (datasheet Rev 1.2 Fig. 1), Class AB; R206 DNP (fit for Class A)",
  "Fader law: 3-segment, 0 dB at 75 %, -113 dB at bottom; C224 gives 10 ms smoothing",
- "MUTE: DG413 adds +4.5 V to VC; DUCK: SC_ENV, +1 V = 10 dB",
+ "MUTE: button pole adds +4.5 V to VC; DUCK: SC_ENV through the button, -1 V = 10 dB (decision 142)",
  "VCA stage inverts, U203 inverts back: POSTFADE same polarity as POSTFILT"]}

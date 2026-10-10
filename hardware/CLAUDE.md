@@ -15,6 +15,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
   - `sch_create_sheet` numbers every new sheet page 2: `fix_paths.py` renumbers pages and fixes instance paths and project names (otherwise KiCad shows "An error was found when loading the schematic").
   - Multi-unit parts are built with temporary references `U9<3-digit ref><unit>` (units 1-9) and renamed by `post_wired.py`.
   - Duplicate references across sheets are not reported by ERC; `check_netlist.py` checks them.
+  - `check_netlist.py` only checks the pins the reference lists: a pin or net dropped from the reference (for example by a stray `#` mid-line) passes unnoticed. Compare the "nets checked" count with the previous run and explain any change.
   - Power flags live only on the power sheet of each project.
   - Diodes at 90/270° render vertical field text; draw them horizontally where text matters.
   - `Device:D` pin 1 is the cathode, pin 2 the anode: read netlists (and write SPICE models from them) with that in mind.

@@ -47,7 +47,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     FX=109.22; s.wire(a(pre[2][2]),(101.6,y0-12.7)); s.wire((101.6,y0-12.7),(FX,y0-12.7))
     r2=R(rr(102),"10k","SX-R-002",88.9,y0-2.54)
     s.wire(ps,(ps[0],y0-2.54)); s.wire((ps[0],y0-2.54),r2(1)); s.wire(r2(2),(101.6,y0-2.54),(101.6,y0-12.7))
-    r3=R(rr(103),"16k9","SX-R-017",85.09,y0+12.7)
+    r3=R(rr(103),"16k","SX-R-005",85.09,y0+12.7)
     s.wire((ps[0],y0-2.54),(ps[0],y0+12.7),r3(1))
     jp=s.place("Connector_Generic","Conn_02x02_Odd_Even",f"JP{101+o}","DRIVE: fit both = MEDIUM",99.06,y0+12.7,0,
                fp="Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical",props=P("SX-CONN-004"))
@@ -56,7 +56,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     s.wire(jp(4),dn(jp(4),5.08)); gnd(dn(jp(4),5.08))
     # FIN bus: pre-stage output, drive jumper, R104 tap, compensation taps on top
     for y1,y2 in ((y0-20.32,y0-12.7),(y0-12.7,y0-7.62),(y0-7.62,y0+12.7)): s.wire((FX,y1),(FX,y2))
-    r4=R(rr(104),"17k4","SX-R-009",124.46,y0-7.62); s.wire((FX,y0-7.62),r4(1))
+    r4=R(rr(104),"18k","SX-R-092",124.46,y0-7.62); s.wire((FX,y0-7.62),r4(1))
     sin=(134.62,y0-7.62); s.wire(r4(2),sin)
     r5=R(rr(105),"200","SX-R-010",sin[0],y0-3.81,0); s.wire(sin,r5(1)); gnd(r5(2))
     # ---- SSI2144
@@ -77,13 +77,13 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     # cutoff: FREQ pin network
     fq=u(15); n1=(162.56,fq[1]); n2=(152.4,fq[1])
     s.wire(fq,n1); s.wire(n1,n2)
-    r8=R(rr(108),"820 TFPT","SX-R-089",n1[0],fq[1]+3.81,0,fp="Resistor_SMD:R_0603_1608Metric",Manufacturer="Vishay",MPN="TFPT0603L8200FV",Supplier="Mouser",SupplierPN="71-TFPT0603L8200FV",Note="Vishay TFPT linear PTC thin film, +4110 ppm/K; in series with R122/R172 180R = 1k at about +3370 ppm/K (decision 130); place against the SSI2144")
+    r8=R(rr(108),"820","SX-R-100",n1[0],fq[1]+3.81,0,Note="Plain 820R: temperature compensation moved to the backlog (decision 141); with R122/R172 180R = 1k; fit a TFPT here to restore it")
     s.wire(n1,r8(1))
-    # decision 130: tempco leg = TFPT 820R + 180R; R122 one column left, clear of the Q pin wire
+    # FREQ leg 820R + 180R = 1k (decision 130 topology; tempco part to the backlog, decision 141)
     tc=(157.48,r8(2)[1]); s.wire(r8(2),tc)
-    r22=R(rr(122),"180","SX-R-090",tc[0],tc[1]+3.81,0,Note="Low-tempco part of the 1k tempco leg (decision 130); keep the TFPT next to the SSI2144, this one may sit further away"); gnd(r22(2))
+    r22=R(rr(122),"180","SX-R-090",tc[0],tc[1]+3.81,0,Note="With R108/R158 820R = 1k FREQ leg (decision 141)"); gnd(r22(2))
     r9=R(rr(109),"470k","SX-R-048",n2[0],fq[1]+3.81,0); s.wire(n2,r9(1))
-    tv=s.place("Device","R_Potentiometer_Trim",f"RV{101+o}","50k OFFSET",144.78,fq[1]+11.43,0,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF"))
+    tv=s.place("Device","R_Potentiometer_Trim",f"RV{101+o}","50k OFFSET",144.78,fq[1]+11.43,0,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF",Supplier="Mouser",SupplierPN="652-3296W-1-503LF"))
     s.wire(r9(2),(n2[0],tv(2)[1]),tv(2))
     s.wire(tv(1),up(tv(1),2.54)); s.power("+15V",up(tv(1),2.54))
     s.wire(tv(3),dn(tv(3),2.54)); s.power("-15V",dn(tv(3),2.54))
@@ -97,18 +97,18 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     pm,pp,pb,po,pi=ota[2]
     NOCONNECT.append(q(pb))
     s.wire(q(po),(160.02,YO),(160.02,sn[1]),sn)
-    s.wire(q(pi),rt(q(pi))); r20=R(rr(120),"41k2","SX-R-015",q(pi)[0]+2.54,q(pi)[1]+7.62,0,Note=PROV)
+    s.wire(q(pi),rt(q(pi))); r20=R(rr(120),"36k","SX-R-097",q(pi)[0]+2.54,q(pi)[1]+7.62,0,Note=PROV)
     s.wire(rt(q(pi)),r20(1)); s.wire(r20(2),dn(r20(2),2.54)); s.label("QW",dn(r20(2),2.54),270)
     qs=(106.68,q(pm)[1]); s.wire(q(pm),(134.62,qs[1])); s.wire((134.62,qs[1]),(121.92,qs[1])); s.wire((121.92,qs[1]),qs)
-    r17=R(rr(117),"17k4","SX-R-009",134.62,qs[1]-3.81,0); s.wire(r17(2),(134.62,qs[1])); s.wire(r17(1),up(r17(1),2.54)); s.label(f"{Pn}_IV",up(r17(1),2.54),90)
-    r16=R(rr(116),"604","SX-R-012",121.92,qs[1]-3.81,0); s.wire(r16(2),(121.92,qs[1])); gnd(r16(1),180)
-    s.wire(q(pp),(134.62,q(pp)[1])); r15=R(rr(115),"604","SX-R-012",134.62,q(pp)[1]+3.81,0); s.wire((134.62,q(pp)[1]),r15(1)); gnd(r15(2))
+    r17=R(rr(117),"18k","SX-R-092",134.62,qs[1]-3.81,0); s.wire(r17(2),(134.62,qs[1])); s.wire(r17(1),up(r17(1),2.54)); s.label(f"{Pn}_IV",up(r17(1),2.54),90)
+    r16=R(rr(116),"560","SX-R-094",121.92,qs[1]-3.81,0); s.wire(r16(2),(121.92,qs[1])); gnd(r16(1),180)
+    s.wire(q(pp),(134.62,q(pp)[1])); r15=R(rr(115),"560","SX-R-094",134.62,q(pp)[1]+3.81,0); s.wire((134.62,q(pp)[1]),r15(1)); gnd(r15(2))
     jq=s.place("Connector_Generic","Conn_01x03",f"JP{102+o}","Q COMP: 1-2 HALF, 2-3 FULL",101.6,qs[1],180,
                fp="Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",props=P("SX-CONN-005",Note="Open = no bass compensation"))
     # jq pin 2 sits on qs; pin 1 (half) below, pin 3 (full) above
-    r18=R(rr(118),"52k3","SX-R-013",114.3,y0-30.48,0,Note="Half compensation (default)")
+    r18=R(rr(118),"51k","SX-R-093",114.3,y0-30.48,0,Note="Half compensation (default)")
     s.wire(jq(1),(114.3,jq(1)[1]),r18(1)); s.wire(r18(2),(114.3,y0-20.32),(FX,y0-20.32))
-    r19=R(rr(119),"17k4","SX-R-009",jq(3)[0],jq(3)[1]-5.08,0,Note="Full compensation")
+    r19=R(rr(119),"18k","SX-R-092",jq(3)[0],jq(3)[1]-5.08,0,Note="Full compensation")
     s.wire(jq(3),r19(2)); s.wire(r19(1),up(r19(1),2.54),(93.98,r19(1)[1]-2.54),(93.98,y0-20.32),(FX,y0-20.32))
     # ---- I-V converter (inverting), feedback below
     out=u(3); XI=233.68
@@ -116,7 +116,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     nf=(220.98,out[1]); s.wire(out,nf); s.wire(nf,b(iv[2][0]))
     s.wire(b(iv[2][1]),lt(b(iv[2][1])),up(lt(b(iv[2][1])))); gnd(up(lt(b(iv[2][1]))),180)
     ivn=(243.84,out[1]-2.54); s.wire(b(iv[2][2]),ivn)
-    rf=R(rr(111),"8k66","SX-R-014",XI-1.27,out[1]+10.16,Note=PROV); cf=C(cc(106),"100p C0G","SX-C-008",XI-1.27,out[1]+20.32)
+    rf=R(rr(111),"9k1","SX-R-095",XI-1.27,out[1]+10.16,Note=PROV); cf=C(cc(106),"100p C0G","SX-C-008",XI-1.27,out[1]+20.32)
     s.wire(nf,(nf[0],out[1]+10.16)); s.wire((nf[0],out[1]+10.16),(nf[0],out[1]+20.32))
     s.wire((nf[0],out[1]+10.16),rf(1)); s.wire((nf[0],out[1]+20.32),cf(1))
     s.wire(rf(2),(ivn[0],out[1]+10.16)); s.wire(cf(2),(ivn[0],out[1]+20.32))
@@ -131,7 +131,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     fo=(292.1,ivn[1]+2.54); s.wire(m(post[2][2]),fo)
     pf=(271.78,ivn[1]+12.7)
     s.wire(m(post[2][1]),lt(m(post[2][1])),(271.78,pf[1]))
-    r13=R(rr(113),"6k04","SX-R-016",281.94,pf[1]); s.wire(pf,r13(1)); s.wire(r13(2),(fo[0],pf[1]),fo)
+    r13=R(rr(113),"6k2","SX-R-091",281.94,pf[1]); s.wire(pf,r13(1)); s.wire(r13(2),(fo[0],pf[1]),fo)
     r14=R(rr(114),"10k","SX-R-002",pf[0],pf[1]+7.62,0); s.wire(pf,r14(1)); s.wire(r14(2),dn(r14(2),2.54)); s.label(f"{Pn}_PGN",dn(r14(2),2.54),270)
     # ---- bypass: DG413, pressed = dry signal
     XD=320.04; pnode=(332.74,fo[1])
@@ -158,10 +158,10 @@ side("R",50,205.74,"U102",("U91031",1,(13,14,15,12,16)),("U91042",2,(6,5,7)),("U
 # ------------------------------------------------------------- shared: cutoff summer
 Y=300.0
 cp=s.place("Device","R_Potentiometer","RV181","50k lin CUTOFF",40.64,Y,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
-           props=P("SX-POT-003",Manufacturer="Alpha",MPN="RD901F-40-15K-B50K-0057",Supplier="Thonk",Note="Panel; clockwise end (pin 3) raises the cutoff"))
+           props=P("SX-POT-003",Manufacturer="Alpha",MPN="RD901F-40-15K-B50K",Supplier="Tayda",SupplierPN="A-4730",Note="Panel; clockwise end (pin 3) raises the cutoff"))
 s.wire(cp(1),up(cp(1),5.08)); s.power("-15V",up(cp(1),5.08),180)
 s.wire(cp(3),dn(cp(3),5.08)); s.power("+15V",dn(cp(3),5.08),180)
-r181=R("R181","301k","SX-R-018",55.88,Y); s.wire(cp(2),r181(1))
+r181=R("R181","300k","SX-R-096",55.88,Y); s.wire(cp(2),r181(1))
 FS=(71.12,Y); s.wire(r181(2),FS)
 jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV 1 V/oct",35.56,Y+20.32,0,fp="Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles",props=P("SX-CONN-014",Manufacturer="Qingpu",MPN="PJ398SM",Supplier="Thonk",Note="3.5 mm Thonkiconn on the top panel with a 1 mm M6 washer (SX-MECH-004); 3 mm PCB hole under the barrel"))
 r182=R("R182","100k","SX-R-007",55.88,jk("T")[1]); s.wire(jk("T"),r182(1)); s.wire(r182(2),(FS[0],jk("T")[1]))
@@ -170,14 +170,17 @@ s.wire(jk("TN"),rt(jk("TN"),5.08),dn(rt(jk("TN"),5.08),2.54)); gnd(dn(rt(jk("TN"
 sm=OA("TL072","U107",1,86.36,Y-2.54,"SX-IC-007")   # DC control stage: TL072 (power lever 1, 2026-10-09)
 s.wire(FS,sm(2)); s.wire(sm(3),lt(sm(3)),up(lt(sm(3)))); gnd(up(lt(sm(3))),180)
 fcv=(99.06,Y-2.54); s.wire(sm(1),fcv); s.wire(fcv,(106.68,fcv[1])); s.label("FCV",(106.68,fcv[1]),0)
-r183=R("R183","162k","SX-R-019",78.74,Y+10.16)
-tr=s.place("Device","R_Potentiometer_Trim","RV182","50k V/OCT",91.44,Y+10.16,90,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF"))
-s.wire(FS,(FS[0],Y+10.16)); s.wire((FS[0],Y+10.16),(FS[0],Y+20.32))
-s.wire((FS[0],Y+10.16),r183(1)); s.wire(r183(2),tr(1))
-s.wire(tr(2),up(tr(2),2.54),(fcv[0],tr(2)[1]-2.54)); s.wire(tr(3),(fcv[0],Y+10.16))
+# V/oct feedback: R183 + R187 (E24 pair, 162k) in series with RV182 (decision 140)
+YR=Y+38.1
+tr=s.place("Device","R_Potentiometer_Trim","RV182","50k V/OCT",fcv[0],Y+30.48,180,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF",Supplier="Mouser",SupplierPN="652-3296W-1-503LF"))
+s.wire(FS,(FS[0],Y+20.32)); s.wire((FS[0],Y+20.32),(FS[0],YR))
+r183=R("R183","150k","SX-R-098",78.74,YR); r187=R("R187","12k","SX-R-008",88.9,YR)
+s.wire((FS[0],YR),r183(1)); s.wire(r183(2),r187(1)); s.wire(r187(2),(fcv[0],YR),tr(1))
 c181=C("C181","22p C0G","SX-C-004",85.09,Y+20.32); s.wire((FS[0],Y+20.32),c181(1)); s.wire(c181(2),(fcv[0],Y+20.32))
-for y1,y2 in ((fcv[1],tr(2)[1]-2.54),(tr(2)[1]-2.54,Y+10.16),(Y+10.16,Y+20.32)): s.wire((fcv[0],y1),(fcv[0],y2))
-sp=OA("TL072","U91072",2,86.36,Y+38.1,"SX-IC-007")
+yw=tr(3)[1]-2.54
+s.wire(tr(2),(tr(2)[0],yw),(fcv[0],yw))
+for y1,y2 in ((fcv[1],Y+20.32),(Y+20.32,yw),(yw,tr(3)[1])): s.wire((fcv[0],y1),(fcv[0],y2))
+sp=OA("TL072","U91072",2,86.36,Y+55.88,"SX-IC-007")
 s.wire(sp(5),lt(sp(5)),up(lt(sp(5)))); gnd(up(lt(sp(5))),180)
 s.wire(sp(7),rt(sp(7),2.54),dn(rt(sp(7),2.54),5.08),(sp(6)[0]-2.54,sp(7)[1]+5.08),(sp(6)[0]-2.54,sp(6)[1]),sp(6))
 # resonance pot with series resistor and bias diodes

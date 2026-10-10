@@ -105,7 +105,7 @@ Repeat the +4 dBu row with the medium drive jumper (both values):
 | 200 Ω (about -6 dB) | | |
 
 ### Test 5: Output scale
-With the cutoff fully open and resonance 0, set RV3 so +4 dBu in gives +4 dBu out. Scaling the datasheet's Figure 1 values (68.1 kΩ in, 33.2 kΩ out for unity) to the 17.4 kΩ hot attenuator predicts about 8.6 kΩ; the channel card uses 8.66 kΩ until this test sets it. With power off, measure RV3's resistance between its pin 1 and wiper.
+With the cutoff fully open and resonance 0, set RV3 so +4 dBu in gives +4 dBu out. Scaling the datasheet's Figure 1 values (68.1 kΩ in, 33.2 kΩ out for unity) to the 17.4 kΩ hot attenuator predicts about 8.6 kΩ; the channel card uses 9.1 kΩ with its 18 kΩ attenuator (E24, decision 140) until this test sets it: scale the measured value by 18/17.4 before choosing the card value. With power off, measure RV3's resistance between its pin 1 and wiper.
 
 | Measurement | Value |
 |---|---|
@@ -136,7 +136,7 @@ Build a second core sharing the same control voltage. With both cutoffs at the s
 | Trimmer range needed (mV at the frequency pin) | (plan: at least ±12 mV) |
 
 ### Test 9: Q VCA (resonance compensation, decision 71)
-Rebuild the resonance section per datasheet Figure 9 with one LM13700N (DIP-16): Q pin 14 to ground through 13 kΩ; OTA A output (pin 5) to SIG IN- (pin 2, keep its 200 Ω to ground); OTA + input (pin 3) through 560 Ω or 620 Ω to ground (channel card: 604 Ω); OTA - input (pin 4) through the same value to ground, through 18 kΩ (R14) from the output stage, and through R10 from the input attenuator's input node; bias input (pin 1) through about 41 kΩ (kit: 39 kΩ) from the RESONANCE pot wiper; pot from +15 V through 10 kΩ, its other end through two 1N4148 in series to -15 V; diode bias and buffer outputs open, buffer inputs (pins 7, 10) to ground. Note: the datasheet circuit inverts at the output stage, so the input node here is the 17.4 kΩ's input end.
+Rebuild the resonance section per datasheet Figure 9 with one LM13700N (DIP-16): Q pin 14 to ground through 13 kΩ; OTA A output (pin 5) to SIG IN- (pin 2, keep its 200 Ω to ground); OTA + input (pin 3) through 560 Ω or 620 Ω to ground (channel card: 560 Ω with 18 kΩ, decision 140); OTA - input (pin 4) through the same value to ground, through 18 kΩ (R14) from the output stage, and through R10 from the input attenuator's input node; bias input (pin 1) through about 41 kΩ (kit: 39 kΩ) from the RESONANCE pot wiper; pot from +15 V through 10 kΩ, its other end through two 1N4148 in series to -15 V; diode bias and buffer outputs open, buffer inputs (pins 7, 10) to ground. Note: the datasheet circuit inverts at the output stage, so the input node here is the 17.4 kΩ's input end.
 
 | R10 | Expected 20 Hz gain at max resonance | Measured | Oscillates at max? |
 |---|---|---|---|
@@ -147,7 +147,7 @@ Rebuild the resonance section per datasheet Figure 9 with one LM13700N (DIP-16):
 | Measurement | Value |
 |---|---|
 | Bias current at oscillation onset (wiper voltage minus about -13.8 V, divided by the series resistor) | (datasheet: about 375 µA) |
-| Series resistor for k = 3 maximum (75% of onset) | (channel card provisional: 41.2 kΩ) |
+| Series resistor for k = 3 maximum (75% of onset) | (channel card provisional: 36 kΩ, about 281 µA maximum, decision 140) |
 | Listening: none / half / full preferred | |
 
 ### Test 10: Fader law (channel card Level sheet, decisions 72, 97, 102)
@@ -157,20 +157,51 @@ Measure the pot wiper voltage Vw (travel x = 1 + Vw / 15 V) and the summer outpu
 
 | Travel x | Wiper Vw | Expected VC | Expected gain | Measured VC |
 |---|---|---|---|---|
-| 100 % | 0 V | -0.33 V | +10 dB | |
-| 75 % | -3.75 V | 0.00 V | 0 dB | |
-| 53 % | -7.05 V | +0.33 V | -10 dB | |
-| 42 % | -8.70 V | +0.66 V | -20 dB | |
-| 19 % | -12.15 V | +1.32 V | -40 dB | |
-| 14 % | -12.90 V | +1.98 V | -60 dB | |
-| 0 % | -15 V | +3.37 V | about -102 dB (off; the OPA2171 output stops about 0.45 V above -15 V) | |
+| 100 % | 0 V | -0.33 V | +10.1 dB | |
+| 75 % | -3.75 V | 0.00 V | 0.0 dB | |
+| 53 % | -7.05 V | +0.32 V | -9.6 dB | |
+| 42 % | -8.70 V | +0.65 V | -19.6 dB | |
+| 19 % | -12.15 V | +1.37 V | -41.4 dB | |
+| 14 % | -12.90 V | +1.97 V | -59.7 dB | |
+| 0 % | -15 V | +3.31 V | about -100 dB (off; the OPA2171 output stops about 0.45 V above -15 V) | |
 
-Mute check: connect a 33 kΩ resistor from -15 V to U204 pin 6; VC must rise by about 4.5 V at any fader position.
+Expected values are for the card's E24 network (decision 140): 113k = 100k + 13k from VB, 450k = 300k + 150k from +15 V, breakpoints 100k / 220k → 62k and 100k / 124k (100k + 24k) → 9k1. With the E96 kit values of the original network the law is the same within 0.5 dB.
+
+Mute check: connect a 33 kΩ resistor from -15 V to U204 pin 6; VC must rise by about 4.5 V at any fader position. On the card the MUTE button switches this resistor itself (decision 142): flick a wire on and off a few times and check on a scope that VC ramps (about 10 ms) without spikes, which also covers contact bounce.
 
 Duck check (decision 97): connect 30 kΩ from a -1 V source (a low-impedance divider from -15 V) to U204 pin 6; VC must rise by about 0.33 V (10 dB) at any fader position.
+
+### Test 11: Ceramic instead of bipolar coupling capacitors (cost lever 7)
+The card has eight 10 µF bipolar electrolytics in signal coupling positions (C5, C6, C101, C107, C151, C157, C221, C271); X5R ceramics would save about €1.60 per card and one fee type, but class 2 ceramics can be microphonic and add low-frequency distortion. The coupling positions carry no DC, so the X5R DC-bias loss does not apply. Parts: two 10 µF X5R 1206 50 V (LCSC C13585, JLCPCB basic; soldered to wire legs or a 1206 adapter) and the 10 µF bipolar from the order.
+
+Put the capacitor under test in series with the input (in place of the input coupling capacitor of the circuit), signal into a 10 kΩ load (as C101 into R101), output into the scope and headphones through the output stage.
+
+| Check | Bipolar electrolytic | X5R 1206 |
+|---|---|---|
+| Tap test: pencil taps on the capacitor and the board, no signal, output gain at maximum: level on the scope (mV peak) and audible? | | |
+| Knock the table / drop a coin next to it: audible? | | |
+| THD at 20 Hz and 50 Hz, +4 dBu (if the meter or interface allows) | | |
+| THD at 1 kHz, +4 dBu | | |
+
+Decide: if the X5R is not audible in the tap and knock checks at full gain and its 20 Hz THD stays below about 0.05 %, use it on the card (decisions 72 and 111 change); otherwise keep the bipolars (C0G does not come in 10 µF).
+
+### Test 12: Fixed V/oct scale instead of the RV182 trimmer (cost review, product lever)
+Temperature compensation is in the backlog (decision 141): the card's FREQ leg is a plain 1 k (820 + 180), as on this breadboard. This test shows whether the V/oct scale is close enough between chips to drop the V/OCT trimmer, and how far the scale drifts without compensation.
+
+With the CV input at 0 V and at +1 V, +2 V, +3 V (a lab supply or a divider; the card's CV input is 100 kΩ into the summer), trim RV5 for an exact octave per volt at room temperature, then measure RV5 plus its series resistor (power off). The card needs the summer feedback near 162k (R183 + R187) plus the trimmer.
+
+| Measurement | Chip 1 | Chip 2 (test 8) |
+|---|---|---|
+| Feedback for 1.000 V/oct at room temperature (kΩ) | | |
+| Room temperature (°C) | | |
+| Octave error at +3 V after 30 min warm-up in a closed box (cents) | | |
+| Octave error at +3 V with the chip warmed by a finger or hair dryer for a minute (cents) | | |
+
+Decide: if both chips need the same feedback within about ±2 % (about 20 cents over 3 octaves), an E24 pair can replace RV182 for the product (one part and one calibration step fewer per card). The warm-up drift tells whether the backlog item (decision 141) is worth bringing back.
 
 ## 4. After the tests
 
 - Copy the measured values into `README.md` next to the simulated ones.
 - Update `docs/decisions/channel-card.md` (and its row in `INDEX.md`): drive default, Q VCA series resistor and compensation setting, output feedback resistance, any differences from the model.
-- Update the channel card Filter sheet: R111/R161 (output scale) and R120/R170 (Q limit).
+- Update the channel card Filter sheet: R111/R161 (output scale) and R120/R170 (Q limit), on E24 values or E24 pairs (decision 140).
+- Tests 11 and 12: record the decisions on the coupling capacitors (lever 7) and the V/OCT trimmer in `hardware/channel-card/STATUS.md`.

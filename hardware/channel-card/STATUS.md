@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-10 (fee-free part swaps, decision 137: TL072CDT, UTC 78L05G-AB3-R, BZT52C6V2, UNI-ROYAL 13k/680k/750R). Before that, 2026-10-09 (schematic session: pot MPNs on the symbols and RV183 reference fixed; R184 10 k → 12 k for the RESONANCE pot rating, decision 129; tempco leg = Vishay TFPT 820 Ω + 180 Ω, decision 130. Earlier the same day: mechanical parts 110-117, /system 118-122 and 124, meter LEDs and power levers 123, RoHS audit).
+Updated 2026-10-10 (schematic sessions, delegated by the user: "work autonomously and follow recommendations", then "work on this autonomously"): U303 DG413 (139), all values E24 with fee-free parts (140), temperature compensation to the backlog (141), MUTE/DUCK switched by the buttons (142), TL072 difference receiver (143), trimmers from Mouser, CUTOFF pot from Tayda, breadboard tests 11 and 12. Earlier the same day: fee-free part swaps (decision 137). Before that, 2026-10-09: pots, R184, TFPT tempco, mechanical parts, meter LEDs and power levers (decisions 110-130).
 
 ## Where it stands
 
@@ -12,15 +12,19 @@ Updated 2026-10-10 (fee-free part swaps, decision 137: TL072CDT, UTC 78L05G-AB3-
 - 2026-10-09, schematic (pots): Alpha MPNs on RV1, RV181, RV301/RV302 (Thonk `-0057` codes); RV183 is SX-POT-012 (Tayda RD901F-40-15K-C10K) in the reference too; R184 10 k → 12 k (SX-R-008) so RV183 stays within Alpha's 0.02 W rating for non-B tapers (decision 129; RD901F spec facts in `parts.csv`). Netlists match, ERC 0/0.
 - 2026-10-09, schematic (tempco): R108/R158 Vishay TFPT0603L8200FV (820 Ω, +4110 ppm/K) with new R122/R172 180 Ω in series to AGND replace the end-of-life ERA-V33J102V: 1 k, about +3370 ppm/K (decision 130). Trim pot value text shortened to "50k OFFSET" for room. Netlists match (filter 80 nets), ERC 0/0, sheet looked at.
 - 2026-10-10, fee-free parts (decision 137, confirmed by the user): SX-IC-007 TL072 → ST TL072CDT (LCSC C6961, basic; U107, U205, U402, U403), SX-IC-012 78L05 → UTC 78L05G-AB3-R (C71136, basic; U503), SX-D-001 → hongjiacheng BZT52C6V2 (C19077403, preferred; D1-D4), SX-R-011/036/042 → UNI-ROYAL 0805W8F (C17455, C17797, C17818, preferred). Datasheets checked (facts and RoHS sources in `parts.csv`): TL072CDT pinout and limits as TI's, ICC the same, so the power budget is unchanged; 78L05G-AB3-R pins 1 O 2 G 3 I as the KiCad symbol (the -AB3-C-R variant is G I O); BZT52C6V2 SOD-123 matches KiCad `D_SOD-123`. Filter, level, meter and chain sheets rebuilt; netlists match, ERC 0/0. `costs.py extended`: 82 → 80 fee types.
+- 2026-10-10, schematic (levers, delegated): U303 is a DG413: PFL L/R on the NO sections 1 and 4, SC send on the NC section 2 driven by SC_OFF from SW302 pin 1 (released = high), R315 moved to pin 1, no part added (decision 139). Values on E24 with JLCPCB basic/preferred UNI-ROYAL parts (decision 140): input trim stage, filter scaling, cutoff summer (R183 = 150k + new R187 12k; RV182 redrawn in the FCV column), fader law (new pairs R207+R223, R208+R224, R213+R225; `simulation/level/` rerun, within 0.4 dB of the design from +10 to −60 dB), SC send 47k, meter ladder (within 0.21 dB). New SX-R-092 to SX-R-106. Reference scripts give the button LEDs their 0805 footprints and part numbers. Netlists match (filter 81, level 44, routing 46 nets), ERC 0/0, changed areas looked at. `tools/costs.py estimate` (4 channels): €1,035 → €963.
+- 2026-10-10, schematic (levers, delegated: "work on this autonomously"): TL072 difference receiver with 10k 0.1 % resistors instead of the AD8273 (decision 143; new R19-R26, SX-R-107); MUTE and DUCK switched by the buttons, U206 DG413 and C235/C236 removed, R220/R222 now 100k hold resistors on MUTE_V/DUCK_V with pin 1 open so no contact sequence can short the rail (decision 142, after the architect review); temperature compensation to the backlog, R108/R158 plain 820 Ω (decision 141); trimmers from Mouser, CUTOFF pot from Tayda A-4730. Netlists match (input 46, level 41 nets), ERC 0/0, drawings looked at. Card load 110 / 93 mA typical, sizing 171 / 139 mA. `tools/costs.py estimate` (4 channels): €946 (€1,035 on main before this day's sessions).
 - PCB: not started; waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up.
 
 ## Provisional until the breadboard
 
-`simulation/filter/BREADBOARD.md` tests 1-10 set R111/R161 (filter output scale) and R120/R170 (Q current limit; with R184 = 12 k the maximum is about 254 µA, 36.5 k would restore about 280 µA, decision 129). Then edit `filter_wired.py` / `filter_build.py`, run `scripts/rebuild_all.sh`, and update `docs/decisions/channel-card.md`.
+`simulation/filter/BREADBOARD.md` tests 1-10 set R111/R161 (filter output scale, now 9k1 for the 18k attenuator; scale a breadboard value found with 17.4k by 18/17.4) and R120/R170 (Q current limit, now 36k: about 281 µA maximum with R184 = 12 k, decisions 129 and 140). Keep any new value on E24 or an E24 pair (decision 140). Then edit `filter_wired.py` / `filter_build.py`, run `scripts/rebuild_all.sh`, and update `docs/decisions/channel-card.md`.
 
 ## Waiting for the user's confirmation
 
-(none)
+- **Lever 11, hand-soldering consigned parts:** which of the easy consigned types to hand-solder (estimate under Cost-cut levers, item 11). The SSI2144 stays with JLCPCB (user, 2026-10-10).
+- **Prototype-scope wording (decision 142):** root `CLAUDE.md` now says buttons carry logic, LED and DC control currents, audio never; the user confirmed the redesign, not yet this wording.
+- Decisions 139-143 were made under the user's delegation ("confirmed (delegated)" in `INDEX.md`): review them in `docs/decisions/channel-card.md`.
 
 ## Waiting on others
 
@@ -42,7 +46,8 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 - **Chain header holes:** KiCad's `IDC-Header_2x17/2x04_P2.54mm_Vertical` drill 1.0 mm; Würth recommends 1.1 ± 0.15 mm for the 0.64 mm square pins: use 1.1 mm drills.
 - **Trimmers and jumpers on the underside (decision 112):** RV101, RV151, RV182 (3296W, screw facing down; RV101/RV151 next to their SSI2144s) and JP101/JP151, JP102/JP152, J301/J302 on the bottom side, L/R pairs side by side with matching bottom-silkscreen labels, leads soldered on the top side, outside the keep-out of decision 121 (10 mm from each long edge over the header length plus 15 mm front and back; provisional until the mock-up), at most 10.5 mm below the PCB; nothing tall around them.
 - **78L05 U503 (UTC 78L05G-AB3-R):** worst case 0.25 W against UTC's 350 mW SOT-89 rating (no thermal resistance given; about 357 °C/W implied, junction about 129 °C at 40 °C ambient): give the middle (GND) tab a copper pour.
-- **Tempco leg (decision 130):** R108/R158 (TFPT, 0603) against the top of its SSI2144, short traces, away from the regulators and other warm parts; R122/R172 (180 Ω) may sit a little further away.
+- **FREQ leg (decisions 130, 141):** R108/R158 are plain 820 Ω now (temperature compensation in the backlog); still place them next to their SSI2144 with short traces and leave room for an 0805 TFPT later.
+- **Receiver (decision 143):** keep the 0.1 % resistors of each side together and the two input legs symmetrical (same trace lengths to the TL072), RFI caps C1-C4 next to R1-R4.
 - **CV jack J181 (Thonkiconn):** 3 mm hole in the PCB under the barrel (Thonk note; the footprint has none), centred 6.48 mm from the S pad toward T; no traces or pour in it. Centred on the strip above CUTOFF (decision 106).
 - **Fader:** KiCad `Potentiometer_Bourns_PTA6043_Single_Slide` matches the Bourns PTA drawing (Rev. 08/25). The M2 holes are tapped in the top of the frame, 71 mm apart, for panel screws from above: no PCB feature; choose the M2 screw length (1.6 mm panel + 3.5 mm spacer + the frame's thread depth, not stated by Bourns) so it cannot reach the track. Screwed to the panel before soldering. Keep the footprint compatible with the product-version TT PS60-10MC2BR10K if that costs nothing.
 - **Pot footprints:** the stock KiCad RD901F/RD902F footprints (slots 9.6 mm centre to centre, 7.5 mm from the pins) match Alpha's drawing SLH-211-414 (its 11.4 mm spans the slot ends).
@@ -57,57 +62,32 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 ## Next
 
-1. Breadboard the SSI2144 when parts arrive (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
-2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, LM339DR, AD8273ARZ, DG413DY-T1-E3, DG412DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
+1. Breadboard the SSI2144 when parts arrive (now with test 11, X5R coupling caps, and test 12, fixed V/oct and drift; buy two LCSC C13585 for test 11) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
+2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, LM339DR, DG413DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
 3. Cable mock-up (decision 109).
-4. Tidy (any schematic session, no wiring change): the reference netlist scripts still give the button LEDs the 3 mm THT footprint and SX-D-002 (`filter_build.py` D183, `level_build.py` button LEDs); the drawings use 0805 with the decision 117 part numbers.
-5. PCB layout.
+4. PCB layout.
 
-## Cost-cut levers [proposed] (2026-10-09)
+## Cost-cut levers (open)
 
-Frame set by the user (2026-10-09): the prototype is 4 channel cards, maybe 2; the full 16-channel console's cost stays in view in case the mixer becomes a product; the filter stays. This card is about €75 in parts (prototype quantities), so a console carries it sixteen times; at production volume its parts and its labour (through-hole assembly, three trimmers to calibrate) are what count. Overview and prototype figures: `docs/ROADMAP.md`, Cost review. Prices rough (LCSC or Mouser 2026-10-09 where named, otherwise estimates). None of these is decided:
+Frame set by the user (2026-10-09): the prototype is 4 channel cards, maybe 2; the full 16-channel console's cost stays in view in case the mixer becomes a product; the filter stays (rejected as a fitting option: the SSI2144 ladder filter is one of the features that make the mixer stand out). Overview: `docs/ROADMAP.md`, Cost review; system review `docs/reviews/2026-10-10-cost-system.md`.
 
-1. **AD8273 → op-amp differential receiver** (about €4.50 per card; also one part fewer to consign, since LCSC does not stock the AD8273): one NE5532 half per side at G = ½ with 0.1 % resistors keeps the ±12 V headroom (decision 25). Costs CMRR (about 50-60 dB with 0.1 % resistors against 77 dB minimum) and needs the input stage checked again.
-2. **Mute and DUCK through the SSI2162 control voltage instead of DG413 sections** (about €1.90 per DG413 removed): needs a click-free CV ramp; check against `simulation/level/`.
-3. **Trimmers:** Bourns 3296W (CUTOFF OFFSET ×2, V/OCT; about €1.50 each) → a RoHS-declared 3296W-style trimmer from LCSC (about €0.20): about €4 per card. For a product, each trimmer is also a calibration step: look at the breadboard results for whether one offset trim per side, or matched SSI2144 pairs, could replace any of them.
-4. Value selection (E24, JLCPCB extended fees) is a standing rule now, not a lever: see "Component values" below (decision 134).
-5. Smaller and confirmed scope, listed only for completeness: the meter (about €2 per card), the PFL/SC SEND/DUCK/COMP BUS buttons and their switching (about €1 each).
+Done 2026-10-10: DG412 → DG413 (139), E24 values (140), tempco to the backlog (141), MUTE/DUCK by the buttons (142), TL072 receiver (143), Bourns trimmers from Mouser (LCSC C83686 would be about €2.70 per card cheaper, noted in `docs/ROADMAP.md`), CUTOFF pot from Tayda A-4730 (Tayda has no T18 9 mm A100K or A10K duals: TRIM and AUX stay at Thonk). `tools/costs.py estimate --channels 4`: €946 (€1,035 on main before 2026-10-10).
 
-From the system cost review of 2026-10-10 (`docs/reviews/2026-10-10-cost-system.md`, with savings and caveats). None of these is decided:
+Open:
 
-6. **DG412 → DG413** (U303): PFL L/R on the NO sections 1 and 4, SC send on NC section 2 driven from SW302 pin 1 (high when released), plus one 0805 pull-down. About €3.60-6.10 per card (the DG412 is now 8.24 USD at LCSC) and 1-2 fee types; no trade-off found. Check the NO/NC sections in Vishay's datasheet first. Touches decision 74.
-7. **10 µF bipolar electrolytics ×8 → 10 µF X5R ceramic** (C15850 0805 25 V or C13585 1206 50 V, JLCPCB basic): about €1.60 per card and one fee type. Needs a tap test on the breadboard for microphonic noise. Touches decisions 72 and 111.
-8. **Trimmers at LCSC:** Bourns 3296W-1-503LF at LCSC (C83686, 0.75 USD, now in `prices.csv`) or BOCHEN 3296W-1-503 (C118911, 0.14 USD; check life, sealing and drawing). Adds to lever 3.
-9. **Alpha pots from Tayda instead of Thonk:** about €2.85 per card; check that Tayda carries the exact order codes.
-10. **Off-E24 and fee-carrying values (decision 134):** 25 off-E24 types plus 110 R; the review lists the E24 values that have no fee-free part (for example 91k, 110k, 130k, 750k). Rerun `simulation/level/` for the fader law.
-11. **Prototype ordering:** hand-solder the consigned parts (SSI2144 QSOP-16, SSI2162, AD8273, TFPT) instead of consigning them: about €44 per order with the master, costs fine-pitch joints to inspect. Touches decision 133.
-12. **Question for the user:** drop the TFPT tempco leg (€1.95 per card, about a semitone of V/oct drift over warm-up); reopens decision 130.
-
-Rejected by the user (2026-10-09): the filter as a fitting option. The SSI2144 ladder filter is one of the essential features that make the mixer stand out; it stays on every card.
+7. **Ceramic coupling capacitors:** 10 µF bipolar electrolytics ×8 → 10 µF X5R ceramic (C13585 1206 50 V, JLCPCB basic): about €1.60 per card and one fee type. Breadboard test 11 decides (user, 2026-10-10). Touches decisions 72 and 111.
+11. **Hand-soldering consigned parts (user to decide):** the SSI2144 (QSOP-16, 0.635 mm) stays with JLCPCB. Each other consigned type hand-soldered saves one fee, about €2.76 per order (the $3 of `overheads.csv`, not from an official JLCPCB page); the €30 consignment handling stays while the SSI2144 is consigned. Channel candidates, easiest first: bipolar 10 µF SX-C-023 (large SMD electrolytic pads; 24 in the 4-channel order with the master; gone if test 11 passes) and the SSI2162 (SSOP-10, 1.0 mm pitch; 5 in the order). Both: €5.52 per order; with the master's AD8273 ×2, AS3046D and R421 (the master's call): €13.80; also hand-soldering the SSI2144 drops the €30 handling: €46.56 in all.
+13. **Fixed V/oct scale (product):** replace RV182 with an E24 pair if breadboard test 12 shows the chips' scales within about ±2 %; one part and one calibration step fewer per card.
 
 ## Component values (decision 134)
 
-This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on 2026-10-09 (from the BOM export; all 0805 resistors; every capacitor is already E24). Each needs a reason recorded here, or a move to E24 values or an E24 pair, before layout. Item 79 kept the filter scaling, fader law and meter ladder exact; that stands until this review.
+This board owns its value selection (rule in `CLAUDE.md`). Since decision 140 (2026-10-10) every resistor and capacitor value is E24 with a JLCPCB basic or preferred part, with one exception:
 
-| Sheet | Value | References | Reason (to record) |
+| Sheet | Value | References | Reason |
 |---|---|---|---|
-| Input | 4k02 | R5, R6 | |
-| Input | 806 | R7, R8 | trim stage fixed feedback (decision 115) |
-| Input | 1k87 | R9, R10 | |
-| Filter | 16k9 | R103, R153 | |
-| Filter | 17k4 | R104, R117, R119, R154, R167, R169 | |
-| Filter | 8k66 | R111, R161 | |
-| Filter | 6k04 | R113, R163 | |
-| Filter | 604 | R115, R116, R165, R166 | |
-| Filter | 52k3 | R118, R168 | |
-| Filter | 41k2 | R120, R170 | provisional until the breadboard |
-| Filter | 301k, 162k | R181, R183 | |
-| Level | 113k, 453k, 221k, 63k4, 124k, 8k66 | R207, R208, R210, R211, R213, R214 | Level sheet: fader law (item 79, to confirm per part) |
-| Level | 33k2, 30k1 | R216, R217 | R217: SC_ENV into the control summer (decision 97) |
-| Routing | 44k2 | R305, R306 | |
-| Meter | 4k02, 19k1, 1k43, 1k54, 845, 237 | R411, R410, R413, R414, R415, R417 | Meter sheet: ladder (item 79, to confirm per part) |
+| Level | 30k1 | R217 | SC_ENV into the control summer (decision 97): `docs/ARCHITECTURE.md` names 30.1 kΩ in the SC_ENV chain line, so a change to 30k (E24, ducking scale 0.03 dB off) goes through /system |
 
-25 types, 44 parts. The fader-law set (113k to 30k1) is shared with the master's AUX returns and master out, so the two boards should settle it together.
+E24 pairs (one extra placement each, no fee): R183 + R187 (162k, V/oct feedback), R207 + R223 (113k), R208 + R224 (450k), R213 + R225 (124k) (fader law). R111/R161 and R120/R170 stay provisional until the breadboard. The master still uses the old fader-law set for its AUX returns and master out (its own session; noted in `hardware/master/STATUS.md`).
 
 ### Fee-free swaps (decision 137, LCSC search 2026-10-10; four made 2026-10-10, see Where it stands)
 
@@ -117,10 +97,19 @@ This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on
 | 78L05 (SX-IC-012) | L78L05ACUTR, extended | UTC 78L05G-AB3-R, LCSC C71136, basic | done 2026-10-10: pins 1 O 2 G 3 I match the footprint |
 | 6.2 V zener (SX-D-001, 4 here, 4 on the master) | no part chosen | BZT52C6V2 (hongjiacheng), LCSC C19077403, preferred | done 2026-10-10: RoHS in the maker's datasheet, land pattern matches |
 | 13k, 680k, 750 R | counted as extended | UNI-ROYAL 0805W8F series, LCSC C17455, C17797, C17818, preferred | done 2026-10-10 |
-| 110 R (SX-R-022) | extended | none found: 110 Ω 1 % 0805 had no fee-free part | open: settle in the E24 review below (item 79 set the network) |
+| 110 R (SX-R-022) | extended | none found: 110 Ω 1 % 0805 had no fee-free part | done 2026-10-10: the meter ladder no longer uses it (decision 140) |
 
 No fee-free part was found for the LM339, the 220 pF C0G 0805 or the 10 µF 35 V SMD electrolytic. `python3 tools/costs.py extended` lists every type that still costs a fee.
 
 ## For /system
+
+- **Decision 142 against decision 69 (architect review 2026-10-10, CONFLICT):** decision 69 (system) has one button pole drive a logic line into a DG413; MUTE and DUCK now switch −15 V and SC_ENV through the contacts, and the confirmed prototype-scope line in the root `CLAUDE.md` was reworded in this board session. Needs a /system refinement of 69 and the user's confirmation of the wording. The contact-sequence risk the review also raised is removed on the board (pin 1 open, 100k hold resistors).
+- `docs/CHAIN.md` line 48 quotes 113 mA typical and 174 mA sizing per card (now 110 / 171); `docs/ARCHITECTURE.md` lines 50-52 (prototype sizing 1.26 / 1.02 A, 46 W; full size 3.31 / 2.69 A, 120 W; 0.68 A per ribbon pin by `tools/system_power_budget.py`; the master line 49 is stale too, script 331 / 260 mA) and line 92 (the channel no longer uses a tempco part; only the master's R421 is left).
+- `docs/INPUT-MODULE.md`: besides naming the AD8273, note the new input impedances (20k on IN+, 30k on IN−; a mono source normalled to both IN+ sees 10k).
+
+- `docs/ARCHITECTURE.md` Power table: channel card load is now 110 / 93 mA typical, 229 / 194 mA worst case, sizing 171 / 139 mA (decision 143: TL072 receiver instead of the AD8273, whose figure the table quotes); `tools/system_power_budget.py`: prototype sizing 1.26 / 1.02 A, full size 3.31 / 2.69 A.
+- `docs/INPUT-MODULE.md` line 13 names the channel's receiver as the AD8273; it is a TL072 difference amplifier now (decision 143). The interface (pinout, levels, DC coupling) is unchanged.
+
+- R217 30k1 (SC_ENV into the channel control summer; also the master's AUX-return DUCK inputs): the only off-E24 value left on the channel card. 30k (E24, SX-R-050 basic) moves the ducking scale by 0.03 dB; the SC_ENV chain line in `docs/ARCHITECTURE.md` names 30.1 kΩ, so the change is a /system call.
 
 - `docs/ARCHITECTURE.md`, Open system items, RoHS gaps: "End of Life THAT1646S08-U (master) and ERA-V33J102V (channel)" is out of date. The THAT1646 is replaced by the DRV135UA (decision 125); the channel card no longer uses the ERA-V33J102V (decision 130); it remains on the master's R421.

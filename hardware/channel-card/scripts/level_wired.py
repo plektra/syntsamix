@@ -5,8 +5,8 @@
 Same parts, references and connections as level_build.py, which stays the
 reference netlist: check_netlist.py level.json compares this drawing with it.
 Layout: L and R audio rows across the top (input network, SSI2162, I-V stage,
-polarity inverter), the fader-law control circuit below, then the DG413
-mute/duck switches, the buttons and the supply decoupling.
+polarity inverter), the fader-law control circuit below, then the MUTE and DUCK
+buttons (their spare pole switches the control voltage, decision 142) and the supply decoupling.
 """
 import json,os
 from schlayout import Sheet,pins_of
@@ -103,13 +103,18 @@ s.wire(bu(1),bo,(VBX,213.36))
 s.wire(bo,(78.74,220.98),(58.42,220.98),(58.42,bu(2)[1]),bu(2))
 SUMX=241.3
 # row 1: Ra from VB, row 2: Rc from +15 V
-ra=R("R207","113k","SX-R-023",170.18,190.5); s.wire((VBX,190.5),ra(1)); s.wire(ra(2),(SUMX,190.5))
-rc=R("R208","453k","SX-R-024",170.18,200.66); s.wire((152.4,200.66),rc(1)); s.power("+15V",(152.4,200.66)); s.wire(rc(2),(SUMX,200.66))
+ra=R("R207","100k","SX-R-007",165.1,190.5); ra2=R("R223","13k","SX-R-011",180.34,190.5)   # E24 pair, 113k (decision 140)
+s.wire((VBX,190.5),ra(1)); s.wire(ra(2),ra2(1)); s.wire(ra2(2),(SUMX,190.5))
+rc=R("R208","300k","SX-R-096",165.1,200.66); rc2=R("R224","150k","SX-R-098",180.34,200.66)   # E24 pair, 450k
+s.wire((152.4,200.66),rc(1)); s.power("+15V",(152.4,200.66)); s.wire(rc(2),rc2(1)); s.wire(rc2(2),(SUMX,200.66))
 # superdiode breakpoints
-def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn):
+def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn,rq2=None):
     a=R(rp,"100k","SX-R-007",106.68,y); s.wire((VBX,y),a(1))
     nd=(114.3,y); s.wire(a(2),nd)
-    q=R(rq,rqval,rqpn,114.3,y-10.16,0); s.wire(nd,q(2)); s.wire(q(1),up(q(1),1.27)); s.power("+15V",up(q(1),1.27))
+    q=R(rq,rqval,rqpn,114.3,y-10.16,0); s.wire(nd,q(2))
+    if rq2:   # second part of an E24 pair above the first
+        q2=R(rq2[0],rq2[1],rq2[2],114.3,y-20.32,0); s.wire(q(1),q2(2)); q=q2
+    s.wire(q(1),up(q(1),1.27)); s.power("+15V",up(q(1),1.27))
     o=OA("TL072",opa,unit,129.54,y+2.54,"SX-IC-007")
     s.wire(nd,o(pins[0]))
     dd=s.place("Device","D",d,"1N4148W",144.78,y+2.54,0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
@@ -117,13 +122,13 @@ def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn):
     s.wire(k,(k[0],y+10.16),(119.38,y+10.16),(119.38,o(pins[1])[1]),o(pins[1]))
     r=R(rs,rsval,rspn,200.66,y+2.54); s.wire(k,r(1)); s.wire(r(2),(SUMX,y+2.54))
     return y+2.54
-superdiode(231.14,"R209","R210","221k","SX-R-025","U92052",2,(5,6,7),"D201","R211","63k4","SX-R-026")
-superdiode(264.16,"R212","R213","124k","SX-R-027","U205",1,(3,2,1),"D202","R214","8k66","SX-R-014")
+superdiode(231.14,"R209","R210","220k","SX-R-103","U92052",2,(5,6,7),"D201","R211","62k","SX-R-102")
+superdiode(264.16,"R212","R213","100k","SX-R-007","U205",1,(3,2,1),"D202","R214","9k1","SX-R-095",("R225","24k","SX-R-031"))
 s.wire((VBX,190.5),(VBX,213.36)); s.wire((VBX,213.36),(VBX,231.14)); s.wire((VBX,231.14),(VBX,264.16))
 # duck and mute inputs
 rd=R("R217","30k1","SX-R-087",220.98,279.4,Note="SC_ENV into the virtual earth: 0.332 V/V, 10 dB of ducking per -1 V (decision 97)")
 s.wire((208.28,279.4),rd(1)); s.label("DUCK_V",(208.28,279.4),180); s.wire(rd(2),(SUMX,279.4))
-rm=R("R216","33k2","SX-R-028",220.98,289.56); s.wire((208.28,289.56),rm(1)); s.label("MUTE_V",(208.28,289.56),180); s.wire(rm(2),(SUMX,289.56))
+rm=R("R216","33k","SX-R-006",220.98,289.56); s.wire((208.28,289.56),rm(1)); s.label("MUTE_V",(208.28,289.56),180); s.wire(rm(2),(SUMX,289.56))
 # summing junction bus (split at every tap so each joint gets a junction)
 taps=sorted({172.72,182.88,190.5,200.66,218.44,233.68,266.7,279.4,289.56})
 for y1,y2 in zip(taps,taps[1:]): s.wire((SUMX,y1),(SUMX,y2))
@@ -137,39 +142,26 @@ rf=R("R215","10k","SX-R-002",254.0,182.88); cf=C("C224","1u","SX-C-010",254.0,17
 s.wire((SUMX,182.88),rf(1)); s.wire((SUMX,172.72),cf(1)); s.wire(rf(2),(so[0],182.88)); s.wire(cf(2),(so[0],172.72))
 s.wire((so[0],172.72),(so[0],182.88)); s.wire((so[0],182.88),so)
 
-# ------------------------------------------------------------- DG413: duck and mute
-DGX=330.2
-d1=s.place("Analog_Switch","DG413xY","U206","DG413DY",DGX,203.2,0,1,SO16,P("SX-IC-005",**VI))
-s.wire(d1(2),lt(d1(2),7.62)); s.label("DUCK_V",lt(d1(2),7.62),180)
-s.wire(d1(3),(350.52,203.2)); s.label("SC_ENV",(350.52,203.2),0,"hierarchical","input")
-s.tp("TP205","SC_ENV",(345.44,203.2),"up")
-s.wire(d1(1),dn(d1(1),5.08)); s.label("DUCK_CTRL",dn(d1(1),5.08),270)
-d4=s.place("Analog_Switch","DG413xY","U92062","DG413DY",DGX,238.76,0,2,SO16,P("SX-IC-005",**VI))
-s.wire(d4(6),lt(d4(6),5.08)); s.power("-15V",lt(d4(6),5.08))
-s.wire(d4(7),(345.44,238.76)); s.label("MUTE_V",(345.44,238.76),0)
-s.wire(d4(8),dn(d4(8),5.08)); s.label("MUTE_CTRL",dn(d4(8),5.08),270)
-for ref,unit,y in (("U92063",3,264.16),("U92064",4,289.56)):
-    u=s.place("Analog_Switch","DG413xY",ref,"DG413DY",DGX,y,0,unit,SO16,P("SX-IC-005",**VI))
-    for n,(px,py,ang) in pins_of("Analog_Switch","DG413xY",unit).items():
-        p=u(n)
-        e={0:lt(p,5.08),180:rt(p,5.08),90:dn(p,5.08)}[int(ang)]
-        s.wire(p,e); gnd(e)
-
 # ------------------------------------------------------------- buttons
-def button(name,sw,led,rl,rp,x,y):
+# decision 142: pole 1 switches the control voltage (pressed 2-3: source into R216/R217); the summer's 10 ms smoothing ramps it.
+# Pin 1 stays open and a 100k holds the resistor end at AGND when released: no contact sequence can short the source to ground.
+def button(name,sw,led,rl,rp,x,y,src):
     b=s.place("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
-    s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
+    n=lt(b(2),5.08); s.wire(b(2),n,lt(b(2),12.7)); s.label(f"{name}_V",lt(b(2),12.7),180)
+    rh=R(rp,"100k","SX-R-007",n[0],n[1]-3.81,0); s.wire(n,rh(2)); t=up(rh(1),2.54); s.wire(rh(1),t,lt(t,5.08)); gnd(lt(t,5.08))   # ground beside the resistor
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
-    nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
-    rpd=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,rpd(2))
-    g=lt(up(rpd(1),2.54),5.08); s.wire(rpd(1),up(rpd(1),2.54),g); pgnd(g)   # PGND (decision 98); symbol points down beside the resistor
+    if src=="-15V":
+        s.wire(b(3),rt(b(3),7.62)); s.power("-15V",rt(b(3),7.62))
+    else:
+        s.wire(b(3),rt(b(3),17.78)); s.label("SC_ENV",rt(b(3),17.78),0,"hierarchical","input")
+        s.tp("TP205","SC_ENV",rt(b(3),12.7),"up")
     ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=LEDPN[name])
     s.wire(b(6),ld(1))
     r=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
     return b
 LEDPN={"MUTE":P("SX-D-015",Manufacturer="Foshan NationStar",MPN="NCD0805R1",Supplier="LCSC",SupplierPN="C84256"),"DUCK":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297")}   # button LED colours (user, 2026-10-09)
-b1=button("MUTE","SW201","D203","R219","R220",60.96,358.14)
-b2=button("DUCK","SW202","D204","R221","R222",157.48,358.14)
+b1=button("MUTE","SW201","D203","R219","R220",60.96,358.14,"-15V")
+b2=button("DUCK","SW202","D204","R221","R222",157.48,358.14,"SC_ENV")
 NOCONNECT=[b1(1),b1(4),b2(1),b2(4)]
 
 # ------------------------------------------------------------- supplies and decoupling
@@ -179,13 +171,8 @@ for t,part in (("U92023","NE5532"),("U92033","NE5532"),("U92043","OPA2171"),("U9
     s.wire(u(8),up(u(8),5.08)); s.power("+15V",up(u(8),5.08))
     s.wire(u(4),dn(u(4),5.08)); s.power("-15V",dn(u(4),5.08))
     x+=15.24
-u=s.place("Analog_Switch","DG413xY","U92065","DG413DY",x+5.08,358.14,0,5,SO16,P("SX-IC-005",**VI))
-s.wire(u(13),up(u(13),5.08)); s.power("+15V",up(u(13),5.08))
-s.wire(u(12),up(u(12),2.54),rt(up(u(12),2.54),5.08)); s.power("+5V",rt(up(u(12),2.54),5.08))
-s.wire(u(5),dn(u(5),5.08)); gnd(dn(u(5),5.08))
-s.wire(u(4),dn(u(4),2.54),rt(dn(u(4),2.54),5.08)); s.power("-15V",rt(dn(u(4),2.54),5.08),0)
 k=225; x=320.04
-for i in range(6):
+for i in range(5):
     cp=C(f"C{k}","100n","SX-C-002",x,345.44,0); s.power("+15V",cp(1)); gnd(cp(2)); k+=1
     cn=C(f"C{k}","100n","SX-C-002",x,373.38,0); s.wire(cn(1),up(cn(1),2.54)); s.power("-15V",up(cn(1),2.54),180); gnd(cn(2)); k+=1
     x+=12.7

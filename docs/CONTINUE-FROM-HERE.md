@@ -7,18 +7,18 @@ Project-level handoff, updated 2026-10-09. Read `CLAUDE.md` first. Board detail 
 | Board | Schematic | PCB | Status file |
 |---|---|---|---|
 | Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
-| Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LEDs 0805 and op amp power levers drawn (decision 123); pot MPNs on the symbols, R184 12 k for the RESONANCE pot rating (decision 129); TFPT tempco pair (decision 130) | not started (waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up) | `hardware/channel-card/STATUS.md` |
+| Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LEDs 0805 and op amp power levers drawn (decision 123); pot MPNs on the symbols, R184 12 k for the RESONANCE pot rating (decision 129); TFPT tempco pair (decision 130); 2026-10-10 (delegated): U303 DG413 (decision 139), all values E24 with fee-free parts (decision 140), tempco to the backlog (141), MUTE/DUCK by the buttons (142), TL072 receiver (143); trimmers from Mouser, CUTOFF pot from Tayda | not started (waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131); SC LPF pot RV501 a standard B100K dual (decision 138) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-138; last pushed commit: see `git log -1`.
+Decisions 1-143; last pushed commit: see `git log -1`.
 
 ## Order of work
 
 1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the checks in each `STATUS.md` (master power levers done, decision 126).
 2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
 3. **Channel card schematic touch-up**: done 2026-10-09 (meter LEDs 0805, decision 119; power levers, decision 123).
-4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 (channel) and the AS3046D (master; the Alpha pots are cleared by Alpha's declaration, decision 124), 25 rows with no part chosen yet, and End of Life at Mouser for the ERA-V33J102V tempco resistor on the master's R421 (the channel card replaced it with a Vishay TFPT pair, decision 130). The THAT1646 End of Life is closed by decision 125 (DRV135UA).
+4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 (channel) and the AS3046D (master; the Alpha pots are cleared by Alpha's declaration, decision 124), 25 rows with no part chosen yet, and End of Life at Mouser for the ERA-V33J102V tempco resistor on the master's R421 (the channel card no longer uses a tempco part: TFPT pair in decision 130, temperature compensation to the backlog in decision 141). The THAT1646 End of Life is closed by decision 125 (DRV135UA).
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
 6. **Channel card PCB**, then the input module, master card and power board PCBs.
 
@@ -28,6 +28,7 @@ Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets
 
 ## Waiting for the user's confirmation
 
+- Channel card (2026-10-10): decisions 139-143 made under the user's delegation (review in `docs/decisions/channel-card.md`); lever 11, which consigned parts to hand-solder (estimate in `hardware/channel-card/STATUS.md`); the reworded prototype-scope button line in the root `CLAUDE.md` (decision 142).
 The master's proposals (89-94, power levers) were decided on 2026-10-09 with the user's delegation (decisions 125-128; review them in `hardware/master/STATUS.md`).
 
 - **Cost (2026-10-09):** the user asked for a large cost cut, then set the frame: the prototype is 4 channel cards, maybe 2 (first trial-and-error versions); the full 16-channel console's cost stays in view for a possible product; the ladder filter stays (rejected as a fitting option). Estimates from `tools/costs.py` (prototype about €1,115 for 4 channels, €960 for 2; full console about €2,110; before VAT and shipping) and levers: `docs/ROADMAP.md`, Cost review; board levers in each `STATUS.md`. Done: Rean NYS216 jacks (decision 132); through-hole parts hand-soldered by the user (decision 133). Value selection is each board's own job (decision 134: E24 by default; off-series lists in each `STATUS.md`). Cost principle: live device, not studio gear (decision 135). Fee-free JLCPCB parts first: basic, then preferred (decision 137; candidates in the board STATUS files). Cost control: `/cost <scope>` (cost-controller sub-agent), `tools/costs.py`, and the private ledger of realized costs, `/cost ledger` (decision 136); the first Electrokit breadboard order is recorded. Open, all [proposed]: prototype fees (one JLCPCB order, the two-board minimum), and the per-channel levers for the console (op-amp receiver, fewer DG413s, cheaper and fewer trimmers).

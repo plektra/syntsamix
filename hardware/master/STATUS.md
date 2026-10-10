@@ -96,6 +96,10 @@ This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on
 
 23 types, 39 parts.
 
+From the channel card (2026-10-10, decision 140): the channel settled its copy of the fader-law set on fee-free E24 parts and pairs. 113k = 100k + 13k, 453k → 300k + 150k (450k), 221k → 220k, 63k4 → 62k, 124k = 100k + 24k, 8k66 → 9k1, 33k2 → 33k; 30k1 kept (chain line, /system). `simulation/level/run.py` shows the law within 0.4 dB of the design from +10 to −60 dB. To keep the AUX returns and master out on the same law, take the same values here (the fader-law parts follow the same circuit, decision 103). The channel's meter ladder fit (`docs/decisions/channel-card.md`, item 140) is a model for this board's meter ladder.
+
+Also from the channel card (2026-10-10): its AD8273 receiver became a TL072 difference amplifier with 10k 0.1 % resistors (decision 143, CMRR ≥ 51.5 dB, about €3.20 saved per receiver chip). The AUX returns use the same AD8273 circuit (SPEC, AUX returns), so the same swap would apply here (ROADMAP cost lever 4, AUX returns part) and would end the AD8273 consignment altogether.
+
 ### Fee-free candidates [proposed] (decision 137, LCSC search 2026-10-10)
 
 | Part | Now | Fee-free candidate | Check before the swap |

@@ -3,7 +3,7 @@
 """Routing sheet reference netlist (build/routing.json), written independently of the drawing.
 
 Pre-fader buffers, two stereo AUX sends (dual-gang pot, pre/post jumper),
-main/compressor bus assign (DG413), PFL and sidechain send (DG412), the
+main/compressor bus assign (DG413), PFL and sidechain send (DG413), the
 open-collector PFL_ACT driver and the three buttons. Bus resistors 22 kΩ
 (unity gain into a 22 kΩ virtual-earth amplifier on the master card); the
 sidechain send sums L and R through 44.2 kΩ each, so the SC bus carries (L+R)/2.
@@ -28,17 +28,17 @@ for n,j,rv,rl,rr in ((1,"J301","RV301","R307","R308"),(2,"J302","RV302","R309","
 N("L_POSTFADE","R301.1"); N("L_BUS","R301.2","U302.2","U93024.15"); N("COMP_L","U302.3"); N("MAIN_L","U93024.14")
 N("R_POSTFADE","R302.1"); N("R_BUS","R302.2","U93023.10","U93022.6"); N("MAIN_R","U93023.11"); N("COMP_R","U93022.7")
 N("COMP_CTRL","U302.1","U93024.16","U93023.9","U93022.8")
-# PFL and SC send: U303 DG412
+# PFL and SC send: U303 DG413, PFL on the NO sections 1 and 4, SC send on the NC section 2
 N("L_PRE","R303.1","R305.1"); N("L_PFLR","R303.2","U303.2"); N("CUE_L","U303.3")
-N("R_PRE","R304.1","R306.1"); N("R_PFLR","R304.2","U93034.15"); N("CUE_R","U93034.14")
-N("PFL_CTRL","U303.1","U93034.16")
-N("SC_SUM","R305.2","R306.2","U93032.6"); N("SC","U93032.7"); N("SC_CTRL","U93032.8")
+N("R_PRE","R304.1","R306.1"); N("R_PFLR","R304.2","U93032.6"); N("CUE_R","U93032.7")
+N("PFL_CTRL","U303.1","U93032.8")
+N("SC_SUM","R305.2","R306.2","U93034.15"); N("SC","U93034.14"); N("SC_OFF","U93034.16")
 N("AGND","U93033.9","U93033.10","U93033.11")
 # PFL_ACT open-collector driver
 N("PFL_CTRL","R311.1"); N("Q_B","R311.2","Q301.1"); N("PGND","Q301.2"); N("PFL_ACT","Q301.3")
 # buttons
 for name,sw,led,rl,rp in (("PFL","SW301","D301","R312","R313"),("SC","SW302","D302","R314","R315"),("COMP","SW303","D303","R316","R317")):
-    N(f"{name}_CTRL",f"{sw}.3",f"{rp}.2"); N("+5V",f"{sw}.2"); N(f"{name}_LEDK",f"{sw}.6",f"{led}.1"); N("PGND",f"{sw}.5")
+    N("SC_OFF" if name=="SC" else f"{name}_CTRL",f"{sw}.1" if name=="SC" else f"{sw}.3",f"{rp}.2"); N("+5V",f"{sw}.2"); N(f"{name}_LEDK",f"{sw}.6",f"{led}.1"); N("PGND",f"{sw}.5")   # SC: released throw 1-2
     N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("PGND",f"{rp}.1")
 N("L_PRE","TP301.1"); N("R_PRE","TP302.1")
 # supplies and decoupling

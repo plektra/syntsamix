@@ -1,10 +1,11 @@
 {
  "title": "Channel card: input stage",
- "date": "2026-10-05",
+ "date": "2026-10-10",
  "rev": "0.2",
  "dnp": [],
+ "left_fields": ["R22", "R26"],
  "comments": [
-  "AD8273 receiver G=1/2 wired inverting; trim stage inverts back (net non-inverting)",
+  "TL072 difference receiver G=1/2, 10k 0.1 % (decision 143), wired inverting; trim stage inverts back (net non-inverting)",
   "Trim -20..+20 dB overall, 6V2 zener soft clip; 100 Hz 12 dB/oct low-cut via DG413",
   "Buttons CW GPBS850N: pressed = pins 2-3 and 5-6 closed (datasheet Rev 1)"
  ]

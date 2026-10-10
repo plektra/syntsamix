@@ -48,45 +48,39 @@ N("-15V","RV201.1"); N("FADW","RV201.2"); N("AGND","RV201.3")
 # U204 = OPA2171: input range includes V- (the wiper reaches -15 V), no phase reversal (TI SBOS516H).
 # Its inputs have back-to-back diodes, so the superdiodes (open loop when off) stay on the TL072 (U205)
 OA("OPA2171","U204",1,70,Y,(("FADW",3),("VB",2),("VB",1)),"SX-IC-021")
-R("R207","113k","SX-R-023","VB","VSUM",215,Y-30)
-R("R208","453k","SX-R-024","+15V","VSUM",240,Y-30)
+R("R207","100k","SX-R-007","VB","RA_MID",205,Y-30); R("R223","13k","SX-R-011","RA_MID","VSUM",225,Y-30)
+R("R208","300k","SX-R-096","+15V","RC_MID",240,Y-40); R("R224","150k","SX-R-098","RC_MID","VSUM",255,Y-40)
 R("R209","100k","SX-R-007","VB","SD1IN",100,Y+5)
-R("R210","221k","SX-R-025","+15V","SD1IN",100,Y+35)
+R("R210","220k","SX-R-103","+15V","SD1IN",100,Y+35)
 OA("TL072","U92052",2,135,Y+15,(("SD1IN",5),("SD1K",6),("SD1O",7)),"SX-IC-007")
 S("Device","D","D201","1N4148W",160,Y+40,"Diode_SMD:D_SOD-123","SX-D-003"); N("SD1O","D201.1"); N("SD1K","D201.2")
-R("R211","63k4","SX-R-026","SD1K","VSUM",185,Y+15)
+R("R211","62k","SX-R-102","SD1K","VSUM",185,Y+15)
 R("R212","100k","SX-R-007","VB","SD2IN",100,Y+65)
-R("R213","124k","SX-R-027","+15V","SD2IN",100,Y+95)
+R("R213","100k","SX-R-007","RQ2_MID","SD2IN",100,Y+95); R("R225","24k","SX-R-031","+15V","RQ2_MID",100,Y+85)
 OA("TL072","U205",1,135,Y+75,(("SD2IN",3),("SD2K",2),("SD2O",1)),"SX-IC-007")
 S("Device","D","D202","1N4148W",160,Y+100,"Diode_SMD:D_SOD-123","SX-D-003"); N("SD2O","D202.1"); N("SD2K","D202.2")
-R("R214","8k66","SX-R-014","SD2K","VSUM",185,Y+75)
+R("R214","9k1","SX-R-095","SD2K","VSUM",185,Y+75)
 OA("OPA2171","U92042",2,250,Y+20,(("AGND",5),("VSUM",6),("VC",7)),"SX-IC-021")
 R("R215","10k","SX-R-002","VSUM","VC",265,Y-30)
 C("C224","1u","SX-C-010","VSUM","VC",290,Y-30,props={"Note":"10 ms control smoothing: fader wiper noise and click-free mute ramp"})
-R("R216","33k2","SX-R-028","MUTE_V","VSUM",215,Y+60)
+R("R216","33k","SX-R-006","MUTE_V","VSUM",215,Y+60)
 R("R217","30k1","SX-R-087","DUCK_V","VSUM",240,Y+60,props={"Note":"SC_ENV into the virtual earth: 0.332 V/V, 10 dB of ducking per -1 V (decision 97)"})
-# DG413: SW1 (NO) duck, SW4 (NO) mute, SW2/SW3 unused
-DG={"Manufacturer":"Vishay"}
-S("Analog_Switch","DG413xY","U206","DG413DY",330,Y-20,SO16,"SX-IC-005",1,DG); N("DUCK_CTRL","U206.1"); N("DUCK_V","U206.2"); N("SC_ENV","U206.3")
-S("Analog_Switch","DG413xY","U92062","DG413DY",330,Y+15,SO16,"SX-IC-005",2,DG); N("MUTE_CTRL","U92062.8"); N("MUTE_V","U92062.7"); N("-15V","U92062.6")
-S("Analog_Switch","DG413xY","U92063","DG413DY",330,Y+50,SO16,"SX-IC-005",3,DG); N("AGND","U92063.9","U92063.10","U92063.11")
-S("Analog_Switch","DG413xY","U92064","DG413DY",330,Y+85,SO16,"SX-IC-005",4,DG); N("AGND","U92064.16","U92064.15","U92064.14")
 # buttons
-def button(n,ref,sw,led,rl,rp,x,y,name):
+# decision 142: pole 1 switches the control voltage itself (pressed 2-3: source into R216/R217); pin 1 open and a 100k holds the
+# resistor end at AGND when released, so no contact sequence can short the source to ground
+def button(n,ref,sw,led,rl,rp,x,y,name,src):
     S("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,"","SX-SW-001")
-    N(f"{n}_CTRL",sw+".3"); N("+5V",sw+".2"); N(f"{n}_LEDK",sw+".6"); N("PGND",sw+".5")
-    S("Device","LED",led,f"{name} LED",x+30,y,"LED_THT:LED_D3.0mm","SX-D-002"); N(f"{n}_LEDK",led+".1"); N(f"{n}_LED",led+".2")
+    N(f"{n}_V",sw+".2"); N(src,sw+".3"); N(f"{n}_LEDK",sw+".6"); N("PGND",sw+".5")
+    S("Device","LED",led,f"{name} LED",x+30,y,"LED_SMD:LED_0805_2012Metric",{"MUTE":"SX-D-015","DUCK":"SX-D-011"}[name]); N(f"{n}_LEDK",led+".1"); N(f"{n}_LED",led+".2")
     R(rl,"12k","SX-R-008","+15V",f"{n}_LED",x+55,y)
-    R(rp,"100k","SX-R-007","PGND",f"{n}_CTRL",x-25,y+15)
-button("MUTE","",  "SW201","D203","R219","R220",60,375,"MUTE")
-button("DUCK","",  "SW202","D204","R221","R222",175,375,"DUCK")
+    R(rp,"100k","SX-R-007","AGND",f"{n}_V",x-25,y-15)
+button("MUTE","",  "SW201","D203","R219","R220",60,375,"MUTE","-15V")
+button("DUCK","",  "SW202","D204","R221","R222",175,375,"DUCK","SC_ENV")
 # power units
 for t,part,pn,x in (("U92023","NE5532","SX-IC-004",380),("U92033","NE5532","SX-IC-004",395),("U92043","OPA2171","SX-IC-021",410),("U92053","TL072","SX-IC-007",425)):
     S("Amplifier_Operational",SYM.get(part,part),t,part,x,375,SO8,pn,3,{"Manufacturer":"Texas Instruments",**MPN.get(part,{})}); N("+15V",t+".8"); N("-15V",t+".4")
-S("Analog_Switch","DG413xY","U92065","DG413DY",445,375,SO16,"SX-IC-005",5,DG)
-N("-15V","U92065.4"); N("AGND","U92065.5"); N("+5V","U92065.12"); N("+15V","U92065.13")
 k=225
-for i in range(6):
+for i in range(5):
     x=330+i*14
     C(f"C{k}","100n","SX-C-002","+15V","AGND",x,140); k+=1
     C(f"C{k}","100n","SX-C-002","-15V","AGND",x,170); k+=1
