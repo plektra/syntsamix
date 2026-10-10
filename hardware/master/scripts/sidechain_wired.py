@@ -14,7 +14,7 @@ R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric";
 SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
-SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
+SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**kw))
@@ -175,7 +175,7 @@ for i,(ref,unit) in enumerate((("U95083",3),("U95084",4))):
 LEDPN={"BUS":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"BYP":P("SX-D-017",Manufacturer="Hubei KENTO",MPN="KT-0805W",Supplier="LCSC",SupplierPN="C34499"),"LISTEN":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296")}
 def button(name,title,sw,led,rl,rp,x,y):
     b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,fp=SWFP,
-              props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
+              props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
     nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
     r=R(rp,"100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2))

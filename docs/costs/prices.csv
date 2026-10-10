@@ -1,6 +1,6 @@
-ProjectPN,unit_price,currency,source,date,jlc,notes
-SX-IC-001,3.75,GBP,Thonk,2026-10-10,consign,"SSI2144; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+"
-SX-IC-002,3.29,GBP,Thonk,2026-10-10,consign,"SSI2162; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+"
+ProjectPN,unit_price,currency,source,date,jlc,notes,moq,breaks
+SX-IC-001,3.75,GBP,Thonk,2026-10-10,consign,"SSI2144; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+",,10:0.95;25:0.90;100:0.50
+SX-IC-002,3.29,GBP,Thonk,2026-10-10,consign,"SSI2162; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+",,10:0.95;25:0.90;100:0.50
 SX-IC-003,3.82,EUR,Mouser 584-AD8273ARZ (10+),2026-10-10,consign,AD8273ARZ; not at LCSC; 3.52 at 25
 SX-IC-005,1.4526,USD,LCSC C141600 (30+),2026-10-10,extended,DG413DY-T1-E3; 1.6414 at 10+; JLCPCB library mirror 0.9013 at 30+ (which price JLCPCB charges unconfirmed); Mouser EUR 0.98 at 25
 SX-IC-011,0.60,USD,estimate,2026-10-09,hand,LM337 TO-220 (master)
@@ -43,7 +43,7 @@ SX-POT-010,1.00,USD,estimate (Tayda),2026-10-09,hand,Alpha RD901F single
 SX-POT-011,1.90,GBP,estimate (Thonk),2026-10-09,hand,Alpha RD902F dual
 SX-POT-012,1.00,USD,estimate (Tayda),2026-10-09,hand,Alpha RD901F single
 SX-POT-013,1.90,GBP,estimate (Thonk),2026-10-09,hand,Alpha RD902F dual
-SX-SW-001,1.00,EUR,estimate (Electrokit),2026-10-09,hand,GPBS850N latching button
+SX-SW-001,6.48,SEK,Electrokit 41012905,2026-10-10,hand,"GPBS-850L latching button; 8.10 SEK incl. 25 % VAT at 25+ (12.50 at 1, 10 at 10+); Mouser 629-GPBS-850L 1.61 USD at 25+, 1.50 at 100+"
 SX-SW-002,2.00,EUR,estimate,2026-10-09,hand,ground lift switch (not chosen)
 SX-SW-003,0.317,USD,LCSC C309069,2026-10-11,hand,Legion SS11-BBIWG-R20-R rear-panel rocker (decision 157); off-board: counted with the frame in tools/costs.py
 SX-CONN-002,0.40,EUR,estimate (Mouser),2026-10-09,hand,KK 254 1x10 header

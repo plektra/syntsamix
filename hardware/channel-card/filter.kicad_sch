@@ -24514,7 +24514,7 @@
 				)
 			)
 		)
-		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
+		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"
 			(at 185.42 299.72 0)
 			(hide yes)
 			(show_name no)
@@ -24568,7 +24568,7 @@
 				)
 			)
 		)
-		(property "MPN" "GPBS850N"
+		(property "MPN" "GPBS850L"
 			(at 185.42 299.72 0)
 			(hide yes)
 			(show_name no)

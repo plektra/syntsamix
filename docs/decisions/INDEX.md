@@ -99,7 +99,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 72 | Level sheet: SSI2162 implementation | confirmed | [channel-card](channel-card.md) |
 | 73 | Low-cut at 100 Hz | confirmed | [channel-card](channel-card.md) |
 | 74 | Routing sheet: buffers and bus resistors | confirmed | [channel-card](channel-card.md) |
-| 75 | Buttons: GPBS850N with printed caps | confirmed | [mechanical](mechanical.md) |
+| 75 | Buttons: GPBS850L with printed caps | confirmed | [mechanical](mechanical.md) |
 | 76 | Channel meter sheet (LEDs 0805 under a printed bezel: 119) | confirmed, refined | [channel-card](channel-card.md) |
 | 77 | Test points: bare SMD pads | confirmed | [process](process.md) |
 | 78 | Channel chain and power sheet | confirmed | [channel-card](channel-card.md) |

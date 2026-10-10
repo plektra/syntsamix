@@ -5,13 +5,18 @@
 Estimate (tracked inputs, repeatable):
   python3 tools/costs.py estimate [--channels N[,N...]] [--md] [--fees-per-design]
                                                           cost of a build with N channel cards; several counts are shown
-                                                          side by side (default: the standard builds 4, 8 and 16); with
-                                                          --fees-per-design, shared extended types are billed per design
+                                                          side by side (default: the standard builds 4, 8 and 16); shared
+                                                          extended types are billed per design when jlc_fee_per_design is 1
+                                                          in overheads.csv (the default) or with --fees-per-design
+  python3 tools/costs.py sets [--channels 8] [--sets 1,5,10,20] [--md]
+                                                          one order of N identical mixers: order total and cost per set
+                                                          (volume breaks from the prices.csv breaks column; a design above
+                                                          Economic PCBA's board limit is priced as Standard PCBA)
   python3 tools/costs.py drivers [--board B] [--top N]    most expensive part types per board
   python3 tools/costs.py unpriced                         part types with no price yet (fill docs/costs/prices.csv)
   python3 tools/costs.py extended                         SMD part types that cost a JLCPCB extended-part fee or are consigned
 Inputs: the KiCad schematics (BOM by ProjectPN, DNP excluded; a symbol field Assembly = "hand ..." marks a user-soldered SMD part, decision 150), docs/lcsc-check.csv (LCSC price and
-JLCPCB class), docs/costs/prices.csv (prices for parts LCSC does not sell, and overrides),
+JLCPCB class, MOQ), docs/costs/prices.csv (prices for parts LCSC does not sell, and overrides; optional moq column),
 docs/costs/overheads.csv (exchange rates, PCB, panel, JLCPCB fee and frame figures).
 
 Ledger of money actually spent (private: git-ignored, kept in the main checkout so every worktree sees it;
@@ -38,7 +43,8 @@ BOARDS = {
 PER_CHANNEL = ("channel-card", "input-module-6p3")
 THT_HINTS = ("Potentiometer", "Jack", "PinHeader", "IDC-Header", "Molex", "TO-220", "Relay",
              "SW_Latching", "CP_Radial", "Fuse_2920", "LED_D3.0mm", "heatsink", "KPJX")
-NO_FEE = ("basic", "preferred")  # JLCPCB library classes without the extended-part fee (decision 137)
+NO_FEE = ("basic", "preferred")  # JLCPCB library classes without the extended-part fee in Economic PCBA (decision 137)
+JLC_SUPPLIED = ("basic", "preferred", "extended")  # classes JLCPCB buys for the assembly
 CATEGORIES = ("parts", "pcb", "assembly", "panels", "mechanical", "tools", "shipping", "tax", "other")
 LEDGER_FIELDS = ["date", "supplier", "ref", "category", "board", "description", "amount", "currency", "eur"]
 
@@ -78,6 +84,11 @@ def to_eur(amount, currency, o):
     return amount * rate
 
 
+def moq(text):
+    """Minimum order quantity from a CSV field; blank or unreadable means 1 (JLCPCB: no minimum for parts in stock)."""
+    return int(text) if text and str(text).strip().isdigit() else 1
+
+
 def prices(o):
     """ProjectPN -> dict(eur, source, jlc): jlc is basic, extended, consign or hand."""
     p = {}
@@ -88,11 +99,31 @@ def prices(o):
             except ValueError:
                 continue
             p[r["ProjectPN"]] = {"eur": to_eur(usd, "USD", o), "source": f"LCSC {r['LCSC']}",
-                                 "jlc": r.get("Class") or "extended"}
+                                 "jlc": r.get("Class") or "extended", "moq": moq(r.get("MOQ"))}
     for r in read_csv(os.path.join(ROOT, "docs", "costs", "prices.csv")):
         p[r["ProjectPN"]] = {"eur": to_eur(float(r["unit_price"]), r["currency"], o),
-                             "source": f"{r['source']} {r['date']}", "jlc": r["jlc"]}
+                             "source": f"{r['source']} {r['date']}", "jlc": r["jlc"], "moq": moq(r.get("moq")),
+                             "breaks": breaks(r.get("breaks"))}
     return p
+
+
+def breaks(text):
+    """Volume price breaks 'qty:factor;qty:factor' (factor times unit_price from that order quantity up)."""
+    out = []
+    for part in (text or "").split(";"):
+        if ":" in part:
+            q, f = part.split(":")
+            out.append((int(q), float(f)))
+    return sorted(out)
+
+
+def unit_eur(price, order_qty):
+    """Unit price at an order quantity, after any volume break."""
+    factor = 1.0
+    for q, f in price.get("breaks", []):
+        if order_qty >= q:
+            factor = f
+    return price["eur"] * factor
 
 
 E24 = (10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47, 51, 56, 62, 68, 75, 82, 91)
@@ -199,50 +230,106 @@ def compare(channel_counts, o, md, per_design=False):
         print(f"\nUnpriced part types (not in the totals): {len(unpriced)}; list them with: python3 tools/costs.py unpriced")
 
 
-def estimate_lines(channels, o, per_design=False):
-    """(lines, total, unpriced) of a build with the given number of channel cards."""
+def sets_compare(channels, set_counts, o, md):
+    """One order of N identical mixers for each N: order total by line, and the cost per set."""
+    runs = [estimate_lines(channels, o, sets=n) for n in set_counts]
+    labels = []
+    for r in runs:
+        for k, _ in r[0]:
+            if k.split(" (")[0] not in labels:
+                labels.append(k.split(" (")[0])
+    val = lambda r, k: sum(v for kk, v in r[0] if kk.split(" (")[0] == k)
+    heads = [f"{n} set{'s' if n > 1 else ''}" for n in set_counts]
+    title = f"Order of N {channels}-channel mixers, EUR before VAT and shipping"
+    if md:
+        print(f"| {title} | " + " | ".join(heads) + " |\n|---|" + "---:|" * len(heads))
+        for k in labels:
+            print(f"| {k} | " + " | ".join(f"{val(r, k):,.0f}" for r in runs) + " |")
+        print("| **Order total** | " + " | ".join(f"**{r[1]:,.0f}**" for r in runs) + " |")
+        print("| **Per set** | " + " | ".join(f"**{r[1] / n:,.0f}**" for r, n in zip(runs, set_counts)) + " |")
+    else:
+        print(f"{title:56s}" + "".join(f"{h:>10s}" for h in heads))
+        for k in labels:
+            print(f"  {k:54s}" + "".join(f"{val(r, k):10,.0f}" for r in runs))
+        print(f"  {'Order total':54s}" + "".join(f"{r[1]:10,.0f}" for r in runs))
+        print(f"  {'Per set':54s}" + "".join(f"{r[1] / n:10,.0f}" for r, n in zip(runs, set_counts)))
+    for r, n in zip(runs, set_counts):
+        fee = next(k for k, _ in r[0] if k.startswith("JLCPCB fees"))
+        if "Standard PCBA" in fee:
+            print(f"\n{n} sets: {fee.split('; ', 1)[1].rstrip(')')} (panelling of the 33 mm channel card not priced)")
+
+
+def estimate_lines(channels, o, per_design=False, sets=1):
+    """(lines, total, unpriced) of one order of `sets` identical mixers with `channels` channel cards each."""
     boms = all_boms(o)
-    count = {"channel-card": channels, "input-module-6p3": channels, "master": 1, "power": 1}
+    count = {"channel-card": channels * sets, "input-module-6p3": channels * sets, "master": sets, "power": sets}
     # JLCPCB assembles at least jlc_min_assembled boards of a design (the input module has no SMD parts)
     built = {b: n if b == "input-module-6p3" else max(n, int(o["jlc_min_assembled"])) for b, n in count.items()}
+    # order quantity per part type across all boards, for volume price breaks
+    order_qty = defaultdict(int)
+    for b, items in boms.items():
+        for i in items:
+            order_qty[i["pn"]] += i["qty"] * (count[b] if i["tht"] else built[b])
     lines, total, unpriced = [], 0.0, set()
     ext_types = set()
-    ext_billed = 0  # extended types counted once per design that uses them
+    designs = [b for b in BOARDS if b != "input-module-6p3"]
+    # Economic PCBA takes at most this many boards of a design unpanelled (its 250 mm panel cannot hold the
+    # 318 mm channel card); above it the design goes to Standard PCBA
+    standard = {b for b in designs if built[b] > o["jlc_economic_max_boards"]}
+    fees = moq_extra = 0.0
+    n_ext = 0
     for b, items in boms.items():
-        parts_one = sum(i["price"]["eur"] * i["qty"] for i in items if i["price"])
-        smd_one = sum(i["price"]["eur"] * i["qty"] for i in items if i["price"] and not i["tht"])
+        priced_items = [i for i in items if i["price"]]
+        parts_one = sum(unit_eur(i["price"], order_qty[i["pn"]]) * i["qty"] for i in priced_items)
+        smd_one = sum(unit_eur(i["price"], order_qty[i["pn"]]) * i["qty"] for i in priced_items if not i["tht"])
         unpriced |= {i["pn"] for i in items if not i["price"]}
         # through-hole parts are bought for the boards used; SMD parts for every board JLCPCB assembles
         cost = parts_one * count[b] + smd_one * (built[b] - count[b])
         lines.append((f"{b} parts ({count[b]} used, {built[b]} assembled)", cost))
         total += cost
+        # JLCPCB buys at least a part's minimum order quantity for each assembled design (in-stock parts: 1)
+        moq_extra += sum(max(0, i["price"].get("moq", 1) - i["qty"] * built[b]) * i["price"]["eur"]
+                         for i in priced_items if not i["tht"] and i["price"]["jlc"] in JLC_SUPPLIED)
+        if b not in designs:
+            continue
+        smd_types = {i["pn"] for i in items if not i["tht"]}
         board_ext = {i["pn"] for i in items if not i["tht"] and (not i["price"] or i["price"]["jlc"] not in NO_FEE)}
         ext_types |= board_ext
-        ext_billed += len(board_ext)
-    designs = [b for b in BOARDS if b != "input-module-6p3"]
-    smd_parts = sum(i["qty"] * built[b] for b, items in boms.items() for i in items if not i["tht"])
+        if b in standard:
+            # Standard PCBA: set-up and stencil per design, feeder loading on every basic and extended type
+            fees += to_eur(o["jlc_std_setup_usd"] + o["jlc_std_stencil_usd"]
+                           + o["jlc_std_loading_usd"] * len(smd_types), "USD", o)
+        else:
+            n_ext += len(board_ext)
+            fees += o["jlc_setup_eur_per_design"] + len(board_ext) * to_eur(o["jlc_extended_fee_usd"], "USD", o)
     per_design = per_design or bool(o.get("jlc_fee_per_design"))
-    n_ext = ext_billed if per_design else len(ext_types)
-    fees = (n_ext * to_eur(o["jlc_extended_fee_usd"], "USD", o)
-            + len(designs) * o["jlc_setup_eur_per_design"]
-            + smd_parts * to_eur(o["jlc_per_smd_part_usd"], "USD", o))
+    if not per_design:  # bill each Economic extended type once per order instead of once per design
+        econ_ext = set().union(*({i["pn"] for i in boms[b] if not i["tht"] and (not i["price"] or i["price"]["jlc"] not in NO_FEE)}
+                                 for b in designs if b not in standard))
+        fees -= (n_ext - len(econ_ext)) * to_eur(o["jlc_extended_fee_usd"], "USD", o)
+        n_ext = len(econ_ext)
+    smd_parts = sum(i["qty"] * built[b] for b, items in boms.items() for i in items if not i["tht"])
+    fees += smd_parts * to_eur(o["jlc_per_smd_part_usd"], "USD", o)
     billing = f"{n_ext} billed per design, {len(ext_types)} unique" if per_design else f"{len(ext_types)}"
-    lines.append((f"JLCPCB fees ({billing} extended/consigned types, {len(designs)} designs, {smd_parts} SMD parts)", fees))
+    note = f"; Standard PCBA for {', '.join(sorted(standard))}, above Economic's {o['jlc_economic_max_boards']:.0f} boards" if standard else ""
+    lines.append((f"JLCPCB fees ({billing} extended/consigned types, {len(designs)} designs, {smd_parts} SMD parts{note})", fees))
     total += fees
+    if moq_extra:
+        lines.append(("Parts bought up to JLCPCB minimum order quantities", moq_extra)); total += moq_extra
     pcb = (max(o["pcb_min_eur_per_design"], o["pcb_channel_eur"] * built["channel-card"])
-           + max(o["pcb_min_eur_per_design"], o["pcb_input_eur"] * channels)
+           + max(o["pcb_min_eur_per_design"], o["pcb_input_eur"] * count["input-module-6p3"])
            + max(o["pcb_min_eur_per_design"], o["pcb_master_eur"] * built["master"])
            + max(o["pcb_min_eur_per_design"], o["pcb_power_eur"] * built["power"]))
     lines.append(("PCBs", pcb)); total += pcb
-    panels = max(o["pcb_min_eur_per_design"], o["panel_strip_eur"] * channels) + o["panel_master_rear_eur"]
+    panels = max(o["pcb_min_eur_per_design"], o["panel_strip_eur"] * channels * sets) + o["panel_master_rear_eur"] * sets
     lines.append(("FR4 panels", panels)); total += panels
     # prototype brick up to one power board's worth of channels, full-size brick above (decision 145)
     brick_pn = "SX-MECH-003" if channels <= o["brick_proto_max_channels"] else "SX-MECH-005"
     # the power rocker sits on the rear panel, wired to the power board (decision 157): no schematic symbol
     frame = (o["frame_fixed_eur"] + o["frame_eur_per_channel"] * channels + prices(o)[brick_pn]["eur"]
-             + prices(o)["SX-SW-003"]["eur"])
+             + prices(o)["SX-SW-003"]["eur"]) * sets
     lines.append((f"Frame, hardware, ribbons, 24 V brick ({brick_pn}), power rocker", frame)); total += frame
-    knobs = o["knobs_eur_per_channel"] * channels + o["knobs_master_eur"]
+    knobs = (o["knobs_eur_per_channel"] * channels + o["knobs_master_eur"]) * sets
     lines.append(("Knobs and fader caps (no schematic symbols)", knobs)); total += knobs
     if any(i["price"] and i["price"]["jlc"] == "consign" for items in boms.values() for i in items):
         lines.append(("Consigned parts handling", o["consign_eur_per_order"])); total += o["consign_eur_per_order"]
@@ -337,6 +424,9 @@ def main():
     e.add_argument("--channels", default=STANDARD_BUILDS,
                    type=lambda v: [int(n) for n in v.split(",")])
     e.add_argument("--fees-per-design", action="store_true")
+    m = s.add_parser("sets"); m.add_argument("--md", action="store_true")
+    m.add_argument("--channels", type=int, default=8)
+    m.add_argument("--sets", default=[1, 5, 10, 20], type=lambda v: [int(n) for n in v.split(",")])
     d = s.add_parser("drivers"); d.add_argument("--board", choices=list(BOARDS)); d.add_argument("--top", type=int, default=10)
     s.add_parser("unpriced")
     s.add_parser("extended")
@@ -354,6 +444,8 @@ def main():
             estimate(o.channels[0], ov, o.md, o.fees_per_design)
         else:
             compare(o.channels, ov, o.md, o.fees_per_design)
+    elif o.cmd == "sets":
+        sets_compare(o.channels, o.sets, ov, o.md)
     elif o.cmd == "drivers":
         drivers(o.board, o.top, ov)
     elif o.cmd == "unpriced":

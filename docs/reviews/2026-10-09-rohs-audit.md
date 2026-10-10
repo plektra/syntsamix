@@ -41,5 +41,6 @@ Where a row's part number was incomplete, the note names the orderable part chec
 ## Other findings
 
 - Mouser describes **SX-SW-001 GPBS-850N** as "DPDT Non-Latching ON-(ON)", while the row (maker datasheet Rev 1, 2012) and decision 75 say latching. Most likely a catalogue text error; check the switches when the second Electrokit order arrives.
+  - Correction 2026-10-10: not a catalogue error. GPBS850N is the momentary part; the datasheet only gave the pinout and never said latching. The latching part (Electrokit 41012905) is GPBS850L, RoHS compliant per Mouser 629-GPBS-850L and DigiKey CW179-ND; `parts.csv` corrected.
 - Mouser lists the Omron relay G6K-2F-Y-DC12 under the maker name "Aratas"; SX-K-001 uses the LCSC Omron listing (C397194) instead.
 - Four rows (SX-IC-009, SX-IC-014, SX-IC-015, SX-K-001) had unquoted commas in their Notes; quoted properly, so every row now parses as 7 columns.

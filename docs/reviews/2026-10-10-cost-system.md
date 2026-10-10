@@ -152,6 +152,7 @@ Overall: console levers 1-6 together come to about 260-330 EUR on a 2,109 EUR co
 - DG412DY-T1-E3 C553989: price rose to 8-9 USD.
 - EEHZK1V331P (power SX-C-019) is back in stock: 5,666 at C278516. Power lever 4 can be closed.
 - GPBS-850N: Mouser lists the Electroswitch-branded part as Obsolete. CW Industries' part is active (804 in stock), but its Mouser listing says "Non-Latching ON-(ON)"; STATUS already flags this. Watch both points for a product.
+  - Correction 2026-10-10: the listing is right; GPBS-850N is the momentary twin. The latching part is GPBS-850L (Mouser 629-GPBS-850L, active, 1.61 USD at 25+; Electrokit 41012905 at 8.10 SEK incl. VAT at 25+). `parts.csv` and `prices.csv` corrected.
 
 ## Questions for the user
 

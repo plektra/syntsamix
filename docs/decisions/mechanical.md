@@ -8,7 +8,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 
 55. Channel strip follows the signal flow top to bottom: cutoff CV jack (106), trim, cutoff, resonance, filter bypass, AUX 1, AUX 2, SC send and compressor bus buttons, PFL, mute; meter (printed bezel, 119) beside the fader
 59. Desktop unit: one PCB plus FR4 top panel per strip, rear-panel PCB-mount jacks, aluminium 2020 rail frame cut to length with side cheeks, chain ribbons under the strips
-75. Buttons: latching DPDT CW Industries GPBS850N with 3D-printed translucent caps lit by an 0805 LED beside each switch (latching keeps every state through a power cut). Pressed = pins 2-3 and 5-6 closed
+75. Buttons: latching DPDT CW Industries GPBS850L with 3D-printed translucent caps lit by an 0805 LED beside each switch (latching keeps every state through a power cut). Pressed = pins 2-3 and 5-6 closed (GPBS850L datasheet Rev 2; the MPN was first recorded as GPBS850N, the momentary twin: erratum 2026-10-10)
 86. Master meter LEDs: small round 3 mm (form to be settled with the master panel, 93); no ready-made bar graphs. Channel meter: 119
 106. Strip envelope (contract `MECHANICAL.md`): pitch 35.0 mm, top panel strip 34.8 mm, channel PCB at most 33.0 mm wide, control area at most 320 mm deep. Cutoff CV jack centred on the strip directly above CUTOFF. Panels FR4 (aluminium a product option)
 107. Panel stack: PCB top 10.0 mm below the underside of the 1.6 mm FR4 panel, set by the Alpha 9 mm pots, which fix the panel with washer and nut. Fader screwed to the panel with two M2 screws through 3.5 mm spacers, screwed first and soldered after (the user's rule). Top-side parts under the panel at most 9 mm tall. Underside: 121

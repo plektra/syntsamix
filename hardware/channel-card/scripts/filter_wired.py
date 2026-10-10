@@ -197,7 +197,7 @@ d1=s.place("Device","D","D181","1N4148W",144.78,yd,180,fp="Diode_SMD:D_SOD-123",
 d2=s.place("Device","D","D182","1N4148W",157.48,yd,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
 s.wire(rp(1),(rp(1)[0],yd),d1(2)); s.wire(d1(1),d2(2)); s.wire(d2(1),rt(d2(1),2.54),dn(rt(d2(1),2.54),2.54)); s.power("-15V",dn(rt(d2(1),2.54),2.54))
 # bypass button
-b=s.place("Switch","SW_Push_DPDT","SW181","FILTER BYPASS (latching)",185.42,Y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
+b=s.place("Switch","SW_Push_DPDT","SW181","FILTER BYPASS (latching)",185.42,Y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
 s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
 s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
 nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label("BYP",rt(nd,10.16),0)

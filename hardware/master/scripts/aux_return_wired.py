@@ -16,7 +16,7 @@ R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
-SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
+SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"
 def draw(n):
     B=100*n+100
     s=Sheet(); NC=[]
@@ -197,7 +197,7 @@ def draw(n):
     LEDPN={"MUTE":P("SX-D-015",Manufacturer="Foshan NationStar",MPN="NCD0805R1",Supplier="LCSC",SupplierPN="C84256"),"DUCK":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"COMP":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297")}
     def button(name,k,x,y):
         sw,led,rl,rp=f"SW{B+k}",f"D{B+2+k}",35+2*k-1,35+2*k
-        b=s.place("Switch","SW_Push_DPDT",sw,f"RETURN {n} {name} (latching)",x,y,0,fp=SWFP,props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
+        b=s.place("Switch","SW_Push_DPDT",sw,f"RETURN {n} {name} (latching)",x,y,0,fp=SWFP,props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
         s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
         nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
         r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))

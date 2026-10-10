@@ -48,7 +48,7 @@ One column, top (rear) to bottom (front), following the signal flow:
 | Pots (RD901F-40, RD902F-40) | hold the panel: M7×0.75 bushing 5 mm, washer 0.4 mm and nut 2 mm (4.0 mm of thread used); shaft 6 mm T18 knurled, L = 15 mm from the body face, about 13.4 mm above the panel, push-on knobs (decision 114); bushing thread from Alpha's RD902F drawing, confirmed by Thonk support for the Thonk T18 pots (2026-10-09); check the nut fit on the first delivery |
 | Fader (PTA6043, DP lever 15 mm) | frame top 6.5 mm above the PCB; screwed to the panel with two M2 screws (holes 71 mm apart) through 3.5 mm spacers; lever about 10 mm above the panel; slot about 4.5 × 65 mm |
 | Top-side height limit | at most 9.0 mm under the panel (1 mm clearance), except parts that pass through it |
-| Buttons (GPBS850N) | printed caps take up the height (measure a sample) |
+| Buttons (GPBS850L) | printed caps take up the height (measure a sample) |
 | Channel meter (decision 119) | 0805 LEDs on the PCB under a 3D-printed bezel 11.6 mm tall, face flush with the panel top, through one slot about 5 × 49 mm; 8 windows at 6.0 mm pitch (about 4 × 4.5 mm, 1.5 mm walls); located by the slot and two printed pegs in 1.5 mm non-plated PCB holes; column position across the strip: *set at channel card layout* |
 | Cutoff CV jack | 3.5 mm Thonkiconn PJ398SM (decision 118): body 9 mm on the PCB, 1 mm printed washer on the unthreaded bushing collar to the panel underside, M6×0.5 nut on top (2.9 mm of thread left) |
 

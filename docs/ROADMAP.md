@@ -49,9 +49,10 @@ The user asked for a large cost cut (2026-10-09), then set the frame: the protot
 
 | Build | Total |
 |---|---|
-| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794; after 153, 155: €788; 153 on the master: €785; power board 156-159, 2026-10-11: €764) |
-| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074; after 153, 155: €1,069; 153 on the master: €1,066; power board 156-159: €1,045) |
-| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671; after 153, 155: €1,665; 153 on the master: €1,663; power board 156-159: €1,641) |
+| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794; after 153, 155: €788; 153 on the master: €785; power board 156-159, 2026-10-11: €764; latching button price, JLCPCB fees per design at $3.07, Thonk volume breaks: €778) |
+| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074; after 153, 155: €1,069; 153 on the master: €1,066; power board 156-159: €1,045; button, fee model, breaks: €1,040) |
+| Series of 8-channel mixers, one order (`tools/costs.py sets`) | per set €1,040 / €854 / €784 / €772 for 1 / 5 / 10 / 20 sets (2026-10-11); from 5 sets the channel cards go to Standard PCBA (over 30 boards), panelling the 33 mm card not priced; volume breaks only where known (Thonk) |
+| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671; after 153, 155: €1,665; 153 on the master: €1,663; power board 156-159: €1,641; button, fee model, breaks: €1,600) |
 
 The 2026-10-10 figures include decisions 139-143 and 145. The 8-channel build assumes one power board carries 8 cards plus the master (power lever 1's open check); the 16-channel figure still prices one power board, although the full-size supply is not designed yet (decision 100).
 

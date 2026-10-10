@@ -7,7 +7,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 ## Where it stands
 
 - Schematic complete: four sheets (input and clock, +20 V buck, −20 V inverter, outputs), every netlist check 0 problems, ERC 0 errors 0 warnings (decision 100; start-up ramp on both converters). Every part is chosen and every value is E24 (decisions 156, 158); the power switch is a rear-panel rocker wired to J102 (decision 157); D201 sits on an SMA footprint (decision 159). Cost levers all closed (`CHECKLISTS.md`).
-- Cost (2026-10-11, `tools/costs.py estimate`): €764 / €1,045 / €1,641 for 4 / 8 / 16 channels, down about €20 per build with decisions 156-159 (six fee types fewer on this board, cheap rocker); the 240k feedback resistor is the board's only extended resistor.
+- Cost (2026-10-11, `tools/costs.py estimate`): €764 / €1,045 / €1,641 for 4 / 8 / 16 channels, down about €20 per build with decisions 156-159 (six fee types fewer on this board, cheap rocker); the 240k feedback resistor is the board's only extended resistor. Merged with the button price and the JLCPCB fee model fix (fees per design at $3.07) and Thonk volume breaks: €778 / €1,040 / €1,600.
 - Converter values derived in `scripts/design.py`; LC filter simulated (about 47 dB at 400 kHz at the filter, 63 dB at the cards; peaking about 4.4 dB near 4 kHz).
 - PCB: not started.
 
