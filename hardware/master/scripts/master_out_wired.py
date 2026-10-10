@@ -17,15 +17,16 @@ R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric";
 SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; CBIP="Capacitor_SMD:C_Elec_6.3x5.4"
 JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 TI={"Manufacturer":"Texas Instruments"}
+ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**kw))
 def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
 def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
-def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**TI))
+def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**ST072))
 def OPA(ref,unit,x,y): return s.place("Amplifier_Operational","Opamp_Dual",ref,"OPA2171",x,y,0,unit,SO8,P("SX-IC-021",**TI,MPN="OPA2171AIDR"))   # no OPA2171 symbol in the KiCad library; same pinout
 def DZ(ref,x,y,rot): return s.place("Device","D_Zener",ref,"6V2",x,y,rot,fp="Diode_SMD:D_SOD-123",props=P("SX-D-001"))
-def DR(ref,x,y,rot): return s.place("Device","D",ref,"M7 (1N4007)",x,y,rot,fp="Diode_SMD:D_SMA",props=P("SX-D-008",Note="Phantom-power surge clamp (THAT doc 600078 Figure 8)"))
+def DR(ref,x,y,rot): return s.place("Device","D",ref,"1N4007W",x,y,rot,fp="Diode_SMD:D_SOD-123F",props=P("SX-D-008",Manufacturer="hongjiacheng",MPN="1N4007W",Supplier="LCSC",SupplierPN="C18199088",Note="Phantom-power surge clamp (THAT doc 600078 Figure 8); SOD-123FL, fee-free (decision 137)"))
 def DS(ref,x,y,rot): return s.place("Device","D",ref,"1N4148W",x,y,rot,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
 gnd=lambda at,rot=0: s.power("GNDA",at,rot); pgnd=lambda at,rot=0: s.power("GNDPWR",at,rot)
 up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
@@ -36,7 +37,7 @@ def gnd_plus(p): s.wire(p,lt(p),up(lt(p))); gnd(up(lt(p)),180)
 # ======================================================================== VCA, I-V, soft clip
 XV,YV=101.6,81.28
 v=s.place("syntsamix","SSI2162","U701","SSI2162",XV,YV,0,fp="Package_SO:SSOP-10_3.9x4.9mm_P1.00mm",
-          props=P("SX-IC-002",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
+          props=P("SX-IC-002",Assembly="hand (decision 150)",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
 s.wire(v("10"),up(v("10"),5.08)); s.power("+15V",up(v("10"),5.08)); s.wire(v("6"),dn(v("6"),5.08)); s.power("-15V",dn(v("6"),5.08))
 s.wire(v("5"),dn(v("5"),5.08)); gnd(dn(v("5"),5.08))
 vc1,vc2=dn(v("3"),5.08),dn(v("8"),5.08); s.wire(v("3"),vc1); s.wire(v("8"),vc2); s.wire(vc1,vc2); s.wire(vc1,lt(vc1,5.08)); lab(lt(vc1,5.08),"VC",180)
@@ -72,7 +73,7 @@ def output(side,Yt,u_ref,ccp,ccn,dpp,dpn,dnp,dnn,k_ref,rgh,rgc,j_ref,coil_r,fly)
     Xt=223.52; Xr=Xt+76.2; Xj=Xr-30.48
     lab((Xt-20.32,Yt),f"MAIN_{side}_OUT",180)
     u=s.place("syntsamix","THAT1646",u_ref,"DRV135UA",Xt,Yt,0,fp=SO8,
-              props=P("SX-IC-025",Manufacturer="Texas Instruments",MPN="DRV135UA/2K5",Supplier="LCSC",SupplierPN="C544663",Note="DRV135 replaces the end-of-life THAT1646 (decision 125); same SO-8 pinout (TI SBOS094B), symbol kept"))
+              props=P("SX-IC-025",Assembly="hand (decision 150)",Manufacturer="Texas Instruments",MPN="DRV135UA/2K5",Supplier="LCSC",SupplierPN="C544663",Note="DRV135 replaces the end-of-life THAT1646 (decision 125); same SO-8 pinout (TI SBOS094B), symbol kept"))
     s.wire((Xt-20.32,Yt),u("4"))
     s.wire(u("6"),up(u("6"),5.08)); s.power("+15V",up(u("6"),5.08)); s.wire(u("5"),dn(u("5"),5.08)); s.power("-15V",dn(u("5"),5.08))
     s.wire(u("3"),dn(u("3"),5.08)); gnd(dn(u("3"),5.08))
@@ -118,17 +119,23 @@ s.wire(fv(1),up(fv(1),5.08)); s.power("-15V",up(fv(1),5.08),180); s.wire(fv(3),d
 # Its inputs have back-to-back diodes, so the superdiodes (open loop when off) stay on the TL072 U706 (decision 102)
 bu=OPA("U705",1,68.58,Y+2.54); s.wire(fv(2),bu(3))
 bo=(78.74,Y+2.54); s.wire(bu(1),bo,(VBX,Y+2.54)); s.wire(bo,(78.74,Y+10.16),(58.42,Y+10.16),(58.42,bu(2)[1]),bu(2))
-ra=R("R714","113k","SX-R-023",170.18,Y-20.32); s.wire((VBX,Y-20.32),ra(1)); s.wire(ra(2),(SUMX,Y-20.32))
-rc=R("R715","453k","SX-R-024",170.18,Y-10.16); s.wire((152.4,Y-10.16),rc(1)); s.power("+15V",(152.4,Y-10.16)); s.wire(rc(2),(SUMX,Y-10.16))
-def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn):
+# E24 pairs as the channel's level law (decision 140): 113k = 100k + 13k, 450k = 300k + 150k
+ra=R("R714","100k","SX-R-007",165.1,Y-20.32); ra2=R("R734","13k","SX-R-011",180.34,Y-20.32)
+s.wire((VBX,Y-20.32),ra(1)); s.wire(ra(2),ra2(1)); s.wire(ra2(2),(SUMX,Y-20.32))
+rc=R("R715","300k","SX-R-096",165.1,Y-10.16); rc2=R("R735","150k","SX-R-098",180.34,Y-10.16)
+s.wire((152.4,Y-10.16),rc(1)); s.power("+15V",(152.4,Y-10.16)); s.wire(rc(2),rc2(1)); s.wire(rc2(2),(SUMX,Y-10.16))
+def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn,rq2=None):
     a=R(rp,"100k","SX-R-007",106.68,y); s.wire((VBX,y),a(1)); nd=(114.3,y); s.wire(a(2),nd)
-    q=R(rq,rqval,rqpn,114.3,y-10.16,0); s.wire(nd,q(2)); s.wire(q(1),up(q(1),1.27)); s.power("+15V",up(q(1),1.27))
+    q=R(rq,rqval,rqpn,114.3,y-10.16,0); s.wire(nd,q(2))
+    if rq2:   # second part of an E24 pair above the first
+        q2=R(rq2[0],rq2[1],rq2[2],114.3,y-20.32,0); s.wire(q(1),q2(2)); q=q2
+    s.wire(q(1),up(q(1),1.27)); s.power("+15V",up(q(1),1.27))
     o=TL(opa,unit,129.54,y+2.54); s.wire(nd,o(pins[0]))
     dd=DS(d,144.78,y+2.54,0); s.wire(o(pins[2]),dd(1)); k=(152.4,y+2.54); s.wire(dd(2),k)
     s.wire(k,(k[0],y+10.16),(119.38,y+10.16),(119.38,o(pins[1])[1]),o(pins[1]))
     r=R(rs,rsval,rspn,200.66,y+2.54); s.wire(k,r(1)); s.wire(r(2),(SUMX,y+2.54))
-superdiode(Y+17.78,"R716","R717","221k","SX-R-025","U97062",2,(5,6,7),"D713","R718","63k4","SX-R-026")
-superdiode(Y+50.8,"R719","R720","124k","SX-R-027","U706",1,(3,2,1),"D714","R721","8k66","SX-R-014")
+superdiode(Y+17.78,"R716","R717","220k","SX-R-103","U97062",2,(5,6,7),"D713","R718","62k","SX-R-102")
+superdiode(Y+50.8,"R719","R720","100k","SX-R-007","U706",1,(3,2,1),"D714","R721","9k1","SX-R-095",("R736","24k","SX-R-031"))   # 124k = 100k + 24k
 for y1,y2 in ((Y-20.32,Y+2.54),(Y+2.54,Y+17.78),(Y+17.78,Y+50.8)): s.wire((VBX,y1),(VBX,y2))
 taps=sorted({Y-38.1,Y-30.48,Y-20.32,Y-10.16,Y+5.08,Y+20.32,Y+53.34})
 for y1,y2 in zip(taps,taps[1:]): s.wire((SUMX,y1),(SUMX,y2))
@@ -170,7 +177,9 @@ s.wire(qc,up(qc,7.62)); hier(up(qc,7.62),"RLY_N",90,"output")
 cc=s.place("Comparator","LM339","U97073","LM339",XC+76.2,YC+50.8,0,3,SO14,P("SX-IC-009",**TI))
 s.wire(cc(11),lt(cc(11),5.08)); lab(lt(cc(11),5.08),"REF",180)
 nd=lt(cc(10),17.78); s.wire(cc(10),nd)
-r=R("R732","22k6","SX-R-071",nd[0],nd[1]-7.62,0); s.wire(nd,r(2)); s.wire(r(1),up(r(1),2.54)); s.power("+15V",up(r(1),2.54))
+# 22k6 as an E24 pair, 22k + 560R (decision 146): trip at -17.98 V instead of -17.93 V
+r=R("R732","22k","SX-R-047",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
+r2=R("R737","560","SX-R-094",nd[0],nd[1]-17.78,0); s.wire(r(1),r2(2)); s.wire(r2(1),up(r2(1),2.54)); s.power("+15V",up(r2(1),2.54))
 r=R("R733","100k","SX-R-007",nd[0],nd[1]+7.62,0); s.wire(nd,r(1)); s.wire(r(2),dn(r(2),7.62)); hier(dn(r(2),7.62),"-20V_RAW",90,"input")
 s.wire(cc(13),rt(cc(13),5.08)); lab(rt(cc(13),5.08),"UV_O",0)
 s.wire(ref,dn(ref,15.24)); lab(dn(ref,15.24),"REF",0)

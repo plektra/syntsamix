@@ -6,7 +6,8 @@ Spec section 4 (12 segments per side), decisions 76 and 86. Per side: the signal
 inverse each drive a superdiode (TL072) charging a 1 µF hold through 1 kΩ (about 1 ms
 attack); 680 kΩ gives a fall of 20 dB in about 1.5 s; a follower drives 12 LM339
 comparators. One 1% ladder from +15 V sets both sides' thresholds relative to +4 dBu peak:
--30 -20 -15 -10 -6 -3 0 +3 +6 +9 +12 and clip (+13, about +17 dBu), within 0.04 dB.
+-30 -20 -15 -10 -6 -3 0 +3 +6 +9 +12 and clip (+13, about +17 dBu), within 0.14 dB
+(fee-free E24 values at about 0.45 mA, decision 146).
 LEDs: 3 mm, about 2 mA from +5 V into the LM339 outputs (ground PGND).
 """
 import json,os

@@ -57,3 +57,13 @@ E24 pairs (one extra placement each, no fee): R183 + R187 (162k, V/oct feedback)
 | 110 R (SX-R-022) | extended | none found: 110 Ω 1 % 0805 had no fee-free part | done 2026-10-10: the meter ladder no longer uses it (decision 140) |
 
 No fee-free part was found for the LM339, the 220 pF C0G 0805 or the 10 µF 35 V SMD electrolytic. `python3 tools/costs.py extended` lists every type that still costs a fee.
+
+### From the master session (2026-10-10, for this board to decide)
+
+Fee types the channel shares with the master: the fee only goes away when both boards drop the part. The master checked these candidates (`hardware/master/CHECKLISTS.md`, Component values):
+
+- **OPA2171 → LM358DR2G: dropped.** onsemi LM358/D Rev. 27 gives no output figure within 0.5 V of V− while sinking, and ±15.1 V is only 0.9 V from its ±16 V rating; the fader buffer needs the −15 V end (decision 102).
+- **10 µF / 47 µF SMD electrolytics → ceramic: not on the LM337 output.** onsemi LM337/D Rev. 11 p. 7 warns ceramic or low-ESR output capacitors can oscillate. JLCPCB has no fee-free SMD aluminium electrolytic.
+- **220p C0G (SX-C-001):** no fee-free C0G 220p exists; 2 × 100p C0G basic (C1790, 200 pF) or 220p X7R basic (C107145) would remove the type if both boards switch (master: AUX return RFI and C407).
+- **TL062 (SX-IC-024):** a TL072 instead would remove the type on both boards but undoes decisions 123 and 126 (about +1.2 mA per amplifier).
+- **LM339 → LM393 (basic, dual):** twice the packages; not recommended.

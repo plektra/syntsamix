@@ -17,7 +17,7 @@ P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**kw))
 def C(ref,val,pn,x,y,rot=90): return s.place("Device","C",ref,val,x,y,rot,fp=C0805,props=P(pn))
 def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
-def DG(ref,unit,x,y): return s.place("Analog_Switch","DG411xY",ref,"DG411DY",x,y,0,unit,SO16,P("SX-IC-017",**VI))
+def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI,Assembly="hand (decision 150)",))
 gnd=lambda at,rot=0: s.power("GNDA",at,rot)
 up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
 def lab(at,name,rot=0): s.label(name,at,rot)
@@ -65,11 +65,11 @@ for n,B,y0 in ((1,600,30.48),(2,620,215.9)):
     pins={1:(2,3,1),2:(6,7,8),3:(10,11,9),4:(15,14,16)}
     sw=DG(fb,fbu,116.84,yl+20.32); pl,pr,pc=pins[fbu]
     s.wire((nd[0],yl+10.16),(nd[0],yl+20.32),sw(pl)); rr=R(r(4),"47k","SX-R-032",133.35,yl+20.32); s.wire(sw(pr),rr(1)); s.wire(rr(2),(o[0],yl+20.32),(o[0],yl+10.16))
-    ctrl(sw(pc),f"DET{n}")
+    ctrl(sw(pc),f"DET{n}" if n==2 else "MONO1")
     sw=DG(ma,mau,116.84,yl+35.56); pl,pr,pc=pins[mau]
     s.wire((nd[0],yl+20.32),(nd[0],yl+35.56),sw(pl)); rr=R(r(3),"47k","SX-R-032",133.35,yl+35.56); s.wire(sw(pr),rr(1))
     s.wire(rr(2),rt(rr(2),7.62)); lab(rt(rr(2),7.62),f"R{n}_W",0)
-    ctrl(sw(pc),f"DET{n}")
+    ctrl(sw(pc),f"DET{n}" if n==2 else "MONO1")
     output(o,f"J{B+1}",f"AUX{n} SEND L/MONO",r(7),r(8),f"TP{B+1}",f"L{n}_O")
     # R stage
     yr=yl+66.04
@@ -79,6 +79,14 @@ for n,B,y0 in ((1,600,30.48),(2,620,215.9)):
     dd=(170.18,yr+30.48); s.wire((157.48,dd[1]),dd); lab((157.48,dd[1]),f"DET{n}",180)
     rp=R(r(11),"100k","SX-R-007",dd[0],dd[1]-7.62,0); s.wire(dd,rp(2)); s.wire(rp(1),up(rp(1),2.54)); s.power("+5V",up(rp(1),2.54))
     c=C(f"C{B+1}","100n","SX-C-002",dd[0],dd[1]+7.62,0); s.wire(dd,c(1)); gnd(c(2))
+
+# DET1 inverter: send 1 uses the DG413's normally open sections (on at logic 1), so MONO1 = not DET1
+yi=185.42; s.wire((55.88,yi),(60.96,yi)); lab((55.88,yi),"DET1",180)
+rb=R("R612","100k","SX-R-007",64.77,yi); s.wire((60.96,yi),rb(1))
+qi=s.place("Transistor_BJT","Q_NPN_BEC","Q601","MMBT3904",rb(2)[0]+7.62,yi,0,fp="Package_TO_SOT_SMD:SOT-23",props=P("SX-Q-001",Manufacturer="onsemi",MPN="MMBT3904LT1G"))
+s.wire(rb(2),qi(1)); s.wire(qi(2),dn(qi(2),2.54)); s.power("GNDPWR",dn(qi(2),2.54))   # emitter to PGND (invariant 4, decision 98)
+cn=up(qi(3),5.08); s.wire(qi(3),cn); s.wire(cn,rt(cn,10.16)); lab(rt(cn,10.16),"MONO1",0)
+rc=R("R613","100k","SX-R-007",cn[0],cn[1]-7.62,0); s.wire(cn,rc(2)); s.wire(rc(1),up(rc(1),2.54)); s.power("+5V",up(rc(1),2.54))
 
 # supplies and decoupling
 Y2=375.92; x=33.02

@@ -13,6 +13,7 @@ from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}
+ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**k): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**k))
@@ -20,7 +21,7 @@ def C(ref,val,pn,x,y,rot=0): return s.place("Device","C",ref,val,x,y,rot,fp=C080
 LOWP={"U802","U98022","U98023","U804","U98042","U98043"}   # TL062 (decision 126): light DC and meter loads
 def OA(ref,unit,x,y):
     v="TL062" if ref in LOWP else "TL072"
-    return s.place("Amplifier_Operational",v,ref,v,x,y,0,unit,SO8,P("SX-IC-024" if ref in LOWP else "SX-IC-007",**TI,**({"MPN":"TL062CDR","Supplier":"LCSC","SupplierPN":"C67471"} if ref in LOWP else {})))
+    return s.place("Amplifier_Operational",v,ref,v,x,y,0,unit,SO8,P("SX-IC-024" if ref in LOWP else "SX-IC-007",**({**TI,"MPN":"TL062CDR","Supplier":"LCSC","SupplierPN":"C67471"} if ref in LOWP else ST072)))
 gnd=lambda at,rot=0: s.power("GNDA",at,rot); pgnd=lambda at,rot=0: s.power("GNDPWR",at,rot)
 up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
 
@@ -59,8 +60,9 @@ for side,base,sdp,sdn,inv,fol,rin,rfb,rd,ch,tp in (
 
 # ------------------------------------------------------------- ladder and comparator/LED columns (clip on top)
 UNIT={1:(5,4,2),2:(7,6,1),3:(11,10,13),4:(9,8,14)}
-vals=["115k","13k3","31k6","22k6","16k2","11k3","8k06","5k62","5k11","3k83","2k15","1k87","866"]   # R811 (top) ... R823 (bottom)
-pns=[f"SX-R-{n:03d}" for n in range(68,81)]
+# fee-free E24 ladder, about 0.45 mA (decision 146): thresholds within 0.14 dB, 0.19 dB with the LM339 maximum input bias
+vals=["16k","1k8","4k7","3k","2k4","1k5","1k2","750","750","510","300","270","120"]   # R811 (top) ... R823 (bottom)
+pns=["SX-R-005","SX-R-101","SX-R-004","SX-R-063","SX-R-108","SX-R-044","SX-R-109","SX-R-042","SX-R-042","SX-R-110","SX-R-111","SX-R-112","SX-R-045"]
 names={1:"-30",2:"-20",3:"-15",4:"-10",5:"-6",6:"-3",7:"0",8:"+3",9:"+6",10:"+9",11:"+12",12:"CLIP"}
 colour={k:("green" if k<=7 else "yellow" if k<=10 else "red") for k in range(1,13)}
 ledpn={"green":"SX-D-004","yellow":"SX-D-005","red":"SX-D-006"}

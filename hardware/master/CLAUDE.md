@@ -11,7 +11,7 @@ KiCad project `master.kicad_pro`: compressor, master section, outputs. Decisions
 | Compressor | `compressor_*` | 4xx | 4 |
 | Sidechain and ducking | `sidechain_*` | 5xx | 5 |
 | AUX sends | `aux_sends_*` | 6xx | 6 |
-| Master out | `master_out_*` | 701-731 | 7 |
+| Master out | `master_out_*` | 701-750 | 7 |
 | Headphones | `headphones_*` | 751+ | 0 |
 | Master meter | `meter_*` | 8xx | 8 |
 | Power | `power_*` | 9xx | 9 |
@@ -29,6 +29,7 @@ Power prefixes 0-9 are all used. References stay three digits.
 - Never hang a resistor (inverter input, divider) on a hold capacitor (C504 in the ducker, the compressor's peak hold): it adds a discharge path and shortens the release. Get the polarity upstream instead (decision 104).
 - After `rebuild_all.sh`, restoring the root `master.kicad_sch` from git is safe: the sheet instance paths still resolve (checked with a netlist export, 2026-10-08).
 - Raw rails reach the Master out sheet as hierarchical labels from the Power sheet (+20V_RAW, −20V_RAW, decision 128); a new root sheet pin is added by hand in `master.kicad_sch` (copy an existing `(pin ...)` block on a free 2.54 mm slot of the sheet edge), then `root_links.py` (run by `rebuild_all.sh`) labels it.
+- Hand-soldered SMD parts carry the symbol field Assembly = "hand (decision 150)" (DG413, SSI2162, DRV135UA, AS3046D on the master); `tools/costs.py` treats them as user-soldered per symbol. Keep the field on any new symbol of these types.
 - Op amp type per reference: `LOWP` in `compressor_wired.py` and `meter_wired.py` lists the TL062 positions (decision 126); add references there, including the temporary multi-unit names (`U9<ref><unit>`).
 
 ## Component values and parts (decisions 134, 137)

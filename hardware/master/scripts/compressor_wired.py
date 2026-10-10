@@ -17,6 +17,7 @@ R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
+ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
 SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
@@ -27,9 +28,9 @@ def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE553
 LOWP={"U409","U94092","U94093","U410","U94102","U94103"}   # TL062 (decision 126): light DC and meter loads
 def TL(ref,unit,x,y):
     v="TL062" if ref in LOWP else "TL072"
-    return s.place("Amplifier_Operational",v,ref,v,x,y,0,unit,SO8,P("SX-IC-024" if ref in LOWP else "SX-IC-007",**TI,**({"MPN":"TL062CDR","Supplier":"LCSC","SupplierPN":"C67471"} if ref in LOWP else {})))
-def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI))
-def Q(ref,unit,x,y): return s.place("syntsamix","AS3046",ref,"AS3046D",x,y,0,unit,SO14,P("SX-IC-013",Manufacturer="Alfa",MPN="AS3046D",Supplier="Electric Druid"))
+    return s.place("Amplifier_Operational",v,ref,v,x,y,0,unit,SO8,P("SX-IC-024" if ref in LOWP else "SX-IC-007",**({**TI,"MPN":"TL062CDR","Supplier":"LCSC","SupplierPN":"C67471"} if ref in LOWP else ST072)))
+def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI,Assembly="hand (decision 150)",))
+def Q(ref,unit,x,y): return s.place("syntsamix","AS3046",ref,"AS3046D",x,y,0,unit,SO14,P("SX-IC-013",Assembly="hand (decision 150)",Manufacturer="Alfa",MPN="AS3046D",Supplier="Electric Druid"))
 gnd=lambda at,rot=0: s.power("GNDA",at,rot)
 up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
 def lab(at,name,rot=0): s.label(name,at,rot)
@@ -45,7 +46,7 @@ XA,XN=25.4,38.1                       # hierarchical inputs, input node
 ROWS={"L":dict(dry=30.48,wet=55.88),"R":dict(dry=132.08,wet=106.68)}
 XV,YV=116.84,81.28
 v=s.place("syntsamix","SSI2162","U401","SSI2162",XV,YV,0,fp="Package_SO:SSOP-10_3.9x4.9mm_P1.00mm",
-          props=P("SX-IC-002",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
+          props=P("SX-IC-002",Assembly="hand (decision 150)",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
 s.wire(v("10"),up(v("10"),5.08)); s.power("+15V",up(v("10"),5.08)); s.wire(v("6"),dn(v("6"),5.08)); s.power("-15V",dn(v("6"),5.08))
 s.wire(v("5"),dn(v("5"),5.08)); gnd(dn(v("5"),5.08))
 vc1,vc2=dn(v("3"),5.08),dn(v("8"),5.08); s.wire(v("3"),vc1); s.wire(v("8"),vc2); s.wire(vc1,vc2); s.wire(vc1,lt(vc1,5.08)); lab(lt(vc1,5.08),"VC",180)
@@ -127,11 +128,13 @@ em=(o2[0],q("3")[1]+2.54); s.wire(q("3"),(q("3")[0],em[1]),em,r419(1))
 d3=D("D403",em[0]+8.89,em[1],180); s.wire(em,d3(2)); s.wire(d3(1),rt(d3(1),2.54)); gnd(rt(d3(1),2.54))
 c=C("C407","220p C0G","SX-C-001",141.0,YL+10.16); s.wire((127.0,YL),(127.0,YL+10.16),c(1)); s.wire(c(2),(o2[0],YL+10.16),o2)
 ref=(167.64,q("5")[1]-2.54); s.wire(q("5"),(q("5")[0],ref[1]),ref,(ref[0],q("4")[1]),q("4"))
-r=R("R420","560k","SX-R-053",ref[0],ref[1]-8.89,0); s.wire(ref,r(2)); s.wire(r(1),up(r(1),2.54)); s.power("+15V",up(r(1),2.54))
+# reference current: 560k as an E24 pair, 510k + 51k (decision 147)
+r=R("R420","510k","SX-R-114",ref[0],ref[1]-8.89,0); s.wire(ref,r(2))
+r2=R("R456","51k","SX-R-093",ref[0],ref[1]-19.05,0); s.wire(r(1),r2(2)); s.wire(r2(1),up(r2(1),2.54)); s.power("+15V",up(r2(1),2.54))
 # reference buffer (A3) and gain -11 with the ERA-V33 (A4)
 a3=TL("U407",1,190.5,ref[1]+2.54); s.wire(ref,a3(3))
 vl=follower(a3,2,1,below=7.62)
-r421=R("R421","1k +3300 ppm/K","SX-R-021",210.82,vl[1],fp="Resistor_SMD:R_0603_1608Metric",Manufacturer="Panasonic",MPN="ERA-V33J102V",Note="Place against U402 (AS3046D) for thermal tracking")
+r421=R("R421","1k","SX-R-035",210.82,vl[1],Note="Plain 1k on the prototype (decision 149); temperature compensation in the backlog: keep it next to U402 (AS3046D)")
 s.wire(vl,r421(1))
 a4=TL("U94072",2,236.22,vl[1]-2.54); gn=(220.98,vl[1]); s.wire(r421(2),gn,a4(6)); gnd_plus(a4(5))
 va=(248.92,a4(7)[1]); s.wire(a4(7),va)
@@ -168,7 +171,9 @@ s.power("-15V",dn(q5("13"),5.08)); NC.append(q5("14"))
 YG=279.4
 rva=s.place("Device","R_Potentiometer","RV403","AMOUNT 10k lin",40.64,YG,0,fp=POT1,props=P("SX-POT-006",Note="Panel AMOUNT: CCW = 0 dB, CW = 30 dB (threshold down, makeup up)"))
 s.wire(rva(1),up(rva(1),5.08)); gnd(up(rva(1),5.08),180)
-r=R("R426","140k","SX-R-058",rva(3)[0],rva(3)[1]+7.62,0); s.wire(rva(3),r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("+15V",dn(r(2),5.08),180)
+# AMOUNT top: 140k as an E24 pair, 120k + 20k (decision 147)
+r=R("R426","120k","SX-R-115",rva(3)[0],rva(3)[1]+7.62,0); s.wire(rva(3),r(1))
+r2=R("R457","20k","SX-R-051",rva(3)[0],rva(3)[1]+17.78,0); s.wire(r(2),r2(1)); s.wire(r2(2),dn(r2(2),5.08)); s.power("+15V",dn(r2(2),5.08),180)
 sw1=DG("U413",1,63.5,YG); s.wire(rva(2),sw1(2)); s.wire(sw1(1),dn(sw1(1),7.62)); lab(dn(sw1(1),7.62),"ON_CTRL",270)
 r=R("R427","100k","SX-R-007",81.28,YG); s.wire(sw1(3),r(1)); ar=(91.44,YG); s.wire(r(2),ar)
 c=C("C409","220n","SX-C-014",ar[0],YG+10.16,0); s.wire(ar,c(1)); gnd(c(2))
@@ -227,7 +232,8 @@ s.wire(gp,rt(gp,7.62)); lab(rt(gp,7.62),"GRP",0)
 
 # ======================================================================== gain-reduction LEDs
 XL,YT=416.56,40.64
-ladder=[("R443","453k","SX-R-024"),("R444","5k1","SX-R-064"),("R445","4k02","SX-R-038"),("R446","3k","SX-R-063"),("R447","2k","SX-R-003"),("R448","1k","SX-R-035")]
+# fee-free E24 (decision 147): LEDs at 0.97 / 2.9 / 5.8 / 9.9 / 14.9 dB of gain reduction (was 1 / 3 / 6 / 10 / 15)
+ladder=[("R443","470k","SX-R-048"),("R444","5k1","SX-R-064"),("R445","4k3","SX-R-113"),("R446","3k","SX-R-063"),("R447","2k","SX-R-003"),("R448","1k","SX-R-035")]
 y=YT; s.power("+15V",(XL,y)); taps=[]
 for i,(ref,val,pn) in enumerate(ladder):
     r=R(ref,val,pn,XL,y+7.62,0); s.wire((XL,y),r(1)); y=y+15.24; s.wire(r(2),(XL,y))
@@ -258,7 +264,7 @@ s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.
 nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),"ON_CTRL",0)
 r=R("R455","100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2))
 g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
-ld=s.place("Device","LED","D412","COMP ON LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+ld=s.place("Device","LED","D412","COMP ON LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"))   # green (decision 117 scheme)
 s.wire(b(6),ld(1)); r=R("R454","12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
 NC.extend([b(1),b(4)])
 

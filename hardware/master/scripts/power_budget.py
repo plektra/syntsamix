@@ -19,18 +19,17 @@ V15,V5=15.1,5.0
 # part: (count, typ mA, max mA, rails) -- rails "pm" = both ±15 V, "p" = +15 V only
 parts={
  "NE5532 (bus 6, returns 6, compressor 3, sends 2, master out 1)":(18,6.0,16.0,"pm"),
- "TL072 (returns 2, compressor 3, sidechain 5, master out 1, meter 2)":(13,2.8,5.0,"pm"),
+ "TL072 (returns 4 incl. the receivers U201/U301 of decision 148, compressor 3, sidechain 5, master out 1, meter 2)":(15,2.8,5.0,"pm"),
  "TL062 (compressor U409, U410; meter U802, U804; decision 126)":(4,0.4,0.5,"pm"),
  "OPA2171 (U206, U306, U705: fader-law buffer and control summer)":(3,0.95,1.19,"pm"),
  "SSI2162 (returns 2, compressor 1, master out 1)":(4,6.0,8.0,"pm"),
- "AD8273 (returns)":(2,5.0,5.0,"pm"),
  "DRV135 (main outputs)":(2,5.2,5.5,"pm"),
  "TPA6120A2 quiescent (two channels)":(1,26.0,30.0,"pm"),
  "LM339 (compressor 2, master out 1, meter 6)":(9,0.8,2.5,"p"),
 }
 coil=(15.0-0.2)/(1315+330)*1000
 fixed_p={"relay coils (3)":(3*coil,3*coil),"button LEDs from +15 V via 12k (10)":(11.0,11.0),
-         "dividers, pots, ladders (+15 V; raw -20 V watch 0.3 mA, decision 128)":(2.8,2.8)}
+         "dividers, pots, ladders (+15 V; raw -20 V watch 0.3 mA, decision 128; meter ladder 0.45 mA, decision 146)":(3.2,3.2)}
 fixed_m={"pots and dividers (-15 V)":(6.0,6.0)}
 # +5 V from the L7805, taken from +15 V: meter LEDs 24 x 2 mA, GR LEDs 5 x 2 mA, PFL LED 2 mA
 led5_typ,led5_max=24.0,60.0          # typical: about half the meter lit

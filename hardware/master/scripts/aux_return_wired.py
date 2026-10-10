@@ -3,7 +3,7 @@
 """AUX return sheets, drawn with real wires (one script, two identical sheets).
 
 Reference netlists: aux_return_build.py (check_netlist.py aux_return1.json / aux_return2.json).
-Top: jacks, RFI filters, AD8273 receiver, gain stage with the PRO/PEDAL jumper,
+Top: jacks, RFI filters, TL072 difference receiver (decision 148), gain stage with the PRO/PEDAL jumper,
 SSI2162 VCA with I-V stage and inverter, bus resistors and the MAIN/COMP switch.
 Bottom: level law (as the channel fader), mute/duck switch, buttons, supplies.
 """
@@ -15,6 +15,7 @@ from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
+ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
 SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
 def draw(n):
     B=100*n+100
@@ -24,8 +25,8 @@ def draw(n):
     def R(k,val,pn,x,y,rot=90,**kw): return s.place("Device","R",rr(k),val,x,y,rot,fp=R0805,props=P(pn,**kw))
     def C(k,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",cc(k),val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
     SYM={"OPA2171":"Opamp_Dual"}; MPN={"OPA2171":{"MPN":"OPA2171AIDR"}}   # no OPA2171 symbol in the KiCad library; same pinout
-    def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**TI,**MPN.get(part,{})))
-    def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI))
+    def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**(ST072 if part=="TL072" else {**TI,**MPN.get(part,{})})))
+    def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI,Assembly="hand (decision 150)",))
     gnd=lambda at,rot=0: s.power("GNDA",at,rot)
     up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
     # ------------------------------------------------ jacks (labels to the RFI filters)
@@ -39,22 +40,31 @@ def draw(n):
             else: gnd(e,90)
     NC+=[j1("TN"),j1("RN"),j1("SN"),j2("SN")]
     # ------------------------------------------------ receiver
-    u=s.place("syntsamix","AD8273",uu(1),"AD8273",101.6,127.0,0,fp="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",props=P("SX-IC-003",Manufacturer="Analog Devices",Supplier="Mouser"))
-    NC+=[u("1"),u("7")]
-    s.wire(u("11"),up(u("11"),5.08)); s.power("+15V",up(u("11"),5.08)); s.wire(u("4"),dn(u("4"),5.08)); s.power("-15V",dn(u("4"),5.08))
-    s.wire(u("14"),(116.84,u("14")[1]),(116.84,127.0)); s.wire(u("8"),(116.84,u("8")[1]),(116.84,127.0)); s.wire((116.84,127.0),(121.92,127.0)); gnd((121.92,127.0))
-    def rfi(rk,ck,label,row,pin,xr,xn,jog,cap_up=False):
-        s.label(label,(48.26,row),180); r=R(rk,"100","SX-R-001",xr,row); s.wire((48.26,row),r(1))
-        nd=(xn,row); s.wire(r(2),nd)
-        if cap_up: c=C(ck,"220p C0G","SX-C-001",xn,row-3.81,180); s.wire(nd,c(1)); gnd(c(2),180)
-        else: c=C(ck,"220p C0G","SX-C-001",xn,row+3.81,0); s.wire(nd,c(1)); gnd(c(2))
-        if jog: s.wire(nd,(83.82,row),(83.82,u(pin)[1]),u(pin))
-        else: s.wire(nd,u(pin))
-    rfi(1,1,"IN_L+",109.22,"2",60.96,76.2,True); rfi(2,2,"IN_L-",u("3")[1],"3",60.96,71.12,False,True)
-    rfi(4,4,"IN_R-",u("5")[1],"5",60.96,71.12,False); rfi(3,3,"IN_R+",147.32,"6",60.96,76.2,True)
+    # receiver: TL072 difference amplifier, G = 1/2, as the channel (decision 148, after decision 143).
+    # R1-R4 (10k 0.1 %, with the 220p RFI caps) are the first half of each 20k input leg; IN+ drives the
+    # inverting leg as the AD8273 was wired (-INA, +INA), so the receiver still inverts.
+    RX=dict(Manufacturer="YAGEO",MPN="RT0805BRD0710KL",Supplier="LCSC",SupplierPN="C110775",Note="0.1 %: receiver resistor match sets the CMRR (decision 148)")
+    def receiver(ych,legs,ref,unit,pins):
+        (rp_,cp_,lp,ri,rf),(rn_,cn_,ln,rni,rg)=legs
+        a=OA("TL072",ref,unit,109.22,ych,"SX-IC-007"); pp,pm,po=pins
+        A,Bv,F=ych-12.7,ych+10.16,ych+20.32
+        # non-inverting leg on row A, R to ground above the + node column
+        s.label(ln,(48.26,A),180); r=R(rn_,"10k","SX-R-107",60.96,A,**RX); s.wire((48.26,A),r(1)); nd=(71.12,A); s.wire(r(2),nd)
+        c=C(cn_,"220p C0G","SX-C-001",nd[0],A+3.81,0); s.wire(nd,c(1)); gnd(c(2))
+        r2=R(rni,"10k","SX-R-107",83.82,A,**RX); s.wire(nd,r2(1)); s.wire(r2(2),(93.98,A),(93.98,a(pp)[1]),a(pp))
+        g=R(rg,"10k","SX-R-107",93.98,A-3.81,0,**RX); s.wire((93.98,A),g(2)); t=up(g(1),2.54); s.wire(g(1),t,rt(t,5.08)); gnd(rt(t,5.08))
+        # inverting leg on row B, feedback on row F
+        s.label(lp,(48.26,Bv),180); r=R(rp_,"10k","SX-R-107",60.96,Bv,**RX); s.wire((48.26,Bv),r(1)); nd=(71.12,Bv); s.wire(r(2),nd)
+        c=C(cp_,"220p C0G","SX-C-001",nd[0],Bv+3.81,0); s.wire(nd,c(1)); gnd(c(2))
+        r2=R(ri,"10k","SX-R-107",83.82,Bv,**RX); s.wire(nd,r2(1)); s.wire(r2(2),(91.44,Bv))
+        s.wire((91.44,Bv),(91.44,a(pm)[1]),a(pm)); s.wire((91.44,Bv),(91.44,F))
+        f=R(rf,"10k","SX-R-107",104.14,F,**RX); s.wire((91.44,F),f(1)); s.wire(f(2),(a(po)[0],F),a(po))
+        return a(po)
+    RXO={"L":receiver(119.38,((1,1,"IN_L+",45,46),(2,2,"IN_L-",47,48)),uu(1),1,(3,2,1)),
+         "R":receiver(195.58,((3,3,"IN_R+",49,50),(4,4,"IN_R-",51,52)),tt(1,2),2,(5,6,7))}
     # ------------------------------------------------ per side: gain stage, VCA input, I-V, inverter, bus switch
     XV,YV=325.12,121.92
-    v=s.place("syntsamix","SSI2162",uu(3),"SSI2162",XV,YV,0,fp="Package_SO:SSOP-10_3.9x4.9mm_P1.00mm",props=P("SX-IC-002",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
+    v=s.place("syntsamix","SSI2162",uu(3),"SSI2162",XV,YV,0,fp="Package_SO:SSOP-10_3.9x4.9mm_P1.00mm",props=P("SX-IC-002",Assembly="hand (decision 150)",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))
     s.wire(v("10"),up(v("10"),5.08)); s.power("+15V",up(v("10"),5.08)); s.wire(v("6"),dn(v("6"),5.08)); s.power("-15V",dn(v("6"),5.08))
     s.wire(v("5"),dn(v("5"),5.08),rt(dn(v("5"),5.08),5.08)); gnd(rt(dn(v("5"),5.08),5.08))
     vcp=dn(v("3"),7.62); s.wire(v("3"),vcp); s.wire(v("8"),dn(v("8"),7.62)); s.wire(vcp,dn(v("8"),7.62)); s.wire(vcp,lt(vcp,5.08)); s.label("VC",lt(vcp,5.08),180)
@@ -67,10 +77,9 @@ def draw(n):
             ((tt(9,3),3,10,11,9,"MAIN_R"),(tt(9,2),2,6,7,8,"COMP_R"))))
     for side,dy,(ccpl,rin,rf,rs,cf,cvin,rvin,rrc,crc,rfb,cfb,rinv,rinvf,rbus),gain,iv,inv,iin,iout,rc_up,dgs in sides:
         y=119.38+dy
-        o,se=(u("13"),u("12")) if side=="L" else (u("9"),u("10"))
-        xo=119.38
-        if dy==0: s.wire(o,(xo,o[1])); s.wire(se,(xo,se[1]),(xo,o[1]))
-        else: s.wire(se,(xo,se[1])); s.wire(o,(xo,o[1])); s.wire((xo,se[1]),(xo,o[1])); s.wire((xo,o[1]),(xo,y))
+        o=RXO[side]; xo=119.38
+        s.wire(o,(xo,o[1]))
+        if abs(o[1]-y)>0.01: s.wire((xo,o[1]),(xo,y))
         c=C(ccpl,"10u bipolar","SX-C-023",127.0,y,fp=CBIP); s.wire((xo,y),c(1))
         r=R(rin,"10k","SX-R-002",140.97,y); s.wire(c(2),r(1))
         SX,TX=152.4,180.34
@@ -140,22 +149,28 @@ def draw(n):
     # Its inputs have back-to-back diodes, so the superdiodes (open loop when off) stay on the TL072 U+7 (decision 102)
     bu=OA("OPA2171",uu(6),1,68.58,Y+2.54,"SX-IC-021"); s.wire(fv(2),bu(3))
     bo=(78.74,Y+2.54); s.wire(bu(1),bo,(VBX,Y+2.54)); s.wire(bo,(78.74,Y+10.16),(58.42,Y+10.16),(58.42,bu(2)[1]),bu(2))
-    ra=R(22,"113k","SX-R-023",170.18,Y-20.32); s.wire((VBX,Y-20.32),ra(1)); s.wire(ra(2),(SUMX,Y-20.32))
-    rc=R(23,"453k","SX-R-024",170.18,Y-10.16); s.wire((152.4,Y-10.16),rc(1)); s.power("+15V",(152.4,Y-10.16)); s.wire(rc(2),(SUMX,Y-10.16))
-    def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn):
+    # E24 pairs as the channel's level law (decision 140): 113k = 100k + 13k, 450k = 300k + 150k
+    ra=R(22,"100k","SX-R-007",165.1,Y-20.32); ra2=R(42,"13k","SX-R-011",180.34,Y-20.32)
+    s.wire((VBX,Y-20.32),ra(1)); s.wire(ra(2),ra2(1)); s.wire(ra2(2),(SUMX,Y-20.32))
+    rc=R(23,"300k","SX-R-096",165.1,Y-10.16); rc2=R(43,"150k","SX-R-098",180.34,Y-10.16)
+    s.wire((152.4,Y-10.16),rc(1)); s.power("+15V",(152.4,Y-10.16)); s.wire(rc(2),rc2(1)); s.wire(rc2(2),(SUMX,Y-10.16))
+    def superdiode(y,rp,rq,rqval,rqpn,opa,unit,pins,d,rs,rsval,rspn,rq2=None):
         a=R(rp,"100k","SX-R-007",106.68,y); s.wire((VBX,y),a(1)); nd=(114.3,y); s.wire(a(2),nd)
-        q=R(rq,rqval,rqpn,114.3,y-10.16,0); s.wire(nd,q(2)); s.wire(q(1),up(q(1),1.27)); s.power("+15V",up(q(1),1.27))
+        q=R(rq,rqval,rqpn,114.3,y-10.16,0); s.wire(nd,q(2))
+        if rq2:   # second part of an E24 pair above the first
+            q2=R(rq2[0],rq2[1],rq2[2],114.3,y-20.32,0); s.wire(q(1),q2(2)); q=q2
+        s.wire(q(1),up(q(1),1.27)); s.power("+15V",up(q(1),1.27))
         o=OA("TL072",opa,unit,129.54,y+2.54,"SX-IC-007"); s.wire(nd,o(pins[0]))
         dd=s.place("Device","D",d,"1N4148W",144.78,y+2.54,0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
         s.wire(o(pins[2]),dd(1)); k=(152.4,y+2.54); s.wire(dd(2),k)
         s.wire(k,(k[0],y+10.16),(119.38,y+10.16),(119.38,o(pins[1])[1]),o(pins[1]))
         r=R(rs,rsval,rspn,200.66,y+2.54); s.wire(k,r(1)); s.wire(r(2),(SUMX,y+2.54))
-    superdiode(Y+17.78,24,25,"221k","SX-R-025",tt(7,2),2,(5,6,7),f"D{B+1}",26,"63k4","SX-R-026")
-    superdiode(Y+50.8,27,28,"124k","SX-R-027",uu(7),1,(3,2,1),f"D{B+2}",29,"8k66","SX-R-014")
+    superdiode(Y+17.78,24,25,"220k","SX-R-103",tt(7,2),2,(5,6,7),f"D{B+1}",26,"62k","SX-R-102")
+    superdiode(Y+50.8,27,28,"100k","SX-R-007",uu(7),1,(3,2,1),f"D{B+2}",29,"9k1","SX-R-095",(44,"24k","SX-R-031"))   # 124k = 100k + 24k
     for y1,y2 in ((Y-20.32,Y+2.54),(Y+2.54,Y+17.78),(Y+17.78,Y+50.8)): s.wire((VBX,y1),(VBX,y2))
     rd=R(32,"30k1","SX-R-087",220.98,Y+30.48,Note="SC_ENV into the virtual earth: 0.332 V/V, 10 dB of ducking per -1 V (decision 97)")
     s.wire((208.28,Y+30.48),rd(1)); s.label("DUCK_V",(208.28,Y+30.48),180); s.wire(rd(2),(SUMX,Y+30.48))
-    rm=R(31,"33k2","SX-R-028",220.98,Y+40.64); s.wire((208.28,Y+40.64),rm(1)); s.label("MUTE_V",(208.28,Y+40.64),180); s.wire(rm(2),(SUMX,Y+40.64))
+    rm=R(31,"33k","SX-R-006",220.98,Y+40.64); s.wire((208.28,Y+40.64),rm(1)); s.label("MUTE_V",(208.28,Y+40.64),180); s.wire(rm(2),(SUMX,Y+40.64))
     taps=sorted({Y-38.1,Y-30.48,Y-20.32,Y-10.16,Y+5.08,Y+20.32,Y+30.48,Y+40.64,Y+53.34})
     for y1,y2 in zip(taps,taps[1:]): s.wire((SUMX,y1),(SUMX,y2))
     su=OA("OPA2171",tt(6,2),2,256.54,Y+2.54,"SX-IC-021"); s.wire((SUMX,Y+5.08),su(6))
@@ -178,6 +193,8 @@ def draw(n):
         for q,(px,py,ang) in pins_of("Analog_Switch","DG413xY",unit).items():
             p=dx(q); e={0:lt(p,5.08),180:rt(p,5.08),90:dn(p,5.08)}[int(ang)]; s.wire(p,e); gnd(e)
     # ------------------------------------------------ buttons
+    # button LED colours as the channel (decision 117): MUTE red, DUCK and COMP BUS green
+    LEDPN={"MUTE":P("SX-D-015",Manufacturer="Foshan NationStar",MPN="NCD0805R1",Supplier="LCSC",SupplierPN="C84256"),"DUCK":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"COMP":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297")}
     def button(name,k,x,y):
         sw,led,rl,rp=f"SW{B+k}",f"D{B+2+k}",35+2*k-1,35+2*k
         b=s.place("Switch","SW_Push_DPDT",sw,f"RETURN {n} {name} (latching)",x,y,0,fp=SWFP,props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
@@ -185,7 +202,7 @@ def draw(n):
         nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
         r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
         g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
-        ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+        ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=LEDPN[name])
         s.wire(b(6),ld(1)); r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)
         NC.extend([b(1),b(4)])
     button("MUTE",1,421.64,289.56); button("DUCK",2,421.64,320.04); button("COMP",3,421.64,350.52)
@@ -193,7 +210,7 @@ def draw(n):
     Y2=396.24; x=40.64
     for ref in (tt(2,3),tt(4,3),tt(5,3)):
         p=OA("NE5532",ref,3,x,Y2,"SX-IC-004"); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
-    for ref,part,pn in ((tt(6,3),"OPA2171","SX-IC-021"),(tt(7,3),"TL072","SX-IC-007")):
+    for ref,part,pn in ((tt(1,3),"TL072","SX-IC-007"),(tt(6,3),"OPA2171","SX-IC-021"),(tt(7,3),"TL072","SX-IC-007")):
         p=OA(part,ref,3,x,Y2,pn); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
     for ref in (tt(8,5),tt(9,5)):
         p=DG(ref,5,x+5.08,Y2-7.62)
