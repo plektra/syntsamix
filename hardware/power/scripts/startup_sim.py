@@ -5,7 +5,7 @@
 Checks whether the brick's overload protection (hiccup at 105 % of rated power minimum) trips while
 both converters charge about 1.1 mF per rail. Averaged model, no switching:
 - Brick and soft-start FET: input ramps 0 to 24 V at 3.6 V/ms (design.py), so both converters reach
-  their 21.14 V UVLO start at about 5.85 ms.
+  their 21.31 V UVLO start at about 5.89 ms (680k / 39k, decision 156).
 - Each TPS54560 follows its soft-start reference (0 to 20 V in 1024 cycles = 2.56 ms at 400 kHz,
   SLVSBN0C 7.3.8; or a slower external ramp), limited by the switch current limit
   (6.3 / 7.5 / 8.8 A min / typ / max, SLVSBN0C 6.5) minus half the inductor ripple; the inverter's
@@ -13,17 +13,18 @@ both converters charge about 1.1 mF per rail. Averaged model, no switching:
 - Losses: catch diode 0.5 V, switch 0.1 ohm, inductor DCR, 0.3 W fixed per converter.
 - Card load: decision 96 sizing current (1.35 / 1.11 A prototype), scaled with rail voltage up to
   17 V (the LM317/LM337 drop out below that).
-- Brick limits: GSM120B24 105 % of 120 W = 126 W, GSM160B24 105 % of 160 W = 168 W (Mean Well
-  GSM120B / GSM160B specs: overload 105-160 % / 105-150 %, hiccup mode).
+- Brick limits: GSM120B24 105 % of 120 W = 126 W (prototype), GSM220B24 105 % of 221 W = 232 W
+  (16 cards, decision 145) (Mean Well GSM120B spec: overload 105-160 %; GSM220B-SPEC 2026-05-09:
+  105-135 %; hiccup mode).
 Frequency foldback at low output voltage is ignored (it only lowers the start current).
 """
 import os, re, subprocess, tempfile
 
 C_RAIL = 1.13e-3        # 0.37 mF on the prototype cards + 0.76 mF on this board (STATUS.md)
 VIN, RAMP = 24.0, 3.617e3   # V, V/s (design.py soft-start FET)
-T_EN = 21.14 / RAMP     # both UVLOs start here
+T_EN = 21.31 / RAMP     # both UVLOs start here
 FSW = 400e3
-P_LIMITS = (("GSM120B24", 126.0), ("GSM160B24", 168.0))
+P_LIMITS = (("GSM120B24", 126.0), ("GSM220B24", 232.0))
 
 NET = """* power board start-up, averaged
 Vin vin 0 PWL(0 0 {tr} {vin})
@@ -87,7 +88,7 @@ CASES = [
 
 if __name__ == "__main__":
     print(f"rail capacitance {C_RAIL*1e3:.2f} mF each, load 1.35 / 1.11 A, UVLO start {T_EN*1e3:.2f} ms")
-    print(f"{'case':36s} {'Ilim':>5s} {'Pmax W':>7s} {'>126 W ms':>9s} {'>168 W ms':>9s} {'+19 V ms':>8s} {'-19 V ms':>8s}")
+    print(f"{'case':36s} {'Ilim':>5s} {'Pmax W':>7s} {'>126 W ms':>9s} {'>232 W ms':>9s} {'+19 V ms':>8s} {'-19 V ms':>8s}")
     for name, dly, tss, tau in CASES:
         for ilim in (6.3, 7.5, 8.8):
             r = run(ilim, dly, tss, tau)

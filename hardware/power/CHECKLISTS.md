@@ -4,16 +4,16 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 
 ## Check before layout
 
-- **Full-size brick (from /system, 2026-10-10, decision 145):** the 16-card brick is the GSM220B24-R7B (221 W) instead of the GSM160B24-R7B. Same R7B plug and pinout, 24 V ±3 %, so the KPJX-4S jack, the SMBJ24A note and this board are unchanged. In `scripts/startup_sim.py` replace the GSM160B24 limit (168 W) in `P_LIMITS` and the docstring with the GSM220B24: overload 105-135 % in hiccup mode (GSM220B-SPEC 2026-05-09), so 105 % of 221 W = 232 W; the 54 W ramp is far below either limit, so no result changes.
-- **Placement (from /system, 2026-10-09, decision 109; `docs/MECHANICAL.md`):** the power board sits beside the master at the right end of the unit. Its output headers (master, chain 1, chain 2), the cable lengths to each group, and the rear-edge brick jack and power switch wait for the master section and power board topic in `MECHANICAL.md` (Open, item 2): do not place them before it.
-- **Start-up ramp (settled in decision 100, check on the bench):** `scripts/startup_sim.py` (averaged ngspice model) showed the fixed 2.6 ms soft-start into about 1.1 mF per rail takes 183 to 262 W from the brick (hiccup threshold 126 W). The 47 nF / 1N4148W ramp into FB keeps it at about 54 W; rails reach 19 V about 40 ms after switch-on. On the bench: the start-up with all prototype cards connected (brick input current, no hiccup), and that the output does not misbehave while FB is held up at low output voltage (frequency foldback does not act then; the ramp current is far below the switch limit, so the minimum on-time should only cause pulse skipping).
+- **Placement (from /system, 2026-10-09, decision 109; `docs/MECHANICAL.md`; J102 for the rear-panel rocker near the rear edge, decision 157):** the power board sits beside the master at the right end of the unit. Its output headers (master, chain 1, chain 2), the cable lengths to each group, and the rear-edge brick jack and power switch wait for the master section and power board topic in `MECHANICAL.md` (Open, item 2): do not place them before it.
+- **Start-up ramp (settled in decision 100, check on the bench):** `scripts/startup_sim.py` (averaged ngspice model) showed the fixed 2.6 ms soft-start into about 1.1 mF per rail takes 183 to 262 W from the brick (hiccup threshold 126 W). The 47 nF / 1N4148W ramp into FB keeps it at about 54 W; rails reach 19 V about 40 ms after switch-on (rerun 2026-10-10 with the 21.31 V UVLO start of decision 156 and the GSM220B24's 232 W limit: unchanged). On the bench: the start-up with all prototype cards connected (brick input current, no hiccup), and that the output does not misbehave while FB is held up at low output voltage (frequency foldback does not act then; the ramp current is far below the switch limit, so the minimum on-time should only cause pulse skipping).
 - **Minimum off-time at 445 kHz:** the buck runs at about 83 % duty, an off-time near 375 ns at the fast end of the oscillator spread; the TPS54560 refreshes BOOT by skipping pulses near 100 % duty. Check SLVSBN0C for a minimum off-time figure before layout.
 - **Per-header fuse coordination:** BSMD1812-200 holds 1.66 A at 50 °C; a full chain of 8 cards at the sizing figure is 1.40 A but 1.84 A at worst case (decisions 96, 123; `ARCHITECTURE.md`, Power, updated by /system 2026-10-09), and a 2-4 A fault may not trip it while the 1 A IDC socket contacts carry up to 2 A each. Recheck at full size (larger fuse or 3 pins per rail is a `/system` matter).
 - Voltage drop through the per-header fuse (resistance not found) and the 2.2 µH filter against the 19 V raw minimum.
 - Brick polarity: Mean Well R7B pins 1 and 4 = +24 V; the jack is wired by Kycon's numbering. Work the pin mapping through the key position on Mean Well's drawing, and check with a meter on the first brick.
-- Parts to choose: power switch (SX-SW-003), 100 µF 50 V input bulk capacitor (SX-C-021), 10 pF C0G 100 V sync capacitor (SX-C-022).
+- Parts: all chosen. Power switch: Legion SS11-BBIWG-R20-R rocker on the rear panel, wired to J102 (JST XH 2-pin; decision 157). C103: Nichicon UHE1H101MPD radial, hand-soldered; C207/C307: Samsung CL10C100JB8NNNC 10 pF C0G 50 V 0603 (decision 158).
+- Power rocker (decision 157), on delivery: the cheap rockers state no DC rating, minimum load or contact material; check that it switches the gate (about 0.12 mA, 24.7 V open) reliably over many operations. Make up the two leads (pre-crimped XH leads, soldered or crimped to the 4.8 mm tabs), long enough to take the rear panel off.
 - Footprints to draw from the maker's drawings: Kycon KPJX-4S, Bourns SRP1265A (L201, L301).
-- Unverified facts: L78M05 DPAK pinout (from KiCad's LM78M05_TO252: 1 IN, 2 GND tab, 3 OUT; ST DS0425 Figure 2 not read as text); SS54 5 A and VF (LCSC listing only); Würth header 3 A per contact (PDF text, not the rendered page); KNSCHA 100 µF size (radial footprint assumed).
+- Unverified facts: L78M05 DPAK pinout (from KiCad's LM78M05_TO252: 1 IN, 2 GND tab, 3 OUT; ST DS0425 Figure 2 not read as text); Würth header 3 A per contact (PDF text, not the rendered page); KNSCHA 100 µF size (radial footprint assumed).
 - The level of the AC-coupled sync clock at RT/CLK (10 pF into 243 kΩ, TI's recommended network) should cross 1.7 V cleanly: check on the bench.
 - The SMBJ24A's 24 V standoff is below the brick's 24.7 V maximum; leakage at 24.7 V is not specified (breakdown 26.7 V minimum).
 - LCSC stock check not yet run through `tools/lcsc_check.py` for these parts.
@@ -21,6 +21,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 ## Layout notes
 
 - Keep each converter's input loop (VIN ceramics, IC, catch diode) tight; on the inverter, its input ceramics go from VIN to the −20 V node.
+- D201 (SS54, SMA) gets a copper pad for heat (decision 159: up to about 0.5 W worst case with hot leakage); check its temperature at full load on the bench.
 - Q102 (soft start) gets a copper pad; the 4 A input fuse stays away from the converters' heat (it holds only 3.0 A at 50 °C).
 - The power board has no connection to AGND or the frame: mounting holes isolated (the star point is on the master card).
 
@@ -35,21 +36,13 @@ Cost frame set by the user (2026-10-09): prototype of 4 channels (maybe 2; 2026-
 
 From the system cost review of 2026-10-10 (`docs/reviews/2026-10-10-cost-system.md`, with savings and caveats). None of these is decided:
 
-5. **Divider values:** 732k, 42k2, 15k8 and 243k are off E24, and 240k is E24 with no fee-free part. Moving them to fee-free E24 values or pairs needs a rerun of `scripts/design.py`: the ±20 V outputs and UVLO thresholds are reliability items.
-6. **SS54 SMC → SS54 SMA** (C22452, JLCPCB basic): one fee type fewer; check its thermals at the converter's duty first.
-7. Lever 4 can be closed: the EEHZK1V331P is back in stock at LCSC (5,666 on 2026-10-10).
+5. **Divider values:** done by decision 156 (2026-10-10): UVLO 680k / 39k, RT 240k, buck compensation 16k, four fee types fewer. The 240k feedback resistor stays extended (no fee-free part; a 24k / 1k divider would need a 470 nF ramp capacitor).
+6. **SS54 SMC → SS54 SMA:** done by decision 159 (2026-10-11): D201 on D_SMA to match C22452 (JLCPCB basic); the D_SMC footprint did not match the recorded part.
+7. Lever 4 closed (2026-10-11): the EEHZK1V331P is back in stock at LCSC (5,666 on 2026-10-10); recheck stock before ordering.
 
 ## Component values (decision 134)
 
-This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on 2026-10-09 (from the BOM export; all 0805 resistors; every capacitor is already E24):
-
-| Value | References | Reason (to record) |
-|---|---|---|
-| 732k, 42k2 | R201, R301, R202, R302 | converter dividers, set by `scripts/design.py` |
-| 15k8 | R203 | set by `scripts/design.py` |
-| 243k | R204, R304 | set by `scripts/design.py` |
-
-4 types, 7 parts. Check in `scripts/design.py` whether E24 values (or E24 pairs) keep the output voltages and UVLO thresholds within tolerance.
+This board owns its value selection (rule in `CLAUDE.md`). Since decision 156 (2026-10-10) every resistor and capacitor value is E24; none to list. The 240k (R204, R205, R304, R305: feedback and RT) is E24 but has no fee-free 0805 part (one fee type, kept: see lever 5).
 
 ### Fee-free parts (decision 137, LCSC search 2026-10-10)
 

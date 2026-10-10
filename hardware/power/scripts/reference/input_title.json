@@ -5,7 +5,7 @@
  "dnp": [],
  "comments": [
   "24 V brick (Mean Well GSM120B24-R7B) on a locking 4-pin DIN jack; check polarity on the first brick",
-  "Q101 blocks a reversed brick, Q102 ramps the input in about 7 ms; SW101 carries gate current only",
+  "Q101 blocks a reversed brick, Q102 ramps the input in about 7 ms; the rocker on J102 carries gate current only",
   "SMBJ24A clamps at 38.9 V so the inverter IC (VIN + 20 V) stays under 60 V (decision 100)",
   "74HC14 RC oscillator about 400 kHz; CLK_A and CLK_B in opposite phase sync the two TPS54560"
  ],

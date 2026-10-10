@@ -180,6 +180,10 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 153 | SC_ENV load 30 kΩ (E24, basic) instead of 30k1 on channel R217 and master R232/R332; ducking 0.03 dB per volt deeper; refines 97 | confirmed | [system](system.md) |
 | 154 | Decision log in two tiers: short current rulings in the area files, full text in `record/` (`tools/check_decisions.py`) | confirmed | [process](process.md) |
 | 155 | Channel SSI2144 ×2 and SSI2162 hand-soldered by the user on the prototype (cost lever 11); bipolar caps wait for breadboard test 11 | confirmed | [channel-card](channel-card.md) |
+| 156 | Power board dividers on fee-free E24 values: UVLO 680k / 39k (start 21.3 V, stop 19.0 V), RT 240k, buck compensation 16k; refines 100 | confirmed | [power](power.md) |
+| 157 | Power switch: snap-in rear-panel rocker (Legion SS11-BBIWG-R20-R) wired to a JST XH header J102 instead of a board-mounted switch; refines 100 | confirmed | [power](power.md) |
+| 158 | Power board C103 Nichicon UHE 100 µF 50 V radial (hand-soldered); sync capacitors 10 pF C0G 50 V 0603 basic instead of 100 V 0805; refines 100 | confirmed | [power](power.md) |
+| 159 | Power board buck catch diode D201 SS54 in SMA (C22452, basic) on a D_SMA footprint, fixing the SMC footprint mismatch; refines 100 | confirmed | [power](power.md) |
 
 ## Proposed but not confirmed
 

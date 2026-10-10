@@ -20,9 +20,10 @@ KiCad project `power.kicad_pro`: 24 V brick in, TPS54560 buck to +20 V and inver
 - `scripts/design.py` derives every converter value (TI SLVSBN0C, SLVA317B); rerun it after changing a value.
 - `scripts/startup_sim.py` is an averaged ngspice model of switch-on (brick ramp, UVLO, soft-start, current limit, rail capacitance, card load) against the brick's overload threshold; rerun it when the rail capacitance, the loads or the start-up ramp change.
 - Start-up ramp (C214/D202/D203/R207 and the 3xx twins): 47 nF from the output through a diode into FB slows the start to τ = 240k × 47n; on the inverter it is referred to the IC ground.
-- On the inverter the IC ground is the −20 V node: the input ceramics and EN divider from VIN to that node see VIN + 20 V (44.7 V), and the sync capacitor bridges about 20 V (100 V parts).
+- On the inverter the IC ground is the −20 V node: the input ceramics and EN divider from VIN to that node see VIN + 20 V (44.7 V), and the sync capacitor bridges about 20-25 V (a 50 V C0G, decision 158).
 - Power flags sit where each net starts (PGND and VIN_SW on the input sheet, `-20V_CONV` on the inverter): the whole board is a power board.
 - Footprints still to draw at layout (blank footprint field with a note): Kycon KPJX-4S, Bourns SRP1265A.
+- The power switch is a rear-panel rocker on J102 (JST XH 2-pin, decision 157); C103 and the C211/C311 damping capacitors are through-hole radials, hand-soldered.
 - Shared scripts are symlinks to `hardware/channel-card/scripts/`.
 
 ## Component values and parts (decisions 134, 137)

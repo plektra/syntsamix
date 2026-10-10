@@ -49,9 +49,9 @@ The user asked for a large cost cut (2026-10-09), then set the frame: the protot
 
 | Build | Total |
 |---|---|
-| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794; after 153, 155: €788; 153 on the master: €785) |
-| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074; after 153, 155: €1,069; 153 on the master: €1,066) |
-| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671; after 153, 155: €1,665; 153 on the master: €1,663) |
+| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794; after 153, 155: €788; 153 on the master: €785; power board 156-159, 2026-10-11: €764) |
+| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074; after 153, 155: €1,069; 153 on the master: €1,066; power board 156-159: €1,045) |
+| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671; after 153, 155: €1,665; 153 on the master: €1,663; power board 156-159: €1,641) |
 
 The 2026-10-10 figures include decisions 139-143 and 145. The 8-channel build assumes one power board carries 8 cards plus the master (power lever 1's open check); the 16-channel figure still prices one power board, although the full-size supply is not designed yet (decision 100).
 
@@ -81,7 +81,7 @@ Levers [proposed] (board details in each `CHECKLISTS.md`, "Cost-cut levers"):
 
 *For the prototype (fixed costs):*
 
-1. **JLCPCB fees:** one order for all boards (shared part types pay their fee once), and fewer extended types: JLCPCB basic or preferred (fee-free) parts wherever one fits (decision 137; candidates in each board's `STATUS.md`, all types with a fee from `python3 tools/costs.py extended`). Value selection is each board's job (decision 134: E24 by default, justified exceptions listed in the board's `STATUS.md`, "Component values"; now 25 types on the channel card, 23 on the master, 4 on the power board). Up to about €100-150 per order.
+1. **JLCPCB fees:** one order for all boards (shared part types pay their fee once), and fewer extended types: JLCPCB basic or preferred (fee-free) parts wherever one fits (decision 137; candidates in each board's `STATUS.md`, all types with a fee from `python3 tools/costs.py extended`). Value selection is each board's job (decision 134: E24 by default, justified exceptions listed in the board's `STATUS.md`, "Component values"; now 25 types on the channel card, 23 on the master, none on the power board since decision 156). Up to about €100-150 per order.
 2. **The second master and power board:** JLCPCB's two-board minimum buys a spare; place only one fully and leave the spare for repair, or hand-place the spare's SMD parts later. Check JLCPCB's current minimum and partial-assembly options when ordering.
 3. **Start with 2 channels:** about €150 less, at the cost of not testing 3- and 4-card chain effects (bus noise, chain current).
 

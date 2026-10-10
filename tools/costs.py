@@ -254,8 +254,10 @@ def estimate_lines(channels, o, per_design=False):
     lines.append(("FR4 panels", panels)); total += panels
     # prototype brick up to one power board's worth of channels, full-size brick above (decision 145)
     brick_pn = "SX-MECH-003" if channels <= o["brick_proto_max_channels"] else "SX-MECH-005"
-    frame = o["frame_fixed_eur"] + o["frame_eur_per_channel"] * channels + prices(o)[brick_pn]["eur"]
-    lines.append((f"Frame, hardware, ribbons, 24 V brick ({brick_pn})", frame)); total += frame
+    # the power rocker sits on the rear panel, wired to the power board (decision 157): no schematic symbol
+    frame = (o["frame_fixed_eur"] + o["frame_eur_per_channel"] * channels + prices(o)[brick_pn]["eur"]
+             + prices(o)["SX-SW-003"]["eur"])
+    lines.append((f"Frame, hardware, ribbons, 24 V brick ({brick_pn}), power rocker", frame)); total += frame
     knobs = o["knobs_eur_per_channel"] * channels + o["knobs_master_eur"]
     lines.append(("Knobs and fader caps (no schematic symbols)", knobs)); total += knobs
     if any(i["price"] and i["price"]["jlc"] == "consign" for items in boms.values() for i in items):
