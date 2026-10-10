@@ -75,7 +75,7 @@ These replace the first hand estimate of the same day (prototype about €1,450,
 
 **As a product:** at production volume the set-up and extended-part fees spread over many units and the per-channel parts become the cost, together with labour: through-hole assembly (hand-soldered here, decision 133, not in a product) and calibration (three trimmers per channel: CUTOFF OFFSET ×2 and V/OCT, plus the TRIM and drive/Q jumpers). Per-channel levers therefore count sixteen times per console, and anything that removes a trimming step saves labour on every channel.
 
-Levers [proposed] (board details in each `STATUS.md`, "Cost-cut levers"):
+Levers [proposed] (board details in each `CHECKLISTS.md`, "Cost-cut levers"):
 
 *For the prototype (fixed costs):*
 

@@ -11,7 +11,7 @@ How to run development sessions so the conversation stays small and nothing gets
 | Every decision, with status and area file | `docs/decisions/INDEX.md` |
 | Decisions by area | `docs/decisions/system.md`, `channel-card.md`, `channel-card-parts.md`, `input-module.md`, `master-card.md`, `master-card-sheets.md`, `power.md`, `mechanical.md`, `process.md` |
 | Shared schematic workflow and hard-won rules | `hardware/CLAUDE.md` |
-| One board's specifics and status | `hardware/<board>/CLAUDE.md`, `hardware/<board>/STATUS.md` |
+| One board's specifics and status | `hardware/<board>/CLAUDE.md`, `hardware/<board>/STATUS.md`; checklists, cost levers and value list in `hardware/<board>/CHECKLISTS.md` |
 | Simulation notes | `simulation/CLAUDE.md` |
 | System diagram, cross-board budgets, chain lines, invariants | `docs/ARCHITECTURE.md` |
 | Interfaces between boards (contracts) | `docs/CHAIN.md`, `docs/INPUT-MODULE.md`, `docs/MECHANICAL.md` |
@@ -66,7 +66,7 @@ Claude has no memory between sessions; each role is a kind of session (or sub-ag
 - **Something for another board comes up?** Ask Claude to note it in that board's `STATUS.md` and handle it in that board's session.
 - **Check the size** with `/context`. If a session runs long, run `/handoff` first, then `/compact <what to keep>` (for example `/compact keep the DC-DC module comparison`). When switching board or phase, prefer `/clear`.
 
-## Models (decision 150)
+## Models (decision 151)
 
 Each kind of work runs on the cheapest model that does it well; the model is set in each agent's file, so nothing needs choosing by hand.
 
@@ -81,7 +81,9 @@ Each kind of work runs on the cheapest model that does it well; the model is set
 
 - Do not switch models in the middle of a session (`/model`): the switch drops the prompt cache, so the next turn rereads the whole conversation at full price. Sub-agents start with a fresh context, so they save without that cost.
 - For a phase where everything is already decided (redrawing a sheet from settled values, PCB clean-up), you may start a fresh session with `/model sonnet` before `/board`; go back with `/model opus` (after `/clear`) for design work.
-- `/board` reads only what a session start needs: the board's rows of `INDEX.md` and the invariants and open items of `ARCHITECTURE.md`, the rest only when a topic needs it.
+- `/board` reads only what a session start needs: the board's rows of `INDEX.md`, the invariants and open items of `ARCHITECTURE.md`, `STATUS.md` (kept short), `CHECKLISTS.md` only for layout, assembly, ordering and cost, and the board's decision files in full only when the phase changes the circuit (otherwise by number).
+- `/handoff` runs the architecture reviewer only when the changes touch a contract, a budget or a shared part list; otherwise it says it skipped it.
+- Hand off and `/clear` after each settled topic rather than at the end of the day: every turn rereads the whole conversation, so a long session costs more per turn as it grows.
 
 ## Decisions
 
