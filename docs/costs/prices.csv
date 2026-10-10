@@ -1,6 +1,6 @@
-ProjectPN,unit_price,currency,source,date,jlc,notes
-SX-IC-001,3.75,GBP,Thonk,2026-10-10,consign,"SSI2144; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+"
-SX-IC-002,3.29,GBP,Thonk,2026-10-10,consign,"SSI2162; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+"
+ProjectPN,unit_price,currency,source,date,jlc,notes,moq,breaks
+SX-IC-001,3.75,GBP,Thonk,2026-10-10,consign,"SSI2144; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+",,10:0.95;25:0.90;100:0.50
+SX-IC-002,3.29,GBP,Thonk,2026-10-10,consign,"SSI2162; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+",,10:0.95;25:0.90;100:0.50
 SX-IC-003,3.82,EUR,Mouser 584-AD8273ARZ (10+),2026-10-10,consign,AD8273ARZ; not at LCSC; 3.52 at 25
 SX-IC-005,1.4526,USD,LCSC C141600 (30+),2026-10-10,extended,DG413DY-T1-E3; 1.6414 at 10+; JLCPCB library mirror 0.9013 at 30+ (which price JLCPCB charges unconfirmed); Mouser EUR 0.98 at 25
 SX-IC-011,0.60,USD,estimate,2026-10-09,hand,LM337 TO-220 (master)

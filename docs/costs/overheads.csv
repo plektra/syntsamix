@@ -5,7 +5,10 @@ rate_sek_eur,0.087,Exchange rate (2026-10-09 estimate); Electrokit prices are SE
 jlc_extended_fee_usd,3.07,"JLCPCB Economic PCBA feeder loading fee per extended part type (JLCPCB help, PCB assembly price, 2026-10-10); basic and preferred extended parts are exempt in Economic PCBA only: Standard PCBA charges 1.53 USD for every basic and extended type"
 jlc_fee_per_design,1,"1: an extended type is billed again on each design that uses it, since JLCPCB quotes each assembled design separately (assumed 2026-10-10; confirm on the first real quote; 0 bills it once per order)"
 jlc_setup_eur_per_design,8.93,"JLCPCB Economic PCBA set-up 8.18 + stencil 1.53 USD per assembled design (JLCPCB help, PCB assembly price, 2026-10-10); Economic needs every SMD part on one side (Standard: 25.56 + 8.21 USD single-sided)"
-jlc_economic_max_boards,30,"Economic PCBA assembles at most 30 boards of a design unpanelled, and its panels are at most 250 x 250 mm (JLCPCB PCBA FAQ, 2026-10-10): the 318 mm channel card cannot be panelled, so above 30 cards it needs Standard PCBA (costs.py flags it)"
+jlc_economic_max_boards,30,"Economic PCBA assembles at most 30 boards of a design unpanelled, and its panels are at most 250 x 250 mm (JLCPCB PCBA FAQ, 2026-10-10): the 318 mm channel card cannot be panelled, so above 30 cards it needs Standard PCBA (costs.py prices that design as Standard; panelling the 33 mm card for Standard, whose single-board minimum is 70 x 70 mm, is not priced)"
+jlc_std_setup_usd,25.56,"JLCPCB Standard PCBA set-up per design, single-sided (JLCPCB help, PCB assembly price, 2026-10-10); used for a design above jlc_economic_max_boards"
+jlc_std_stencil_usd,8.21,"JLCPCB Standard PCBA stencil per design, single-sided (same page)"
+jlc_std_loading_usd,1.53,"JLCPCB Standard PCBA feeder loading per basic or extended part type, replacing the extended fee (same page)"
 jlc_per_smd_part_usd,0.005,"JLCPCB placement per SMD part (about 3 joints at 0.0016 USD per joint, JLCPCB help 2026-10-10); the price page also lists pre-reflow soldering at 0.016 USD per joint, not modelled: check on the first quote"
 jlc_min_assembled,2,JLCPCB assembles at least this many boards of a design (to check when ordering)
 pcb_min_eur_per_design,15,Smallest PCB order per design (5 pieces; estimate)
