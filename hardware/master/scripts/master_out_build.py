@@ -46,8 +46,10 @@ for side,(u,ccp,ccn,dpp,dpn,dnp,dnn,k,rgh,rgc,j) in (
 # ---------------------------------------------------------------- master level law (as the channel fader, decision 72)
 # U705 = OPA2171 (buffer A, summer B), U706 = TL072 (superdiodes), as decision 102
 N("-15V","RV701.1"); N("POTW","RV701.2","U705.3"); N("AGND","RV701.3"); N("VB","U705.2","U705.1","R714.1","R716.1","R719.1")
-N("VSUM","R714.2","R715.2","R718.2","R721.2","R722.1","C711.1","U97052.6"); N("AGND","U97052.5"); N("VC","U97052.7","R722.2","C711.2")
-N("+15V","R715.1","R717.1","R720.1")
+N("VSUM","R734.2","R735.2","R718.2","R721.2","R722.1","C711.1","U97052.6"); N("AGND","U97052.5"); N("VC","U97052.7","R722.2","C711.2")
+N("+15V","R715.1","R717.1","R736.1")
+# E24 pairs (decision 140 values): R714+R734 = 113k, R715+R735 = 450k, R720+R736 = 124k
+N("RA_MID","R714.2","R734.1"); N("RC_MID","R715.2","R735.1"); N("RQ2_MID","R720.1","R736.2")
 N("SD1IN","R716.2","R717.2","U97062.5"); N("SD1K","U97062.6","D713.2","R718.1"); N("SD1O","U97062.7","D713.1")
 N("SD2IN","R719.2","R720.2","U706.3"); N("SD2K","U706.2","D714.2","R721.1"); N("SD2O","U706.1","D714.1")
 # ---------------------------------------------------------------- relay control
@@ -57,7 +59,7 @@ N("UV_O","U707.2","R727.1"); N("TIMER","R727.2","R728.2","C712.1","U97072.7","TP
 N("RLY_B","U97072.1","R729.2","Q701.1"); N("+15V","R729.1"); N("PGND","Q701.2"); N("RLY_N","Q701.3","K701.8","K702.8","D715.2","D716.2")
 # C: raw -20 V through 22k6 / 100k from +15 V against REF (decision 128): NEG_DIV rises above REF when the
 # raw -20 V is weaker than about -17.9 V; its output joins UV_O (open collector, wired OR with A)
-N("+15V","R732.1"); N("NEG_DIV","R732.2","R733.1","U97073.10"); N("-20V_RAW","R733.2"); N("REF","U97073.11"); N("UV_O","U97073.13")
+N("+15V","R737.1"); N("NDIV_TOP","R737.2","R732.1"); N("NEG_DIV","R732.2","R733.1","U97073.10"); N("-20V_RAW","R733.2"); N("REF","U97073.11"); N("UV_O","U97073.13")
 N("+15V","R730.2","R731.2"); N("K1P","R730.1","K701.1","D715.1"); N("K2P","R731.1","K702.1","D716.1")
 for ref,pp,pm in (("U97074",9,8),):   # spare comparators: output held low, outputs open
     N("PGND",f"{ref}.{pp}"); N("+5V",f"{ref}.{pm}")

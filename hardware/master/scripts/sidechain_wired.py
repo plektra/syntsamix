@@ -13,13 +13,14 @@ from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
+ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
 SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**kw))
 def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn))
-def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**TI))
-def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI))
+def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**ST072))
+def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI,Assembly="hand (decision 150)",))
 gnd=lambda at,rot=0: s.power("GNDA",at,rot)
 up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
 def lab(at,name,rot=0): s.label(name,at,rot)
@@ -78,13 +79,15 @@ r=R("R509","10k","SX-R-002",sel2[0]+12.7,YF); s.wire(sel2,r(1)); s.wire(r(2),dn(
 la=(sel2[0]+27.94,YF); s.wire((la[0]-5.08,YF),la); lab((la[0]-5.08,YF),"LPF_A",180)
 r=R("R510","10k","SX-R-002",la[0]+10.16,YF); s.wire(la,r(1)); s.wire(r(2),dn(r(2),7.62)); lab(dn(r(2),7.62),"LPF_P2",270)
 lb=(la[0]+33.02,YF); s.wire((lb[0]-5.08,YF),lb); lab((lb[0]-5.08,YF),"LPF_B",180)
-c=C("C503","22n C0G","SX-C-017",lb[0],YF+10.16,0); s.wire(lb,c(1)); gnd(c(2))
+# 22n as two 47n C0G in series, 23.5 nF (decision 147): Q 0.707, sweep about 3 % lower
+c=C("C503","47n C0G","SX-C-016",lb[0],YF+10.16,0); s.wire(lb,c(1))
+c2=C("C521","47n C0G","SX-C-016",lb[0],YF+20.32,0); s.wire(c(2),c2(1)); gnd(c2(2))
 a=TL("U95022",2,lb[0]+17.78,YF+2.54); s.wire(lb,a(5)); lo=follower(a,6,7)
 c=C("C502","47n C0G","SX-C-016",(la[0]+lo[0])/2,YF-12.7); s.wire(la,(la[0],YF-12.7),c(1)); s.wire(c(2),(lo[0],YF-12.7),lo)
 # dual pot as a labelled block: segment wiper-pin 3 per gang (pin 1 tied to the wiper)
 pt=s.place("Device","R_Potentiometer_Dual","RV501","SC LPF B100K dual",sel2[0]+40.64,YF+30.48,0,
            fp="Potentiometer_THT:Potentiometer_Alpha_RD902F-40-00D_Dual_Vertical",
-           props=P("SX-POT-015",Manufacturer="Alpha",MPN="RD902F-40-15K-B100K-0057",Supplier="Thonk",Note="Panel SC LPF: linear (B) taper, CW = 510 Hz, middle 85 Hz, CCW = 46 Hz (decision 138)"))
+           props=P("SX-POT-015",Manufacturer="Alpha",MPN="RD902F-40-15K-B100K-0057",Supplier="Thonk",Note="Panel SC LPF: linear (B) taper, CW = 478 Hz, middle 80 Hz, CCW = 44 Hz (decisions 138, 147)"))
 for pin,name,d in (("1","LPF_A","l"),("2","LPF_A","u"),("3","LPF_P1","d"),("4","LPF_B","d2"),("5","LPF_B","u"),("6","LPF_P2","r")):
     p=pt(pin)
     if d=="l": e=lt(p,5.08); rot=180
@@ -159,7 +162,7 @@ tp=(n[0]+5.08,o[1]); q=(n[0]+10.16,o[1]); se=(n[0]+17.78,o[1]); s.wire(n,tp); s.
 hier(se,"SC_ENV",0,"output"); s.tp("TP502","SC_ENV",tp,"up")
 # Schottky clamp: SC_ENV cannot rise above about +0.3 V (pin 1 = cathode to AGND, pin 2 = anode on SC_ENV)
 dc=(q[0]-3.81,o[1]+15.24); s.wire(q,(q[0],dc[1]))
-dd=s.place("Device","D","D504","BAT54T1G",dc[0],dc[1],0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-014",Manufacturer="onsemi",MPN="BAT54T1G",Supplier="LCSC",SupplierPN="C152458",Note="SC_ENV clamp to AGND (decision 97)"))
+dd=s.place("Device","D","D504","BAT54W",dc[0],dc[1],0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-014",Manufacturer="hongjiacheng",MPN="BAT54W",Supplier="LCSC",SupplierPN="C7502705",Note="SC_ENV clamp to AGND (decision 97)"))
 s.wire(dd(1),dn(dd(1),2.54)); gnd(dn(dd(1),2.54))
 # spare sections of U508
 for i,(ref,unit) in enumerate((("U95083",3),("U95084",4))):
@@ -168,6 +171,8 @@ for i,(ref,unit) in enumerate((("U95083",3),("U95084",4))):
         p=sp(n); e={0:lt(p,5.08),180:rt(p,5.08),90:dn(p,5.08)}[int(ang)]; s.wire(p,e); gnd(e)
 
 # ======================================================================== buttons
+# button LED colours as the channel (decision 117): SC BUS green, LPF bypass white (as FILTER BYPASS), SC LISTEN yellow (a listen, as PFL)
+LEDPN={"BUS":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"BYP":P("SX-D-017",Manufacturer="Hubei KENTO",MPN="KT-0805W",Supplier="LCSC",SupplierPN="C34499"),"LISTEN":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296")}
 def button(name,title,sw,led,rl,rp,x,y):
     b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,fp=SWFP,
               props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
@@ -175,7 +180,7 @@ def button(name,title,sw,led,rl,rp,x,y):
     nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),f"{name}_CTRL",0)
     r=R(rp,"100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2))
     g=lt(up(r(1),5.08),5.08); s.wire(r(1),up(r(1),5.08),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
-    ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-002"))
+    ld=s.place("Device","LED",led,f"{title} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=LEDPN[name])
     s.wire(b(6),ld(1)); r=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
     NC.extend([b(1),b(4)])
 button("BUS","SC BUS","SW501","D501","R522","R523",261.62,198.12)

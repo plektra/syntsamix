@@ -3,7 +3,7 @@
 """AUX return sheets: reference netlists (build/aux_return1.json, build/aux_return2.json).
 
 Per return (decision 51): L/MONO and R 6.3 mm jacks (R normalled to L), RFI filters,
-AD8273 receiver at G = ½ wired inverting (as the channel cards), 1.6 Hz AC coupling,
+TL072 difference receiver at G = ½ wired inverting (decision 148, as the channel's decision 143), 1.6 Hz AC coupling,
 inverting gain stage with a jumper per side (fitted -6 dB pro/Eurorack, open +6 dB pedal),
 SSI2162 VCA with the channel fader law (decision 72) on a 10 kΩ linear level pot,
 DG413 mute and duck, unity inverter, 22 kΩ bus resistors switched to MAIN or COMP
@@ -21,12 +21,14 @@ def build(n):
     # jacks: J1 L/MONO, J2 R with tip/ring switches normalling to L
     N("AGND",f"{J1}.S",f"{J2}.S"); N("IN_L+",f"{J1}.T",f"{J2}.TN",f"{r(1)}.1"); N("IN_L-",f"{J1}.R",f"{J2}.RN",f"{r(2)}.1")
     N("IN_R+",f"{J2}.T",f"{r(3)}.1"); N("IN_R-",f"{J2}.R",f"{r(4)}.1")
-    # RFI filters and receiver (hot to -IN: inverting, as the channel cards)
-    N("L_P",f"{r(1)}.2",f"{c(1)}.1",f"{u(1)}.2"); N("L_N",f"{r(2)}.2",f"{c(2)}.1",f"{u(1)}.3")
-    N("R_N",f"{r(4)}.2",f"{c(4)}.1",f"{u(1)}.5"); N("R_P",f"{r(3)}.2",f"{c(3)}.1",f"{u(1)}.6")
-    N("AGND",f"{c(1)}.2",f"{c(2)}.2",f"{c(3)}.2",f"{c(4)}.2",f"{u(1)}.14",f"{u(1)}.8")
-    N("L_RX",f"{u(1)}.13",f"{u(1)}.12",f"{c(5)}.1"); N("R_RX",f"{u(1)}.9",f"{u(1)}.10",f"{c(6)}.1")
-    N("+15V",f"{u(1)}.11"); N("-15V",f"{u(1)}.4")
+    # RFI filters and receiver: TL072 difference amplifier G = 1/2, hot to the inverting leg (decision 148)
+    # leg resistors 10k 0.1 %: R1-R4 (input, with the RFI caps), Ri, Rf, Rni, Rg per side
+    for side,(rp,cp,rn,cn),(ri,rf,rni,rg),(ref,pp,pm,po),cpl in (("L",(1,1,2,2),(45,46,47,48),(u(1),3,2,1),5),
+                                                             ("R",(3,3,4,4),(49,50,51,52),(t(1,2),5,6,7),6)):
+        N(f"{side}_P",f"{r(rp)}.2",f"{c(cp)}.1",f"{r(ri)}.1"); N(f"{side}_RXN",f"{r(ri)}.2",f"{r(rf)}.1",f"{ref}.{pm}")
+        N(f"{side}_RX",f"{ref}.{po}",f"{r(rf)}.2",f"{c(cpl)}.1")
+        N(f"{side}_N",f"{r(rn)}.2",f"{c(cn)}.1",f"{r(rni)}.1"); N(f"{side}_RXP",f"{r(rni)}.2",f"{r(rg)}.2",f"{ref}.{pp}")
+        N("AGND",f"{r(rg)}.1",f"{c(cp)}.2",f"{c(cn)}.2")
     # coupling and gain stage (U+2 NE5532): -1 with the jumper fitted, -4 open
     for side,cc,rin,rf,rs,cf,(ref,pm,pp,po),jp in (("L",5,5,7,9,7,(u(2),2,3,1),(1,2)),("R",6,6,8,10,8,(t(2,2),6,5,7),(3,4))):
         N(f"{side}_CPL",f"{c(cc)}.2",f"{r(rin)}.1"); N(f"{side}_SUM",f"{r(rin)}.2",f"{r(rf)}.1",f"{c(cf)}.1",f"{ref}.{pm}")
@@ -48,8 +50,10 @@ def build(n):
     # U+6 = OPA2171 (buffer A, summer B; input range includes V-), U+7 = TL072 (superdiodes), as decision 102
     RV=f"RV{B+1}"
     N("-15V",f"{RV}.1"); N("POTW",f"{RV}.2",f"{u(6)}.3"); N("AGND",f"{RV}.3"); N("VB",f"{u(6)}.2",f"{u(6)}.1",f"{r(22)}.1",f"{r(24)}.1",f"{r(27)}.1")
-    N("VSUM",f"{r(22)}.2",f"{r(23)}.2",f"{r(26)}.2",f"{r(29)}.2",f"{r(30)}.1",f"{c(15)}.1",f"{r(31)}.2",f"{r(32)}.2",f"{t(6,2)}.6")
-    N("+15V",f"{r(23)}.1",f"{r(25)}.1",f"{r(28)}.1")
+    N("VSUM",f"{r(42)}.2",f"{r(43)}.2",f"{r(26)}.2",f"{r(29)}.2",f"{r(30)}.1",f"{c(15)}.1",f"{r(31)}.2",f"{r(32)}.2",f"{t(6,2)}.6")
+    N("+15V",f"{r(23)}.1",f"{r(25)}.1",f"{r(44)}.1")
+    # E24 pairs (decision 140 values): r22+r42 = 113k, r23+r43 = 450k, r28+r44 = 124k
+    N("RA_MID",f"{r(22)}.2",f"{r(42)}.1"); N("RC_MID",f"{r(23)}.2",f"{r(43)}.1"); N("RQ2_MID",f"{r(28)}.1",f"{r(44)}.2")
     N("SD1IN",f"{r(24)}.2",f"{r(25)}.2",f"{t(7,2)}.5"); N("SD1K",f"{t(7,2)}.6",f"D{B+1}.2",f"{r(26)}.1"); N("SD1O",f"{t(7,2)}.7",f"D{B+1}.1")
     N("SD2IN",f"{r(27)}.2",f"{r(28)}.2",f"{u(7)}.3"); N("SD2K",f"{u(7)}.2",f"D{B+2}.2",f"{r(29)}.1"); N("SD2O",f"{u(7)}.1",f"D{B+2}.1")
     N("VC",f"{t(6,2)}.7",f"{r(30)}.2",f"{c(15)}.2"); N("AGND",f"{t(6,2)}.5")   # summer + input on AGND (decision 97)
@@ -69,7 +73,7 @@ def build(n):
     # test pads
     N("L_RET",f"TP{B+1}.1"); N("R_RET",f"TP{B+2}.1"); N("VC",f"TP{B+3}.1")
     # supplies and decoupling
-    for ref in (t(2,3),t(4,3),t(5,3),t(6,3),t(7,3)): N("+15V",f"{ref}.8"); N("-15V",f"{ref}.4")
+    for ref in (t(1,3),t(2,3),t(4,3),t(5,3),t(6,3),t(7,3)): N("+15V",f"{ref}.8"); N("-15V",f"{ref}.4")
     for ref in (t(8,5),t(9,5)): N("+15V",f"{ref}.13"); N("-15V",f"{ref}.4"); N("+5V",f"{ref}.12"); N("AGND",f"{ref}.5")
     for k in range(9):
         N("+15V",f"{c(16+2*k)}.1"); N("AGND",f"{c(16+2*k)}.2"); N("-15V",f"{c(17+2*k)}.1"); N("AGND",f"{c(17+2*k)}.2")

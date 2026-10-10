@@ -6,9 +6,12 @@ Decisions 24 and 51. Per send n (references 6xx: send 1 from 601, send 2 from 62
 dual-gang 10 kΩ log master pot on the inverted bus sums AUXn_L/R_SUM (CCW = off),
 inverting stages (47 kΩ / 47 kΩ, NE5532) restore polarity, impedance-balanced outputs
 (tip through 100 Ω, ring through 100 Ω to AGND) on 6.3 mm TRS jacks.
-L/MONO: the R jack's ring switch contact (RN) detects a plug; with R unplugged, DG411
-sections (normally closed, on at logic 0) add the R wiper into the L stage and halve
-its feedback, so L carries (L+R)/2. One DG411 (U641) serves both sends.
+L/MONO: the R jack's ring switch contact (RN) detects a plug; with R unplugged, analog
+switch sections add the R wiper into the L stage and halve its feedback, so L carries
+(L+R)/2. One DG413 (U641) serves both sends: send 2 on its normally closed sections
+(units 3, 4, on at logic 0, driven by DET2), send 1 on its normally open sections
+(units 1, 2, on at logic 1) driven by MONO1, DET1 inverted by Q601 (fee-free, replaces
+the DG411; STATUS extended-part review item 4).
 """
 import json,os
 nets={}
@@ -25,7 +28,9 @@ for n,B in ((1,600),(2,620)):
     N(f"L{n}_N",r(1)+".2",r(2)+".1",f"{U}.2"); N("AGND",f"{U}.3"); N(f"L{n}_O",f"{U}.1",r(2)+".2",r(4)+".2",r(7)+".1",f"TP{B+1}.1")
     (ma,ma_l,ma_r,ma_in),(fb,fb_l,fb_r,fb_in)=DG[n]
     N(f"L{n}_N",f"{ma}.{ma_l}",f"{fb}.{fb_l}"); N(f"L{n}_MX",f"{ma}.{ma_r}",r(3)+".1"); N(f"L{n}_FB",f"{fb}.{fb_r}",r(4)+".1")
-    N(f"DET{n}",f"{ma}.{ma_in}",f"{fb}.{fb_in}")
+    N(f"DET{n}" if n==2 else "MONO1",f"{ma}.{ma_in}",f"{fb}.{fb_in}")
+    if n==1:   # DET1 inverter: high (mono) when R1 is unplugged
+        N("DET1","R612.1"); N("Q1B","R612.2","Q601.1"); N("PGND","Q601.2"); N("MONO1","Q601.3","R613.2"); N("+5V","R613.1")
     # R stage
     N(f"R{n}_N",r(5)+".2",r(6)+".1",f"{U2}.6"); N("AGND",f"{U2}.5"); N(f"R{n}_O",f"{U2}.7",r(6)+".2",r(9)+".1",f"TP{B+2}.1")
     # outputs

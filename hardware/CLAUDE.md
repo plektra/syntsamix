@@ -16,6 +16,8 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
   - Multi-unit parts are built with temporary references `U9<3-digit ref><unit>` (units 1-9) and renamed by `post_wired.py`.
   - Duplicate references across sheets are not reported by ERC; `check_netlist.py` checks them.
   - `check_netlist.py` only checks the pins the reference lists: a pin or net dropped from the reference (for example by a stray `#` mid-line) passes unnoticed. Compare the "nets checked" count with the previous run and explain any change.
+  - Net names in a reference script must be unique: a new net that reuses an existing name (L_INV for a second stage) merges both in the reference, and `check_netlist.py` reports it as SPLIT. After a reference edit, diff the net names against the committed script's output: a removed name means a dropped pin (a `#` comment pasted mid-line did that once).
+  - References made in loops (decoupling caps, LED resistors) never appear as literals in the scripts: find free numbers in the committed `.kicad_sch`, not by searching the scripts.
   - Power flags live only on the power sheet of each project.
   - Diodes at 90/270° render vertical field text; draw them horizontally where text matters.
   - `Device:D` pin 1 is the cathode, pin 2 the anode: read netlists (and write SPICE models from them) with that in mind.
@@ -41,6 +43,8 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 - Pot dissipation: Alpha RD901F tracks take 0.02 W in non-B tapers (0.05 W in B): compute it for every pot across a rail (decisions 129, 131). Before changing a resistor in series with a pot, check which end of the control law it sets; scaling the pot and that resistor together keeps the law (decision 131).
 - Decision numbers: parallel sessions take numbers before they commit. The same goes for SX part numbers. Before numbering, grep `docs/decisions/INDEX.md` and `docs/parts.csv` in every worktree (`.claude/worktrees/*/`), not only on main.
 - TME catalogue (parametric search, parameters, prices and stock, datasheets): `python3 tools/tme.py` (usage in its docstring; credentials in the macOS Keychain, service `tme-api`). Also available: the `pcbparts` MCP server (LCSC parametric search, SamacSys KiCad models as a starting point to check against the maker's drawing, Mouser/DigiKey lookup by MPN)).
+- `pcbparts jlc_search`: value filters in kΩ and C0G/NP0 filters can silently return nothing in every class; give resistance in plain ohms ("10000Ohm"), search by maker part number, or list a whole subcategory by package with `library_type: no_fee`. The classes in `docs/lcsc-check.csv` go stale (16k became preferred): recheck before calling a part extended.
+- Hand-soldered SMD parts: give the symbol the field Assembly = "hand (decision N)"; `tools/costs.py` then counts that symbol as user-soldered, per symbol, so the same part type can stay JLCPCB-placed on another board.
 - Mouser catalogue (keyword and part-number search, stock, price breaks, datasheets; no parametric filters): `python3 tools/mouser.py` (key in the macOS Keychain, service `mouser-api`).
 
 ## Interfaces between boards

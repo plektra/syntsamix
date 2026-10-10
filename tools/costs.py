@@ -10,7 +10,7 @@ Estimate (tracked inputs, repeatable):
   python3 tools/costs.py drivers [--board B] [--top N]    most expensive part types per board
   python3 tools/costs.py unpriced                         part types with no price yet (fill docs/costs/prices.csv)
   python3 tools/costs.py extended                         SMD part types that cost a JLCPCB extended-part fee or are consigned
-Inputs: the KiCad schematics (BOM by ProjectPN, DNP excluded), docs/lcsc-check.csv (LCSC price and
+Inputs: the KiCad schematics (BOM by ProjectPN, DNP excluded; a symbol field Assembly = "hand ..." marks a user-soldered SMD part, decision 150), docs/lcsc-check.csv (LCSC price and
 JLCPCB class), docs/costs/prices.csv (prices for parts LCSC does not sell, and overrides),
 docs/costs/overheads.csv (exchange rates, PCB, panel, JLCPCB fee and frame figures).
 
@@ -141,15 +141,16 @@ def bom(board):
     with tempfile.TemporaryDirectory() as d:
         out = os.path.join(d, "bom.csv")
         subprocess.run([KICAD, "sch", "export", "bom", "--fields",
-                        "ProjectPN,Value,Footprint,${QUANTITY}", "--labels", "pn,value,footprint,qty",
-                        "--group-by", "ProjectPN,Value,Footprint", "--exclude-dnp", "-o", out, sch],
+                        "ProjectPN,Value,Footprint,Assembly,${QUANTITY}", "--labels", "pn,value,footprint,assembly,qty",
+                        "--group-by", "ProjectPN,Value,Footprint,Assembly", "--exclude-dnp", "-o", out, sch],
                        capture_output=True, check=True)
         rows = read_csv(out)
     items = []
     for r in rows:
         fp = r["footprint"]
         items.append({"pn": r["pn"] or f"(no PN) {r['value']}", "value": r["value"], "footprint": fp,
-                      "qty": int(r["qty"]), "tht": (not fp) or any(h in fp for h in THT_HINTS)})
+                      "qty": int(r["qty"]), "tht": (not fp) or any(h in fp for h in THT_HINTS)
+                      or (r.get("assembly") or "").startswith("hand")})   # Assembly field: hand-soldered SMD (decision 150)
     return items
 
 

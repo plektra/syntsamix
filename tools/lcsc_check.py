@@ -37,7 +37,7 @@ PKG={"SX-IC-003":"SOIC","SX-IC-004":"SO","SX-IC-005":"SO","SX-IC-006":"SO","SX-I
 norm=lambda t: re.sub(r'[^A-Z0-9]','',t.upper())
 # LCSC codes seen in successful queries on 2026-10-06, used when the flaky search returns nothing; recheck before ordering
 KNOWN={"SX-IC-004":("C7426","NE5532DR","basic",91852,0.1064),"SX-IC-005":("C141600","DG413DY-T1-E3","extended",331,""),
-       "SX-IC-011":("C73683","LM337TG","extended",5683,""),"SX-D-001":("C19077403","BZT52C6V2","preferred",218115,0.0178),
+       "SX-IC-011":("C73683","LM337TG","extended",5683,""),"SX-D-001":("C19077403","BZT52C6V2","preferred",218115,0.0178),"SX-D-014":("C7502705","BAT54W","preferred",143316,0.0109),"SX-D-008":("C18199088","1N4007W","preferred",3689199,0.0091),
        "SX-IC-007":("C6961","TL072CDT","basic",75221,0.1618),"SX-IC-012":("C71136","78L05G-AB3-R","basic",217722,0.0895)}   # 2026-10-10 (decision 137)
 HAND=("SX-POT","SX-TRIM","SX-CONN","SX-SW","SX-MECH")
 rows=[]

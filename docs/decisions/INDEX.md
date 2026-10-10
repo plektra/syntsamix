@@ -8,8 +8,8 @@ The decision log, split by area. Read this index, then the area file for the wor
 | [channel-card.md](channel-card.md) | Channel card |
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
-| [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135) |
-| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138) |
+| [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135, 150: hand-soldered ICs) |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, availability notes |
@@ -156,7 +156,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 130 | Tempco leg R108/R158: end-of-life ERA-V33J102V replaced by Vishay TFPT0603L8200FV 820 Ω plus 180 Ω in series (1 k, about +3370 ppm/K); new R122/R172 | confirmed | [channel-card](channel-card.md) |
 | 131 | RELEASE pot RV402 within Alpha's 0.02 W non-B rating: C10K → C100K (RD901F-40-15K-C100K) with R425 620 Ω → 6.2 kΩ, same release law, about 2 mW | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 132 | 6.3 mm jacks: Rean NYS216 replaces the Neutrik NMJ6HCD2 on every board (cost); new footprint, pin roles to check on the first part | confirmed (delegated) | [system](system.md) |
-| 133 | Through-hole parts hand-soldered by the user; JLCPCB places SMD only | confirmed | [process](process.md) |
+| 133 | Through-hole parts hand-soldered by the user; JLCPCB places SMD only (master's expensive ICs hand-soldered on the prototype: 150) | confirmed, refined | [process](process.md) |
 | 134 | Component values from E24 (capacitors preferably E12/E6); each board owns its value selection and lists justified exceptions in its STATUS.md | confirmed | [process](process.md) |
 | 135 | Cost principle: a live performance device, not studio equipment (what may be relaxed for cost, what must stay; the filter stays) | confirmed | [system](system.md) |
 | 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
@@ -167,7 +167,13 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 141 | Filter temperature compensation to the backlog: R108/R158 plain 820 Ω with the 180 Ω (FREQ leg still 1 k); TFPT no longer used | confirmed (delegated) | [channel-card](channel-card.md) |
 | 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed | confirmed (delegated) | [channel-card](channel-card.md) |
 | 143 | Channel input receiver: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (CMRR ≥ 51.5 dB) | confirmed (delegated) | [channel-card](channel-card.md) |
+| 144 | Master fader laws (AUX returns, master level) on the channel's E24 values and pairs; 30k1 kept | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 145 | Full-size brick: Mean Well GSM220B24-R7B (221 W, Class II, same R7B plug) instead of the GSM160B24-R7B; prototype keeps the GSM120B24-R7B | confirmed | [power](power.md) |
+| 146 | Master meter ladder (16k … 120, about 0.45 mA) and R732 22k + 560R on fee-free E24 values; thresholds within 0.14 dB | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 147 | Compressor (R420 510k + 51k, R426 120k + 20k, GR ladder 470k/4k3) and SC LPF C503 2 × 47n C0G (Q 0.707) on fee-free parts; master TL072 symbols ST TL072CDT | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
+| 148 | AUX return receivers: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (as 143); AD8273 no longer used | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 149 | Compressor R421 a plain 1k on the prototype (end-of-life tempco part dropped); detector temperature compensation to the backlog | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 150 | Master DG413, SSI2162, DRV135UA and AS3046D hand-soldered on the prototype (Assembly field, refines 133); potential single point of failure kept in the backlog | confirmed | [master-card](master-card.md) |
 
 ## Proposed but not confirmed
 
