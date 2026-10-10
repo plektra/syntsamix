@@ -18,7 +18,7 @@ CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
-SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
+SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"; POT1="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical"
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,fp=R0805,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**kw))
@@ -259,7 +259,7 @@ for i,(ref,unit,(pp,pm,po)) in enumerate((("U94122",2,(7,6,1)),("U94123",3,(11,1
     NC.append(cmp(po))
 # ON button: pressed = compressor on
 b=s.place("Switch","SW_Push_DPDT","SW401","COMP ON (latching)",439.42,236.22,0,fp=SWFP,
-          props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
+          props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
 s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
 nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); lab(rt(nd,10.16),"ON_CTRL",0)
 r=R("R455","100k","SX-R-007",nd[0],nd[1]-10.16,0); s.wire(nd,r(2))

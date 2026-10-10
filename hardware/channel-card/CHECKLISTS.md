@@ -18,7 +18,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 
 ## Check on first delivery or assembly
 
-- **GPBS850N buttons:** Mouser's listing says "DPDT Non-Latching ON-(ON)", the maker datasheet Rev 1 (2012) and decision 75 say latching; check that the delivered switches latch.
+- **GPBS850L buttons (Electrokit 41012905):** the MPN was corrected on 2026-10-10 from GPBS850N, which is the momentary twin (Electrokit 41015527). When the second Electrokit order arrives, check that the delivered switches latch and that the pins match the GPBS850L datasheet Rev 2 (pin grid 2.5 mm, rows 5.4 mm, pressed = 2-3 and 5-6); size the printed caps for the 4.0 mm plunger.
 
 - **T18 panel pots:** bushing thread M7×0.75 × 5 mm (Alpha's RD902F drawing; confirmed by Thonk support 2026-10-09 for the Thonk pots): check the nut fit; legs bent back parallel to the shaft and bracket tabs in the footprint slots. Tayda sells 9 mm and 16 mm horizontal Alpha pots under similar names (the C10K dual is an RV16A01F-20): check any further Tayda pot against its own drawing.
 - **CV jack Thonkiconn:** the nut (thickness not on Thonk's drawing, typically about 2 mm) grips the 2.9 mm of thread left above the printed washer and the panel. Pinout settled (1 sleeve, 2 switch, 3 tip; pads S/TN/T).

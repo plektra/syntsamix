@@ -9,8 +9,9 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 - Schematic complete: ten sheets, every netlist check 0 problems, ERC 0 errors 0 warnings (decisions 87-95, 103, 104, 125-128, 131, 138, 144, 146-150, 153). Net counts: AUX returns 73, compressor 83, sidechain 55, AUX sends 37, master out 63, meter 83.
 - Values E24 and parts fee-free wherever one fits (decisions 144, 146-149, 153; exceptions and drawn swaps in `CHECKLISTS.md`); DG413, SSI2162, DRV135UA and AS3046D hand-soldered on the prototype (150).
 - Power budget: typical 327 / 256 mA, worst case 701 / 576 mA (`ARCHITECTURE.md`); heatsinks ≤ 11.5 °C/W.
-- Cost (`tools/costs.py estimate`, 2026-10-10 after decision 153): €785 / €1,066 / €1,663 for 4 / 8 / 16 channels before VAT and shipping; 35 fee types system-wide, about €97 per order.
+- Cost (`tools/costs.py estimate`, 2026-10-10 after decision 153 and the GPBS850L price): €769 / €1,037 / €1,609 for 4 / 8 / 16 channels before VAT and shipping; 35 fee types system-wide, about €97 per order.
 - `simulation/sidechain` reflects the 30k loads (1.667 kΩ); results unchanged.
+- 2026-10-10, button MPN corrected: SX-SW-001 is CW GPBS850L (latching, Electrokit 41012905); GPBS850N, recorded until now, is the momentary twin. MPN, footprint `SW_Latching_8.5x8.5mm_CW_GPBS850L` (same geometry per datasheet Rev 2), parts.csv and prices.csv changed; erratum on decision 75; no wiring change, ERC 0/0. Estimate €769 / €1,037 / €1,609 for 4 / 8 / 16 channels.
 - PCB: not started.
 
 ## Waiting for the user's confirmation

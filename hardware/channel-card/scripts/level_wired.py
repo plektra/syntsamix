@@ -146,7 +146,7 @@ s.wire((so[0],172.72),(so[0],182.88)); s.wire((so[0],182.88),so)
 # decision 142: pole 1 switches the control voltage (pressed 2-3: source into R216/R217); the summer's 10 ms smoothing ramps it.
 # Pin 1 stays open and a 100k holds the resistor end at AGND when released: no contact sequence can short the source to ground.
 def button(name,sw,led,rl,rp,x,y,src):
-    b=s.place("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
+    b=s.place("Switch","SW_Push_DPDT",sw,f"{name} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
     n=lt(b(2),5.08); s.wire(b(2),n,lt(b(2),12.7)); s.label(f"{name}_V",lt(b(2),12.7),180)
     rh=R(rp,"100k","SX-R-007",n[0],n[1]-3.81,0); s.wire(n,rh(2)); t=up(rh(1),2.54); s.wire(rh(1),t,lt(t,5.08)); gnd(lt(t,5.08))   # ground beside the resistor
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))

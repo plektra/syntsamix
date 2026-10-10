@@ -8040,7 +8040,7 @@
 				)
 			)
 		)
-		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
+		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"
 			(at 233.68 279.4 0)
 			(hide yes)
 			(show_name no)
@@ -8094,7 +8094,7 @@
 				)
 			)
 		)
-		(property "MPN" "GPBS850N"
+		(property "MPN" "GPBS850L"
 			(at 233.68 279.4 0)
 			(hide yes)
 			(show_name no)
@@ -8185,7 +8185,7 @@
 				)
 			)
 		)
-		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
+		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"
 			(at 40.64 279.4 0)
 			(hide yes)
 			(show_name no)
@@ -8239,7 +8239,7 @@
 				)
 			)
 		)
-		(property "MPN" "GPBS850N"
+		(property "MPN" "GPBS850L"
 			(at 40.64 279.4 0)
 			(hide yes)
 			(show_name no)
@@ -10826,7 +10826,7 @@
 				)
 			)
 		)
-		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
+		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"
 			(at 137.16 279.4 0)
 			(hide yes)
 			(show_name no)
@@ -10880,7 +10880,7 @@
 				)
 			)
 		)
-		(property "MPN" "GPBS850N"
+		(property "MPN" "GPBS850L"
 			(at 137.16 279.4 0)
 			(hide yes)
 			(show_name no)

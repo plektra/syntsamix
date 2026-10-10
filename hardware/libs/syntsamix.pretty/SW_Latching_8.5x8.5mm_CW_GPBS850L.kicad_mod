@@ -1,10 +1,10 @@
-(footprint "SW_Latching_8.5x8.5mm_CW_GPBS850N"
+(footprint "SW_Latching_8.5x8.5mm_CW_GPBS850L"
 	(version 20260206)
 	(generator "pcbnew")
 	(generator_version "10.0")
 	(layer "F.Cu")
-	(descr "Latching DPDT push switch 8.5x8.5 mm, CW Industries GPBS850N (datasheet Rev 1, 2012): pins 2.5 mm pitch, rows 5.4 mm apart; pressed = 2-3 and 5-6 closed")
-	(tags "switch push latching DPDT 8.5mm GPBS850N")
+	(descr "Latching DPDT push switch 8.5x8.5 mm, CW Industries GPBS850L (datasheet Rev 2, 2014): pins 2.5 mm pitch, rows 5.4 mm apart; pressed = 2-3 and 5-6 closed")
+	(tags "switch push latching DPDT 8.5mm GPBS850L")
 	(property "Reference" "REF**"
 		(at 0 -5.9 0)
 		(layer "F.SilkS")
@@ -16,7 +16,7 @@
 			)
 		)
 	)
-	(property "Value" "GPBS850N"
+	(property "Value" "GPBS850L"
 		(at 0 5.9 0)
 		(layer "F.Fab")
 		(uuid "11a1d6b1-735a-4e4c-a6dc-77bc9103ccf9")

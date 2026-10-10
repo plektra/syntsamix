@@ -534,11 +534,11 @@
  "SW1": {
   "lib": "Switch:SW_Push_DPDT",
   "value": "LOW-CUT (latching)",
-  "footprint": "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",
+  "footprint": "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L",
   "props": {
    "ProjectPN": "SX-SW-001",
    "Manufacturer": "CW Industries",
-   "MPN": "GPBS850N",
+   "MPN": "GPBS850L",
    "Supplier": "Electrokit",
    "SupplierPN": "41012905"
   },

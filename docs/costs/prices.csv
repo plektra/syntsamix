@@ -40,7 +40,7 @@ SX-POT-010,1.00,USD,estimate (Tayda),2026-10-09,hand,Alpha RD901F single
 SX-POT-011,1.90,GBP,estimate (Thonk),2026-10-09,hand,Alpha RD902F dual
 SX-POT-012,1.00,USD,estimate (Tayda),2026-10-09,hand,Alpha RD901F single
 SX-POT-013,1.90,GBP,estimate (Thonk),2026-10-09,hand,Alpha RD902F dual
-SX-SW-001,1.00,EUR,estimate (Electrokit),2026-10-09,hand,GPBS850N latching button
+SX-SW-001,6.48,SEK,Electrokit 41012905,2026-10-10,hand,"GPBS-850L latching button; 8.10 SEK incl. 25 % VAT at 25+ (12.50 at 1, 10 at 10+); Mouser 629-GPBS-850L 1.61 USD at 25+, 1.50 at 100+"
 SX-SW-002,2.00,EUR,estimate,2026-10-09,hand,ground lift switch (not chosen)
 SX-SW-003,2.00,EUR,estimate,2026-10-09,hand,power switch (not chosen)
 SX-CONN-002,0.40,EUR,estimate (Mouser),2026-10-09,hand,KK 254 1x10 header

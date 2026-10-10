@@ -8,7 +8,7 @@ Reference: SSI2144 datasheet Rev 3.0 (January 2018), Figures 1 and 3. Where this
 
 ## 1. Shopping list
 
-**What runs on the first order alone** (`electrokit-order.csv`, checked 2026-10-09): tests 1-7, which settle the values the channel card waits for (R111/R161 output scale in test 5, R120/R170 Q limit in test 2, the drive jumper in tests 4 and 7), and test 10 in its reduced form (two spare TL072s, without the 0 % row). Test 8 needs the second order's three 6.8 nF capacitors and second breadboard; test 9 needs its LM13700 and 1N4148s. The full test 10 needs one OPA2171 on an SOIC-8 adapter, in neither order (Mouser or LCSC). The second order (`electrokit-order-2.csv`) also carries the 10 GPBS850N buttons for printing and testing the button caps and setting the button LED brightness (decisions 75, 117). Resistors come from the 1 % kit (E24 substitutes in `breadboard-bom.csv`).
+**What runs on the first order alone** (`electrokit-order.csv`, checked 2026-10-09): tests 1-7, which settle the values the channel card waits for (R111/R161 output scale in test 5, R120/R170 Q limit in test 2, the drive jumper in tests 4 and 7), and test 10 in its reduced form (two spare TL072s, without the 0 % row). Test 8 needs the second order's three 6.8 nF capacitors and second breadboard; test 9 needs its LM13700 and 1N4148s. The full test 10 needs one OPA2171 on an SOIC-8 adapter, in neither order (Mouser or LCSC). The second order (`electrokit-order-2.csv`) also carries the 10 GPBS850L buttons for printing and testing the button caps and setting the button LED brightness (decisions 75, 117). Resistors come from the 1 % kit (E24 substitutes in `breadboard-bom.csv`).
 
 | Qty | Part | Notes |
 |---|---|---|

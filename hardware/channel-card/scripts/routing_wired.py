@@ -93,7 +93,7 @@ for n,j,rv,rl,rr,YA in ((1,"J301","RV301","R307","R308",50.8),(2,"J302","RV302",
 
 # ------------------------------------------------------------- buttons
 def button(name,sw,led,rl,rp,x,y,title,ctrl=3,net=None):
-    b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850N",Supplier="Electrokit",SupplierPN="41012905"))
+    b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
     s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
     s.wire(b(5),lt(b(5),5.08)); pgnd(lt(b(5),5.08))
     nd=(b(ctrl)[0]+10.16,b(ctrl)[1]); s.wire(b(ctrl),nd,rt(nd,10.16)); lab(rt(nd,10.16),net or f"{name}_CTRL",0)

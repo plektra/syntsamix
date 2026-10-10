@@ -36,7 +36,7 @@ The master's proposals (89-94, power levers) were decided on 2026-10-09 with the
 
 ## Pending outside the boards
 
-- Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`. Not needed to start the breadboard (tests 1-7 and a reduced test 10 run on the first order, `BREADBOARD.md`); release it for tests 8 and 9 and for the GPBS850N buttons (button cap prints and LED brightness). The full test 10 also needs an OPA2171 on an SOIC-8 adapter (Mouser or LCSC).
+- Second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`. Not needed to start the breadboard (tests 1-7 and a reduced test 10 run on the first order, `BREADBOARD.md`); release it for tests 8 and 9 and for the GPBS850L buttons (button cap prints and LED brightness). The full test 10 also needs an OPA2171 on an SOIC-8 adapter (Mouser or LCSC).
 - RoHS declarations requested by the user (2026-10-09, by email) for the SSI2144 and SSI2162 (channel) and the AS3046D (master); without them these parts block the PCB order.
 - Panel pots: Taiwan Alpha's RoHS II declaration (via Thonk, 2026-10-09) covers every standard Alpha pot (decision 124): the four channel pots are cleared, the master's Alpha pots get their source when chosen. Supplier declarations live in git-ignored `docs/rohs/` (not ours to publish).
 - RoHS is strict for every part on every board (decision 116): record a `RoHS: <source>` in `docs/parts.csv` when choosing a part.

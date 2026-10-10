@@ -11,7 +11,7 @@
 		(company "Syntsamix")
 		(comment 1 "TL072 difference receiver G=1/2, 10k 0.1 % (decision 143), wired inverting; trim stage inverts back (net non-inverting)")
 		(comment 2 "Trim -20..+20 dB overall, 6V2 zener soft clip; 100 Hz 12 dB/oct low-cut via DG413")
-		(comment 3 "Buttons CW GPBS850N: pressed = pins 2-3 and 5-6 closed (datasheet Rev 1)")
+		(comment 3 "Buttons CW GPBS850L: pressed = pins 2-3 and 5-6 closed (datasheet Rev 2)")
 	)
 	(lib_symbols
 		(symbol "Amplifier_Operational:NE5532"
@@ -8571,7 +8571,7 @@
 				)
 			)
 		)
-		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N"
+		(property "Footprint" "syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"
 			(at 127 254 0)
 			(hide yes)
 			(show_name no)
@@ -8625,7 +8625,7 @@
 				)
 			)
 		)
-		(property "MPN" "GPBS850N"
+		(property "MPN" "GPBS850L"
 			(at 127 254 0)
 			(hide yes)
 			(show_name no)
