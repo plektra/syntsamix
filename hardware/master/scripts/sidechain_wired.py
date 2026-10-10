@@ -154,7 +154,7 @@ rd=s.place("Device","R_Potentiometer","RV504","DECAY 500k log",152.4,YQ+30.48,18
 s.wire(dk,rd(3))
 s.wire(rd(2),lt(rd(2),2.54)); s.wire(lt(rd(2),2.54),(rd(2)[0]-2.54,rd(3)[1]-1.27),(rd(3)[0],rd(3)[1]-1.27))
 s.wire(rd(1),dn(rd(1),2.54)); gnd(dn(rd(1),2.54))
-# SC_ENV follower, feedback taken after R521 so the line stays low impedance under up to 18 loads of 30k1 (decision 97)
+# SC_ENV follower, feedback taken after R521 so the line stays low impedance under up to 18 loads of 30k (decisions 97, 153)
 a=TL("U95052",2,180.34,YQ+2.54); s.wire((152.4,YQ),a(5)); o=a(7); m=a(6)
 r=R("R521","100","SX-R-001",o[0]+10.16,o[1]); s.wire(o,r(1)); n=(r(2)[0]+2.54,o[1]); s.wire(r(2),n)
 s.wire(n,(n[0],o[1]+7.62),(m[0]-2.54,o[1]+7.62),(m[0]-2.54,m[1]),m)

@@ -8,7 +8,7 @@ LPF: unity-gain Sallen-Key, 22 nF / 47 nF, 10 kOhm + 100 kOhm dual linear (B) po
 Ducker: window comparator (TL072s) against +-THRESHOLD, two DG413 NO switches charge
 2.2 uF from DEPTH (0 to -4 V) through 470 Ohm; DECAY (500 kOhm log + 22 kOhm) discharges it; a follower
 with its feedback taken after the 100 Ohm drives SC_ENV (-1 V = 10 dB of ducking, decision 97) into
-18 loads of 30k1 (1.7 kOhm); a BAT54 clamps SC_ENV to AGND. Uses the TL072-like model of simulation/compressor.
+18 loads of 30k (1.67 kOhm, decision 153); a BAT54 clamps SC_ENV to AGND. Uses the TL072-like model of simulation/compressor.
 
 Requires ngspice on PATH. Standard library only.
 
@@ -62,7 +62,7 @@ R2 h d 22k
 R3 d 0 {decay + 1:g}
 X3 h scenv env opamp
 Rout env scenv 100
-Rload scenv 0 1.7k
+Rload scenv 0 1.667k
 Dcl scenv 0 BAT54
 .model BAT54 D(IS=2e-7 N=1.05 RS=2 CJO=10p BV=30)
 .tran 50u {tstop} 0 50u
@@ -80,7 +80,7 @@ def main():
         v = lpf(r)
         print(f"  {name}: -3 dB at {v['fc']:.0f} Hz, peak {20*math.log10(v['pk']):+.2f} dB")
 
-    print("\nDucker (THRESHOLD 0.6 V peak, DEPTH -4 V = 40 dB, 100 Hz kick burst of 30 ms at 0.1 s, load 18 x 30k1 = 1.7 kOhm)")
+    print("\nDucker (THRESHOLD 0.6 V peak, DEPTH -4 V = 40 dB, 100 Hz kick burst of 30 ms at 0.1 s, load 18 x 30k = 1.67 kOhm)")
     a = DBU * math.sqrt(2) * 10 ** (4 / 20)
     src = f"Bsc sc 0 V = (time > 0.1 && time < 0.13 ? {a:.4g} : 0) * sin(2*3.14159265*100*(time-0.1))"
     for decay, name in ((0.0, "DECAY CCW"), (500e3, "DECAY CW")):

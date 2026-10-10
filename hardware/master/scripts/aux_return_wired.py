@@ -168,7 +168,7 @@ def draw(n):
     superdiode(Y+17.78,24,25,"220k","SX-R-103",tt(7,2),2,(5,6,7),f"D{B+1}",26,"62k","SX-R-102")
     superdiode(Y+50.8,27,28,"100k","SX-R-007",uu(7),1,(3,2,1),f"D{B+2}",29,"9k1","SX-R-095",(44,"24k","SX-R-031"))   # 124k = 100k + 24k
     for y1,y2 in ((Y-20.32,Y+2.54),(Y+2.54,Y+17.78),(Y+17.78,Y+50.8)): s.wire((VBX,y1),(VBX,y2))
-    rd=R(32,"30k1","SX-R-087",220.98,Y+30.48,Note="SC_ENV into the virtual earth: 0.332 V/V, 10 dB of ducking per -1 V (decision 97)")
+    rd=R(32,"30k","SX-R-050",220.98,Y+30.48,Note="SC_ENV into the virtual earth: 0.333 V/V, 10 dB of ducking per -1 V (decisions 97, 153)")
     s.wire((208.28,Y+30.48),rd(1)); s.label("DUCK_V",(208.28,Y+30.48),180); s.wire(rd(2),(SUMX,Y+30.48))
     rm=R(31,"33k","SX-R-006",220.98,Y+40.64); s.wire((208.28,Y+40.64),rm(1)); s.label("MUTE_V",(208.28,Y+40.64),180); s.wire(rm(2),(SUMX,Y+40.64))
     taps=sorted({Y-38.1,Y-30.48,Y-20.32,Y-10.16,Y+5.08,Y+20.32,Y+30.48,Y+40.64,Y+53.34})
