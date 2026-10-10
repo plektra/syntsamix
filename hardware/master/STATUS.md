@@ -65,7 +65,7 @@ PCB layout, after the SSI2144 breadboard and the channel card layout (`docs/CONT
 
 ## Cost-cut levers [proposed] (2026-10-09)
 
-Cost frame set by the user (2026-10-09): prototype of 4 channels (maybe 2), the full console cost kept in view for a possible product, the filter stays; overview in `docs/ROADMAP.md`, Cost review. The master is a fixed cost of about €165 in parts (one per mixer), but JLCPCB assembles at least 2 boards per design, so the prototype pays for a second set of its SMD parts (about €100) unless only one is populated. Through-hole parts are hand-soldered by the user (decision 133). Done: the 13 jacks are Rean NYS216 (decision 132, about €15 saved). Rough prices at 20-50 pieces; none of these is decided:
+Cost frame set by the user (2026-10-09): prototype of 4 channels (maybe 2; 2026-10-10: costs tracked for 4, 8 and 16-channel builds), the full console cost kept in view for a possible product, the filter stays; overview in `docs/ROADMAP.md`, Cost review. The master is a fixed cost of about €165 in parts (one per mixer), but JLCPCB assembles at least 2 boards per design, so the prototype pays for a second set of its SMD parts (about €100) unless only one is populated. Through-hole parts are hand-soldered by the user (decision 133). Done: the 13 jacks are Rean NYS216 (decision 132, about €15 saved). Rough prices at 20-50 pieces; none of these is decided:
 
 1. **AUX return receivers AD8273 ×2 → op-amp differential receivers** (as channel lever 2): about €9, and one part type fewer to consign.
 2. **DG413 ×9 (about €17):** check which switch sections could move to relay contacts already present or to VCA control (as channel lever 3); probably €4-8.
@@ -113,11 +113,4 @@ No fee-free part was found for the LM339, the M7 (1N4007) SMA rectifier, the 220
 
 ## For /system
 
-- **Budgets after decisions 125-128 (2026-10-09):**
-  - master typical 331 / 260 mA (was 340 / 269), worst case 701 / 576 mA (was 719 / 594), sizing 576 / 463 mA (was 589 / 476);
-  - prototype sizing 1.27 / 1.03 A, 46 W (was 1.28 / 1.04 A, 47 W);
-  - full size sizing 3.36 / 2.73 A (was 3.37 / 2.75 A); ribbon per pin unchanged.
-  - Update the `docs/ARCHITECTURE.md` power table (`tools/system_power_budget.py`).
 - **Master section mechanics:** TO-220 regulators and heatsinks (19.7 mm, ≤ 11.5 °C/W, live tabs); meter LED form (3 mm through the panel vs 0805 under a bezel, decision 86 vs 119).
-- **`docs/ARCHITECTURE.md` text:** the system diagram (line 12, "main out (THAT1646)") and the RoHS open item (THAT1646 End of Life) predate decision 125: change to DRV135 and drop the End of Life item. The architect review could not run at handoff (account spend limit); run it at the start of the `/system` session on this commit.
-- **RoHS open items:** the ERA-V33J102V is also on the master (R421), not only the channel card, as the audit lists it. THAT1646 End of Life closed by decision 125.

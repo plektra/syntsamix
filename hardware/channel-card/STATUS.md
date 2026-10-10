@@ -104,12 +104,7 @@ No fee-free part was found for the LM339, the 220 pF C0G 0805 or the 10 µF 35 V
 ## For /system
 
 - **Decision 142 against decision 69 (architect review 2026-10-10, CONFLICT):** decision 69 (system) has one button pole drive a logic line into a DG413; MUTE and DUCK now switch −15 V and SC_ENV through the contacts, and the confirmed prototype-scope line in the root `CLAUDE.md` was reworded in this board session. Needs a /system refinement of 69 and the user's confirmation of the wording. The contact-sequence risk the review also raised is removed on the board (pin 1 open, 100k hold resistors).
-- `docs/CHAIN.md` line 48 quotes 113 mA typical and 174 mA sizing per card (now 110 / 171); `docs/ARCHITECTURE.md` lines 50-52 (prototype sizing 1.26 / 1.02 A, 46 W; full size 3.31 / 2.69 A, 120 W; 0.68 A per ribbon pin by `tools/system_power_budget.py`; the master line 49 is stale too, script 331 / 260 mA) and line 92 (the channel no longer uses a tempco part; only the master's R421 is left).
-- `docs/INPUT-MODULE.md`: besides naming the AD8273, note the new input impedances (20k on IN+, 30k on IN−; a mono source normalled to both IN+ sees 10k).
-
-- `docs/ARCHITECTURE.md` Power table: channel card load is now 110 / 93 mA typical, 229 / 194 mA worst case, sizing 171 / 139 mA (decision 143: TL072 receiver instead of the AD8273, whose figure the table quotes); `tools/system_power_budget.py`: prototype sizing 1.26 / 1.02 A, full size 3.31 / 2.69 A.
-- `docs/INPUT-MODULE.md` line 13 names the channel's receiver as the AD8273; it is a TL072 difference amplifier now (decision 143). The interface (pinout, levels, DC coupling) is unchanged.
+- `docs/INPUT-MODULE.md` (receiver name fixed by /system 2026-10-10): still note the new input impedances (20k on IN+, 30k on IN−; a mono source normalled to both IN+ sees 10k).
 
 - R217 30k1 (SC_ENV into the channel control summer; also the master's AUX-return DUCK inputs): the only off-E24 value left on the channel card. 30k (E24, SX-R-050 basic) moves the ducking scale by 0.03 dB; the SC_ENV chain line in `docs/ARCHITECTURE.md` names 30.1 kΩ, so the change is a /system call.
 
-- `docs/ARCHITECTURE.md`, Open system items, RoHS gaps: "End of Life THAT1646S08-U (master) and ERA-V33J102V (channel)" is out of date. The THAT1646 is replaced by the DRV135UA (decision 125); the channel card no longer uses the ERA-V33J102V (decision 130); it remains on the master's R421.

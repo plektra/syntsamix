@@ -91,3 +91,5 @@ SX-R-106,0.0054,USD,LCSC C17557,2026-10-10,basic,220R 1% 0805 UNI-ROYAL 0805W8F2
 SX-R-107,0.0396,USD,LCSC C110775,2026-10-10,extended,10k 0.1% 0805 YAGEO RT0805BRD0710KL (decision 143)
 SX-TRIM-001,1.58,EUR,Mouser 652-3296W-1-503LF (10+),2026-10-10,hand,Bourns 3296W-1-503LF; 1.38 at 25+; LCSC C83686 0.75 USD would be cheaper but Mouser keeps the hand-soldered parts in one order
 SX-POT-003,1.29,USD,Tayda A-4730,2026-10-10,hand,Alpha RD901F-40-15K-B50K
+SX-MECH-003,44.60,EUR,TME GSM120B24-R7B,2026-10-10,hand,"Mean Well GSM120B24-R7B prototype brick; TME 42.50 at 5, 40.60 at 10, 171 in stock; Mouser 44.12 (1), 40.16 (10+)"
+SX-MECH-005,72.90,EUR,TME GSM220B24-R7B,2026-10-10,hand,"Mean Well GSM220B24-R7B full-size brick (decision 145); TME 69.40 at 5, 66.30 at 10, 64.40 at 20, 105 in stock; Mouser and Digi-Key about EUR 72, no stock"

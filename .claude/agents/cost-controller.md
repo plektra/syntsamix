@@ -21,7 +21,7 @@ The caller gives a scope: a board (`channel-card`, `master`, `input-module-6p3`,
 
 ## What to do
 
-1. **Price it.** Run `python3 tools/costs.py estimate --channels 4`, `--channels 2` and `--channels 16`, `python3 tools/costs.py drivers [--board <board>]` and `python3 tools/costs.py unpriced`. Fix nothing in the design files; if a price is missing or stale, look it up (LCSC through the `pcbparts` tools if available, `python3 tools/mouser.py part <MPN>`, `python3 tools/tme.py`, or the maker and reseller pages) and give the price, source and date in the report so the main session can add it to `docs/costs/prices.csv`. Compare with the previous cost report and explain the change.
+1. **Price it.** Run `python3 tools/costs.py estimate` (the standard builds 4, 8 and 16 channels side by side; `--channels N` for one build in detail), `python3 tools/costs.py drivers [--board <board>]` and `python3 tools/costs.py unpriced`. Fix nothing in the design files; if a price is missing or stale, look it up (LCSC through the `pcbparts` tools if available, `python3 tools/mouser.py part <MPN>`, `python3 tools/tme.py`, or the maker and reseller pages) and give the price, source and date in the report so the main session can add it to `docs/costs/prices.csv`. Compare with the previous cost report and explain the change.
 2. **Separate the two cost pictures.** Prototype (2 to 4 channels): fixed costs dominate (JLCPCB set-up and extended-part fees, the two-board assembly minimum, PCB minimums). Full console and product (16 channels, volume): per-channel parts count sixteen times, and labour counts (through-hole assembly, calibration steps, test time). Rank levers for each picture separately.
 3. **Check the rules.** Values outside E24 (decision 134) without a recorded reason in the board's "Component values"; every SMD part that is not JLCPCB basic or preferred (decision 137: `python3 tools/costs.py extended`): search LCSC for a basic or preferred part with the same function (the `pcbparts` `jlc_search` tool with `library_type="no_fee"`), from any maker; parts LCSC does not stock (consignment cost); parts bought in small quantities from expensive resellers.
 4. **Explore new scenarios.** Look beyond part swaps: merged functions (one part doing two jobs), switching done by control voltages instead of analog switches, fewer calibration steps, cheaper but adequate alternatives under decision 135, shared parts across boards to cut part types, assembly and ordering choices, mechanical and panel costs. Check each candidate's facts against the datasheet (pinout, limits, RoHS) before proposing it; mark anything you could not verify `UNVERIFIED`.
@@ -32,11 +32,11 @@ Use scratch space outside the repo for downloads and intermediate files (`$CLAUD
 ## Report
 
 Write `docs/reviews/<YYYY-MM-DD>-cost-<scope>.md` (covered by `REUSE.toml`, so no SPDX header), titled `# Cost review: <scope>, <date>`, with:
-- **Figures:** the `tools/costs.py estimate` tables for 2, 4 and 16 channels, the top cost drivers, and the change since the last cost report.
+- **Figures:** the `tools/costs.py estimate` table for 4, 8 and 16 channels, the top cost drivers, and the change since the last cost report.
 - **Levers**, largest saving first, split into *Prototype* and *Console and product*. Each: saving (EUR per prototype, per channel and per 16-channel console as they apply), what changes, trade-off and which side of decision 135 it touches, the decisions and boards it would affect, effort (part swap, circuit change, layout, mechanical), and the evidence (datasheet, price source and date).
 - **Rule findings:** E24 and JLCPCB-class issues per board.
 - **Questions for the user:** savings that would need a "must stay" item or a confirmed decision changed.
 - **Prices to update:** ProjectPN, price, currency, source, date, for `docs/costs/prices.csv`.
 - **Not checked:** what was out of reach and why.
 
-Return to the caller: the report path, the estimate totals for 2, 4 and 16 channels, and the five largest levers with their savings.
+Return to the caller: the report path, the estimate totals for 4, 8 and 16 channels, and the five largest levers with their savings.

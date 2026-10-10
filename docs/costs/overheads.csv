@@ -16,7 +16,7 @@ panel_strip_eur,3,FR4 top panel strip 34.8 x 360 mm per channel (estimate)
 panel_master_rear_eur,40,Master top panel and rear panel (estimate)
 frame_fixed_eur,40,"Rails for the master section, side cheeks, bottom cover, screws (estimate)"
 frame_eur_per_channel,5,"Rail length, T-nuts, screws, printed parts and ribbons per channel strip (estimate)"
-brick_eur,50,24 V 150 W Class II brick (estimate)
+brick_proto_max_channels,8,"Costing assumption, not a checked capacity (whether one power board carries 8 cards plus the master is power lever 1's open check): up to this many channels the estimate takes the prototype brick SX-MECH-003 (GSM120B24-R7B, one power board, chain 1); above it the full-size brick SX-MECH-005 (GSM220B24-R7B, decision 145); prices in prices.csv"
 knobs_eur_per_channel,3.5,Five knobs and a fader cap per channel strip (no schematic symbols; estimate)
 knobs_master_eur,8,Thirteen knobs on the master (estimate)
 consign_eur_per_order,30,"Handling and shipping of consigned parts LCSC does not stock (SSI2144, SSI2162, AD8273, AS3046D; estimate)"

@@ -41,15 +41,17 @@ Decisions that can fall back to a cheaper option if the budget needs it:
 
 ### Cost review 2026-10-09
 
-The user asked for a large cost cut (2026-10-09), then set the frame: the prototype is 4 channels, maybe only 2 (first trial-and-error versions of the channel design); the cost of a full 16-channel console must stay in view in case it becomes a commercial product; the ladder filter stays, being the feature that sets this mixer apart. Prices below are rough, before VAT and shipping, from the four schematic BOMs (20-50 pieces; LCSC and Mouser checks on 2026-10-09 for the DG413DY, DRV135UA, PTA6043 and the jacks, the rest estimated, so ±25 %). Through-hole parts are hand-soldered by the user (decision 133).
+The user asked for a large cost cut (2026-10-09), then set the frame: the prototype is 4 channels, maybe only 2 (first trial-and-error versions of the channel design); the cost of a full 16-channel console must stay in view in case it becomes a commercial product; the ladder filter stays, being the feature that sets this mixer apart. On 2026-10-10 the user set the realistic builds to track: 4, 8 and 16 channels (`python3 tools/costs.py estimate` shows them side by side). Prices below are rough, before VAT and shipping, from the four schematic BOMs (20-50 pieces; LCSC and Mouser checks on 2026-10-09 for the DG413DY, DRV135UA, PTA6043 and the jacks, the rest estimated, so ±25 %). Through-hole parts are hand-soldered by the user (decision 133).
 
-**Figures from `tools/costs.py` (decision 136), 2026-10-09:** the schematic BOMs priced from `docs/lcsc-check.csv` and `docs/costs/prices.csv`, with the overheads in `docs/costs/overheads.csv`. About a third of the part prices and every overhead figure are estimates (marked in those files), so treat the totals as ±25 %. Rerun `python3 tools/costs.py estimate --channels N` for current figures.
+**Figures from `tools/costs.py` (decision 136), 2026-10-09:** the schematic BOMs priced from `docs/lcsc-check.csv` and `docs/costs/prices.csv`, with the overheads in `docs/costs/overheads.csv`. About a third of the part prices and every overhead figure are estimates (marked in those files), so treat the totals as ±25 %. Rerun `python3 tools/costs.py estimate` for current figures (4, 8 and 16 channels; `--channels N` for one build in detail).
 
 | Build | Total |
 |---|---|
-| Prototype, 2 channels | ~€960 |
-| Prototype, 4 channels | ~€1,115 |
-| Full console, 16 channels, ordered like the prototype | ~€2,110 |
+| Prototype, 4 channels | ~€1,115 (2026-10-10: €941) |
+| 8 channels, one power board | €1,221 (2026-10-10) |
+| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818) |
+
+The 2026-10-10 figures include decisions 139-143 and 145. The 8-channel build assumes one power board carries 8 cards plus the master (power lever 1's open check); the 16-channel figure still prices one power board, although the full-size supply is not designed yet (decision 100).
 
 The 4-channel prototype in detail:
 
@@ -69,7 +71,7 @@ The 4-channel prototype in detail:
 
 These replace the first hand estimate of the same day (prototype about €1,450, console about €2,600), which guessed about 130 extended part types (the BOMs have 82 once JLCPCB's fee-free "preferred" parts are counted, decision 137) and a higher channel card cost (about €75; the BOMs give about €65). Includes decisions 130 and 131 (TFPT tempco pair, RELEASE C100K). At prototype size the JLCPCB fees are about a third of the cost; at 16 channels the channel cards are about half. The full-size power board still needs its 4 A design (or power lever 1).
 
-**Update 2026-10-10** (system cost review, `docs/reviews/2026-10-10-cost-system.md`): with JLCPCB Economic PCBA set-up (about €9 per design instead of €35), current prices and seven fee types the tool had missed, `tools/costs.py` gives about €885 / €1,035 / €2,009 for 2 / 4 / 16 channels; about €60 more at 4 channels if JLCPCB bills shared extended types once per design (`--fees-per-design`, unverified). New levers are in each board's `STATUS.md`, Cost-cut levers.
+**Update 2026-10-10** (system cost review, `docs/reviews/2026-10-10-cost-system.md`): with JLCPCB Economic PCBA set-up (about €9 per design instead of €35), current prices and seven fee types the tool had missed, `tools/costs.py` gives about €885 / €1,035 / €2,009 for 2 / 4 / 16 channels; about €60 more at 4 channels if JLCPCB bills shared extended types once per design (`--fees-per-design`, unverified). New levers are in each board's `STATUS.md`, Cost-cut levers. After the channel decisions 139-143 and the brick prices of decision 145 (prototype GSM120B24 €44.60, full-size GSM220B24 €72.90 at TME, now taken from `docs/costs/prices.csv`): €941 / €1,221 / €1,818 for 4 / 8 / 16 channels; the brick line in the table above is then €105 at 4 channels (€125 at 8, €193 at 16).
 
 **As a product:** at production volume the set-up and extended-part fees spread over many units and the per-channel parts become the cost, together with labour: through-hole assembly (hand-soldered here, decision 133, not in a product) and calibration (three trimmers per channel: CUTOFF OFFSET ×2 and V/OCT, plus the TRIM and drive/Q jumpers). Per-channel levers therefore count sixteen times per console, and anything that removes a trimming step saves labour on every channel.
 

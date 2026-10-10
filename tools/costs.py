@@ -3,8 +3,9 @@
 """Cost estimate from the schematic BOMs, and the ledger of realized costs (decision 136).
 
 Estimate (tracked inputs, repeatable):
-  python3 tools/costs.py estimate [--channels N] [--md] [--fees-per-design]
-                                                          cost of a build with N channel cards (default 4); with
+  python3 tools/costs.py estimate [--channels N[,N...]] [--md] [--fees-per-design]
+                                                          cost of a build with N channel cards; several counts are shown
+                                                          side by side (default: the standard builds 4, 8 and 16); with
                                                           --fees-per-design, shared extended types are billed per design
   python3 tools/costs.py drivers [--board B] [--top N]    most expensive part types per board
   python3 tools/costs.py unpriced                         part types with no price yet (fill docs/costs/prices.csv)
@@ -25,6 +26,9 @@ from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KICAD = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
+# the realistic configurations the cost is tracked for (the user, 2026-10-10)
+STANDARD_BUILDS = [4, 8, 16]
+
 BOARDS = {
     "channel-card": "hardware/channel-card/channel-card.kicad_sch",
     "input-module-6p3": "hardware/input-module-6p3/input-module-6p3.kicad_sch",
@@ -155,6 +159,47 @@ def all_boms(o):
 
 
 def estimate(channels, o, md, per_design=False):
+    lines, total, unpriced = estimate_lines(channels, o, per_design)
+    title = f"Estimate, {channels} channel(s), before VAT and shipping"
+    if md:
+        print(f"| {title} | EUR |\n|---|---|")
+        for k, v in lines:
+            print(f"| {k} | {v:,.0f} |")
+        print(f"| **Total** | **{total:,.0f}** |")
+    else:
+        print(title)
+        for k, v in lines:
+            print(f"  {k:78s} {v:9,.0f}")
+        print(f"  {'Total':78s} {total:9,.0f}")
+    if unpriced:
+        print(f"\nUnpriced part types (not in the total): {len(unpriced)}; list them with: python3 tools/costs.py unpriced")
+    return total
+
+
+def compare(channel_counts, o, md, per_design=False):
+    """Side-by-side estimate of several builds (the standard set is 4, 8 and 16 channels)."""
+    runs = [estimate_lines(n, o, per_design) for n in channel_counts]
+    # same lines in the same order for every build; the counts in brackets differ, so label by the text before them
+    labels = [k.split(" (")[0] for k, _ in runs[0][0]]
+    heads = [f"{n} ch" for n in channel_counts]
+    title = "Estimate before VAT and shipping, EUR"
+    if md:
+        print(f"| {title} | " + " | ".join(heads) + " |\n|---|" + "---:|" * len(heads))
+        for i, k in enumerate(labels):
+            print(f"| {k} | " + " | ".join(f"{r[0][i][1]:,.0f}" for r in runs) + " |")
+        print("| **Total** | " + " | ".join(f"**{r[1]:,.0f}**" for r in runs) + " |")
+    else:
+        print(f"{title:56s}" + "".join(f"{h:>9s}" for h in heads))
+        for i, k in enumerate(labels):
+            print(f"  {k:54s}" + "".join(f"{r[0][i][1]:9,.0f}" for r in runs))
+        print(f"  {'Total':54s}" + "".join(f"{r[1]:9,.0f}" for r in runs))
+    unpriced = set().union(*(r[2] for r in runs))
+    if unpriced:
+        print(f"\nUnpriced part types (not in the totals): {len(unpriced)}; list them with: python3 tools/costs.py unpriced")
+
+
+def estimate_lines(channels, o, per_design=False):
+    """(lines, total, unpriced) of a build with the given number of channel cards."""
     boms = all_boms(o)
     count = {"channel-card": channels, "input-module-6p3": channels, "master": 1, "power": 1}
     # JLCPCB assembles at least jlc_min_assembled boards of a design (the input module has no SMD parts)
@@ -190,26 +235,15 @@ def estimate(channels, o, md, per_design=False):
     lines.append(("PCBs", pcb)); total += pcb
     panels = max(o["pcb_min_eur_per_design"], o["panel_strip_eur"] * channels) + o["panel_master_rear_eur"]
     lines.append(("FR4 panels", panels)); total += panels
-    frame = o["frame_fixed_eur"] + o["frame_eur_per_channel"] * channels + o["brick_eur"]
-    lines.append(("Frame, hardware, ribbons, 24 V brick", frame)); total += frame
+    # prototype brick up to one power board's worth of channels, full-size brick above (decision 145)
+    brick_pn = "SX-MECH-003" if channels <= o["brick_proto_max_channels"] else "SX-MECH-005"
+    frame = o["frame_fixed_eur"] + o["frame_eur_per_channel"] * channels + prices(o)[brick_pn]["eur"]
+    lines.append((f"Frame, hardware, ribbons, 24 V brick ({brick_pn})", frame)); total += frame
     knobs = o["knobs_eur_per_channel"] * channels + o["knobs_master_eur"]
     lines.append(("Knobs and fader caps (no schematic symbols)", knobs)); total += knobs
     if any(i["price"] and i["price"]["jlc"] == "consign" for items in boms.values() for i in items):
         lines.append(("Consigned parts handling", o["consign_eur_per_order"])); total += o["consign_eur_per_order"]
-    title = f"Estimate, {channels} channel(s), before VAT and shipping"
-    if md:
-        print(f"| {title} | EUR |\n|---|---|")
-        for k, v in lines:
-            print(f"| {k} | {v:,.0f} |")
-        print(f"| **Total** | **{total:,.0f}** |")
-    else:
-        print(title)
-        for k, v in lines:
-            print(f"  {k:78s} {v:9,.0f}")
-        print(f"  {'Total':78s} {total:9,.0f}")
-    if unpriced:
-        print(f"\nUnpriced part types (not in the total): {len(unpriced)}; list them with: python3 tools/costs.py unpriced")
-    return total
+    return lines, total, unpriced
 
 
 def drivers(board, top, o):
@@ -296,7 +330,9 @@ def ledger_summary(md):
 def main():
     a = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     s = a.add_subparsers(dest="cmd", required=True)
-    e = s.add_parser("estimate"); e.add_argument("--channels", type=int, default=4); e.add_argument("--md", action="store_true")
+    e = s.add_parser("estimate"); e.add_argument("--md", action="store_true")
+    e.add_argument("--channels", default=STANDARD_BUILDS,
+                   type=lambda v: [int(n) for n in v.split(",")])
     e.add_argument("--fees-per-design", action="store_true")
     d = s.add_parser("drivers"); d.add_argument("--board", choices=list(BOARDS)); d.add_argument("--top", type=int, default=10)
     s.add_parser("unpriced")
@@ -311,7 +347,10 @@ def main():
     o = a.parse_args()
     ov = overheads()
     if o.cmd == "estimate":
-        estimate(o.channels, ov, o.md, o.fees_per_design)
+        if len(o.channels) == 1:
+            estimate(o.channels[0], ov, o.md, o.fees_per_design)
+        else:
+            compare(o.channels, ov, o.md, o.fees_per_design)
     elif o.cmd == "drivers":
         drivers(o.board, o.top, ov)
     elif o.cmd == "unpriced":

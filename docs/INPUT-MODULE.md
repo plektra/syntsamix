@@ -10,7 +10,7 @@ The channel card carries no input jacks. Its input sockets connect to a small **
 | `input-module-3p5` | 2x 3.5 mm stereo switched jacks | Same as 6.3 mm | Backlog |
 | `input-module-dsub` | One DB-25 carrying several channels (common 8-channel analog pinout), cables to each card's header | Jumper or switch per channel | Backlog |
 
-The module is passive: connectors, normalling and nothing that needs power. The input receiver (AD8273), its protection, the AC coupling and the trim stay on the channel card, so every module gets the same hot-level handling (up to ±12 V peak, decision 25).
+The module is passive: connectors, normalling and nothing that needs power. The input receiver (a TL072 difference amplifier, G = ½, decision 143; the AD8273 before it), its protection, the AC coupling and the trim stay on the channel card, so every module gets the same hot-level handling (up to ±12 V peak, decision 25).
 
 ## Input header: 10 pins, 2.54 mm, single row, polarised
 
