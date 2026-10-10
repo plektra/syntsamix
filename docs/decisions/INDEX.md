@@ -9,7 +9,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
 | [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135) |
-| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128) |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, availability notes |
@@ -161,6 +161,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 135 | Cost principle: a live performance device, not studio equipment (what may be relaxed for cost, what must stay; the filter stays) | confirmed | [system](system.md) |
 | 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
 | 137 | Prefer JLCPCB fee-free parts: basic, then preferred, then extended, then consigned; exceptions with reasons in the board STATUS.md | confirmed | [process](process.md) |
+| 138 | SC LPF pot RV501: standard Alpha dual B100K (Thonk) instead of the unsourced C100K dual; same circuit, middle of the sweep 85 Hz | confirmed | [master-card-sheets](master-card-sheets.md) |
 
 ## Proposed but not confirmed
 

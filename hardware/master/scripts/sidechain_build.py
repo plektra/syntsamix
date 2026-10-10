@@ -6,8 +6,8 @@ Decision 90; values simulated in simulation/sidechain/run.py.
 Sources: INT = -(COMP_L_SUM + COMP_R_SUM)/2, BUS = -SC_SUM, EXT = DC-coupled inverting buffer
 (100 kΩ) on a switched 6.3 mm jack whose ring switch contact (RN) detects a plug.
 Selector (U506 DG413): SC BUS button picks BUS (pressed) or INT; a plugged EXT jack overrides.
-LPF: unity-gain Sallen-Key 22 nF / 47 nF with 10 kΩ + a 100 kΩ dual reverse-log pot (about
-45-510 Hz), bypass button (U507). A follower drives SC_DET (compressor detector, ducker, SC listen).
+LPF: unity-gain Sallen-Key 22 nF / 47 nF with 10 kΩ + a 100 kΩ dual linear pot (B100K, decision 138;
+about 46-510 Hz, middle 85 Hz), bypass button (U507). A follower drives SC_DET (compressor detector, ducker, SC listen).
 SC listen sums SC_DET into CUE_L/R through 22 kΩ and pulls PFL_ACT low (MMBT3904).
 Ducker: window comparator against ±THRESHOLD (0.1-5 V peak), two DG413 NO sections charge
 2.2 µF from the buffered DEPTH voltage (0 to -4 V) through 470 Ω; DECAY (500 kΩ log + 22 kΩ)

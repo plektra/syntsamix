@@ -82,9 +82,9 @@ c=C("C503","22n C0G","SX-C-017",lb[0],YF+10.16,0); s.wire(lb,c(1)); gnd(c(2))
 a=TL("U95022",2,lb[0]+17.78,YF+2.54); s.wire(lb,a(5)); lo=follower(a,6,7)
 c=C("C502","47n C0G","SX-C-016",(la[0]+lo[0])/2,YF-12.7); s.wire(la,(la[0],YF-12.7),c(1)); s.wire(c(2),(lo[0],YF-12.7),lo)
 # dual pot as a labelled block: segment wiper-pin 3 per gang (pin 1 tied to the wiper)
-pt=s.place("Device","R_Potentiometer_Dual","RV501","SC LPF 100k rev. log dual",sel2[0]+40.64,YF+30.48,0,
+pt=s.place("Device","R_Potentiometer_Dual","RV501","SC LPF B100K dual",sel2[0]+40.64,YF+30.48,0,
            fp="Potentiometer_THT:Potentiometer_Alpha_RD902F-40-00D_Dual_Vertical",
-           props=P("SX-POT-008",Manufacturer="Alpha",Note="Panel SC LPF: reverse-log (C) taper, CW = 510 Hz, CCW = 46 Hz"))
+           props=P("SX-POT-015",Manufacturer="Alpha",MPN="RD902F-40-15K-B100K-0057",Supplier="Thonk",Note="Panel SC LPF: linear (B) taper, CW = 510 Hz, middle 85 Hz, CCW = 46 Hz (decision 138)"))
 for pin,name,d in (("1","LPF_A","l"),("2","LPF_A","u"),("3","LPF_P1","d"),("4","LPF_B","d2"),("5","LPF_B","u"),("6","LPF_P2","r")):
     p=pt(pin)
     if d=="l": e=lt(p,5.08); rot=180

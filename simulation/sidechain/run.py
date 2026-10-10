@@ -4,7 +4,7 @@
 
 """Sidechain sheet simulations (master card): sidechain LPF range and the trigger-style ducker.
 
-LPF: unity-gain Sallen-Key, 22 nF / 47 nF, 10 kOhm + 100 kOhm dual reverse-log pot per side.
+LPF: unity-gain Sallen-Key, 22 nF / 47 nF, 10 kOhm + 100 kOhm dual linear (B) pot per side (decision 138).
 Ducker: window comparator (TL072s) against +-THRESHOLD, two DG413 NO switches charge
 2.2 uF from DEPTH (0 to -4 V) through 470 Ohm; DECAY (500 kOhm log + 22 kOhm) discharges it; a follower
 with its feedback taken after the 100 Ohm drives SC_ENV (-1 V = 10 dB of ducking, decision 97) into
@@ -74,7 +74,9 @@ Dcl scenv 0 BAT54
 
 def main():
     print("Sidechain LPF (Sallen-Key, 22n/47n, 10k + 100k pot):")
-    for name, r in (("CW (pot 0)", 0.0), ("middle (reverse-log, about 10 %)", 10e3), ("CCW (pot 100k)", 100e3)):
+    # B100K linear dual (decision 138): rheostat wiper to CW end, so the resistance is 100k x (1 - rotation)
+    for name, r in (("CW (pot 0)", 0.0), ("75 % (25k)", 25e3), ("middle (50k)", 50e3), ("25 % (75k)", 75e3),
+                    ("CCW (pot 100k)", 100e3), ("CCW, track -20 % (80k)", 80e3), ("CCW, track +20 % (120k)", 120e3)):
         v = lpf(r)
         print(f"  {name}: -3 dB at {v['fc']:.0f} Hz, peak {20*math.log10(v['pk']):+.2f} dB")
 
