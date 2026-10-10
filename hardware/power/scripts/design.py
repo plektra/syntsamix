@@ -17,14 +17,14 @@ COUT,ESR=330e-6,0.020                   # Panasonic EEHZK1V331P at the converter
 def e(x,unit): return f"{x:.4g} {unit}"
 print("== shared")
 rt=101756*(FSW/1e3)**-1.008*1e3
-print("RT (eq. 8):",e(rt/1e3,"kohm"),"-> 243 kohm;  free-run f =",e(92417/(243**0.991),"kHz"))
+print("RT (eq. 8):",e(rt/1e3,"kohm"),"-> 240 kohm (E24, same part as the FB divider);  free-run f =",e(92417/(240**0.991),"kHz"))
 # feedback: Vout = 0.8 * (1 + Rhs/Rls)
 print("FB 240k/10k ->",e(VREF*(1+240/10),"V"))
-# UVLO: start 21 V, stop 18.5 V (converters stay off until the soft-start FET has nearly finished its ramp)
+# UVLO: start about 21 V, stop about 18.5-19 V (converters stay off until the soft-start FET has nearly finished its ramp)
 vstart,vstop=21.0,18.5
 r1=(vstart-vstop)/IHYS; r2=VENA/((vstart-VENA)/r1+I1)
-print("UVLO R1 (eq. 4):",e(r1/1e3,"kohm"),"R2 (eq. 5):",e(r2/1e3,"kohm"),"-> 732k / 42.2k")
-R1,R2=732e3,42.2e3
+print("UVLO R1 (eq. 4):",e(r1/1e3,"kohm"),"R2 (eq. 5):",e(r2/1e3,"kohm"),"-> 680k / 39k (E24, fee-free)")
+R1,R2=680e3,39e3
 st=VENA+R1*(VENA/R2-I1); sp=st-IHYS*R1   # I1 flows out of EN into R2
 print("   chosen: start",e(st,"V"),"stop",e(sp,"V"),"(inverter: stop moot, input sees Vin+|Vo| once running)")
 print("   inverter EN at Vin+|Vo| = 44.7 V:",e(44.7*R2/(R1+R2),"V"),"(internal clamp 5.8 V, abs max 8.4 V)")
@@ -38,8 +38,8 @@ fp=IO/(2*pi*VO*COUT); fz=1/(2*pi*ESR*COUT)
 fco=math.sqrt(math.sqrt(fp*fz)*math.sqrt(fp*FSW/2))
 r4=(2*pi*fco*COUT/GMPS)*(VO/(VREF*GMEA))
 print("fp(mod)",e(fp,"Hz"),"fz(esr)",e(fz,"Hz"),"fco",e(fco,"Hz"))
-print("Rcomp (eq. 48):",e(r4/1e3,"kohm"),"-> 15.8k;  Czero (eq. 49):",e(1/(2*pi*15.8e3*fp)*1e9,"nF"),"-> 220n")
-print("Cpole (eq. 50/51):",e(max(1/(pi*15.8e3*FSW),COUT*ESR/15.8e3)*1e12,"pF"),"-> 560p (pole",e(1/(2*pi*15.8e3*560e-12),"Hz)"))
+print("Rcomp (eq. 48):",e(r4/1e3,"kohm"),"-> 16k (E24);  Czero (eq. 49):",e(1/(2*pi*16e3*fp)*1e9,"nF"),"-> 220n")
+print("Cpole (eq. 50/51):",e(max(1/(pi*16e3*FSW),COUT*ESR/16e3)*1e12,"pF"),"-> 560p (pole",e(1/(2*pi*16e3*560e-12),"Hz)"))
 
 print("== inverter -20 V")
 for vin in (VIN_MIN,VIN_NOM):

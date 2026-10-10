@@ -36,8 +36,8 @@ class Conv:
         xs+=[101.6,134.62]; c.chain(YV,xs)
         s.wire((134.62,YV),(134.62,u(2)[1]),u(2))
         # EN divider: start 21.1 V, stop 18.7 V (design.py)
-        r1=c.R(f"R{n+1}","732k","732k",101.6,107.95); s.wire((101.6,YV),r1(1))
-        r2=c.R(f"R{n+2}","42k2","42k2",101.6,120.65); gnd(r2(2))
+        r1=c.R(f"R{n+1}","680k","680k",101.6,107.95); s.wire((101.6,YV),r1(1))
+        r2=c.R(f"R{n+2}","39k","39k",101.6,120.65); gnd(r2(2))
         s.wire(r1(2),(101.6,114.3),r2(1)); s.wire((101.6,114.3),(132.08,114.3),(132.08,u(3)[1]),u(3))
         # COMP: series R + C to ground, small C in parallel
         y=u(6)[1]; c.chain(y,(u(6)[0],114.3,106.68))
@@ -47,8 +47,8 @@ class Conv:
         c.left_fields=[f"C{n+k-1}"]
         # RT to ground, sync clock through 10 pF (SLVSBN0C 7.3.11)
         s.wire(u(4),(137.16,u(4)[1]),(137.16,135.89))
-        rt=c.R(f"R{n+4}","243k","243k",137.16,143.51); s.wire((137.16,135.89),rt(1)); gnd(rt(2),"R")
-        cs=c.C(f"C{n+k}","10p C0G 100V","10p 100V",130.81,135.89,90); s.wire(cs(2),(137.16,135.89)); k+=1
+        rt=c.R(f"R{n+4}","240k","240k",137.16,143.51); s.wire((137.16,135.89),rt(1)); gnd(rt(2),"R")
+        cs=c.C(f"C{n+k}","10p C0G","10p",130.81,135.89,90); s.wire(cs(2),(137.16,135.89)); k+=1
         s.wire(cs(1),(127.0,135.89),(127.0,154.94)); s.label(clk,(127.0,154.94),270,"hierarchical","input")
         gnd(u(7),"R")
         c.k=k

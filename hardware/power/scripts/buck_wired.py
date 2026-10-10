@@ -9,7 +9,7 @@ divider, then the second-stage LC filter to +20V_RAW.
 import json,os
 from convlib import Conv,YU
 c=Conv(); s=c.s
-c.rcomp,c.rcomp_key,c.cpole,c.cpole_key="15k8","15k8","560p C0G","560p"
+c.rcomp,c.rcomp_key,c.cpole,c.cpole_key="16k","16k","560p C0G","560p"
 pg=c.pgnd
 u=c.left(200,pg,[("4u7 100V","4u7 100V",pg)]*3+[("100n 100V","100n 100V",pg)],"CLK_A")
 # bootstrap, switch node, catch diode, inductor

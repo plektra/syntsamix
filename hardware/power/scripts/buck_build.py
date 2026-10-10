@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 """Power board +20 V buck sheet: reference netlist (build/buck.json), written independently of the drawing.
 
-TPS54560 buck from VIN_SW (24 V) to +20 V at 2 A, synced to CLK_A at about 400 kHz (RT 243k sets
-400 kHz when the clock is absent). FB 240k / 10k = 20.0 V. Compensation 15.8k + 220n, 560p
+TPS54560 buck from VIN_SW (24 V) to +20 V at 2 A, synced to CLK_A at about 400 kHz (RT 240k sets
+405 kHz when the clock is absent). FB 240k / 10k = 20.0 V. Compensation 16k + 220n, 560p
 (design.py). SS54 catch diode, 15 uH. Second-stage LC filter 2.2 uH with 330 uF polymer,
 100 uF electrolytic (damping) and 4.7 uF ceramic, feedback taken before the filter (decision 100).
 Start-up ramp: 47 nF from the output through D202 into FB stretches the start to about 40 ms

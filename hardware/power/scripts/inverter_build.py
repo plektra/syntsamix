@@ -5,7 +5,7 @@
 TPS54560 as an inverting buck-boost (TI SLVA317B): the IC ground is the -20 V node (-20V_CONV),
 the inductor (22 uH) goes from SW to PGND, the catch diode (SS510C, 100 V) from -20V_CONV to SW.
 FB 240k from PGND / 10k to -20V_CONV = -20.0 V. Compensation 27k + 220n, 100p (design.py).
-Sync from CLK_B through 10 pF (100 V: it bridges about 20 V). The input capacitors from VIN to the
+Sync from CLK_B through 10 pF C0G 50 V (it bridges about 20-25 V; decision 158). The input capacitors from VIN to the
 IC ground see VIN + 20 V (100 V parts). Second-stage LC filter as on the buck (decision 100).
 Start-up ramp as on the buck, seen from the IC ground: 47 nF from PGND through D302 into FB,
 R307 1M and the clamp D303 to -20V_CONV.

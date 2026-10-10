@@ -24,7 +24,10 @@ SX-L-003,0.97,USD,LCSC C2041465 (10+),2026-10-09,extended,SRP1265A-220M
 SX-C-018,0.27,USD,LCSC C385986 (50+),2026-10-09,extended,HMK325C7475KMHPE
 SX-C-019,0.5076,USD,JLCPCB library C278516 (10+),2026-10-10,extended,"EEHZK1V331P; stock 5,666 on 2026-10-10"
 SX-C-020,0.16,USD,LCSC C2982822 (50+),2026-10-09,hand,KNM2100UF35V149EC0055
-SX-C-021,0.10,USD,estimate,2026-10-09,extended,100 uF 50 V SMD 8x10
+SX-C-021,0.10,USD,estimate,2026-10-09,extended,100 uF 50 V SMD 8x10 (not used since decision 158)
+SX-C-028,0.12,USD,LCSC C116229,2026-10-11,hand,Nichicon UHE1H101MPD radial (decision 158)
+SX-C-029,0.0076,USD,LCSC C1634,2026-10-11,basic,Samsung CL10C100JB8NNNC 10 pF C0G 50 V 0603 (decision 158)
+SX-CONN-016,0.0406,USD,LCSC C158012,2026-10-11,hand,JST B2B-XH-A(LF)(SN) power rocker header J102 (decision 157)
 SX-C-023,0.25,EUR,Mouser 667-EEE-1VA100NP (10+),2026-10-10,consign,EEE-1VA100NP; not at LCSC (consign or hand-solder); 0.223 at 100
 SX-C-024,0.02,USD,LCSC C72486 (200+),2026-10-09,extended,RVT1V100M0505
 SX-C-025,0.02,USD,LCSC C72522 (200+),2026-10-09,extended,RVT1V470M0605
@@ -42,7 +45,7 @@ SX-POT-012,1.00,USD,estimate (Tayda),2026-10-09,hand,Alpha RD901F single
 SX-POT-013,1.90,GBP,estimate (Thonk),2026-10-09,hand,Alpha RD902F dual
 SX-SW-001,1.00,EUR,estimate (Electrokit),2026-10-09,hand,GPBS850N latching button
 SX-SW-002,2.00,EUR,estimate,2026-10-09,hand,ground lift switch (not chosen)
-SX-SW-003,2.00,EUR,estimate,2026-10-09,hand,power switch (not chosen)
+SX-SW-003,0.317,USD,LCSC C309069,2026-10-11,hand,Legion SS11-BBIWG-R20-R rear-panel rocker (decision 157); off-board: counted with the frame in tools/costs.py
 SX-CONN-002,0.40,EUR,estimate (Mouser),2026-10-09,hand,KK 254 1x10 header
 SX-CONN-004,0.10,EUR,estimate,2026-10-09,hand,pin header 2x2
 SX-CONN-005,0.10,EUR,estimate,2026-10-09,hand,pin header 1x3
@@ -93,3 +96,4 @@ SX-TRIM-001,1.58,EUR,Mouser 652-3296W-1-503LF (10+),2026-10-10,hand,Bourns 3296W
 SX-POT-003,1.29,USD,Tayda A-4730,2026-10-10,hand,Alpha RD901F-40-15K-B50K
 SX-MECH-003,44.60,EUR,TME GSM120B24-R7B,2026-10-10,hand,"Mean Well GSM120B24-R7B prototype brick; TME 42.50 at 5, 40.60 at 10, 171 in stock; Mouser 44.12 (1), 40.16 (10+)"
 SX-MECH-005,72.90,EUR,TME GSM220B24-R7B,2026-10-10,hand,"Mean Well GSM220B24-R7B full-size brick (decision 145); TME 69.40 at 5, 66.30 at 10, 64.40 at 20, 105 in stock; Mouser and Digi-Key about EUR 72, no stock"
+SX-D-012,0.0444,USD,LCSC C22452,2026-10-11,basic,MDD SS54 SMA: JLCPCB basic (decision 159; lcsc-check had no row)

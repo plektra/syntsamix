@@ -45,8 +45,8 @@ r=R("R101","100k","100k",124.46,Y+10.16); s.wire((124.46,Y),r(1)); s.wire(r(2),(
 z=pl("Device","D_Zener","D102","BZT52C12","BZT52C12",132.08,Y+10.16,270); s.wire((132.08,Y),z(1)); s.wire(z(2),(132.08,YG))
 r=R("R102","100k","100k",152.4,YG,90)
 chain(YG,(q1(4)[0],124.46,132.08,r(1)[0]))
-sw=pl("Switch","SW_SPST","SW101","POWER","POWER",167.64,YG,0,Note="Power switch: carries only gate current (about 0.1 mA); part to choose")
-s.wire(r(2),sw(1)); s.wire(sw(2),(177.8,YG),(177.8,YG+5.08)); pgnd((177.8,YG+5.08))
+j=pl("Connector_Generic","Conn_01x02","J102","POWER SW","XH 2P",172.72,YG,0,Note="Rear-panel rocker (SX-SW-003) on two wires; carries only gate current (about 0.1 mA)")
+s.wire(r(2),j(1)); s.wire(j(2),(162.56,j(2)[1]),(162.56,YG+7.62)); pgnd((162.56,YG+7.62))
 # Miller ramp above the rail: gate - 1k - 47n - drain (VIN_SW)
 YM=Y-12.7
 s.wire(q2(4),(q2(4)[0],YM)); s.wire((q2(4)[0],YM),(q2(4)[0]-5.08,YM)); s.label("GATE",(q2(4)[0]-5.08,YM),180)
