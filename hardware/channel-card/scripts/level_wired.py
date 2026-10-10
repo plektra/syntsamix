@@ -13,12 +13,13 @@ from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
+ST={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007, JLCPCB basic (decision 137)
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,fp=R0805,**k): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
 def C(ref,val,pn,x,y,rot=90,fp=C0805,**k): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
-SYM={"OPA2171":"Opamp_Dual"}; MPN={"OPA2171":{"MPN":"OPA2171AIDR"}}   # no OPA2171 symbol in the KiCad library; same pinout
-def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**TI,**MPN.get(part,{})))
+SYM={"OPA2171":"Opamp_Dual"}; MPN={"OPA2171":{"MPN":"OPA2171AIDR"},"TL072":ST}   # no OPA2171 symbol in the KiCad library; same pinout
+def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**{**TI,**MPN.get(part,{})}))
 def gnd(at,rot=0): s.power("GNDA",at,rot)       # renamed to AGND in post-processing
 def pgnd(at,rot=0): s.power("GNDPWR",at,rot)    # renamed to PGND in post-processing
 def up(p,d=2.54): return (p[0],p[1]-d)
@@ -174,7 +175,7 @@ NOCONNECT=[b1(1),b1(4),b2(1),b2(4)]
 # ------------------------------------------------------------- supplies and decoupling
 x=210.82
 for t,part in (("U92023","NE5532"),("U92033","NE5532"),("U92043","OPA2171"),("U92053","TL072")):
-    u=s.place("Amplifier_Operational",SYM.get(part,part),t,part,x,358.14,0,3,SO8,P({"NE5532":"SX-IC-004","TL072":"SX-IC-007","OPA2171":"SX-IC-021"}[part],**TI,**MPN.get(part,{})))
+    u=s.place("Amplifier_Operational",SYM.get(part,part),t,part,x,358.14,0,3,SO8,P({"NE5532":"SX-IC-004","TL072":"SX-IC-007","OPA2171":"SX-IC-021"}[part],**{**TI,**MPN.get(part,{})}))
     s.wire(u(8),up(u(8),5.08)); s.power("+15V",up(u(8),5.08))
     s.wire(u(4),dn(u(4),5.08)); s.power("-15V",dn(u(4),5.08))
     x+=15.24

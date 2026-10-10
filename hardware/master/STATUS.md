@@ -91,10 +91,10 @@ This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on
 
 | Part | Now | Fee-free candidate | Check before the swap |
 |---|---|---|---|
-| TL072 (SX-IC-007, 13 here, 4 on the channel card) | extended | ST TL072CDT, LCSC C6961, basic | SO-8 pinout and limits from ST's datasheet |
-| 6.2 V zener (SX-D-001, 4 here) | no part chosen | BZT52C6V2 (hongjiacheng), LCSC C19077403, preferred | RoHS and the SOD-123 land pattern |
+| TL072 (SX-IC-007, 13 here, 4 on the channel card) | extended | ST TL072CDT, LCSC C6961, basic | chosen in `parts.csv` by the channel card session 2026-10-10 (pinout and limits as TI's); still to do here: the master's TL072 symbols say Manufacturer Texas Instruments (`TI` dict in the wired scripts): give SX-IC-007 the ST fields (Manufacturer STMicroelectronics, MPN TL072CDT, LCSC C6961) at the next master schematic session |
+| 6.2 V zener (SX-D-001, 4 here) | no part chosen | BZT52C6V2 (hongjiacheng), LCSC C19077403, preferred | chosen in `parts.csv` 2026-10-10 (RoHS in the maker's datasheet, land pattern matches `D_SOD-123`); symbols carry ProjectPN only, nothing to redraw |
 | BAT54T1G (SX-D-014, D504) | onsemi, extended | BAT54W (hongjiacheng), LCSC C7502705, preferred | leakage and forward voltage in the SC_ENV clamp (decision 104) |
-| 680k R | counted as extended | UNI-ROYAL 0805W8F6803T5E, LCSC C17797, preferred | none |
+| 680k R | counted as extended | UNI-ROYAL 0805W8F6803T5E, LCSC C17797, preferred | chosen in `parts.csv` 2026-10-10 |
 
 No fee-free part was found for the LM339, the M7 (1N4007) SMA rectifier, the 220 pF C0G 0805 or the 10 µF 35 V SMD electrolytic. `python3 tools/costs.py extended` lists every type that still costs a fee.
 

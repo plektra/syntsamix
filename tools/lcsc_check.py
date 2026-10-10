@@ -30,14 +30,15 @@ def best(items):
 # search terms per part; a result counts only if its manufacturer part number contains the term (fuzzy search guard)
 MPN={"SX-IC-001":["SSI2144SS-TU","SSI2144"],"SX-IC-002":["SSI2162SS-TU","SSI2162"],"SX-IC-003":["AD8273ARZ","AD8273"],
      "SX-IC-004":["NE5532DR","NE5532D"],"SX-IC-005":["DG413DY-T1-E3","DG413DY"],"SX-IC-006":["LM13700MX/NOPB","LM13700M"],
-     "SX-IC-007":["TL072IDR","TL072CDR"],"SX-IC-008":["DG412DY-T1-E3","DG412DY"],"SX-IC-009":["LM339DR","LM339DT"],
-     "SX-IC-010":["LM317T"],"SX-IC-011":["LM337TG","LM337T"],"SX-IC-012":["L78L05ACUTR"],"SX-Q-001":["MMBT3904"],
+     "SX-IC-007":["TL072CDT"],"SX-IC-008":["DG412DY-T1-E3","DG412DY"],"SX-IC-009":["LM339DR","LM339DT"],
+     "SX-IC-010":["LM317T"],"SX-IC-011":["LM337TG","LM337T"],"SX-IC-012":["78L05G-AB3-R"],"SX-Q-001":["MMBT3904"],
      "SX-D-001":["BZT52C6V2"],"SX-D-003":["1N4148W"],"SX-D-007":["SS14"],"SX-R-021":["ERA-V33J102V","ERA-V33J102"]}
 PKG={"SX-IC-003":"SOIC","SX-IC-004":"SO","SX-IC-005":"SO","SX-IC-006":"SO","SX-IC-007":"SO","SX-IC-008":"SO","SX-IC-009":"SO","SX-IC-010":"TO-220","SX-IC-011":"TO-220","SX-IC-012":"SOT-89","SX-D-001":"SOD-123","SX-D-003":"SOD-123","SX-D-007":"SMA"}
 norm=lambda t: re.sub(r'[^A-Z0-9]','',t.upper())
 # LCSC codes seen in successful queries on 2026-10-06, used when the flaky search returns nothing; recheck before ordering
 KNOWN={"SX-IC-004":("C7426","NE5532DR","basic",91852,0.1064),"SX-IC-005":("C141600","DG413DY-T1-E3","extended",331,""),
-       "SX-IC-011":("C73683","LM337TG","extended",5683,""),"SX-D-001":("C19077403","BZT52C6V2","extended",125612,"")}
+       "SX-IC-011":("C73683","LM337TG","extended",5683,""),"SX-D-001":("C19077403","BZT52C6V2","preferred",218115,0.0178),
+       "SX-IC-007":("C6961","TL072CDT","basic",75221,0.1618),"SX-IC-012":("C71136","78L05G-AB3-R","basic",217722,0.0895)}   # 2026-10-10 (decision 137)
 HAND=("SX-POT","SX-TRIM","SX-CONN","SX-SW","SX-MECH")
 rows=[]
 for p in csv.DictReader(open(os.path.join(ROOT,'docs','parts.csv'))):

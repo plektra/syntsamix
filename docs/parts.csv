@@ -21,13 +21,13 @@ SX-C-003,Capacitor 10 uF bipolar electrolytic 25 V+ radial 5 mm,,,,,Not used sin
 SX-C-004,Capacitor 22 pF C0G 50 V 0805,,,,,
 SX-C-005,Capacitor 47 nF film 5% 5 mm pitch,,,,,Not used since decision 113 (channel low-cut now SX-C-026)
 SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,Alpha,,,,Footprint Alpha RD902F-40-00D; MPN to verify; not used since decision 115 (channel TRIM now SX-POT-011)
-SX-D-001,Zener diode 6.2 V SOD-123,,,,,For example BZT52C6V2; to verify
+SX-D-001,Zener diode 6.2 V SOD-123,hongjiacheng,BZT52C6V2,LCSC,C19077403,"Soft-clip zeners (channel input, master out); hongjiacheng datasheet Rev 2.1: VZ 5.89-6.51 V at 5 mA, 350 mW, 357 C/W, SOD-123 (land pattern matches KiCad D_SOD-123); JLCPCB preferred (decision 137); RoHS: hongjiacheng datasheet Rev 2.1 (RoHS-compliant, halogen-free) and LCSC C19077403 ROHS (checked 2026-10-10)"
 SX-D-002,LED 0805 low current,,,,,"Not used since 2026-10-09: the button LEDs take one part per colour (SX-D-011 green, SX-D-015 red, SX-D-016 yellow, SX-D-017 white)"
 SX-SW-001,Latching push button DPDT 8.5x8.5 mm PCB,CW Industries,GPBS850N,Electrokit,41012905,Datasheet Rev 1 (2012): pressed = 2-3 and 5-6 closed; 100k mechanical cycles; footprint syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850N; RoHS: Mouser 629-GPBS-850N RoHS Compliant (checked 2026-10-09)
 SX-IC-006,Dual OTA with linearizing diodes and buffers SOIC-16,Texas Instruments,,Mouser,,LM13700 (SOIC-16); pinout verified from TI SNOSBW2F; orderable MPN to verify. Q VCA per SSI2144 datasheet Figure 9; RoHS: Mouser 926-LM13700MX/NOPB RoHS Compliant (orderable LM13700MX/NOPB; checked 2026-10-09)
 SX-R-009,Resistor 17.4 kOhm 1% 0805,,,,,
 SX-R-010,Resistor 200 Ohm 1% 0805,,,,,
-SX-R-011,Resistor 13 kOhm 1% 0805,,,,,
+SX-R-011,Resistor 13 kOhm 1% 0805,,0805W8F1302T5E,,C17455,SSI2144 Q pin; JLC preferred (decision 137); RoHS: LCSC C17455 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
 SX-R-012,Resistor 604 Ohm 1% 0805,,,,,Datasheet Figure 9 shows 599 Ohm (not an E96 value)
 SX-R-013,Resistor 52.3 kOhm 1% 0805,,,,,
 SX-R-014,Resistor 8.66 kOhm 1% 0805,,,,,Filter output scale; provisional until the breadboard
@@ -49,7 +49,7 @@ SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,Not used: CUTOFF 
 SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,Jumper header
 SX-CONN-005,Pin header 1x3 2.54 mm vertical,,,,,Jumper header
 SX-MECH-001,Jumper cap 2.54 mm,,,,,For SX-CONN-004/005
-SX-IC-007,Dual JFET op amp SOIC-8,Texas Instruments,,Mouser,,TL072 (SOIC-8); used for low-bias control circuits; orderable MPN to verify; RoHS: Mouser 595-TL072CDR RoHS Compliant (orderable TL072CDR; checked 2026-10-09); channel U107 cutoff CV summer since decision 123
+SX-IC-007,Dual JFET op amp SOIC-8,STMicroelectronics,TL072CDT,LCSC,C6961,"TL072 (SOIC-8); used for low-bias control circuits; channel U107 cutoff CV summer since decision 123; JLCPCB basic (decision 137, 2026-10-10; was TI TL072CDR, extended): ST DocID 2298 Rev 7: pins 1 OUT1 2 -IN1 3 +IN1 4 V- 5 +IN2 6 -IN2 7 OUT2 8 V+ (same as TI and the KiCad TL072 symbol), supply max +-18 V, input max +-15 V, ICC 1.4 / 2.5 mA per amplifier, SO-8 125 C/W, TL072C 0 to 70 C; RoHS: LCSC C6961 ROHS (checked 2026-10-10); the master card symbols still say Texas Instruments (noted in its STATUS.md)"
 SX-R-022,Resistor 110 Ohm 1% 0805,,,,,
 SX-R-023,Resistor 113 kOhm 1% 0805,,,,,
 SX-R-024,Resistor 453 kOhm 1% 0805,,,,,
@@ -71,13 +71,13 @@ SX-POT-005,Dual pot 10 kOhm audio (A) 9 mm vertical,Alpha,,,,"AUX level; footpri
 SX-CONN-006,Pin header 2x3 2.54 mm vertical,,,,,AUX pre/post jumper
 SX-IC-009,Quad comparator SOIC-14,Texas Instruments,,Mouser,,"LM339 (SOIC-14); pinout from TI SLCS006Z (pin pairs 2/4-5, 1/6-7, 14/8-9, 13/10-11); MPN to verify; RoHS: Mouser 595-LM339DR RoHS Compliant (orderable LM339DR; checked 2026-10-09)"
 SX-R-035,Resistor 1 kOhm 1% 0805,,,,,
-SX-R-036,Resistor 680 kOhm 1% 0805,,,,,Meter decay
+SX-R-036,Resistor 680 kOhm 1% 0805,,0805W8F6803T5E,,C17797,Meter decay; JLC preferred (decision 137); RoHS: LCSC C17797 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
 SX-R-037,Resistor 19.1 kOhm 1% 0805,,,,,Meter ladder
 SX-R-038,Resistor 4.02 kOhm 1% 0805,,,,,Meter ladder
 SX-R-039,Resistor 1.43 kOhm 1% 0805,,,,,Meter ladder
 SX-R-040,Resistor 1.54 kOhm 1% 0805,,,,,Meter ladder
 SX-R-041,Resistor 845 Ohm 1% 0805,,,,,Meter ladder
-SX-R-042,Resistor 750 Ohm 1% 0805,,,,,Meter ladder
+SX-R-042,Resistor 750 Ohm 1% 0805,,0805W8F7500T5E,,C17818,Meter ladder; JLC preferred (decision 137); RoHS: LCSC C17818 ROHS (UNI-ROYAL suffix E = lead-free; checked 2026-10-10)
 SX-R-043,Resistor 237 Ohm 1% 0805,,,,,Meter ladder
 SX-R-044,Resistor 1.5 kOhm 1% 0805,,,,,Meter LED (about 2 mA from +5 V)
 SX-D-004,LED 3 mm green low current,Kingbright,WP710A10LGD,Mouser,604-WP710A10LGD,"Meter segments -30 to 0; part to choose; channel meter now 0805 (decision 119); still the master meter's LEDs until its own session; Candidate (sub-agent search 2026-10-09): Kingbright WP710A10 low-current diffused series, 2 mcd at 2 mA, 0.27 USD, 15288 in stock; body height to read from the Kingbright drawing (DigiKey 5.9 mm max); RoHS: Kingbright datasheet 'RoHS compliant' and Mouser RoHS Compliant (from the sub-agent; recheck on the datasheet before ordering); LED form for the master (3 mm or 0805 as decision 119) is open for /system mechanical"
@@ -87,7 +87,7 @@ SX-CONN-007,IDC box header 2x17 2.54 mm vertical shrouded keyed,Wurth Elektronik
 SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,Wurth Elektronik,61200821621,Mouser,710-61200821621,"Power ribbon (docs/CHAIN.md); 3 A per contact (Wurth WR-BHD datasheet text; check the rendered page); not at LCSC: hand-solder (decision 100); about 0.78 EUR at 50, 6896 in stock 2026-10-09; RoHS: Mouser RoHS Compliant (checked 2026-10-09)"
 SX-IC-010,Adjustable positive regulator TO-220,Texas Instruments,LM317,,,Pinout 1 ADJ 2 OUT(tab) 3 IN from TI SLVS044Z; orderable MPN to verify; RoHS: Mouser 595-LM317KCSE3 RoHS Compliant (orderable TI TO-220 LM317KCSE3; checked 2026-10-09)
 SX-IC-011,Adjustable negative regulator TO-220,Texas Instruments,LM337,,,Pinout 1 ADJ 2 IN(tab) 3 OUT from TI SLVS047L; orderable MPN to verify; RoHS: Mouser 595-LM337KCSE3 RoHS Compliant (orderable TI TO-220 LM337KCSE3; checked 2026-10-09)
-SX-IC-012,5 V 100 mA regulator SOT-89,STMicroelectronics,L78L05ACUTR,,,Pinout 1 OUT 2 GND 3 IN (KiCad library); MPN to verify; RoHS: Mouser 511-L78L05ACU RoHS Compliant (checked 2026-10-09)
+SX-IC-012,5 V 100 mA regulator SOT-89,UTC,78L05G-AB3-R,LCSC,C71136,"JLCPCB basic (decision 137, 2026-10-10; was ST L78L05ACUTR, extended); UTC QW-R101-001.R: -AB3-R pins 1 OUT 2 GND 3 IN (matches the KiCad L78L05_SOT89 symbol and footprint; the -AB3-C-R variant is G I O: do not substitute), VIN max 30 V, IQ 2.0 / 5.5 mA, PD 350 mW in SOT-89 (channel worst case 0.25 W: copper on the GND tab); G = lead-free and halogen-free; RoHS: UTC datasheet (G suffix lead-free, halogen-free) and LCSC C71136 ROHS (checked 2026-10-10)"
 SX-R-045,Resistor 120 Ohm 1% 0805,,,,,Regulator divider
 SX-R-046,Resistor 1.33 kOhm 1% 0805,,,,,Regulator divider (15.2 V)
 SX-C-011,Capacitor 47 uF 35 V electrolytic radial 6.3 mm,,,,,Regulator input; Not used since decision 127 (master now SX-C-025)

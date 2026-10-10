@@ -13,6 +13,7 @@ from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}
+ST={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007, JLCPCB basic (decision 137)
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**k): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**k))
@@ -21,7 +22,7 @@ def C(ref,val,pn,x,y,rot=0): return s.place("Device","C",ref,val,x,y,rot,fp=C080
 LOWP=("U401","U94012","U94013","U404","U94042","U94043")
 def OA(ref,unit,x,y):
     part,pn=("TL062","SX-IC-024") if ref in LOWP else ("TL072","SX-IC-007")
-    return s.place("Amplifier_Operational",part,ref,part,x,y,0,unit,SO8,P(pn,**TI))
+    return s.place("Amplifier_Operational",part,ref,part,x,y,0,unit,SO8,P(pn,**(ST if pn=="SX-IC-007" else TI)))
 def gnd(at,rot=0): s.power("GNDA",at,rot)
 def pgnd(at,rot=0): s.power("GNDPWR",at,rot)
 def up(p,d=2.54): return (p[0],p[1]-d)

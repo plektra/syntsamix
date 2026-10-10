@@ -21,13 +21,13 @@ SX-C-003,Capacitor 10 uF bipolar electrolytic 25 V+ radial 5 mm,,,,,,,hand-solde
 SX-C-004,Capacitor 22 pF C0G 50 V 0805,Capacitor 22 pF C0G 50 V 0805,C1804,CL21C220JBANNNC,basic,544540,0.008642857,
 SX-C-005,Capacitor 47 nF film 5% 5 mm pitch,,,,,,,hand-solder (through-hole or mechanical)
 SX-POT-002,Dual pot 250 kOhm audio (A) 9 mm vertical,,,,,,,hand-solder (through-hole or mechanical)
-SX-D-001,Zener diode 6.2 V SOD-123,BZT52C6V2,C19077403,BZT52C6V2,extended,125612,,from an earlier query on 2026-10-06 (search flaky); recheck
+SX-D-001,Zener diode 6.2 V SOD-123,BZT52C6V2,C19077403,BZT52C6V2,preferred,218115,0.0178,pcbparts jlc_get_part 2026-10-10
 SX-D-002,LED 0805 low current,LED 0805,C6067133,150080BS75000,extended,4825,0.296,colour to choose; any 0805 LED in this class
 SX-SW-001,Latching push button DPDT 8.5x8.5 mm PCB,,,,,,,hand-solder (through-hole or mechanical)
 SX-IC-006,Dual OTA with linearizing diodes and buffers SOIC-16,LM13700MX/NOPB / LM13700M,C174050,LM13700MX/NOPB,extended,10394,0.8802,
 SX-R-009,Resistor 17.4 kOhm 1% 0805,17400 Ohm 0805 1%,C19796,0805W8F1742T5E,extended,36849,0.0022,
 SX-R-010,Resistor 200 Ohm 1% 0805,200 Ohm 0805 1%,C17540,0805W8F2000T5E,basic,812041,0.0024,
-SX-R-011,Resistor 13 kOhm 1% 0805,13000 Ohm 0805 1%,C17455,0805W8F1302T5E,extended,45083,0.0033,
+SX-R-011,Resistor 13 kOhm 1% 0805,13000 Ohm 0805 1%,C17455,0805W8F1302T5E,preferred,119292,0.0084,pcbparts jlc_get_part 2026-10-10
 SX-R-012,Resistor 604 Ohm 1% 0805,604 Ohm 0805 1%,C22375096,FRQ0805F6040TS,extended,20000,0.0034,
 SX-R-013,Resistor 52.3 kOhm 1% 0805,52300 Ohm 0805 1%,C2758300,ARG05BTC5232,extended,32612,0.0344,
 SX-R-014,Resistor 8.66 kOhm 1% 0805,8660 Ohm 0805 1%,C2933506,FRC0805F8661TS,extended,96454,0.0034,
@@ -49,7 +49,7 @@ SX-CONN-003,6.3 mm mono switched jack vertical (top panel),,,,,,,hand-solder (th
 SX-CONN-004,Pin header 2x2 2.54 mm vertical,,,,,,,hand-solder (through-hole or mechanical)
 SX-CONN-005,Pin header 1x3 2.54 mm vertical,,,,,,,hand-solder (through-hole or mechanical)
 SX-MECH-001,Jumper cap 2.54 mm,,,,,,,hand-solder (through-hole or mechanical)
-SX-IC-007,Dual JFET op amp SOIC-8,TL072IDR / TL072CDR,C6962,TL072IDR,extended,68545,0.1186,
+SX-IC-007,Dual JFET op amp SOIC-8,TL072CDT,C6961,TL072CDT,basic,75221,0.1618,pcbparts jlc_get_part 2026-10-10
 SX-R-022,Resistor 110 Ohm 1% 0805,110 Ohm 0805 1%,C17423,0805W8F1100T5E,extended,40342,0.001785714,
 SX-R-023,Resistor 113 kOhm 1% 0805,113000 Ohm 0805 1%,C103936,RTT051133FTP,extended,3330,0.002,
 SX-R-024,Resistor 453 kOhm 1% 0805,453000 Ohm 0805 1%,C5121540,FRC0805F4533TS,extended,49753,0.0036,
@@ -71,13 +71,13 @@ SX-POT-005,Dual pot 10 kOhm audio (A) 9 mm vertical,,,,,,,hand-solder (through-h
 SX-CONN-006,Pin header 2x3 2.54 mm vertical,,,,,,,hand-solder (through-hole or mechanical)
 SX-IC-009,Quad comparator SOIC-14,LM339DR / LM339DT,C7948,LM339DR,extended,46833,0.1304,
 SX-R-035,Resistor 1 kOhm 1% 0805,1000 Ohm 0805 1%,C17513,0805W8F1001T5E,basic,6086189,0.0032,
-SX-R-036,Resistor 680 kOhm 1% 0805,680000 Ohm 0805 1%,C17797,0805W8F6803T5E,extended,47249,0.0026,
+SX-R-036,Resistor 680 kOhm 1% 0805,680000 Ohm 0805 1%,C17797,0805W8F6803T5E,preferred,128422,0.0042,pcbparts jlc_get_part 2026-10-10
 SX-R-037,Resistor 19.1 kOhm 1% 0805,19100 Ohm 0805 1%,C2930175,FRC0805F1912TS,extended,25229,0.0035,
 SX-R-038,Resistor 4.02 kOhm 1% 0805,4020 Ohm 0805 1%,C2930195,FRC0805F4021TS,extended,12742,0.0037,
 SX-R-039,Resistor 1.43 kOhm 1% 0805,1430 Ohm 0805 1%,C2933316,FRC0805F1431TS,extended,41301,0.0037,
 SX-R-040,Resistor 1.54 kOhm 1% 0805,1540 Ohm 0805 1%,C2933326,FRC0805F1541TS,extended,8834,0.0034,
 SX-R-041,Resistor 845 Ohm 1% 0805,845 Ohm 0805 1%,C3013229,FRC0805F8450TS,extended,32974,0.0035,
-SX-R-042,Resistor 750 Ohm 1% 0805,750 Ohm 0805 1%,C17818,0805W8F7500T5E,extended,22806,0.0022,
+SX-R-042,Resistor 750 Ohm 1% 0805,750 Ohm 0805 1%,C17818,0805W8F7500T5E,preferred,208449,0.0025,pcbparts jlc_get_part 2026-10-10
 SX-R-043,Resistor 237 Ohm 1% 0805,237 Ohm 0805 1%,C247038,0805W8F2370T5E,extended,4880,0.0022,
 SX-R-044,Resistor 1.5 kOhm 1% 0805,1500 Ohm 0805 1%,C4310,0805W8F1501T5E,basic,821399,0.001771429,
 SX-D-004,LED 3 mm green low current,,,,,,,hand-solder (through-hole or mechanical)
@@ -87,7 +87,7 @@ SX-CONN-007,IDC box header 2x17 2.54 mm vertical shrouded keyed,,,,,,,hand-solde
 SX-CONN-008,IDC box header 2x4 2.54 mm vertical shrouded keyed,,,,,,,hand-solder (through-hole or mechanical)
 SX-IC-010,Adjustable positive regulator TO-220,LM317T,C18718,LM317T-DG,extended,67441,0.3425,
 SX-IC-011,Adjustable negative regulator TO-220,LM337TG / LM337T,C73683,LM337TG,extended,5683,,from an earlier query on 2026-10-06 (search flaky); recheck
-SX-IC-012,5 V 100 mA regulator SOT-89,L78L05ACUTR,C43116,L78L05ACUTR,extended,66652,0.0845,
+SX-IC-012,5 V 100 mA regulator SOT-89,78L05G-AB3-R,C71136,78L05G-AB3-R,basic,217722,0.0895,pcbparts jlc_get_part 2026-10-10
 SX-R-045,Resistor 120 Ohm 1% 0805,120 Ohm 0805 1%,C17437,0805W8F1200T5E,basic,855617,0.0046,
 SX-R-046,Resistor 1.33 kOhm 1% 0805,1330 Ohm 0805 1%,C422865,0805W8D1331T5E,extended,4569,0.0084,
 SX-C-011,Capacitor 47 uF 35 V electrolytic radial 6.3 mm,,,,,,,hand-solder (through-hole or mechanical)

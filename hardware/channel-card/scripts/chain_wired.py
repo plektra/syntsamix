@@ -109,7 +109,7 @@ s.tp("TP504","-15V",(233.68,Y2),"down"); s.power("-15V",(238.76,Y2))
 
 # ------------------------------------------------------------- +5 V (78L05) for logic and LEDs
 Y3=279.4
-u=s.place("Regulator_Linear","L78L05_SOT89","U503","78L05",160.02,Y3,0,fp="Package_TO_SOT_SMD:SOT-89-3",props=P("SX-IC-012",Manufacturer="STMicroelectronics",MPN="L78L05ACUTR"))
+u=s.place("Regulator_Linear","L78L05_SOT89","U503","78L05",160.02,Y3,0,fp="Package_TO_SOT_SMD:SOT-89-3",props=P("SX-IC-012",Manufacturer="UTC",MPN="78L05G-AB3-R",Supplier="LCSC",SupplierPN="C71136"))   # pins 1 O 2 G 3 I (UTC QW-R101-001.R; -AB3-C differs)
 s.power("+15V",(142.24,Y3)); s.wire((142.24,Y3),(147.32,Y3)); s.wire((147.32,Y3),u(3))
 c=C("C511","100n","SX-C-002",147.32,Y3+3.81); pgnd(c(2))
 s.wire(u(2),dn(u(2),2.54)); pgnd(dn(u(2),2.54))

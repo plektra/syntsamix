@@ -16,12 +16,13 @@ R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
 TRIM="Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
+ST={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007, JLCPCB basic (decision 137)
 PROV="Provisional: set from the SSI2144 breadboard (simulation/filter/BREADBOARD.md)"
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,fp=R0805,**k): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
 def C(ref,val,pn,x,y,rot=90,fp=C0805,**k): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
-def OA(part,ref,unit,x,y,pn,fp=SO8,props=TI): return s.place("Amplifier_Operational",part,ref,part,x,y,0,unit,fp,P(pn,**props))
+def OA(part,ref,unit,x,y,pn,fp=SO8,props=TI): return s.place("Amplifier_Operational",part,ref,part,x,y,0,unit,fp,P(pn,**(ST if pn=="SX-IC-007" else props)))
 def gnd(at,rot=0): s.power("GNDA",at,rot)
 def pgnd(at,rot=0): s.power("GNDPWR",at,rot)
 def up(p,d=2.54): return (p[0],p[1]-d)

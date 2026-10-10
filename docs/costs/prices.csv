@@ -61,7 +61,7 @@ SX-D-006,0.15,USD,estimate (Mouser),2026-10-09,hand,Kingbright 3 mm red
 SX-R-089,1.06,USD,Mouser 71-TFPT0603L8200FV (10+),2026-10-09,consign,TFPT0603L8200FV tempco (decision 130); RoHS compliant by exemption (Mouser)
 SX-POT-014,1.00,USD,estimate (Tayda A-5370),2026-10-09,hand,Alpha RD901F-40-15K-C100K (decision 131)
 SX-POT-015,1.99,GBP,Thonk,2026-10-10,hand,Alpha RD902F-40-15K-B100K dual (decision 138)
-SX-D-001,0.018,USD,LCSC C19077403,2026-10-10,preferred,"Candidate BZT52C6V2 (hongjiacheng), JLCPCB preferred: no fee; part not chosen yet (decision 137)"
+SX-D-001,0.018,USD,LCSC C19077403,2026-10-10,preferred,BZT52C6V2 (hongjiacheng) chosen 2026-10-10: JLCPCB preferred (decision 137)
 SX-D-010,0.017,USD,LCSC C19077410,2026-10-10,preferred,BZT52C12 (the chosen code) is JLCPCB preferred: no fee
 SX-R-011,0.008,USD,LCSC C17455,2026-10-10,preferred,13k 1% 0805 UNI-ROYAL 0805W8F1302T5E: JLCPCB preferred
 SX-R-036,0.004,USD,LCSC C17797,2026-10-10,preferred,680k 1% 0805 UNI-ROYAL 0805W8F6803T5E: JLCPCB preferred
