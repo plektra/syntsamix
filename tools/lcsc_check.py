@@ -3,8 +3,8 @@
 """Check every part in docs/parts.csv against the JLCPCB/LCSC catalogue (jlcsearch.tscircuit.com).
 
 Writes docs/lcsc-check.csv: project part number, what was searched, best match
-(basic parts first, then stock), LCSC code, JLC class (basic, preferred = extended without the fee, or extended), stock,
-unit price, and a note. Parts meant for hand soldering are marked as such.
+(basic parts first, then stock), LCSC code, JLC class (basic, preferred = extended without the fee in Economic PCBA, or
+extended), stock, unit price, MOQ (lower bound of JLCPCB's first price tier; 1 for parts in stock), and a note. Parts meant for hand soldering are marked as such.
 Usage: python3 tools/lcsc_check.py
 """
 import csv,json,os,re,time,urllib.parse,urllib.request
@@ -43,7 +43,7 @@ HAND=("SX-POT","SX-TRIM","SX-CONN","SX-SW","SX-MECH")
 rows=[]
 for p in csv.DictReader(open(os.path.join(ROOT,'docs','parts.csv'))):
     pn,desc=p["ProjectPN"],p["Description"]
-    out={"ProjectPN":pn,"Description":desc,"Search":"","LCSC":"","MPN":"","Class":"","Stock":"","Price":"","Note":""}
+    out={"ProjectPN":pn,"Description":desc,"Search":"","LCSC":"","MPN":"","Class":"","Stock":"","Price":"","MOQ":"","Note":""}
     hit=None
     if pn.startswith(HAND) or "radial" in desc or "film" in desc.lower() or "3 mm" in desc or "bipolar" in desc:
         out["Note"]="hand-solder (through-hole or mechanical)"
@@ -75,7 +75,8 @@ for p in csv.DictReader(open(os.path.join(ROOT,'docs','parts.csv'))):
         if hit: out["Note"]="colour to choose; any 0805 LED in this class"
     if hit:
         out.update(LCSC=f"C{hit['lcsc']}",MPN=hit.get("mfr",""),Class="basic" if hit.get("is_basic") else ("preferred" if hit.get("is_preferred") else "extended"),Stock=hit.get("stock",""),
-                   Price=hit.get("price1") or str(hit.get("price","")).split(',')[0].split(':')[-1])
+                   Price=hit.get("price1") or str(hit.get("price","")).split(',')[0].split(':')[-1],
+                   MOQ=str(hit.get("price","")).split(',')[0].split(':')[0].split('-')[0])
     elif pn in KNOWN:
         c,m,cl,st,pr=KNOWN[pn]; out.update(LCSC=c,MPN=m,Class=cl,Stock=st,Price=pr,Note="from an earlier query on 2026-10-06 (search flaky); recheck")
     elif not out["Note"]: out["Note"]="not found at LCSC: consign or hand-solder"
