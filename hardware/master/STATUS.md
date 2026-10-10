@@ -73,6 +73,15 @@ Cost frame set by the user (2026-10-09): prototype of 4 channels (maybe 2), the 
 4. **Master meter:** 24 discrete 3 mm LEDs (meter form still open, decision 86 against 119); the 0805-under-bezel form of the channels saves little money but one hand-soldered part type.
 5. Not recommended: TPA6120A2 (about €4) → NE5532 with a discrete buffer; saves about €3 but weakens the headphone drive.
 
+From the system cost review of 2026-10-10 (`docs/reviews/2026-10-10-cost-system.md`, with savings and caveats). None of these is decided:
+
+6. **U641 DG411 → DG413** by inverting DET1 at its comparator (swap the inputs): one part type fewer, and the DG411 may not be at LCSC (unverified).
+7. **Hand-solder the expensive ICs on the one master used** (SSI2162 ×4, DG413 ×9, AD8273 ×2, DRV135UA ×2, AS3046D), keeping them off the JLCPCB BOM so the forced spare master does not carry them: about €52. Costs 18 SOIC/SSOP joints to inspect; touches decision 133. Keep the TPA6120A2 on JLCPCB.
+8. **10 µF bipolar electrolytics ×16 → X5R ceramic** (as channel lever 7): about €3.30 per master; tap test first. Touches decision 127.
+9. **M7 (D705-D712) → R+O 1N4007W SOD-123FL** (C18199088, JLCPCB preferred, 1 kV 1 A): removes a fee type; needs a footprint change and a datasheet check.
+10. **R421 ERA-V33J102V is end of life** (decision 130): choose the TFPT pair or consignment; priced as a TFPT in `prices.csv` for now.
+11. **Values:** the off-E24 table has 24 types (the 39R2 2512 was missing; no fee-free 2512 or 1206 value from 10 to 51 Ω exists, so keep it as a recorded exception); 560k is E24 but has no fee-free part.
+
 ## Component values (decision 134)
 
 This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on 2026-10-09 (from the BOM export; all resistors; every capacitor is already E24). Each needs a reason recorded here, or a move to E24 values or an E24 pair, before layout.

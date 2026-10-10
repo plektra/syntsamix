@@ -51,6 +51,12 @@ Cost frame set by the user (2026-10-09): prototype of 4 channels (maybe 2; this 
 3. Value selection is a standing rule now: see "Component values" below (decision 134).
 4. Supply: the 330 µF hybrid capacitor EEHZK1V331P (SX-C-019, 4 per board) showed 0 stock at LCSC on 2026-10-09 (C278516, minimum order 15); check stock or an alternative before ordering.
 
+From the system cost review of 2026-10-10 (`docs/reviews/2026-10-10-cost-system.md`, with savings and caveats). None of these is decided:
+
+5. **Divider values:** 732k, 42k2, 15k8 and 243k are off E24, and 240k is E24 with no fee-free part. Moving them to fee-free E24 values or pairs needs a rerun of `scripts/design.py`: the ±20 V outputs and UVLO thresholds are reliability items.
+6. **SS54 SMC → SS54 SMA** (C22452, JLCPCB basic): one fee type fewer; check its thermals at the converter's duty first.
+7. Lever 4 can be closed: the EEHZK1V331P is back in stock at LCSC (5,666 on 2026-10-10).
+
 ## Component values (decision 134)
 
 This board owns its value selection (rule in `CLAUDE.md`). Values outside E24 on 2026-10-09 (from the BOM export; all 0805 resistors; every capacitor is already E24):

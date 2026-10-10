@@ -3,7 +3,8 @@ rate_usd_eur,0.92,Exchange rate (2026-10-09 estimate); LCSC prices in docs/lcsc-
 rate_gbp_eur,1.17,Exchange rate (2026-10-09 estimate); Thonk prices are GBP
 rate_sek_eur,0.087,Exchange rate (2026-10-09 estimate); Electrokit prices are SEK
 jlc_extended_fee_usd,3,JLCPCB fee per extended part type per order (item 110; not from an official JLCPCB page)
-jlc_setup_eur_per_design,35,JLCPCB assembly set-up and stencil per assembled design (estimate)
+jlc_fee_per_design,0,"1 if JLCPCB bills an extended type again on each design that uses it (unverified; costs.py estimate --fees-per-design shows that case)"
+jlc_setup_eur_per_design,8.93,"JLCPCB Economic PCBA set-up 8.18 + stencil 1.53 USD per assembled design (JLCPCB help, PCB assembly price, 2026-10-10); every SMD part is on the top side"
 jlc_per_smd_part_usd,0.005,JLCPCB placement per SMD part (about 3 joints at $0.0017; estimate)
 jlc_min_assembled,2,JLCPCB assembles at least this many boards of a design (to check when ordering)
 pcb_min_eur_per_design,15,Smallest PCB order per design (5 pieces; estimate)

@@ -1,31 +1,31 @@
 ProjectPN,unit_price,currency,source,date,jlc,notes
-SX-IC-001,3.75,GBP,Thonk (decisions process.md availability notes),2026-10-03,consign,SSI2144; not at LCSC
-SX-IC-002,3.50,GBP,estimate (Thonk),2026-10-09,consign,SSI2162; not at LCSC
-SX-IC-003,4.11,USD,Mouser (availability notes),2026-10-03,consign,AD8273ARZ; not at LCSC
-SX-IC-005,1.92,USD,LCSC C141600,2026-10-09,extended,DG413DY-T1-E3
+SX-IC-001,3.75,GBP,Thonk,2026-10-10,consign,"SSI2144; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+"
+SX-IC-002,3.29,GBP,Thonk,2026-10-10,consign,"SSI2162; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+"
+SX-IC-003,3.82,EUR,Mouser 584-AD8273ARZ (10+),2026-10-10,consign,AD8273ARZ; not at LCSC; 3.52 at 25
+SX-IC-005,1.4526,USD,LCSC C141600 (30+),2026-10-10,extended,DG413DY-T1-E3; 1.6414 at 10+; JLCPCB library mirror 0.9013 at 30+ (which price JLCPCB charges unconfirmed); Mouser EUR 0.98 at 25
 SX-IC-011,0.60,USD,estimate,2026-10-09,hand,LM337 TO-220 (master)
 SX-IC-013,2.50,EUR,estimate (Electric Druid),2026-10-09,consign,AS3046D
-SX-IC-015,2.35,USD,LCSC C70439 (10+),2026-10-09,extended,TPA6120A2DWPR
+SX-IC-015,1.7668,USD,JLCPCB library C70439 (10+),2026-10-10,extended,TPA6120A2DWPR
 SX-IC-016,0.30,USD,estimate,2026-10-09,hand,L7805CV TO-220 (master)
 SX-IC-017,1.90,USD,estimate (as DG413),2026-10-09,extended,DG411DY
-SX-IC-018,0.96,USD,LCSC C31966 (10+),2026-10-09,extended,TPS54560DDAR
+SX-IC-018,0.8948,USD,JLCPCB library C31966 (10+),2026-10-10,extended,TPS54560DDAR
 SX-IC-019,0.08,USD,LCSC C5605 (50+),2026-10-09,basic,74HC14D
 SX-IC-020,0.16,USD,LCSC C58069 (50+),2026-10-09,basic,L78M05ABDT-TR
 SX-IC-021,0.26,USD,LCSC C40904 (50+),2026-10-09,extended,OPA2171AIDR
 SX-IC-022,0.48,USD,LCSC C12848 (10+),2026-10-09,extended,LM317D2TR4G
 SX-IC-023,0.42,USD,LCSC C232416 (10+),2026-10-09,extended,LM337D2TR4G
 SX-IC-024,0.17,USD,LCSC C67471 (50+),2026-10-09,extended,TL062CDR
-SX-IC-025,3.42,USD,LCSC C544663,2026-10-09,extended,DRV135UA/2K5
-SX-K-001,0.94,USD,LCSC C397194 (10+),2026-10-09,extended,G6K-2F-Y DC12
+SX-IC-025,3.6019,USD,JLCPCB library C544663 (1-9),2026-10-10,extended,DRV135UA/2K5; 2.5949 at 30+
+SX-K-001,0.82,USD,JLCPCB library C397194 (10+),2026-10-10,extended,G6K-2F-Y DC12
 SX-Q-002,0.69,USD,LCSC C511548 (10+),2026-10-09,extended,SQJ457EP-T1_GE3
 SX-L-001,0.45,USD,LCSC C1329579 (10+),2026-10-09,extended,SRP7028A-2R2M
 SX-L-002,0.98,USD,LCSC C189912 (10+),2026-10-09,extended,SRP1265A-150M
 SX-L-003,0.97,USD,LCSC C2041465 (10+),2026-10-09,extended,SRP1265A-220M
 SX-C-018,0.27,USD,LCSC C385986 (50+),2026-10-09,extended,HMK325C7475KMHPE
-SX-C-019,0.64,USD,LCSC C278516 (10+),2026-10-09,extended,EEHZK1V331P; LCSC stock 0 on 2026-10-09
+SX-C-019,0.5076,USD,JLCPCB library C278516 (10+),2026-10-10,extended,"EEHZK1V331P; stock 5,666 on 2026-10-10"
 SX-C-020,0.16,USD,LCSC C2982822 (50+),2026-10-09,hand,KNM2100UF35V149EC0055
 SX-C-021,0.10,USD,estimate,2026-10-09,extended,100 uF 50 V SMD 8x10
-SX-C-023,0.30,USD,estimate (Mouser),2026-10-09,extended,EEE-1VA100NP
+SX-C-023,0.25,EUR,Mouser 667-EEE-1VA100NP (10+),2026-10-10,consign,EEE-1VA100NP; not at LCSC (consign or hand-solder); 0.223 at 100
 SX-C-024,0.02,USD,LCSC C72486 (200+),2026-10-09,extended,RVT1V100M0505
 SX-C-025,0.02,USD,LCSC C72522 (200+),2026-10-09,extended,RVT1V470M0605
 SX-C-026,0.13,USD,LCSC C21812 (50+),2026-10-09,extended,GRM31M5C1H473JA01L
@@ -41,7 +41,7 @@ SX-POT-010,1.00,USD,estimate (Tayda),2026-10-09,hand,Alpha RD901F single
 SX-POT-011,1.90,GBP,estimate (Thonk),2026-10-09,hand,Alpha RD902F dual
 SX-POT-012,1.00,USD,estimate (Tayda),2026-10-09,hand,Alpha RD901F single
 SX-POT-013,1.90,GBP,estimate (Thonk),2026-10-09,hand,Alpha RD902F dual
-SX-TRIM-001,1.50,USD,estimate (Mouser),2026-10-09,hand,Bourns 3296W-1-503LF
+SX-TRIM-001,0.7546,USD,LCSC C83686 (10+),2026-10-10,hand,Bourns 3296W-1-503LF; 0.6445 at 50+; Mouser EUR 1.38 at 25
 SX-SW-001,1.00,EUR,estimate (Electrokit),2026-10-09,hand,GPBS850N latching button
 SX-SW-002,2.00,EUR,estimate,2026-10-09,hand,ground lift switch (not chosen)
 SX-SW-003,2.00,EUR,estimate,2026-10-09,hand,power switch (not chosen)
@@ -66,3 +66,11 @@ SX-D-010,0.017,USD,LCSC C19077410,2026-10-10,preferred,BZT52C12 (the chosen code
 SX-R-011,0.008,USD,LCSC C17455,2026-10-10,preferred,13k 1% 0805 UNI-ROYAL 0805W8F1302T5E: JLCPCB preferred
 SX-R-036,0.004,USD,LCSC C17797,2026-10-10,preferred,680k 1% 0805 UNI-ROYAL 0805W8F6803T5E: JLCPCB preferred
 SX-R-042,0.003,USD,LCSC C17818,2026-10-10,preferred,750R 1% 0805 UNI-ROYAL 0805W8F7500T5E: JLCPCB preferred
+SX-IC-008,8.2435,USD,LCSC C553989 (10+),2026-10-10,extended,DG412DY-T1-E3; 7.7636 at 30+ (lcsc-check 5.80 is stale)
+SX-R-053,0.002,USD,generic estimate,2026-10-10,extended,560k 0805: E24 but no fee-free part (jlcsearch 2026-10-10)
+SX-R-084,0.002,USD,generic estimate,2026-10-10,extended,240k 0805: E24 but no fee-free part (jlcsearch 2026-10-10)
+SX-C-016,0.01,USD,generic estimate,2026-10-10,extended,47n C0G 0805: no fee-free part (jlcsearch 2026-10-10)
+SX-C-017,0.01,USD,generic estimate,2026-10-10,extended,22n C0G 0805: no fee-free part (jlcsearch 2026-10-10)
+SX-C-022,0.01,USD,generic estimate,2026-10-10,extended,10p C0G 100 V 0805: no fee-free part (jlcsearch 2026-10-10)
+SX-C-027,0.01,USD,generic estimate,2026-10-10,extended,56p C0G 0805: no fee-free 0805 part; 0603 C39148 is preferred (jlcsearch 2026-10-10)
+SX-R-021,1.06,USD,as TFPT0603L8200FV (Mouser),2026-10-10,consign,ERA-V33J102V (master R421) is end of life (decision 130): priced as a TFPT until the master chooses

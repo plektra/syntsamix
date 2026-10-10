@@ -73,6 +73,16 @@ Frame set by the user (2026-10-09): the prototype is 4 channel cards, maybe 2; t
 4. Value selection (E24, JLCPCB extended fees) is a standing rule now, not a lever: see "Component values" below (decision 134).
 5. Smaller and confirmed scope, listed only for completeness: the meter (about €2 per card), the PFL/SC SEND/DUCK/COMP BUS buttons and their switching (about €1 each).
 
+From the system cost review of 2026-10-10 (`docs/reviews/2026-10-10-cost-system.md`, with savings and caveats). None of these is decided:
+
+6. **DG412 → DG413** (U303): PFL L/R on the NO sections 1 and 4, SC send on NC section 2 driven from SW302 pin 1 (high when released), plus one 0805 pull-down. About €3.60-6.10 per card (the DG412 is now 8.24 USD at LCSC) and 1-2 fee types; no trade-off found. Check the NO/NC sections in Vishay's datasheet first. Touches decision 74.
+7. **10 µF bipolar electrolytics ×8 → 10 µF X5R ceramic** (C15850 0805 25 V or C13585 1206 50 V, JLCPCB basic): about €1.60 per card and one fee type. Needs a tap test on the breadboard for microphonic noise. Touches decisions 72 and 111.
+8. **Trimmers at LCSC:** Bourns 3296W-1-503LF at LCSC (C83686, 0.75 USD, now in `prices.csv`) or BOCHEN 3296W-1-503 (C118911, 0.14 USD; check life, sealing and drawing). Adds to lever 3.
+9. **Alpha pots from Tayda instead of Thonk:** about €2.85 per card; check that Tayda carries the exact order codes.
+10. **Off-E24 and fee-carrying values (decision 134):** 25 off-E24 types plus 110 R; the review lists the E24 values that have no fee-free part (for example 91k, 110k, 130k, 750k). Rerun `simulation/level/` for the fader law.
+11. **Prototype ordering:** hand-solder the consigned parts (SSI2144 QSOP-16, SSI2162, AD8273, TFPT) instead of consigning them: about €44 per order with the master, costs fine-pitch joints to inspect. Touches decision 133.
+12. **Question for the user:** drop the TFPT tempco leg (€1.95 per card, about a semitone of V/oct drift over warm-up); reopens decision 130.
+
 Rejected by the user (2026-10-09): the filter as a fitting option. The SSI2144 ladder filter is one of the essential features that make the mixer stand out; it stays on every card.
 
 ## Component values (decision 134)

@@ -3,7 +3,9 @@
 """Cost estimate from the schematic BOMs, and the ledger of realized costs (decision 136).
 
 Estimate (tracked inputs, repeatable):
-  python3 tools/costs.py estimate [--channels N] [--md]   cost of a build with N channel cards (default 4)
+  python3 tools/costs.py estimate [--channels N] [--md] [--fees-per-design]
+                                                          cost of a build with N channel cards (default 4); with
+                                                          --fees-per-design, shared extended types are billed per design
   python3 tools/costs.py drivers [--board B] [--top N]    most expensive part types per board
   python3 tools/costs.py unpriced                         part types with no price yet (fill docs/costs/prices.csv)
   python3 tools/costs.py extended                         SMD part types that cost a JLCPCB extended-part fee or are consigned
@@ -152,13 +154,14 @@ def all_boms(o):
     return {b: priced(bom(b), p, o) for b in BOARDS}
 
 
-def estimate(channels, o, md):
+def estimate(channels, o, md, per_design=False):
     boms = all_boms(o)
     count = {"channel-card": channels, "input-module-6p3": channels, "master": 1, "power": 1}
     # JLCPCB assembles at least jlc_min_assembled boards of a design (the input module has no SMD parts)
     built = {b: n if b == "input-module-6p3" else max(n, int(o["jlc_min_assembled"])) for b, n in count.items()}
     lines, total, unpriced = [], 0.0, set()
     ext_types = set()
+    ext_billed = 0  # extended types counted once per design that uses them
     for b, items in boms.items():
         parts_one = sum(i["price"]["eur"] * i["qty"] for i in items if i["price"])
         smd_one = sum(i["price"]["eur"] * i["qty"] for i in items if i["price"] and not i["tht"])
@@ -167,13 +170,18 @@ def estimate(channels, o, md):
         cost = parts_one * count[b] + smd_one * (built[b] - count[b])
         lines.append((f"{b} parts ({count[b]} used, {built[b]} assembled)", cost))
         total += cost
-        ext_types |= {i["pn"] for i in items if not i["tht"] and (not i["price"] or i["price"]["jlc"] not in NO_FEE)}
+        board_ext = {i["pn"] for i in items if not i["tht"] and (not i["price"] or i["price"]["jlc"] not in NO_FEE)}
+        ext_types |= board_ext
+        ext_billed += len(board_ext)
     designs = [b for b in BOARDS if b != "input-module-6p3"]
     smd_parts = sum(i["qty"] * built[b] for b, items in boms.items() for i in items if not i["tht"])
-    fees = (len(ext_types) * to_eur(o["jlc_extended_fee_usd"], "USD", o)
+    per_design = per_design or bool(o.get("jlc_fee_per_design"))
+    n_ext = ext_billed if per_design else len(ext_types)
+    fees = (n_ext * to_eur(o["jlc_extended_fee_usd"], "USD", o)
             + len(designs) * o["jlc_setup_eur_per_design"]
             + smd_parts * to_eur(o["jlc_per_smd_part_usd"], "USD", o))
-    lines.append((f"JLCPCB fees ({len(ext_types)} extended/consigned types, {len(designs)} designs, {smd_parts} SMD parts)", fees))
+    billing = f"{n_ext} billed per design, {len(ext_types)} unique" if per_design else f"{len(ext_types)}"
+    lines.append((f"JLCPCB fees ({billing} extended/consigned types, {len(designs)} designs, {smd_parts} SMD parts)", fees))
     total += fees
     pcb = (max(o["pcb_min_eur_per_design"], o["pcb_channel_eur"] * built["channel-card"])
            + max(o["pcb_min_eur_per_design"], o["pcb_input_eur"] * channels)
@@ -289,6 +297,7 @@ def main():
     a = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     s = a.add_subparsers(dest="cmd", required=True)
     e = s.add_parser("estimate"); e.add_argument("--channels", type=int, default=4); e.add_argument("--md", action="store_true")
+    e.add_argument("--fees-per-design", action="store_true")
     d = s.add_parser("drivers"); d.add_argument("--board", choices=list(BOARDS)); d.add_argument("--top", type=int, default=10)
     s.add_parser("unpriced")
     s.add_parser("extended")
@@ -302,7 +311,7 @@ def main():
     o = a.parse_args()
     ov = overheads()
     if o.cmd == "estimate":
-        estimate(o.channels, ov, o.md)
+        estimate(o.channels, ov, o.md, o.fees_per_design)
     elif o.cmd == "drivers":
         drivers(o.board, o.top, ov)
     elif o.cmd == "unpriced":
