@@ -11,7 +11,7 @@ Project-level handoff, updated 2026-10-10. Read `CLAUDE.md` first. Board detail 
 | Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131); SC LPF pot RV501 a standard B100K dual (decision 138); 2026-10-10: fee-free parts and E24 values throughout (decisions 144, 146, 147), AUX return receivers TL072 difference amplifiers (148, the AD8273 is gone from the project), R421 a plain 1k (149, temperature compensation to the backlog), DG413/SSI2162/DRV135/AS3046D hand-soldered on the prototype (150) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added; full-size brick GSM220B24-R7B (decision 145) | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-151; last pushed commit: see `git log -1`.
+Decisions 1-153; last pushed commit: see `git log -1`.
 
 ## Order of work
 
@@ -28,7 +28,7 @@ Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets
 
 ## Waiting for the user's confirmation
 
-- Channel card (2026-10-10): decisions 139-143 made under the user's delegation (review in `docs/decisions/channel-card.md`); lever 11, which consigned parts to hand-solder (estimate in `hardware/channel-card/STATUS.md`); the reworded prototype-scope button line in the root `CLAUDE.md` (decision 142).
+- Channel card (2026-10-10): decisions 139-143 made under the user's delegation (review in `docs/decisions/channel-card.md`); lever 11, which consigned parts to hand-solder (estimate in `hardware/channel-card/STATUS.md`). The prototype-scope button wording and the refinement of decision 69 were confirmed by /system (decision 152).
 The master's proposals (89-94, power levers) were decided on 2026-10-09 with the user's delegation (decisions 125-128; review them in `hardware/master/STATUS.md`).
 - Master card (2026-10-10): decision 147 (compressor pairs, GR LED ladder, SC LPF 2 × 47n) made under the user's delegation of minor changes; 144, 146, 148-150 confirmed by the user.
 

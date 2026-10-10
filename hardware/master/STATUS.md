@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-10 (second `/board master` session): fee-free parts and E24 values throughout (decisions 144, 146-148), R421 plain 1k (149), expensive ICs hand-soldered on the prototype (150). Earlier 2026-10-10: SC LPF pot RV501 a standard Alpha dual B100K (decision 138). 2026-10-09: RELEASE pot C100K (131); pre-layout decisions 125-128.
+Updated 2026-10-10 (/system: decision 153 asks for R232/R332 30k; before that the second `/board master` session): fee-free parts and E24 values throughout (decisions 144, 146-148), R421 plain 1k (149), expensive ICs hand-soldered on the prototype (150). Earlier 2026-10-10: SC LPF pot RV501 a standard Alpha dual B100K (decision 138). 2026-10-09: RELEASE pot C100K (131); pre-layout decisions 125-128.
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -34,10 +34,10 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## Next
 
+Decision 153 (/system 2026-10-10): redraw R232 and R332 30k1 → 30k (SX-R-050, JLCPCB basic) on the AUX returns sheet and its reference netlist; rebuild, netlist check, ERC; drop 30k1 from the extended list in `CHECKLISTS.md`; change 30k1 in `simulation/sidechain/run.py` and its `README.md`, rerun to refresh `results.txt` (figures move by millivolts).
+
 PCB layout, after the SSI2144 breadboard and the channel card layout (`docs/CONTINUE-FROM-HERE.md`). Before it: `/system mechanical` for the master section (heatsinks, meter LED form, rear panel) and the AS3046D declaration.
 
 ## For /system
 
-- **Master budget after decisions 146 and 148:** typical +15 / −15 V 327 / 256 mA, sizing 570 / 456 mA, worst case 701 / 576 mA (ARCHITECTURE line 49 has 331 / 260 and 576 / 463); rerun `tools/system_power_budget.py` and update the master row and the prototype and full-size totals (a few mA, no budget at risk).
-- **RoHS open items (ARCHITECTURE line 93):** drop the end-of-life ERA-V33J102V; R421 is a plain 1k (decision 149) and no board uses it.
 - **Master section mechanics:** TO-220 regulators and heatsinks (19.7 mm, ≤ 11.5 °C/W, live tabs); meter LED form (3 mm through the panel vs 0805 under a bezel, decision 86 vs 119).

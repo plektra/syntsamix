@@ -1,6 +1,6 @@
 # Chain interface
 
-Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98 and 101.
+Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98, 101 and 153.
 
 Every channel card has two identical copies of each connector (IN and OUT), wired pin-for-pin straight through. The master card has one copy of each and sits at one end of the chain (the right end, decision 109). Pin numbers follow the IDC convention: on the flat cable, pin n lies next to pin n+1, and pin 1 is on the red stripe.
 
@@ -32,7 +32,7 @@ Signal definitions:
 - **MAIN, COMP, AUX1, AUX2, CUE (L/R):** current-summing buses. Each channel card drives them through a series resistor; the master card holds the virtual-earth summing amplifier for each. Each channel drives every bus through 22 kΩ; the master's summing amplifiers use 22 kΩ feedback, so each channel sums at unity gain (decisions 74 and 79).
 - **SC:** sidechain bus, mono. A channel with SC send on adds (L+R) through resistors, tapped pre-fader and pre-mute; the master sums it like the audio buses.
 - **PFL_ACT:** logic, active low, open-collector (wired-OR). Pulled up on the master card; any channel with PFL pressed (or the master's SC listen button) pulls it to PGND (decision 98), so the LED and pull-up current returns through the power ribbons, not AGND. Placed at the cable edge, away from the audio buses, with the spares as a buffer.
-- **SC_ENV:** ducking envelope (decisions 66 and 97), a negative control voltage driven by the master card at low impedance (feedback taken after its series resistor): 0 V = no ducking, −1 V = 10 dB of gain reduction at the channel VCA; the master's DEPTH sets the peak, 0 to −4 V (0 to 40 dB). A Schottky clamp on the master keeps it below about +0.3 V. A channel card (or AUX return) with DUCK on loads it with 30.1 kΩ into a virtual earth; with DUCK off it draws nothing. The scale does not depend on the fader position or the number of cards ducking.
+- **SC_ENV:** ducking envelope (decisions 66 and 97), a negative control voltage driven by the master card at low impedance (feedback taken after its series resistor): 0 V = no ducking, −1 V = 10 dB of gain reduction at the channel VCA; the master's DEPTH sets the peak, 0 to −4 V (0 to 40 dB). A Schottky clamp on the master keeps it below about +0.3 V. A channel card (or AUX return) with DUCK on loads it with 30 kΩ (decision 153) into a virtual earth; with DUCK off it draws nothing. The scale does not depend on the fader position or the number of cards ducking.
 - **SPARE2 to SPARE5:** unconnected on the prototype; reserved for future CV, mute groups and similar. Channel cards pass them through.
 
 ## Power ribbon: 8-pin IDC (2x4), shrouded and keyed

@@ -38,7 +38,7 @@ The diagram is not to scale: the master section and power board sit at the right
 
 ### Power
 
-Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py` (rerun 2026-10-10 after decision 143). The 1.5 factor is a judgment until the prototype cards are measured.
+Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py` (rerun 2026-10-10 after decisions 143, 146 and 148). The 1.5 factor is a judgment until the prototype cards are measured.
 
 | Item | Value | Source |
 |---|---|---|
@@ -46,9 +46,9 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 | Raw rail minimum under load | about 19 V: the master's relay drop-out comparator trips at 17.9 V; the LM317 needs about 2 V headroom above 15.1 V | decisions 92, 95 |
 | Local rails on every card | ±15.1 V (LM317/LM337), +5 V (78L05 on channel cards, L7805 on the master) | decisions 78, 87 |
 | Channel card load (+15 / −15 V) | typical 110 / 93 mA; worst case 229 / 194 mA; sizing 171 / 139 mA (TL072 receiver) | decisions 96, 102, 123, 143, `hardware/channel-card/scripts/power_budget.py` |
-| Master card load (+15 / −15 V) | typical 331 / 260 mA; worst case 701 / 576 mA; sizing 576 / 463 mA | decisions 95, 96, 103, 125-128, `hardware/master/scripts/power_budget.py` |
-| Prototype, 4 cards + master | sizing 1.26 / 1.02 A, about 46 W (typical 0.77 / 0.63 A; worst case 59 W); power board converters about 2 A per rail | decisions 96, 100, 123, 143 |
-| Full size, 16 cards + master | sizing 3.31 / 2.69 A, about 120 W (typical 2.09 / 1.75 A; worst case 4.37 / 3.68 A, 161 W, not used for sizing) | decisions 96, 123, 143 |
+| Master card load (+15 / −15 V) | typical 327 / 256 mA; worst case 701 / 576 mA; sizing 570 / 456 mA | decisions 95, 96, 103, 125-128, 146, 148, `hardware/master/scripts/power_budget.py` |
+| Prototype, 4 cards + master | sizing 1.25 / 1.01 A, about 45 W (typical 0.77 / 0.63 A; worst case 59 W); power board converters about 2 A per rail | decisions 96, 100, 123, 143, 146, 148 |
+| Full size, 16 cards + master | sizing 3.31 / 2.68 A, about 120 W (typical 2.09 / 1.74 A; worst case 4.37 / 3.68 A, 161 W, not used for sizing) | decisions 96, 123, 143, 146, 148 |
 | Brick (24 V, Class II, floating, R7B plug) | prototype Mean Well GSM120B24-R7B (120 W); full size GSM220B24-R7B (221 W): about 133 W at sizing and 179 W at worst case into the brick at about 90 % conversion **[estimate]**, 60 / 81 % of its rating | decisions 100, 145 |
 | Power ribbon | injected in groups of 8 cards; about 0.68 A per pin (sizing; 0.92 A at worst case); connectors and cable rated at least 1 A per contact (the chosen Würth 61200823021 IDC socket is the limit at 1 A; the worst case sits 8 % below it; the header is 3 A) | decisions 80, 96, 100, 123 |
 | Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board; the start-up ramp on both converters holds the brick at about 54 W while charging it (rails at 19 V about 40 ms after switch-on; bench check in `hardware/power/STATUS.md`) | system validation, finding 6; decision 100, `hardware/power/scripts/startup_sim.py` |
@@ -71,7 +71,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 |---|---|---|---|
 | MAIN, COMP, AUX1, AUX2, CUE (L/R) | each channel card (22 kΩ) | master summing amps | |
 | SC | channel cards with SC send on | master sidechain | mono, pre-fader, pre-mute |
-| SC_ENV | master card, low impedance (follower on a negative DEPTH, feedback after 100 Ω) | channel cards and AUX returns with DUCK on, 30.1 kΩ into a virtual earth | 0 V = no ducking; −1 V = 10 dB, 0 to −4 V; BAT54 clamp keeps it below about +0.3 V (decisions 97, 104) |
+| SC_ENV | master card, low impedance (follower on a negative DEPTH, feedback after 100 Ω) | channel cards and AUX returns with DUCK on, 30 kΩ into a virtual earth (decision 153) | 0 V = no ducking; −1 V = 10 dB, 0 to −4 V; BAT54 clamp keeps it below about +0.3 V (decisions 97, 104) |
 | PFL_ACT | any channel PFL, the master's SC listen (open collector, active low) | master headphone switch, PFL LED | pulled up to +5 V on the master (bus sheet); drivers pull to PGND (decision 98) |
 | SPARE2 to SPARE5 | nobody | nobody | passed through; reserved (backlog: CV, mute groups) |
 
@@ -90,7 +90,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 ## Open system items
 
 - Mechanical (`/system mechanical`): rear panel and input module position (with the cover height and keep-out values from the cable mock-up), master section and power board, in that order (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109 and 118 to 121).
-- RoHS gaps before the first PCB order (decision 122; audit done 2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`): declarations for the SSI2144, SSI2162 (channel) and AS3046D (master) (the Alpha pots are cleared by Taiwan Alpha's general declaration, decision 124); End of Life ERA-V33J102V (master R421; the THAT1646 is replaced by the DRV135UA, decision 125, and the channel card no longer uses a tempco part, decisions 130 and 141); rows with no part chosen yet get their source when chosen.
+- RoHS gaps before the first PCB order (decision 122; audit done 2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`): declarations for the SSI2144, SSI2162 (channel) and AS3046D (master) (the Alpha pots are cleared by Taiwan Alpha's general declaration, decision 124); rows with no part chosen yet get their source when chosen. The end-of-life parts are gone (THAT1646: DRV135UA, decision 125; ERA-V33J102V: plain resistors, decisions 141 and 149).
 - Heat budget **[estimate]**: about 28 W (prototype) to 77 W (full size) typical dissipation inside the unit (typical rail currents above × 20 V); needs ventilation and a budget row once the frame is drawn.
 
 Earlier items are closed: the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes, finding 3 (R421 footprint) by the master card fix in bad26be.

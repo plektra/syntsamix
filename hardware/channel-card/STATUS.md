@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-10 (schematic sessions, delegated by the user: "work autonomously and follow recommendations", then "work on this autonomously"): U303 DG413 (139), all values E24 with fee-free parts (140), temperature compensation to the backlog (141), MUTE/DUCK switched by the buttons (142), TL072 difference receiver (143), trimmers from Mouser, CUTOFF pot from Tayda, breadboard tests 11 and 12. Earlier the same day: fee-free part swaps (decision 137). Before that, 2026-10-09: pots, R184, TFPT tempco, mechanical parts, meter LEDs and power levers (decisions 110-130).
+Updated 2026-10-10 (/system: decision 152 confirms the MUTE/DUCK button wiring, decision 153 asks for R217 30k; earlier, schematic sessions, delegated by the user: "work autonomously and follow recommendations", then "work on this autonomously"): U303 DG413 (139), all values E24 with fee-free parts (140), temperature compensation to the backlog (141), MUTE/DUCK switched by the buttons (142), TL072 difference receiver (143), trimmers from Mouser, CUTOFF pot from Tayda, breadboard tests 11 and 12. Earlier the same day: fee-free part swaps (decision 137). Before that, 2026-10-09: pots, R184, TFPT tempco, mechanical parts, meter LEDs and power levers (decisions 110-130).
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -25,7 +25,6 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 ## Waiting for the user's confirmation
 
 - **Lever 11, hand-soldering consigned parts:** which of the easy consigned types to hand-solder (estimate in `CHECKLISTS.md`, Cost-cut levers, item 11). The SSI2144 stays with JLCPCB (user, 2026-10-10).
-- **Prototype-scope wording (decision 142):** root `CLAUDE.md` now says buttons carry logic, LED and DC control currents, audio never; the user confirmed the redesign, not yet this wording.
 - Decisions 139-143 were made under the user's delegation ("confirmed (delegated)" in `INDEX.md`): review them in `docs/decisions/channel-card.md`.
 
 ## Waiting on others
@@ -42,6 +41,8 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 ## Next
 
+First, decision 153 (/system 2026-10-10): redraw R217 30k1 → 30k (SX-R-050, JLCPCB basic) in the level sheet and its reference netlist; rebuild, netlist check, ERC; update `CHECKLISTS.md` (component values) and the 30k1 in `simulation/level/run.py` (rerun; figures move by millivolts).
+
 1. Breadboard the SSI2144 when parts arrive (now with test 11, X5R coupling caps, and test 12, fixed V/oct and drift; buy two LCSC C13585 for test 11) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
 2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, LM339DR, DG413DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
 3. Cable mock-up (decision 109).
@@ -49,7 +50,6 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 ## For /system
 
-- **Decision 142 against decision 69 (architect review 2026-10-10, CONFLICT):** decision 69 (system) has one button pole drive a logic line into a DG413; MUTE and DUCK now switch −15 V and SC_ENV through the contacts, and the confirmed prototype-scope line in the root `CLAUDE.md` was reworded in this board session. Needs a /system refinement of 69 and the user's confirmation of the wording. The contact-sequence risk the review also raised is removed on the board (pin 1 open, 100k hold resistors).
-- `docs/INPUT-MODULE.md` (receiver name fixed by /system 2026-10-10): still note the new input impedances (20k on IN+, 30k on IN−; a mono source normalled to both IN+ sees 10k).
+- Settled by /system 2026-10-10: decision 152 refines 69 (a button pole may switch a DC control voltage when the wiring does not depend on the contact sequence and a smoothing ramp follows; the board already meets both) and confirms the scope wording; the input impedances are in `docs/INPUT-MODULE.md`. Keep conditions (a) and (b) of 152 if MUTE/DUCK are redrawn.
 
-- R217 30k1 (SC_ENV into the channel control summer; also the master's AUX-return DUCK inputs): the only off-E24 value left on the channel card. 30k (E24, SX-R-050 basic) moves the ducking scale by 0.03 dB; the SC_ENV chain line in `docs/ARCHITECTURE.md` names 30.1 kΩ, so the change is a /system call.
+- (none open; decisions 152 and 153 settled the last flags)

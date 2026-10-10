@@ -1,6 +1,6 @@
 # Mechanical interface
 
-Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109 and 119 to 121; `decisions/system.md` item 118 (jack sizes).
+Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109 and 119 to 121; `decisions/system-rules.md` item 118 (jack sizes).
 
 The mechanical contract between the boards, the panels and the frame: what every board layout must fit. Changed only by a confirmed decision (invariant 5 in `ARCHITECTURE.md`).
 

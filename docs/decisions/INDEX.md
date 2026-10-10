@@ -5,6 +5,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | File | Area |
 |---|---|
 | [system.md](system.md) | System scope, signal levels, buses, cross-board functions, chain and grounding |
+| [system-rules.md](system-rules.md) | Project-wide rules: jack sizes (118), RoHS (122), shared jack part (132), cost principle (135) |
 | [channel-card.md](channel-card.md) | Channel card |
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
@@ -92,7 +93,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 66 | Sidechain ducking through channel VCAs | confirmed | [system](system.md) |
 | 67 | Cutoff CV jack on the channel card | confirmed | [input-module](input-module.md) |
 | 68 | 10-pin input header | confirmed | [input-module](input-module.md) |
-| 69 | Stereo buttons switch through DG413 | confirmed | [system](system.md) |
+| 69 | Stereo buttons switch through DG413 (DC control voltages by the button itself: 152) | confirmed, refined | [system](system.md) |
 | 70 | Licensing: non-commercial source-available | confirmed | [process](process.md) |
 | 71 | Resonance compensation via LM13700 Q VCA | confirmed | [channel-card](channel-card.md) |
 | 72 | Level sheet: SSI2162 implementation | confirmed | [channel-card](channel-card.md) |
@@ -120,7 +121,7 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 94 | Headphones implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 95 | Master card power recheck | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 96 | Power sizing rule: own parts worst case, shared parts typical × 1.5 plus use loads | confirmed | [system](system.md) |
-| 97 | SC_ENV negative, −1 V = 10 dB, summed into the control summer's virtual earth | confirmed | [system](system.md) |
+| 97 | SC_ENV negative, −1 V = 10 dB, summed into the control summer's virtual earth | confirmed, refined (153) | [system](system.md) |
 | 98 | PFL_ACT drivers and button pull-downs return to PGND | confirmed | [system](system.md) |
 | 99 | Input-module cable: 1:1 KK 254 crimp cable | confirmed | [input-module](input-module.md) |
 | 100 | Power board: 24 V Class II brick, non-isolated TPS54560 buck and inverter at 400 kHz, protection and output fusing, start-up ramp | confirmed | [power](power.md) |
@@ -141,11 +142,11 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 115 | Trim stage scaled to a 100 k audio dual pot (same gain law); channel pots TRIM, CUTOFF, RESONANCE, AUX chosen (Thonk, Tayda) | confirmed; all four pots RoHS-cleared by Alpha's declaration (124) | [channel-card-parts](channel-card-parts.md) |
 | 116 | RoHS (2011/65/EU + 2015/863) strict for every component and board; compliance source recorded in `parts.csv`; lead-free finish, assembly and hand soldering (invariant 9, passives, audit: 122) | confirmed, refined | [process](process.md) |
 | 117 | Button LED colours (JLCPCB basic 0805: MUTE red, PFL yellow, SC SEND/DUCK/COMP BUS green, LOW-CUT/BYPASS white); chain headers Würth 61203421621 and 61200821621 | confirmed | [channel-card-parts](channel-card-parts.md) |
-| 118 | Jack size by function: 6.3 mm default for audio to other gear, 3.5 mm for Eurorack-level CV/gate and where 6.3 mm does not fit; cutoff CV jack = 3.5 mm Thonkiconn | confirmed | [system](system.md) |
+| 118 | Jack size by function: 6.3 mm default for audio to other gear, 3.5 mm for Eurorack-level CV/gate and where 6.3 mm does not fit; cutoff CV jack = 3.5 mm Thonkiconn | confirmed | [system-rules](system-rules.md) |
 | 119 | Channel meter: 0805 LEDs under a printed bezel flush in one panel slot, 6.0 mm pitch, column top level with the fader top, scales independent | confirmed | [mechanical](mechanical.md) |
 | 120 | Panel fixing: one centred M3 button-head screw per end plus a printed locating key in the rail slot; second screw returns if the prototype twists | confirmed | [mechanical](mechanical.md) |
 | 121 | Underside: chain headers at the edges, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (provisional until the mock-up), detachable bottom cover with feet on cheeks or rails | confirmed | [mechanical](mechanical.md) |
-| 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system](system.md) |
+| 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system-rules](system-rules.md) |
 | 123 | Channel op amp power levers: U107 NE5532 → TL072, meter U401/U404 TL072 → TL062 | confirmed | [channel-card](channel-card.md) |
 | 124 | A maker's general RoHS declaration covers its standard parts: Taiwan Alpha's RoHS II declaration clears every standard Alpha pot (channel CUTOFF, TRIM, AUX, RESONANCE; master Alpha pots once chosen); declarations kept in git-ignored `docs/rohs/` | confirmed | [process](process.md) |
 | 125 | Main output driver DRV135UA replaces the end-of-life THAT1646 (same SO-8 pinout) | confirmed (delegated) | [master-card](master-card.md) |
@@ -155,17 +156,17 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 129 | RESONANCE pot RV183 within Alpha's 0.02 W non-B rating: R184 10 k → 12 k (about 17 mW), maximum Q current about 254 µA, provisional with R120/R170 | confirmed | [channel-card](channel-card.md) |
 | 130 | Tempco leg R108/R158: end-of-life ERA-V33J102V replaced by Vishay TFPT0603L8200FV 820 Ω plus 180 Ω in series (1 k, about +3370 ppm/K); new R122/R172 | confirmed | [channel-card](channel-card.md) |
 | 131 | RELEASE pot RV402 within Alpha's 0.02 W non-B rating: C10K → C100K (RD901F-40-15K-C100K) with R425 620 Ω → 6.2 kΩ, same release law, about 2 mW | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 132 | 6.3 mm jacks: Rean NYS216 replaces the Neutrik NMJ6HCD2 on every board (cost); new footprint, pin roles to check on the first part | confirmed (delegated) | [system](system.md) |
+| 132 | 6.3 mm jacks: Rean NYS216 replaces the Neutrik NMJ6HCD2 on every board (cost); new footprint, pin roles to check on the first part | confirmed (delegated) | [system-rules](system-rules.md) |
 | 133 | Through-hole parts hand-soldered by the user; JLCPCB places SMD only (master's expensive ICs hand-soldered on the prototype: 150) | confirmed, refined | [process](process.md) |
 | 134 | Component values from E24 (capacitors preferably E12/E6); each board owns its value selection and lists justified exceptions in its STATUS.md | confirmed | [process](process.md) |
-| 135 | Cost principle: a live performance device, not studio equipment (what may be relaxed for cost, what must stay; the filter stays) | confirmed | [system](system.md) |
+| 135 | Cost principle: a live performance device, not studio equipment (what may be relaxed for cost, what must stay; the filter stays) | confirmed | [system-rules](system-rules.md) |
 | 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
 | 137 | Prefer JLCPCB fee-free parts: basic, then preferred, then extended, then consigned; exceptions with reasons in the board STATUS.md | confirmed | [process](process.md) |
 | 138 | SC LPF pot RV501: standard Alpha dual B100K (Thonk) instead of the unsourced C100K dual; same circuit, middle of the sweep 85 Hz | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 139 | Channel PFL/SC switch U303 a DG413 (SC send on the NC section, driven from the button's released throw); DG412 no longer used | confirmed (delegated) | [channel-card](channel-card.md) |
 | 140 | Channel card values on E24 with fee-free parts: E24 pairs for the V/oct feedback and the fader law, meter ladder and filter scaling re-fitted; R217 30k1 kept (chain line) | confirmed (delegated) | [channel-card](channel-card.md) |
 | 141 | Filter temperature compensation to the backlog: R108/R158 plain 820 Ω with the 180 Ω (FREQ leg still 1 k); TFPT no longer used | confirmed (delegated) | [channel-card](channel-card.md) |
-| 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed | confirmed (delegated) | [channel-card](channel-card.md) |
+| 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed (system rule: 152) | confirmed (delegated) | [channel-card](channel-card.md) |
 | 143 | Channel input receiver: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (CMRR ≥ 51.5 dB) | confirmed (delegated) | [channel-card](channel-card.md) |
 | 144 | Master fader laws (AUX returns, master level) on the channel's E24 values and pairs; 30k1 kept | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 145 | Full-size brick: Mean Well GSM220B24-R7B (221 W, Class II, same R7B plug) instead of the GSM160B24-R7B; prototype keeps the GSM120B24-R7B | confirmed | [power](power.md) |
@@ -175,6 +176,8 @@ The decision log, split by area. Read this index, then the area file for the wor
 | 149 | Compressor R421 a plain 1k on the prototype (end-of-life tempco part dropped); detector temperature compensation to the backlog | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 150 | Master DG413, SSI2162, DRV135UA and AS3046D hand-soldered on the prototype (Assembly field, refines 133); potential single point of failure kept in the backlog | confirmed | [master-card](master-card.md) |
 | 151 | Models per role (design sessions Opus; architect, cost controller, validator Sonnet, `/validate … deep` and `/cost … deep` Opus; helpers part-facts Sonnet, build-check, sim-run, stock-check Haiku) and a lighter `/board` start-up (decision files by phase, `STATUS.md` split into `CHECKLISTS.md`, architect review only on contract changes) | confirmed | [process](process.md) |
+| 152 | Buttons may switch DC control voltages directly (sequence-independent wiring, smoothing ramp); audio still never through a button; refines 69, confirms 142 and the scope wording | confirmed | [system](system.md) |
+| 153 | SC_ENV load 30 kΩ (E24, basic) instead of 30k1 on channel R217 and master R232/R332; ducking 0.03 dB per volt deeper; refines 97 | confirmed | [system](system.md) |
 
 ## Proposed but not confirmed
 
