@@ -89,7 +89,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 
 ## Open system items
 
-- Mechanical (`/system mechanical`): rear panel and input module position (with the cover height and keep-out values from the cable mock-up), master section and power board, in that order (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109 and 118 to 121).
+- Mechanical (`/system mechanical`): master section and power board next, then the cover height (front of the sloped frame) and keep-out values from the cable mock-up (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109, 118 to 121 and 160: rear strips, input module on edge, sloped frame).
 - RoHS gaps before the first PCB order (decision 122; audit done 2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`): declarations for the SSI2144, SSI2162 (channel) and AS3046D (master) (the Alpha pots are cleared by Taiwan Alpha's general declaration, decision 124); rows with no part chosen yet get their source when chosen. The end-of-life parts are gone (THAT1646: DRV135UA, decision 125; ERA-V33J102V: plain resistors, decisions 141 and 149).
 - Heat budget **[estimate]**: about 28 W (prototype) to 77 W (full size) typical dissipation inside the unit (typical rail currents above × 20 V); needs ventilation and a budget row once the frame is drawn.
 

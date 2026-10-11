@@ -83,10 +83,10 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 56 | Headphone output design | confirmed | [master-card](master-card.md) |
 | 57 | Compressor detector: feed-forward log peak | confirmed | [master-card](master-card.md) |
 | 58 | Output protection relays | confirmed | [master-card](master-card.md) |
-| 59 | Mechanical format: desktop, rail frame | confirmed | [mechanical](mechanical.md) |
+| 59 | Mechanical format: desktop, rail frame (sloped, rear strips: 160) | confirmed, refined | [mechanical](mechanical.md) |
 | 60 | Prototype power: DC brick, DC-DC, local regulation | confirmed | [power](power.md) |
 | 61 | Grounding and chassis | confirmed | [system](system.md) |
-| 62 | Separate passive input module | confirmed | [input-module](input-module.md) |
+| 62 | Separate passive input module (position: 160) | confirmed, refined | [input-module](input-module.md) |
 | 63 | Part numbering SX-<category>-<nnn> | confirmed | [process](process.md) |
 | 64 | Soft clipping on channels and master | confirmed | [system](system.md) |
 | 65 | Switchable fixed low-cut | confirmed | [channel-card](channel-card.md) |
@@ -123,7 +123,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 96 | Power sizing rule: own parts worst case, shared parts typical × 1.5 plus use loads | confirmed | [system](system.md) |
 | 97 | SC_ENV negative, −1 V = 10 dB, summed into the control summer's virtual earth | confirmed, refined (153) | [system](system.md) |
 | 98 | PFL_ACT drivers and button pull-downs return to PGND | confirmed | [system](system.md) |
-| 99 | Input-module cable: 1:1 KK 254 crimp cable | confirmed | [input-module](input-module.md) |
+| 99 | Input-module cable: 1:1 KK 254 crimp cable (length: 160) | confirmed, refined | [input-module](input-module.md) |
 | 100 | Power board: 24 V Class II brick, non-isolated TPS54560 buck and inverter at 400 kHz, protection and output fusing, start-up ramp | confirmed | [power](power.md) |
 | 101 | Floating supply: the power ribbons' source floats from mains earth (invariant 8); mains supply to the backlog | confirmed | [system](system.md) |
 | 102 | Channel fader buffer and control summer on an OPA2171 (input range includes V−) | confirmed | [channel-card](channel-card.md) |
@@ -145,7 +145,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 118 | Jack size by function: 6.3 mm default for audio to other gear, 3.5 mm for Eurorack-level CV/gate and where 6.3 mm does not fit; cutoff CV jack = 3.5 mm Thonkiconn | confirmed | [system-rules](system-rules.md) |
 | 119 | Channel meter: 0805 LEDs under a printed bezel flush in one panel slot, 6.0 mm pitch, column top level with the fader top, scales independent | confirmed | [mechanical](mechanical.md) |
 | 120 | Panel fixing: one centred M3 button-head screw per end plus a printed locating key in the rail slot; second screw returns if the prototype twists | confirmed | [mechanical](mechanical.md) |
-| 121 | Underside: chain headers at the edges, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (provisional until the mock-up), detachable bottom cover with feet on cheeks or rails | confirmed | [mechanical](mechanical.md) |
+| 121 | Underside: chain headers at the edges, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (provisional until the mock-up), detachable bottom cover with feet on cheeks or rails (rear fixing: 160) | confirmed, refined | [mechanical](mechanical.md) |
 | 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system-rules](system-rules.md) |
 | 123 | Channel op amp power levers: U107 NE5532 → TL072, meter U401/U404 TL072 → TL062 | confirmed | [channel-card](channel-card.md) |
 | 124 | A maker's general RoHS declaration covers its standard parts: Taiwan Alpha's RoHS II declaration clears every standard Alpha pot (channel CUTOFF, TRIM, AUX, RESONANCE; master Alpha pots once chosen); declarations kept in git-ignored `docs/rohs/` | confirmed | [process](process.md) |
@@ -184,6 +184,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 157 | Power switch: snap-in rear-panel rocker (Legion SS11-BBIWG-R20-R) wired to a JST XH header J102 instead of a board-mounted switch; refines 100 | confirmed | [power](power.md) |
 | 158 | Power board C103 Nichicon UHE 100 µF 50 V radial (hand-soldered); sync capacitors 10 pF C0G 50 V 0603 basic instead of 100 V 0805; refines 100 | confirmed | [power](power.md) |
 | 159 | Power board buck catch diode D201 SS54 in SMA (C22452, basic) on a D_SMA footprint, fixing the SMC footprint mismatch; refines 100 | confirmed | [power](power.md) |
+| 160 | Rear and frame: input module on edge with NYS216 jacks stacked L above R, one FR4 rear strip per channel between the rear rail and a bottom angle, sloped frame (wedge cheeks), input cable 100 mm provisional; refines 59, 62, 99, 108, 121 | confirmed | [mechanical](mechanical.md) |
 | 161 | Channel audio coupling: each 10 µF bipolar becomes two ROQANG 10 µF (SX-C-024) back to back, placed by JLCPCB, no new fee type; X5R option dropped, test 11 checks the pair; master to follow; refines 111 | confirmed | [channel-card-parts](channel-card-parts.md) |
 
 ## Proposed but not confirmed

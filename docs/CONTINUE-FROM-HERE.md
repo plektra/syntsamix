@@ -1,17 +1,17 @@
 # Continue from here
 
-Project-level handoff, updated 2026-10-10. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
+Project-level handoff, updated 2026-10-11. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
 
 ## Boards
 
 | Board | Schematic | PCB | Status file |
 |---|---|---|---|
-| Input module | done, ERC clean | not started | `hardware/input-module-6p3/STATUS.md` |
+| Input module | done, ERC clean; position on edge, jacks stacked (decision 160) | not started | `hardware/input-module-6p3/STATUS.md` |
 | Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LEDs 0805 and op amp power levers drawn (decision 123); pot MPNs on the symbols, R184 12 k for the RESONANCE pot rating (decision 129); TFPT tempco pair (decision 130); 2026-10-10 (delegated): U303 DG413 (decision 139), all values E24 with fee-free parts (decision 140), tempco to the backlog (141), MUTE/DUCK by the buttons (142), TL072 receiver (143); trimmers from Mouser, CUTOFF pot from Tayda; R217 30k (153); SSI2144 and SSI2162 hand-soldered on the prototype (155); 2026-10-11: coupling capacitors as back-to-back ROQANG pairs, nothing consigned (161; the master follows) | not started (waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up) | `hardware/channel-card/STATUS.md` |
 | Master card | done, ten sheets, ERC 0/0; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131); SC LPF pot RV501 a standard B100K dual (decision 138); 2026-10-10: fee-free parts and E24 values throughout (decisions 144, 146, 147), AUX return receivers TL072 difference amplifiers (148, the AD8273 is gone from the project), R421 a plain 1k (149, temperature compensation to the backlog), DG413/SSI2162/DRV135/AS3046D hand-soldered on the prototype (150); R232/R332 30k (153) | not started (waits for `/system mechanical` on the master section: TO-220 heatsinks, meter LED form) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; values confirmed, start-up ramp added; full-size brick GSM220B24-R7B (decision 145); converter dividers on fee-free E24 values (decision 156); power switch a rear-panel rocker on J102 (decision 157); C103 and sync capacitors chosen (decision 158); D201 SS54 on SMA (decision 159) | not started | `hardware/power/STATUS.md` |
 
-Decisions 1-159; last pushed commit: see `git log -1`.
+Decisions 1-160; last pushed commit: see `git log -1`.
 
 ## Order of work
 
@@ -24,7 +24,7 @@ Decisions 1-159; last pushed commit: see `git log -1`.
 
 ## System
 
-Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decision 123 on 2026-10-09). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109), jack sizes, channel meter bezel, single panel screw, underside and bottom cover (decisions 118-121); invariant 9 RoHS (decision 122); still open: the rear (rear panel, input module position, cover height and keep-out values from the mock-up), the master section and power board, and the heat budget. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
+Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decision 123 on 2026-10-09). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109), jack sizes, channel meter bezel, single panel screw, underside and bottom cover (decisions 118-121); rear strips, input module on edge with stacked jacks, sloped frame (decision 160); invariant 9 RoHS (decision 122); still open: the master section and power board (next), the cover height and keep-out values from the mock-up, and the heat budget. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
 
 ## Waiting for the user's confirmation
 

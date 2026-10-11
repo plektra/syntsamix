@@ -1,6 +1,6 @@
 # Input module interface
 
-Status: **[confirmed]** by the user (decisions 62, 67, 68, 99 and 105; the pinout below by decision 105).
+Status: **[confirmed]** by the user (decisions 62, 67, 68, 99, 105 and 160; the pinout below by decision 105).
 
 The channel card carries no input jacks. Its input sockets connect to a small **input module** that holds the connectors. The module options are interchangeable:
 
@@ -42,6 +42,8 @@ Both the channel card and the module carry male KK 254 headers. They are linked 
 | Housing, both ends | Molex 22-01-3107 (KK 254 crimp housing, 2695 series, 10 positions, friction ramp), `SX-CONN-009` |
 | Crimps | Molex 08-50-0114 (KK 254, 22-30 AWG, tin), `SX-CONN-010`, 20 per cable |
 | Wire | 26 or 28 AWG stranded; twist L+/L− (pins 2-3) and R+/R− (pins 5-6) as pairs |
-| Length | set in the mechanical layout (about 10 to 15 cm expected) |
+| Length | 100 mm, provisional until the channel card layout places its KK header (decision 160) |
+
+Module position (decision 160, `MECHANICAL.md`): the 6.3 mm module stands on edge below the rear rail, jacks stacked L/MONO above R, fixed only by the jack nuts on its rear strip.
 
 Part numbers come from distributor listings; verify them against the Molex drawings before ordering. A module with a socket that plugs straight onto the card is not allowed: it would fix the module position and rule out cabled modules such as the D-SUB bundle.

@@ -7,8 +7,8 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 ## Decisions
 
 21. Mono input by L/MONO jack normalling (L alone feeds both sides); no panel mono switch
-62. Input jacks live on a separate passive input module cabled to a header on the channel card (`INPUT-MODULE.md`); mono normalling happens on the module. The prototype builds the 6.3 mm module; 3.5 mm and D-SUB modules come later. Receiver, protection, AC coupling and trim stay on the channel card
+62. Input jacks live on a separate passive input module cabled to a header on the channel card (`INPUT-MODULE.md`); mono normalling happens on the module. The prototype builds the 6.3 mm module; 3.5 mm and D-SUB modules come later. Receiver, protection, AC coupling and trim stay on the channel card. The 6.3 mm module stands on edge under the rear rail, jacks stacked L above R (160)
 67. The cutoff CV jack is on the channel card's filter section, not the input module
 68. Input header: 10 pins, 1×10 Molex KK 254 style; pins 8 and 9 reserved for a stereo pre-fader direct output (backlog)
-99. Both boards have male KK 254 headers linked by a 10-way 1:1 cable: Molex 22-01-3107 housings, 08-50-0114 crimps, 26 or 28 AWG, hot/cold pairs (2-3, 5-6) twisted; length (about 10-15 cm) set in the mechanical layout. Verify part numbers against the Molex drawings
+99. Both boards have male KK 254 headers linked by a 10-way 1:1 cable: Molex 22-01-3107 housings, 08-50-0114 crimps, 26 or 28 AWG, hot/cold pairs (2-3, 5-6) twisted; length 100 mm, provisional until the channel layout places the KK header (160). Verify part numbers against the Molex drawings
 105. Header pinout: 1 AGND, 2 L+, 3 L−, 4 AGND, 5 R+, 6 R−, 7 AGND, 8 DO_L, 9 DO_R (reserved), 10 AGND

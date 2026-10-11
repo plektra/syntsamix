@@ -52,4 +52,4 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 - Settled by /system 2026-10-10: decision 152 refines 69 (a button pole may switch a DC control voltage when the wiring does not depend on the contact sequence and a smoothing ramp follows; the board already meets both) and confirms the scope wording; the input impedances are in `docs/INPUT-MODULE.md`. Keep conditions (a) and (b) of 152 if MUTE/DUCK are redrawn.
 
-- (none open; decisions 152 and 153 settled the last flags)
+- Decision 160 (2026-10-11): the input module stands on edge below the rear rail. At layout, place the KK input header near the rear edge and report its position: /system fixes the input cable length (100 mm provisional). The sloped frame changes nothing on the card.

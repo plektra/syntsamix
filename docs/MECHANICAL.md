@@ -1,12 +1,12 @@
 # Mechanical interface
 
-Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109 and 119 to 121; `decisions/system-rules.md` item 118 (jack sizes).
+Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121 and 160; `decisions/system-rules.md` item 118 (jack sizes).
 
 The mechanical contract between the boards, the panels and the frame: what every board layout must fit. Changed only by a confirmed decision (invariant 5 in `ARCHITECTURE.md`).
 
 ## Format (decision 59)
 
-Desktop unit. One horizontal PCB per channel strip under its own top panel strip; channel input jacks on the passive input module behind the rear panel (decision 62); front and back aluminium rails cut to length with side cheeks; chain ribbons run under the strips between neighbours. Top and rear panels are black FR4 with white legends from the PCB maker.
+Desktop unit. One PCB per channel strip under its own top panel strip; channel input jacks on the passive input module behind the rear panel (decision 62, position: decision 160); front and back aluminium rails cut to length with wedge side cheeks, so the top panels slope toward the player (decision 160); chain ribbons run under the strips between neighbours. Top and rear panels are black FR4 with white legends from the PCB maker.
 
 ## Strip envelope (decision 106)
 
@@ -70,15 +70,31 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 - Power ribbon: no jumper between cards 8 and 9; chain 1 (cards 1-8) and chain 2 (cards 9-16) are each fed from the power board (decision 80). Where a feed enters its group and how it is routed is open (Open, item 2).
 - Header orientation, socket crimping (pin 1 on pin 1 through the U-loop) and cable length: *to be fixed on a mock-up* before the first PCB order (two box headers about 12 mm apart on scrap board, a real 34-way cable).
 
+## Rear panel and input module (decision 160)
+
+| Item | Value |
+|---|---|
+| Rear panel | one black FR4 strip per channel, 34.8 mm wide (as the top panels), 1.6 mm; the master and power section get their own rear piece (Open, item 2) |
+| Rear strip fixing | top: one M3 screw into a T-nut in the rear 2020 rail's back slot; bottom: one screw into an aluminium angle (about 20 × 20 × 2 mm, cut to length) along the rear bottom edge |
+| Input module (6.3 mm) | PCB on edge in the front-to-back vertical plane, below the rear rail, centred on its strip; NYS216 jacks stacked, L/MONO above R, about 19 mm between centres; module about 40 mm tall; fixed only by the jack nuts on the rear strip; KK 254 header facing forward |
+| Why stacked | NYS216 is 17.7 mm wide across its pin rows (footprint from Rean's drawing): two side by side need 35.4 mm, more than the 35.0 mm pitch |
+| Rear inside height | about 60 mm: 20 mm rail plus about 40 mm of jack zone; *from the module layout* |
+| Input cable (decision 99) | 100 mm, *provisional until the channel card layout places its KK header* |
+
+## Frame shape (decision 160)
+
+- Sloped: wedge side cheeks, flat bottom cover; the rear about 60 mm inside (above), the front only as tall as the cable mock-up needs (about 35 to 40 mm expected), so the top panels tilt about 4 to 5° toward the player.
+- The cards hang from their panels (decision 107): the tilt changes nothing on a board. The cheeks are the same for every channel count.
+
 ## Underside and bottom cover (decision 121)
 
 | Item | Value |
 |---|---|
 | Underside parts | chain headers at the edges (decision 109); elsewhere only hand-set parts (trimmers, jumper headers; decision 112), at most 10.5 mm below the PCB's bottom face |
 | Keep-out | no underside parts other than the chain headers within 10 mm of each long edge, over the header length plus 15 mm front and back (*provisional until the cable mock-up*) |
-| Bottom cover | detachable, a few captive or quarter-turn screws into the rails' bottom slots; off without touching side cheeks, cards or feet |
+| Bottom cover | detachable, a few captive or quarter-turn screws: at the rear into the bottom angle (decision 160), the front fixing settled with the cover height; off without touching side cheeks, cards or feet |
 | Feet | on the side cheeks or the rails, not on the cover |
-| Cover inside height | clears the headers with sockets and the U-loops: *from the mock-up* (sets the frame height) |
+| Cover inside height | clears the headers with sockets and the U-loops: *from the mock-up* (sets the front height of the sloped frame; rear about 60 mm, decision 160) |
 
 ## Panel hardware and ground (note)
 
@@ -88,6 +104,6 @@ Jack sleeves go to their own card's AGND; FR4 panels do not conduct (`CHAIN.md`,
 
 Settled in this order, each by a decision:
 
-1. *Rear and underside:* rear panel height, input module position, input cable length (decision 99); the cover's inside height and the keep-out values from the cable mock-up (underside rules and cover settled by decision 121)
+1. *Underside:* the cover's inside height (the front height of the sloped frame) and front fixing, and the keep-out values, from the cable mock-up (rear panel, input module and frame shape settled by decision 160; underside rules and cover by decision 121); the input cable length at the channel card layout
 2. *Master section and power board:* which end card 1 is (whether the prototype's chain 1 sits next to the master), where each power feed enters its group and how it is routed at full size (decisions 80, 81: about 280 mm or more to the far group), width in strips, headphone jack, heatsinks, brick jack, power and ground-lift switches
-3. *Heat:* ventilation for about 29 W (prototype) to 79 W (full size) typical dissipation inside the unit
+3. *Heat:* ventilation for the typical dissipation inside the unit (about 28 W prototype to 77 W full size, `ARCHITECTURE.md`)

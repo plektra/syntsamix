@@ -26,4 +26,4 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## For /system
 
-- Rear panel (`/system mechanical`, decision 157): the power rocker Legion SS11-BBIWG-R20-R needs a rectangular cutout of 19.2 × 12.9 mm (0.8-1.2 mm panel; 19.4 for 1.3-2.0 mm, 19.8 for 2.1-2.5 mm) on the rear panel near the power board, beside the brick jack. Decision 100 had a board-mounted switch at the rear edge.
+- Rear panel (`/system mechanical`, decision 157): the power rocker Legion SS11-BBIWG-R20-R needs a rectangular cutout of 19.2 × 12.9 mm (0.8-1.2 mm panel; 19.4 for 1.3-2.0 mm, 19.8 for 2.1-2.5 mm) on the rear panel near the power board, beside the brick jack. Decision 100 had a board-mounted switch at the rear edge. Decision 160 (2026-10-11) gives every channel its own rear strip; the rocker and the brick jack go on the master and power section's rear piece, settled with Open item 2 (next /system mechanical topic).
