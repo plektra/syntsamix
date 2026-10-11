@@ -48,6 +48,7 @@ Claude has no memory between sessions; each role is a kind of session (or sub-ag
 
 ## When to run what
 
+- **`/status [board]`**: any time, for a compact table of where each board stands, the next steps with the command to start each, and what waits on you or others. Read-only, on Sonnet.
 - **`/system`**: when a board's `STATUS.md` has something under "For /system"; before starting a new board or phase; every few sessions to tidy the handoff.
 - **`/validate <board> deep`**: when a board's schematic is complete (before layout), and again before ordering PCBs. `/validate system` after any contract or budget change, and `/validate system deep` before the first full order.
 - **`/cost <board> deep`** or **`/cost system deep`**: before layout and before each order, and whenever the cost needs a fresh look (plain `/cost` for re-pricing after part changes); it prices the BOMs (`tools/costs.py`), checks them against decision 135 (live device, not studio gear) and the E24 rule (decision 134), and proposes new savings.
@@ -74,7 +75,7 @@ Each kind of work runs on the cheapest model that does it well; the model is set
 | Work | Model |
 |---|---|
 | `/board` and `/system` sessions: design choices with you | Opus (the session's model) |
-| `architect` (in `/handoff`), `cost-controller`, `validator` | Sonnet |
+| `architect` (in `/handoff`), `cost-controller`, `validator`, `/status` | Sonnet |
 | `/validate <scope> deep`: full board before layout or a PCB order, `system` before the first full order | Opus |
 | `/cost <scope> deep`: before layout and before each order, `system` when looking for new levers | Opus |
 | `part-facts` (datasheets: accuracy matters) | Sonnet |
