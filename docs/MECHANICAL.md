@@ -1,12 +1,12 @@
 # Mechanical interface
 
-Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121 and 160; `decisions/system-rules.md` item 118 (jack sizes).
+Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121, 160 and 162; `decisions/system-rules.md` item 118 (jack sizes).
 
 The mechanical contract between the boards, the panels and the frame: what every board layout must fit. Changed only by a confirmed decision (invariant 5 in `ARCHITECTURE.md`).
 
 ## Format (decision 59)
 
-Desktop unit. One PCB per channel strip under its own top panel strip; channel input jacks on the passive input module behind the rear panel (decision 62, position: decision 160); front and back aluminium rails cut to length with wedge side cheeks, so the top panels slope toward the player (decision 160); chain ribbons run under the strips between neighbours. Top and rear panels are black FR4 with white legends from the PCB maker.
+Desktop unit. One PCB per channel strip under its own top panel strip; channel input jacks on the passive input module behind the rear panel (decision 62, position: decision 160); front and back aluminium rails cut to length with wedge side cheeks, so the top panels slope toward the player (decisions 160, 162); left to right: the channel strips, the master section, the power bay (decision 162); chain ribbons run under the strips between neighbours. Top and rear panels are black FR4 with white legends from the PCB maker.
 
 ## Strip envelope (decision 106)
 
@@ -20,7 +20,7 @@ Desktop unit. One PCB per channel strip under its own top panel strip; channel i
 | Top panel length | control area + 2 × 20 mm on the rails, at most 360 mm (decision 108) |
 | Channel card PCB depth | fits between the rails: at most 318 mm (1 mm clearance to each rail; decision 108) |
 
-Sixteen strips are 560 mm wide before the master section.
+Sixteen strips are 560 mm wide before the master section. Unit width: 35 mm × (channels + 5) plus the cheeks (master 4 strips, power bay 1; decision 162): about 315 mm for the prototype, 735 mm for 16 channels.
 
 ## Channel strip panel layout (decisions 55, 106)
 
@@ -63,18 +63,18 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 
 ## Chain headers (decision 109)
 
-- The master section sits at the right end of the unit; the power board beside it.
+- Left to right: the channel strips, the master section (4 strips), the power bay (1 strip) (decision 162).
 - Every channel card: audio (2×17) and power (2×4) **IN headers along the left edge, OUT headers along the right edge**, on the underside, long axis front to back, all at one distance from the front.
 - That distance: chosen by the channel card layout (rear half, clear of the fader) and recorded here: *to be filled in*. The master card's headers follow it.
 - Neighbours are linked by identical short jumper cables in a U-loop under the gap between card n's OUT and card n+1's IN (about 12 mm apart; about 60 to 80 mm of cable).
-- Power ribbon: no jumper between cards 8 and 9; chain 1 (cards 1-8) and chain 2 (cards 9-16) are each fed from the power board (decision 80). Where a feed enters its group and how it is routed is open (Open, item 2).
+- Power ribbon: no jumper between the two groups of 8; chain 1 feeds the group next to the master (the prototype's cards), chain 2 the far group, each from the power board (decisions 80, 162). Each feed plugs into the power OUT header of its group's rightmost card, which is otherwise unused. The chain 1 feed runs under the master section; the chain 2 feed (about 0.5 m) along the rear floor in front of the input modules, on printed clips on the rear bottom angle (no cross band under the cards).
 - Header orientation, socket crimping (pin 1 on pin 1 through the U-loop) and cable length: *to be fixed on a mock-up* before the first PCB order (two box headers about 12 mm apart on scrap board, a real 34-way cable).
 
 ## Rear panel and input module (decision 160)
 
 | Item | Value |
 |---|---|
-| Rear panel | one black FR4 strip per channel, 34.8 mm wide (as the top panels), 1.6 mm; the master and power section get their own rear piece (Open, item 2) |
+| Rear panel | one black FR4 strip per channel, 34.8 mm wide (as the top panels), 1.6 mm; the master section and the power bay have their own rear pieces (decision 162) |
 | Rear strip fixing | top: one M3 screw into a T-nut in the rear 2020 rail's back slot; bottom: one screw into an aluminium angle (about 20 × 20 × 2 mm, cut to length) along the rear bottom edge |
 | Input module (6.3 mm) | PCB on edge in the front-to-back vertical plane, below the rear rail, centred on its strip; NYS216 jacks stacked, L/MONO above R, about 19 mm between centres; module about 40 mm tall; fixed only by the jack nuts on the rear strip; KK 254 header facing forward |
 | Why stacked | NYS216 is 17.7 mm wide across its pin rows (footprint from Rean's drawing): two side by side need 35.4 mm, more than the 35.0 mm pitch |
@@ -83,8 +83,30 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 
 ## Frame shape (decision 160)
 
-- Sloped: wedge side cheeks, flat bottom cover; the rear about 60 mm inside (above), the front only as tall as the cable mock-up needs (about 35 to 40 mm expected), so the top panels tilt about 4 to 5° toward the player.
+- Sloped: wedge side cheeks, flat bottom cover; the rear about 60 mm inside (above), the front a single 2020 rail, 20 mm inside (decision 162), so the top panels tilt about 6° toward the player.
+- Front: no member below the front rail; the bottom cover screws into the rail's bottom slot. At the front only fader and part pins pass a card's underside; underside parts (decision 121) sit at least about 40 mm behind the front rail's inner face, where the floor is deep enough.
 - The cards hang from their panels (decision 107): the tilt changes nothing on a board. The cheeks are the same for every channel count.
+
+## Master section (decision 162)
+
+| Item | Value |
+|---|---|
+| Width | 4 strips (140 mm), right of the channels; one top panel 139.8 mm wide, at most 360 mm long |
+| Master card | at most 138 mm wide and 318 mm deep, hung 10 mm under its panel like a channel card (decision 107); chain headers on its left edge at the channel distance (decision 109) |
+| Controls | 13 pots, 10 buttons, stereo meter, 5 gain-reduction LEDs, headphone jack; three columns (compressor and sidechain, AUX, master/phones/meter) set at layout |
+| Meters | 0805 LEDs under printed bezels as decision 119: 2 × 12 at 6.0 mm pitch plus the 5 gain-reduction LEDs |
+| Rear jacks | one rear piece 139.8 mm; 12 positions in 2 rows × 6 at about 23 mm: 11 jacks and the ground-lift switch, on two flat passive row boards fixed only by the jack nuts: output board (main L/R, AUX send 1 L/R, AUX send 2 L/R) and input board (AUX return 1 L/R, AUX return 2 L/R, SC EXT, ground lift), each cabled to the master card by one ribbon. Needs the NYS216 at most about 17 mm tall above its board: *measure a sample*; if taller, on-edge 2-jack boards as the input module |
+| Headphones | panel-mounted 6.3 mm stereo jack, nut on the master top panel, body through a cutout in the master card, short twisted cable to a header on the card; at least about 90 mm behind the front edge (about 30 mm of depth) |
+| Regulators | U901-U903 TO-220 with one heatsink each (about 19.7 mm, ≤ 11.5 °C/W) on the card's underside, hand-soldered, behind the card's middle, up to 25 mm below the PCB (master-only exception to decision 121); ≥ 3 mm from each other, the frame and the cover (live tabs) |
+
+## Power bay (decision 162)
+
+| Item | Value |
+|---|---|
+| Width | 1 strip (35 mm) at the right end, with a plain top strip (34.8 mm; may carry the power LED) |
+| Power board | on edge in the front-to-back plane, outline up to about 300 × 35 mm following the slope; hangs from the bay's top strip on two brackets and is fixed at its rear edge to the bay's rear strip; panels only, nothing on the cheeks; insulating hardware keeps PGND off the frame (invariant 8) |
+| Rear strip | brick jack (KPJX-4S) and power rocker (decision 157, cutout 19.2 × 12.9 mm for a 0.8-1.2 mm panel, 19.4 mm for 1.3-2.0 mm) |
+| Module sizes | planned: one power module for up to 8 channel cards, one for larger builds; same bay and ribbons |
 
 ## Underside and bottom cover (decision 121)
 
@@ -92,9 +114,9 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 |---|---|
 | Underside parts | chain headers at the edges (decision 109); elsewhere only hand-set parts (trimmers, jumper headers; decision 112), at most 10.5 mm below the PCB's bottom face |
 | Keep-out | no underside parts other than the chain headers within 10 mm of each long edge, over the header length plus 15 mm front and back (*provisional until the cable mock-up*) |
-| Bottom cover | detachable, a few captive or quarter-turn screws: at the rear into the bottom angle (decision 160), the front fixing settled with the cover height; off without touching side cheeks, cards or feet |
+| Bottom cover | detachable, a few captive or quarter-turn screws: at the rear into the bottom angle (decision 160), at the front into the front rail's bottom slot (decision 162); off without touching side cheeks, cards or feet |
 | Feet | on the side cheeks or the rails, not on the cover |
-| Cover inside height | clears the headers with sockets and the U-loops: *from the mock-up* (sets the front height of the sloped frame; rear about 60 mm, decision 160) |
+| Inside height | 20 mm at the front rail, about 60 mm at the rear (decisions 160, 162); the mock-up checks that the header zone clears the sockets and U-loops |
 
 ## Panel hardware and ground (note)
 
@@ -104,6 +126,5 @@ Jack sleeves go to their own card's AGND; FR4 panels do not conduct (`CHAIN.md`,
 
 Settled in this order, each by a decision:
 
-1. *Underside:* the cover's inside height (the front height of the sloped frame) and front fixing, and the keep-out values, from the cable mock-up (rear panel, input module and frame shape settled by decision 160; underside rules and cover by decision 121); the input cable length at the channel card layout
-2. *Master section and power board:* which end card 1 is (whether the prototype's chain 1 sits next to the master), where each power feed enters its group and how it is routed at full size (decisions 80, 81: about 280 mm or more to the far group), width in strips, headphone jack, heatsinks, brick jack, power and ground-lift switches
-3. *Heat:* ventilation for the typical dissipation inside the unit (about 28 W prototype to 77 W full size, `ARCHITECTURE.md`)
+1. *Underside:* the keep-out values and a check that the header zone clears sockets and U-loops, from the cable mock-up; the input cable length at the channel card layout (rear, frame shape, master section and power bay settled by decisions 160 and 162; underside rules and cover by decision 121)
+2. *Heat:* ventilation for the typical dissipation inside the unit (about 28 W prototype to 77 W full size, `ARCHITECTURE.md`)

@@ -12,8 +12,8 @@
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
-5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then PCB (after `/system mechanical` on the master section)
-6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB
+5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then the decision 162 rework (rear jacks to two new passive row boards, panel-mounted headphone jack, 0805 meter LEDs, underside heatsinks), then PCB with the two row boards
+6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB as an on-edge board in the power bay (decision 162)
 7. **Prototype build and measurement** against the targets in SPEC.md section 5
 
 ## Backlog (after the prototype)
@@ -28,9 +28,10 @@
 - Pre-fader direct output per channel for multitrack recording (input header pins 8 and 9 already reserved; jacks on the input module)
 - Momentary buttons with flip-flop logic and LEDs instead of latching switches, enabling CV/MIDI control and mute groups over the spare chain lines. Must keep button states through a power cycle (for example after a power cut during a gig), so the states need non-volatile storage (FRAM or microcontroller EEPROM) restored at power-up
 - Insert points on the channel strips
+- Power modules in two sizes for the power bay (decision 162): one for up to 8 channel cards (the prototype design) and one for larger builds, so small units do not pay for the full-size supply
 - Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources
 - Expansion to 32 channels: power injector board every 16 cards (the 8-pin power ribbon carries only about 16 cards' current), mixing amps sized for 32 inputs (about 3 dB more bus noise), two frames of 16 strips linked by a longer ribbon. Channel cards and pinouts stay unchanged
-- (Done for the channel meter in the prototype, decision 119; the master meter may follow) 3D-printed LED bar diffuser for the meters: an opaque printed bezel with square windows (for example 4 x 4 mm at 5 mm pitch) and a translucent diffuser over 0805 SMD LEDs, replacing the round 3 mm meter LEDs (decision 86). Same look as the printed button caps; walls between the windows stop light bleeding between segments
+- (Done: channel meter decision 119, master meter decision 162; the master's PCB step is still to do) 3D-printed LED bar diffuser for the meters: an opaque printed bezel with square windows (for example 4 x 4 mm at 5 mm pitch) and a translucent diffuser over 0805 SMD LEDs, replacing the round 3 mm meter LEDs (decision 86). Same look as the printed button caps; walls between the windows stop light bleeding between segments
 - Mains power (decision 101): an external linear supply box (mains and toroid in their own earthed box, ±20 V on a locking connector; the power board shrinks to protection and fusing) or an internal mains supply (Class I, safety earth to the chassis, ground lift between signal ground and chassis). Either must keep the supply output floating (invariant 8)
 - Mixer variant with external channel strips, for bands or groups of performers who each connect and control their own instrument submix
 - Longer-life channel fader (decision 48): TT Electronics PS60-10MC2BR10K (PSxx Issue B, 11/2020): same 75 × 9 × 6.5 mm body, M2 holes 71 mm apart and 15 mm metal lever as the PTA6043, rated 100,000 cycles instead of 15,000; check its pin pattern against the PTA footprint. A factory order at Mouser (3,600 minimum, about 1.25 € each, 2026-10-09); the 20 and 25 mm lever versions (MC4, MC5) would allow a taller panel gap (decision 107) if the pots change too

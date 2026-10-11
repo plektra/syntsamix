@@ -80,7 +80,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 53 | Cutoff CV: 1 V/oct, protected | confirmed | [channel-card](channel-card.md) |
 | 54 | Latching channel buttons | confirmed | [channel-card](channel-card.md) |
 | 55 | Channel strip panel layout (meter form: 119) | confirmed, refined | [mechanical](mechanical.md) |
-| 56 | Headphone output design | confirmed | [master-card](master-card.md) |
+| 56 | Headphone output design | confirmed, refined | [master-card](master-card.md) |
 | 57 | Compressor detector: feed-forward log peak | confirmed | [master-card](master-card.md) |
 | 58 | Output protection relays | confirmed | [master-card](master-card.md) |
 | 59 | Mechanical format: desktop, rail frame (sloped, rear strips: 160) | confirmed, refined | [mechanical](mechanical.md) |
@@ -104,13 +104,13 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 77 | Test points: bare SMD pads | confirmed | [process](process.md) |
 | 78 | Channel chain and power sheet | confirmed | [channel-card](channel-card.md) |
 | 79 | Assembly at JLCPCB, LCSC basic parts | confirmed | [process](process.md) |
-| 80 | Power injected in groups of 8 cards | confirmed | [system](system.md) |
-| 81 | Separate power board | confirmed | [power](power.md) |
+| 80 | Power injected in groups of 8 cards | confirmed, refined | [system](system.md) |
+| 81 | Separate power board | confirmed, refined | [power](power.md) |
 | 82 | Log detector: AS3046D | confirmed | [master-card](master-card.md) |
 | 83 | Main outputs: THAT1646 (part replaced by 125) | confirmed, refined | [master-card](master-card.md) |
 | 84 | Headphone driver: TPA6120A2 | confirmed | [master-card](master-card.md) |
 | 85 | Relays: Omron G6K-2F-Y | confirmed | [master-card](master-card.md) |
-| 86 | Meters use 3 mm round LEDs (channel meter refined by 119) | confirmed, refined | [mechanical](mechanical.md) |
+| 86 | No ready-made bar graphs; meters were 3 mm round LEDs (now 0805 under printed bezels: channel 119, master 162) | confirmed, refined | [mechanical](mechanical.md) |
 | 87 | Master card power sheet | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 88 | AUX return implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 89 | Compressor implementation | confirmed | [master-card-sheets](master-card-sheets.md) |
@@ -181,11 +181,12 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 154 | Decision log in two tiers: short current rulings in the area files, full text in `record/` (`tools/check_decisions.py`) | confirmed | [process](process.md) |
 | 155 | Channel SSI2144 ×2 and SSI2162 hand-soldered by the user on the prototype (cost lever 11); bipolar caps replaced by 161 | confirmed | [channel-card](channel-card.md) |
 | 156 | Power board dividers on fee-free E24 values: UVLO 680k / 39k (start 21.3 V, stop 19.0 V), RT 240k, buck compensation 16k; refines 100 | confirmed | [power](power.md) |
-| 157 | Power switch: snap-in rear-panel rocker (Legion SS11-BBIWG-R20-R) wired to a JST XH header J102 instead of a board-mounted switch; refines 100 | confirmed | [power](power.md) |
+| 157 | Power switch: snap-in rear-panel rocker (Legion SS11-BBIWG-R20-R) wired to a JST XH header J102 instead of a board-mounted switch; refines 100 | confirmed, refined | [power](power.md) |
 | 158 | Power board C103 Nichicon UHE 100 µF 50 V radial (hand-soldered); sync capacitors 10 pF C0G 50 V 0603 basic instead of 100 V 0805; refines 100 | confirmed | [power](power.md) |
 | 159 | Power board buck catch diode D201 SS54 in SMA (C22452, basic) on a D_SMA footprint, fixing the SMC footprint mismatch; refines 100 | confirmed | [power](power.md) |
-| 160 | Rear and frame: input module on edge with NYS216 jacks stacked L above R, one FR4 rear strip per channel between the rear rail and a bottom angle, sloped frame (wedge cheeks), input cable 100 mm provisional; refines 59, 62, 99, 108, 121 | confirmed | [mechanical](mechanical.md) |
+| 160 | Rear and frame: input module on edge with NYS216 jacks stacked L above R, one FR4 rear strip per channel between the rear rail and a bottom angle, sloped frame (wedge cheeks), input cable 100 mm provisional; refines 59, 62, 99, 108, 121 | confirmed, refined | [mechanical](mechanical.md) |
 | 161 | Channel audio coupling: each 10 µF bipolar becomes two ROQANG 10 µF (SX-C-024) back to back, placed by JLCPCB, no new fee type; X5R option dropped, test 11 checks the pair; master to follow; refines 111 | confirmed | [channel-card-parts](channel-card-parts.md) |
+| 162 | Master section 4 strips with rear jacks on two row boards, power bay (on-edge power board, two module sizes planned), chain 1 next to the master, single front rail, headphones panel-mounted on the master top panel, master heatsinks under the card, master meter 0805 under bezels; refines 56, 80, 86, 109, 121, 157, 160 | confirmed | [mechanical](mechanical.md) |
 
 ## Proposed but not confirmed
 

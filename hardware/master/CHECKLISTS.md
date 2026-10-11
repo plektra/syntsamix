@@ -16,7 +16,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 ## Cost-cut levers still open [proposed]
 
 1. **DG413 ×10:** check which switch sections could move to relay contacts already present or to VCA control (as channel lever 3).
-2. **Master meter:** 24 discrete 3 mm LEDs against the channel's 0805-under-bezel form (decision 86 against 119).
+2. **Master meter:** settled by decision 162: 0805 LEDs under printed bezels as the channel (2 × 12 at 6.0 mm pitch plus 5 gain-reduction LEDs); redraw in the decision 162 rework.
 3. **Bipolar 10 µF → X5R ceramic** (see Open).
 4. Not recommended: TPA6120A2 → NE5532 with a discrete buffer (weaker headphone drive); LM339 → LM393 (twice the packages).
 

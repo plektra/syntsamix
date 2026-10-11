@@ -15,7 +15,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 45. Sidechain source INT (compressor bus) / BUS (sidechain bus) / EXT (jack): SC BUS button, overridden by a plug in EXT (90). Per-channel SC send taps pre-fader and pre-mute (ghost triggering from muted channels). EXT DC-coupled for audio and Eurorack envelopes/gates up to ±12 V. SC LISTEN sends the filtered sidechain to the cue bus
 49. Master meter: stereo, 12 segments per side (−30, −20, −15, −10, −6, −3, 0, +3, +6, +9, +12, clip) after the master level; 0 = +4 dBu; clip about +17 dBu internal (+23 dBu at the balanced outputs). All meters are peak-reading with a fall of about 1-2 s
 51. AUX sends: dual-gang master pot per send (−∞ to 0 dB), impedance-balanced TRS at +4 dBu. AUX returns: G = ½ receiver (TL072 since 148) with a −6 / +6 dB jumper (pro/Eurorack vs pedals), a linear level pot on an SSI2162 VCA (−∞ to +10 dB), mute and main/compressor bus switch
-56. Headphones: dual-gang volume pot, high-current driver (TPA6120A2, 84), 32 to 600 Ω, 6.3 mm jack on the front or top panel
+56. Headphones: dual-gang volume pot, high-current driver (TPA6120A2, 84), 32 to 600 Ω, 6.3 mm panel-mounted jack on the master top panel, wired to the card (162)
 57. Compressor detector: feed-forward, peak-sensing, log conversion on a matched transistor array (AS3046D, 82). Amount 0-30 dB, Release about 50 ms to 1.5 s, attack about 1 ms, ratio 4:1, gain-reduction LEDs at 1/3/6/10/15 dB
 58. Power-up/down protection: relays on main and headphone outputs, about 2 s turn-on delay, instant drop-out when the chain voltage falls (both raw rails, 128); AUX sends unprotected
 82. Log detector transistor array: Alfa AS3046D (SOIC-14), not at LCSC (hand-soldered, 150)

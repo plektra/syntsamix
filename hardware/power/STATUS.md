@@ -1,6 +1,6 @@
 # Power board status
 
-Updated 2026-10-11 (power schematic session: decisions 156-159).
+Updated 2026-10-11 (/system mechanical: power bay and two module sizes, decision 162; power schematic session: decisions 156-159).
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -17,8 +17,9 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## Next
 
-1. PCB layout (after the channel card PCB, per `docs/CONTINUE-FROM-HERE.md`).
-2. Full-size supply (about 4 A per rail) after the prototype cards are measured (decision 96): the −20 V inverter needs a controller with external MOSFETs.
+1. PCB layout (after the channel card PCB, per `docs/CONTINUE-FROM-HERE.md`) in the power bay form of decision 162 (`docs/MECHANICAL.md`, Power bay): the board stands on edge in the front-to-back plane, outline up to about 300 × 35 mm following the panel slope (about 6°), hung from the bay's top strip on two brackets and fixed at its rear edge to the bay's rear strip, which carries the brick jack J101 (KPJX-4S, right angle, pointing back) and the rocker (cutout 19.2 × 12.9 mm for 0.8-1.2 mm, 19.4 mm for 1.3-2.0 mm). Insulating mounting, no PGND to the frame. The power LED is not visible on a fin: bring it to the bay's top strip (light pipe or a wired LED; check the schematic). Ribbons: master header and chain 1 to the left (chain 1 into the power OUT header of the channel card next to the master), chain 2 about 0.5 m along the rear floor.
+2. **Two power module sizes (decision 162, the user's plan for cheaper small units):** one module for up to 8 channel cards (master + chain 1; the present design, 120 W brick; the chain 2 header and its two fuses could be left off) and a larger one for full size. Same bay, same ribbons. Decide in a power board session whether the small module simply omits the chain 2 parts.
+3. Full-size supply, the larger module (about 4 A per rail) after the prototype cards are measured (decision 96): the −20 V inverter needs a controller with external MOSFETs.
 
 ## RoHS
 
@@ -26,4 +27,4 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## For /system
 
-- Rear panel (`/system mechanical`, decision 157): the power rocker Legion SS11-BBIWG-R20-R needs a rectangular cutout of 19.2 × 12.9 mm (0.8-1.2 mm panel; 19.4 for 1.3-2.0 mm, 19.8 for 2.1-2.5 mm) on the rear panel near the power board, beside the brick jack. Decision 100 had a board-mounted switch at the rear edge. Decision 160 (2026-10-11) gives every channel its own rear strip; the rocker and the brick jack go on the master and power section's rear piece, settled with Open item 2 (next /system mechanical topic).
+(none; decision 162 put the rocker and the brick jack on the power bay's rear strip)

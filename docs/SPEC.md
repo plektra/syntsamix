@@ -101,7 +101,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - Sidechain LPF adjustable about 40 to 500 Hz, 12 dB/octave, with bypass switch **[confirmed]**
 - Sidechain source: INT (the compressor bus itself, L+R) / BUS (the mono sidechain bus) / EXT (external jack). A plug in the EXT jack overrides; otherwise an SC BUS button picks BUS or INT (decision 90) **[confirmed]**
 - Channels feed the sidechain bus through a per-channel SC send button, tapped after the filter and before fader and mute (same point as PFL and the meter), so a muted channel can still trigger the pumping ("ghost triggering"). The master card never addresses a specific slot **[confirmed]**
-- EXT sidechain input: DC-coupled, accepts audio and Eurorack envelopes or gates up to ±12 V **[confirmed]**; jack size (3.5 mm or 6.3 mm) chosen with the master section (decision 118)
+- EXT sidechain input: DC-coupled, accepts audio and Eurorack envelopes or gates up to ±12 V **[confirmed]**; 6.3 mm on the master's rear input row board (decisions 118, 162)
 - Sidechain ducking (decision 66): an envelope follower on the master card takes the sidechain signal after the source switch and the sidechain LPF and drives the SC_ENV chain line. Controls: THRESHOLD, DEPTH and DECAY; attack fast and fixed. Each channel's DUCK button adds SC_ENV (negative, −1 V = 10 dB; decision 97) to its VCA control, so the channel ducks with the trigger independently of the compressor bus. Each AUX return also has a DUCK switch **[confirmed]**
 - SC listen button: sends the filtered sidechain signal to the cue bus (headphones) and pulls the PFL-active line **[confirmed]**
 - Stereo-linked VCA compressor (SSI2162) with a performance control set **[confirmed]**:
@@ -116,7 +116,7 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - Ranges: Amount 0 to about 30 dB (threshold down to -30 dB below nominal, makeup tied); Release about 50 ms to 1.5 s; gain-reduction LEDs at 1, 3, 6, 10, 15 dB **[confirmed]**
 - Soft clipping on the master bus output, same onset as the channels **[confirmed]**
 - Master level: linear pot controlling an SSI2162 VCA (accurate L/R tracking) **[confirmed]**
-- Headphone output **[confirmed for the prototype]**: dual-gang volume pot; TI TPA6120A2 headphone amplifier on ±15 V (decision 84, replaces the NJM4556A whose package cannot dissipate the power); for 32 to 600 Ω headphones; 6.3 mm stereo jack on the front or top panel, the only jack not on the rear
+- Headphone output **[confirmed for the prototype]**: dual-gang volume pot; TI TPA6120A2 headphone amplifier on ±15 V (decision 84, replaces the NJM4556A whose package cannot dissipate the power); for 32 to 600 Ω headphones; 6.3 mm stereo jack panel-mounted on the master top panel and wired to the card (decision 162), the only jack not on the rear
 - AUX send outputs: L/MONO and R jacks per send (impedance-balanced TRS, TS works); with only L plugged in, L outputs (L+R)/2 **[confirmed]**
 - AUX send master: dual-gang pot per send, -∞ to 0 dB, ahead of the output stage; full up gives +4 dBu nominal, turned down suits pedals and other low-level gear **[confirmed]**
 - AUX returns: stereo, L/MONO normalled (only L plugged in feeds both sides) **[confirmed]**
@@ -134,11 +134,11 @@ Notes on mono/stereo (L/MONO convention everywhere):
 
 ## 4b. Mechanical format **[confirmed]**
 
-- Desktop unit, not rack. Sixteen strips plus master section are about 650 to 700 mm wide
+- Desktop unit, not rack. Left to right: channel strips, master section (4 strips), power bay (1 strip); 35 mm × (channels + 5) plus the cheeks: about 315 mm for the prototype, 735 mm for 16 channels (decision 162). Sloped: the panels tilt about 6° toward the player (decisions 160, 162)
 - One module per channel strip: a horizontal PCB carrying the pots, fader and buttons, with its own top panel strip (35 mm pitch, 34.8 mm wide, control area at most 320 mm deep between the rails; decisions 106, 108, `MECHANICAL.md`); the PCB sits 10 mm below the panel, the pots hold the panel and the fader is screwed to it (decision 107)
 - Top and rear panel strips are black FR4 with white printed legends, made by the PCB maker (aluminium panels can come with a product version)
-- Channel input jacks are on the passive input module behind a small FR4 rear panel strip, cabled to the channel card (decisions 62, 99; position open in `MECHANICAL.md`); the headphone jack is on the master section's top or front
-- Frame: front and back aluminium rails (2020 extrusion, cut to length) that the strips screw onto (one centred M3 button-head screw per panel end into a T-nut, plus a printed locating key; decisions 108, 120), with side cheeks; longer rails for more strips
+- Channel input jacks are on the passive input module behind a small FR4 rear panel strip, cabled to the channel card (decisions 62, 99; on edge with the jacks stacked, decision 160); the headphone jack is on the master section's top panel (decision 162)
+- Frame: front and back aluminium rails (2020 extrusion, cut to length) that the strips screw onto (one centred M3 button-head screw per panel end into a T-nut, plus a printed locating key; decisions 108, 120), with wedge side cheeks (sloped, decisions 160, 162); longer rails for more strips
 - Chain ribbons run under the strips between neighbours
 - Knobs and fader caps chosen with the panel design
 

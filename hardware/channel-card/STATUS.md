@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-11 (schematic: coupling capacitors back to back, decision 161). 2026-10-10: R217 30k (153); SSI2144/SSI2162 hand-soldered (155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
+Updated 2026-10-11 (/system mechanical: front underside zone, decision 162; schematic: coupling capacitors back to back, decision 161). 2026-10-10: R217 30k (153); SSI2144/SSI2162 hand-soldered (155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -53,3 +53,4 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 - Settled by /system 2026-10-10: decision 152 refines 69 (a button pole may switch a DC control voltage when the wiring does not depend on the contact sequence and a smoothing ramp follows; the board already meets both) and confirms the scope wording; the input impedances are in `docs/INPUT-MODULE.md`. Keep conditions (a) and (b) of 152 if MUTE/DUCK are redrawn.
 
 - Decision 160 (2026-10-11): the input module stands on edge below the rear rail. At layout, place the KK input header near the rear edge and report its position: /system fixes the input cable length (100 mm provisional). The sloped frame changes nothing on the card.
+- Decision 162 (2026-10-11): single front rail, 20 mm inside at the front: keep underside parts (trimmers, jumper headers) at least about 40 mm behind the front rail's inner face (the card's front edge sits 1 mm behind it). Chain 1's power feed plugs into the power OUT header of the card next to the master; nothing changes on the card.

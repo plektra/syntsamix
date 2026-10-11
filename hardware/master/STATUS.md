@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-10 (third `/board master` session: R232/R332 30k drawn, decision 153).
+Updated 2026-10-11 (/system mechanical: decision 162, schematic rework listed under Next). 2026-10-10: R232/R332 30k drawn (153).
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -21,15 +21,21 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 ## Open: needs the user or another session
 
 - **AS3046D RoHS declaration:** requested by the user (2026-10-09), waiting.
-- **Meter LEDs (SX-D-004/005/006):** form (3 mm or 0805 under a bezel as decision 119) settled with the master section panel.
-- **Ground-lift switch SW901 (SX-SW-002):** part to choose with the rear panel.
+- **Ground-lift switch SW901 (SX-SW-002):** part to choose; it sits on the rear input row board (decision 162), so a PCB-mount toggle with a threaded bushing fits.
 - **Bipolar 10 µF ×16 (SX-C-023, consigned) → two ROQANG 10 µF (SX-C-024) back to back:** done on the channel card by decision 161 (2026-10-11, confirmed by the user; the X5R option is dropped). Do the same swap here (refines 127): first check with the DRV135 datasheet whether the sense-pin capacitors C707-C710 may drop to 5 µF (TI recommends 10 µF non-polarised); if not, two 22 µF there (a new extended type). The €30 consignment handling and about €7 of parts go with it.
 - **Fee types shared with the channel** (220p C0G, TL062, LM339): only go away if both boards change; noted in `hardware/channel-card/STATUS.md`. Checked and dropped: OPA2171 → LM358 (onsemi LM358/D Rev. 27) and ceramic LM337 output capacitors (onsemi LM337/D Rev. 11 p. 7, can oscillate).
 
 ## Next
 
-PCB layout, after the SSI2144 breadboard and the channel card layout (`docs/CONTINUE-FROM-HERE.md`). Before it: `/system mechanical` for the master section (heatsinks, meter LED form, rear panel) and the AS3046D declaration.
+1. **Schematic rework for decision 162** (`/board master schematic`; `docs/MECHANICAL.md`, Master section): the master card hangs 10 mm under its panel, so no jack on it reaches a panel.
+   - Move the rear jacks to two new passive row boards, each cabled to the master card by one ribbon: an output board (J701/J702 main out, J601/J602/J621/J622 AUX sends) and an input board (J201/J202, J301/J302 AUX returns, J501 SC EXT, SW901 ground lift). Pick the ribbon size and an interleaved-ground pinout (as `CHAIN.md`); the jack normalling (send L-alone sensing, return L-to-R normalling, the SC EXT plug override of decision 90) keeps working through the cable. Inputs and outputs stay on separate boards.
+   - The two row boards are new KiCad projects (6 jacks in a row at about 23 mm; NYS216 must be at most about 17 mm tall above its board: measure a sample first; if taller, on-edge 2-jack boards, the AUX returns reusing `input-module-6p3`).
+   - Headphones J751: a panel-mounted 6.3 mm stereo jack (part to choose, RoHS source) on the top panel, wired to a header on the card; the jack passes through a cutout in the card, at least about 90 mm behind the front edge.
+   - Meter and gain-reduction LEDs to 0805 (KT-0805G, KT-0805Y, NCD0805R1 as on the channel, decision 119) under printed bezels: 2 × 12 at 6.0 mm pitch plus 5 GR LEDs; SX-D-004/005/006 retire.
+   - U901-U903 TO-220 on the underside with one heatsink each, behind the card's middle, up to 25 mm deep, ≥ 3 mm from each other, the frame and the cover.
+   - Card at most 138 × 318 mm under a 4-strip (139.8 mm) top panel; chain headers on the left edge at the channel distance.
+2. PCB layout, after the SSI2144 breadboard and the channel card layout (`docs/CONTINUE-FROM-HERE.md`); the AS3046D declaration before ordering.
 
 ## For /system
 
-- **Master section mechanics:** TO-220 regulators and heatsinks (19.7 mm, ≤ 11.5 °C/W, live tabs); meter LED form (3 mm through the panel vs 0805 under a bezel, decision 86 vs 119).
+(none; decision 162 settled the master section mechanics)

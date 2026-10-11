@@ -7,7 +7,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 ## Decisions
 
 60. Power comes from a certified 24 V DC brick through the power board to unregulated about ±20 V, LC-filtered, with per-card linear regulation. Power switch, resettable fuse, reverse-polarity protection, locking DC connector, power LED. A linear external supply box is a product-version option (details: 100)
-81. The power input section is a separate small power board (`hardware/power`) beside the master card; it feeds the master and both power chains with short ribbons, keeping switching noise and its ground currents off the audio boards. The master takes power like a channel card and regulates locally
+81. The power input section is a separate small power board (`hardware/power`) in the power bay at the right end, beside the master section (162); it feeds the master and both power chains with short ribbons, keeping switching noise and its ground currents off the audio boards. The master takes power like a channel card and regulates locally
 100. Power board conversion and parts. Non-isolated: the Class II brick provides the isolation and its negative is PGND (output must float, 101).
     - **Brick:** 24 V, Class II, floating output, R7B locking 4-pin DIN (pins 1, 4 = +24 V; 2, 3 = 0 V): Mean Well GSM120B24-R7B for the prototype, GSM220B24-R7B for 16 cards (145)
     - **Jack:** Kycon KPJX-4S right-angle at the rear edge; check polarity with a meter on the first brick
@@ -20,6 +20,6 @@ Current rulings (decision 154): each entry says what holds now, with later refin
     - Values and derivation: `hardware/power/scripts/design.py`. Input bulk C103 Nichicon UHE 100 µF 50 V radial, sync capacitors 10 pF C0G 50 V 0603 (158). Power switch: rear-panel rocker on J102 (157)
 145. Full-size brick: Mean Well GSM220B24-R7B (SX-MECH-005, 221 W, Class II, same R7B plug and pinout, so jack and board unchanged); the prototype keeps the GSM120B24-R7B (SX-MECH-003). At the sizing figure it runs at about 60 % of its rating, about 81 % worst case. One brick and one mains cord only (two bricks rejected as unprofessional)
 156. Converter dividers on fee-free E24 values: UVLO 680k / 39k (start 21.3 V, stop 19.0 V), RT 240k (405 kHz free-running), buck compensation 16k. The 240k feedback resistor stays (the ramp capacitor would grow to 470 nF)
-157. Power switch: snap-in rocker on the rear panel (Legion SS11-BBIWG-R20-R, SX-SW-003), wired to a JST XH 2-pin header J102 on the power board; it carries only the gate current. Cutout and position wait for `/system mechanical`
+157. Power switch: snap-in rocker on the rear panel (Legion SS11-BBIWG-R20-R, SX-SW-003), wired to a JST XH 2-pin header J102 on the power board; it carries only the gate current. On the power bay's rear strip beside the brick jack (162)
 158. C103 input bulk: Nichicon UHE1H101MPD, 100 µF 50 V radial, hand-soldered (no fee-free SMD part). Sync capacitors C207/C307: Samsung CL10C100JB8NNNC, 10 pF C0G 50 V 0603, JLCPCB basic (C307 bridges about 20-25 V)
 159. Buck catch diode D201: MDD SS54 in SMA (C22452, JLCPCB basic) on a D_SMA footprint (the D_SMC footprint did not match the part); copper pad and a full-load temperature check

@@ -1,6 +1,6 @@
 # Chain interface
 
-Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98, 101 and 153.
+Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98, 101 and 153; `decisions/mechanical.md` item 162 (feed entry).
 
 Every channel card has two identical copies of each connector (IN and OUT), wired pin-for-pin straight through. The master card has one copy of each and sits at one end of the chain (the right end, decision 109). Pin numbers follow the IDC convention: on the flat cable, pin n lies next to pin n+1, and pin 1 is on the red stripe.
 
@@ -45,7 +45,7 @@ Signal definitions:
 
 - Pin 1 (red stripe) is the negative rail, the same habit as Eurorack, so the stripe always marks "negative".
 - 10- and 16-pin sizes are deliberately avoided so a Eurorack power cable cannot be plugged in.
-- Current per rail (decision 96, `tools/system_power_budget.py`): a channel card draws about 110 mA typical, 229 mA worst case on +15 V; the sizing figure for shared parts is 171 mA per card (after decision 143). Power is injected in groups of 8 cards (decision 80): the power board (decision 81) has three power headers: one for the master card, chain 1 for cards 1 to 8 and chain 2 for cards 9 to 16, so each pin carries up to about 0.68 A (sizing figure; 0.92 A at worst case). The IDC headers, sockets and cable must be rated at least 1 A per contact. The audio ribbon still runs through all cards.
+- Current per rail (decision 96, `tools/system_power_budget.py`): a channel card draws about 110 mA typical, 229 mA worst case on +15 V; the sizing figure for shared parts is 171 mA per card (after decision 143). Power is injected in groups of 8 cards (decision 80): the power board (decision 81) has three power headers: one for the master card, chain 1 for cards 1 to 8 and chain 2 for cards 9 to 16, so each pin carries up to about 0.68 A (sizing figure; 0.92 A at worst case). Chain 1 is the group next to the master; each chain's feed plugs into the power OUT header of its group's rightmost card (the card nearest the master), which a card never uses otherwise (decision 162, routing in `MECHANICAL.md`). The power board comes as a module in the power bay; two sizes are planned (up to 8 cards, and larger), both with this pinout. The IDC headers, sockets and cable must be rated at least 1 A per contact. The audio ribbon still runs through all cards.
 
 ## Grounding
 
