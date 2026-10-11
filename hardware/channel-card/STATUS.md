@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-10 (schematic: R217 30k, decision 153; SSI2144/SSI2162 hand-soldered, decision 155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
+Updated 2026-10-11 (schematic: coupling capacitors back to back, decision 161). 2026-10-10: R217 30k (153); SSI2144/SSI2162 hand-soldered (155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -18,6 +18,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 - 2026-10-10, schematic (levers, delegated: "work on this autonomously"): TL072 difference receiver with 10k 0.1 % resistors instead of the AD8273 (decision 143; new R19-R26, SX-R-107); MUTE and DUCK switched by the buttons, U206 DG413 and C235/C236 removed, R220/R222 now 100k hold resistors on MUTE_V/DUCK_V with pin 1 open so no contact sequence can short the rail (decision 142, after the architect review); temperature compensation to the backlog, R108/R158 plain 820 Ω (decision 141); trimmers from Mouser, CUTOFF pot from Tayda A-4730. Netlists match (input 46, level 41 nets), ERC 0/0, drawings looked at. Card load 110 / 93 mA typical, sizing 171 / 139 mA. `tools/costs.py estimate` (4 channels): €946 (€1,035 on main before this day's sessions).
 - 2026-10-10, schematic: R217 30k (decision 153; ducking −10.10 dB per −1 V in `simulation/level/`); SSI2144 U101/U102 and SSI2162 U201 hand-soldered by the user on the prototype (decision 155). Netlists match (filter 81, level 41 nets), ERC 0/0. `tools/costs.py estimate`: €788 / €1,069 / €1,665 for 4 / 8 / 16 channels, 36 fee types.
 - 2026-10-10, button MPN corrected: SX-SW-001 is CW GPBS850L (latching, Electrokit 41012905); GPBS850N, recorded until now, is the momentary twin. MPN, footprint `SW_Latching_8.5x8.5mm_CW_GPBS850L` (same geometry per datasheet Rev 2), parts.csv and prices.csv changed; erratum on decision 75; no wiring change, ERC 0/0. Estimate €769 / €1,037 / €1,609 for 4 / 8 / 16 channels.
+- 2026-10-11, schematic: the eight 10 µF bipolar coupling capacitors are now pairs of ROQANG 10 µF 35 V (SX-C-024) in series, − to −: C5+C21, C6+C22, C101+C108, C151+C158, C107+C109, C157+C159, C221+C235, C271+C285 (decision 161). New references C21, C22, C108, C109, C158, C159, C235, C285; R5/R6, R101/R151 and R201/R251 moved right for room; R112/R162 down 2.54 mm and TP102/TP152 to the left of the IV column for text clearance. Netlists match (input 48, filter 85, level 43 nets: +2, +4, +2 for the middle nodes), ERC 0/0, the drawings looked at. No part on the card is consigned now. `tools/costs.py estimate`: €778 → €768 / €1,040 → €1,024 / €1,600 → €1,571 at 4 / 8 / 16 channels (the master's 16 bipolars and the €30 handling remain until its session).
 - PCB: not started; waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up.
 
 ## Provisional until the breadboard
@@ -38,11 +39,11 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## Parts
 
-Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators onsemi LM317D2TR4G / LM337D2TR4G; ROQANG SMD electrolytics; Panasonic EEE-1VA100NP bipolar (land pattern checked: size D, KiCad `C_Elec_6.3x5.4`); Murata C0G low-cut caps; Bourns 3296W trimmers; Bourns PTA6043 fader; chain headers Würth 61203421621 (2×17) and 61200821621 (2×4); button LEDs JLCPCB basic 0805 (MUTE red NCD0805R1, PFL yellow KT-0805Y, SC SEND/DUCK/COMP BUS green KT-0805G, LOW-CUT/BYPASS white KT-0805W); CV jack Thonkiconn PJ398SM (decision 118). Printed in-house: button caps, the meter bezel (decision 119) and the 1 mm M6 washer for the CV jack (SX-MECH-004). Supply budget: `scripts/power_budget.py` (rerun after changing parts that draw current).
+Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators onsemi LM317D2TR4G / LM337D2TR4G; ROQANG SMD electrolytics, also as back-to-back pairs in the audio coupling positions (decision 161); Murata C0G low-cut caps; Bourns 3296W trimmers; Bourns PTA6043 fader; chain headers Würth 61203421621 (2×17) and 61200821621 (2×4); button LEDs JLCPCB basic 0805 (MUTE red NCD0805R1, PFL yellow KT-0805Y, SC SEND/DUCK/COMP BUS green KT-0805G, LOW-CUT/BYPASS white KT-0805W); CV jack Thonkiconn PJ398SM (decision 118). Printed in-house: button caps, the meter bezel (decision 119) and the 1 mm M6 washer for the CV jack (SX-MECH-004). Supply budget: `scripts/power_budget.py` (rerun after changing parts that draw current).
 
 ## Next
 
-1. Breadboard the SSI2144 when parts arrive (now with test 11, X5R coupling caps: its result settles the bipolar caps, levers 7 and 11, and test 12, fixed V/oct and drift; buy two LCSC C13585 for test 11) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
+1. Breadboard the SSI2144 when parts arrive (now with test 11, the back-to-back coupling pair against a bipolar, decision 161, and test 12, fixed V/oct and drift) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
 2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, LM339DR, DG413DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
 3. Cable mock-up (decision 109).
 4. PCB layout.

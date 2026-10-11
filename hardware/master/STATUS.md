@@ -23,7 +23,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 - **AS3046D RoHS declaration:** requested by the user (2026-10-09), waiting.
 - **Meter LEDs (SX-D-004/005/006):** form (3 mm or 0805 under a bezel as decision 119) settled with the master section panel.
 - **Ground-lift switch SW901 (SX-SW-002):** part to choose with the rear panel.
-- **Bipolar 10 µF ×16 (SX-C-023, consigned) → X5R ceramic:** waits for a breadboard tap test (user, 2026-10-10); touches decision 127.
+- **Bipolar 10 µF ×16 (SX-C-023, consigned) → two ROQANG 10 µF (SX-C-024) back to back:** done on the channel card by decision 161 (2026-10-11, confirmed by the user; the X5R option is dropped). Do the same swap here (refines 127): first check with the DRV135 datasheet whether the sense-pin capacitors C707-C710 may drop to 5 µF (TI recommends 10 µF non-polarised); if not, two 22 µF there (a new extended type). The €30 consignment handling and about €7 of parts go with it.
 - **Fee types shared with the channel** (220p C0G, TL062, LM339): only go away if both boards change; noted in `hardware/channel-card/STATUS.md`. Checked and dropped: OPA2171 → LM358 (onsemi LM358/D Rev. 27) and ceramic LM337 output capacitors (onsemi LM337/D Rev. 11 p. 7, can oscillate).
 
 ## Next

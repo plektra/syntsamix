@@ -62,8 +62,9 @@ def channel(Pn,dy,rx,cpl,rin,trim_unit,c_fb,r_fb,r_z,dz1,dz2,c_a,c_b,r_a,r_b,hp_
     # receiver output (TL072, decision 143)
     xo=119.38
     s.wire(rx,(xo,y))
-    c=place(cpl,127.0,y,90); s.wire((xo,y),c(1))
-    r=place(rin,140.97,y,90); s.wire(c(2),r(1))
+    c=place(cpl[0],125.73,y,90); s.wire((xo,y),c(1))
+    c2=place(cpl[1],135.89,y,270); s.wire(c(2),c2(2))   # back to back, − to − (decision 160)
+    r=place(rin,147.32,y,90); s.wire(c2(1),r(1))
     SX,TX=152.4,180.34
     s.wire(r(2),(SX,y))
     a=place(trim_unit[0],167.64,y-2.54,0,trim_unit[1],trim_unit[2])
@@ -110,9 +111,9 @@ def channel(Pn,dy,rx,cpl,rin,trim_unit,c_fb,r_fb,r_z,dz1,dz2,c_a,c_b,r_a,r_b,hp_
     s.tp(f"TP{k+2}",f"{Pn}_PREFILT",(292.1,pn[1]),"up")
 
 # TRIM wire to the DG413 runs up from the trim node: tn -> (TX, ys) is drawn inside channel()
-channel("L",0,outL,"C5","R5",("U2",1,"U2",("2","3","1")),"C7","R7","R9","D1","D2","C9","C10","R11","R12",
+channel("L",0,outL,("C5","C21"),"R5",("U2",1,"U2",("2","3","1")),"C7","R7","R9","D1","D2","C9","C10","R11","R12",
         ("U3",1,"U3",("3","2","1")),("U4",1,180,"1","3","2"),("U90044",4,180,"16","14","15"),"R15")
-channel("R",76.2,outR,"C6","R6",("U2",2,"U90022",("6","5","7")),"C8","R8","R10","D3","D4","C11","C12","R13","R14",
+channel("R",76.2,outR,("C6","C22"),"R6",("U2",2,"U90022",("6","5","7")),"C8","R8","R10","D3","D4","C11","C12","R13","R14",
         ("U3",2,"U90032",("5","6","7")),("U90042",2,0,"8","6","7"),("U90043",3,180,"9","11","10"),"R16")
 
 gnd((25.4,180.34)); s.tp("TP7","AGND",(25.4,180.34),"up")

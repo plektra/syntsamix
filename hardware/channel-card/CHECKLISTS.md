@@ -32,8 +32,8 @@ Done 2026-10-10: DG412 → DG413 (139), E24 values (140), tempco to the backlog 
 
 Open:
 
-7. **Ceramic coupling capacitors:** 10 µF bipolar electrolytics ×8 → 10 µF X5R ceramic (C13585 1206 50 V, JLCPCB basic): about €1.60 per card and one fee type. Breadboard test 11 decides (user, 2026-10-10). Touches decisions 72 and 111.
-11. **Hand-soldering consigned parts: decided (decision 155, 2026-10-10).** The user hand-solders the SSI2144 ×2 (U101/U102) and the SSI2162 (U201) on the prototype (Assembly = "hand (decision 155)"), so neither type is consigned: 38 → 36 fee types, €794 → €788 for 4 channels. The bipolar 10 µF SX-C-023 stays consigned (with the €30 handling) until breadboard test 11 (lever 7): if X5R passes it goes, and the handling with it; if it fails, decide then whether to hand-solder them (the fee goes only if the master does too, the master's call).
+7. **Coupling capacitors: decided (decision 161, 2026-10-11).** Each 10 µF bipolar became two ROQANG 10 µF (SX-C-024) back to back, placed by JLCPCB with no new fee type; the X5R option is dropped (dearer than the pair). Breadboard test 11 checks the pair.
+11. **Hand-soldering consigned parts: decided (decision 155, 2026-10-10).** The user hand-solders the SSI2144 ×2 (U101/U102) and the SSI2162 (U201) on the prototype (Assembly = "hand (decision 155)"), so neither type is consigned: 38 → 36 fee types, €794 → €788 for 4 channels. The bipolar 10 µF SX-C-023 is gone from the card since decision 161 (lever 7), so nothing here is consigned; the €30 handling ends once the master swaps too.
 13. **Fixed V/oct scale (product):** replace RV182 with an E24 pair if breadboard test 12 shows the chips' scales within about ±2 %; one part and one calibration step fewer per card.
 
 ## Component values (decision 134)

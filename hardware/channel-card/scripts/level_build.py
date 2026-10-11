@@ -3,7 +3,7 @@
 import json,os
 CARD=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+'/'
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
+SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 syms=[];nets={}
 def S(lib,name,ref,val,x,y,fp,pn,unit=None,props=None):
     d={"library":lib,"symbol_name":name,"reference":ref,"value":val,"x_mm":x,"y_mm":y,"footprint":fp,"properties":{"ProjectPN":pn,**(props or {})}}
@@ -16,6 +16,8 @@ def R(ref,val,pn,a,b,x,y,fp=R0805,props=None):
     S("Device","R",ref,val,x,y,fp,pn,props=props); N(a,ref+".1"); N(b,ref+".2")
 def C(ref,val,pn,a,b,x,y,fp=C0805,props=None):
     S("Device","C",ref,val,x,y,fp,pn,props=props); N(a,ref+".1"); N(b,ref+".2")
+def CP(ref,a,b,x,y):   # SX-C-024 back to back (decision 160): a on pin 1 (+), b on pin 2 (−, the shared middle)
+    S("Device","C_Polarized",ref,"10u 35V",x,y,"Capacitor_SMD:CP_Elec_5x5.4","SX-C-024",props={"Manufacturer":"ROQANG","MPN":"RVT1V100M0505","Supplier":"LCSC","SupplierPN":"C72486"}); N(a,ref+".1"); N(b,ref+".2")
 SYM={"OPA2171":"Opamp_Dual"}   # no OPA2171 symbol in the KiCad library; Opamp_Dual has the same pinout
 MPN={"OPA2171":{"MPN":"OPA2171AIDR"}}
 def OA(part,ref,unit,x,y,pins,pn):
@@ -24,7 +26,7 @@ def OA(part,ref,unit,x,y,pins,pn):
 # ---- audio, one row per side
 def side(P,o,y,iv,inv):
     r=lambda n:f"R{n+o}"; c=lambda n:f"C{n+o+20}"
-    C(c(201),"10u bipolar","SX-C-003",f"{P}_POSTFILT",f"{P}_VIN",40,y,CBIP)
+    CP(c(201),f"{P}_POSTFILT",f"{P}_VIN_M",36,y); CP(c(215),f"{P}_VIN",f"{P}_VIN_M",44,y)
     R(r(201),"10k","SX-R-002",f"{P}_VIN",f"{P}_IIN",65,y)
     a,b=(f"{P}_RC",f"{P}_IIN") if P=="L" else (f"{P}_IIN",f"{P}_RC")   # pin order matches the wired drawing
     R(r(202),"100","SX-R-001",a,b,90,y+20)

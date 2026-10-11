@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 import json,os
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"
 PROV={"Note":"Provisional: set from the SSI2144 breadboard (simulation/filter/BREADBOARD.md)"}
 syms=[];nets={}
 def S(lib,name,ref,val,x,y,fp,pn,unit=None,props=None):
@@ -16,6 +15,8 @@ def R(ref,val,pn,a,b,x,y,fp=R0805,props=None):
     S("Device","R",ref,val,x,y,fp,pn,props=props); N(a,ref+".1"); N(b,ref+".2")
 def C(ref,val,pn,a,b,x,y,fp=C0805,props=None):
     S("Device","C",ref,val,x,y,fp,pn,props=props); N(a,ref+".1"); N(b,ref+".2")
+def CP(ref,a,b,x,y):   # SX-C-024 back to back (decision 160): a on pin 1 (+), b on pin 2 (−, the shared middle)
+    S("Device","C_Polarized",ref,"10u 35V",x,y,"Capacitor_SMD:CP_Elec_5x5.4","SX-C-024",props={"Manufacturer":"ROQANG","MPN":"RVT1V100M0505","Supplier":"LCSC","SupplierPN":"C72486"}); N(a,ref+".1"); N(b,ref+".2")
 NE={"Manufacturer":"Texas Instruments"}
 def ne(ref,unit,x,y,temp=None):
     S("Amplifier_Operational","NE5532",temp or ref,"NE5532",x,y,"Package_SO:SOIC-8_3.9x4.9mm_P1.27mm","SX-IC-004",unit,NE)
@@ -25,7 +26,7 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     # o: ref offset; dy: y offset
     r=lambda n:f"R{n+o}"; c=lambda n:f"C{n+o}"
     y=lambda v:v+dy
-    C(c(101),"10u bipolar","SX-C-003",f"{P}_PREFILT",f"{P}_FAC",40,y(70),CBIP)
+    CP(c(101),f"{P}_PREFILT",f"{P}_FAC_M",36,y(70)); CP(c(108),f"{P}_FAC",f"{P}_FAC_M",44,y(70))
     R(r(101),"10k","SX-R-002",f"{P}_FAC",f"{P}_PSUM",60,y(70))
     R(r(102),"10k","SX-R-002",f"{P}_PSUM",f"{P}_FIN",80,y(42))
     R(r(103),"16k","SX-R-005",f"{P}_PSUM",f"{P}_DRVA",100,y(42))
@@ -56,7 +57,7 @@ def side(P,o,dy,ssi,ota_unit,ota_ref,ota_pins,pre,iv,post,dgA,dgB):
     u,pins=iv; N(f"{P}_OUTI",f"{u}.{pins[0]}"); N("AGND",f"{u}.{pins[1]}"); N(f"{P}_IV",f"{u}.{pins[2]}")
     R(r(111),"9k1","SX-R-095",f"{P}_OUTI",f"{P}_IV",255,y(45),props=PROV)
     C(c(106),"100p C0G","SX-C-008",f"{P}_OUTI",f"{P}_IV",272,y(45))
-    C(c(107),"10u bipolar","SX-C-003",f"{P}_IV",f"{P}_PA",290,y(75),CBIP)
+    CP(c(107),f"{P}_IV",f"{P}_PA_M",286,y(75)); CP(c(109),f"{P}_PA",f"{P}_PA_M",294,y(75))
     R(r(112),"100k","SX-R-007",f"{P}_PA","AGND",300,y(95))
     u,pins=post; N(f"{P}_PA",f"{u}.{pins[0]}"); N(f"{P}_PFB",f"{u}.{pins[1]}"); N(f"{P}_FILT",f"{u}.{pins[2]}")
     R(r(113),"6k2","SX-R-091",f"{P}_PFB",f"{P}_FILT",320,y(50))

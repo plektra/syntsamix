@@ -13,7 +13,9 @@ the bottom band.
 import json,os
 from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
+SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
+CP10="Capacitor_SMD:CP_Elec_5x5.4"   # decision 160: two 10 µF electrolytics back to back (− to −) per coupling position
+B2B={"Manufacturer":"ROQANG","MPN":"RVT1V100M0505","Supplier":"LCSC","SupplierPN":"C72486"}   # SX-C-024
 TRIM="Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 ST={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007, JLCPCB basic (decision 137)
@@ -22,6 +24,7 @@ s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,fp=R0805,**k): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
 def C(ref,val,pn,x,y,rot=90,fp=C0805,**k): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
+def CP(ref,x,y,rot=90): return s.place("Device","C_Polarized",ref,"10u 35V",x,y,rot,fp=CP10,props=P("SX-C-024",**B2B))
 def OA(part,ref,unit,x,y,pn,fp=SO8,props=TI): return s.place("Amplifier_Operational",part,ref,part,x,y,0,unit,fp,P(pn,**(ST if pn=="SX-IC-007" else props)))
 def gnd(at,rot=0): s.power("GNDA",at,rot)
 def pgnd(at,rot=0): s.power("GNDPWR",at,rot)
@@ -36,8 +39,8 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     # ---- input and drive stage
     yi=y0-10.16
     s.wire((25.4,yi),(31.75,yi)); s.label(f"{Pn}_PREFILT",(25.4,yi),180,"hierarchical","input")
-    ci=C(cc(101),"10u bipolar","SX-C-023",35.56,yi,fp=CBIP,Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP")
-    fac=(45.72,yi); s.wire(ci(2),fac)
+    ci=CP(cc(101),35.56,yi); cj=CP(cc(108),45.72,yi,270); s.wire(ci(2),cj(2))   # back to back (decision 160)
+    fac=(50.8,yi); s.wire(cj(1),fac)
     s.wire(fac,(fac[0],yi-10.16)); s.label(f"{Pn}_FAC",(fac[0],yi-10.16),90)
     r1=R(rr(101),"10k","SX-R-002",58.42,yi); s.wire(fac,r1(1))
     ps=(76.2,yi); s.wire(r1(2),ps)
@@ -121,11 +124,12 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     s.wire((nf[0],out[1]+10.16),rf(1)); s.wire((nf[0],out[1]+20.32),cf(1))
     s.wire(rf(2),(ivn[0],out[1]+10.16)); s.wire(cf(2),(ivn[0],out[1]+20.32))
     s.wire((ivn[0],out[1]+20.32),(ivn[0],out[1]+10.16)); s.wire((ivn[0],out[1]+10.16),ivn)
-    s.wire(ivn,(ivn[0],ivn[1]-7.62)); s.label(f"{Pn}_IV",(ivn[0],ivn[1]-7.62),90)
+    s.wire(ivn,(ivn[0],ivn[1]-12.7)); s.label(f"{Pn}_IV",(ivn[0],ivn[1]-12.7),90)
     # ---- coupling and make-up stage (non-inverting)
-    c7=C(cc(107),"10u bipolar","SX-C-023",254.0,ivn[1],fp=CBIP,Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"); s.wire(ivn,c7(1))
-    pa=(264.16,ivn[1]); s.wire(c7(2),pa)
-    r12=R(rr(112),"100k","SX-R-007",pa[0],ivn[1]+6.35,0); s.wire(pa,r12(1)); gnd(r12(2))
+    c7=CP(cc(107),250.19,ivn[1]); s.wire(ivn,c7(1))
+    c9=CP(cc(109),260.35,ivn[1],270); s.wire(c7(2),c9(2))   # back to back (decision 160)
+    pa=(264.16,ivn[1])   # C109 pin 1 sits on the node
+    r12=R(rr(112),"100k","SX-R-007",pa[0],ivn[1]+8.89,0); s.wire(pa,r12(1)); gnd(r12(2))   # clear of C109 text
     m=OA("NE5532",post[0],post[1],281.94,ivn[1]+2.54,"SX-IC-004")
     s.wire(pa,m(post[2][0]))
     fo=(292.1,ivn[1]+2.54); s.wire(m(post[2][2]),fo)
@@ -146,7 +150,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     rpd=R(rr(121),"100k","SX-R-007",pnode[0],pnode[1]+6.35,0); s.wire(pnode,rpd(1)); gnd(rpd(2))
     s.wire(pnode,(350.52,pnode[1])); s.label(f"{Pn}_POSTFILT",(350.52,pnode[1]),0,"hierarchical","output")
     s.tp(f"TP{101+o}",f"{Pn}_SIN",(147.32,sin[1]),"down")
-    s.tp(f"TP{102+o}",f"{Pn}_IV",(ivn[0],ivn[1]-5.08),"right")
+    s.tp(f"TP{102+o}",f"{Pn}_IV",(ivn[0],ivn[1]-10.16),"left")   # above the op amp text; C107 sits to the right
     s.tp(f"TP{103+o}",f"{Pn}_POSTFILT",(342.9,pnode[1]),"up")
 
 # DG413 units: L dry SW1 (pins 1 IN, 3 S, 2 D), L filtered SW2 (16, 14, 15); R dry SW4 (8, 6, 7), R filtered SW3 (9, 11, 10)

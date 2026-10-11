@@ -20,7 +20,7 @@ Reference: SSI2144 datasheet Rev 3.0 (January 2018), Figures 1 and 3. Where this
 | 1 set | C0G/NP0 capacitors, 5% | 6.8 nF (3), 560 pF, 100 pF, 10 nF, 3.3 nF (optional) |
 | 6 | 100 nF ceramic | Supply decoupling across the rails at each IC |
 | 4 | 10 µF electrolytic, 25 V or more | Supply rail bulk decoupling |
-| 2 | 10 µF film or bipolar electrolytic | Input and output coupling (both ends sit near 0 V) |
+| 2 | 10 µF film or bipolar electrolytic | Input and output coupling (both ends sit near 0 V); test 11 also uses two of the 10 µF electrolytics below, back to back |
 | 2 | 10 kΩ linear pot | Cutoff, spare |
 | 1 | 10 kΩ pot, reverse-audio (Bourns PDB181 class) or linear | Resonance (Figure 3) |
 | 3 | 50 kΩ multiturn trimmers (in-line pins) | Output gain (RV3), V/octave (RV5), cutoff offset (RV4) |
@@ -171,19 +171,19 @@ Mute check: connect a 33 kΩ resistor from -15 V to U204 pin 6; VC must rise by 
 
 Duck check (decision 97): connect 30 kΩ from a -1 V source (a low-impedance divider from -15 V) to U204 pin 6; VC must rise by about 0.33 V (10 dB) at any fader position.
 
-### Test 11: Ceramic instead of bipolar coupling capacitors (cost lever 7)
-The card has eight 10 µF bipolar electrolytics in signal coupling positions (C5, C6, C101, C107, C151, C157, C221, C271); X5R ceramics would save about €1.60 per card and one fee type, but class 2 ceramics can be microphonic and add low-frequency distortion. The coupling positions carry no DC, so the X5R DC-bias loss does not apply. Parts: two 10 µF X5R 1206 50 V (LCSC C13585, JLCPCB basic; soldered to wire legs or a 1206 adapter) and the 10 µF bipolar from the order.
+### Test 11: Back-to-back electrolytics instead of a bipolar (decision 161)
+The card's eight coupling positions are now two polarised 10 µF electrolytics in series, negative to negative (decision 161: C5+C21, C6+C22, C101+C108, C151+C158, C107+C109, C157+C159, C221+C235, C271+C285), 5 µF effective. This test checks that the pair is as clean as a bipolar at low frequency and hot levels. Parts: two 10 µF polarised electrolytics, 25 V or more (from the order, wired − to −), and the 10 µF bipolar from the order.
 
 Put the capacitor under test in series with the input (in place of the input coupling capacitor of the circuit), signal into a 10 kΩ load (as C101 into R101), output into the scope and headphones through the output stage.
 
-| Check | Bipolar electrolytic | X5R 1206 |
+| Check | Bipolar electrolytic | Two 10 µF back to back |
 |---|---|---|
-| Tap test: pencil taps on the capacitor and the board, no signal, output gain at maximum: level on the scope (mV peak) and audible? | | |
-| Knock the table / drop a coin next to it: audible? | | |
+| Level at 20 Hz relative to 1 kHz (expect about −0.1 dB for the pair) | | |
 | THD at 20 Hz and 50 Hz, +4 dBu (if the meter or interface allows) | | |
+| THD at 20 Hz, hot Eurorack level (10 V peak) | | |
 | THD at 1 kHz, +4 dBu | | |
 
-Decide: if the X5R is not audible in the tap and knock checks at full gain and its 20 Hz THD stays below about 0.05 %, use it on the card (decisions 72 and 111 change); otherwise keep the bipolars (C0G does not come in 10 µF).
+Decide: keep the pair unless its 20 Hz THD is clearly above the bipolar's (more than about 0.05 %) or audible; then return to a bipolar part (Nichicon UWP1V100MCL1GB, LCSC C340735, same footprint as before; one fee type). The X5R ceramic option is dropped: it costs more than the pair and can be microphonic.
 
 ### Test 12: Fixed V/oct scale instead of the RV182 trimmer (cost review, product lever)
 Temperature compensation is in the backlog (decision 141): the card's FREQ leg is a plain 1 k (820 + 180), as on this breadboard. This test shows whether the V/oct scale is close enough between chips to drop the V/OCT trimmer, and how far the scale drifts without compensation.

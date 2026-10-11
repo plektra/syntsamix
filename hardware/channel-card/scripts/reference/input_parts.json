@@ -277,30 +277,30 @@
   ]
  },
  "C6": {
-  "lib": "Device:C",
-  "value": "10u bipolar",
-  "footprint": "Capacitor_SMD:C_Elec_6.3x5.4",
+  "lib": "Device:C_Polarized",
+  "value": "10u 35V",
+  "footprint": "Capacitor_SMD:CP_Elec_5x5.4",
   "props": {
-   "ProjectPN": "SX-C-023",
-   "Manufacturer": "Panasonic",
-   "MPN": "EEE-1VA100NP",
-   "Supplier": "Mouser",
-   "SupplierPN": "667-EEE-1VA100NP"
+   "ProjectPN": "SX-C-024",
+   "Manufacturer": "ROQANG",
+   "MPN": "RVT1V100M0505",
+   "Supplier": "LCSC",
+   "SupplierPN": "C72486"
   },
   "units": [
    1
   ]
  },
  "C5": {
-  "lib": "Device:C",
-  "value": "10u bipolar",
-  "footprint": "Capacitor_SMD:C_Elec_6.3x5.4",
+  "lib": "Device:C_Polarized",
+  "value": "10u 35V",
+  "footprint": "Capacitor_SMD:CP_Elec_5x5.4",
   "props": {
-   "ProjectPN": "SX-C-023",
-   "Manufacturer": "Panasonic",
-   "MPN": "EEE-1VA100NP",
-   "Supplier": "Mouser",
-   "SupplierPN": "667-EEE-1VA100NP"
+   "ProjectPN": "SX-C-024",
+   "Manufacturer": "ROQANG",
+   "MPN": "RVT1V100M0505",
+   "Supplier": "LCSC",
+   "SupplierPN": "C72486"
   },
   "units": [
    1
@@ -796,5 +796,35 @@
    "SupplierPN": "C110775",
    "Note": "0.1 %: receiver resistor match sets the CMRR (decision 143)"
   }
+ },
+ "C21": {
+  "lib": "Device:C_Polarized",
+  "value": "10u 35V",
+  "footprint": "Capacitor_SMD:CP_Elec_5x5.4",
+  "props": {
+   "ProjectPN": "SX-C-024",
+   "Manufacturer": "ROQANG",
+   "MPN": "RVT1V100M0505",
+   "Supplier": "LCSC",
+   "SupplierPN": "C72486"
+  },
+  "units": [
+   1
+  ]
+ },
+ "C22": {
+  "lib": "Device:C_Polarized",
+  "value": "10u 35V",
+  "footprint": "Capacitor_SMD:CP_Elec_5x5.4",
+  "props": {
+   "ProjectPN": "SX-C-024",
+   "Manufacturer": "ROQANG",
+   "MPN": "RVT1V100M0505",
+   "Supplier": "LCSC",
+   "SupplierPN": "C72486"
+  },
+  "units": [
+   1
+  ]
  }
 }

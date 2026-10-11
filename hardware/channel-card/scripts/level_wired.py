@@ -11,13 +11,16 @@ buttons (their spare pole switches the control voltage, decision 142) and the su
 import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
+SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"   # decision 111: SMD bipolar, 5.4 mm tall
+CP10="Capacitor_SMD:CP_Elec_5x5.4"   # decision 160: two 10 µF electrolytics back to back (− to −) per coupling position
+B2B={"Manufacturer":"ROQANG","MPN":"RVT1V100M0505","Supplier":"LCSC","SupplierPN":"C72486"}   # SX-C-024
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 ST={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007, JLCPCB basic (decision 137)
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,fp=R0805,**k): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
 def C(ref,val,pn,x,y,rot=90,fp=C0805,**k): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**k))
+def CP(ref,x,y,rot=90): return s.place("Device","C_Polarized",ref,"10u 35V",x,y,rot,fp=CP10,props=P("SX-C-024",**B2B))
 SYM={"OPA2171":"Opamp_Dual"}; MPN={"OPA2171":{"MPN":"OPA2171AIDR"},"TL072":ST}   # no OPA2171 symbol in the KiCad library; same pinout
 def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**{**TI,**MPN.get(part,{})}))
 def gnd(at,rot=0): s.power("GNDA",at,rot)       # renamed to AGND in post-processing
@@ -47,9 +50,9 @@ def audio(Pn,o,y,iin,iout,iv,inv,rc_up):
     c=lambda n:f"C{n+o+20}"; rr=lambda n:f"R{n+o}"
     x0=30.48
     s.wire((x0,y),(41.91,y)); s.label(f"{Pn}_POSTFILT",(x0,y),180,"hierarchical","input")
-    ci=C(c(201),"10u bipolar","SX-C-023",45.72,y,fp=CBIP,Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP")
-    ri=R(rr(201),"10k","SX-R-002",63.5,y)
-    s.wire(ci(2),ri(1))
+    ci=CP(c(201),45.72,y); cj=CP(c(215),55.88,y,270); s.wire(ci(2),cj(2))   # back to back (decision 160)
+    ri=R(rr(201),"10k","SX-R-002",68.58,y)
+    s.wire(cj(1),ri(1))
     node=(78.74,y); s.wire(ri(2),node)
     # input stability network 110R + 2n2 (up for L, down for R)
     sgn=-1 if rc_up else 1

@@ -135,7 +135,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts (now one per end, 120); PCB between the rails, ≤ 318 mm | confirmed, refined | [mechanical](mechanical.md) |
 | 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB (underside rules: 121) | confirmed, refined | [mechanical](mechanical.md) |
 | 110 | Channel regulators U501/U502 in D²PAK (onsemi LM317D2TR4G, LM337D2TR4G), tab on about 20 × 20 mm copper both sides | confirmed | [channel-card-parts](channel-card-parts.md) |
-| 111 | Channel electrolytics to SMD at most 5.4 mm tall: ROQANG 47 µF and 10 µF 35 V (LCSC), Panasonic EEE-1VA100NP bipolar | confirmed | [channel-card-parts](channel-card-parts.md) |
+| 111 | Channel electrolytics to SMD at most 5.4 mm tall: ROQANG 47 µF and 10 µF 35 V (LCSC), Panasonic EEE-1VA100NP bipolar (coupling refined by 161) | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 112 | Trimmers RV101, RV151, RV182 (3296W, screws down) and jumper headers JP101, JP102, JP151, JP152, J301, J302 on the underside, set through a detachable bottom cover | confirmed (cover: 121) | [channel-card-parts](channel-card-parts.md) |
 | 113 | Low-cut capacitors C9-C12: C0G 47 nF 5 % 1206 (Murata, LCSC C21812) instead of film | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 114 | Panel pots: Alpha 9 mm with 6 mm T18 knurled shaft, 15 mm, push-on knobs | confirmed | [channel-card-parts](channel-card-parts.md) |
@@ -179,11 +179,12 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 152 | Buttons may switch DC control voltages directly (sequence-independent wiring, smoothing ramp); audio still never through a button; refines 69, confirms 142 and the scope wording | confirmed | [system](system.md) |
 | 153 | SC_ENV load 30 kΩ (E24, basic) instead of 30k1 on channel R217 and master R232/R332; ducking 0.03 dB per volt deeper; refines 97 | confirmed | [system](system.md) |
 | 154 | Decision log in two tiers: short current rulings in the area files, full text in `record/` (`tools/check_decisions.py`) | confirmed | [process](process.md) |
-| 155 | Channel SSI2144 ×2 and SSI2162 hand-soldered by the user on the prototype (cost lever 11); bipolar caps wait for breadboard test 11 | confirmed | [channel-card](channel-card.md) |
+| 155 | Channel SSI2144 ×2 and SSI2162 hand-soldered by the user on the prototype (cost lever 11); bipolar caps replaced by 161 | confirmed | [channel-card](channel-card.md) |
 | 156 | Power board dividers on fee-free E24 values: UVLO 680k / 39k (start 21.3 V, stop 19.0 V), RT 240k, buck compensation 16k; refines 100 | confirmed | [power](power.md) |
 | 157 | Power switch: snap-in rear-panel rocker (Legion SS11-BBIWG-R20-R) wired to a JST XH header J102 instead of a board-mounted switch; refines 100 | confirmed | [power](power.md) |
 | 158 | Power board C103 Nichicon UHE 100 µF 50 V radial (hand-soldered); sync capacitors 10 pF C0G 50 V 0603 basic instead of 100 V 0805; refines 100 | confirmed | [power](power.md) |
 | 159 | Power board buck catch diode D201 SS54 in SMA (C22452, basic) on a D_SMA footprint, fixing the SMC footprint mismatch; refines 100 | confirmed | [power](power.md) |
+| 161 | Channel audio coupling: each 10 µF bipolar becomes two ROQANG 10 µF (SX-C-024) back to back, placed by JLCPCB, no new fee type; X5R option dropped, test 11 checks the pair; master to follow; refines 111 | confirmed | [channel-card-parts](channel-card-parts.md) |
 
 ## Proposed but not confirmed
 
