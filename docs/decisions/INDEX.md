@@ -10,7 +10,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
 | [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135, 150: hand-soldered ICs) |
-| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149) |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149, 163) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, workflow (availability notes in the record) |
@@ -187,6 +187,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 160 | Rear and frame: input module on edge with NYS216 jacks stacked L above R, one FR4 rear strip per channel between the rear rail and a bottom angle, sloped frame (wedge cheeks), input cable 100 mm provisional; refines 59, 62, 99, 108, 121 | confirmed, refined | [mechanical](mechanical.md) |
 | 161 | Channel audio coupling: each 10 µF bipolar becomes two ROQANG 10 µF (SX-C-024) back to back, placed by JLCPCB, no new fee type; X5R option dropped, test 11 checks the pair; master to follow; refines 111 | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 162 | Master section 4 strips with rear jacks on two row boards, power bay (on-edge power board, two module sizes planned), chain 1 next to the master, single front rail, headphones panel-mounted on the master top panel, master heatsinks under the card, master meter 0805 under bezels; refines 56, 80, 86, 109, 121, 157, 160 | confirmed | [mechanical](mechanical.md) |
+| 163 | Rear row-board ribbons: two 26-pin shrouded IDC headers, J603 (outputs, AUX sends sheet) and J903 (inputs and ground lift, Power sheet), pairs with a ground between them; row boards carry only jacks, header and SW901; refines 87, 88, 90-92, 162 | confirmed | [master-card-sheets](master-card-sheets.md) |
 
 ## Proposed but not confirmed
 

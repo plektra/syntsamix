@@ -12,7 +12,7 @@
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
-5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then the decision 162 rework (rear jacks to two new passive row boards, panel-mounted headphone jack, 0805 meter LEDs, underside heatsinks), then PCB with the two row boards
+5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then the decision 162 rework (rear ribbons J603/J903 drawn 2026-10-12, decision 163; still the two passive row board projects after measuring an NYS216, panel-mounted headphone jack, 0805 meter LEDs, underside heatsinks), then PCB with the two row boards
 6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB as an on-edge board in the power bay (decision 162)
 7. **Prototype build and measurement** against the targets in SPEC.md section 5
 

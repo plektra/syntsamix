@@ -3,7 +3,7 @@
 """AUX return sheets, drawn with real wires (one script, two identical sheets).
 
 Reference netlists: aux_return_build.py (check_netlist.py aux_return1.json / aux_return2.json).
-Top: jacks, RFI filters, TL072 difference receiver (decision 148), gain stage with the PRO/PEDAL jumper,
+Top: RFI filters (jacks on the rear input row board, decision 163), TL072 difference receiver (decision 148), gain stage with the PRO/PEDAL jumper,
 SSI2162 VCA with I-V stage and inverter, bus resistors and the MAIN/COMP switch.
 Bottom: level law (as the channel fader), mute/duck switch, buttons, supplies.
 """
@@ -29,16 +29,7 @@ def draw(n):
     def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI,Assembly="hand (decision 150)",))
     gnd=lambda at,rot=0: s.power("GNDA",at,rot)
     up=lambda p,d=2.54:(p[0],p[1]-d); dn=lambda p,d=2.54:(p[0],p[1]+d); lt=lambda p,d=2.54:(p[0]-d,p[1]); rt=lambda p,d=2.54:(p[0]+d,p[1])
-    # ------------------------------------------------ jacks (labels to the RFI filters)
-    JK=dict(fp="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal")
-    j1=s.place("Connector_Audio","AudioJack3_Switch",f"J{B+1}",f"RETURN {n} L/MONO",30.48,50.8,0,props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216"),**JK)
-    j2=s.place("Connector_Audio","AudioJack3_Switch",f"J{B+2}",f"RETURN {n} R",30.48,76.2,0,props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216"),**JK)
-    for jj,pins in ((j1,(("T","IN_L+"),("R","IN_L-"),("S",None))),(j2,(("T","IN_R+"),("R","IN_R-"),("S",None),("TN","IN_L+"),("RN","IN_L-")))):
-        for pin,net in pins:
-            e=rt(jj(pin),5.08); s.wire(jj(pin),e)
-            if net: s.label(net,e,0)
-            else: gnd(e,90)
-    NC+=[j1("TN"),j1("RN"),j1("SN"),j2("SN")]
+    # jacks: on the rear input row board (decision 163); the RFI filters take RETn_L+/L-/R+/R- from the Power sheet's ribbon header J903
     # ------------------------------------------------ receiver
     # receiver: TL072 difference amplifier, G = 1/2, as the channel (decision 148, after decision 143).
     # R1-R4 (10k 0.1 %, with the 220p RFI caps) are the first half of each 20k input leg; IN+ drives the
@@ -49,19 +40,19 @@ def draw(n):
         a=OA("TL072",ref,unit,109.22,ych,"SX-IC-007"); pp,pm,po=pins
         A,Bv,F=ych-12.7,ych+10.16,ych+20.32
         # non-inverting leg on row A, R to ground above the + node column
-        s.label(ln,(48.26,A),180); r=R(rn_,"10k","SX-R-107",60.96,A,**RX); s.wire((48.26,A),r(1)); nd=(71.12,A); s.wire(r(2),nd)
+        s.label(ln,(48.26,A),180,"hierarchical","input"); r=R(rn_,"10k","SX-R-107",60.96,A,**RX); s.wire((48.26,A),r(1)); nd=(71.12,A); s.wire(r(2),nd)
         c=C(cn_,"220p C0G","SX-C-001",nd[0],A+3.81,0); s.wire(nd,c(1)); gnd(c(2))
         r2=R(rni,"10k","SX-R-107",83.82,A,**RX); s.wire(nd,r2(1)); s.wire(r2(2),(93.98,A),(93.98,a(pp)[1]),a(pp))
         g=R(rg,"10k","SX-R-107",93.98,A-3.81,0,**RX); s.wire((93.98,A),g(2)); t=up(g(1),2.54); s.wire(g(1),t,rt(t,5.08)); gnd(rt(t,5.08))
         # inverting leg on row B, feedback on row F
-        s.label(lp,(48.26,Bv),180); r=R(rp_,"10k","SX-R-107",60.96,Bv,**RX); s.wire((48.26,Bv),r(1)); nd=(71.12,Bv); s.wire(r(2),nd)
+        s.label(lp,(48.26,Bv),180,"hierarchical","input"); r=R(rp_,"10k","SX-R-107",60.96,Bv,**RX); s.wire((48.26,Bv),r(1)); nd=(71.12,Bv); s.wire(r(2),nd)
         c=C(cp_,"220p C0G","SX-C-001",nd[0],Bv+3.81,0); s.wire(nd,c(1)); gnd(c(2))
         r2=R(ri,"10k","SX-R-107",83.82,Bv,**RX); s.wire(nd,r2(1)); s.wire(r2(2),(91.44,Bv))
         s.wire((91.44,Bv),(91.44,a(pm)[1]),a(pm)); s.wire((91.44,Bv),(91.44,F))
         f=R(rf,"10k","SX-R-107",104.14,F,**RX); s.wire((91.44,F),f(1)); s.wire(f(2),(a(po)[0],F),a(po))
         return a(po)
-    RXO={"L":receiver(119.38,((1,1,"IN_L+",45,46),(2,2,"IN_L-",47,48)),uu(1),1,(3,2,1)),
-         "R":receiver(195.58,((3,3,"IN_R+",49,50),(4,4,"IN_R-",51,52)),tt(1,2),2,(5,6,7))}
+    RXO={"L":receiver(119.38,((1,1,f"RET{n}_L+",45,46),(2,2,f"RET{n}_L-",47,48)),uu(1),1,(3,2,1)),
+         "R":receiver(195.58,((3,3,f"RET{n}_R+",49,50),(4,4,f"RET{n}_R-",51,52)),tt(1,2),2,(5,6,7))}
     # ------------------------------------------------ per side: gain stage, VCA input, I-V, inverter, bus switch
     XV,YV=325.12,121.92
     v=s.place("syntsamix","SSI2162",uu(3),"SSI2162",XV,YV,0,fp="Package_SO:SSOP-10_3.9x4.9mm_P1.00mm",props=P("SX-IC-002",Assembly="hand (decision 150)",Manufacturer="Sound Semiconductor",MPN="SSI2162SS-TU",Supplier="Electrokit",SupplierPN="41019302"))

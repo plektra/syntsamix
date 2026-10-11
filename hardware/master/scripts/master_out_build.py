@@ -40,9 +40,9 @@ for side,(u,ccp,ccn,dpp,dpn,dnp,dnn,k,rgh,rgc,j) in (
     N(f"{side}_OP",f"{u}.8",f"{ccp}.1",f"{dpp}.2",f"{dnp}.1",f"{k}.5"); N(f"{side}_SP",f"{u}.7",f"{ccp}.2")
     N(f"{side}_ON",f"{u}.1",f"{ccn}.2",f"{dpn}.2",f"{dnn}.1",f"{k}.4"); N(f"{side}_SN",f"{u}.2",f"{ccn}.1")
     N("+15V",f"{dpp}.1",f"{dpn}.1"); N("-15V",f"{dnp}.2",f"{dnn}.2")      # D pin 1 = K: clamps to the rails
-    N(f"{side}_HOT",f"{k}.6",f"{j}.T"); N(f"{side}_GH",f"{k}.7",f"{rgh}.1"); N("AGND",f"{rgh}.2")
-    N(f"{side}_COLD",f"{k}.3",f"{j}.R"); N(f"{side}_GC",f"{k}.2",f"{rgc}.1"); N("AGND",f"{rgc}.2")
-    N("AGND",f"{j}.S")
+    N(f"MAIN_{side}_HOT",f"{k}.6"); N(f"{side}_GH",f"{k}.7",f"{rgh}.1"); N("AGND",f"{rgh}.2")
+    N(f"MAIN_{side}_COLD",f"{k}.3"); N(f"{side}_GC",f"{k}.2",f"{rgc}.1"); N("AGND",f"{rgc}.2")
+    # the jack sits on the rear output row board (decision 163): HOT/COLD go to the ribbon header J603 on the AUX sends sheet
 # ---------------------------------------------------------------- master level law (as the channel fader, decision 72)
 # U705 = OPA2171 (buffer A, summer B), U706 = TL072 (superdiodes), as decision 102
 N("-15V","RV701.1"); N("POTW","RV701.2","U705.3"); N("AGND","RV701.3"); N("VB","U705.2","U705.1","R714.1","R716.1","R719.1")

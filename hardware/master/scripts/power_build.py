@@ -7,6 +7,8 @@ Power ribbon in from the power board (decision 81). LM317/LM337 to ±15.1 V (200
 LED load (two 12-segment meters, compressor and PFL LEDs) is too much for a 78L05.
 AGND and PGND join here and only here, through a net tie (the system star point, CHAIN.md).
 The frame bonds to it through a ground-lift switch; lifted, through 100 Ω ∥ 100 nF.
+The lift switch is on the rear input row board, on pins 25 (star) and 26 (CHASSIS) of the input
+ribbon header J903, which also brings in the AUX returns and SC EXT (decision 163).
 """
 import json,os
 nets={}
@@ -22,7 +24,11 @@ N("-15V","U902.3","D903.1","R903.2","D904.2","C909.2","C910.1","D906.2")
 N("ADJ_N","U902.1","R903.1","R904.2","C908.2","D904.1"); N("AGND","R904.1","C908.1","C909.1","C910.2","D906.1")
 N("+15V","U903.1","C911.1"); N("PGND","U903.2","C911.2","C912.2"); N("+5V","U903.3","C912.1")
 N("AGND","NT901.1"); N("PGND","NT901.2")
-N("CHASSIS","J902.1","SW901.1","R905.1","C913.1"); N("AGND","SW901.2","R905.2","C913.2")
+N("CHASSIS","J902.1","R905.1","C913.1","J903.26"); N("AGND","R905.2","C913.2")
+# rear input ribbon J903 (decision 163), pin n = conductor n: AUX return pairs and SC EXT between grounds, 25/26 the lift switch
+for pin,net in ((2,"RET1_L+"),(3,"RET1_L-"),(5,"RET1_R+"),(6,"RET1_R-"),(8,"RET2_L+"),(9,"RET2_L-"),(11,"RET2_R+"),(12,"RET2_R-"),
+                (14,"EXT_T"),(16,"EXT_SEL")): N(net,f"J903.{pin}")
+N("AGND",*[f"J903.{p}" for p in (1,4,7,10,13,15,17,18,19,20,21,22,23,24,25)])
 for tp,net in (("TP901","+20V_RAW"),("TP902","-20V_RAW"),("TP903","+15V"),("TP904","-15V"),("TP905","+5V"),("TP906","PGND")): N(net,f"{tp}.1")
 T=os.path.join(os.path.dirname(os.path.abspath(__file__)),'build')+'/'; os.makedirs(T,exist_ok=True)
 json.dump({"nets":[{"name":k,"pins":v} for k,v in nets.items()]},open(T+'power.json','w'))

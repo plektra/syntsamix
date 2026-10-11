@@ -4,7 +4,8 @@
 
 Reference netlist: power_build.py (check_netlist.py power.json).
 Regulator blocks follow the channel card (chain_wired.py); +5 V uses an L7805 for the
-heavier LED load. AGND/PGND star point (net tie) and the frame ground lift.
+heavier LED load. AGND/PGND star point (net tie), the frame bond with its lift network, and the rear input
+ribbon header J903 (decision 163; the lift switch is on the rear input row board).
 """
 SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
      "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
@@ -113,15 +114,41 @@ pgnd((200.66,Y3+7.62)); s.tp("TP906","PGND",(200.66,Y3+7.62),"up")
 nt=s.place("Device","NetTie_2","NT901","STAR POINT",76.2,264.16,0,fp="NetTie:NetTie-2_SMD_Pad2.0mm",props=P("none (PCB net tie)",Note="The only AGND-PGND connection in the system (docs/CHAIN.md); place where the power ribbon enters"))
 s.wire(nt(1),lt(nt(1),5.08)); gnd(lt(nt(1),5.08)); s.wire(nt(2),rt(nt(2),5.08)); pgnd(rt(nt(2),5.08))
 s.power("PWR_FLAG",(55.88,256.54)); s.wire((55.88,256.54),(55.88,261.62)); gnd((55.88,261.62))
-# frame bond with ground lift: closed = frame on the star point, open = through 100R || 100n
+# frame bond with ground lift: closed = frame on the star point, open = through 100R || 100n.
+# The lift switch SW901 sits on the rear input row board (decision 163): CHASSIS goes out on J903 pin 26 and comes
+# back closed on pin 25, which lands on AGND here; route pin 25 straight to the star point NT901 at layout.
 fr=s.place("Connector_Generic","Conn_01x01","J902","FRAME",40.64,304.8,0,fp="MountingHole:MountingHole_3.2mm_M3_Pad",props=P("none (PCB mounting hole)",Note="Frame bond screw to the metal frame rail"))
 ch=rt(fr(1),7.62); s.wire(fr(1),ch)
 for xx in (58.42,73.66,88.9): s.wire(ch,(xx,ch[1])); ch=(xx,ch[1])
-sw=s.place("Switch","SW_SPST","SW901","GROUND LIFT",58.42,314.96,270,props=P("SX-SW-002",Note="Panel switch on the master rear panel; part to choose"))
+s.label("CHASSIS",(58.42,304.8),0)
 rl=s.place("Device","R","R905","100",73.66,314.96,0,fp=R0805,props=P("SX-R-001"))
 cl=s.place("Device","C","C913","100n 100V",88.9,314.96,0,fp=C0805,props=P("SX-C-013"))
-for p1,p2 in ((sw(1),sw(2)),(rl(1),rl(2)),(cl(1),cl(2))):
+for p1,p2 in ((rl(1),rl(2)),(cl(1),cl(2))):
     s.wire((p1[0],304.8),p1); s.wire(p2,dn(p2,2.54)); gnd(dn(p2,2.54))
+
+def ribbon_header(h,pins,label):
+    """Header pins: grounds on one vertical bar per side (one ground symbol below the last pin), signals on stubs
+    that cross the bar without a junction and end in label(net, at, rot)."""
+    for left in (True,False):
+        side=[p for p in pins if (p%2==1)==left]; sg=-1 if left else 1
+        xb=h(side[0])[0]+sg*5.08; gy=[]
+        for p in side:
+            a=h(p)
+            if pins[p]=="G": s.wire(a,(xb,a[1])); gy.append(a[1])
+            else: e=(a[0]+sg*12.7,a[1]); s.wire(a,e); label(pins[p],e,180 if left else 0)
+        yb=max(h(p)[1] for p in side)+5.08
+        s.wire((xb,min(gy)),(xb,yb)); gnd((xb,yb))
+
+# ------------------------------------------------------------- rear input ribbon (decision 163)
+# 26-pin shrouded keyed IDC header to the rear input row board (AUX returns, SC EXT, ground lift); pin n = ribbon conductor n.
+# Balanced pairs with a ground between them; jack sleeves return on the ground pins; 25/26 = ground-lift switch.
+IN_PINS={1:"G",2:"RET1_L+",3:"RET1_L-",4:"G",5:"RET1_R+",6:"RET1_R-",7:"G",8:"RET2_L+",9:"RET2_L-",10:"G",
+         11:"RET2_R+",12:"RET2_R-",13:"G",14:"EXT_T",15:"G",16:"EXT_SEL",17:"G",18:"G",19:"G",20:"G",21:"G",22:"G",
+         23:"G",24:"G",25:"G",26:"CHASSIS"}
+h=s.place("Connector_Generic","Conn_02x13_Odd_Even","J903","REAR INPUTS",330.2,195.58,0,fp="Connector_IDC:IDC-Header_2x13_P2.54mm_Vertical",
+          props=P("SX-CONN-017",Manufacturer="Wurth Elektronik",MPN="61202621621",Supplier="Mouser",SupplierPN="710-61202621621",
+                  Note="26-pin shrouded keyed box header to the rear input row board (decision 163); pin 25 = lift return to the star point; hand-soldered"))
+ribbon_header(h,IN_PINS,lambda net,e,rot: s.label(net,e,rot) if net=="CHASSIS" else s.label(net,e,rot,"hierarchical","output"))
 
 HERE=os.path.dirname(os.path.abspath(__file__)); CARD=os.path.dirname(HERE)+'/'
 T=os.path.join(HERE,'build')+'/'; os.makedirs(T,exist_ok=True)

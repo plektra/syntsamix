@@ -4,7 +4,7 @@
 
 Decision 90; values simulated in simulation/sidechain/run.py.
 Sources: INT = -(COMP_L_SUM + COMP_R_SUM)/2, BUS = -SC_SUM, EXT = DC-coupled inverting buffer
-(100 kΩ) on a switched 6.3 mm jack whose ring switch contact (RN) detects a plug.
+(100 kΩ) on a switched 6.3 mm jack (rear input row board, decision 163) whose ring switch contact (RN) detects a plug.
 Selector (U506 DG413): SC BUS button picks BUS (pressed) or INT; a plugged EXT jack overrides.
 LPF: unity-gain Sallen-Key 22 nF / 47 nF with 10 kΩ + a 100 kΩ dual linear pot (B100K, decision 138;
 about 46-510 Hz, middle 85 Hz), bypass button (U507). A follower drives SC_DET (compressor detector, ducker, SC listen).
@@ -23,7 +23,8 @@ def N(net,*pins):
 # ---------------------------------------------------------------- sources (U501, U502A), EXT jack
 N("COMP_L_SUM","R501.1"); N("COMP_R_SUM","R502.1"); N("NI","R501.2","R502.2","R503.1","U501.2"); N("AGND","U501.3"); N("INT","U501.1","R503.2")
 N("SC_SUM","R504.1"); N("NB","R504.2","R505.1","U95012.6"); N("AGND","U95012.5"); N("BUSS","U95012.7","R505.2","U506.2")
-N("AGND","J501.S","J501.R","J501.TN"); N("EXT_T","J501.T","R506.1"); N("EXT_SEL","J501.RN","R508.2","C501.1","U95062.8","U95064.16")
+# EXT jack J501 on the rear input row board (decision 163): tip and ring switch contact arrive as hierarchical labels
+N("EXT_T","R506.1"); N("EXT_SEL","R508.2","C501.1","U95062.8","U95064.16")
 N("+5V","R508.1"); N("AGND","C501.2")
 N("NE","R506.2","R507.1","U502.2"); N("AGND","U502.3"); N("EXTS","U502.1","R507.2","U95062.6")
 # ---------------------------------------------------------------- selector (U506)

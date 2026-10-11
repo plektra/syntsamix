@@ -1,6 +1,6 @@
 # Continue from here
 
-Project-level handoff, updated 2026-10-11. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
+Project-level handoff, updated 2026-10-12. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
 
 ## Boards
 
@@ -8,10 +8,11 @@ Project-level handoff, updated 2026-10-11. Read `CLAUDE.md` first. Board detail 
 |---|---|---|---|
 | Input module | done, ERC clean; position on edge, jacks stacked (decision 160) | not started | `hardware/input-module-6p3/STATUS.md` |
 | Channel card | done, ERC 0/0; mechanical parts chosen and settled with /system 2026-10-09 (decisions 110-122); meter LEDs 0805 and op amp power levers drawn (decision 123); pot MPNs on the symbols, R184 12 k for the RESONANCE pot rating (decision 129); TFPT tempco pair (decision 130); 2026-10-10 (delegated): U303 DG413 (decision 139), all values E24 with fee-free parts (decision 140), tempco to the backlog (141), MUTE/DUCK by the buttons (142), TL072 receiver (143); trimmers from Mouser, CUTOFF pot from Tayda; R217 30k (153); SSI2144 and SSI2162 hand-soldered on the prototype (155); 2026-10-11: coupling capacitors as back-to-back ROQANG pairs, nothing consigned (161; the master follows) | not started (waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up) | `hardware/channel-card/STATUS.md` |
-| Master card | done, ten sheets, ERC 0/0; decision 162 rework pending (rear jacks to two row boards, panel-mounted headphone jack, 0805 meter, underside heatsinks); pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131); SC LPF pot RV501 a standard B100K dual (decision 138); 2026-10-10: fee-free parts and E24 values throughout (decisions 144, 146, 147), AUX return receivers TL072 difference amplifiers (148, the AD8273 is gone from the project), R421 a plain 1k (149, temperature compensation to the backlog), DG413/SSI2162/DRV135/AS3046D hand-soldered on the prototype (150); R232/R332 30k (153) | not started (waits for the decision 162 schematic rework) | `hardware/master/STATUS.md` |
+| Master card | done, ten sheets, ERC 0/0; decision 162 rework in progress: rear ribbons J603/J903 drawn (163, 26-pin, row boards still to draw after measuring an NYS216), still to do the panel-mounted headphone jack, 0805 meter, underside heatsinks; pre-layout session 2026-10-09: open points of 89-94 confirmed, DRV135 replaces the end-of-life THAT1646, TL062 levers, SMD electrolytics, both raw rails watched (decisions 125-128); RELEASE pot C100K for the pot rating (decision 131); SC LPF pot RV501 a standard B100K dual (decision 138); 2026-10-10: fee-free parts and E24 values throughout (decisions 144, 146, 147), AUX return receivers TL072 difference amplifiers (148, the AD8273 is gone from the project), R421 a plain 1k (149, temperature compensation to the backlog), DG413/SSI2162/DRV135/AS3046D hand-soldered on the prototype (150); R232/R332 30k (153) | not started (waits for the decision 162 schematic rework) | `hardware/master/STATUS.md` |
 | Power board | done, four sheets, ERC 0/0; power bay form and two module sizes (decision 162); values confirmed, start-up ramp added; full-size brick GSM220B24-R7B (decision 145); converter dividers on fee-free E24 values (decision 156); power switch a rear-panel rocker on J102 (decision 157); C103 and sync capacitors chosen (decision 158); D201 SS54 on SMA (decision 159) | not started | `hardware/power/STATUS.md` |
+| Rear row boards (master; output and input) | not started: new KiCad projects, jacks + 26-pin header (+ SW901 on the input board), pinouts decision 163; measure an NYS216 sample first | not started | `hardware/master/STATUS.md` |
 
-Decisions 1-162; last pushed commit: see `git log -1`.
+Decisions 1-163; last pushed commit: see `git log -1`.
 
 ## Order of work
 
@@ -20,7 +21,7 @@ Decisions 1-162; last pushed commit: see `git log -1`.
 3. **Channel card schematic touch-up**: done 2026-10-09 (meter LEDs 0805, decision 119; power levers, decision 123).
 4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: declarations for the SSI2144, SSI2162 (channel) and the AS3046D (master; the Alpha pots are cleared by Alpha's declaration, decision 124), 25 rows with no part chosen yet, The ERA-V33J102V End of Life is closed: neither board uses a tempco part now (channel decision 141, master decision 149). The THAT1646 End of Life is closed by decision 125 (DRV135UA).
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
-6. **Master schematic rework for decision 162** (`hardware/master/STATUS.md`, Next): rear jacks to two new row boards, panel-mounted headphone jack, 0805 meter LEDs. Can run any time; measure an NYS216 sample first.
+6. **Master schematic rework for decision 162** (`hardware/master/STATUS.md`, Next): rear ribbons on the master done (decision 163); still the two row board projects (measure an NYS216 sample first), the panel-mounted headphone jack, 0805 meter LEDs.
 7. **Channel card PCB**, then the input module, master card (with its two row boards) and power board PCBs.
 
 ## System

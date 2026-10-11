@@ -5,7 +5,8 @@
 Reference netlist: aux_sends_build.py (check_netlist.py aux_sends.json).
 Per send: the dual master pot as a labelled block (left), the L stage with its mono
 switches below it, the R stage, then the impedance-balanced output jacks (right) with
-the plug-detect pull-up. Supplies at the bottom.
+the plug-detect pull-up; jacks on the rear output row board, reached through
+the ribbon header J603 (decision 163), which also carries the main outputs. Supplies at the bottom.
 """
 import json,os
 from schlayout import Sheet
@@ -34,18 +35,14 @@ def stage(ref,unit,pins,y,src,rin,rf):
     f=R(rf,"47k","SX-R-032",121.92,y+10.16); s.wire(nd,(nd[0],y+10.16),f(1)); s.wire(f(2),(o[0],y+10.16),o)
     return nd,o
 
-def output(o,jref,title,rt_ref,rr_ref,tp,tpname,det=None):
-    """Impedance-balanced output: O -> 100R -> tip; ring -> 100R -> AGND. Jack pins face right, tip routed round the right."""
-    yj=o[1]+12.7
-    j=s.place("Connector_Audio","AudioJack3_Switch",jref,title,190.5,yj,0,fp=JK,props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216"))
+def output(o,title,rt_ref,rr_ref,tp,tpname):
+    """Impedance-balanced output: O -> 100R -> tip; ring -> 100R -> AGND. The jack sits on the rear output row board
+    (decision 163): tip and ring leave as labels <side>_T / <side>_RING for the ribbon header J603."""
+    base=tpname[:-2]; yj=o[1]+12.7; jt,jr=(195.58,yj+5.08),(195.58,yj)
     r=R(rt_ref,"100","SX-R-001",157.48,o[1]); s.wire(o,r(1)); xv=236.22
-    s.wire(r(2),(xv,o[1]),(xv,j("T")[1]),j("T"))
+    s.wire(r(2),(xv,o[1]),(xv,jt[1])); lab((xv,jt[1]),f"{base}_T",270)
     s.tp(tp,tpname,(150.62,o[1]),"up")
-    s.wire(j("S"),rt(j("S"),2.54),up(rt(j("S"),2.54),2.54)); gnd(up(rt(j("S"),2.54),2.54),180)
-    rr=R(rr_ref,"100","SX-R-001",j("R")[0]+25.4,j("R")[1]); s.wire(j("R"),rr(1)); s.wire(rr(2),rt(rr(2),2.54)); gnd(rt(rr(2),2.54),90)
-    if det: s.wire(j("RN"),rt(j("RN"),2.54)); lab(rt(j("RN"),2.54),det,0)
-    else: NC.append(j("RN"))
-    NC.extend([j("TN"),j("SN")])
+    rr=R(rr_ref,"100","SX-R-001",jr[0]+25.4,jr[1]); s.wire(jr,rr(1)); lab(jr,f"{base}_RING",180); s.wire(rr(2),rt(rr(2),2.54)); gnd(rt(rr(2),2.54),90)
 
 for n,B,y0 in ((1,600,30.48),(2,620,215.9)):
     r=lambda k:f"R{B+k}"
@@ -70,12 +67,12 @@ for n,B,y0 in ((1,600,30.48),(2,620,215.9)):
     s.wire((nd[0],yl+20.32),(nd[0],yl+35.56),sw(pl)); rr=R(r(3),"47k","SX-R-032",133.35,yl+35.56); s.wire(sw(pr),rr(1))
     s.wire(rr(2),rt(rr(2),7.62)); lab(rt(rr(2),7.62),f"R{n}_W",0)
     ctrl(sw(pc),f"DET{n}" if n==2 else "MONO1")
-    output(o,f"J{B+1}",f"AUX{n} SEND L/MONO",r(7),r(8),f"TP{B+1}",f"L{n}_O")
+    output(o,f"AUX{n} SEND L/MONO",r(7),r(8),f"TP{B+1}",f"L{n}_O")
     # R stage
     yr=yl+66.04
     nd2,o2=stage(f"U9{B+1}2",2,(6,5,7),yr,f"R{n}_W",r(5),r(6))
-    output(o2,f"J{B+2}",f"AUX{n} SEND R",r(9),r(10),f"TP{B+2}",f"R{n}_O",det=f"DET{n}")
-    # plug-detect pull-up: high = R plugged (stereo), low = mono
+    output(o2,f"AUX{n} SEND R",r(9),r(10),f"TP{B+2}",f"R{n}_O")
+    # plug-detect pull-up on the R jack's ring switch contact (via J603): high = R plugged (stereo), low = mono
     dd=(170.18,yr+30.48); s.wire((157.48,dd[1]),dd); lab((157.48,dd[1]),f"DET{n}",180)
     rp=R(r(11),"100k","SX-R-007",dd[0],dd[1]-7.62,0); s.wire(dd,rp(2)); s.wire(rp(1),up(rp(1),2.54)); s.power("+5V",up(rp(1),2.54))
     c=C(f"C{B+1}","100n","SX-C-002",dd[0],dd[1]+7.62,0); s.wire(dd,c(1)); gnd(c(2))
@@ -87,6 +84,31 @@ qi=s.place("Transistor_BJT","Q_NPN_BEC","Q601","MMBT3904",rb(2)[0]+7.62,yi,0,fp=
 s.wire(rb(2),qi(1)); s.wire(qi(2),dn(qi(2),2.54)); s.power("GNDPWR",dn(qi(2),2.54))   # emitter to PGND (invariant 4, decision 98)
 cn=up(qi(3),5.08); s.wire(qi(3),cn); s.wire(cn,rt(cn,10.16)); lab(rt(cn,10.16),"MONO1",0)
 rc=R("R613","100k","SX-R-007",cn[0],cn[1]-7.62,0); s.wire(cn,rc(2)); s.wire(rc(1),up(rc(1),2.54)); s.power("+5V",up(rc(1),2.54))
+
+def ribbon_header(h,pins,label):
+    """Header pins: grounds on one vertical bar per side (one ground symbol below the last pin), signals on stubs
+    that cross the bar without a junction and end in label(net, at, rot)."""
+    for left in (True,False):
+        side=[p for p in pins if (p%2==1)==left]; sg=-1 if left else 1
+        xb=h(side[0])[0]+sg*5.08; gy=[]
+        for p in side:
+            a=h(p)
+            if pins[p]=="G": s.wire(a,(xb,a[1])); gy.append(a[1])
+            else: e=(a[0]+sg*12.7,a[1]); s.wire(a,e); label(pins[p],e,180 if left else 0)
+        yb=max(h(p)[1] for p in side)+5.08
+        s.wire((xb,min(gy)),(xb,yb)); gnd((xb,yb))
+
+# ======================================================================== rear output ribbon (decision 163)
+# 26-pin shrouded keyed IDC header to the rear output row board (main outs, both sends); pin n = ribbon conductor n.
+# Pairs with a ground between them; DET lines last; jack sleeves return on the ground pins.
+OUT_PINS={1:"G",2:"MAIN_L_HOT",3:"MAIN_L_COLD",4:"G",5:"MAIN_R_HOT",6:"MAIN_R_COLD",7:"G",8:"L1_T",9:"L1_RING",10:"G",
+          11:"R1_T",12:"R1_RING",13:"G",14:"L2_T",15:"L2_RING",16:"G",17:"R2_T",18:"R2_RING",19:"G",20:"DET1",21:"G",22:"DET2",
+          23:"G",24:"G",25:"G",26:"G"}
+HIER={"MAIN_L_HOT","MAIN_L_COLD","MAIN_R_HOT","MAIN_R_COLD"}   # from the Master out sheet (relay contacts)
+h=s.place("Connector_Generic","Conn_02x13_Odd_Even","J603","REAR OUTPUTS",340.36,195.58,0,fp="Connector_IDC:IDC-Header_2x13_P2.54mm_Vertical",
+          props=P("SX-CONN-017",Manufacturer="Wurth Elektronik",MPN="61202621621",Supplier="Mouser",SupplierPN="710-61202621621",
+                  Note="26-pin shrouded keyed box header to the rear output row board (decision 163); hand-soldered"))
+ribbon_header(h,OUT_PINS,lambda net,e,rot: s.label(net,e,rot,"hierarchical","input") if net in HIER else lab(e,net,rot))
 
 # supplies and decoupling
 Y2=375.92; x=33.02

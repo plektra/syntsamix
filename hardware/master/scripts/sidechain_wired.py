@@ -3,7 +3,7 @@
 """Sidechain and ducking sheet, drawn with real wires.
 
 Reference netlist: sidechain_build.py (check_netlist.py sidechain.json).
-Top: sources (INT summer, BUS inverter, EXT jack and buffer), the two-stage selector,
+Top: sources (INT summer, BUS inverter, EXT buffer; the jack is on the rear input row board), the two-stage selector,
 the Sallen-Key LPF with its dual pot as a labelled block, bypass, the SC_DET buffer and
 SC listen with the PFL_ACT driver. Bottom: the ducker (THRESHOLD, window comparator,
 DEPTH, charge switches, hold, DECAY, SC_ENV buffer), buttons and supplies.
@@ -46,20 +46,13 @@ s.wire(r(2),(58.42,50.8),(58.42,40.64))
 o_int=inverting("U501",1,(2,3,1),45.72,40.64,r501,("R503","10k"),"SX-R-002",27.94)
 hier((XA,76.2),"SC_SUM",180,"input"); r=R("R504","10k","SX-R-002",45.72,76.2); s.wire((XA,76.2),r(1))
 o_bus=inverting("U95012",2,(6,5,7),45.72,76.2,r,("R505","10k"),"SX-R-002",86.36)
-# EXT jack: tip to the inverting buffer, tip switch to AGND, ring and sleeve to AGND, ring switch = plug detect
-JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
-j=s.place("Connector_Audio","AudioJack3_Switch","J501","SC EXT IN",30.48,109.22,0,fp=JK,
-          props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216",Note="DC-coupled sidechain input; a plug overrides INT/BUS (ring switch RN)"))
-sx=j("S")[0]+2.54
-s.wire(j("S"),(sx,j("S")[1]),(sx,j("S")[1]-5.08)); gnd((sx,j("S")[1]-5.08),180); s.wire(j("R"),(sx,j("R")[1]),(sx,j("S")[1]))
-s.wire(j("TN"),rt(j("TN"),2.54),dn(rt(j("TN"),2.54),5.08)); gnd(dn(rt(j("TN"),2.54),5.08))
-NC.append(j("SN"))
-s.wire(j("RN"),rt(j("RN"),7.62)); lab(rt(j("RN"),7.62),"EXT_SEL",0)
-ye=j("T")[1]+10.16; tx=j("T")[0]+7.62; s.wire(j("T"),(tx,j("T")[1]),(tx,ye))
+# EXT jack J501 sits on the rear input row board (decision 163): its tip arrives as EXT_T and its ring switch
+# contact (plug detect, open = plugged) as EXT_SEL from the ribbon header J903 on the Power sheet
+ye=124.46; tx=43.18; hier((38.1,ye),"EXT_T",180,"input"); s.wire((38.1,ye),(tx,ye))
 r=R("R506","100k","SX-R-007",53.34,ye); s.wire((tx,ye),r(1))
 o_ext=inverting("U502",1,(2,3,1),53.34,ye,r,("R507","100k"),"SX-R-007",ye+12.7)
 # plug detect pull-up and debounce
-ne=(68.58,160.02); s.wire((38.1,ne[1]),ne); lab((38.1,ne[1]),"EXT_SEL",180)
+ne=(68.58,160.02); s.wire((38.1,ne[1]),ne); hier((38.1,ne[1]),"EXT_SEL",180,"input")
 r=R("R508","100k","SX-R-007",ne[0],ne[1]-7.62,0); s.wire(ne,r(2)); s.wire(r(1),up(r(1),2.54)); s.power("+5V",up(r(1),2.54))
 c=C("C501","100n","SX-C-002",ne[0],ne[1]+7.62,0); s.wire(ne,c(1)); gnd(c(2))
 

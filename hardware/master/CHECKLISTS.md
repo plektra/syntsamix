@@ -5,6 +5,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 ## Check before layout
 
 - **Chain headers (decision 109; `docs/MECHANICAL.md`):** J101 along the master's left edge, on the underside, long axis front to back, at the distance from the front that the channel card layout records. J901's position is free until the master section is settled.
+- **Rear ribbons (decision 163):** J903 pin 25 (lift return) on its own trace straight to the star point NT901, not through the AGND pour; CHASSIS (pin 26) next to J902, R905 and C913. J603/J903 key slots and pin 1 to match the row boards (conductor n = pin n at both ends); measure the cable length at the mock-up.
 - **Panel stack (decision 107):** top-side parts ≤ 9.0 mm. Still too tall: U901-U903 TO-220 (about 19.7 mm seated) and the HS901/HS902 heatsinks; placement in `/system mechanical`.
 - **Footprints:** D705-D712 `D_SOD-123F` pads are 1.1 mm wide; widen to the maker's 1.5 mm (R+O 1N4007W datasheet Rev 2.0). Würth IDC drill 1.1 mm. R421 next to U402 (a tempco part may return on its pads).
 - **Hand-soldered ICs (decision 150):** keep them reachable with an iron (no parts tight against the SOIC/SSOP pins), and mark them in the JLCPCB BOM/CPL export as not placed.

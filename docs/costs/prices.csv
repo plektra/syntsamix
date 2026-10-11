@@ -52,6 +52,7 @@ SX-CONN-005,0.10,EUR,estimate,2026-10-09,hand,pin header 1x3
 SX-CONN-006,0.15,EUR,estimate,2026-10-09,hand,pin header 2x3
 SX-CONN-007,0.90,EUR,estimate (Mouser),2026-10-09,hand,Wurth 61203421621 2x17
 SX-CONN-008,0.40,EUR,estimate (Mouser),2026-10-09,hand,Wurth 61200821621 2x4
+SX-CONN-017,0.94,EUR,Mouser 710-61202621621 (10+),2026-10-12,hand,Wurth 61202621621 2x13 (decision 163)
 SX-CONN-011,4.00,USD,estimate (DigiKey),2026-10-09,hand,Kycon KPJX-4S
 SX-CONN-014,0.35,GBP,estimate (Thonk),2026-10-09,hand,PJ398SM
 SX-CONN-015,0.68,USD,Mouser 568-NYS216 (50+),2026-10-09,hand,Rean NYS216 (decision 132)

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 """AUX return sheets: reference netlists (build/aux_return1.json, build/aux_return2.json).
 
-Per return (decision 51): L/MONO and R 6.3 mm jacks (R normalled to L), RFI filters,
+Per return (decision 51): L/MONO and R 6.3 mm jacks (R normalled to L) on the rear input row board (decision 163), RFI filters,
 TL072 difference receiver at G = ½ wired inverting (decision 148, as the channel's decision 143), 1.6 Hz AC coupling,
 inverting gain stage with a jumper per side (fitted -6 dB pro/Eurorack, open +6 dB pedal),
 SSI2162 VCA with the channel fader law (decision 72) on a 10 kΩ linear level pot,
@@ -17,10 +17,8 @@ def build(n):
         for p in pins:
             r,q=p.split('.'); nets.setdefault(net,[]).append({"ref":r,"pin":q})
     r=lambda k:f"R{B+k}"; c=lambda k:f"C{B+k}"; u=lambda k:f"U{B+k}"; t=lambda k,unit:f"U9{B+k}{unit}"
-    J1,J2=f"J{B+1}",f"J{B+2}"
-    # jacks: J1 L/MONO, J2 R with tip/ring switches normalling to L
-    N("AGND",f"{J1}.S",f"{J2}.S"); N("IN_L+",f"{J1}.T",f"{J2}.TN",f"{r(1)}.1"); N("IN_L-",f"{J1}.R",f"{J2}.RN",f"{r(2)}.1")
-    N("IN_R+",f"{J2}.T",f"{r(3)}.1"); N("IN_R-",f"{J2}.R",f"{r(4)}.1")
+    # jacks J1 L/MONO, J2 R (R normalled to L) sit on the rear input row board (decision 163): the four legs arrive as hierarchical labels
+    N(f"RET{n}_L+",f"{r(1)}.1"); N(f"RET{n}_L-",f"{r(2)}.1"); N(f"RET{n}_R+",f"{r(3)}.1"); N(f"RET{n}_R-",f"{r(4)}.1")
     # RFI filters and receiver: TL072 difference amplifier G = 1/2, hot to the inverting leg (decision 148)
     # leg resistors 10k 0.1 %: R1-R4 (input, with the RFI caps), Ri, Rf, Rni, Rg per side
     for side,(rp,cp,rn,cn),(ri,rf,rni,rg),(ref,pp,pm,po),cpl in (("L",(1,1,2,2),(45,46,47,48),(u(1),3,2,1),5),
