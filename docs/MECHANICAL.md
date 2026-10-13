@@ -97,7 +97,7 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 | Meters | 0805 LEDs under printed bezels as decision 119: 2 × 12 at 6.0 mm pitch plus the 5 gain-reduction LEDs |
 | Rear jacks | one rear piece 139.8 mm; 12 positions in 2 rows × 6 at about 23 mm: 11 jacks and the ground-lift switch, on two flat passive row boards fixed only by the jack nuts: output board (main L/R, AUX send 1 L/R, AUX send 2 L/R) and input board (AUX return 1 L/R, AUX return 2 L/R, SC EXT, ground lift), each cabled to the master card by one 26-pin ribbon (J603 outputs, J903 inputs and ground lift; decision 163). Needs the NYS216 at most about 17 mm tall above its board: *measure a sample*; if taller, on-edge 2-jack boards as the input module |
 | Headphones | panel-mounted 6.3 mm stereo jack, nut on the master top panel, body through a cutout in the master card, short twisted cable to a header on the card; at least about 90 mm behind the front edge (about 30 mm of depth) |
-| Regulators | U901-U903 TO-220 with one heatsink each (about 19.7 mm, ≤ 11.5 °C/W) on the card's underside, hand-soldered, behind the card's middle, up to 25 mm below the PCB (master-only exception to decision 121); ≥ 3 mm from each other, the frame and the cover (live tabs) |
+| Regulators | U901-U903 TO-220 with one heatsink each (about 19.7 mm, ≤ 11.5 °C/W at 40 °C air; recheck for the inside air of decision 167) on the card's underside, hand-soldered, behind the card's middle, up to 25 mm below the PCB (master-only exception to decision 121); ≥ 3 mm from each other, the frame and the cover (live tabs) |
 
 ## Power bay (decision 162)
 
@@ -114,9 +114,22 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 |---|---|
 | Underside parts | chain headers at the edges (decision 109); elsewhere only hand-set parts (trimmers, jumper headers; decision 112), at most 10.5 mm below the PCB's bottom face |
 | Keep-out | no underside parts other than the chain headers within 10 mm of each long edge, over the header length plus 15 mm front and back (*provisional until the cable mock-up*) |
-| Bottom cover | detachable, a few captive or quarter-turn screws: at the rear into the bottom angle (decision 160), at the front into the front rail's bottom slot (decision 162); off without touching side cheeks, cards or feet |
+| Bottom cover | perforated as the air intake (decision 167); detachable, a few captive or quarter-turn screws: at the rear into the bottom angle (decision 160), at the front into the front rail's bottom slot (decision 162); off without touching side cheeks, cards or feet |
 | Feet | on the side cheeks or the rails, not on the cover |
 | Inside height | 20 mm at the front rail, about 60 mm at the rear (decisions 160, 162); the mock-up checks that the header zone clears the sockets and U-loops |
+
+## Ventilation (decision 167)
+
+| Item | Value |
+|---|---|
+| Principle | passive, no fan on the prototype; design point: inside air 22 K above room temperature (57 °C on a 35 °C stage), up to 8 cards; parts and heatsinks checked at 57 °C air |
+| Intake | perforated bottom cover |
+| Exhaust, channel rear strip | four routed slots 2 × 30 mm in the jack zone, two in each band beside the jack nuts (from the left edge 2.5-4.5, 6.5-8.5, 26.3-28.3, 30.3-32.3 mm; 2.5 mm edge margin, 2 mm bars): about 2.4 cm²; legends and the top screw on the 20 mm in front of the rail; jack nut taken as about 15 mm across (*measure the sample*) |
+| Exhaust, master and bay | slots where the jacks, rocker and brick jack leave room (about 3 and 2 cm²) |
+| No openings | cheeks, top panels (spills) |
+| Estimate | rise about 20 K (prototype), 22 K (8 cards), 24 K (16 cards) **[estimate]**, `tools/heat_budget.py` |
+| Measurement | prototype: probe at the master heatsinks and over the middle channel card, one hour with every LED lit; full-size cooling decided after it |
+| Check | the rear bottom angle (decision 160) must not cover the lower slots or the lower jack's body: under the jack zone or a shorter leg (input module layout) |
 
 ## Panel hardware and ground (note)
 
@@ -127,4 +140,4 @@ Jack sleeves go to their own card's AGND; FR4 panels do not conduct (`CHAIN.md`,
 Settled in this order, each by a decision:
 
 1. *Underside:* the keep-out values and a check that the header zone clears sockets and U-loops, from the cable mock-up; the input cable length at the channel card layout (rear, frame shape, master section and power bay settled by decisions 160 and 162; underside rules and cover by decision 121)
-2. *Heat:* ventilation for the typical dissipation inside the unit (about 28 W prototype to 77 W full size, `ARCHITECTURE.md`)
+2. *Heat (full size):* the cooling for 16 cards after the prototype measurement (decision 167): a quiet fan in the power bay (expected) or less dissipation

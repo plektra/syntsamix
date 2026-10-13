@@ -191,6 +191,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 164 | A lab's RoHS test report on package families, via the maker or reseller, is a RoHS source; clears SSI2144SS-TU and SSI2162SS-TU (SGS report via Electrokit; coverage of both confirmed by Sound Semiconductor 2026-10-13); refines 124 | confirmed | [process](process.md) |
 | 165 | Cutoff CV chaining: CV OUT jack (total cutoff control, 1 V/oct, from FCV through U107B), jumper JP181 CV ONLY / CV + POT through the CV IN jack's normal contact, BZT52C11 pair clamping the cutoff summer (SSI2144 pin within about ±128 mV); panel row for /system; refines 20, 53 | confirmed | [channel-card](channel-card.md) |
 | 166 | Cutoff CV IN and CV OUT jacks side by side in panel row 3 (IN left, 16 mm between centres); a CV patch cable between cards joining their AGNDs is allowed; refines 55, 106 | confirmed | [mechanical](mechanical.md) |
+| 167 | Heat: passive, perforated bottom cover intake, four 2 × 30 mm slots per channel rear strip, no cheek or top openings; design point 22 K above room (57 °C on a 35 °C stage, up to 8 cards); master heatsinks to about 6.5 °C/W under 95; `tools/heat_budget.py` [estimate] until the prototype is measured, full-size cooling after; refines 121, 160, 162 | confirmed | [mechanical](mechanical.md) |
 
 ## Proposed but not confirmed
 

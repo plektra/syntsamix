@@ -12,7 +12,7 @@ Project-level handoff, updated 2026-10-13. Read `CLAUDE.md` first. Board detail 
 | Power board | done, four sheets, ERC 0/0; power bay form and two module sizes (decision 162); values confirmed, start-up ramp added; full-size brick GSM220B24-R7B (decision 145); converter dividers on fee-free E24 values (decision 156); power switch a rear-panel rocker on J102 (decision 157); C103 and sync capacitors chosen (decision 158); D201 SS54 on SMA (decision 159) | not started | `hardware/power/STATUS.md` |
 | Rear row boards (master; output and input) | not started: new KiCad projects, jacks + 26-pin header (+ SW901 on the input board), pinouts decision 163; measure an NYS216 sample first | not started | `hardware/master/STATUS.md` |
 
-Decisions 1-166; last pushed commit: see `git log -1`.
+Decisions 1-167; last pushed commit: see `git log -1`.
 
 ## Order of work
 
@@ -23,10 +23,11 @@ Decisions 1-166; last pushed commit: see `git log -1`.
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length.
 6. **Master schematic rework for decision 162** (`hardware/master/STATUS.md`, Next): rear ribbons on the master done (decision 163); still the two row board projects (measure an NYS216 sample first), the panel-mounted headphone jack, 0805 meter LEDs.
 7. **Channel card PCB**, then the input module, master card (with its two row boards) and power board PCBs.
+8. **Prototype bring-up:** with the heat measurement of decision 167 (probe at the master heatsinks and over the middle channel card, one hour with every LED lit); its result replaces the estimates in `tools/heat_budget.py` and settles the full-size cooling.
 
 ## System
 
-Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decision 123 on 2026-10-09). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109), jack sizes, channel meter bezel, single panel screw, underside and bottom cover (decisions 118-121); rear strips, input module on edge with stacked jacks, sloped frame (decision 160); master section (4 strips, rear jacks on two row boards, headphones on the top panel), power bay with two planned module sizes, single front rail, chain 1 next to the master (decision 162); invariant 9 RoHS (decision 122); still open: the heat budget (next), the keep-out values from the mock-up. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
+Cross-board budgets, chain lines and invariants: `docs/ARCHITECTURE.md` (budgets rerun after decision 123 on 2026-10-09). Mechanical contract `docs/MECHANICAL.md`: strip envelope, panel stack, card fixing and chain headers settled (decisions 106-109), jack sizes, channel meter bezel, single panel screw, underside and bottom cover (decisions 118-121); rear strips, input module on edge with stacked jacks, sloped frame (decision 160); master section (4 strips, rear jacks on two row boards, headphones on the top panel), power bay with two planned module sizes, single front rail, chain 1 next to the master (decision 162); invariant 9 RoHS (decision 122); CV IN and OUT side by side (decision 166); passive ventilation, design point 22 K above room (decision 167, `tools/heat_budget.py`); still open: the keep-out values from the mock-up, and the full-size cooling after the prototype measurement. Flags from board sessions sit under "For /system" in each `STATUS.md`. Validator reports: `docs/reviews/`.
 
 ## Waiting for the user's confirmation
 

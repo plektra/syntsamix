@@ -53,6 +53,16 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 | Power ribbon | injected in groups of 8 cards; about 0.68 A per pin (sizing; 0.92 A at worst case); connectors and cable rated at least 1 A per contact (the chosen Würth 61200823021 IDC socket is the limit at 1 A; the worst case sits 8 % below it; the header is 3 A) | decisions 80, 96, 100, 123 |
 | Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board; the start-up ramp on both converters holds the brick at about 54 W while charging it (rails at 19 V about 40 ms after switch-on; bench check in `hardware/power/STATUS.md`) | system validation, finding 6; decision 100, `hardware/power/scripts/startup_sim.py` |
 
+### Heat
+
+| Item | Value | Source |
+|---|---|---|
+| Dissipation inside, typical at 20 V | channel card 4.1 W, master 11.7 W, power board loss at about 88 % **[estimate]**, until the power board session reports the converters' efficiency: about 32 W (prototype), 50 W (8 cards), 87 W (16 cards) | decision 167, `tools/heat_budget.py` |
+| Inside air | design point 22 K above room temperature (57 °C on a 35 °C stage), up to 8 cards; estimate 20 / 22 / 24 K for 4 / 8 / 16 cards (sealed box 25-31 K) | decision 167, `tools/heat_budget.py` (coefficients **[estimate]** until the prototype is measured) |
+| Vents | perforated bottom cover; four 2 × 30 mm slots per channel rear strip (about 2.4 cm²), master and bay rear pieces; none in the cheeks or top panels | decision 167, `MECHANICAL.md`, Ventilation |
+| Tightest parts | 0 to +70 °C ambient (TL072CDT, NE5532, TL062C, LM339, LM13700): about 13 K above the design air | decision 167 (datasheets in its record) |
+| Master heatsinks at 57 °C air | 11.5 °C/W gives TJ about 117 °C at the worst-case 3.44 W (typical 85 °C); decision 95's 100 °C needs about 6.5 °C/W | decisions 95, 167; `hardware/master/STATUS.md` |
+
 ### Signal levels
 
 | Item | Value | Source |
@@ -89,8 +99,8 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 
 ## Open system items
 
-- Mechanical (`/system mechanical`): the heat budget and ventilation next, then the keep-out values from the cable mock-up (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109, 118 to 121, 160 and 162: rear strips, input module on edge, sloped frame with a single front rail, master section, power bay).
+- Mechanical (`/system mechanical`): the keep-out values from the cable mock-up, then the full-size cooling after the prototype measurement (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109, 118 to 121, 160, 162, 166 and 167: rear strips, input module on edge, sloped frame with a single front rail, master section, power bay, CV jack pair, ventilation).
 - RoHS gaps before the first PCB order (decision 122; audit done 2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`): the declaration for the AS3046D (master) (the Alpha pots are cleared by Taiwan Alpha's general declaration, decision 124; the SSI2144 and SSI2162 by an SGS package report via Electrokit, decision 164); rows with no part chosen yet get their source when chosen. The end-of-life parts are gone (THAT1646: DRV135UA, decision 125; ERA-V33J102V: plain resistors, decisions 141 and 149).
-- Heat budget **[estimate]**: about 28 W (prototype) to 77 W (full size) typical dissipation inside the unit (typical rail currents above × 20 V); needs ventilation and a budget row once the frame is drawn.
+- Heat (decision 167): measure the prototype (one hour, every LED lit) to replace the convection estimates; the full-size cooling follows.
 
 Earlier items are closed: the system validation `docs/reviews/2026-10-06-system.md` findings 1, 2 and 4-7 are settled by decisions 96-99 and wording fixes, finding 3 (R421 footprint) by the master card fix in bad26be.

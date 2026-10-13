@@ -1,10 +1,10 @@
 # Input module status
 
-Updated 2026-10-11 (/system mechanical: decision 160).
+Updated 2026-10-13 (/system: exhaust slots in the rear strip, decision 167). 2026-10-11 (/system mechanical: decision 160).
 
 - Schematic done, ERC clean. Header pinout confirmed as drawn (decision 105); no change needed.
 - Cable to the channel card defined by decision 99 (`docs/INPUT-MODULE.md`, Cable): 1:1 KK 254 crimp cable, male headers stay on both boards. Length 100 mm, provisional until the channel card layout places its KK header (decision 160).
-- PCB: not started. Layout per decision 160 (`docs/MECHANICAL.md`, Rear panel and input module): the PCB stands on edge under the rear rail, J1 (L/MONO) above J2 (R) about 19 mm between centres, module about 40 mm tall, centred on the 35 mm strip, fixed only by the jack nuts on its rear strip; KK header facing forward. The rear strip (34.8 mm FR4 panel with the two 11.4 mm cut-outs and legends) is drawn with this board. Report the module's final height to /system: it sets the rear inside height (about 60 mm).
+- PCB: not started. Layout per decision 160 (`docs/MECHANICAL.md`, Rear panel and input module): the PCB stands on edge under the rear rail, J1 (L/MONO) above J2 (R) about 19 mm between centres, module about 40 mm tall, centred on the 35 mm strip, fixed only by the jack nuts on its rear strip; KK header facing forward. The rear strip (34.8 mm FR4 panel with the two 11.4 mm cut-outs and legends) is drawn with this board; it carries the exhaust slots of decision 167 (`docs/MECHANICAL.md`, Ventilation): four routed slots 2 × 30 mm in the jack zone, two beside each jack nut, legends and the top screw on the 20 mm in front of the rail. Measure the NYS216 nut (taken as about 15 mm across). Check that the rear bottom angle (decision 160, 20 × 20 mm) clears the lower slots and the lower jack's body; if not, propose to /system an angle under the jack zone or a shorter leg. Report the module's final height to /system: it sets the rear inside height (about 60 mm).
 
 ## Cost (2026-10-09)
 
@@ -19,4 +19,4 @@ Updated 2026-10-11 (/system mechanical: decision 160).
 
 ## For /system
 
-(none)
+- At layout: report the module's height and whether the rear bottom angle clears the lower jack and slots (decision 167).

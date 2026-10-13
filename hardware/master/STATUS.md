@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-13 (/system: decision 163 wording taken into ARCHITECTURE, CHAIN and MECHANICAL). 2026-10-12 (/board master schematic: rear ribbons drawn, decision 163; rest of the decision 162 rework under Next). 2026-10-11: /system mechanical, decision 162. 2026-10-10: R232/R332 30k drawn (153).
+Updated 2026-10-13 (/system: decision 163 wording taken into ARCHITECTURE, CHAIN and MECHANICAL; ventilation, decision 167: heatsinks to recheck at 57 °C air). 2026-10-12 (/board master schematic: rear ribbons drawn, decision 163; rest of the decision 162 rework under Next). 2026-10-11: /system mechanical, decision 162. 2026-10-10: R232/R332 30k drawn (153).
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -8,7 +8,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 - Schematic complete: ten sheets, every netlist check 0 problems, ERC 0 errors 0 warnings (decisions 87-95, 103, 104, 125-128, 131, 138, 144, 146-150, 153). Net counts: AUX returns 73, compressor 83, sidechain 55, AUX sends 37, master out 63, meter 83.
 - Values E24 and parts fee-free wherever one fits (decisions 144, 146-149, 153; exceptions and drawn swaps in `CHECKLISTS.md`); DG413, SSI2162, DRV135UA and AS3046D hand-soldered on the prototype (150).
-- Power budget: typical 327 / 256 mA, worst case 701 / 576 mA (`ARCHITECTURE.md`); heatsinks ≤ 11.5 °C/W.
+- Power budget: typical 327 / 256 mA, worst case 701 / 576 mA (`ARCHITECTURE.md`); heatsinks ≤ 11.5 °C/W at 40 °C air, about 6.5 °C/W needed at 57 °C air (decision 167, see Next).
 - Cost (`tools/costs.py estimate`, 2026-10-11 after the power board decisions 156-159, the GPBS850L price, the JLCPCB fee model fix and Thonk volume breaks): €778 / €1,040 / €1,600 for 4 / 8 / 16 channels before VAT and shipping; 28 fee types system-wide, billed per design as 38 at $3.07. Series of 8-channel mixers: `tools/costs.py sets`. Economic PCBA assumed (conditions in `hardware/CLAUDE.md`, Parts).
 - `simulation/sidechain` reflects the 30k loads (1.667 kΩ); results unchanged.
 - 2026-10-10, button MPN corrected: SX-SW-001 is CW GPBS850L (latching, Electrokit 41012905); GPBS850N, recorded until now, is the momentary twin. MPN, footprint `SW_Latching_8.5x8.5mm_CW_GPBS850L` (same geometry per datasheet Rev 2), parts.csv and prices.csv changed; erratum on decision 75; no wiring change, ERC 0/0. Estimate €769 / €1,037 / €1,609 for 4 / 8 / 16 channels.
@@ -28,6 +28,8 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## Next
 
+0. **SX-IC-010 is NRND:** the TI LM317KCSE3 (TO-220) in `docs/parts.csv` is marked NRND in TI's orderable table (SLVS044Z p.30, found 2026-10-13). Choose a replacement, for example onsemi LM317TG (TO-220, no lifecycle mark in LM317/D Rev 18; RthJA 65 °C/W, RthJC 5 °C/W), with its RoHS source. The TI LM337KCSE3 is still Active (SLVS047L p.12).
+
 1. **Schematic rework for decision 162** (`/board master schematic`; `docs/MECHANICAL.md`, Master section): the master card hangs 10 mm under its panel, so no jack on it reaches a panel.
    - Done on the master card (decision 163): ribbons J603 and J903, 26-pin, pinouts in `docs/decisions/master-card-sheets.md`.
    - Still to do: the two row boards as new KiCad projects (6 jacks in a row at about 23 mm, the 26-pin header SX-CONN-017, SW901 on the input board between conductors 25 and 26, insulated from the row board's ground; the return normalling R-to-L wired jack to jack). NYS216 must be at most about 17 mm tall above its board: **measure a sample first** (not measured yet, 2026-10-12); if taller, on-edge 2-jack boards with the AUX returns reusing `input-module-6p3`, and decision 163's pinout is revisited. Add both projects to `BOARDS` in `tools/costs.py`.
@@ -35,6 +37,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
    - Meter and gain-reduction LEDs to 0805 (KT-0805G, KT-0805Y, NCD0805R1 as on the channel, decision 119) under printed bezels: 2 × 12 at 6.0 mm pitch plus 5 GR LEDs; SX-D-004/005/006 retire.
    - U901-U903 TO-220 on the underside with one heatsink each, behind the card's middle, up to 25 mm deep, ≥ 3 mm from each other, the frame and the cover.
    - Card at most 138 × 318 mm under a 4-strip (139.8 mm) top panel; chain headers on the left edge at the channel distance.
+   - Heatsinks at 57 °C air (decision 167: inside air 22 K above a 35 °C stage): `scripts/power_budget.py` assumes 40 °C; at 57 °C the worst-case 3.44 W gives TJ about 117 °C on 11.5 °C/W (typical 85 °C). Decision 95's 100 °C target stands: change the script to 57 °C and choose a heatsink of about 6.5 °C/W (6 °C/W junction to sink) that fits the 25 mm underside zone, with the ≥ 3 mm clearances; if none fits, bring it to the user (relaxing 95 is the user's call). Leave room on the rear piece for exhaust slots (about 3 cm², `docs/MECHANICAL.md`, Ventilation).
 2. PCB layout, after the SSI2144 breadboard and the channel card layout (`docs/CONTINUE-FROM-HERE.md`); the AS3046D declaration before ordering.
 
 ## For /system
