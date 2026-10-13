@@ -57,7 +57,7 @@ SX-CONN-011,4.00,USD,estimate (DigiKey),2026-10-09,hand,Kycon KPJX-4S
 SX-CONN-014,0.35,GBP,estimate (Thonk),2026-10-09,hand,PJ398SM
 SX-CONN-015,0.68,USD,Mouser 568-NYS216 (50+),2026-10-09,hand,Rean NYS216 (decision 132)
 SX-MECH-002,1.50,EUR,estimate,2026-10-09,hand,TO-220 heatsink
-SX-D-004,0.15,USD,estimate (Mouser),2026-10-09,hand,Kingbright 3 mm green
+SX-D-004,0.232,EUR,Mouser 604-WP710A10LGD,2026-10-13,hand,"Kingbright WP710A10LGD 3 mm green; power board panel LED (decision 168): off-board, counted with the frame in tools/costs.py; 0.157 at 10, 0.094 at 100",,10:0.677;100:0.405
 SX-D-005,0.15,USD,estimate (Mouser),2026-10-09,hand,Kingbright 3 mm yellow
 SX-D-006,0.15,USD,estimate (Mouser),2026-10-09,hand,Kingbright 3 mm red
 SX-R-089,1.06,USD,Mouser 71-TFPT0603L8200FV (10+),2026-10-09,consign,TFPT0603L8200FV tempco (decision 130); RoHS compliant by exemption (Mouser)
@@ -100,3 +100,4 @@ SX-POT-003,1.29,USD,Tayda A-4730,2026-10-10,hand,Alpha RD901F-40-15K-B50K
 SX-MECH-003,44.60,EUR,TME GSM120B24-R7B,2026-10-10,hand,"Mean Well GSM120B24-R7B prototype brick; TME 42.50 at 5, 40.60 at 10, 171 in stock; Mouser 44.12 (1), 40.16 (10+)"
 SX-MECH-005,72.90,EUR,TME GSM220B24-R7B,2026-10-10,hand,"Mean Well GSM220B24-R7B full-size brick (decision 145); TME 69.40 at 5, 66.30 at 10, 64.40 at 20, 105 in stock; Mouser and Digi-Key about EUR 72, no stock"
 SX-D-012,0.0444,USD,LCSC C22452,2026-10-11,basic,MDD SS54 SMA: JLCPCB basic (decision 159; lcsc-check had no row)
+SX-MECH-006,0.189,EUR,Mouser 749-CR-104,2026-10-13,hand,"Bivar CR-104 3 mm LED clip and ring for the power LED (decision 168); off-board: counted with the frame in tools/costs.py",,10:0.788;100:0.661

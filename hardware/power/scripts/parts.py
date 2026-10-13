@@ -34,7 +34,6 @@ P={
  "SQJ457EP":("SX-Q-002","Package_SO:PowerPAK_SO-8L_Single",lcsc("SX-Q-002","Vishay","SQJ457EP-T1_GE3","C511548")),
  "SMBJ24A":("SX-D-009","Diode_SMD:D_SMB",lcsc("SX-D-009","","SMBJ24A","C19077578")),
  "BZT52C12":("SX-D-010","Diode_SMD:D_SOD-123",lcsc("SX-D-010","","BZT52C12","C19077410")),
- "LED green":("SX-D-011","LED_SMD:LED_0805_2012Metric",lcsc("SX-D-011","","KT-0805G","C2297")),
  "1N4148W":("SX-D-003","Diode_SMD:D_SOD-123",{}),
  "SS54":("SX-D-012","Diode_SMD:D_SMA",lcsc("SX-D-012","MDD","SS54","C22452")),
  "SS510C":("SX-D-013","Diode_SMD:D_SMC",lcsc("SX-D-013","MDD","SS510C","C19229")),

@@ -4,7 +4,7 @@
 
 Reference netlist: input_build.py (check_netlist.py input.json).
 Top: brick jack, PTC, TVS, back-to-back P-MOSFETs with the gate network below and the Miller
-ramp above, power switch and LED. Bottom: +5 V and the 400 kHz two-phase clock.
+ramp above, power switch and the power LED header. Bottom: +5 V and the 400 kHz two-phase clock.
 """
 import json,os
 from schlayout import Sheet
@@ -58,8 +58,8 @@ s.power("PWR_FLAG",(180.34,Y-5.08)); s.wire((180.34,Y),(180.34,Y-5.08))
 s.tp("TP101","VIN_SW",(187.96,Y),"up")
 cb=pl("Device","C_Polarized","C103","100u 50V","100u 50V",198.12,Y+7.62); s.wire((198.12,Y),cb(1)); pgnd(cb(2))
 r=R("R104","10k","10k",210.82,Y+7.62); s.wire((210.82,Y),r(1))
-led=pl("Device","LED","D103","POWER","LED green",218.44,Y+15.24,180,Note="Power LED at the rear edge, about 2 mA")
-s.wire(r(2),(210.82,Y+15.24),led(2)); pgnd(led(1))
+j=pl("Connector_Generic","Conn_01x02","J103","POWER LED","XH 2P",220.98,Y+15.24,0,Note="Panel power LED (SX-D-004 in a SX-MECH-006 clip) on the power bay's top strip, two wires: pin 1 anode, pin 2 cathode; about 2.2 mA (decision 168)")
+s.wire(r(2),(210.82,Y+15.24),j(1)); s.wire(j(2),(j(2)[0],Y+22.86)); pgnd((j(2)[0],Y+22.86))
 s.label("VIN_SW",(238.76,Y),0,"hierarchical","output")
 s.tp("TP102","PGND",(233.68,Y+25.4),"up"); pgnd((233.68,Y+25.4))
 

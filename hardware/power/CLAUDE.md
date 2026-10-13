@@ -23,7 +23,7 @@ KiCad project `power.kicad_pro`: 24 V brick in, TPS54560 buck to +20 V and inver
 - On the inverter the IC ground is the −20 V node: the input ceramics and EN divider from VIN to that node see VIN + 20 V (44.7 V), and the sync capacitor bridges about 20-25 V (a 50 V C0G, decision 158).
 - Power flags sit where each net starts (PGND and VIN_SW on the input sheet, `-20V_CONV` on the inverter): the whole board is a power board.
 - Footprints still to draw at layout (blank footprint field with a note): Kycon KPJX-4S, Bourns SRP1265A.
-- The power switch is a rear-panel rocker on J102 (JST XH 2-pin, decision 157); C103 and the C211/C311 damping capacitors are through-hole radials, hand-soldered.
+- The power switch is a rear-panel rocker on J102 (JST XH 2-pin, decision 157); the power LED is a panel LED on the bay's top strip on J103 (same header, decision 168; R104 stays on the board); C103 and the C211/C311 damping capacitors are through-hole radials, hand-soldered.
 - Shared scripts are symlinks to `hardware/channel-card/scripts/`.
 
 ## Component values and parts (decisions 134, 137)
