@@ -188,6 +188,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 161 | Channel audio coupling: each 10 µF bipolar becomes two ROQANG 10 µF (SX-C-024) back to back, placed by JLCPCB, no new fee type; X5R option dropped, test 11 checks the pair; master to follow; refines 111 | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 162 | Master section 4 strips with rear jacks on two row boards, power bay (on-edge power board, two module sizes planned), chain 1 next to the master, single front rail, headphones panel-mounted on the master top panel, master heatsinks under the card, master meter 0805 under bezels; refines 56, 80, 86, 109, 121, 157, 160 | confirmed | [mechanical](mechanical.md) |
 | 163 | Rear row-board ribbons: two 26-pin shrouded IDC headers, J603 (outputs, AUX sends sheet) and J903 (inputs and ground lift, Power sheet), pairs with a ground between them; row boards carry only jacks, header and SW901; refines 87, 88, 90-92, 162 | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 164 | A lab's RoHS test report on package families, via the maker or reseller, is a RoHS source; clears SSI2144SS-TU and SSI2162SS-TU (SGS report via Electrokit; SSI2162 package matched as SOP10, Electrokit asked to confirm); refines 124 | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 

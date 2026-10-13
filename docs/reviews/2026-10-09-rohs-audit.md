@@ -21,6 +21,8 @@ Where a row's part number was incomplete, the note names the orderable part chec
 | SX-IC-002 SSI2162SS-TU | channel | same as the SSI2144 | same request |
 | SX-IC-013 Alfa AS3046D | master | not at Mouser; no statement from Electric Druid or in the Alfa datasheet | ask Alfa (Riga) or Electric Druid |
 
+Addendum 2026-10-13: SX-IC-001 and SX-IC-002 are cleared by an SGS package report sent by Electrokit (decision 164; source in `docs/parts.csv`).
+
 ## Gaps with no part chosen yet (source them when the part is chosen)
 
 - Diodes: SX-D-001 (BZT52C6V2 class), SX-D-003 (1N4148W), SX-D-007 (SS14 class), SX-D-008 (M7)

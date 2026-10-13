@@ -52,7 +52,7 @@ A modular, analog stereo mixer for live electronic music: synthesizers, drum mac
 
 | Part | Schematic | PCB |
 |---|---|---|
-| Channel card | done (6 sheets, ERC clean; mechanical parts chosen) | waits for the filter breadboard, the RoHS declaration for the SSI2144/SSI2162 and the cable mock-up |
+| Channel card | done (6 sheets, ERC clean; mechanical parts chosen) | waits for the filter breadboard and the cable mock-up |
 | Master card | done (10 sheets, ERC clean) | not started |
 | Input module (6.3 mm) | done | not started |
 | Power board | done (4 sheets, ERC clean) | not started |

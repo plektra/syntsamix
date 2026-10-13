@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-11 (/system mechanical: front underside zone, decision 162; schematic: coupling capacitors back to back, decision 161). 2026-10-10: R217 30k (153); SSI2144/SSI2162 hand-soldered (155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
+Updated 2026-10-13 (RoHS source for the SSI2144 and SSI2162 accepted: SGS report via Electrokit). 2026-10-11 (/system mechanical: front underside zone, decision 162; schematic: coupling capacitors back to back, decision 161). 2026-10-10: R217 30k (153); SSI2144/SSI2162 hand-soldered (155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -19,7 +19,8 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 - 2026-10-10, schematic: R217 30k (decision 153; ducking −10.10 dB per −1 V in `simulation/level/`); SSI2144 U101/U102 and SSI2162 U201 hand-soldered by the user on the prototype (decision 155). Netlists match (filter 81, level 41 nets), ERC 0/0. `tools/costs.py estimate`: €788 / €1,069 / €1,665 for 4 / 8 / 16 channels, 36 fee types.
 - 2026-10-10, button MPN corrected: SX-SW-001 is CW GPBS850L (latching, Electrokit 41012905); GPBS850N, recorded until now, is the momentary twin. MPN, footprint `SW_Latching_8.5x8.5mm_CW_GPBS850L` (same geometry per datasheet Rev 2), parts.csv and prices.csv changed; erratum on decision 75; no wiring change, ERC 0/0. Estimate €769 / €1,037 / €1,609 for 4 / 8 / 16 channels.
 - 2026-10-11, schematic: the eight 10 µF bipolar coupling capacitors are now pairs of ROQANG 10 µF 35 V (SX-C-024) in series, − to −: C5+C21, C6+C22, C101+C108, C151+C158, C107+C109, C157+C159, C221+C235, C271+C285 (decision 161). New references C21, C22, C108, C109, C158, C159, C235, C285; R5/R6, R101/R151 and R201/R251 moved right for room; R112/R162 down 2.54 mm and TP102/TP152 to the left of the IV column for text clearance. Netlists match (input 48, filter 85, level 43 nets: +2, +4, +2 for the middle nodes), ERC 0/0, the drawings looked at. No part on the card is consigned now. `tools/costs.py estimate`: €778 → €768 / €1,040 → €1,024 / €1,600 → €1,571 at 4 / 8 / 16 channels (the master's 16 bipolars and the €30 handling remain until its session).
-- PCB: not started; waits for the breadboard, the SSI2144/SSI2162 RoHS declaration and the cable mock-up.
+- 2026-10-13, RoHS: Electrokit sent the documents it received from its supplier (an SGS test report CANEC25029425315 of 2025-12-02 on the packaging house's SOP/SSOP families, an MSDS and a REACH report; in git-ignored `docs/rohs/`). The SGS report passes all ten RoHS substances on body and pins. The user accepted it as the source (decision 164) for SX-IC-001 (listed as 0.635SSOP16) and SX-IC-002 (not named; taken as the listed SOP10, same 3.9 × 4.9 mm body and 1.00 mm pitch); `parts.csv` records it. The user asks Electrokit to confirm that the report covers both part numbers; the PCB order does not wait for the answer. The REACH report is not read yet (no PDF renderer on this Mac; RoHS does not need it).
+- PCB: not started; waits for the breadboard and the cable mock-up.
 
 ## Provisional until the breadboard
 
@@ -34,7 +35,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 - **Alpha `-0057` suffix (left open by the user 2026-10-09):** the variant code on Thonk's three Alpha order codes is not defined in the RD901F spec; RV183 (Tayda) has none. Check the shaft and knurl of the Tayda RESONANCE pot against the Thonk pots on delivery.
 - **RD902F dual specification:** not read yet (the Mouser RD901F PDF is blocked to scripts; the Tayda copy covers the RD901F single); confirm the dual's power rating when it is found.
 
-- **RoHS declaration for the SSI2144 (SX-IC-001) and SSI2162 (SX-IC-002) (decision 122):** no RoHS statement from Sound Semiconductor, Electrokit or the datasheets; requested by the user by email (2026-10-09). Without it they block the PCB order.
+- **Electrokit's confirmation (asked 2026-10-13):** that SGS report CANEC25029425315 covers the SSI2144SS-TU and SSI2162SS-TU (the SSI2162's 10-lead package as "SOP10"). Not blocking: the source is accepted (see Where it stands). If the answer says otherwise, reopen SX-IC-002.
 - **Knobs:** after the pots (T18 push-on, up to about 19 mm across; for example Thonk Davies 1900H clone, Tall Satin Synthpointer, Mini MXR); need a RoHS source.
 
 ## Parts
@@ -44,7 +45,7 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 ## Next
 
 1. Breadboard the SSI2144 when parts arrive (now with test 11, the back-to-back coupling pair against a bipolar, decision 161, and test 12, fixed V/oct and drift) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
-2. RoHS gaps: SSI2144/SSI2162 declaration (requested, waiting); copy the orderable MPNs the audit checked (NE5532DR, LM339DR, DG413DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
+2. RoHS gaps: copy the orderable MPNs the audit checked (NE5532DR, LM339DR, DG413DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
 3. Cable mock-up (decision 109).
 4. PCB layout.
 
