@@ -15,7 +15,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 45. Sidechain source INT (compressor bus) / BUS (sidechain bus) / EXT (jack): SC BUS button, overridden by a plug in EXT (90). Per-channel SC send taps pre-fader and pre-mute (ghost triggering from muted channels). EXT DC-coupled for audio and Eurorack envelopes/gates up to ±12 V. SC LISTEN sends the filtered sidechain to the cue bus
 49. Master meter: stereo, 12 segments per side (−30, −20, −15, −10, −6, −3, 0, +3, +6, +9, +12, clip) after the master level; 0 = +4 dBu; clip about +17 dBu internal (+23 dBu at the balanced outputs). All meters are peak-reading with a fall of about 1-2 s
 51. AUX sends: dual-gang master pot per send (−∞ to 0 dB), impedance-balanced TRS at +4 dBu. AUX returns: G = ½ receiver (TL072 since 148) with a −6 / +6 dB jumper (pro/Eurorack vs pedals), a linear level pot on an SSI2162 VCA (−∞ to +10 dB), mute and main/compressor bus switch
-56. Headphones: dual-gang volume pot, high-current driver (TPA6120A2, 84), 32 to 600 Ω, 6.3 mm panel-mounted jack on the master top panel, wired to the card (162)
+56. Headphones: dual-gang volume pot, high-current driver (TPA6120A2, 84), 32 to 600 Ω, 6.3 mm panel-mounted jack (Rean NYS230) on the master top panel, cabled to header J751 on the card (162, 169)
 57. Compressor detector: feed-forward, peak-sensing, log conversion on a matched transistor array (AS3046D, 82). Amount 0-30 dB, Release about 50 ms to 1.5 s, attack about 1 ms, ratio 4:1, gain-reduction LEDs at 1/3/6/10/15 dB
 58. Power-up/down protection: relays on main and headphone outputs, about 2 s turn-on delay, instant drop-out when the chain voltage falls (both raw rails, 128); AUX sends unprotected
 82. Log detector transistor array: Alfa AS3046D (SOIC-14), not at LCSC (hand-soldered, 150)
@@ -24,5 +24,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 85. Output relays: three Omron G6K-2F-Y DC12 DPDT (LCSC C397194): main L (hot, cold), main R (hot, cold), headphones (L, R); circuit in 92
 125. Main output driver: TI DRV135UA (LCSC C544663), pin for pin with the end-of-life THAT1646S08 (symbol `syntsamix:THAT1646` kept); 10 µF non-polarised capacitor at each sense pin; a TS plug puts it in TI's single-ended mode at +6 dB
 150. Master DG413 ×10, SSI2162 ×4, DRV135UA ×2 and AS3046D ×1 are hand-soldered by the user on the prototype's populated master (Assembly = "hand (decision 150)", counted by `tools/costs.py`). Backlog: a product build returns them to JLCPCB placement (one bad joint on the only master silences the mixer)
+169. Headphone jack (162): panel-mounted Rean NYS230 (SX-CONN-019, open-frame 3-pole, no switch contacts used) on the master top panel; on the card J751 is a Molex KK 254 1x3 header 22-27-2031 (SX-CONN-020: 1 tip, 2 ring, 3 sleeve/AGND); the cable is the ready-made Molex 217797-1031 (SX-CONN-021, 150 mm, free ends soldered to the jack), nothing crimped by hand
+170. Master LEDs all 0805 JLCPCB basic parts under printed bezels (162): meter as the channel (KT-0805G, KT-0805Y, NCD0805R1), the five gain-reduction LEDs yellow KT-0805Y, the PFL-active LED D752 KT-0805Y; no 3 mm LED left on the master
 
 Rationale notes (performance compressor; send master pot vs return gain jumper): `record/master-card.md`.

@@ -246,7 +246,8 @@ for k in range(5,0,-1):             # 15 dB on top
     t=taps[5-k]; ref,unit,(pp,pm,po)=units[k-1]
     cmp=s.place("Comparator","LM339",ref,"LM339",XC,t[1]+2.54,0,unit,SO14,P("SX-IC-009",**TI))
     s.wire(t,cmp(pp)); s.wire(cmp(pm),(xg,cmp(pm)[1]))
-    led=s.place("Device","LED",f"D{406+k}",names[k],XC+17.78,cmp(po)[1],0,fp="LED_THT:LED_D3.0mm",props=P("SX-D-005",Note="Gain-reduction LED; colour to confirm"))
+    led=s.place("Device","LED",f"D{406+k}",names[k],XC+17.78,cmp(po)[1],0,fp="LED_SMD:LED_0805_2012Metric",
+                props=P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296",Note="Gain-reduction LED, 0805 under a printed bezel (decision 162); yellow (user, 2026-10-13)"))
     s.wire(cmp(po),led(1)); r=R(f"R{448+k}","1k5","SX-R-044",XC+33.02,cmp(po)[1],270); s.wire(led(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+5V",rt(r(1),3.81),270)
 ys=[s.pins[(units[k-1][0],str(units[k-1][2][1]))][1] for k in range(1,6)]
 for y1,y2 in zip(sorted(ys),sorted(ys)[1:]): s.wire((xg,y1),(xg,y2))

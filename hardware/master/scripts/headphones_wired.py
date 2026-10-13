@@ -5,14 +5,14 @@
 Reference netlist: headphones_build.py (check_netlist.py headphones.json).
 Left: the main/cue source switch (DG413 on PFL_ACT) and the volume pot block.
 Middle: the TPA6120A2 with its input, feedback and output resistors.
-Right: the protection relay (drawn rotated, commons on top) and the stereo jack.
+Right: the protection relay (drawn rotated, commons on top) and the header J751 for the panel jack.
 Bottom: PFL-active LED, supplies and decoupling.
 """
 import json,os
 from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; R2512="Resistor_SMD:R_2512_6332Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"; CP="Capacitor_SMD:CP_Elec_5x5.4"
-JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
+KK3="Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
 VI={"Manufacturer":"Vishay"}
 s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
@@ -79,14 +79,16 @@ d=s.place("Device","D","D751","1N4148W",kp[0]+6.35,kp[1],0,fp="Diode_SMD:D_SOD-1
 xn=kp[0]+12.7; s.wire((xn,kp[1]),(xn,k("8")[1]-2.54),(k("8")[0],k("8")[1]-2.54),k("8"))
 s.wire((xn,k("8")[1]-2.54),(xn+7.62,k("8")[1]-2.54)); hier((xn+7.62,k("8")[1]-2.54),"RLY_N",0,"input")
 r=R("R761","330","SX-R-066",kp[0],kp[1]+7.62,0); s.wire(kp,r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("+15V",dn(r(2),5.08),180)
-j=s.place("Connector_Audio","AudioJack3_Switch","J751","PHONES",Xr-30.48,Yr-25.4,0,fp=JK,
-          props=P("SX-CONN-015",Manufacturer="Rean",MPN="NYS216",Note="6.3 mm stereo headphone jack, front/top panel"))
-s.wire(j("R"),(k("3")[0],j("R")[1]),k("3")); s.wire(j("T"),(k("6")[0],j("T")[1]),k("6"))
-s.wire(j("S"),rt(j("S"),5.08)); gnd(rt(j("S"),5.08),90)
-NC.extend([j("SN"),j("RN"),j("TN")])
+# J751: header for the panel-mounted PHONES jack (Rean NYS230, SX-CONN-019, decision 162): 1 = tip (left), 2 = ring (right), 3 = sleeve (AGND).
+# Drawn above and right of the relay, pins facing left.
+j=s.place("Connector_Generic","Conn_01x03","J751","PHONES JACK",Xr+25.4,Yr-30.48,0,fp=KK3,
+          props=P("SX-CONN-020",Manufacturer="Molex",MPN="22-27-2031",Supplier="Mouser",SupplierPN="538-22-27-2031",Note="KK 254 header for the twisted cable to the panel jack J751 (NYS230): 1 T, 2 R, 3 S"))
+s.wire(j("2"),(k("3")[0],j("2")[1]),k("3")); s.wire(j("1"),(k("6")[0],j("1")[1]),k("6"))
+s.wire(j("3"),lt(j("3"),2.54),dn(lt(j("3"),2.54),5.08)); gnd(dn(lt(j("3"),2.54),5.08))
 
 # ======================================================================== PFL-active LED, supplies and decoupling
-led=s.place("Device","LED","D752","PFL yellow",60.96,182.88,0,fp="LED_THT:LED_D3.0mm",props=P("SX-D-005",Note="PFL active: lights while PFL_ACT is low"))
+led=s.place("Device","LED","D752","PFL yellow",60.96,182.88,0,fp="LED_SMD:LED_0805_2012Metric",
+            props=P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296",Note="PFL active: lights while PFL_ACT is low; 0805 under a printed bezel window"))
 s.wire(led(1),lt(led(1),7.62)); lab(lt(led(1),7.62),"PFL_ACT",180)
 r=R("R762","1k5","SX-R-044",led(2)[0]+10.16,led(2)[1],270); s.wire(led(2),r(2)); s.wire(r(1),rt(r(1),2.54)); s.power("+5V",rt(r(1),2.54),270)
 Y2=213.36; x=50.8

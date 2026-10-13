@@ -193,6 +193,9 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 166 | Cutoff CV IN and CV OUT jacks side by side in panel row 3 (IN left, 16 mm between centres); a CV patch cable between cards joining their AGNDs is allowed; refines 55, 106 | confirmed | [mechanical](mechanical.md) |
 | 167 | Heat: passive, perforated bottom cover intake, four 2 × 30 mm slots per channel rear strip, no cheek or top openings; design point 22 K above room (57 °C on a 35 °C stage, up to 8 cards); master heatsinks to about 6.5 °C/W under 95; `tools/heat_budget.py` [estimate] until the prototype is measured, full-size cooling after; refines 121, 160, 162 | confirmed | [mechanical](mechanical.md) |
 | 168 | Power LED on the power bay's top strip: 3 mm WP710A10LGD in a Bivar CR-104 clip, wired to JST XH J103 (R104 stays on the board); D103 0805 off the board; refines 60, 100 | confirmed | [power](power.md) |
+| 169 | Headphone jack: panel Rean NYS230, card header J751 Molex KK 254 1x3 (1 T, 2 R, 3 S), ready-made lead Molex 217797-1031; refines 56, 162 | confirmed | [master-card](master-card.md) |
+| 170 | Master LEDs all 0805 basic parts: meter as the channel, gain-reduction LEDs yellow, PFL-active LED D752 0805; no 3 mm LED on the master; refines 86, 162 | confirmed | [master-card](master-card.md) |
+| 171 | Cost estimate counts every off-board part (`docs/costs/offboard.csv`) and the two rear row-board PCBs; refines 136 | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 

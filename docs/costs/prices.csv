@@ -53,6 +53,11 @@ SX-CONN-006,0.15,EUR,estimate,2026-10-09,hand,pin header 2x3
 SX-CONN-007,0.90,EUR,estimate (Mouser),2026-10-09,hand,Wurth 61203421621 2x17
 SX-CONN-008,0.40,EUR,estimate (Mouser),2026-10-09,hand,Wurth 61200821621 2x4
 SX-CONN-017,0.94,EUR,Mouser 710-61202621621 (10+),2026-10-12,hand,Wurth 61202621621 2x13 (decision 163)
+SX-CONN-019,1.96,USD,Mouser 568-NYS230,2026-10-13,hand,Rean NYS230 panel PHONES jack (off-board; wired to J751)
+SX-CONN-020,0.23,USD,Mouser 538-22-27-2031,2026-10-13,hand,Molex KK 254 1x3 header J751 (PHONES jack cable)
+SX-CONN-021,2.45,USD,Mouser 538-217797-1031,2026-10-13,hand,Molex 217797-1031 KK 254 3-pin ready-made lead (PHONES jack cable; off-board)
+SX-CONN-018,1.33,EUR,Mouser 710-61202623021 (10+),2026-10-13,hand,Wurth 61202623021 2x13 IDC socket (rear ribbons; off-board)
+SX-CONN-022,5.63,USD,Mouser 538-217796-1101,2026-10-13,hand,Molex 217796-1101 KK 254 10-pin ready-made input cable (off-board),,10:0.885;25:0.826;50:0.787;100:0.750
 SX-CONN-011,4.00,USD,estimate (DigiKey),2026-10-09,hand,Kycon KPJX-4S
 SX-CONN-014,0.35,GBP,estimate (Thonk),2026-10-09,hand,PJ398SM
 SX-CONN-015,0.68,USD,Mouser 568-NYS216 (50+),2026-10-09,hand,Rean NYS216 (decision 132)

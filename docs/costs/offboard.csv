@@ -1,0 +1,8 @@
+board,ProjectPN,qty,notes
+master,SX-CONN-019,1,PHONES panel jack Rean NYS230 (decision 162)
+master,SX-CONN-021,1,PHONES jack lead Molex 217797-1031 to J751
+master,SX-CONN-015,11,Rear jacks NYS216 on the two row boards (decisions 162-163); move to the row-board projects when they exist
+master,SX-SW-002,1,Ground-lift switch on the rear input row board (part not chosen); move with the row boards
+master,SX-CONN-017,2,26-pin headers on the two rear row boards (decision 163); move with the row boards
+master,SX-CONN-018,4,26-pin IDC sockets: two rear ribbons with a socket at each end (decision 163)
+input-module-6p3,SX-CONN-022,1,Input cable Molex 217796-1101 ready-made (agreed by the user 2026-10-13; decision 99 to update in /system)

@@ -65,7 +65,10 @@ vals=["16k","1k8","4k7","3k","2k4","1k5","1k2","750","750","510","300","270","12
 pns=["SX-R-005","SX-R-101","SX-R-004","SX-R-063","SX-R-108","SX-R-044","SX-R-109","SX-R-042","SX-R-042","SX-R-110","SX-R-111","SX-R-112","SX-R-045"]
 names={1:"-30",2:"-20",3:"-15",4:"-10",5:"-6",6:"-3",7:"0",8:"+3",9:"+6",10:"+9",11:"+12",12:"CLIP"}
 colour={k:("green" if k<=7 else "yellow" if k<=10 else "red") for k in range(1,13)}
-ledpn={"green":"SX-D-004","yellow":"SX-D-005","red":"SX-D-006"}
+# 0805 LEDs under printed bezels, the channel meter's parts (decisions 119, 162)
+ledpn={"green":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),
+       "yellow":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296"),
+       "red":P("SX-D-015",Manufacturer="Foshan NationStar",MPN="NCD0805R1",Supplier="LCSC",SupplierPN="C84256")}
 LX=231.14
 taps={}
 for side,XC,chips,d0,r0 in (("L",256.54,("805","806","807"),804,823),("R",360.68,("808","809","810"),816,835)):
@@ -76,7 +79,7 @@ for side,XC,chips,d0,r0 in (("L",256.54,("805","806","807"),804,823),("R",360.68
         if side=="L": tap=(LX,c(pp)[1]); taps[k]=tap; s.wire(tap,c(pp))
         else: s.wire(c(pp),lt(c(pp),7.62)); s.label(f"T{k}",lt(c(pp),7.62),180)
         s.wire(c(pm),lt(c(pm),5.08)); s.label(f"MV_{side}",lt(c(pm),5.08),180)
-        led=s.place("Device","LED",f"D{d0+k}",f"{side} {names[k]} {colour[k]}",XC+17.78,yc,0,fp="LED_THT:LED_D3.0mm",props=P(ledpn[colour[k]]))
+        led=s.place("Device","LED",f"D{d0+k}",f"{side} {names[k]} {colour[k]}",XC+17.78,yc,0,fp="LED_SMD:LED_0805_2012Metric",props=ledpn[colour[k]])
         s.wire(c(po),led(1))
         rl=R(f"R{r0+k}","1k5","SX-R-044",XC+30.48,yc,270); s.wire(led(2),rl(2)); s.wire(rl(1),rt(rl(1),2.54)); s.power("+5V",rt(rl(1),2.54),270)
 for k in range(12,0,-1): s.wire(taps[k],lt(taps[k],5.08)); s.label(f"T{k}",lt(taps[k],5.08),180)

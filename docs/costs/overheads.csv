@@ -16,6 +16,7 @@ pcb_channel_eur,3.5,Channel card PCB 33 x 318 mm 2-layer lead-free per board (es
 pcb_input_eur,0.8,Input module PCB per board (estimate)
 pcb_master_eur,15,Master PCB per board (estimate; size set at layout)
 pcb_power_eur,4,Power PCB per board (estimate)
+pcb_rear_row_eur,1.5,"Master rear row board (output or input) per board, about 140 x 25 mm 2-layer; two designs, no assembly (decisions 162, 163; estimate)"
 panel_strip_eur,3,FR4 top panel strip 34.8 x 360 mm per channel (estimate)
 panel_master_rear_eur,40,Master top panel and rear panel (estimate)
 frame_fixed_eur,40,"Rails for the master section, side cheeks, bottom cover, screws (estimate)"

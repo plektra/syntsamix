@@ -8,6 +8,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 - **Rear ribbons (decision 163):** J903 pin 25 (lift return) on its own trace straight to the star point NT901, not through the AGND pour; CHASSIS (pin 26) next to J902, R905 and C913. J603/J903 key slots and pin 1 to match the row boards (conductor n = pin n at both ends); measure the cable length at the mock-up.
 - **Panel stack (decision 107):** top-side parts ≤ 9.0 mm. Still too tall: U901-U903 TO-220 (about 19.7 mm seated) and the HS901/HS902 heatsinks; placement in `/system mechanical`.
 - **Footprints:** D705-D712 `D_SOD-123F` pads are 1.1 mm wide; widen to the maker's 1.5 mm (R+O 1N4007W datasheet Rev 2.0). Würth IDC drill 1.1 mm. R421 next to U402 (a tempco part may return on its pads).
+- **Headphone jack (decision 169):** J751 (KK 1x3) near the NYS230 cutout, at least about 90 mm behind the front edge; pin 1 tip, 2 ring, 3 sleeve. The cutout clears the NYS230 body (depth measured on the sample). Bezel windows for the 0805 meter, GR and PFL LEDs (decision 170) placed with the panel artwork.
 - **Hand-soldered ICs (decision 150):** keep them reachable with an iron (no parts tight against the SOIC/SSOP pins), and mark them in the JLCPCB BOM/CPL export as not placed.
 - **Breadboard:** the ducking through the channel's 10 ms smoothing (decision 97); the bottom of the master level pot (about −102 dB, decision 103); the compressor makeup at +22 dB (decision 89); a bipolar-to-ceramic tap test.
 - **RoHS strict (decision 116):** every part needs a `RoHS: <source>` in `docs/parts.csv` before ordering (this session's parts all have one); lead-free finish and assembly.
@@ -17,7 +18,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 ## Cost-cut levers still open [proposed]
 
 1. **DG413 ×10:** check which switch sections could move to relay contacts already present or to VCA control (as channel lever 3).
-2. **Master meter:** settled by decision 162: 0805 LEDs under printed bezels as the channel (2 × 12 at 6.0 mm pitch plus 5 gain-reduction LEDs); redraw in the decision 162 rework.
+2. Done: master meter, GR and PFL LEDs 0805 (decisions 162, 170, drawn 2026-10-13).
 3. **Bipolar 10 µF → X5R ceramic** (see Open).
 4. Not recommended: TPA6120A2 → NE5532 with a discrete buffer (weaker headphone drive); LM339 → LM393 (twice the packages).
 
@@ -32,3 +33,9 @@ Values outside E24 after decisions 144, 146, 147 and 153, each with its reason:
 Remaining extended SMD types on the master that have no fee-free part: DG413 (hand-soldered here, JLCPCB on the channel), TPA6120A2, OPA2171, LM339, TL062, 10k 0.1 % (SX-R-107, receiver match), 220p C0G, 47n C0G, 10 µF / 47 µF 35 V electrolytics, 39R2 2512; `python3 tools/costs.py extended` lists them.
 
 Fee-free part swaps already drawn (decision 137, 2026-10-10): button LEDs on the per-colour basic parts (MUTE red; DUCK, COMP BUS, COMP ON, SC BUS green; SC LPF BYPASS white; SC LISTEN yellow); D504 BAT54W; D705-D712 1N4007W SOD-123FL; U641 DG411 → DG413 with a Q601 inverter (R612, R613) making MONO1 for send 1, Q601's emitter on PGND (invariant 4; the user chose PGND over the architect's AGND). R232/R332 30k1 → 30k (decision 153; SX-R-087 no longer used).
+
+## Checks on delivery
+
+- **Rean NYS216 sample:** height above the board (at most about 17 mm for the flat row boards, decision 162), height to the bushing centre, bushing length past the housing; pin roles with a meter against the footprint (decision 132).
+- **Rean NYS230 sample:** depth behind a 1.6 mm panel (about 30 mm assumed, decision 162) and pin roles (decision 169).
+- **Molex 217797-1031 lead:** pin order of the free ends (decision 169).

@@ -15,7 +15,8 @@ Estimate (tracked inputs, repeatable):
   python3 tools/costs.py drivers [--board B] [--top N]    most expensive part types per board
   python3 tools/costs.py unpriced                         part types with no price yet (fill docs/costs/prices.csv)
   python3 tools/costs.py extended                         SMD part types that cost a JLCPCB extended-part fee or are consigned
-Inputs: the KiCad schematics (BOM by ProjectPN, DNP excluded; a symbol field Assembly = "hand ..." marks a user-soldered SMD part, decision 150), docs/lcsc-check.csv (LCSC price and
+Inputs: the KiCad schematics (BOM by ProjectPN, DNP excluded; a symbol field Assembly = "hand ..." marks a user-soldered SMD part, decision 150),
+docs/costs/offboard.csv (parts each board needs that have no symbol: panel jacks, cables, ribbon sockets; counted like its own parts), docs/lcsc-check.csv (LCSC price and
 JLCPCB class, MOQ), docs/costs/prices.csv (prices for parts LCSC does not sell, and overrides; optional moq column),
 docs/costs/overheads.csv (exchange rates, PCB, panel, JLCPCB fee and frame figures).
 
@@ -182,6 +183,11 @@ def bom(board):
         items.append({"pn": r["pn"] or f"(no PN) {r['value']}", "value": r["value"], "footprint": fp,
                       "qty": int(r["qty"]), "tht": (not fp) or any(h in fp for h in THT_HINTS)
                       or (r.get("assembly") or "").startswith("hand")})   # Assembly field: hand-soldered SMD (decision 150)
+    # parts with no symbol on the board's schematic (panel jacks, cables, ribbon sockets): bought per board used
+    for r in read_csv(os.path.join(ROOT, "docs", "costs", "offboard.csv")):
+        if r["board"] == board:
+            items.append({"pn": r["ProjectPN"], "value": r["notes"], "footprint": "(off-board)",
+                          "qty": int(r["qty"]), "tht": True})
     return items
 
 
@@ -319,7 +325,9 @@ def estimate_lines(channels, o, per_design=False, sets=1):
     pcb = (max(o["pcb_min_eur_per_design"], o["pcb_channel_eur"] * built["channel-card"])
            + max(o["pcb_min_eur_per_design"], o["pcb_input_eur"] * count["input-module-6p3"])
            + max(o["pcb_min_eur_per_design"], o["pcb_master_eur"] * built["master"])
-           + max(o["pcb_min_eur_per_design"], o["pcb_power_eur"] * built["power"]))
+           + max(o["pcb_min_eur_per_design"], o["pcb_power_eur"] * built["power"])
+           # the master's two rear row boards (decision 162), two designs without assembly
+           + 2 * max(o["pcb_min_eur_per_design"], o["pcb_rear_row_eur"] * sets))
     lines.append(("PCBs", pcb)); total += pcb
     panels = max(o["pcb_min_eur_per_design"], o["panel_strip_eur"] * channels * sets) + o["panel_master_rear_eur"] * sets
     lines.append(("FR4 panels", panels)); total += panels

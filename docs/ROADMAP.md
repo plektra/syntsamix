@@ -50,10 +50,10 @@ The user asked for a large cost cut (2026-10-09), then set the frame: the protot
 
 | Build | Total |
 |---|---|
-| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794; after 153, 155: €788; 153 on the master: €785; power board 156-159, 2026-10-11: €764; latching button price, JLCPCB fees per design at $3.07, Thonk volume breaks: €778) |
-| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074; after 153, 155: €1,069; 153 on the master: €1,066; power board 156-159: €1,045; button, fee model, breaks: €1,040) |
+| Prototype, 4 channels | ~€1,115 (2026-10-10: €941; after decisions 144-150: €794; after 153, 155: €788; 153 on the master: €785; power board 156-159, 2026-10-11: €764; latching button price, JLCPCB fees per design at $3.07, Thonk volume breaks: €778; 2026-10-13, every off-board part counted (`docs/costs/offboard.csv`: rear jacks, cables, ribbon sockets, row-board PCBs, decision 171): €834; 0805 master LEDs, decision 170: €831) |
+| 8 channels, one power board | €1,221 (2026-10-10; after decisions 144-150: €1,074; after 153, 155: €1,069; 153 on the master: €1,066; power board 156-159: €1,045; button, fee model, breaks: €1,040; off-board parts counted, 2026-10-13: €1,113; decision 170: €1,110) |
 | Series of 8-channel mixers, one order (`tools/costs.py sets`) | per set €1,040 / €854 / €784 / €772 for 1 / 5 / 10 / 20 sets (2026-10-11); from 5 sets the channel cards go to Standard PCBA (over 30 boards), panelling the 33 mm card not priced; volume breaks only where known (Thonk) |
-| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671; after 153, 155: €1,665; 153 on the master: €1,663; power board 156-159: €1,641; button, fee model, breaks: €1,600) |
+| Full console, 16 channels, ordered like the prototype | ~€2,110 (2026-10-10: €1,818; after decisions 144-150: €1,671; after 153, 155: €1,665; 153 on the master: €1,663; power board 156-159: €1,641; button, fee model, breaks: €1,600; off-board parts counted, 2026-10-13: €1,696; decision 170: €1,693) |
 
 The 2026-10-10 figures include decisions 139-143 and 145. The 8-channel build assumes one power board carries 8 cards plus the master (power lever 1's open check); the 16-channel figure still prices one power board, although the full-size supply is not designed yet (decision 100).
 
@@ -94,6 +94,7 @@ Levers [proposed] (board details in each `CHECKLISTS.md`, "Cost-cut levers"):
 6. **Cheaper trimmers** than the Bourns 3296W: about €4 per channel; and for a product, fewer trimmers (each is a calibration step).
    - Note (2026-10-10): the channel trimmers are now bought at Mouser to keep the hand-soldered parts in one order (652-3296W-1-503LF, €1.58 at 10+, €1.38 at 25+). The same Bourns part is cheaper at LCSC (C83686, 0.75 USD at 10+, 0.64 USD at 50+): about €0.90 less per trimmer, €2.70 per channel card (3 trimmers), about €11 for 4 channels and €43 for a 16-channel console. Worth switching if the order goes to LCSC/JLCPCB anyway.
 7. Done: Rean NYS216 jacks instead of the Neutrik NMJ6HCD2 (decision 132), about €1.15 per jack. For a product, recheck the 1,000-cycle rating against the inputs' expected use (the Neutrik is rated over 10,000).
+8. **Cost watch: ready-made input-module cables** (agreed by the user 2026-10-13 to avoid hand crimping; to settle in `/system`, decision 99): Molex 217796-1101 at about €4.80 (€4.00 at 25+) against about €1.60 for housings and crimps, so about €13 more on the 4-channel prototype and about €40-50 at 16 channels. Levers to check later: a cheaper ready-made source with a RoHS statement, a longer stock length cut and re-terminated (needs crimping again), IDC (a 2x5 header on both boards: contract change, and keep it from mating with the 2x4 power sockets), or a crimp tool once the volume justifies it.
 
 Rejected by the user (2026-10-09): **the filter as a fitting option** (about €25 per channel). The SSI2144 ladder filter is one of the essential features that make this mixer stand out; it stays on every channel.
 
