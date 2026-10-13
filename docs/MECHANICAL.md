@@ -28,7 +28,7 @@ One column, top (rear) to bottom (front), following the signal flow:
 
 1. TRIM
 2. [LOW-CUT]
-3. Cutoff CV jack (3.5 mm Thonkiconn, vertical, on the channel card; decision 118), centred on the strip
+3. Cutoff CV IN and CV OUT jacks (3.5 mm Thonkiconn, vertical, on the channel card; decisions 118, 165), side by side, IN left and OUT right, 16 mm between centres, centred on the strip (decision 166)
 4. CUTOFF
 5. RESONANCE
 6. [FILTER BYPASS]
@@ -50,7 +50,7 @@ One column, top (rear) to bottom (front), following the signal flow:
 | Top-side height limit | at most 9.0 mm under the panel (1 mm clearance), except parts that pass through it |
 | Buttons (GPBS850L) | printed caps take up the height (measure a sample) |
 | Channel meter (decision 119) | 0805 LEDs on the PCB under a 3D-printed bezel 11.6 mm tall, face flush with the panel top, through one slot about 5 × 49 mm; 8 windows at 6.0 mm pitch (about 4 × 4.5 mm, 1.5 mm walls); located by the slot and two printed pegs in 1.5 mm non-plated PCB holes; column position across the strip: *set at channel card layout* |
-| Cutoff CV jack | 3.5 mm Thonkiconn PJ398SM (decision 118): body 9 mm on the PCB, 1 mm printed washer on the unthreaded bushing collar to the panel underside, M6×0.5 nut on top (2.9 mm of thread left) |
+| Cutoff CV jacks (IN, OUT) | 3.5 mm Thonkiconn PJ398SM (decisions 118, 166), each: body 9 mm on the PCB, 1 mm printed washer on the unthreaded bushing collar to the panel underside, M6×0.5 nut on top (2.9 mm of thread left) |
 
 Assembly order: screw the fader to the panel first, then solder it to the PCB, so its joints carry no stress. The fader is therefore hand-soldered, not assembled by the PCB maker.
 
@@ -95,7 +95,7 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 | Master card | at most 138 mm wide and 318 mm deep, hung 10 mm under its panel like a channel card (decision 107); chain headers on its left edge at the channel distance (decision 109) |
 | Controls | 13 pots, 10 buttons, stereo meter, 5 gain-reduction LEDs, headphone jack; three columns (compressor and sidechain, AUX, master/phones/meter) set at layout |
 | Meters | 0805 LEDs under printed bezels as decision 119: 2 × 12 at 6.0 mm pitch plus the 5 gain-reduction LEDs |
-| Rear jacks | one rear piece 139.8 mm; 12 positions in 2 rows × 6 at about 23 mm: 11 jacks and the ground-lift switch, on two flat passive row boards fixed only by the jack nuts: output board (main L/R, AUX send 1 L/R, AUX send 2 L/R) and input board (AUX return 1 L/R, AUX return 2 L/R, SC EXT, ground lift), each cabled to the master card by one ribbon. Needs the NYS216 at most about 17 mm tall above its board: *measure a sample*; if taller, on-edge 2-jack boards as the input module |
+| Rear jacks | one rear piece 139.8 mm; 12 positions in 2 rows × 6 at about 23 mm: 11 jacks and the ground-lift switch, on two flat passive row boards fixed only by the jack nuts: output board (main L/R, AUX send 1 L/R, AUX send 2 L/R) and input board (AUX return 1 L/R, AUX return 2 L/R, SC EXT, ground lift), each cabled to the master card by one 26-pin ribbon (J603 outputs, J903 inputs and ground lift; decision 163). Needs the NYS216 at most about 17 mm tall above its board: *measure a sample*; if taller, on-edge 2-jack boards as the input module |
 | Headphones | panel-mounted 6.3 mm stereo jack, nut on the master top panel, body through a cutout in the master card, short twisted cable to a header on the card; at least about 90 mm behind the front edge (about 30 mm of depth) |
 | Regulators | U901-U903 TO-220 with one heatsink each (about 19.7 mm, ≤ 11.5 °C/W) on the card's underside, hand-soldered, behind the card's middle, up to 25 mm below the PCB (master-only exception to decision 121); ≥ 3 mm from each other, the frame and the cover (live tabs) |
 

@@ -130,7 +130,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 103 | Master fader-law buffers and summers (U206, U306, U705) on an OPA2171 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 105 | Input header pinout confirmed as drawn | confirmed | [input-module](input-module.md) |
-| 106 | Strip envelope (35 mm pitch, card ≤ 33 mm, control area ≤ 320 mm), CV jack above CUTOFF, `MECHANICAL.md` contract | confirmed | [mechanical](mechanical.md) |
+| 106 | Strip envelope (35 mm pitch, card ≤ 33 mm, control area ≤ 320 mm), CV jack above CUTOFF, `MECHANICAL.md` contract | confirmed, refined | [mechanical](mechanical.md) |
 | 107 | Panel stack: PCB 10 mm below the panel, pots hold the panel, fader screwed to the panel before soldering, top-side parts ≤ 9 mm (underside: 112, 121) | confirmed, refined | [mechanical](mechanical.md) |
 | 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts (now one per end, 120); PCB between the rails, ≤ 318 mm | confirmed, refined | [mechanical](mechanical.md) |
 | 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB (underside rules: 121) | confirmed, refined | [mechanical](mechanical.md) |
@@ -190,6 +190,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 163 | Rear row-board ribbons: two 26-pin shrouded IDC headers, J603 (outputs, AUX sends sheet) and J903 (inputs and ground lift, Power sheet), pairs with a ground between them; row boards carry only jacks, header and SW901; refines 87, 88, 90-92, 162 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 164 | A lab's RoHS test report on package families, via the maker or reseller, is a RoHS source; clears SSI2144SS-TU and SSI2162SS-TU (SGS report via Electrokit; SSI2162 package matched as SOP10, Electrokit asked to confirm); refines 124 | confirmed | [process](process.md) |
 | 165 | Cutoff CV chaining: CV OUT jack (total cutoff control, 1 V/oct, from FCV through U107B), jumper JP181 CV ONLY / CV + POT through the CV IN jack's normal contact, BZT52C11 pair clamping the cutoff summer (SSI2144 pin within about ±128 mV); panel row for /system; refines 20, 53 | confirmed | [channel-card](channel-card.md) |
+| 166 | Cutoff CV IN and CV OUT jacks side by side in panel row 3 (IN left, 16 mm between centres); a CV patch cable between cards joining their AGNDs is allowed; refines 55, 106 | confirmed | [mechanical](mechanical.md) |
 
 ## Proposed but not confirmed
 

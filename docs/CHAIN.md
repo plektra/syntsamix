@@ -54,6 +54,8 @@ Signal definitions:
 - On a channel card, the regulator input capacitors return to PGND; the regulators' reference and all audio circuits use AGND.
 - Keep ground current on channel cards small: LEDs and logic return to PGND, not AGND (this includes the PFL_ACT drivers and the button pull-downs, decision 98); op amps run rail to rail, so their supply current does not flow in ground.
 - Jack sleeves connect to their own card's AGND. FR4 panels do not conduct, so jacks never touch the frame.
+- A patch cable between two channel cards' cutoff CV jacks (CV OUT into another card's CV IN, decision 165) joins their AGNDs in parallel with the audio ribbon's grounds. This is allowed: AGND to AGND inside the unit, a DC control signal (decision 166).
+- The master's rear jacks sit on two passive row boards; their sleeves reach the master card's AGND through the ground conductors of ribbons J603 and J903 (decision 163).
 - The metal frame (rails, metal side cheeks) is bonded to the system star point at the master card only, through a ground-lift switch (lifted position: frame connected through a small resistor and capacitor).
 
 ## Placement

@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-12 (/board master schematic: rear ribbons drawn, decision 163; rest of the decision 162 rework under Next). 2026-10-11: /system mechanical, decision 162. 2026-10-10: R232/R332 30k drawn (153).
+Updated 2026-10-13 (/system: decision 163 wording taken into ARCHITECTURE, CHAIN and MECHANICAL). 2026-10-12 (/board master schematic: rear ribbons drawn, decision 163; rest of the decision 162 rework under Next). 2026-10-11: /system mechanical, decision 162. 2026-10-10: R232/R332 30k drawn (153).
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -39,4 +39,4 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## For /system
 
-- From the architecture review of decision 163 (2026-10-12), wording only, no conflict: `docs/ARCHITECTURE.md` invariant 2 could say the rear jack sleeves reach the master's AGND through the row-board ribbon grounds and the lift switch sits on the input row board (J903 pins 25/26); `docs/MECHANICAL.md` "Rear jacks" row could point to decision 163 (26-pin ribbons J603/J903).
+(none; the decision 163 wording is in `ARCHITECTURE.md` invariant 2, `CHAIN.md` Grounding and the `MECHANICAL.md` Rear jacks row, /system 2026-10-13)

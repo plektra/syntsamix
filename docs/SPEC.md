@@ -64,12 +64,12 @@ Signal flow per channel: input receiver and trim (with soft clip) → low-cut (s
 | AUX | Two stereo AUX sends, each a level control feeding a stereo AUX bus | confirmed |
 | AUX pre/post | Post-fader by default; a PCB jumper per send selects pre-fader | confirmed |
 | Cutoff CV input | Per-channel 3.5 mm jack (Thonkiconn, decision 118) into the filter control summer, driving L and R together; fixed scale of about 1 V/octave (Eurorack convention), no amount knob; DC-coupled, about 100 kΩ input impedance, survives ±12 V; knob plus CV is limited to the chip's safe control range by a zener clamp on the summer (frequency pin within about ±128 mV, decision 165) | confirmed |
-| Cutoff CV chaining | Per-channel 3.5 mm CV OUT jack beside the CV input: the channel's total cutoff control at 1 V/oct, so one knob or CV can drive several channels by patching CV OUT into the next CV IN. An underside jumper per card selects CV ONLY (a plugged CV replaces the knob) or CV + POT (the knob adds an offset). Panel position settled by /system (decision 165) | confirmed |
+| Cutoff CV chaining | Per-channel 3.5 mm CV OUT jack beside the CV input: the channel's total cutoff control at 1 V/oct, so one knob or CV can drive several channels by patching CV OUT into the next CV IN. An underside jumper per card selects CV ONLY (a plugged CV replaces the knob) or CV + POT (the knob adds an offset). Beside CV IN, IN left and OUT right (decisions 165, 166) | confirmed |
 | HPF | Sweepable resonant HPF dropped from the prototype; reserve space for later. A fixed switchable 100 Hz low-cut is included instead | confirmed |
 
 Panel layout, top to bottom, following the signal flow (post-fader AUX knobs sit above the fader, as on any console) **[confirmed]**:
-TRIM, [LOW-CUT], CV jack, CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [DUCK] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
-Channel input jacks (L/MONO and R, on the input module) on the rear panel; the cutoff CV jack sits on the top panel directly above CUTOFF, mounted on the channel card; strip pitch 35 mm (decision 106, `MECHANICAL.md`) **[confirmed]**
+TRIM, [LOW-CUT], CV IN + CV OUT jacks, CUTOFF, RESONANCE, [FILTER BYPASS], AUX 1, AUX 2, [SC SEND] [DUCK] [COMP BUS], [PFL], [MUTE], then the 8-LED meter beside the 60 mm fader at the bottom edge.
+Channel input jacks (L/MONO and R, on the input module) on the rear panel; the cutoff CV IN and CV OUT jacks sit side by side on the top panel directly above CUTOFF, mounted on the channel card (decision 166); strip pitch 35 mm (decision 106, `MECHANICAL.md`) **[confirmed]**
 
 Notes on the filter (SSI2144 datasheet Rev 3.0, January 2018, verified):
 - Supply ±4 V to ±16 V, absolute maximum ±18 V; datasheet specs are measured at ±12 V.

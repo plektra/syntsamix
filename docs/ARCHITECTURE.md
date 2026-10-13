@@ -78,7 +78,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 ## Invariants
 
 1. **Channel independence:** no channel card depends on another; slots are identical; any number of cards from 1 to 16 works (decisions 30, 46).
-2. **One star point:** AGND and PGND join only on the master card; jack sleeves to their card's AGND; frame bonded at the star point only, through the ground-lift switch (decisions 42, 61, 87).
+2. **One star point:** AGND and PGND join only on the master card; jack sleeves to their card's AGND (the master's rear jacks through the row-board ribbon grounds, decision 163; a CV patch cable between channel cards joins AGND to AGND, decision 166); frame bonded at the star point only, through the ground-lift switch on the master's input row board (J903 pins 25/26) (decisions 42, 61, 87, 163).
 3. **Local regulation:** every card regulates its own rails from the raw chain voltage; no regulated rail crosses a ribbon (decision 40).
 4. **Ground currents:** LEDs, logic (including the PFL_ACT drivers and button pull-downs) and regulator input capacitors return to PGND; audio returns to AGND (`CHAIN.md`, decision 98).
 5. **Contracts change only by a confirmed decision:** `CHAIN.md`, `INPUT-MODULE.md`, `MECHANICAL.md` and the budgets above.
