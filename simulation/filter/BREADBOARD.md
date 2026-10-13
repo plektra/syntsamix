@@ -199,9 +199,25 @@ With the CV input at 0 V and at +1 V, +2 V, +3 V (a lab supply or a divider; the
 
 Decide: if both chips need the same feedback within about ±2 % (about 20 cents over 3 octaves), an E24 pair can replace RV182 for the product (one part and one calibration step fewer per card). The warm-up drift tells whether the backlog item (decision 141) is worth bringing back.
 
+### Test 13: Summer clamp, dropout and CV OUT (decision 165)
+The card clamps the cutoff summer with two BZT52C11 back to back across its feedback, so the SSI2144 frequency pin stays inside its datasheet range (−120 to +150 mV) and below the low-cutoff dropout (above about +175 mV the filter goes silent and recovers at about +135 mV, datasheet p5). `simulation/cutoff/` predicts a clamp at about ±10.5 to 12 V and a pin within about ±128 mV; the knee below 0.5 mA is not in the zener datasheet. Needs two 11 V zeners (a DO-35 BZX79C11 is fine on the breadboard; the card's SOD-123 BZT52C11 on an adapter is closer) and, for the last row, a TL072 half with 100k in, 51k + 1k feedback and 1k out.
+
+First without the zeners: feed the CV input from a lab supply (or a ±12 V divider) and raise the voltage on the low-cutoff side (positive at the pin) until the output goes silent; note the pin voltage, then lower it until the signal returns. Then fit the zeners and repeat across the full CV range.
+
+| Measurement | Without clamp | With clamp |
+|---|---|---|
+| Pin voltage at dropout / recovery (mV) | | — |
+| Summer output at the CV extremes (V) | | |
+| Pin voltage at the CV extremes (mV) | | |
+| Octave error at the pot's ends (cents; knee of the clamp) | — | |
+| CV OUT against the total control at −5, 0, +5 V (V) | — | |
+
+Decide: keep C11 if the pin stays below the measured recovery level with margin and the pot's ends are within about 20 cents; otherwise move one zener step (C10 if the dropout comes earlier than the datasheet says, C12 if the knee bends the ends).
+
 ## 4. After the tests
 
 - Copy the measured values into `README.md` next to the simulated ones.
 - Update `docs/decisions/channel-card.md` (and its row in `INDEX.md`): drive default, Q VCA series resistor and compensation setting, output feedback resistance, any differences from the model.
 - Update the channel card Filter sheet: R111/R161 (output scale) and R120/R170 (Q limit), on E24 values or E24 pairs (decision 140).
 - Tests 11 and 12: record the decisions on the coupling capacitors (lever 7) and the V/OCT trimmer in `hardware/channel-card/STATUS.md`.
+- Test 13: if the zener changes, update D184/D185 in `filter_wired.py` / `filter_build.py` and `simulation/cutoff/`.

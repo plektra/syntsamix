@@ -15,7 +15,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 17. Resonance limited by a fixed maximum Q current (about 280 µA, 129/140) so no chip self-oscillates
 18. The bass loss that comes with resonance is half-compensated (50, 71)
 19. Fader controls a VCA (part: 31)
-20. Per-channel cutoff CV input
+20. Per-channel cutoff CV input, with a CV OUT and a CV ONLY / CV + POT jumper for chaining channels (165)
 22. No balance or pan control on the channel
 23. AUX sends post-fader, with a jumper per send for pre-fader
 26. One wide input trim, no pad switch: about −13.5 to +28.3 dB (115, 140)
@@ -28,7 +28,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 48. Fader: Bourns PTA6043-2015DPB103 (60 mm, linear 10 kΩ, no detent, 15 mm metal lever); fallback Taiwan Alpha 60 mm 10k linear (check footprint). Wiper noise smoothed by the control summer (72). Rated 15,000 cycles: fine for the prototype, revisit for a product
 50. Filter drive and compensation (from simulation): hot drive by default plus a prototype jumper for a medium drive about 4 dB lower (attenuator and make-up switched together), chosen by ear on the breadboard. Half compensation (√(1+k), built as 71). The cutoff trim must inject at least ±12 mV at the frequency pin
 52. Cutoff range 20 Hz to 20 kHz on a linear pot (even octave spread)
-53. Cutoff CV input: about 1 V/oct fixed, no amount knob; DC-coupled, about 100 kΩ, protected to ±12 V, summed with the cutoff knob and limited
+53. Cutoff CV input: about 1 V/oct fixed, no amount knob; DC-coupled, about 100 kΩ, protected to ±12 V, summed with the cutoff knob (or replacing it, jumper 165) and limited by the zener clamp of 165
 54. Channel buttons are latching push switches with two contact sets (function plus LED); momentary buttons with logic are backlog
 65. Switchable fixed low-cut per channel after the trim stage, before the filter, with a lit latching button: 100 Hz, 12 dB/oct (73). Sweepable resonant HPF stays in the backlog
 71. Resonance compensation by the SSI2144 datasheet's external Q VCA (Rev 3.0 Figure 9): half an LM13700 per filter (one chip per card), one single-gang reverse-audio RESONANCE pot; the chip's Q pin gets 13 kΩ to ground. A per-side jumper selects none, half (default) or full compensation
@@ -47,3 +47,4 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 142. MUTE and DUCK are switched by the spare pole of their latching buttons, no DG413: MUTE pin 3 = −15 V, DUCK pin 3 = SC_ENV, common pin 2 into R216 33k / R217 into the control summer; released throw open and 100 k holds to AGND (conditions of 152). The 10 ms summer smoothing keeps the ramps click-free and filters bounce. U206 removed
 143. Input receiver: TL072CDT G = ½ difference amplifier per side, all legs 10k 0.1 % thin film (SX-R-107; the RFI series resistors R1-R4 form half of each 20k input leg). Still inverting. CMRR ≥ 51.5 dB worst case (about 60 typical), EIN about −98 dBu, input impedance 20k (IN+) / 30k (IN−). Enough because runs are 1-5 m and hum rejection does not depend on cable length
 155. On the prototype the user hand-solders the SSI2144s (U101/U102) and the SSI2162 (U201): Assembly = "hand (decision 155)", neither type consigned (refines 133 for these parts, like 150 on the master). Nothing on the card is consigned since 161 (the bipolar 10 µF became back-to-back pairs placed by JLCPCB). Backlog: a product returns them to JLCPCB placement
+165. Cutoff CV chaining (refines 20, 53): CV OUT jack J182 (PJ398SM) gives the channel's total cutoff control at 1 V/oct from FCV through U107B (100k in, 51k + 1k feedback, 1k out; the card's V/OCT trim scales it, up to about ±5 % between cards). JP181 (underside): 1-2 CV ONLY (the pot reaches the summer through the CV IN jack's normal contact, a plugged CV replaces it), 2-3 CV + POT (the pot is an offset). R181 200k + R188 100k keep the pot's 300k scale. D184/D185 BZT52C11 back to back across the summer clamp FCV at about ±10.5-12 V so the SSI2144 frequency pin stays within about ±128 mV (datasheet range −120 to +150 mV, dropout above about +175 mV; `simulation/cutoff/`, breadboard test 13). Panel row 3 (IN and OUT side by side): /system

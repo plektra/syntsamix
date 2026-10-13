@@ -160,33 +160,58 @@ side("R",50,205.74,"U102",("U91031",1,(13,14,15,12,16)),("U91042",2,(6,5,7)),("U
      ("U91082",2,0,8,6,7),("U91083",3,180,9,11,10))
 
 # ------------------------------------------------------------- shared: cutoff summer
-Y=300.0
-cp=s.place("Device","R_Potentiometer","RV181","50k lin CUTOFF",40.64,Y,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
+# Cutoff CV chaining (decision 165): CV IN jack on top, its tip straight into the summer; the
+# jack's normal contact, the pot leg and the summer leg meet on JP181 (1-2 CV ONLY: the pot
+# reaches the summer through the normal, so a plugged CV replaces it; 2-3 CV + POT); the
+# summer is clamped by D184/D185 (BZT52C11 back to back); U107B makes CV OUT from FCV.
+Y=300.0; DX=10.16   # summer moved right by DX for the jumper column
+jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV IN 1 V/oct",35.56,Y,0,fp="Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles",props=P("SX-CONN-014",Manufacturer="Qingpu",MPN="PJ398SM",Supplier="Thonk",Note="3.5 mm Thonkiconn on the top panel with a 1 mm M6 washer (SX-MECH-004); 3 mm PCB hole under the barrel; normal contact TN to JP181 (decision 165)"))
+FS=(71.12+DX,jk("T")[1])
+r182=R("R182","100k","SX-R-007",66.04,FS[1]); s.wire(jk("T"),r182(1)); s.wire(r182(2),FS)
+s.wire(jk("S"),(58.42,jk("S")[1])); gnd((58.42,jk("S")[1]),180)
+YJ=FS[1]+25.4
+jp=s.place("Connector_Generic","Conn_01x03","JP181","1-2 CV, 2-3 SUM",60.96,YJ,0,
+           fp="Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",props=P("SX-CONN-005",Note="Cutoff mode (decision 165), underside (decision 112): 1-2 CV ONLY (a plugged CV replaces the CUTOFF pot), 2-3 CV + POT (the pot adds an offset)"))
+s.wire(jk("TN"),(53.34,jk("TN")[1]),(53.34,jp(1)[1]),jp(1))
+cp=s.place("Device","R_Potentiometer","RV181","50k lin CUTOFF",40.64,YJ,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
            props=P("SX-POT-003",Manufacturer="Alpha",MPN="RD901F-40-15K-B50K",Supplier="Tayda",SupplierPN="A-4730",Note="Panel; clockwise end (pin 3) raises the cutoff"))
 s.wire(cp(1),up(cp(1),5.08)); s.power("-15V",up(cp(1),5.08),180)
 s.wire(cp(3),dn(cp(3),5.08)); s.power("+15V",dn(cp(3),5.08),180)
-r181=R("R181","300k","SX-R-096",55.88,Y); s.wire(cp(2),r181(1))
-FS=(71.12,Y); s.wire(r181(2),FS)
-jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV 1 V/oct",35.56,Y+20.32,0,fp="Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles",props=P("SX-CONN-014",Manufacturer="Qingpu",MPN="PJ398SM",Supplier="Thonk",Note="3.5 mm Thonkiconn on the top panel with a 1 mm M6 washer (SX-MECH-004); 3 mm PCB hole under the barrel"))
-r182=R("R182","100k","SX-R-007",55.88,jk("T")[1]); s.wire(jk("T"),r182(1)); s.wire(r182(2),(FS[0],jk("T")[1]))
-s.wire(jk("S"),rt(jk("S"),5.08)); gnd(rt(jk("S"),5.08),180)
-s.wire(jk("TN"),rt(jk("TN"),5.08),dn(rt(jk("TN"),5.08),2.54)); gnd(dn(rt(jk("TN"),5.08),2.54))
-sm=OA("TL072","U107",1,86.36,Y-2.54,"SX-IC-007")   # DC control stage: TL072 (power lever 1, 2026-10-09)
+r181=R("R181","200k","SX-R-116",48.26,YJ,Note="With R188 100k the pot leg is 300k in either jumper position (decision 165)"); s.wire(cp(2),r181(1)); s.wire(r181(2),jp(2))
+YQ=YJ+10.16
+r188=R("R188","100k","SX-R-007",62.23,YQ); s.wire(jp(3),(54.61,jp(3)[1]),(54.61,YQ),r188(1)); s.wire(r188(2),(FS[0],YQ))
+sm=OA("TL072","U107",1,86.36+DX,Y-2.54,"SX-IC-007")   # DC control stage: TL072 (power lever 1, 2026-10-09)
 s.wire(FS,sm(2)); s.wire(sm(3),lt(sm(3)),up(lt(sm(3)))); gnd(up(lt(sm(3))),180)
-fcv=(99.06,Y-2.54); s.wire(sm(1),fcv); s.wire(fcv,(106.68,fcv[1])); s.label("FCV",(106.68,fcv[1]),0)
+fcv=(99.06+DX,sm(1)[1]); s.wire(sm(1),fcv); s.wire(fcv,(106.68+DX,fcv[1])); s.label("FCV",(106.68+DX,fcv[1]),0)
+# FCV clamp: D184/D185 BZT52C11 back to back across the summer, about +-10.4 to 12 V (decision 165)
+YZ=FS[1]-17.78
+z1=s.place("Device","D","D184","BZT52C11",88.9,YZ,0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-018",Manufacturer="hongjiacheng",MPN="BZT52C11",Supplier="LCSC",SupplierPN="C19077409"))
+z2=s.place("Device","D","D185","BZT52C11",101.6,YZ,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-018",Manufacturer="hongjiacheng",MPN="BZT52C11",Supplier="LCSC",SupplierPN="C19077409"))
+s.wire(FS,(FS[0],YZ),z1(1)); s.wire(z1(2),z2(2)); s.wire(z2(1),(fcv[0],YZ),fcv)
 # V/oct feedback: R183 + R187 (E24 pair, 162k) in series with RV182 (decision 140)
 YR=Y+38.1
 tr=s.place("Device","R_Potentiometer_Trim","RV182","50k V/OCT",fcv[0],Y+30.48,180,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF",Supplier="Mouser",SupplierPN="652-3296W-1-503LF"))
-s.wire(FS,(FS[0],Y+20.32)); s.wire((FS[0],Y+20.32),(FS[0],YR))
-r183=R("R183","150k","SX-R-098",78.74,YR); r187=R("R187","12k","SX-R-008",88.9,YR)
+s.wire(FS,(FS[0],Y+20.32)); s.wire((FS[0],Y+20.32),(FS[0],YQ)); s.wire((FS[0],YQ),(FS[0],YR))
+r183=R("R183","150k","SX-R-098",78.74+DX,YR); r187=R("R187","12k","SX-R-008",88.9+DX,YR)
 s.wire((FS[0],YR),r183(1)); s.wire(r183(2),r187(1)); s.wire(r187(2),(fcv[0],YR),tr(1))
-c181=C("C181","22p C0G","SX-C-004",85.09,Y+20.32); s.wire((FS[0],Y+20.32),c181(1)); s.wire(c181(2),(fcv[0],Y+20.32))
+c181=C("C181","22p C0G","SX-C-004",85.09+DX,Y+20.32); s.wire((FS[0],Y+20.32),c181(1)); s.wire(c181(2),(fcv[0],Y+20.32))
 yw=tr(3)[1]-2.54
 s.wire(tr(2),(tr(2)[0],yw),(fcv[0],yw))
 for y1,y2 in ((fcv[1],Y+20.32),(Y+20.32,yw),(yw,tr(3)[1])): s.wire((fcv[0],y1),(fcv[0],y2))
-sp=OA("TL072","U91072",2,86.36,Y+55.88,"SX-IC-007")
+# CV OUT (decision 165): U107B inverts FCV by 52k/100k back to 1 V/oct of the channel's total cutoff control
+sp=OA("TL072","U91072",2,86.36+DX,Y+55.88,"SX-IC-007")
 s.wire(sp(5),lt(sp(5)),up(lt(sp(5)))); gnd(up(lt(sp(5))),180)
-s.wire(sp(7),rt(sp(7),2.54),dn(rt(sp(7),2.54),5.08),(sp(6)[0]-2.54,sp(7)[1]+5.08),(sp(6)[0]-2.54,sp(6)[1]),sp(6))
+r189=R("R189","100k","SX-R-007",78.74,sp(6)[1]); s.wire(r189(1),lt(r189(1),2.54)); s.label("FCV",lt(r189(1),2.54),180)
+nn=(sp(6)[0]-2.54,sp(6)[1]); s.wire(r189(2),nn,sp(6))
+YF=sp(6)[1]+7.62
+r190=R("R190","51k","SX-R-093",nn[0]+6.35,YF); r191=R("R191","1k","SX-R-035",nn[0]+16.51,YF)
+s.wire(nn,(nn[0],YF),r190(1)); s.wire(r190(2),r191(1))
+no=(sp(7)[0]+5.08,sp(7)[1]); s.wire(sp(7),no); s.wire(r191(2),(no[0],YF),no)
+r192=R("R192","1k","SX-R-035",no[0]+7.62,no[1],Note="CV OUT series resistor: short-proof, isolates cable capacitance (decision 165)"); s.wire(no,r192(1))
+jo=s.place("Connector_Audio","AudioJack2_SwitchT","J182","CV OUT 1 V/oct",r192(2)[0]+10.16,no[1],180,fp="Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles",props=P("SX-CONN-014",Manufacturer="Qingpu",MPN="PJ398SM",Supplier="Thonk",Note="3.5 mm Thonkiconn on the top panel beside CV IN (decision 165; panel row: /system); 1 mm M6 washer (SX-MECH-004)"))
+s.wire(r192(2),(jo("T")[0],r192(2)[1]))
+s.wire(jo("S"),lt(jo("S"),5.08),dn(lt(jo("S"),5.08),2.54)); gnd(dn(lt(jo("S"),5.08),2.54))
+NOCONNECT.append(jo("TN"))
 # resonance pot with series resistor and bias diodes
 r184=R("R184","12k","SX-R-008",134.62,Y-12.7,0,Note="R184 12k keeps RV183 within Alpha's 0.02 W non-B rating (17 mW, was 21 mW at 10k); provisional with R120/R170: set from the SSI2144 breadboard (simulation/filter/BREADBOARD.md)"); s.wire(r184(1),up(r184(1),2.54)); s.power("+15V",up(r184(1),2.54))
 rp=s.place("Device","R_Potentiometer","RV183","10k rev. audio RESONANCE",134.62,Y,180,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
@@ -194,7 +219,7 @@ rp=s.place("Device","R_Potentiometer","RV183","10k rev. audio RESONANCE",134.62,
 s.wire(r184(2),rp(3))
 s.wire(rp(2),lt(rp(2),5.08)); s.label("QW",lt(rp(2),5.08),180)
 s.tp("TP182","QW",lt(rp(2),2.54),"up")
-s.tp("TP181","FCV",(104.14,fcv[1]),"up")
+s.tp("TP181","FCV",(104.14+DX,fcv[1]),"up")
 gnd((25.4,365.76)); s.tp("TP183","AGND",(25.4,365.76),"up")
 yd=Y+8.89
 d1=s.place("Device","D","D181","1N4148W",144.78,yd,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))

@@ -44,7 +44,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 17 | Fixed maximum Q current | confirmed | [channel-card](channel-card.md) |
 | 18 | Resonance bass-loss compensation | confirmed | [channel-card](channel-card.md) |
 | 19 | Fader controls a VCA | confirmed | [channel-card](channel-card.md) |
-| 20 | Per-channel cutoff CV input | confirmed | [channel-card](channel-card.md) |
+| 20 | Per-channel cutoff CV input | confirmed, refined | [channel-card](channel-card.md) |
 | 21 | Mono via L/MONO jack normalling | confirmed | [input-module](input-module.md) |
 | 22 | No balance/pan control | confirmed | [channel-card](channel-card.md) |
 | 23 | AUX sends post-fader, jumper for pre | confirmed | [channel-card](channel-card.md) |
@@ -77,7 +77,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 50 | Filter simulation outcome: drive jumper, half compensation | confirmed | [channel-card](channel-card.md) |
 | 51 | AUX send and return levels | confirmed | [master-card](master-card.md) |
 | 52 | Cutoff range 20 Hz to 20 kHz | confirmed | [channel-card](channel-card.md) |
-| 53 | Cutoff CV: 1 V/oct, protected | confirmed | [channel-card](channel-card.md) |
+| 53 | Cutoff CV: 1 V/oct, protected | confirmed, refined | [channel-card](channel-card.md) |
 | 54 | Latching channel buttons | confirmed | [channel-card](channel-card.md) |
 | 55 | Channel strip panel layout (meter form: 119) | confirmed, refined | [mechanical](mechanical.md) |
 | 56 | Headphone output design | confirmed, refined | [master-card](master-card.md) |
@@ -189,6 +189,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 162 | Master section 4 strips with rear jacks on two row boards, power bay (on-edge power board, two module sizes planned), chain 1 next to the master, single front rail, headphones panel-mounted on the master top panel, master heatsinks under the card, master meter 0805 under bezels; refines 56, 80, 86, 109, 121, 157, 160 | confirmed | [mechanical](mechanical.md) |
 | 163 | Rear row-board ribbons: two 26-pin shrouded IDC headers, J603 (outputs, AUX sends sheet) and J903 (inputs and ground lift, Power sheet), pairs with a ground between them; row boards carry only jacks, header and SW901; refines 87, 88, 90-92, 162 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 164 | A lab's RoHS test report on package families, via the maker or reseller, is a RoHS source; clears SSI2144SS-TU and SSI2162SS-TU (SGS report via Electrokit; SSI2162 package matched as SOP10, Electrokit asked to confirm); refines 124 | confirmed | [process](process.md) |
+| 165 | Cutoff CV chaining: CV OUT jack (total cutoff control, 1 V/oct, from FCV through U107B), jumper JP181 CV ONLY / CV + POT through the CV IN jack's normal contact, BZT52C11 pair clamping the cutoff summer (SSI2144 pin within about ±128 mV); panel row for /system; refines 20, 53 | confirmed | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 

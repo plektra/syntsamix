@@ -6,6 +6,7 @@ ngspice models and results. Each folder has a `run.py` (or netlists), a `results
 - `compressor/`: detector and gain computer (decision 89).
 - `sidechain/`: sidechain LPF and ducker (decision 90).
 - `level/`: channel fader law and ducking in the control summer (decisions 72, 97, 102).
+- `cutoff/`: channel cutoff summer with the zener clamp (decision 165).
 
 Working knowledge:
 - `compressor/run.py` and `sidechain/run.py` share a TL072-like op-amp model (GBW from 53 pF, about ±0.69 mA output current limit).

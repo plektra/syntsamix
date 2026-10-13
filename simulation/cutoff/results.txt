@@ -1,0 +1,83 @@
+Cutoff summer clamp (decision 165): pot range +-5.03 V CV; trim +-10 mV at the pin for the extremes
+Columns: zener, tolerance end, V/oct feedback, worst error inside the pot range (oct),
+FCV clamp (V), pin extremes (mV). SSI2144: -120..+150 mV specified, dropout > ~+175 mV, recovery ~+135 mV.
+
+knee NBV = 2
+C9V1  min  182k  err 0.199 oct  FCV +- 9.06 V  pin  +99.5 /  -99.5 mV
+C9V1  min  192k  err 0.418 oct  FCV +- 9.06 V  pin  +99.5 /  -99.5 mV
+C9V1  min  202k  err 0.628 oct  FCV +- 9.06 V  pin  +99.5 /  -99.5 mV
+C9V1  max  182k  err 0.012 oct  FCV +- 9.97 V  pin +108.5 / -108.5 mV
+C9V1  max  192k  err 0.044 oct  FCV +- 9.97 V  pin +108.5 / -108.5 mV
+C9V1  max  202k  err 0.220 oct  FCV +- 9.97 V  pin +108.5 / -108.5 mV
+C10   min  182k  err 0.012 oct  FCV +- 9.91 V  pin +107.9 / -107.9 mV
+C10   min  192k  err 0.060 oct  FCV +- 9.91 V  pin +107.9 / -107.9 mV
+C10   min  202k  err 0.246 oct  FCV +- 9.91 V  pin +107.9 / -107.9 mV
+C10   max  182k  err 0.012 oct  FCV +-10.90 V  pin +117.7 / -117.7 mV
+C10   max  192k  err 0.013 oct  FCV +-10.90 V  pin +117.7 / -117.7 mV
+C10   max  202k  err 0.014 oct  FCV +-10.91 V  pin +117.7 / -117.7 mV
+C11   min  182k  err 0.012 oct  FCV +-10.85 V  pin +117.2 / -117.2 mV
+C11   min  192k  err 0.013 oct  FCV +-10.86 V  pin +117.2 / -117.2 mV
+C11   min  202k  err 0.014 oct  FCV +-10.86 V  pin +117.3 / -117.3 mV
+C11   max  182k  err 0.012 oct  FCV +-11.95 V  pin +128.0 / -128.0 mV
+C11   max  192k  err 0.013 oct  FCV +-11.95 V  pin +128.1 / -128.1 mV
+C11   max  202k  err 0.014 oct  FCV +-11.95 V  pin +128.1 / -128.1 mV
+C12   min  182k  err 0.012 oct  FCV +-11.80 V  pin +126.6 / -126.6 mV
+C12   min  192k  err 0.013 oct  FCV +-11.80 V  pin +126.6 / -126.6 mV
+C12   min  202k  err 0.014 oct  FCV +-11.80 V  pin +126.6 / -126.6 mV
+C12   max  182k  err 0.012 oct  FCV +-12.99 V  pin +138.4 / -138.4 mV
+C12   max  192k  err 0.013 oct  FCV +-13.00 V  pin +138.4 / -138.4 mV
+C12   max  202k  err 0.014 oct  FCV +-13.00 V  pin +138.4 / -138.4 mV
+
+knee NBV = 4
+C9V1  min  182k  err 0.376 oct  FCV +- 8.87 V  pin  +97.6 /  -97.6 mV
+C9V1  min  192k  err 0.586 oct  FCV +- 8.87 V  pin  +97.6 /  -97.6 mV
+C9V1  min  202k  err 0.785 oct  FCV +- 8.87 V  pin  +97.7 /  -97.7 mV
+C9V1  max  182k  err 0.045 oct  FCV +- 9.77 V  pin +106.5 / -106.5 mV
+C9V1  max  192k  err 0.191 oct  FCV +- 9.78 V  pin +106.6 / -106.6 mV
+C9V1  max  202k  err 0.383 oct  FCV +- 9.78 V  pin +106.6 / -106.6 mV
+C10   min  182k  err 0.057 oct  FCV +- 9.71 V  pin +106.0 / -106.0 mV
+C10   min  192k  err 0.214 oct  FCV +- 9.72 V  pin +106.0 / -106.0 mV
+C10   min  202k  err 0.408 oct  FCV +- 9.72 V  pin +106.0 / -106.0 mV
+C10   max  182k  err 0.012 oct  FCV +-10.71 V  pin +115.8 / -115.8 mV
+C10   max  192k  err 0.014 oct  FCV +-10.71 V  pin +115.8 / -115.8 mV
+C10   max  202k  err 0.055 oct  FCV +-10.71 V  pin +115.8 / -115.8 mV
+C11   min  182k  err 0.012 oct  FCV +-10.66 V  pin +115.3 / -115.3 mV
+C11   min  192k  err 0.015 oct  FCV +-10.66 V  pin +115.3 / -115.3 mV
+C11   min  202k  err 0.066 oct  FCV +-10.66 V  pin +115.3 / -115.3 mV
+C11   max  182k  err 0.012 oct  FCV +-11.75 V  pin +126.1 / -126.1 mV
+C11   max  192k  err 0.013 oct  FCV +-11.75 V  pin +126.1 / -126.1 mV
+C11   max  202k  err 0.014 oct  FCV +-11.76 V  pin +126.1 / -126.1 mV
+C12   min  182k  err 0.012 oct  FCV +-11.60 V  pin +124.6 / -124.6 mV
+C12   min  192k  err 0.013 oct  FCV +-11.60 V  pin +124.6 / -124.6 mV
+C12   min  202k  err 0.014 oct  FCV +-11.61 V  pin +124.7 / -124.7 mV
+C12   max  182k  err 0.012 oct  FCV +-12.79 V  pin +136.4 / -136.4 mV
+C12   max  192k  err 0.013 oct  FCV +-12.80 V  pin +136.4 / -136.4 mV
+C12   max  202k  err 0.014 oct  FCV +-12.80 V  pin +136.5 / -136.5 mV
+
+knee NBV = 6
+C9V1  min  182k  err 0.544 oct  FCV +- 8.68 V  pin  +95.7 /  -95.7 mV
+C9V1  min  192k  err 0.745 oct  FCV +- 8.68 V  pin  +95.8 /  -95.8 mV
+C9V1  min  202k  err 0.935 oct  FCV +- 8.68 V  pin  +95.8 /  -95.8 mV
+C9V1  max  182k  err 0.167 oct  FCV +- 9.58 V  pin +104.6 / -104.6 mV
+C9V1  max  192k  err 0.346 oct  FCV +- 9.58 V  pin +104.7 / -104.7 mV
+C9V1  max  202k  err 0.536 oct  FCV +- 9.59 V  pin +104.7 / -104.7 mV
+C10   min  182k  err 0.187 oct  FCV +- 9.52 V  pin +104.0 / -104.0 mV
+C10   min  192k  err 0.370 oct  FCV +- 9.52 V  pin +104.1 / -104.1 mV
+C10   min  202k  err 0.561 oct  FCV +- 9.53 V  pin +104.1 / -104.1 mV
+C10   max  182k  err 0.016 oct  FCV +-10.51 V  pin +113.8 / -113.8 mV
+C10   max  192k  err 0.053 oct  FCV +-10.52 V  pin +113.9 / -113.9 mV
+C10   max  202k  err 0.175 oct  FCV +-10.52 V  pin +113.9 / -113.9 mV
+C11   min  182k  err 0.017 oct  FCV +-10.46 V  pin +113.3 / -113.3 mV
+C11   min  192k  err 0.062 oct  FCV +-10.47 V  pin +113.4 / -113.4 mV
+C11   min  202k  err 0.192 oct  FCV +-10.47 V  pin +113.4 / -113.4 mV
+C11   max  182k  err 0.012 oct  FCV +-11.55 V  pin +124.1 / -124.1 mV
+C11   max  192k  err 0.013 oct  FCV +-11.56 V  pin +124.2 / -124.2 mV
+C11   max  202k  err 0.016 oct  FCV +-11.56 V  pin +124.2 / -124.2 mV
+C12   min  182k  err 0.012 oct  FCV +-11.40 V  pin +122.7 / -122.7 mV
+C12   min  192k  err 0.013 oct  FCV +-11.41 V  pin +122.7 / -122.7 mV
+C12   min  202k  err 0.019 oct  FCV +-11.41 V  pin +122.8 / -122.8 mV
+C12   max  182k  err 0.012 oct  FCV +-12.59 V  pin +134.4 / -134.4 mV
+C12   max  192k  err 0.013 oct  FCV +-12.60 V  pin +134.5 / -134.5 mV
+C12   max  202k  err 0.014 oct  FCV +-12.60 V  pin +134.5 / -134.5 mV
+
+no clamp (192k): FCV +13.52 / -13.52 V, pin +133.5 / -133.5 mV before the trim
