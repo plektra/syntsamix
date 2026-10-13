@@ -17,6 +17,9 @@ along the top edge, GND below it; GND and -15 V along the bottom edge.
 U1 (SSI2144 on a DIP-16 adapter) straddles the centre gap at columns 8-15,
 notch to the left: pin 1 at bottom column 8, pin 16 at top column 8.
 U2 (TL072) at columns 30-33, notch to the left: pin 1 at bottom column 30.
+The supply enters at column 1 (10 µF per rail there). The R82 film
+capacitors (5 mm lead pitch) sit diagonally, one column and two rows apart
+(about 5.7 mm). Values are the E24 kit values the user builds with.
 """
 
 import sys
@@ -38,19 +41,22 @@ U2_BOT = {1: 30, 2: 31, 3: 32, 4: 33}
 PARTS = [
     # ref, value, kind, end A, end B (trimmers: end A, wiper, end B)
     # ---- input (bottom half, left of U1)
-    ("C5", "10 µF film", "cap", ("B", 2, 2), ("B", 4, 2)),
-    ("R1", "17.4 kΩ", "res", ("B", 4, 1), ("B", 8, 1)),
-    ("C9", "3.3 nF opt.", "cap", ("B", 8, 2), ("B", 9, 2)),
+    ("C5", "10 µF bipolar", "cap", ("B", 2, 2), ("B", 4, 2)),
+    ("R1", "18 kΩ", "res", ("B", 4, 1), ("B", 8, 1)),
+    ("C9", "3.3 nF opt.", "cap", ("B", 8, 2), ("B", 9, 4)),
     ("R3", "330 Ω", "res", ("B", 8, 3), ("B", 5, 3)),
     ("J1", "drive", "jumper", ("B", 5, 4), ("R", "GNDB", 5)),
     ("R2", "200 Ω", "res", ("B", 8, 4), ("R", "GNDB", 8)),
-    ("R4", "200 Ω", "res", ("B", 9, 4), ("R", "GNDB", 9)),
+    ("R4", "200 Ω", "res", ("B", 9, 3), ("R", "GNDB", 10)),
     ("L4", "IN", "lead", ("B", 2, 4), ("X", "IN")),
     # ---- ladder capacitors
     ("C4", "560 pF", "cap", ("B", 11, 2), ("B", 12, 2)),
-    ("C3", "6.8 nF", "cap", ("B", 13, 2), ("B", 14, 2)),
-    ("C1", "6.8 nF", "cap", ("T", 11, 1), ("T", 12, 1)),
-    ("C2", "6.8 nF", "cap", ("T", 13, 1), ("T", 14, 1)),
+    ("C3", "6.8 nF", "cap", ("B", 13, 2), ("B", 14, 4)),
+    ("C1", "6.8 nF", "cap", ("T", 11, 1), ("T", 12, 3)),
+    ("C2", "6.8 nF", "cap", ("T", 13, 1), ("T", 14, 3)),
+    # ---- supply entry: 10 µF per rail (polarised; + to +15 V, and + to GND on the -15 V side)
+    ("C14", "10 µF", "cap", ("R", "P15", 1), ("R", "GNDT", 1)),
+    ("C15", "10 µF", "cap", ("R", "GNDB", 1), ("R", "N15", 1)),
     # ---- U1 supply and decoupling (decoupling caps sit across the rails)
     ("W1", "", "wire", ("T", 8, 4), ("R", "P15", 8)),
     ("C10", "100 nF", "cap", ("R", "P15", 7), ("R", "GNDT", 7)),
@@ -58,14 +64,14 @@ PARTS = [
     ("W3", "", "wire", ("B", 15, 4), ("R", "N15", 15)),
     ("C11", "100 nF", "cap", ("R", "N15", 16), ("R", "GNDB", 16)),
     # ---- resonance (top half, left of U1)
-    ("R7", "499 Ω", "res", ("T", 10, 1), ("T", 6, 1)),
+    ("R7", "510 Ω", "res", ("T", 10, 1), ("T", 6, 1)),
     ("C8", "10 nF", "cap", ("T", 6, 4), ("R", "GNDT", 6)),
-    ("R6", "33.2 k → 49.9 k", "res", ("T", 10, 3), ("T", 3, 3)),
+    ("R6", "33 k → 51 k", "res", ("T", 10, 3), ("T", 3, 3)),
     ("L1", "RV2 wiper", "lead", ("T", 3, 2), ("X", "RV2.W")),
     # ---- cutoff: FREQ node extended to column 18
     ("W13", "", "wire", ("T", 9, 2), ("T", 18, 2)),
     ("R8", "1 kΩ", "res", ("T", 18, 4), ("R", "GNDT", 18)),
-    ("R10", "499 kΩ", "res", ("T", 18, 3), ("T", 22, 3)),
+    ("R10", "470 kΩ", "res", ("T", 18, 3), ("T", 22, 3)),
     ("L2", "RV4 wiper", "lead", ("T", 22, 4), ("X", "RV4.W")),
     ("R9", "100 kΩ", "res", ("T", 18, 1), ("T", 25, 1)),
     ("W4", "", "wire", ("T", 25, 2), ("T", 31, 2)),
@@ -79,14 +85,14 @@ PARTS = [
     ("C6", "100 pF", "cap", ("B", 31, 2), ("B", 30, 2)),
     ("RV3", "50 kΩ trim", "trim", ("B", 31, 4), ("B", 30, 4), ("B", 29, 4)),
     ("W8", "", "wire", ("B", 32, 4), ("R", "GNDB", 32)),
-    ("C7", "10 µF film", "cap", ("B", 30, 3), ("B", 25, 3)),
+    ("C7", "10 µF bipolar", "cap", ("B", 30, 3), ("B", 25, 3)),
     ("L3", "OUT", "lead", ("B", 25, 4), ("X", "OUT")),
     # ---- U2B summer (top)
     ("W10", "", "wire", ("T", 33, 4), ("R", "GNDT", 33)),
-    ("R11", "162 kΩ", "res", ("T", 32, 1), ("T", 28, 1)),
+    ("R11", "160 kΩ", "res", ("T", 32, 1), ("T", 28, 1)),
     ("RV5", "50 kΩ trim", "trim", ("T", 28, 4), ("T", 27, 4), ("T", 26, 4)),
     ("W11", "", "wire", ("T", 27, 3), ("T", 31, 3)),
-    ("R12", "301 kΩ", "res", ("T", 32, 2), ("T", 41, 2)),
+    ("R12", "300 kΩ", "res", ("T", 32, 2), ("T", 41, 2)),
     ("L5", "RV1 wiper", "lead", ("T", 41, 3), ("X", "RV1.W")),
     ("R13", "100 kΩ", "res", ("T", 32, 3), ("T", 35, 3)),
     ("L6", "CV", "lead", ("T", 35, 4), ("X", "CV")),
@@ -134,10 +140,10 @@ EXPECTED = [
     {"R11.2", "RV5.1"},
     {"R12.2", "X:RV1.W"},
     {"R13.2", "X:CV"},
-    {"P15", "U1.16", "U2.8", "C10.1", "C12.1", "X:RV1.CW", "X:RV2.CW", "X:RV4.A"},
-    {"N15", "U1.8", "U2.4", "C11.1", "C13.1", "X:RV1.CCW", "X:RV4.B"},
+    {"P15", "U1.16", "U2.8", "C10.1", "C12.1", "X:RV1.CW", "X:RV2.CW", "X:RV4.A", "C14.1"},
+    {"N15", "U1.8", "U2.4", "C11.1", "C13.1", "X:RV1.CCW", "X:RV4.B", "C15.2"},
     {"GND", "U1.9", "U2.3", "U2.5", "R2.2", "J1.2", "R4.2", "C8.2", "R8.2",
-     "C10.2", "C11.2", "C12.2", "C13.2", "X:RV2.CCW"},
+     "C10.2", "C11.2", "C12.2", "C13.2", "X:RV2.CCW", "C14.2", "C15.1"},
 ]
 
 
@@ -274,7 +280,8 @@ def xy(end):
 
 TAG_SIDE = {"L1": "right", "L2": "right", "L3": "left", "L4": "left", "L5": "right", "L6": "right"}
 LABEL_SIDE = {"R2": "left", "R4": "right", "J1": "left", "C8": "right", "R8": "right",
-              "W1": None, "C10": "right", "C11": "right", "C12": "right", "C13": "right"}
+              "W1": None, "C10": "right", "C11": "right", "C12": "right", "C13": "right",
+              "C14": "right", "C15": "right"}
 
 
 def halo_text(x, y, s, col, anchor="middle", size=9, weight=700):

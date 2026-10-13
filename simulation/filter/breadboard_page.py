@@ -19,31 +19,35 @@ import breadboard_layout as bl
 HERE = Path(__file__).resolve().parent
 
 NOTES = {
-    "C5": "Film or bipolar; both ends sit near 0 V",
-    "R1": "Input attenuator: +4 dBu becomes about ±19.7 mV at pin 1",
+    "C5": "10 µF 100 V bipolar electrolytic from the order (ø8 mm); either way round. Test 11 swaps it for two 10 µF 25 V back to back, − to −",
+    "R1": "Input attenuator, the card's 18 kΩ: +4 dBu becomes about ±19 mV at pin 1",
     "R2": "Attenuator shunt (hot drive)",
     "R3": "330 Ω gives about −4 dB; try 200 Ω for about −6 dB",
     "J1": "Wire link. Fitted = medium drive, removed = hot drive",
-    "C9": "Optional (datasheet): steadier resonance over the sweep",
+    "C9": "Optional (datasheet): steadier resonance over the sweep. R82 film, 5 mm pitch: sits diagonally",
     "R4": "Terminates the unused SIG IN−",
-    "C1": "Ladder capacitor, datasheet Figure 1", "C2": "Ladder capacitor, datasheet Figure 1",
-    "C3": "Ladder capacitor, datasheet Figure 1", "C4": "Ladder capacitor, datasheet Figure 1",
+    "C1": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
+    "C2": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
+    "C3": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
+    "C4": "Ladder capacitor, datasheet Figure 1 (NP0 ceramic)",
     "C10": "Decoupling across the rails, next to U1", "C11": "Decoupling across the rails, next to U1",
     "C12": "Decoupling across the rails, next to U2", "C13": "Decoupling across the rails, next to U2",
-    "R7": "Resonance input filter (Figure 3)", "C8": "Resonance input filter (Figure 3)",
-    "R6": "33.2 kΩ for test 2 (finds oscillation onset), then 49.9 kΩ (limits to about 300 µA)",
+    "C14": "Supply entry, 10 µF 25 V electrolytic: + to the +15 V rail, − to GND",
+    "C15": "Supply entry, 10 µF 25 V electrolytic: + to GND, − to the −15 V rail",
+    "R7": "Resonance input filter (Figure 3; kit 510 Ω for 499 Ω)", "C8": "Resonance input filter (Figure 3), R82 film",
+    "R6": "33 kΩ for test 2 (finds oscillation onset, up to about 450 µA), then 51 kΩ (limits to about 294 µA)",
     "R8": "Stands in for the temperature-compensating resistor",
-    "R10": "Cutoff offset from RV4: about ±30 mV at pin 15",
+    "R10": "Cutoff offset from RV4, the card's 470 kΩ: about ±32 mV at pin 15",
     "R9": "Summer output into the cutoff pin",
     "C6": "Output stage, datasheet Figure 1",
-    "RV3": "Output gain: wiper and pin 1 end form the feedback. Start at about 33 kΩ, set in test 5",
-    "C7": "Film or bipolar output coupling",
+    "RV3": "Output gain: wiper and pin 1 end form the feedback. Start at about 9 kΩ (unity predicted near 8.8 kΩ), set in test 5",
+    "C7": "Output coupling, 10 µF 100 V bipolar electrolytic",
     "R11": "With RV5: summer feedback, sets 1 V/octave for the CV input",
-    "RV5": "Wiper and pin 1 end in series with R11; start at about 30 kΩ",
-    "R12": "Scales the cutoff pot to about 10 octaves",
+    "RV5": "Wiper and pin 1 end in series with R11; start at about 32 kΩ (1 V/oct needs about 192 kΩ in total)",
+    "R12": "Scales the cutoff pot to about 10 octaves (the card's 300 kΩ)",
     "R13": "CV input, about 1 V/octave",
 }
-VALUES = {"R6": "33.2 kΩ → 49.9 kΩ", "C9": "3.3 nF", "J1": "wire link"}
+VALUES = {"R6": "33 kΩ → 51 kΩ", "C9": "3.3 nF", "J1": "wire link"}
 KIND_NAME = {"res": "Resistor", "cap": "Capacitor", "trim": "Trimmer", "jumper": "Link", "wire": "Wire",
              "lead": "Flying lead"}
 RAIL = {"P15": "+15 V rail", "N15": "−15 V rail", "GNDT": "GND rail, top", "GNDB": "GND rail, bottom"}
@@ -91,22 +95,26 @@ parts_rows = rows({"res", "cap", "trim", "jumper"})
 wire_rows = [(r[0], r[2], r[3]) for r in rows({"wire"})]
 
 OFFBOARD = [
-    ("IN jack", "Tip → “IN” tag (2a); ring and sleeve → GND rail. A mono TS cable works the same."),
+    ("Jacks (6.3 mm mono, PCB pins)", "Solder short stranded leads to the tip and sleeve pins; leave the switch pin free. Use a TS cable from the interface (a TRS plug shorts its ring to sleeve, which is harmless)."),
+    ("IN jack", "Tip → “IN” tag (2a); sleeve → GND rail."),
     ("OUT jack", "Tip → “OUT” tag (25a); sleeve → GND rail."),
-    ("CV jack (optional)", "Tip → “CV” tag (35j); sleeve → GND rail."),
+    ("CV jack (optional)", "Tip → “CV” tag (35j); sleeve → GND rail. Needed for tests 12 and 13."),
+    ("Pots (10 kΩ linear PC16SH, PCB pins)", "Solder three short leads to each pot. The third pot is a spare."),
     ("RV1 cutoff, 10 kΩ linear", "Clockwise end → +15 V rail; other end → −15 V rail; wiper → “RV1 wiper” tag (41i). If the cutoff falls when you turn clockwise, swap the two ends."),
-    ("RV2 resonance, 10 kΩ", "Clockwise end → +15 V rail; other end → GND rail; wiper → “RV2 wiper” tag (3h). Reverse-audio taper gives the nicest feel; linear works."),
-    ("RV4 offset trim, 50 kΩ", "One end → +15 V rail; other end → −15 V rail; wiper → “RV4 wiper” tag (22j). A multiturn trimmer can also sit on the board."),
-    ("Bench supply", "+15 V → +15 V rail, −15 V → −15 V rail, common → GND rail. Current limit about 50 mA per rail. 10 µF across each rail where the supply enters."),
+    ("RV2 resonance, 10 kΩ linear", "Clockwise end → +15 V rail; other end → GND rail; wiper → “RV2 wiper” tag (3h). Linear crowds the resonance into the last part of the turn; that is fine for the tests."),
+    ("RV4 offset trim, 50 kΩ 3296W", "One end → +15 V rail; other end → −15 V rail; wiper → “RV4 wiper” tag (22j). It can also sit on the board next to the tag, with its ends wired to the rails."),
+    ("Bench supply", "+15 V → +15 V rail, −15 V → −15 V rail, common → GND rail, all at column 1 next to C14 and C15. Current limit about 50 mA per rail."),
+    ("1N4001 reverse protection", "At the supply terminals or on the supply leads, not in the breadboard (the leads are thicker than its 0.7 mm limit): one from +15 V to common, cathode (band) to +15 V; one from −15 V to common, anode to −15 V."),
 ]
 
 checks = [
     "Check the adapter: confirm with a multimeter that DIP pin 1 connects to SSOP pin 1 (the chip's dot). Most adapters keep the numbering; a few don't.",
+    "Check that each power rail runs the full length of the board: meter from its hole at column 1 to its hole at column 44. On many boards the rails are split in the middle; bridge the gap with a short wire if so.",
     "Notch or dot to the left on both chips: U1 pin 1 at 8e, pin 16 at 8f; U2 pin 1 at 30e.",
     "Power the empty board first: +15 V at 8j and 30j, −15 V at 15a and 33a, 0 V at 15j, 33j and 32a.",
     "With chips in, total current should be roughly 5 mA per rail for U1 plus a few mA for U2 (datasheet: SSI2144 about 5 mA typical). Much more means a short or a reversed chip: switch off.",
     "Pin 14 (Q) and the summer's inverting input (U2 pin 6) sit at about 0 V: both are virtual grounds.",
-    "Pin 15 (cutoff) moves within about ±100 mV as RV1 turns. Volts there means a wiring fault.",
+    "Pin 15 (cutoff) moves within about ±95 mV as RV1 turns (up to about ±127 mV with RV4 at an end; centre RV4 first). Volts there means a wiring fault. Above about +175 mV the chip goes silent until the pin drops back below about +135 mV (datasheet dropout; test 13): with a CV plugged in, a silent filter at the low end can be this, not a fault.",
 ]
 
 page = f"""<title>SSI2144 Breadboard</title>
@@ -187,13 +195,13 @@ footer {{ margin-top: 48px; color: var(--muted); font-size: 13px; }}
 <header class="col">
   <div class="eyebrow">Syntsamix · filter test circuit</div>
   <h1>SSI2144 breadboard</h1>
-  <p class="lede">One SSI2144 ladder filter core with input attenuator, resonance and cutoff controls and the output stage, laid out for a standard solderless breadboard. It's the circuit for the eight tests in <code>simulation/filter/BREADBOARD.md</code>.</p>
+  <p class="lede">One SSI2144 ladder filter core with input attenuator, resonance and cutoff controls and the output stage, laid out for a standard solderless breadboard. It's the circuit for tests 1–7 and 11–13 in <code>simulation/filter/BREADBOARD.md</code>, built from the first Electrokit order, the SSOP adapter and an E24 1 % resistor kit. Tests 8–10 add parts from the second order.</p>
 </header>
 
 <section class="col">
   <h2>Before you power up</h2>
   <ol class="checks">{"".join(f"<li>{escape(c)}</li>" for c in checks)}</ol>
-  <p class="callout">The pinout and the ladder, output and resonance values come from the SSI2144 datasheet (Rev 3.0, Figures 1 and 3). The input attenuator, drive jumper, resonance limit and cutoff scaling are this project's values. A script checked the breadboard layout against the schematic, connection by connection: no missing links, no shorts.</p>
+  <p class="callout">The pinout and the ladder, output and resonance values come from the SSI2144 datasheet (Rev 3.0, Figures 1 and 3). The input attenuator, drive jumper, resonance limit and cutoff scaling are this project's values, on E24 kit values (the channel card's own where it has them: 18 kΩ, 470 kΩ, 300 kΩ). A script checked the breadboard layout against the schematic, connection by connection: no missing links, no shorts.</p>
 </section>
 
 <section>

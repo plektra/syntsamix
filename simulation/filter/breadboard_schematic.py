@@ -7,7 +7,8 @@
 Pinout and the ladder/output/Q component values follow the SSI2144 datasheet
 (Rev 3.0, Figures 1 and 3, read from the datasheet images). Input attenuator,
 drive jumper, resonance limit and cutoff scaling are this project's values
-(see BREADBOARD.md and ../../docs/decisions/channel-card.md items 12 and 50).
+(see BREADBOARD.md and ../../docs/decisions/channel-card.md items 12 and 50),
+on E24 values from the user's resistor kit (the card's values where it has them).
 
 Usage:  python3 simulation/filter/breadboard_schematic.py [--literal]
 Writes breadboard-schematic.svg next to this file. Colours come from CSS
@@ -248,8 +249,8 @@ resistor(300, 200, 300, 240, "R3", "330 Ω (−4 dB)\nor 200 Ω (−6 dB)", lpos
 jumper(300, 240, 272, "")
 text(286, 266, "J1 = medium drive", "end", size=11, color=ACCENT, weight=600)
 gnd(300, 272)
-resistor(300, 200, 200, 200, "R1", "17.4 kΩ", lpos="above")
-capacitor(200, 200, 130, 200, "C5", "10 µF film")
+resistor(300, 200, 200, 200, "R1", "18 kΩ", lpos="above")
+capacitor(200, 200, 130, 200, "C5", "10 µF bipolar")
 term(130, 200, "IN", "left")
 
 # ------------------------------------------------------------------ output I-V stage
@@ -259,24 +260,24 @@ dot(315, 830)
 wire((315, 830), (315, 700))
 dot(315, 755)
 capacitor(315, 700, 170, 700, "C6", "100 pF")
-resistor(315, 755, 170, 755, "RV3", "50 kΩ trim, set ≈ 33 kΩ", lpos="above")
+resistor(315, 755, 170, 755, "RV3", "50 kΩ trim, set ≈ 9 kΩ", lpos="above")
 wire((170, 700), (170, 850))
 dot(170, 755)
 wire((200, 850), (170, 850))
 dot(170, 850)
 wire(non, (325, 870))
 gnd(325, 870)
-capacitor(170, 850, 100, 850, "C7", "10 µF film", lpos="below")
+capacitor(170, 850, 100, 850, "C7", "10 µF bipolar", lpos="below")
 term(100, 850, "OUT", "left")
 
 # ------------------------------------------------------------------ resonance (pin 14)
 wire((690, 340), (760, 340))
 dot(760, 340)
-resistor(760, 340, 760, 400, "R7", "499 Ω", lpos="right")
+resistor(760, 340, 760, 400, "R7", "510 Ω", lpos="right")
 capacitor(760, 400, 760, 460, "C8", "10 nF", lpos="right")
 gnd(760, 460)
-resistor(760, 340, 866, 340, "R6", "33.2 kΩ test → 49.9 kΩ", lpos="above")
-pot(900, 296, 384, 340, "left", "RV2 10 kΩ", "RESONANCE", "right")
+resistor(760, 340, 866, 340, "R6", "33 kΩ test → 51 kΩ", lpos="above")
+pot(900, 296, 384, 340, "left", "RV2 10 kΩ lin", "RESONANCE", "right")
 tag(900, 296, "+15 V", "right")
 gnd(900, 384)
 
@@ -285,7 +286,7 @@ wire((690, 270), (1000, 270))
 dot(1000, 270)
 resistor(1000, 270, 1000, 330, "R8", "1 kΩ", lpos="left")
 gnd(1000, 330)
-resistor(1000, 270, 1086, 270, "R10", "499 kΩ", lpos="below")
+resistor(1000, 270, 1086, 270, "R10", "470 kΩ", lpos="below")
 pot(1120, 226, 314, 270, "left", "RV4 50 kΩ", "offset trim", "right", ly=262)
 tag(1120, 226, "+15 V", "right")
 tag(1120, 314, "−15 V", "right")
@@ -299,9 +300,9 @@ gnd(840, 120)
 wire(i2, (810, 80))
 dot(810, 80)
 wire((810, 80), (810, 36))
-resistor(810, 36, 1000, 36, "R11 162 kΩ + RV5 50 kΩ trim", "(1 V/oct)", lpos="above")
+resistor(810, 36, 1000, 36, "R11 160 kΩ + RV5 50 kΩ trim", "(1 V/oct)", lpos="above")
 wire((1000, 36), (1000, 100))
-resistor(810, 80, 714, 80, "R12", "301 kΩ", lpos="above")
+resistor(810, 80, 714, 80, "R12", "300 kΩ", lpos="above")
 pot(680, 36, 124, 80, "right", "RV1 10 kΩ lin", "CUTOFF", "left", ly=72)
 tag(680, 36, "+15 V (CW end)", "left")
 tag(680, 124, "−15 V", "left")
@@ -313,6 +314,9 @@ term(720, 150, "CV (optional)", "left")
 text(540, 790, "U2 = TL072: pin 8 to +15 V, pin 4 to −15 V, 100 nF to ground at each.", "start", cls="val", size=11)
 text(540, 806, "U1: 100 nF from pin 16 and from pin 8 to ground, right at the adapter.", "start", cls="val", size=11)
 text(540, 822, "Unmarked values from SSI2144 datasheet Rev 3.0, Figures 1 and 3.", "start", cls="val", size=11)
+text(540, 838, "Rails: 10 µF at the supply entry, + to +15 V and + to GND on the −15 V rail;", "start", cls="val", size=11)
+text(540, 854, "1N4001 at the supply terminals (leads too thick for the breadboard).", "start", cls="val", size=11)
+text(540, 870, "Test 13 only: two 11 V zeners back to back across R11 + RV5 (not in hand yet).", "start", cls="val", size=11)
 
 W, H = 1250, 930
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '

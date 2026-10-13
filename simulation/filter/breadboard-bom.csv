@@ -3,29 +3,29 @@ U1,3,SSI2144,Sound Semiconductor SSI2144SS-TU (QSOP-16 / SSOP-16 MO-137-AB 0.635
 —,2,SSOP-16 to DIP-16 adapter,SparkFun BOB-13994 (0.635 mm pads; 0.3 in / 300 mil DIP; 2 boards per pack),,Electrokit if stocked; else Melopero or Mouser,Must be 300 mil to match the layout. Electrokit's own SOIC/TSSOP-16 adapter is 600 mil and does not fit
 —,1,Pin header,2.54 mm break-away male header 1x40,,Electrokit,For the adapters (2 x 8 pins each)
 U2,3,TL072,Dual JFET op amp DIP-8,,Electrokit,1 used + spares
-R1,0 (kit),17.4 kΩ,1% metal film 0.25 W,18 kΩ (gives ±19.0 mV instead of ±19.7 mV at +4 dBu),Your 1/4 W metal film kit,Input attenuator
+R1,0 (kit),18 kΩ,1% metal film 0.25 W,(E24; the card's R104. Was 17.4 kΩ),Your 1/4 W metal film kit,Input attenuator: +4 dBu gives ±19.0 mV
 "R2, R4, R3 alt",0 (kit),200 Ω,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,R2 and R4 plus a spare to try as R3 (-6 dB)
 R3,0 (kit),330 Ω,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,Medium drive (-4 dB)
-R6,0 (kit),33.2 kΩ,1% metal film 0.25 W,33 kΩ,Your 1/4 W metal film kit,Resonance test 2 (finds oscillation onset)
-R6 final,0 (kit),49.9 kΩ,1% metal film 0.25 W,51 kΩ (limits Q current to about 294 µA),Your 1/4 W metal film kit,Resonance limit
-R7,0 (kit),499 Ω,1% metal film 0.25 W,510 Ω,Your 1/4 W metal film kit,Resonance input filter
+R6,0 (kit),33 kΩ,1% metal film 0.25 W,(E24; was 33.2 kΩ),Your 1/4 W metal film kit,Resonance test 2 (finds oscillation onset)
+R6 final,0 (kit),51 kΩ,1% metal film 0.25 W,(E24; was 49.9 kΩ),Your 1/4 W metal film kit,Resonance limit: about 294 µA
+R7,0 (kit),510 Ω,1% metal film 0.25 W,(E24; datasheet 499 Ω),Your 1/4 W metal film kit,Resonance input filter
 R8,0 (kit),1 kΩ,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,Cutoff pin to ground
 "R9, R13",0 (kit),100 kΩ,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,Summer output and CV input
-R10,0 (kit),499 kΩ,1% metal film 0.25 W,510 kΩ (offset range about ±29 mV),Your 1/4 W metal film kit,Cutoff offset
-R11,0 (kit),162 kΩ,1% metal film 0.25 W,160 kΩ,Your 1/4 W metal film kit,Summer feedback (RV5 trims)
-R12,0 (kit),301 kΩ,1% metal film 0.25 W,300 kΩ,Your 1/4 W metal film kit,Cutoff pot scaling
-"C1, C2, C3",4,6.8 nF,C0G/NP0 ceramic 5% (or polypropylene film 5%),,Electrokit,Ladder capacitors
+R10,0 (kit),470 kΩ,1% metal film 0.25 W,(E24; the card's value. Was 499 kΩ),Your 1/4 W metal film kit,Cutoff offset: about ±32 mV
+R11,0 (kit),160 kΩ,1% metal film 0.25 W,(E24; the card uses 150k + 12k),Your 1/4 W metal film kit,Summer feedback (RV5 trims)
+R12,0 (kit),300 kΩ,1% metal film 0.25 W,(E24; the card's value. Was 301 kΩ),Your 1/4 W metal film kit,Cutoff pot scaling
+"C1, C2, C3",4,6.8 nF,R82 film 10 % 5 mm (ordered: C0G 5 % sold out),,Electrokit,Ladder capacitors; placed diagonally for the 5 mm pitch
 C4,2,560 pF,C0G/NP0 ceramic 5%,,Electrokit,Ladder capacitor
 C6,2,100 pF,C0G/NP0 ceramic 5%,,Electrokit,Output stage
 C8,2,10 nF,C0G ceramic or film,,Electrokit,Resonance input filter
 C9,2,3.3 nF,C0G/NP0 ceramic 5%,,Electrokit,Optional
 C10–C13,6,100 nF,X7R ceramic 50 V 2.54/5.08 mm,,Electrokit,Rail decoupling
 "C5, C7",2,10 µF,Bipolar (non-polarised) electrolytic 25 V or more,,Electrokit,Input and output coupling
-—,2,10 µF,Electrolytic 35 V,,Electrokit,Bulk decoupling where the supply enters the rails
+"C14, C15",2,10 µF,Electrolytic 25 V ø4×5 (ordered),,Electrokit,Bulk decoupling where the supply enters the rails (column 1)
 RV1,1,10 kΩ lin,Panel potentiometer linear (B),,Electrokit,Cutoff
-RV2,1,10 kΩ,Panel potentiometer reverse-audio (Bourns PDB181 class) or linear,,Electrokit,Resonance
+RV2,1,10 kΩ lin,PC16SH linear (ordered; reverse-audio not taken),,Electrokit,Resonance
 "RV3, RV4, RV5",3,50 kΩ,Multiturn trimmer with in-line pins (Bourns 3296W-1-503),,Electrokit,Output gain / cutoff offset / V per octave
-—,3,6.3 mm jack,Panel jack (mono TS is enough for the test),,Electrokit,IN / OUT / CV
+—,3,6.3 mm jack,"Mono with switch, PCB pins (ordered); leads to tip and sleeve",,Electrokit,IN / OUT / CV
 —,1,Breadboard,830 tie-point solderless breadboard,,Electrokit,
 —,1,Jumper wires,Pre-cut breadboard jumper kit plus some flexible hook-up wire,,Electrokit,Flying leads to pots and jacks
 Supp,2,NE5532,Dual low-noise op amp DIP-8,,Electrokit,Output stage noise comparison (test 6)
@@ -49,3 +49,4 @@ Order 2,3,6.8 nF,Same film capacitor as the first order (41015666),,Electrokit,S
 Order 2,1,Breadboard,840 tie-point solderless breadboard (same as first order),,Electrokit,Room for the second core (test 8) and the LM13700 Q VCA (test 9)
 Order 2,2,TL072,Dual JFET op amp DIP-8,,Electrokit,Test 10 fader law (Level sheet control circuit)
 Order 2,10,Latching push switch,CW Industries GPBS850L DPDT 8.5x8.5 mm,,Electrokit,"Button switch for the channel cards (decision 75): test fit and feel, and print translucent cap prototypes"
+Test 13,2,11 V zener,BZX79C11 0.5 W DO-35 (or BZT52C11 SOD-123 on an adapter),,Not ordered yet,Summer clamp test (decision 165)

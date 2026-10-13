@@ -8,7 +8,7 @@ Reference: SSI2144 datasheet Rev 3.0 (January 2018), Figures 1 and 3. Where this
 
 ## 1. Shopping list
 
-**What runs on the first order alone** (`electrokit-order.csv`, checked 2026-10-09): tests 1-7, which settle the values the channel card waits for (R111/R161 output scale in test 5, R120/R170 Q limit in test 2, the drive jumper in tests 4 and 7), and test 10 in its reduced form (two spare TL072s, without the 0 % row). Test 8 needs the second order's three 6.8 nF capacitors and second breadboard; test 9 needs its LM13700 and 1N4148s. The full test 10 needs one OPA2171 on an SOIC-8 adapter, in neither order (Mouser or LCSC). The second order (`electrokit-order-2.csv`) also carries the 10 GPBS850L buttons for printing and testing the button caps and setting the button LED brightness (decisions 75, 117). Resistors come from the 1 % kit (E24 substitutes in `breadboard-bom.csv`).
+**What runs on the first order alone** (`electrokit-order.csv`, delivered 2026-10-13, with the SparkFun SSOP adapter bought separately and an E24 1 % resistor kit): tests 1-7, which settle the values the channel card waits for (R111/R161 output scale in test 5, R120/R170 Q limit in test 2, the drive jumper in tests 4 and 7), test 10 in its reduced form (two spare TL072s, without the 0 % row), test 11 (the bipolar and two 10 µF 25 V electrolytics from the order) and test 12. Test 13 needs two 11 V zeners, in neither order (the 51k and 1k for its CV OUT row come from the kit, the op amp is a spare TL072). Test 8 needs the second order's three 6.8 nF capacitors and second breadboard; test 9 needs its LM13700 and 1N4148s. The full test 10 needs one OPA2171 on an SOIC-8 adapter, in neither order (Mouser or LCSC). The second order (`electrokit-order-2.csv`) also carries the 10 GPBS850L buttons for printing and testing the button caps and setting the button LED brightness (decisions 75, 117). Resistors come from the 1 % E24 kit; the plan, the drawing and `breadboard.html` use the kit values (the channel card's own where it has them).
 
 | Qty | Part | Notes |
 |---|---|---|
@@ -16,16 +16,17 @@ Reference: SSI2144 datasheet Rev 3.0 (January 2018), Figures 1 and 3. Where this
 | 2 packs | SSOP-16 to DIP-16 adapter, 0.635 mm pads, 300 mil (0.3 in) DIP width | SparkFun BOB-13994 (2 boards per pack). The SSI2144 package is QSOP-16 (JEDEC MO-137-AB, 0.635 mm pitch). A 600 mil adapter does not fit the layout |
 | 3 | TL072 (DIP-8) | Control summer, output stage, spare |
 | 1 | NE5532 or OPA1642 (DIP-8 or on adapter) | Optional: lower-noise output stage for comparison |
-| 1 set | 1% metal film resistors, E96 | 17.4 kΩ, 200 Ω (3), 330 Ω, 33.2 kΩ, 49.9 kΩ, 499 Ω, 1 kΩ, 100 kΩ (2), 162 kΩ, 301 kΩ, 499 kΩ |
-| 1 set | C0G/NP0 capacitors, 5% | 6.8 nF (3), 560 pF, 100 pF, 10 nF, 3.3 nF (optional) |
+| 1 set | 1% metal film resistors, E24 kit | 18 kΩ, 200 Ω (3), 330 Ω, 33 kΩ, 51 kΩ, 510 Ω, 1 kΩ, 100 kΩ (2), 160 kΩ, 300 kΩ, 470 kΩ |
+| 1 set | Capacitors | 6.8 nF (3) and 10 nF, 3.3 nF (optional): R82 film, 10 % (6.8n, 3.3n) and 5 % (10n), 5 mm pitch; 560 pF and 100 pF NP0 ceramic |
 | 6 | 100 nF ceramic | Supply decoupling across the rails at each IC |
-| 4 | 10 µF electrolytic, 25 V or more | Supply rail bulk decoupling |
-| 2 | 10 µF film or bipolar electrolytic | Input and output coupling (both ends sit near 0 V); test 11 also uses two of the 10 µF electrolytics below, back to back |
-| 2 | 10 kΩ linear pot | Cutoff, spare |
-| 1 | 10 kΩ pot, reverse-audio (Bourns PDB181 class) or linear | Resonance (Figure 3) |
+| 4 | 10 µF electrolytic, 25 V or more | Supply rail bulk decoupling (C14, C15 at the supply entry) and test 11 |
+| 2 | 10 µF bipolar electrolytic (100 V, ø8 mm) | Input and output coupling (both ends sit near 0 V); test 11 also uses two of the 10 µF electrolytics above, back to back |
+| 3 | 10 kΩ linear pot (PC16SH, PCB pins: solder leads) | Cutoff, resonance (Figure 3; linear instead of reverse-audio), spare |
 | 3 | 50 kΩ multiturn trimmers (in-line pins) | Output gain (RV3), V/octave (RV5), cutoff offset (RV4) |
-| 2 | 6.3 mm jacks with short leads | Input and output |
-| 1 | Solderless breadboard and jumper wire | |
+| 3 | 6.3 mm mono jacks with switch (PCB pins: solder leads to tip and sleeve) | Input, output, CV |
+| 1 | Solderless breadboard (840 holes) and jumper wire | Check that the rails run the full length |
+| 2 | 1N4001 | Reverse-polarity protection at the supply terminals (leads too thick for the breadboard) |
+| 2 | 11 V zener, 0.5 W (BZX79C11, DO-35) | Test 13 only; not ordered yet |
 | – | Flux, fine solder (0.5 mm), fine tip, magnifier | For the SSOP adapter |
 
 Equipment:
@@ -47,13 +48,13 @@ Flux the pads, tack two opposite corner pins, check alignment, then solder the r
 | Block | Build |
 |---|---|
 | Input coupling | 10 µF in series with the input jack (stands in for the channel's 3 Hz AC coupling) |
-| Input attenuator (hot drive) | 17.4 kΩ from the coupled input to SIG IN+, 200 Ω from SIG IN+ to ground: +4 dBu (1.74 V peak) becomes about ±19.7 mV |
+| Input attenuator (hot drive) | 18 kΩ (the card's R104) from the coupled input to SIG IN+, 200 Ω from SIG IN+ to ground: +4 dBu (1.74 V peak) becomes about ±19.0 mV |
 | Medium drive jumper | Jumper that adds a resistor in parallel with the 200 Ω: 330 Ω gives 124.5 Ω (about -4 dB), 200 Ω gives 100 Ω (about -6 dB). Try both |
 | SIG IN- | 200 Ω to ground, as the datasheet says for an unused input |
 | Filter capacitors | Per Figure 1 |
 | Cutoff control | Control summer per Figure 1 (TL072) with the 10 kΩ linear pot and a trimmer for frequency offset. The datasheet values are for ±12 V; on ±15 V check the sweep in test 1 and scale the pot's input resistor if needed. Use a fixed 1 kΩ in place of the temperature-compensating resistor (datasheet allows this) |
-| Resonance | Per Figure 3, fed from +15 V. Series resistor into the Q pin: 33.2 kΩ for test 2 (allows up to about 450 µA), then 49.9 kΩ (limits to about 300 µA). Keep the 499 Ω / 10 nF from Figure 3. The Q pin is a virtual ground, so Q current = wiper voltage / series resistance: measure the wiper voltage instead of using an ammeter |
-| Output | Current-to-voltage stage per Figure 1, with a 50 kΩ trimmer (RV3) as the feedback resistor in place of the fixed 33.2 kΩ. Start at about 33 kΩ; it is set for unity gain in test 5 |
+| Resonance | Per Figure 3, fed from +15 V. Series resistor into the Q pin: 33 kΩ for test 2 (allows up to about 450 µA), then 51 kΩ (limits to about 294 µA). Keep the 10 nF from Figure 3 with 510 Ω for its 499 Ω. The Q pin is a virtual ground, so Q current = wiper voltage / series resistance: measure the wiper voltage instead of using an ammeter |
+| Output | Current-to-voltage stage per Figure 1, with a 50 kΩ trimmer (RV3) as the feedback resistor in place of the fixed 33.2 kΩ. Start at about 9 kΩ (unity is predicted near 8.8 kΩ with the 18 kΩ attenuator; at 33 kΩ the output would sit about 11.5 dB hot); it is set for unity gain in test 5 |
 
 ## 3. Tests
 
@@ -69,16 +70,16 @@ Sweep the frequency response with the cutoff knob at minimum, noon and maximum, 
 | Max | about 20 kHz | |
 
 ### Test 2: Resonance onset and limit
-With the 33.2 kΩ series resistor and cutoff at about 1 kHz, raise resonance slowly until the output sine-oscillates with no input. Record the wiper voltage and compute the current. Then change to 49.9 kΩ and confirm no oscillation at full resonance.
+With the 33 kΩ series resistor and cutoff at about 1 kHz, raise resonance slowly until the output sine-oscillates with no input. Record the wiper voltage and compute the current. Then change to 51 kΩ and confirm no oscillation at full resonance.
 
 | Measurement | Datasheet / plan | Measured |
 |---|---|---|
 | Q current at oscillation onset | 350 to 450 µA | |
-| Max Q current with 49.9 kΩ | about 300 µA | |
-| Oscillates at max with 49.9 kΩ? | No | |
+| Max Q current with 51 kΩ | about 294 µA | |
+| Oscillates at max with 51 kΩ? | No | |
 
 ### Test 3: Bass loss with resonance
-Frequency response at cutoff about 1 kHz, resonance at 0, 1/3, 2/3 and full (49.9 kΩ).
+Frequency response at cutoff about 1 kHz, resonance at 0, 1/3, 2/3 and full (51 kΩ).
 
 | Q current | Simulated 20 Hz gain | Measured | Simulated peak | Measured |
 |---|---|---|---|---|
@@ -105,7 +106,7 @@ Repeat the +4 dBu row with the medium drive jumper (both values):
 | 200 Ω (about -6 dB) | | |
 
 ### Test 5: Output scale
-With the cutoff fully open and resonance 0, set RV3 so +4 dBu in gives +4 dBu out. Scaling the datasheet's Figure 1 values (68.1 kΩ in, 33.2 kΩ out for unity) to the 17.4 kΩ hot attenuator predicts about 8.6 kΩ; the channel card uses 9.1 kΩ with its 18 kΩ attenuator (E24, decision 140) until this test sets it: scale the measured value by 18/17.4 before choosing the card value. With power off, measure RV3's resistance between its pin 1 and wiper.
+With the cutoff fully open and resonance 0, set RV3 so +4 dBu in gives +4 dBu out. Scaling the datasheet's Figure 1 values (68.1 kΩ in, 33.2 kΩ out for unity) to the 18 kΩ hot attenuator predicts about 8.8 kΩ; the channel card uses 9.1 kΩ (R111/R161, E24, decision 140) until this test sets it. The breadboard's attenuator is the card's 18 kΩ, so the measured value carries over directly (an E24 value or pair, decision 140). With power off, measure RV3's resistance between its pin 1 and wiper.
 
 | Measurement | Value |
 |---|---|
@@ -136,7 +137,7 @@ Build a second core sharing the same control voltage. With both cutoffs at the s
 | Trimmer range needed (mV at the frequency pin) | (plan: at least ±12 mV) |
 
 ### Test 9: Q VCA (resonance compensation, decision 71)
-Rebuild the resonance section per datasheet Figure 9 with one LM13700N (DIP-16): Q pin 14 to ground through 13 kΩ; OTA A output (pin 5) to SIG IN- (pin 2, keep its 200 Ω to ground); OTA + input (pin 3) through 560 Ω or 620 Ω to ground (channel card: 560 Ω with 18 kΩ, decision 140); OTA - input (pin 4) through the same value to ground, through 18 kΩ (R14) from the output stage, and through R10 from the input attenuator's input node; bias input (pin 1) through about 41 kΩ (kit: 39 kΩ) from the RESONANCE pot wiper; pot from +15 V through 10 kΩ, its other end through two 1N4148 in series to -15 V; diode bias and buffer outputs open, buffer inputs (pins 7, 10) to ground. Note: the datasheet circuit inverts at the output stage, so the input node here is the 17.4 kΩ's input end.
+Rebuild the resonance section per datasheet Figure 9 with one LM13700N (DIP-16): Q pin 14 to ground through 13 kΩ; OTA A output (pin 5) to SIG IN- (pin 2, keep its 200 Ω to ground); OTA + input (pin 3) through 560 Ω or 620 Ω to ground (channel card: 560 Ω with 18 kΩ, decision 140); OTA - input (pin 4) through the same value to ground, through 18 kΩ (R14) from the output stage, and through R10 from the input attenuator's input node; bias input (pin 1) through about 41 kΩ (kit: 39 kΩ) from the RESONANCE pot wiper; pot from +15 V through 10 kΩ, its other end through two 1N4148 in series to -15 V; diode bias and buffer outputs open, buffer inputs (pins 7, 10) to ground. Note: the datasheet circuit inverts at the output stage, so the input node here is the 18 kΩ's input end.
 
 | R10 | Expected 20 Hz gain at max resonance | Measured | Oscillates at max? |
 |---|---|---|---|
@@ -200,7 +201,7 @@ With the CV input at 0 V and at +1 V, +2 V, +3 V (a lab supply or a divider; the
 Decide: if both chips need the same feedback within about ±2 % (about 20 cents over 3 octaves), an E24 pair can replace RV182 for the product (one part and one calibration step fewer per card). The warm-up drift tells whether the backlog item (decision 141) is worth bringing back.
 
 ### Test 13: Summer clamp, dropout and CV OUT (decision 165)
-The card clamps the cutoff summer with two BZT52C11 back to back across its feedback, so the SSI2144 frequency pin stays inside its datasheet range (−120 to +150 mV) and below the low-cutoff dropout (above about +175 mV the filter goes silent and recovers at about +135 mV, datasheet p5). `simulation/cutoff/` predicts a clamp at about ±10.5 to 12 V and a pin within about ±128 mV; the knee below 0.5 mA is not in the zener datasheet. Needs two 11 V zeners (a DO-35 BZX79C11 is fine on the breadboard; the card's SOD-123 BZT52C11 on an adapter is closer) and, for the last row, a TL072 half with 100k in, 51k + 1k feedback and 1k out.
+The card clamps the cutoff summer with two BZT52C11 back to back across its feedback, so the SSI2144 frequency pin stays inside its datasheet range (−120 to +150 mV) and below the low-cutoff dropout (above about +175 mV the filter goes silent and recovers at about +135 mV, datasheet p5). `simulation/cutoff/` predicts a clamp at about ±10.5 to 12 V and a pin within about ±128 mV; the knee below 0.5 mA is not in the zener datasheet. Needs two 11 V zeners, not in either Electrokit order yet (a DO-35 BZX79C11 is fine on the breadboard; the card's SOD-123 BZT52C11 on an adapter is closer) and, for the last row, a TL072 half with 100k in, 51k + 1k feedback and 1k out.
 
 First without the zeners: feed the CV input from a lab supply (or a ±12 V divider) and raise the voltage on the low-cutoff side (positive at the pin) until the output goes silent; note the pin voltage, then lower it until the signal returns. Then fit the zeners and repeat across the full CV range.
 
