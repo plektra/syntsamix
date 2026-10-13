@@ -25,6 +25,7 @@ SX-<category>-<nnn>
 | MECH | Mechanical parts (knobs, standoffs, panels) |
 | L | Inductors and ferrite beads (decision 100) |
 | F | Fuses, including resettable fuses (decision 100) |
+| WIRE | Flat cable and hook-up wire sold by length (one number per width or gauge) |
 
 - The number names a part type, not a board position: every 100 nF X7R capacitor on every board shares one number. Board positions stay in the reference designators (C12, U3).
 - Numbers are never reused. A changed part (different value, tolerance or package) gets a new number.

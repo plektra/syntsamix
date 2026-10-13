@@ -1,6 +1,6 @@
 # Channel card status
 
-Updated 2026-10-13 (/system: CV IN and CV OUT side by side in panel row 3, decision 166; earlier: cutoff CV chaining, CV OUT and the summer clamp drawn: decision 165; RoHS source for the SSI2144 and SSI2162 accepted: SGS report via Electrokit). 2026-10-11 (/system mechanical: front underside zone, decision 162; schematic: coupling capacitors back to back, decision 161). 2026-10-10: R217 30k (153); SSI2144/SSI2162 hand-soldered (155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
+Updated 2026-10-13 (/system: chain cable parts registered for the mock-up, SX-CONN-023 and SX-WIRE-001/003; CV IN and CV OUT side by side in panel row 3, decision 166; earlier: cutoff CV chaining, CV OUT and the summer clamp drawn: decision 165; RoHS source for the SSI2144 and SSI2162 accepted: SGS report via Electrokit). 2026-10-11 (/system mechanical: front underside zone, decision 162; schematic: coupling capacitors back to back, decision 161). 2026-10-10: R217 30k (153); SSI2144/SSI2162 hand-soldered (155). Earlier the same day: decisions 137, 139-143 and 152 (see the decision file); 2026-10-09: decisions 110-130.
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -47,7 +47,7 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 1. Breadboard the SSI2144 when parts arrive (now with test 11, the back-to-back coupling pair against a bipolar, decision 161, test 12, fixed V/oct and drift, and test 13, summer clamp, dropout and CV OUT, decision 165) (second Electrokit order on hold: `simulation/filter/electrokit-order-2.csv`). Test 10 (fader law) wants one OPA2171 (SOIC-8, adapter) and one TL072; with two TL072s, skip the 0 % row (`simulation/filter/BREADBOARD.md`).
 2. RoHS gaps: copy the orderable MPNs the audit checked (NE5532DR, LM339DR, DG413DY-T1-E3, LM13700MX/NOPB) into the MPN column at BOM time. At the next LCSC check run, add SX-R-089 (TFPT, Mouser-only: hand-solder or consign) and SX-R-090 to `docs/lcsc-check.csv` / `tools/lcsc_check.py`.
-3. Cable mock-up (decision 109).
+3. Cable mock-up (decision 109); parts registered 2026-10-13: `SX-CONN-023`, `SX-WIRE-001`, `SX-WIRE-003` (`CHAIN.md`).
 4. PCB layout.
 
 ## For /system

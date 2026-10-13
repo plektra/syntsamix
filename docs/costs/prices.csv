@@ -106,3 +106,8 @@ SX-MECH-003,44.60,EUR,TME GSM120B24-R7B,2026-10-10,hand,"Mean Well GSM120B24-R7B
 SX-MECH-005,72.90,EUR,TME GSM220B24-R7B,2026-10-10,hand,"Mean Well GSM220B24-R7B full-size brick (decision 145); TME 69.40 at 5, 66.30 at 10, 64.40 at 20, 105 in stock; Mouser and Digi-Key about EUR 72, no stock"
 SX-D-012,0.0444,USD,LCSC C22452,2026-10-11,basic,MDD SS54 SMA: JLCPCB basic (decision 159; lcsc-check had no row)
 SX-MECH-006,0.189,EUR,Mouser 749-CR-104,2026-10-13,hand,"Bivar CR-104 3 mm LED clip and ring for the power LED (decision 168); off-board: counted with the frame in tools/costs.py",,10:0.788;100:0.661
+SX-CONN-023,1.07,EUR,Mouser 710-61203423021 (10+),2026-10-13,hand,"Wurth 61203423021 2x17 IDC socket, off-board (audio chain jumpers); 1.11 at 1, 0.937 at 30, 0.808 at 60",,30:0.876;60:0.755
+SX-CONN-012,1.81,EUR,Mouser 710-61200823021 (1+),2026-10-13,hand,"Wurth 61200823021 2x4 IDC socket, off-board (power chain); breaks not collected",,
+SX-WIRE-001,0.912,EUR,Mouser 517-3365/34FT,2026-10-13,hand,"3M 3365/34 flat cable, price per foot; 100 ft roll 118.55",,
+SX-WIRE-002,0.662,EUR,Mouser 517-3365/26FT,2026-10-13,hand,"3M 3365/26 flat cable, price per foot; 100 ft roll 99.42",,
+SX-WIRE-003,0.258,EUR,Mouser 517-3365/10FT,2026-10-13,hand,"3M 3365/10 flat cable, price per foot, split to 8-way; 100 ft roll 46.34 (true 8-way 3365/08 roll 33.33)",,
