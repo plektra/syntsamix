@@ -8,7 +8,7 @@ Reference: SSI2144 datasheet Rev 3.0 (January 2018), Figures 1 and 3. Where this
 
 ## 1. Shopping list
 
-**What runs on the first order alone** (`electrokit-order.csv`, delivered 2026-10-13, with the SparkFun SSOP adapter bought separately and an E24 1 % resistor kit): tests 1-7, which settle the values the channel card waits for (R111/R161 output scale in test 5, R120/R170 Q limit in test 2, the drive jumper in tests 4 and 7), test 10 in its reduced form (two spare TL072s, without the 0 % row), test 11 (the bipolar and two 10 µF 25 V electrolytics from the order) and test 12. Test 13 needs two 11 V zeners, in neither order (the 51k and 1k for its CV OUT row come from the kit, the op amp is a spare TL072). Test 8 needs the second order's three 6.8 nF capacitors and second breadboard; test 9 needs its LM13700 and 1N4148s. The full test 10 needs one OPA2171 on an SOIC-8 adapter, in neither order (Mouser or LCSC). The second order (`electrokit-order-2.csv`) also carries the 10 GPBS850L buttons for printing and testing the button caps and setting the button LED brightness (decisions 75, 117). Resistors come from the 1 % E24 kit; the plan, the drawing and `breadboard.html` use the kit values (the channel card's own where it has them).
+**What runs on the first order alone** (`electrokit-order.csv`, delivered 2026-10-13, with the SparkFun SSOP adapter bought separately and an E24 1 % resistor kit): tests 1-7, which settle the values the channel card waits for (R111/R161 output scale in test 5, R120/R170 Q limit in test 2, the drive jumper in tests 4 and 7), test 10 in its reduced form (two spare TL072s, without the 0 % row), test 11 (the bipolar and two 10 µF 25 V electrolytics from the order) and test 12. Test 13 needs the second order's BZX55C10V and BZX55C12V pairs (Electrokit has no 11 V zener; the 51k and 1k for its CV OUT row come from the kit, the op amp is a spare TL072). Test 8 needs the second order's three 6.8 nF capacitors and second breadboard; test 9 needs its LM13700 and 1N4148s; test 13 needs its zeners. The full test 10 needs one OPA2171 on an SOIC-8 adapter, in neither order (Mouser or LCSC). The second order (`electrokit-order-2.csv`) also carries the 10 GPBS850L buttons for printing and testing the button caps and setting the button LED brightness (decisions 75, 117). Resistors come from the 1 % E24 kit; the plan, the drawing and `breadboard.html` use the kit values (the channel card's own where it has them).
 
 | Qty | Part | Notes |
 |---|---|---|
@@ -26,7 +26,7 @@ Reference: SSI2144 datasheet Rev 3.0 (January 2018), Figures 1 and 3. Where this
 | 3 | 6.3 mm mono jacks with switch (PCB pins: solder leads to tip and sleeve) | Input, output, CV |
 | 1 | Solderless breadboard (840 holes) and jumper wire | Check that the rails run the full length |
 | 2 | 1N4001 | Reverse-polarity protection at the supply terminals (leads too thick for the breadboard) |
-| 2 | 11 V zener, 0.5 W (BZX79C11, DO-35) | Test 13 only; not ordered yet |
+| 2 + 2 | Zener 0.5 W DO-35: BZX55C10V and BZX55C12V | Test 13 only, second order (Electrokit has no 11 V); they bracket the card's BZT52C11 |
 | – | Flux, fine solder (0.5 mm), fine tip, magnifier | For the SSOP adapter |
 
 Equipment:
@@ -201,19 +201,19 @@ With the CV input at 0 V and at +1 V, +2 V, +3 V (a lab supply or a divider; the
 Decide: if both chips need the same feedback within about ±2 % (about 20 cents over 3 octaves), an E24 pair can replace RV182 for the product (one part and one calibration step fewer per card). The warm-up drift tells whether the backlog item (decision 141) is worth bringing back.
 
 ### Test 13: Summer clamp, dropout and CV OUT (decision 165)
-The card clamps the cutoff summer with two BZT52C11 back to back across its feedback, so the SSI2144 frequency pin stays inside its datasheet range (−120 to +150 mV) and below the low-cutoff dropout (above about +175 mV the filter goes silent and recovers at about +135 mV, datasheet p5). `simulation/cutoff/` predicts a clamp at about ±10.5 to 12 V and a pin within about ±128 mV; the knee below 0.5 mA is not in the zener datasheet. Needs two 11 V zeners, not in either Electrokit order yet (a DO-35 BZX79C11 is fine on the breadboard; the card's SOD-123 BZT52C11 on an adapter is closer) and, for the last row, a TL072 half with 100k in, 51k + 1k feedback and 1k out.
+The card clamps the cutoff summer with two BZT52C11 back to back across its feedback, so the SSI2144 frequency pin stays inside its datasheet range (−120 to +150 mV) and below the low-cutoff dropout (above about +175 mV the filter goes silent and recovers at about +135 mV, datasheet p5). `simulation/cutoff/` predicts a clamp at about ±10.5 to 12 V and a pin within about ±128 mV; the knee below 0.5 mA is not in the zener datasheet. Electrokit has no 11 V zener, so the second order carries a pair each of BZX55C10V and BZX55C12V (DO-35): the two neighbours of the card's BZT52C11, and the two values this test may move to. Measure with both pairs; C11 behaves between them. Also needed, for the last row, a TL072 half with 100k in, 51k + 1k feedback and 1k out.
 
-First without the zeners: feed the CV input from a lab supply (or a ±12 V divider) and raise the voltage on the low-cutoff side (positive at the pin) until the output goes silent; note the pin voltage, then lower it until the signal returns. Then fit the zeners and repeat across the full CV range.
+First without the zeners: feed the CV input from a lab supply (or a ±12 V divider) and raise the voltage on the low-cutoff side (positive at the pin) until the output goes silent; note the pin voltage, then lower it until the signal returns. Then fit the C10 pair and repeat across the full CV range, then the C12 pair.
 
-| Measurement | Without clamp | With clamp |
-|---|---|---|
-| Pin voltage at dropout / recovery (mV) | | — |
-| Summer output at the CV extremes (V) | | |
-| Pin voltage at the CV extremes (mV) | | |
-| Octave error at the pot's ends (cents; knee of the clamp) | — | |
-| CV OUT against the total control at −5, 0, +5 V (V) | — | |
+| Measurement | Without clamp | C10 pair | C12 pair |
+|---|---|---|---|
+| Pin voltage at dropout / recovery (mV) | | — | — |
+| Summer output at the CV extremes (V) | | | |
+| Pin voltage at the CV extremes (mV) | | | |
+| Octave error at the pot's ends (cents; knee of the clamp) | — | | |
+| CV OUT against the total control at −5, 0, +5 V (V) | — | | |
 
-Decide: keep C11 if the pin stays below the measured recovery level with margin and the pot's ends are within about 20 cents; otherwise move one zener step (C10 if the dropout comes earlier than the datasheet says, C12 if the knee bends the ends).
+Decide: take C11's figures as midway between the C10 and C12 columns. Keep C11 if its pin voltage stays below the measured recovery level with margin and its pot ends are within about 20 cents; otherwise move one zener step (C10 if the dropout comes earlier than the datasheet says, C12 if the knee bends the ends), using that pair's measured column directly.
 
 ## 4. After the tests
 

@@ -316,7 +316,7 @@ text(540, 806, "U1: 100 nF from pin 16 and from pin 8 to ground, right at the ad
 text(540, 822, "Unmarked values from SSI2144 datasheet Rev 3.0, Figures 1 and 3.", "start", cls="val", size=11)
 text(540, 838, "Rails: 10 µF at the supply entry, + to +15 V and + to GND on the −15 V rail;", "start", cls="val", size=11)
 text(540, 854, "1N4001 at the supply terminals (leads too thick for the breadboard).", "start", cls="val", size=11)
-text(540, 870, "Test 13 only: two 11 V zeners back to back across R11 + RV5 (not in hand yet).", "start", cls="val", size=11)
+text(540, 870, "Test 13 only: zener pair back to back across R11 + RV5 (C10, then C12; second order).", "start", cls="val", size=11)
 
 W, H = 1250, 930
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
