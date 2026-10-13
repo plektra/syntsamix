@@ -50,14 +50,14 @@ SX-CONN-002,0.40,EUR,estimate (Mouser),2026-10-09,hand,KK 254 1x10 header
 SX-CONN-004,0.10,EUR,estimate,2026-10-09,hand,pin header 2x2
 SX-CONN-005,0.10,EUR,estimate,2026-10-09,hand,pin header 1x3
 SX-CONN-006,0.15,EUR,estimate,2026-10-09,hand,pin header 2x3
-SX-CONN-007,0.90,EUR,estimate (Mouser),2026-10-09,hand,Wurth 61203421621 2x17
-SX-CONN-008,0.40,EUR,estimate (Mouser),2026-10-09,hand,Wurth 61200821621 2x4
-SX-CONN-017,0.94,EUR,Mouser 710-61202621621 (10+),2026-10-12,hand,Wurth 61202621621 2x13 (decision 163)
+SX-CONN-007,1.35,EUR,Mouser 710-61203421621 (10+),2026-10-13,hand,"Wurth 61203421621 2x17; 1.19 at 50, 1.02 at 100; Mouser lists it as angled, parts.csv says straight (to confirm); candidate Adam Tech BHR-34-VUA (Mouser 737-BHR-34-VUA) 0.415 at 10+, 0.352 at 100 (cost review 2026-10-13, lever C1)",,50:0.881;100:0.756
+SX-CONN-008,0.894,EUR,Mouser 710-61200821621 (10+),2026-10-13,hand,"Wurth 61200821621 2x4; 0.783 at 50, 0.671 at 100; candidate Adam Tech BHR-08-VUA (Mouser 737-BHR-08-VUA) 0.218 at 10+, 0.214 at 100 (cost review 2026-10-13, lever C1)",,50:0.876;100:0.751
+SX-CONN-017,0.94,EUR,Mouser 710-61202621621 (10+),2026-10-12,hand,"Wurth 61202621621 2x13 (decision 163); candidate Adam Tech BHR-26-VUA (Mouser 737-BHR-26-VUA) 0.35 at 10+, 0.294 at 120 (cost review 2026-10-13, lever C1)"
 SX-CONN-019,1.96,USD,Mouser 568-NYS230,2026-10-13,hand,Rean NYS230 panel PHONES jack (off-board; wired to J751)
 SX-CONN-020,0.23,USD,Mouser 538-22-27-2031,2026-10-13,hand,Molex KK 254 1x3 header J751 (PHONES jack cable)
 SX-CONN-021,2.45,USD,Mouser 538-217797-1031,2026-10-13,hand,Molex 217797-1031 KK 254 3-pin ready-made lead (PHONES jack cable; off-board)
-SX-CONN-018,1.33,EUR,Mouser 710-61202623021 (10+),2026-10-13,hand,Wurth 61202623021 2x13 IDC socket (rear ribbons; off-board)
-SX-CONN-022,5.63,USD,Mouser 538-217796-1101,2026-10-13,hand,Molex 217796-1101 KK 254 10-pin ready-made input cable (off-board),,10:0.885;25:0.826;50:0.787;100:0.750
+SX-CONN-018,1.33,EUR,Mouser 710-61202623021 (10+),2026-10-13,hand,"Wurth 61202623021 2x13 IDC socket (rear ribbons; off-board); candidate Adam Tech FCS-26-SG (Mouser 737-FCS-26-SG) 0.634 at 10+, 0.562 at 25, 0.53 at 80 (cost review 2026-10-13, lever C1)"
+SX-CONN-022,5.63,USD,Mouser 538-217796-1101,2026-10-13,hand,"Molex 217796-1101 KK 254 10-pin ready-made input cable (off-board); EUR 4.84 at 1, 4.28 at 10, 4.00 at 25; IDC-route candidate Adam Tech FCS-10-SG (Mouser 737-FCS-10-SG) EUR 0.297 at 10+, 0.265 at 25, 0.243 at 100 (cost review 2026-10-13, lever C3)",,10:0.885;25:0.826;50:0.787;100:0.750
 SX-CONN-011,4.00,USD,estimate (DigiKey),2026-10-09,hand,Kycon KPJX-4S
 SX-CONN-014,0.35,GBP,estimate (Thonk),2026-10-09,hand,PJ398SM
 SX-CONN-015,0.68,USD,Mouser 568-NYS216 (50+),2026-10-09,hand,Rean NYS216 (decision 132)
@@ -76,11 +76,11 @@ SX-R-036,0.004,USD,LCSC C17797,2026-10-10,preferred,680k 1% 0805 UNI-ROYAL 0805W
 SX-R-042,0.003,USD,LCSC C17818,2026-10-10,preferred,750R 1% 0805 UNI-ROYAL 0805W8F7500T5E: JLCPCB preferred
 SX-IC-008,8.2435,USD,LCSC C553989 (10+),2026-10-10,extended,DG412DY-T1-E3; 7.7636 at 30+ (lcsc-check 5.80 is stale)
 SX-R-053,0.002,USD,generic estimate,2026-10-10,extended,560k 0805: E24 but no fee-free part (jlcsearch 2026-10-10)
-SX-R-084,0.002,USD,generic estimate,2026-10-10,extended,240k 0805: E24 but no fee-free part (jlcsearch 2026-10-10)
+SX-R-084,0.002,USD,generic estimate,2026-10-10,extended,"240k 0805: E24 but no fee-free part (jlcsearch 2026-10-10); 0603 UNI-ROYAL 0603WAF2403T5E LCSC C4197 is preferred, 0.0036 USD (cost review 2026-10-13, lever P3)"
 SX-C-016,0.01,USD,generic estimate,2026-10-10,extended,47n C0G 0805: no fee-free part (jlcsearch 2026-10-10)
 SX-C-017,0.01,USD,generic estimate,2026-10-10,extended,22n C0G 0805: no fee-free part (jlcsearch 2026-10-10)
 SX-C-022,0.01,USD,generic estimate,2026-10-10,extended,10p C0G 100 V 0805: no fee-free part (jlcsearch 2026-10-10)
-SX-C-027,0.01,USD,generic estimate,2026-10-10,extended,56p C0G 0805: no fee-free 0805 part; 0603 C39148 is preferred (jlcsearch 2026-10-10)
+SX-C-027,0.01,USD,generic estimate,2026-10-10,extended,"56p C0G 0805: no fee-free 0805 part; 0603 Samsung CL10C560JB8NNNC LCSC C39148 is preferred, 0.0113 USD (cost review 2026-10-13, lever P3)"
 SX-R-021,1.06,USD,as TFPT0603L8200FV (Mouser),2026-10-10,consign,ERA-V33J102V (master R421) is end of life (decision 130): priced as a TFPT until the master chooses
 SX-R-005,0.0081,USD,LCSC C17490,2026-10-10,preferred,16k 1% 0805 UNI-ROYAL 0805W8F1602T5E: JLCPCB preferred (lcsc-check class stale)
 SX-R-092,0.0043,USD,LCSC C17506,2026-10-10,preferred,18k 1% 0805 UNI-ROYAL 0805W8F1802T5E: JLCPCB preferred
@@ -100,14 +100,17 @@ SX-R-104,0.0041,USD,LCSC C25826,2026-10-10,preferred,39k 1% 0805 UNI-ROYAL 0805W
 SX-R-105,0.0021,USD,LCSC C17828,2026-10-10,basic,8k2 1% 0805 UNI-ROYAL 0805W8F8201T5E: JLCPCB basic
 SX-R-106,0.0054,USD,LCSC C17557,2026-10-10,basic,220R 1% 0805 UNI-ROYAL 0805W8F2200T5E: JLCPCB basic
 SX-R-107,0.0396,USD,LCSC C110775,2026-10-10,extended,10k 0.1% 0805 YAGEO RT0805BRD0710KL (decision 143)
-SX-TRIM-001,1.58,EUR,Mouser 652-3296W-1-503LF (10+),2026-10-10,hand,Bourns 3296W-1-503LF; 1.38 at 25+; LCSC C83686 0.75 USD would be cheaper but Mouser keeps the hand-soldered parts in one order
+SX-TRIM-001,1.58,EUR,Mouser 652-3296W-1-503LF (10+),2026-10-10,hand,"Bourns 3296W-1-503LF; 1.38 at 25+; LCSC C83686 0.7487 USD at 10+, 0.6394 at 50+ (extended; cost review 2026-10-13, levers P6 and C4) would be cheaper but Mouser keeps the hand-soldered parts in one order"
 SX-POT-003,1.29,USD,Tayda A-4730,2026-10-10,hand,Alpha RD901F-40-15K-B50K
 SX-MECH-003,44.60,EUR,TME GSM120B24-R7B,2026-10-10,hand,"Mean Well GSM120B24-R7B prototype brick; TME 42.50 at 5, 40.60 at 10, 171 in stock; Mouser 44.12 (1), 40.16 (10+)"
 SX-MECH-005,72.90,EUR,TME GSM220B24-R7B,2026-10-10,hand,"Mean Well GSM220B24-R7B full-size brick (decision 145); TME 69.40 at 5, 66.30 at 10, 64.40 at 20, 105 in stock; Mouser and Digi-Key about EUR 72, no stock"
 SX-D-012,0.0444,USD,LCSC C22452,2026-10-11,basic,MDD SS54 SMA: JLCPCB basic (decision 159; lcsc-check had no row)
 SX-MECH-006,0.189,EUR,Mouser 749-CR-104,2026-10-13,hand,"Bivar CR-104 3 mm LED clip and ring for the power LED (decision 168); off-board: counted with the frame in tools/costs.py",,10:0.788;100:0.661
-SX-CONN-023,1.07,EUR,Mouser 710-61203423021 (10+),2026-10-13,hand,"Wurth 61203423021 2x17 IDC socket, off-board (audio chain jumpers); 1.11 at 1, 0.937 at 30, 0.808 at 60",,30:0.876;60:0.755
-SX-CONN-012,1.81,EUR,Mouser 710-61200823021 (1+),2026-10-13,hand,"Wurth 61200823021 2x4 IDC socket, off-board (power chain); breaks not collected",,
+SX-CONN-023,1.07,EUR,Mouser 710-61203423021 (10+),2026-10-13,hand,"Wurth 61203423021 2x17 IDC socket, off-board (audio chain jumpers); 1.11 at 1, 0.937 at 30, 0.808 at 60; candidate Adam Tech FCS-34-SG (Mouser 737-FCS-34-SG) 0.561 at 10+, 0.495 at 25, 0.47 at 120 (cost review 2026-10-13, lever C1)",,30:0.876;60:0.755
+SX-CONN-012,1.75,EUR,Mouser 710-61200823021 (10+),2026-10-13,hand,"Wurth 61200823021 2x4 IDC socket, off-board (power chain); 1.81 at 1, 1.53 at 25, 1.32 at 50; candidate Adam Tech FCS-08-SG (Mouser 737-FCS-08-SG) 0.518 at 10+, 0.463 at 25, 0.42 at 100 (cost review 2026-10-13, lever C1)",,25:0.874;50:0.754
 SX-WIRE-001,0.912,EUR,Mouser 517-3365/34FT,2026-10-13,hand,"3M 3365/34 flat cable, price per foot; 100 ft roll 118.55",,
 SX-WIRE-002,0.662,EUR,Mouser 517-3365/26FT,2026-10-13,hand,"3M 3365/26 flat cable, price per foot; 100 ft roll 99.42",,
 SX-WIRE-003,0.258,EUR,Mouser 517-3365/10FT,2026-10-13,hand,"3M 3365/10 flat cable, price per foot, split to 8-way; 100 ft roll 46.34 (true 8-way 3365/08 roll 33.33)",,
+SX-D-009,0.054,USD,LCSC C19077578,2026-10-13,preferred,SMBJ24A SMB TVS: JLCPCB preferred (no row before; cost review 2026-10-13)
+SX-D-013,0.0966,USD,LCSC C19229 (50+),2026-10-13,extended,MDD SS510C SMC (no row before; cost review 2026-10-13)
+SX-F-002,0.1387,USD,LCSC C7433877 (50+),2026-10-13,extended,BHFUSE BSMD1812-200-33V (no row before; cost review 2026-10-13)
