@@ -1,6 +1,6 @@
 Ref,Qty to order,Value,Spec,E24 substitute (hobby-shop stock),Where,Notes
 U1,3,SSI2144,Sound Semiconductor SSI2144SS-TU (QSOP-16 / SSOP-16 MO-137-AB 0.635 mm pitch),,Electrokit,1 test + 1 for L/R tracking test + 1 spare
-—,2,SSOP-16 to DIP-16 adapter,SparkFun BOB-13994 (0.635 mm pads; 0.3 in / 300 mil DIP; 2 boards per pack),,Electrokit if stocked; else Melopero or Mouser,Must be 300 mil to match the layout. Electrokit's own SOIC/TSSOP-16 adapter is 600 mil and does not fit
+—,2,SSOP-16 to DIP-16 adapter,SparkFun BOB-13994 (0.635 mm pads; pin rows 0.5 in / 500 mil apart, measured on the board 2026-10-14; 2 boards per pack),,Electrokit if stocked; else Melopero or Mouser,The layout puts its pins in rows d and g (500 mil). Electrokit's own SOIC/TSSOP-16 adapter is 600 mil and does not fit
 —,1,Pin header,2.54 mm break-away male header 1x40,,Electrokit,For the adapters (2 x 8 pins each)
 U2,3,TL072,Dual JFET op amp DIP-8,,Electrokit,1 used + spares
 R1,0 (kit),18 kΩ,1% metal film 0.25 W,(E24; the card's R104. Was 17.4 kΩ),Your 1/4 W metal film kit,Input attenuator: +4 dBu gives ±19.0 mV

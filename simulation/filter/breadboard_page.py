@@ -101,7 +101,7 @@ OFFBOARD = [
     ("CV jack (optional)", "Tip → “CV” tag (35j); sleeve → GND rail. Needed for tests 12 and 13."),
     ("Pots (10 kΩ linear PC16SH, PCB pins)", "Solder three short leads to each pot. The third pot is a spare."),
     ("RV1 cutoff, 10 kΩ linear", "Clockwise end → +15 V rail; other end → −15 V rail; wiper → “RV1 wiper” tag (41i). If the cutoff falls when you turn clockwise, swap the two ends."),
-    ("RV2 resonance, 10 kΩ linear", "Clockwise end → +15 V rail; other end → GND rail; wiper → “RV2 wiper” tag (3h). Linear crowds the resonance into the last part of the turn; that is fine for the tests."),
+    ("RV2 resonance, 10 kΩ linear", "Clockwise end → +15 V rail; other end → GND rail; wiper → “RV2 wiper” tag (2j). Linear crowds the resonance into the last part of the turn; that is fine for the tests."),
     ("RV4 offset trim, 50 kΩ 3296W", "One end → +15 V rail; other end → −15 V rail; wiper → “RV4 wiper” tag (22j). It can also sit on the board next to the tag, with its ends wired to the rails."),
     ("Bench supply", "+15 V → +15 V rail, −15 V → −15 V rail, common → GND rail, all at column 1 next to C14 and C15. Current limit about 50 mA per rail."),
     ("1N4001 reverse protection", "At the supply terminals or on the supply leads, not in the breadboard (the leads are thicker than its 0.7 mm limit): one from +15 V to common, cathode (band) to +15 V; one from −15 V to common, anode to −15 V."),
@@ -110,7 +110,7 @@ OFFBOARD = [
 checks = [
     "Check the adapter: confirm with a multimeter that DIP pin 1 connects to SSOP pin 1 (the chip's dot). Most adapters keep the numbering; a few don't.",
     "Check that each power rail runs the full length of the board: meter from its hole at column 1 to its hole at column 44. On many boards the rails are split in the middle; bridge the gap with a short wire if so.",
-    "Notch or dot to the left on both chips: U1 pin 1 at 8e, pin 16 at 8f; U2 pin 1 at 30e.",
+    "Notch or dot to the left on both chips: U1 pin 1 at 8d, pin 16 at 8g (the adapter's pin rows are 500 mil apart, so rows e and f sit under it); U2 pin 1 at 30e.",
     "Power the empty board first: +15 V at 8j and 30j, −15 V at 15a and 33a, 0 V at 15j, 33j and 32a.",
     "With chips in, total current should be roughly 5 mA per rail for U1 plus a few mA for U2 (datasheet: SSI2144 about 5 mA typical). Much more means a short or a reversed chip: switch off.",
     "Pin 14 (Q) and the summer's inverting input (U2 pin 6) sit at about 0 V: both are virtual grounds.",

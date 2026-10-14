@@ -13,7 +13,7 @@ Reference: SSI2144 datasheet Rev 3.0 (January 2018), Figures 1 and 3. Where this
 | Qty | Part | Notes |
 |---|---|---|
 | 3 | SSI2144 (SSOP-16) | One for the test, one for the L/R tracking test, one spare. Electrokit (EU), Thonk, synthCube, Modular Addict |
-| 2 packs | SSOP-16 to DIP-16 adapter, 0.635 mm pads, 300 mil (0.3 in) DIP width | SparkFun BOB-13994 (2 boards per pack). The SSI2144 package is QSOP-16 (JEDEC MO-137-AB, 0.635 mm pitch). A 600 mil adapter does not fit the layout |
+| 2 packs | SSOP-16 to DIP-16 adapter, 0.635 mm pads | SparkFun BOB-13994 (2 boards per pack). The SSI2144 package is QSOP-16 (JEDEC MO-137-AB, 0.635 mm pitch). Its pin rows are 500 mil (0.5 in) apart, not a DIP's 300 mil (measured 2026-10-14): it straddles the centre gap with its pins in rows d and g, and the layout keeps rows e and f under it free. A 600 mil adapter does not fit the layout |
 | 3 | TL072 (DIP-8) | Control summer, output stage, spare |
 | 1 | NE5532 or OPA1642 (DIP-8 or on adapter) | Optional: lower-noise output stage for comparison |
 | 1 set | 1% metal film resistors, E24 kit | 18 kΩ, 200 Ω (3), 330 Ω, 33 kΩ, 51 kΩ, 510 Ω, 1 kΩ, 100 kΩ (2), 160 kΩ, 300 kΩ, 470 kΩ |

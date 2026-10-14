@@ -14,8 +14,10 @@ Exits with an error if the layout does not match the schematic.
 Board model: columns 1..45. Each column has a top half (rows f-j) and a
 bottom half (rows a-e); the five holes of a half are one node. Rails: +15 V
 along the top edge, GND below it; GND and -15 V along the bottom edge.
-U1 (SSI2144 on a DIP-16 adapter) straddles the centre gap at columns 8-15,
-notch to the left: pin 1 at bottom column 8, pin 16 at top column 8.
+U1 (SSI2144 on the SparkFun BOB-13994 adapter) straddles the centre gap at
+columns 8-15, notch to the left: pin 1 at bottom column 8, pin 16 at top
+column 8. The adapter's pin rows are 500 mil apart, not a DIP's 300 mil, so
+its pins sit in rows d and g and its board covers rows e and f there.
 U2 (TL072) at columns 30-33, notch to the left: pin 1 at bottom column 30.
 The supply enters at column 1 (10 µF per rail there). The R82 film
 capacitors (5 mm lead pitch) sit diagonally, one column and two rows apart
@@ -37,39 +39,43 @@ U1_TOP = {16: 8, 15: 9, 14: 10, 13: 11, 12: 12, 11: 13, 10: 14, 9: 15}
 U1_BOT = {1: 8, 2: 9, 3: 10, 4: 11, 5: 12, 6: 13, 7: 14, 8: 15}
 U2_TOP = {8: 30, 7: 31, 6: 32, 5: 33}
 U2_BOT = {1: 30, 2: 31, 3: 32, 4: 33}
+# Row index of each chip's pins in both halves: 0 = rows e/f (300 mil DIP),
+# 1 = rows d/g (the 500 mil adapter); the rows between are under the chip.
+PIN_ROW = {"U1": 1, "U2": 0}
 
 PARTS = [
     # ref, value, kind, end A, end B (trimmers: end A, wiper, end B)
     # ---- input (bottom half, left of U1)
     ("C5", "10 µF bipolar", "cap", ("B", 2, 2), ("B", 4, 2)),
-    ("R1", "18 kΩ", "res", ("B", 4, 1), ("B", 8, 1)),
-    ("C9", "3.3 nF opt.", "cap", ("B", 8, 2), ("B", 9, 4)),
-    ("R3", "330 Ω", "res", ("B", 8, 3), ("B", 5, 3)),
+    ("R1", "18 kΩ", "res", ("B", 4, 3), ("B", 8, 3)),
+    ("C9", "3.3 nF opt.", "cap", ("B", 8, 4), ("B", 9, 2)),
+    ("W14", "", "wire", ("B", 8, 2), ("B", 7, 2)),
+    ("R3", "330 Ω", "res", ("B", 7, 1), ("B", 5, 1)),
     ("J1", "drive", "jumper", ("B", 5, 4), ("R", "GNDB", 5)),
-    ("R2", "200 Ω", "res", ("B", 8, 4), ("R", "GNDB", 8)),
+    ("R2", "200 Ω", "res", ("B", 7, 4), ("R", "GNDB", 7)),
     ("R4", "200 Ω", "res", ("B", 9, 3), ("R", "GNDB", 10)),
     ("L4", "IN", "lead", ("B", 2, 4), ("X", "IN")),
     # ---- ladder capacitors
     ("C4", "560 pF", "cap", ("B", 11, 2), ("B", 12, 2)),
     ("C3", "6.8 nF", "cap", ("B", 13, 2), ("B", 14, 4)),
-    ("C1", "6.8 nF", "cap", ("T", 11, 1), ("T", 12, 3)),
-    ("C2", "6.8 nF", "cap", ("T", 13, 1), ("T", 14, 3)),
+    ("C1", "6.8 nF", "cap", ("T", 11, 2), ("T", 12, 4)),
+    ("C2", "6.8 nF", "cap", ("T", 13, 2), ("T", 14, 4)),
     # ---- supply entry: 10 µF per rail (polarised; + to +15 V, and + to GND on the -15 V side)
     ("C14", "10 µF", "cap", ("R", "P15", 1), ("R", "GNDT", 1)),
     ("C15", "10 µF", "cap", ("R", "GNDB", 1), ("R", "N15", 1)),
     # ---- U1 supply and decoupling (decoupling caps sit across the rails)
     ("W1", "", "wire", ("T", 8, 4), ("R", "P15", 8)),
-    ("C10", "100 nF", "cap", ("R", "P15", 7), ("R", "GNDT", 7)),
+    ("C10", "100 nF", "cap", ("R", "P15", 6), ("R", "GNDT", 6)),
     ("W2", "", "wire", ("T", 15, 4), ("R", "GNDT", 15)),
     ("W3", "", "wire", ("B", 15, 4), ("R", "N15", 15)),
     ("C11", "100 nF", "cap", ("R", "N15", 16), ("R", "GNDB", 16)),
     # ---- resonance (top half, left of U1)
-    ("R7", "510 Ω", "res", ("T", 10, 1), ("T", 6, 1)),
-    ("C8", "10 nF", "cap", ("T", 6, 4), ("R", "GNDT", 6)),
-    ("R6", "33 k → 51 k", "res", ("T", 10, 3), ("T", 3, 3)),
-    ("L1", "RV2 wiper", "lead", ("T", 3, 2), ("X", "RV2.W")),
-    # ---- cutoff: FREQ node extended to column 18
-    ("W13", "", "wire", ("T", 9, 2), ("T", 18, 2)),
+    ("R7", "510 Ω", "res", ("T", 10, 2), ("T", 7, 2)),
+    ("C8", "10 nF", "cap", ("T", 7, 4), ("R", "GNDT", 7)),
+    ("R6", "33 k → 51 k", "res", ("T", 10, 3), ("T", 2, 3)),
+    ("L1", "RV2 wiper", "lead", ("T", 2, 4), ("X", "RV2.W")),
+    # ---- cutoff: FREQ node extended to column 18 (diagonal, clear of R6 and R7)
+    ("W13", "", "wire", ("T", 9, 4), ("T", 18, 2)),
     ("R8", "1 kΩ", "res", ("T", 18, 4), ("R", "GNDT", 18)),
     ("R10", "470 kΩ", "res", ("T", 18, 3), ("T", 22, 3)),
     ("L2", "RV4 wiper", "lead", ("T", 22, 4), ("X", "RV4.W")),
@@ -81,11 +87,11 @@ PARTS = [
     ("W7", "", "wire", ("B", 33, 4), ("R", "N15", 33)),
     ("C13", "100 nF", "cap", ("R", "N15", 34), ("R", "GNDB", 34)),
     # ---- U2A output stage (bottom): U1 OUT to INA-, trimmer and 100 pF across INA- and OUTA
-    ("W5", "", "wire", ("B", 10, 1), ("B", 31, 1)),
+    ("W5", "", "wire", ("B", 10, 3), ("B", 31, 3)),
     ("C6", "100 pF", "cap", ("B", 31, 2), ("B", 30, 2)),
     ("RV3", "50 kΩ trim", "trim", ("B", 31, 4), ("B", 30, 4), ("B", 29, 4)),
     ("W8", "", "wire", ("B", 32, 4), ("R", "GNDB", 32)),
-    ("C7", "10 µF bipolar", "cap", ("B", 30, 3), ("B", 25, 3)),
+    ("C7", "10 µF bipolar", "cap", ("B", 30, 1), ("B", 25, 1)),
     ("L3", "OUT", "lead", ("B", 25, 4), ("X", "OUT")),
     # ---- U2B summer (top)
     ("W10", "", "wire", ("T", 33, 4), ("R", "GNDT", 33)),
@@ -109,14 +115,14 @@ PARTS = [
 
 # Pins of the ICs as nodes
 CHIP_PINS = {}
-for pin, col in U1_TOP.items():
-    CHIP_PINS[f"U1.{pin}"] = ("T", col)
-for pin, col in U1_BOT.items():
-    CHIP_PINS[f"U1.{pin}"] = ("B", col)
-for pin, col in U2_TOP.items():
-    CHIP_PINS[f"U2.{pin}"] = ("T", col)
-for pin, col in U2_BOT.items():
-    CHIP_PINS[f"U2.{pin}"] = ("B", col)
+PIN_HOLES = set()   # holes taken by chip pins
+COVERED = set()     # holes under a chip body, between its pin rows
+for chip, top, bot in (("U1", U1_TOP, U1_BOT), ("U2", U2_TOP, U2_BOT)):
+    for half, pins in (("T", top), ("B", bot)):
+        for pin, col in pins.items():
+            CHIP_PINS[f"{chip}.{pin}"] = (half, col)
+            PIN_HOLES.add((half, col, PIN_ROW[chip]))
+            COVERED.update((half, col, r) for r in range(PIN_ROW[chip]))
 
 # Expected netlist from the schematic (breadboard_schematic.py)
 EXPECTED = [
@@ -216,7 +222,8 @@ def check():
         if node[0] in ("T", "B"):
             used = len([h for h in hole_use if (h[0], h[1]) == node])
             pins = sum(1 for p in CHIP_PINS.values() if p == node)
-            if used + pins > 5:
+            covered = sum(1 for h in COVERED if (h[0], h[1]) == node)
+            if used + pins + covered > 5:
                 problems.append(f"column {node} needs {used + pins} holes")
     for e in exp:
         if e not in got:
@@ -226,10 +233,12 @@ def check():
         if g not in exp and len(g) > 1:
             if not any(g == e for e in exp):
                 problems.append(f"unexpected net on board: {sorted(g)}")
-    # trimmer pins must not be on a used chip row etc. (rows 0 next to gap hold chip pins)
-    for (half, col, row), refs in hole_use.items():
-        if row == 0 and any(CHIP_PINS[p] == (half, col) for p in CHIP_PINS):
-            problems.append(f"{refs} uses the chip pin hole at {half}{col} row 0")
+    # no part in a chip pin hole or under a chip body
+    for hole, refs in hole_use.items():
+        if hole in PIN_HOLES:
+            problems.append(f"{refs} uses the chip pin hole {hole}")
+        if hole in COVERED:
+            problems.append(f"{refs} uses the hole {hole} under a chip")
     return problems
 
 
@@ -313,17 +322,19 @@ def draw():
         add(f'<text x="{X0 - 22}" y="{YB[i] + 3}" font-size="9" text-anchor="middle" fill="{MUTED}">{r}</text>')
     # chips
     for name, c1, c2, label, top_pins, bot_pins in (
-            ("U1", 8, 15, "U1 SSI2144 on adapter", U1_TOP, U1_BOT),
+            ("U1", 8, 15, "U1 SSI2144 on 500 mil adapter", U1_TOP, U1_BOT),
             ("U2", 30, 33, "U2 TL072", U2_TOP, U2_BOT)):
         x1 = X0 + (c1 - 1) * P - 9
         x2 = X0 + (c2 - 1) * P + 9
-        add(f'<rect x="{x1}" y="{YT[0] - 6}" width="{x2 - x1}" height="{YB[0] - YT[0] + 12}" rx="3" fill="{CHIP}"/>')
-        add(f'<path d="M {x1} {(YT[0] + YB[0]) / 2 - 6} a 6 6 0 0 1 0 12" fill="{BOARD}"/>')
-        add(f'<text x="{(x1 + x2) / 2 + 3}" y="{(YT[0] + YB[0]) / 2 + 4}" font-size="9.5" font-weight="700" text-anchor="middle" fill="{CHIPTXT}">{label}</text>')
+        pr = PIN_ROW[name]
+        yt, yb = YT[pr], YB[pr]
+        add(f'<rect x="{x1}" y="{yt - 6}" width="{x2 - x1}" height="{yb - yt + 12}" rx="3" fill="{CHIP}"/>')
+        add(f'<path d="M {x1} {(yt + yb) / 2 - 6} a 6 6 0 0 1 0 12" fill="{BOARD}"/>')
+        add(f'<text x="{(x1 + x2) / 2 + 3}" y="{(yt + yb) / 2 + 4}" font-size="9.5" font-weight="700" text-anchor="middle" fill="{CHIPTXT}">{label}</text>')
         for pin, col in top_pins.items():
-            add(f'<text x="{X0 + (col - 1) * P}" y="{YT[0] + 3}" font-size="7.5" font-weight="700" text-anchor="middle" fill="{CHIPTXT}">{pin}</text>')
+            add(f'<text x="{X0 + (col - 1) * P}" y="{yt + 3}" font-size="7.5" font-weight="700" text-anchor="middle" fill="{CHIPTXT}">{pin}</text>')
         for pin, col in bot_pins.items():
-            add(f'<text x="{X0 + (col - 1) * P}" y="{YB[0] + 3}" font-size="7.5" font-weight="700" text-anchor="middle" fill="{CHIPTXT}">{pin}</text>')
+            add(f'<text x="{X0 + (col - 1) * P}" y="{yb + 3}" font-size="7.5" font-weight="700" text-anchor="middle" fill="{CHIPTXT}">{pin}</text>')
     # parts: wires first, then components, then tags
     order = {"wire": 0, "jumper": 1, "cap": 2, "res": 2, "trim": 3, "lead": 4}
     for ref, val, kind, *ends in sorted(PARTS, key=lambda p: order[p[2]]):
