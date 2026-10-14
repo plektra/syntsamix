@@ -14,6 +14,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 - **Receiver (decision 143):** keep the 0.1 % resistors of each side together and the two input legs symmetrical (same trace lengths to the TL072), RFI caps C1-C4 next to R1-R4.
 - **CV jack J181 (Thonkiconn):** 3 mm hole in the PCB under the barrel (Thonk note; the footprint has none), centred 6.48 mm from the S pad toward T; no traces or pour in it. Centred on the strip above CUTOFF (decision 106).
 - **Fader:** KiCad `Potentiometer_Bourns_PTA6043_Single_Slide` matches the Bourns PTA drawing (Rev. 08/25). The M2 holes are tapped in the top of the frame, 71 mm apart, for panel screws from above: no PCB feature; choose the M2 screw length (1.6 mm panel + 3.5 mm spacer + the frame's thread depth, not stated by Bourns) so it cannot reach the track. Screwed to the panel before soldering. Keep the footprint compatible with the product-version TT PS60-10MC2BR10K if that costs nothing.
+- **SSI2144 footprint (U101/U102):** `Package_SO:QSOP-16_3.9x4.9mm_P0.635mm` matches Sound Semiconductor's drawing PODPSSL16 (16-lead SSOP, JEDEC MO-137-AB, 0.635 mm pitch) and a measured chip (2026-10-14); pin 1 top-left at the notch, as the footprint. No further check before ordering.
 - **Pot footprints:** the stock KiCad RD901F/RD902F footprints (slots 9.6 mm centre to centre, 7.5 mm from the pins) match Alpha's drawing SLH-211-414 (its 11.4 mm spans the slot ends).
 
 ## Check on first delivery or assembly
