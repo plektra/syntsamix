@@ -1,5 +1,5 @@
 ---
-description: Record this session's outcome in the status and decision files, then prepare the commit
+description: Record this session's outcome in the status and decision files, then commit, push, merge to main and remove the worktree branch
 argument-hint: [optional note on what to record]
 ---
 
@@ -12,5 +12,13 @@ Wrap up this session so the next one can start from the files alone. Extra note 
 5. Cost (decisions 134-136): if parts or values changed, run `python3 tools/costs.py estimate` (4, 8 and 16 channels) and note the change in the board's `STATUS.md` (value exceptions and fee parts in `CHECKLISTS.md`); add prices for new part types to `docs/costs/prices.csv` (`python3 tools/costs.py unpriced` lists the missing ones); new values follow the board's E24 rule. If the user mentions an order or payment, record it with `python3 tools/costs.py ledger add` (private ledger, never in tracked files).
 6. New part types: `docs/parts.csv`. New files: check they are covered by `REUSE.toml` and run `uvx --from 'reuse[charset-normalizer]' reuse lint`.
 7. Check whether the architecture review is needed (decision 151): run `git status --short` and `git diff --stat`. Launch the `architect` sub-agent only if the changes touch a contract or budget: `docs/ARCHITECTURE.md`, `docs/CHAIN.md`, `docs/INPUT-MODULE.md`, `docs/MECHANICAL.md`, `docs/decisions/system.md`, `docs/parts.csv`, a chain, bus or input-header script (`chain_build.py`, `bus_build.py`, the input module schematic), a `power_budget.py`, or a decision that changes a signal level, rail, load or panel part. Otherwise skip it and say so in one line ("architecture review skipped: no contract, budget or shared-part changes"). When it runs, report its CONFLICT and UPDATE NEEDED items to the user; resolve UPDATE NEEDED documentation items now, and leave CONFLICT items for the user to decide (a contract or invariant change belongs in a `/system` session).
-8. Show `git status` and a short summary of the changes, and propose a commit message. Do not commit or push until the user says so.
-9. Finally, tell the user that `/clear` is safe now that everything is in the files.
+8. Show `git status` and a short summary of the changes. If the architecture review left a CONFLICT item open, stop here and ask the user before committing; otherwise running `/handoff` is the go-ahead for steps 9-11.
+9. Commit and push: stage the session's changes (never `.claude/settings.json`, the private ledger or other untracked files the session did not make) and commit with a short message in the repo's style (`<Board or System>: <what changed> (decisions N-M)`). Push the branch (`git push -u origin HEAD`).
+10. Merge to main. `git fetch origin`, then merge `origin/main` into the session branch (`git merge origin/main`) and resolve any conflicts there:
+    - Decision numbers: if main took the same numbers, renumber this session's decisions to the next free ones in the area files, `record/`, `INDEX.md`, `STATUS.md` files and every other reference (`grep -rn "decision N"`), and rerun `python3 tools/check_decisions.py`.
+    - `INDEX.md`, `parts.csv`, `prices.csv`, `STATUS.md` files: keep both sides' rows and entries.
+    - KiCad files and generated netlists: do not hand-merge. Take main's version, rerun this session's build script, then ERC (and the netlist check).
+    - Ask the user only when both sides changed the same design choice.
+    Commit the merge, then push the merged branch to main (`git push origin HEAD:main`, a fast-forward). Update the main checkout (the first entry of `git worktree list`) with `git -C <main checkout> merge --ff-only origin/main` when it has main checked out and no conflicting local changes; otherwise say it needs a `git pull`. If the session runs on `main` itself (no worktree), use `git pull --rebase` then `git push` instead.
+11. Remove the worktree and its branch: leave the worktree with `ExitWorktree` (`action: "remove"`), then `git branch -d <branch>` and `git push origin --delete <branch>`. Report the merge commit and confirm that `main` and `origin/main` match.
+12. Finally, tell the user that `/clear` is safe now that everything is in the files and on main.

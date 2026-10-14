@@ -43,7 +43,7 @@ Claude has no memory between sessions; each role is a kind of session (or sub-ag
 
 1. **Start** with `/board <board> [phase]`, for example `/board power schematic` or `/board channel-card pcb`. Claude reads only the overview, that board's rows of the index and that board's files, sums up where the board stands, and raises the first open topic.
 2. **Work on one board and one phase.** Claude proposes one topic at a time with a recommendation and alternatives; you decide. Decisions stay in the main conversation.
-3. **End** with `/handoff`. Claude writes the outcome into the board's `STATUS.md`, the decision files and the index, runs the architecture reviewer on the changes, then shows the changes, any conflicts and a commit message. Say "commit & push" when you are happy.
+3. **End** with `/handoff`. Claude writes the outcome into the board's `STATUS.md`, the decision files and the index, runs the architecture reviewer on the changes, then shows the changes, commits and pushes them, merges them into `main` (resolving conflicts, renumbering clashing decisions) and removes the worktree and its branch. It stops and asks first only if the reviewer found a conflict.
 4. **Clear** with `/clear` before the next task. Everything that matters is in the files now.
 
 ## When to run what
@@ -96,7 +96,7 @@ Each kind of work runs on the cheapest model that does it well; the model is set
 
 ## Parallel sessions
 
-Two sessions can work on different boards at once, but these files are shared and can conflict: `hardware/libs/`, the shared scripts in `hardware/channel-card/scripts/` (the master symlinks to them), `docs/parts.csv`, `docs/decisions/INDEX.md`. If you run sessions in parallel, ask each to work in its own git worktree and merge one at a time. Otherwise, one session at a time.
+Two sessions can work on different boards at once, but these files are shared and can conflict: `hardware/libs/`, the shared scripts in `hardware/channel-card/scripts/` (the master symlinks to them), `docs/parts.csv`, `docs/decisions/INDEX.md`. If you run sessions in parallel, ask each to work in its own worktree; `/handoff` merges each into `main` in turn. Otherwise, one session at a time.
 
 ## Upkeep
 
