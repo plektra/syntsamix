@@ -4,16 +4,16 @@ U1,3,SSI2144,Sound Semiconductor SSI2144SS-TU (QSOP-16 / SSOP-16 MO-137-AB 0.635
 —,1,Pin header,2.54 mm break-away male header 1x40,,Electrokit,For the adapters (2 x 8 pins each)
 U2,3,TL072,Dual JFET op amp DIP-8,,Electrokit,1 used + spares
 R1,0 (kit),18 kΩ,1% metal film 0.25 W,(E24; the card's R104. Was 17.4 kΩ),Your 1/4 W metal film kit,Input attenuator: +4 dBu gives ±19.0 mV
-"R2, R4, R3 alt",0 (kit),200 Ω,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,R2 and R4 plus a spare to try as R3 (-6 dB)
+"R2, R4, R3 alt",0 (kit),200 Ω,1% metal film 0.25 W,"(E24 value; not in the kit: R2 = 2 × 100 Ω in series, R4 and R3 alt 220 Ω)",Your 1/4 W metal film kit,R2 and R4 plus a spare to try as R3 (-6 dB; -5.6 dB with 220 Ω)
 R3,0 (kit),330 Ω,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,Medium drive (-4 dB)
 R6,0 (kit),33 kΩ,1% metal film 0.25 W,(E24; was 33.2 kΩ),Your 1/4 W metal film kit,Resonance test 2 (finds oscillation onset)
 R6 final,0 (kit),51 kΩ,1% metal film 0.25 W,(E24; was 49.9 kΩ),Your 1/4 W metal film kit,Resonance limit: about 294 µA
-R7,0 (kit),510 Ω,1% metal film 0.25 W,(E24; datasheet 499 Ω),Your 1/4 W metal film kit,Resonance input filter
+R7,0 (kit),510 Ω,1% metal film 0.25 W,(E24; datasheet 499 Ω; not in the kit: 470 Ω),Your 1/4 W metal film kit,Resonance input filter
 R8,0 (kit),1 kΩ,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,Cutoff pin to ground
 "R9, R13",0 (kit),100 kΩ,1% metal film 0.25 W,(E24 value),Your 1/4 W metal film kit,Summer output and CV input
 R10,0 (kit),470 kΩ,1% metal film 0.25 W,(E24; the card's value. Was 499 kΩ),Your 1/4 W metal film kit,Cutoff offset: about ±32 mV
-R11,0 (kit),160 kΩ,1% metal film 0.25 W,(E24; the card uses 150k + 12k),Your 1/4 W metal film kit,Summer feedback (RV5 trims)
-R12,0 (kit),300 kΩ,1% metal film 0.25 W,(E24; the card's value. Was 301 kΩ),Your 1/4 W metal film kit,Cutoff pot scaling
+R11,0 (kit),160 kΩ,1% metal film 0.25 W,(E24; the card uses 150k + 12k; not in the kit: 150 kΩ with RV5 at about 42k),Your 1/4 W metal film kit,Summer feedback (RV5 trims)
+R12,0 (kit),300 kΩ,1% metal film 0.25 W,(E24; the card's value. Was 301 kΩ; not in the kit: 2 × 150 kΩ in series),Your 1/4 W metal film kit,Cutoff pot scaling
 "C1, C2, C3",4,6.8 nF,R82 film 10 % 5 mm (ordered: C0G 5 % sold out),,Electrokit,Ladder capacitors; placed diagonally for the 5 mm pitch
 C4,2,560 pF,C0G/NP0 ceramic 5%,,Electrokit,Ladder capacitor
 C6,2,100 pF,C0G/NP0 ceramic 5%,,Electrokit,Output stage

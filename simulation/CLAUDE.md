@@ -13,3 +13,4 @@ Working knowledge:
 - `level/run.py` adds an OPA2171-like rail-to-rail model (`rro`). The shared `run()` parser reads only `name = value` lines: in a `.control` block, `let x=v(node)` then `print x`.
 - AC `.measure` needs `.save v(node)`; `vm()`/`vdb()` give a harmless parse warning. Avoid the node name `in`.
 - Record outcomes in the decision files (`docs/decisions/`) and keep `results.txt` in sync with the scripts.
+- Electrokit SKU to product name: the site search is JavaScript-only; read `"ProductID"` and the name from the `dataLayer` line of product pages, found through `sitemap_products_N.xml` (`robots.txt`). The breadboard page's `SKUS` in `filter/breadboard_page.py` holds the mapping.

@@ -21,20 +21,22 @@ HERE = Path(__file__).resolve().parent
 NOTES = {
     "C5": "10 µF 100 V bipolar electrolytic from the order (ø8 mm); either way round. Test 11 swaps it for two 10 µF 25 V back to back, − to −",
     "R1": "Input attenuator, the card's 18 kΩ: +4 dBu becomes about ±19 mV at pin 1",
-    "R2": "Attenuator shunt (hot drive)",
-    "R3": "330 Ω gives about −4 dB; try 200 Ω for about −6 dB",
+    "R2": "Attenuator shunt (hot drive), the card's 200 Ω: two 100 Ω soldered end to end, stood upright in the two holes",
+    "R3": "330 Ω gives about −4 dB; try 220 Ω for about −5.6 dB",
     "J1": "Wire link. Fitted = medium drive, removed = hot drive",
     "C9": "Optional (datasheet): steadier resonance over the sweep. R82 film, 5 mm pitch: sits diagonally",
-    "R4": "Terminates the unused SIG IN−",
+    "R4": "Terminates the unused SIG IN− (220 Ω for the datasheet's 200 Ω; not critical)",
     "C1": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
     "C2": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
     "C3": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
     "C4": "Ladder capacitor, datasheet Figure 1 (NP0 ceramic)",
     "C10": "Decoupling across the rails, next to U1", "C11": "Decoupling across the rails, next to U1",
     "C12": "Decoupling across the rails, next to U2", "C13": "Decoupling across the rails, next to U2",
+    "D1": "Reverse-polarity protection: band (cathode) to the +15 V rail, other end to GND. Conducts only if the supply is connected the wrong way round",
+    "D2": "Reverse-polarity protection: band (cathode) to GND, other end to the −15 V rail",
     "C14": "Supply entry, 10 µF 25 V electrolytic: + to the +15 V rail, − to GND",
     "C15": "Supply entry, 10 µF 25 V electrolytic: + to GND, − to the −15 V rail",
-    "R7": "Resonance input filter (Figure 3; kit 510 Ω for 499 Ω)", "C8": "Resonance input filter (Figure 3), R82 film",
+    "R7": "Resonance input filter (Figure 3; kit 470 Ω for 499 Ω)", "C8": "Resonance input filter (Figure 3), R82 film",
     "R6": "33 kΩ for test 2 (finds oscillation onset, up to about 450 µA), then 51 kΩ (limits to about 294 µA)",
     "R8": "Stands in for the temperature-compensating resistor",
     "R10": "Cutoff offset from RV4, the card's 470 kΩ: about ±32 mV at pin 15",
@@ -42,12 +44,43 @@ NOTES = {
     "C6": "Output stage, datasheet Figure 1",
     "RV3": "Output gain: wiper and pin 1 end form the feedback. Start at about 9 kΩ (unity predicted near 8.8 kΩ), set in test 5",
     "C7": "Output coupling, 10 µF 100 V bipolar electrolytic",
-    "R11": "With RV5: summer feedback, sets 1 V/octave for the CV input",
-    "RV5": "Wiper and pin 1 end in series with R11; start at about 32 kΩ (1 V/oct needs about 192 kΩ in total)",
-    "R12": "Scales the cutoff pot to about 10 octaves (the card's 300 kΩ)",
+    "R11": "With RV5: summer feedback, sets 1 V/octave for the CV input (kit 150 kΩ; RV5 makes up the rest)",
+    "RV5": "Wiper and pin 1 end in series with R11; start at about 42 kΩ (1 V/oct needs about 192 kΩ in total)",
+    "RV4": "Cutoff offset: the full trimmer as a divider between +15 V (pin 1, via W15) and −15 V (pin 3, via W16 and W17); centre it before power-up",
+    "R12": "Scales the cutoff pot to about 10 octaves (the card's 300 kΩ): two 150 kΩ soldered end to end, lying flat across the nine columns",
     "R13": "CV input, about 1 V/octave",
 }
-VALUES = {"R6": "33 kΩ → 51 kΩ", "C9": "3.3 nF", "J1": "wire link"}
+VALUES = {"R6": "33 kΩ → 51 kΩ", "C9": "3.3 nF", "J1": "wire link", "R3": "330 Ω (or 220 Ω)"}
+# What each part is, to pick it out of the bags: capacitor dielectric and body, resistor and trimmer type.
+TYPES = {
+    "C1": "Film, R82 box 100 V 10 %, 5 mm pitch", "C2": "Film, R82 box 100 V 10 %, 5 mm pitch",
+    "C3": "Film, R82 box 100 V 10 %, 5 mm pitch", "C9": "Film, R82 box 100 V 10 %, 5 mm pitch",
+    "C8": "Film, R82 box 100 V 5 %, 5 mm pitch",
+    "C4": "Ceramic MLCC C0G/NP0 50 V, 2.54 mm", "C6": "Ceramic MLCC C0G/NP0 50 V, 2.54 mm",
+    "C10": "Ceramic MLCC X7R 50 V, 2.54 mm", "C11": "Ceramic MLCC X7R 50 V, 2.54 mm",
+    "C12": "Ceramic MLCC X7R 50 V, 2.54 mm", "C13": "Ceramic MLCC X7R 50 V, 2.54 mm",
+    "C5": "Electrolytic, bipolar (non-polarised) 100 V, ø8×12 mm: either way round",
+    "C7": "Electrolytic, bipolar (non-polarised) 100 V, ø8×12 mm: either way round",
+    "C14": "Electrolytic, polarised 25 V, ø4×5 mm: stripe (−) to GND",
+    "C15": "Electrolytic, polarised 25 V, ø4×5 mm: stripe (−) to −15 V",
+    "RV3": "Trimmer, multiturn 3296W, 25 turns", "RV4": "Trimmer, multiturn 3296W, 25 turns", "RV5": "Trimmer, multiturn 3296W, 25 turns",
+    "J1": "Wire link",
+    "D1": "Rectifier diode 1N4001, DO-41: band = cathode", "D2": "Rectifier diode 1N4001, DO-41: band = cathode",
+}
+# Electrokit article numbers, as on the bags (electrokit-order.csv); resistors come from the E24 kit.
+SKUS = {
+    "C1": "41015666", "C2": "41015666", "C3": "41015666", "C8": "41015667", "C9": "41015664",
+    "C4": "41011990", "C6": "41011983",
+    "C10": "41016717", "C11": "41016717", "C12": "41016717", "C13": "41016717",
+    "C5": "41018168", "C7": "41018168", "C14": "41019084", "C15": "41019084",
+    "RV3": "40900268", "RV4": "40900268", "RV5": "40900268", "J1": "41002700", "D1": "40310001", "D2": "40310001",
+}
+CHIPS = [
+    ("U1", "SSI2144", "SSOP-16 filter on the SparkFun BOB-13994 adapter (500 mil)", "41019301",
+     "pins 1-8: 8d-15d; pins 16-9: 8g-15g", "Adapter from SparkFun, not Electrokit; dot (pin 1) to the left"),
+    ("U2", "TL072", "Dual JFET op amp, DIP-8", "40350072", "pins 1-4: 30e-33e; pins 8-5: 30f-33f",
+     "Notch to the left"),
+]
 KIND_NAME = {"res": "Resistor", "cap": "Capacitor", "trim": "Trimmer", "jumper": "Link", "wire": "Wire",
              "lead": "Flying lead"}
 RAIL = {"P15": "+15 V rail", "N15": "−15 V rail", "GNDT": "GND rail, top", "GNDB": "GND rail, bottom"}
@@ -73,7 +106,9 @@ def rows(kinds):
         where = " → ".join(hole(e) for e in ends) if kind != "trim" else \
             f"pin 1 {hole(ends[0])}, wiper {hole(ends[1])}, pin 3 {hole(ends[2])}"
         value = VALUES.get(ref, val) or ""
-        out.append((ref, value, where, NOTES.get(ref, "")))
+        kind_name = TYPES.get(ref, "Metal film 1 %, E24 kit" if kind == "res" else "")
+        sku = SKUS.get(ref, "kit" if kind == "res" else "")
+        out.append((ref, value, where, NOTES.get(ref, ""), kind_name, sku))
     return out
 
 
@@ -91,27 +126,25 @@ def table(rws, cols, cls):
 schem = (HERE / "breadboard-schematic.svg").read_text()
 layout = (HERE / "breadboard-layout.svg").read_text()
 
-parts_rows = rows({"res", "cap", "trim", "jumper"})
+parts_rows = CHIPS + [(r[0], r[1], r[4], r[5], r[2], r[3]) for r in rows({"res", "cap", "trim", "jumper", "diode"})]
 wire_rows = [(r[0], r[2], r[3]) for r in rows({"wire"})]
 
 OFFBOARD = [
-    ("Jacks (6.3 mm mono, PCB pins)", "Solder short stranded leads to the tip and sleeve pins; leave the switch pin free. Use a TS cable from the interface (a TRS plug shorts its ring to sleeve, which is harmless)."),
+    ("Jacks (6.3 mm mono, PCB pins; Electrokit 41002006)", "Solder short stranded leads to the tip and sleeve pins; leave the switch pin free. Use a TS cable from the interface (a TRS plug shorts its ring to sleeve, which is harmless)."),
     ("IN jack", "Tip → “IN” tag (2a); sleeve → GND rail."),
     ("OUT jack", "Tip → “OUT” tag (25a); sleeve → GND rail."),
     ("CV jack (optional)", "Tip → “CV” tag (35j); sleeve → GND rail. Needed for tests 12 and 13."),
-    ("Pots (10 kΩ linear PC16SH, PCB pins)", "Solder three short leads to each pot. The third pot is a spare."),
+    ("Pots (10 kΩ linear PC16SH, PCB pins)", "Solder three short leads to each pot. The third pot is a spare. The order's Electrokit 41037776 (×3) is most likely these pots; not confirmed, the item is no longer listed."),
     ("RV1 cutoff, 10 kΩ linear", "Clockwise end → +15 V rail; other end → −15 V rail; wiper → “RV1 wiper” tag (41i). If the cutoff falls when you turn clockwise, swap the two ends."),
     ("RV2 resonance, 10 kΩ linear", "Clockwise end → +15 V rail; other end → GND rail; wiper → “RV2 wiper” tag (2j). Linear crowds the resonance into the last part of the turn; that is fine for the tests."),
-    ("RV4 offset trim, 50 kΩ 3296W", "One end → +15 V rail; other end → −15 V rail; wiper → “RV4 wiper” tag (22j). It can also sit on the board next to the tag, with its ends wired to the rails."),
     ("Bench supply", "+15 V → +15 V rail, −15 V → −15 V rail, common → GND rail, all at column 1 next to C14 and C15. Current limit about 50 mA per rail."),
-    ("1N4001 reverse protection", "At the supply terminals or on the supply leads, not in the breadboard (the leads are thicker than its 0.7 mm limit): one from +15 V to common, cathode (band) to +15 V; one from −15 V to common, anode to −15 V."),
 ]
 
 checks = [
     "Check the adapter: confirm with a multimeter that DIP pin 1 connects to SSOP pin 1 (the chip's dot). Most adapters keep the numbering; a few don't.",
     "Check that each power rail runs the full length of the board: meter from its hole at column 1 to its hole at column 44. On many boards the rails are split in the middle; bridge the gap with a short wire if so.",
     "Notch or dot to the left on both chips: U1 pin 1 at 8d, pin 16 at 8g (the adapter's pin rows are 500 mil apart, so rows e and f sit under it); U2 pin 1 at 30e.",
-    "Power the empty board first: +15 V at 8j and 30j, −15 V at 15a and 33a, 0 V at 15j, 33j and 32a.",
+    "Power the empty board first: +15 V at 8j, 21j and 30j, −15 V at 15a, 23a and 33a, 0 V at 15j, 33j and 32a.",
     "With chips in, total current should be roughly 5 mA per rail for U1 plus a few mA for U2 (datasheet: SSI2144 about 5 mA typical). Much more means a short or a reversed chip: switch off.",
     "Pin 14 (Q) and the summer's inverting input (U2 pin 6) sit at about 0 V: both are virtual grounds.",
     "Pin 15 (cutoff) moves within about ±95 mV as RV1 turns (up to about ±127 mV with RV4 at an end; centre RV4 first). Volts there means a wiring fault. Above about +175 mV the chip goes silent until the pin drops back below about +135 mV (datasheet dropout; test 13): with a CV plugged in, a silent filter at the low end can be this, not a fault.",
@@ -177,7 +210,7 @@ th, td {{ text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--li
 th {{ font: 600 12px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); background: var(--paper); }}
 tbody tr:last-child td {{ border-bottom: 0; }}
 td:nth-child(2) {{ font: 600 13px/1.4 var(--f-mono); white-space: nowrap; }}
-.parts td:nth-child(3), .parts td:nth-child(4), .wires td:nth-child(3) {{ font-family: var(--f-mono); font-size: 13px; white-space: nowrap; }}
+.parts td:nth-child(3), .parts td:nth-child(5), .parts td:nth-child(6), .wires td:nth-child(3) {{ font-family: var(--f-mono); font-size: 13px; white-space: nowrap; }}
 td.tick, th.tick {{ width: 34px; text-align: center; }}
 input[type=checkbox] {{ width: 16px; height: 16px; accent-color: var(--accent); }}
 tr:has(input:checked) td:not(.tick) {{ color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }}
@@ -201,7 +234,7 @@ footer {{ margin-top: 48px; color: var(--muted); font-size: 13px; }}
 <section class="col">
   <h2>Before you power up</h2>
   <ol class="checks">{"".join(f"<li>{escape(c)}</li>" for c in checks)}</ol>
-  <p class="callout">The pinout and the ladder, output and resonance values come from the SSI2144 datasheet (Rev 3.0, Figures 1 and 3). The input attenuator, drive jumper, resonance limit and cutoff scaling are this project's values, on E24 kit values (the channel card's own where it has them: 18 kΩ, 470 kΩ, 300 kΩ). A script checked the breadboard layout against the schematic, connection by connection: no missing links, no shorts.</p>
+  <p class="callout">The pinout and the ladder, output and resonance values come from the SSI2144 datasheet (Rev 3.0, Figures 1 and 3). The input attenuator, drive jumper, resonance limit and cutoff scaling are this project's values, on the kit's values (the channel card's own where it has them: 18 kΩ, 470 kΩ, 300 kΩ). The kit lacks 200 Ω, 510 Ω, 160 kΩ and 300 kΩ: R2 and R12 are series pairs with the exact value, R4, R3's alternative, R7 and R11 the nearest kit values. A script checked the breadboard layout against the schematic, connection by connection: no missing links, no shorts.</p>
 </section>
 
 <section>
@@ -230,7 +263,7 @@ footer {{ margin-top: 48px; color: var(--muted); font-size: 13px; }}
 <section>
   <div class="col"><h2>Parts and placement</h2>
   <p>Holes are written as column then row, for example <code>8a</code>. Tick parts off as you place them; the ticks stay in this browser only.</p></div>
-  {table(parts_rows, ["Ref", "Value", "Holes", "Notes"], "parts")}
+  {table(parts_rows, ["Ref", "Value", "Type", "Electrokit SKU", "Holes", "Notes"], "parts")}
 </section>
 
 <section>
