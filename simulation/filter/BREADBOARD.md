@@ -41,7 +41,13 @@ Equipment:
 Flux the pads, tack two opposite corner pins, check alignment, then solder the rest or drag-solder. Inspect for bridges under magnification and check pin-to-pin continuity with the multimeter before powering.
 
 ### Power
-±15 V from the bench supply, current limit 50 mA. 100 nF ceramic from each supply pin to ground right at the chip and at each op amp; 10 µF per rail at the breadboard's supply entry. Note the supply current at power-up (datasheet: about 5 mA per rail typical).
+±15 V from the bench supply, current limit 50 mA. 100 nF ceramic from each supply pin to ground right at the chip and at each op amp; 10 µF per rail at the breadboard's supply entry. Note the supply current at power-up (datasheet: about 5 mA per rail typical; the whole board draws about 12-13 mA per rail with the pots). Two single-output supplies in series make the ±15 V: one's − and the other's + join as ground, their earth terminals stay open (a single supply's middle terminal is chassis earth, not a midpoint: with it, the board's ground floats and the rails read about +2.4 / −12.8 V).
+
+### Bench notes (2026-10-15 to 10-17)
+- Measure every kit resistor before fitting it: a "150k" read 135 kΩ, and the parts in the 33k compartment (banded 33k) read 19.2 kΩ (R6 is one of them).
+- The DSO1060's meter reads resistance about 2 % low and cannot resolve capacitors below about 1 nF (100 pF reads 0.0 nF). In meter mode it reads only from its own COM and V/Ω jacks, not the probes.
+- Trimmer pins and two-resistor pairs make poor breadboard contact: the gain wandered ±0.2 dB until R2 was fixed and RV3 replaced by a fixed 8.2 kΩ.
+- Cutoff from one reading: with resonance 0 the four poles give f_c = f / √(1/√r − 1), r = V out / V in at a test frequency f above the cutoff. Read V in at the same frequency with the same meter, so the meter's own frequency response cancels.
 
 ### Circuit blocks
 
@@ -65,18 +71,31 @@ Sweep the frequency response with the cutoff knob at minimum, noon and maximum, 
 
 | Knob | Expected cutoff | Measured -3 dB point (or -12 dB point of the 4-pole) |
 |---|---|---|
-| Min | about 20 Hz | |
-| Noon | about 630 Hz | |
-| Max | about 20 kHz | |
+| Min | about 20 Hz | 17.5 Hz (chip 1, from 32 mV at 40 Hz: uncertain, mains hum) |
+| Noon | about 630 Hz | 400 Hz (RV4 near centre, pin 15 about −2 mV) |
+| Max | about 20 kHz | 9.7 kHz (8.9 kHz after RV5 was set for 1 V/oct) |
+
+Chip 1 (2026-10-15 to 10-17), tracking against the CV input, RV1 at noon, RV5 set for 1 V/oct at +3 V (test 12):
+
+| CV | 1 V/oct would give | Measured, ±15 V | Measured, ±12 V | Measured, 0 V point moved to about 240 Hz with RV4 |
+|---|---|---|---|---|
+| 0 V | – | 403 Hz | 447 Hz | about 240 Hz |
+| +3 V | 8 × | 3.21 kHz (set) | 3.78 kHz (3.08 oct) | 1.93 kHz |
+| +4 V | 16 × | 5.7 kHz (0.18 oct short) | – | – |
+| +5 V | 32 × | 8.6 kHz (0.57 oct short) | 9.4 kHz (4.40 oct) | 7.0 kHz (+3 to +5 V: 1.86 oct, 0.14 short) |
+
+The pot path is right (R12 296 kΩ, R13 100.8 kΩ): the knob's span falls short because the chip's tracking sags above about 5 kHz. The sag follows the frequency (control current), not the pin voltage, and is the same at ±12 V. The datasheet (Rev 3.0) gives no maximum cutoff or tracking figure; it claims 1000:1 for ±90 mV at ±12 V. Chip 1 also resonates weakly (test 2), so a second chip should be measured before this is taken as the part's behaviour.
 
 ### Test 2: Resonance onset and limit
 With the 33 kΩ series resistor and cutoff at about 1 kHz, raise resonance slowly until the output sine-oscillates with no input. Record the wiper voltage and compute the current. Then change to 51 kΩ and confirm no oscillation at full resonance.
 
 | Measurement | Datasheet / plan | Measured |
 |---|---|---|
-| Q current at oscillation onset | 350 to 450 µA | |
+| Q current at oscillation onset | 350 to 450 µA (typ 400, datasheet p2) | Chip 1: no oscillation anywhere on RV2 (R6 read 19.2 kΩ: up to about 790 µA) |
 | Max Q current with 51 kΩ | about 294 µA | |
 | Oscillates at max with 51 kΩ? | No | |
+
+Chip 1 (2026-10-17): with a small signal (0.12 V at the 1 kHz cutoff) the level at the cutoff peaks at a third of the input (k ≈ 1) at a wiper of 7.9 V (about 410 µA) and falls again over the last quarter turn; at 1.23 V in the peak is 0.396 V. Checked and cleared: pin 14 at 0.7 mV (the current flows into the chip), the R7/C8 junction at the same voltage (no DC through R7), C4 marked 561 at pins 4-5, C9 fitted, every capacitor-pin joint continuous from chip pin to adapter pin. Next: fit chip 2 on a fresh adapter and repeat this test first.
 
 ### Test 3: Bass loss with resonance
 Frequency response at cutoff about 1 kHz, resonance at 0, 1/3, 2/3 and full (51 kΩ).
@@ -110,8 +129,10 @@ With the cutoff fully open and resonance 0, set RV3 so +4 dBu in gives +4 dBu ou
 
 | Measurement | Value |
 |---|---|
-| RV3 resistance for unity gain (hot drive) | |
-| Same with medium drive jumper | |
+| RV3 resistance for unity gain (hot drive) | Chip 1: 8.0 kΩ on the meter (about 8.2 kΩ); a fixed 8.2 kΩ in RV3's place gives +0.07 dB (1.24 V out for 1.23 V in) |
+| Same with medium drive jumper | Chip 1: 12.3 kΩ on the meter (about 12.55 kΩ), R3 measured 324.5 Ω |
+
+Attenuator as built: R1 17.62 kΩ, R2 196.9 Ω (meter values; the ratio matches 18k / 200 Ω). The jumper changed the level by 0.65 (−3.7 dB) against 0.625 (−4.1 dB) from the resistors.
 
 ### Test 6: Noise
 Terminate the input (short the jack's tip to sleeve through about 100 Ω). Measure output noise in REW, 20 Hz to 20 kHz, A-weighted, at the same unity gain setting.
@@ -193,7 +214,7 @@ With the CV input at 0 V and at +1 V, +2 V, +3 V (a lab supply or a divider; the
 
 | Measurement | Chip 1 | Chip 2 (test 8) |
 |---|---|---|
-| Feedback for 1.000 V/oct at room temperature (kΩ) | | |
+| Feedback for 1.000 V/oct at room temperature (kΩ) | 186.3 (meter; about 190), set at +2.99 V: about −18.4 mV/oct | |
 | Room temperature (°C) | | |
 | Octave error at +3 V after 30 min warm-up in a closed box (cents) | | |
 | Octave error at +3 V with the chip warmed by a finger or hair dryer for a minute (cents) | | |

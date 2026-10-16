@@ -1,6 +1,6 @@
 # Continue from here
 
-Project-level handoff, updated 2026-10-13. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
+Project-level handoff, updated 2026-10-17. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
 
 ## Boards
 
@@ -17,7 +17,7 @@ Decisions 1-171; last pushed commit: see `git log -1`.
 ## Order of work
 
 1. **Decision 97 and 98 board changes**: done on the channel card (with decision 102) and on the master card (2026-10-08, with decisions 103 and 104: master fader-law op amps on OPA2171s, SC_ENV from a negative DEPTH through the existing follower). Remaining before layout: the checks in each `STATUS.md` (master power levers done, decision 126).
-2. **SSI2144 breadboard** when the parts arrive (`simulation/filter/BREADBOARD.md`); it settles the provisional filter values on the channel card.
+2. **SSI2144 breadboard**, in progress (`simulation/filter/BREADBOARD.md`, results in its tables): chip 1 measured 2026-10-15 to 10-17 (output scale 8.2k [proposed] for the hot drive, V/oct 186 kΩ, tracking sags above about 5 kHz, resonance too weak: never oscillates). Next: fit chip 2 and repeat test 2 first; tests 4, 6 and 7 need the audio interface with REW. It settles the provisional filter values on the channel card (`hardware/channel-card/STATUS.md`).
 3. **Channel card schematic touch-up**: done 2026-10-09 (meter LEDs 0805, decision 119; power levers, decision 123).
 4. **RoHS audit** (decision 122): done 2026-10-09, report `docs/reviews/2026-10-09-rohs-audit.md`. Gaps: the declaration for the AS3046D (master; the SSI2144 and SSI2162 are cleared by an SGS package report via Electrokit, decision 164; the Alpha pots are cleared by Alpha's declaration, decision 124), and the rows with no part chosen yet. The end-of-life parts are gone: ERA-V33J102V (no tempco part on either board, decisions 141 and 149) and THAT1646 (DRV135UA, decision 125).
 5. **Chain cable mock-up** before the first PCB order (decision 109): header orientation, crimping and jumper length. Order the registered cable parts for it: 2x17 socket `SX-CONN-023`, 3M 3365 flat cable `SX-WIRE-001` (34-way) and `SX-WIRE-003` (10-way, split to 8); confirm the 28 AWG fit and the cable current (`CHAIN.md`). **On hold (user, 2026-10-13), to think through more deeply:** the chain ribbons are not yet in `docs/costs/offboard.csv` (decision 171). Mouser prices (in `docs/costs/prices.csv`) put them at about €5-6 per added card (2x4 power socket €1.81 each, the dearest part; 2x17 €0.81-1.11; 3365 cable €0.26-0.91 per foot) and about €36 in sockets and cable for the 4-channel prototype. Open: add them to `offboard.csv` or keep them in the €5 per channel `frame_eur_per_channel` overhead (rails and screws too), and a cheaper 2x4 socket.

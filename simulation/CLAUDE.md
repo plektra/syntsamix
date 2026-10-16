@@ -14,3 +14,4 @@ Working knowledge:
 - AC `.measure` needs `.save v(node)`; `vm()`/`vdb()` give a harmless parse warning. Avoid the node name `in`.
 - Record outcomes in the decision files (`docs/decisions/`) and keep `results.txt` in sync with the scripts.
 - Electrokit SKU to product name: the site search is JavaScript-only; read `"ProductID"` and the name from the `dataLayer` line of product pages, found through `sitemap_products_N.xml` (`robots.txt`). The breadboard page's `SKUS` in `filter/breadboard_page.py` holds the mapping.
+- Breadboard bench notes (two single supplies in series for ±15 V, the DSO1060 meter's limits, mislabelled kit resistors, cutoff from one reading): `filter/BREADBOARD.md`, section 2. Measure every kit resistor before fitting it.
