@@ -33,7 +33,7 @@ Signal definitions:
 - **SC:** sidechain bus, mono. A channel with SC send on adds (L+R) through resistors, tapped pre-fader and pre-mute; the master sums it like the audio buses.
 - **PFL_ACT:** logic, active low, open-collector (wired-OR). Pulled up on the master card; any channel with PFL pressed (or the master's SC listen button) pulls it to PGND (decision 98), so the LED and pull-up current returns through the power ribbons, not AGND. Placed at the cable edge, away from the audio buses, with the spares as a buffer.
 - **SC_ENV:** ducking envelope (decisions 66 and 97), a negative control voltage driven by the master card at low impedance (feedback taken after its series resistor): 0 V = no ducking, −1 V = 10 dB of gain reduction at the channel VCA; the master's DEPTH sets the peak, 0 to −4 V (0 to 40 dB). A Schottky clamp on the master keeps it below about +0.3 V. A channel card (or AUX return) with DUCK on loads it with 30 kΩ (decision 153) into a virtual earth; with DUCK off it draws nothing. The scale does not depend on the fader position or the number of cards ducking.
-- **SPARE2 to SPARE5:** unconnected on the prototype; reserved for future CV, mute groups and similar. Channel cards pass them through.
+- **SPARE2 to SPARE5:** unconnected on the prototype; reserved for future CV, mute groups and similar. They are carried by the multi-drop cable; channel cards leave them unconnected (decision 175).
 
 ## Power ribbon: 8-pin IDC (2x4), shrouded and keyed
 

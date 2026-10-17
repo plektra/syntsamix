@@ -83,7 +83,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 | SC | channel cards with SC send on | master sidechain | mono, pre-fader, pre-mute |
 | SC_ENV | master card, low impedance (follower on a negative DEPTH, feedback after 100 Ω) | channel cards and AUX returns with DUCK on, 30 kΩ into a virtual earth (decision 153) | 0 V = no ducking; −1 V = 10 dB, 0 to −4 V; BAT54 clamp keeps it below about +0.3 V (decisions 97, 104) |
 | PFL_ACT | any channel PFL, the master's SC listen (open collector, active low) | master headphone switch, PFL LED | pulled up to +5 V on the master (bus sheet); drivers pull to PGND (decision 98) |
-| SPARE2 to SPARE5 | nobody | nobody | passed through; reserved (backlog: CV, mute groups) |
+| SPARE2 to SPARE5 | nobody | nobody | carried by the multi-drop cable, unconnected on the cards (decision 175); reserved (backlog: CV, mute groups) |
 
 ## Invariants
 
