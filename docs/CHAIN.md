@@ -1,8 +1,8 @@
 # Chain interface
 
-Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98, 101 and 153; `decisions/mechanical.md` item 162 (feed entry).
+Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98, 101, 153 and 175; `decisions/mechanical.md` item 162 (feed entry).
 
-Every channel card has two identical copies of each connector (IN and OUT), wired pin-for-pin straight through. The master card has one copy of each and sits at one end of the chain (the right end, decision 109). Pin numbers follow the IDC convention: on the flat cable, pin n lies next to pin n+1, and pin 1 is on the red stripe.
+Every channel card has one audio and one power connector, each on a multi-drop flat cable that passes under all the cards with a socket at each card (decision 175). The audio cable comes in standard sections of 8 cards joined by a passive coupler board; the power cable is one section per group of 8 from the power board. The master card has one copy of each connector and sits at one end of the chain (the right end, decision 109). Any card can be unplugged without breaking the chain. Pin numbers follow the IDC convention: on the flat cable, pin n lies next to pin n+1, and pin 1 is on the red stripe.
 
 ## Audio ribbon: 34-pin IDC (2x17), shrouded and keyed
 
@@ -45,7 +45,7 @@ Signal definitions:
 
 - Pin 1 (red stripe) is the negative rail, the same habit as Eurorack, so the stripe always marks "negative".
 - 10- and 16-pin sizes are deliberately avoided so a Eurorack power cable cannot be plugged in.
-- Current per rail (decision 96, `tools/system_power_budget.py`): a channel card draws about 110 mA typical, 229 mA worst case on +15 V; the sizing figure for shared parts is 171 mA per card (after decision 143). Power is injected in groups of 8 cards (decision 80): the power board (decision 81) has three power headers: one for the master card, chain 1 for cards 1 to 8 and chain 2 for cards 9 to 16, so each pin carries up to about 0.68 A (sizing figure; 0.92 A at worst case). Chain 1 is the group next to the master; each chain's feed plugs into the power OUT header of its group's rightmost card (the card nearest the master), which a card never uses otherwise (decision 162, routing in `MECHANICAL.md`). The power board comes as a module in the power bay; two sizes are planned (up to 8 cards, and larger), both with this pinout. The IDC headers, sockets and cable must be rated at least 1 A per contact (the flat cable's rating is still to verify on the cable mock-up, decision 109). The audio ribbon still runs through all cards.
+- Current per rail (decision 96, `tools/system_power_budget.py`): a channel card draws about 110 mA typical, 229 mA worst case on +15 V; the sizing figure for shared parts is 171 mA per card (after decision 143). Power is injected in groups of 8 cards (decision 80): the power board (decision 81) has three power headers: one for the master card, chain 1 for cards 1 to 8 and chain 2 for cards 9 to 16, so each pin carries up to about 0.68 A (sizing figure; 0.92 A at worst case). Chain 1 is the group next to the master; each chain is one multi-drop power section, its feed socket on the power board and a socket at each card of the group (decisions 162, 175, routing in `MECHANICAL.md`), so each card's socket contacts carry only that card's current (about 0.11 A at its worst case) and the cable conductors and the feed socket carry the group's. The power board comes as a module in the power bay; two sizes are planned (up to 8 cards, and larger), both with this pinout. The IDC headers, sockets and cable must be rated at least 1 A per contact (the flat cable's rating is still to check from a datasheet before the first order, decision 175). The audio cable passes all cards, its sections joined by the coupler board.
 
 ## Grounding
 
@@ -60,8 +60,9 @@ Signal definitions:
 
 ## Placement
 
-Where the headers sit on each card and how neighbours are cabled: `MECHANICAL.md`, Chain headers (decision 109).
+Where the headers sit on each card, how the sections are built and where the coupler goes: `MECHANICAL.md`, Chain headers (decisions 109, 175).
 
 ## Points still open
 
-- Connectors chosen: box headers Würth WR-BHD 61203421621 (2x17, audio; decision 117) and 61200821621 (2x4, power, 3 A per contact; decision 100), PCB holes 1.1 mm; power ribbon IDC socket Würth 61200823021 (1 A per contact; decision 100). Cable parts registered 2026-10-13, to confirm on the cable mock-up (decision 109): audio IDC socket Würth 61203423021 (2x17, 1 A per contact, `SX-CONN-023`) and 3M 3365 grey flat cable, 28 AWG, 1.27 mm (34-way `SX-WIRE-001`; power 10-way split to 8, `SX-WIRE-003`). Würth names no wire gauge for its sockets, and 3M gives no current per conductor, so the 28 AWG fit and the 1 A per contact requirement of decision 96 for the cable are checked on the mock-up; the power headers and sockets meet it.
+- Connectors chosen: box headers Würth WR-BHD 61203421621 (2x17, audio; decision 117) and 61200821621 (2x4, power, 3 A per contact; decision 100), PCB holes 1.1 mm; power ribbon IDC socket Würth 61200823021 (1 A per contact; decision 100). Cable parts registered 2026-10-13: audio IDC socket Würth 61203423021 (2x17, 1 A per contact, `SX-CONN-023`) and 3M 3365 grey flat cable, 28 AWG, 1.27 mm (34-way `SX-WIRE-001`; power 10-way peeled to 8, `SX-WIRE-003`). Würth names no wire gauge for its sockets, and 3M gives no current per conductor: check the 28 AWG fit and the 1 A per contact requirement of decision 96 from datasheets before the first order, or choose a cable with a stated rating (decision 175, no mock-up); the power headers and sockets meet it.
+- Coupler board (decision 175): two shrouded 2x17 headers as on the cards, pin n to pin n, same orientation; drawn before the first build of more than 8 cards.

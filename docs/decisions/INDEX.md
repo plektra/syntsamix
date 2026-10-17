@@ -62,7 +62,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 35 | Linear fader with shaped law | confirmed | [channel-card](channel-card.md) |
 | 36 | Fader range +10 dB to off | confirmed | [channel-card](channel-card.md) |
 | 37 | Fader scale and markings | confirmed | [channel-card](channel-card.md) |
-| 38 | Chain per card, ribbons, no backplane | confirmed | [system](system.md) |
+| 38 | Chain per card, ribbons, no backplane (multi-drop since 175) | confirmed, refined | [system](system.md) |
 | 39 | Maximum 16 channel cards | confirmed | [system](system.md) |
 | 40 | Chain power: unregulated ±20 V, local ±15 V | confirmed | [system](system.md) |
 | 41 | Separate 34-pin audio and 8-pin power ribbons | confirmed | [system](system.md) |
@@ -133,7 +133,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 106 | Strip envelope (35 mm pitch, card ≤ 33 mm, control area ≤ 320 mm), CV jack above CUTOFF, `MECHANICAL.md` contract | confirmed, refined | [mechanical](mechanical.md) |
 | 107 | Panel stack: PCB 10 mm below the panel, pots hold the panel, fader screwed to the panel before soldering, top-side parts ≤ 9 mm (underside: 112, 121) | confirmed, refined | [mechanical](mechanical.md) |
 | 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts (now one per end, 120); PCB between the rails, ≤ 318 mm | confirmed, refined | [mechanical](mechanical.md) |
-| 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB (underside rules: 121) | confirmed, refined | [mechanical](mechanical.md) |
+| 109 | Chain headers: master at the right end, IN on the left edge, OUT on the right edge (underside), U-loop jumpers, mock-up before the first PCB (underside rules: 121); multi-drop since 175 | confirmed, refined | [mechanical](mechanical.md) |
 | 110 | Channel regulators U501/U502 in D²PAK (onsemi LM317D2TR4G, LM337D2TR4G), tab on about 20 × 20 mm copper both sides | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 111 | Channel electrolytics to SMD at most 5.4 mm tall: ROQANG 47 µF and 10 µF 35 V (LCSC), Panasonic EEE-1VA100NP bipolar (coupling refined by 161) | confirmed | [channel-card-parts](channel-card-parts.md) |
 | 112 | Trimmers RV101, RV151, RV182 (3296W, screws down) and jumper headers JP101, JP102, JP151, JP152, J301, J302 on the underside, set through a detachable bottom cover | confirmed (cover: 121) | [channel-card-parts](channel-card-parts.md) |
@@ -145,7 +145,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 118 | Jack size by function: 6.3 mm default for audio to other gear, 3.5 mm for Eurorack-level CV/gate and where 6.3 mm does not fit; cutoff CV jack = 3.5 mm Thonkiconn | confirmed | [system-rules](system-rules.md) |
 | 119 | Channel meter: 0805 LEDs under a printed bezel flush in one panel slot, 6.0 mm pitch, column top level with the fader top, scales independent | confirmed | [mechanical](mechanical.md) |
 | 120 | Panel fixing: one centred M3 button-head screw per end plus a printed locating key in the rail slot; second screw returns if the prototype twists | confirmed | [mechanical](mechanical.md) |
-| 121 | Underside: chain headers at the edges, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (provisional until the mock-up), detachable bottom cover with feet on cheeks or rails (rear fixing: 160) | confirmed, refined | [mechanical](mechanical.md) |
+| 121 | Underside: chain headers, hand-set parts (trimmers, jumpers) ≤ 10.5 mm elsewhere, 10 mm edge keep-out (replaced by 175's header band), detachable bottom cover with feet on cheeks or rails (rear fixing: 160) | confirmed, refined | [mechanical](mechanical.md) |
 | 122 | RoHS invariant 9; standard passives get their RoHS source at BOM time; parts.csv audit before the first PCB order | confirmed | [system-rules](system-rules.md) |
 | 123 | Channel op amp power levers: U107 NE5532 → TL072, meter U401/U404 TL072 → TL062 | confirmed | [channel-card](channel-card.md) |
 | 124 | A maker's general RoHS declaration covers its standard parts: Taiwan Alpha's RoHS II declaration clears every standard Alpha pot (channel CUTOFF, TRIM, AUX, RESONANCE; master Alpha pots once chosen); declarations kept in git-ignored `docs/rohs/` | confirmed | [process](process.md) |
@@ -199,6 +199,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 172 | Master bipolar 10 µF ×16 → back-to-back ROQANG 10 µF pairs (as 161), DRV135 sense capacitors included at 5 µF; nothing consigned; refines 127 | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
 | 173 | Master NE5532 → TL072 in ten packages (AUX returns, compressor, SC bus); audible bus summers, send drivers and master out I-V stay NE5532 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 174 | Master regulator heatsinks Wakefield 637-10ABPE; junction limit the parts' 125 °C rating instead of 100 °C (refines 95 and 167's junction target); enclosure depth to `/system` | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 175 | Multi-drop chain cables in 8-card sections: one audio and one power header per card (pin 1 to the front), standard audio section of 8 card sockets plus two end sockets joined by a coupler board, one power section per group of 8; replaces the U-loop jumpers and the mock-up; refines 38, 80, 109, 121, 162 | confirmed | [system](system.md) |
 
 ## Proposed but not confirmed
 

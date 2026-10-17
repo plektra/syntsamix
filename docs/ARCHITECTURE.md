@@ -13,7 +13,7 @@ The system-level view: how the boards fit together, the numbers that cross board
  └──┬─────────┬──┘                         │ bus summing, │    AUX sends/returns, SC EXT jack
     │ chain 1 │ chain 2                    │ compressor   │
     │ power   │ power                      └──────▲───────┘
-    ▼         ▼                                   │ audio ribbon (34-pin), runs through every card
+    ▼         ▼                                   │ audio cable (34-way), multi-drop past all cards
  cards 1-8   cards 9-16                    ┌──────┴───────┐   ┌──────────────┐
  (each card regulates ±15 V, +5 V)         │ Channel card ├───┤ Channel card ├── ... up to 16
                                            └──────▲───────┘   └──────────────┘
@@ -23,7 +23,7 @@ The system-level view: how the boards fit together, the numbers that cross board
                                            └──────────────┘
 ```
 
-The diagram is not to scale: left to right the unit holds the channel strips, the master section (4 strips) and the power bay (1 strip) (decisions 109, 162, `MECHANICAL.md`); chain 1 feeds the group next to the master. Each channel card has identical IN and OUT copies of both ribbons, wired straight through (decision 38). The prototype has 4 channel cards on chain 1.
+The diagram is not to scale: left to right the unit holds the channel strips, the master section (4 strips) and the power bay (1 strip) (decisions 109, 162, `MECHANICAL.md`); chain 1 feeds the group next to the master. Each channel card has one audio and one power header on multi-drop flat cables in 8-card sections; audio sections join through a coupler board, each group of 8 has its own power section (decisions 38, 80, 175). The prototype has 4 channel cards on chain 1.
 
 ## Interfaces (contracts)
 
@@ -38,7 +38,7 @@ The diagram is not to scale: left to right the unit holds the channel strips, th
 
 ### Power
 
-Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py` (rerun 2026-10-10 after decisions 143, 146 and 148). The 1.5 factor is a judgment until the prototype cards are measured.
+Sizing rule (decision 96): a card's own parts are sized for its worst case (every IC at datasheet maximum, every LED lit, full signal load); parts shared by many cards (the power board converters, ribbon pins) for IC quiescent current at typical × 1.5 plus the use-dependent loads at their maximum. All figures at 20 V raw from `tools/system_power_budget.py`, which runs both cards' `power_budget.py` (rerun 2026-10-17 after decision 173). The 1.5 factor is a judgment until the prototype cards are measured.
 
 | Item | Value | Source |
 |---|---|---|
@@ -46,22 +46,22 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 | Raw rail minimum under load | about 19 V: the master's relay drop-out comparator trips at 17.9 V; the LM317 needs about 2 V headroom above 15.1 V | decisions 92, 95 |
 | Local rails on every card | ±15.1 V (LM317/LM337), +5 V (78L05 on channel cards, L7805 on the master) | decisions 78, 87 |
 | Channel card load (+15 / −15 V) | typical 110 / 93 mA; worst case 229 / 194 mA; sizing 171 / 139 mA (TL072 receiver) | decisions 96, 102, 123, 143, `hardware/channel-card/scripts/power_budget.py` |
-| Master card load (+15 / −15 V) | typical 327 / 256 mA; worst case 701 / 576 mA; sizing 570 / 456 mA | decisions 95, 96, 103, 125-128, 146, 148, `hardware/master/scripts/power_budget.py` |
-| Prototype, 4 cards + master | sizing 1.25 / 1.01 A, about 45 W (typical 0.77 / 0.63 A; worst case 59 W); power board converters about 2 A per rail | decisions 96, 100, 123, 143, 146, 148 |
-| Full size, 16 cards + master | sizing 3.31 / 2.68 A, about 120 W (typical 2.09 / 1.74 A; worst case 4.37 / 3.68 A, 161 W, not used for sizing) | decisions 96, 123, 143, 146, 148 |
-| Brick (24 V, Class II, floating, R7B plug) | prototype Mean Well GSM120B24-R7B (120 W); full size GSM220B24-R7B (221 W): about 133 W at sizing and 179 W at worst case into the brick at about 90 % conversion **[estimate]**, 60 / 81 % of its rating | decisions 100, 145 |
-| Power ribbon | injected in groups of 8 cards; about 0.68 A per pin (sizing; 0.92 A at worst case); connectors and cable rated at least 1 A per contact (the chosen Würth 61200823021 IDC socket is the limit at 1 A; the worst case sits 8 % below it; the header is 3 A; the 3M 3365 28 AWG flat cable, `SX-WIRE-003`, has no stated current rating: verify on the cable mock-up, decision 109) | decisions 80, 96, 100, 123 |
+| Master card load (+15 / −15 V) | typical 295 / 224 mA; worst case 591 / 466 mA; sizing 522 / 408 mA | decisions 95, 96, 103, 125-128, 146, 148, 173, `hardware/master/scripts/power_budget.py` |
+| Prototype, 4 cards + master | sizing 1.21 / 0.96 A, about 43 W (typical 0.73 / 0.60 A, 27 W; worst case 1.51 / 1.24 A, 55 W); power board converters about 2 A per rail | decisions 96, 100, 123, 143, 146, 148, 173 |
+| Full size, 16 cards + master | sizing 3.26 / 2.63 A, about 118 W (typical 2.06 / 1.71 A, 75 W; worst case 4.25 / 3.57 A, 156 W, not used for sizing) | decisions 96, 123, 143, 146, 148, 173 |
+| Brick (24 V, Class II, floating, R7B plug) | prototype Mean Well GSM120B24-R7B (120 W); full size GSM220B24-R7B (221 W): about 131 W at sizing and 173 W at worst case into the brick at about 90 % conversion **[estimate]**, 59 / 78 % of its rating | decisions 100, 145 |
+| Power ribbon | one multi-drop section per group of 8 cards (decision 175); about 0.68 A per conductor from the feed (sizing; 0.92 A at worst case), about 0.11 A per contact at each card's socket; connectors and cable rated at least 1 A per contact (the Würth 61200823021 IDC socket is the limit at 1 A at the feed socket, the worst case 8 % below it; the header is 3 A; the 3M 3365 28 AWG flat cable, `SX-WIRE-003`, has no stated current rating: check a datasheet or choose a rated cable before the first order, decision 175) | decisions 80, 96, 100, 123, 175 |
 | Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board; the start-up ramp on both converters holds the brick at about 54 W while charging it (rails at 19 V about 40 ms after switch-on; bench check in `hardware/power/STATUS.md`) | system validation, finding 6; decision 100, `hardware/power/scripts/startup_sim.py` |
 
 ### Heat
 
 | Item | Value | Source |
 |---|---|---|
-| Dissipation inside, typical at 20 V | channel card 4.1 W, master 11.7 W, power board loss at about 88 % **[estimate]**, until the power board session reports the converters' efficiency: about 32 W (prototype), 50 W (8 cards), 87 W (16 cards) | decision 167, `tools/heat_budget.py` |
-| Inside air | design point 22 K above room temperature (57 °C on a 35 °C stage), up to 8 cards; estimate 20 / 22 / 24 K for 4 / 8 / 16 cards (sealed box 25-31 K) | decision 167, `tools/heat_budget.py` (coefficients **[estimate]** until the prototype is measured) |
+| Dissipation inside, typical at 20 V | channel card 4.1 W, master 10.4 W (after decision 173), power board loss at about 88 % **[estimate]**, until the power board session reports the converters' efficiency: about 30 W (prototype), 49 W (8 cards), 86 W (16 cards) | decisions 167, 173, `tools/heat_budget.py` (rerun 2026-10-17) |
+| Inside air | design point 22 K above room temperature (57 °C on a 35 °C stage), up to 8 cards; estimate 19 / 22 / 23 K for 4 / 8 / 16 cards (sealed box 23-30 K) | decision 167, `tools/heat_budget.py` (coefficients **[estimate]** until the prototype is measured) |
 | Vents | perforated bottom cover; four 2 × 30 mm slots per channel rear strip (about 2.4 cm²), master and bay rear pieces; none in the cheeks or top panels | decision 167, `MECHANICAL.md`, Ventilation |
 | Tightest parts | 0 to +70 °C ambient (TL072CDT, NE5532, TL062C, LM339, LM13700): about 13 K above the design air | decision 167 (datasheets in its record) |
-| Master heatsinks at 57 °C air | 11.5 °C/W gives TJ about 117 °C at the worst-case 3.44 W (typical 85 °C); decision 95's 100 °C needs about 6.5 °C/W | decisions 95, 167; `hardware/master/STATUS.md` |
+| Master heatsinks at 57 °C air | Wakefield 637-10ABPE (12.67 °C/W): LM317 TJ about 111 °C at the worst-case 2.90 W, 84 °C typical, within the 125 °C rating (decision 174's limit; 95's 100 °C would need about 8.8 °C/W) | decisions 167, 173, 174; `tools/heat_budget.py`, `hardware/master/scripts/power_budget.py` |
 
 ### Signal levels
 
@@ -99,7 +99,8 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 
 ## Open system items
 
-- Mechanical (`/system mechanical`): the keep-out values from the cable mock-up, then the full-size cooling after the prototype measurement (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109, 118 to 121, 160, 162, 166 and 167: rear strips, input module on edge, sloped frame with a single front rail, master section, power bay, CV jack pair, ventilation).
+- Mechanical (`/system mechanical`): the master regulator heatsink depth (decision 174) and the power LED hole (decision 168) into `MECHANICAL.md`; the header positions from the channel card layout; then the full-size cooling after the prototype measurement (`MECHANICAL.md`, Open; settled so far by decisions 106 to 109, 118 to 121, 160, 162, 166, 167 and 175: rear strips, input module on edge, sloped frame with a single front rail, master section, power bay, CV jack pair, ventilation, multi-drop chain cables).
+- Chain cable (decision 175): the 3M 3365's current rating and the 28 AWG fit in the Würth sockets from datasheets before the first order (`CHAIN.md`, Points still open).
 - RoHS gaps before the first PCB order (decision 122; audit done 2026-10-09, `docs/reviews/2026-10-09-rohs-audit.md`): the declaration for the AS3046D (master) (the Alpha pots are cleared by Taiwan Alpha's general declaration, decision 124; the SSI2144 and SSI2162 by an SGS package report via Electrokit, decision 164); rows with no part chosen yet get their source when chosen. The end-of-life parts are gone (THAT1646: DRV135UA, decision 125; ERA-V33J102V: plain resistors, decisions 141 and 149).
 - Heat (decision 167): measure the prototype (one hour, every LED lit) to replace the convection estimates; the full-size cooling follows.
 

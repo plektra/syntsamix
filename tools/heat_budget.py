@@ -24,7 +24,7 @@ REF=15.0            # K, rise for the comparison area
 AMBIENT=35.0        # C, warm stage
 STACK=0.05          # m, height from intake to exhaust
 CD=0.6              # discharge coefficient of a slotted opening
-SINK,JC=11.5,6.0    # C/W master heatsink and junction-to-sink: change together with hardware/master/scripts/power_budget.py (master session, decision 167)
+SINK,JC=12.67,6.0   # C/W master heatsink (Wakefield 637-10ABPE, decision 174) and junction-to-sink: change together with hardware/master/scripts/power_budget.py
 SLOTS_STRIP,SLOTS_FIXED=2.4,5.0   # cm2 exhaust: 4 slots 2 x 30 mm per channel rear strip; master (3) and bay (2) rear pieces [estimate]
 def rise(total,ha,area):
     """Inside air rise (K) with `area` m2 of exhaust: panels plus stack flow, solved by bisection."""

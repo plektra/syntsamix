@@ -7,7 +7,7 @@ A modular, analog stereo mixer for live electronic music: synthesizers, drum mac
 ## Goals
 
 - **Made for playing live.** Few controls, each with an obvious musical effect; the mixer is part of the performance, not only a utility.
-- **Modular.** Identical stereo channel cards, added one at a time from 1 to 16. No card depends on another, and there is no backplane: cards are daisy-chained by ribbon cables, with the master card at one end.
+- **Modular.** Identical stereo channel cards, added one at a time from 1 to 16. No card depends on another, and there is no backplane: cards are joined by multi-drop flat cables in 8-card sections, with the master card at one end.
 - **Synth-friendly inputs.** Balanced inputs take everything from consumer line level to hot Eurorack signals of ±12 V peak, with no external attenuator.
 - **Analog signal path** with pro headroom: +4 dBu nominal, about +20 dBu internal maximum, +24 dBu at the balanced outputs.
 - **Cost-effective.** A tight budget: cheaper parts wherever the audible difference is small.

@@ -1,6 +1,6 @@
 # Mechanical interface
 
-Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121, 160 and 162; `decisions/system-rules.md` item 118 (jack sizes).
+Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121, 160 and 162; `decisions/system.md` item 175 (multi-drop chain cables); `decisions/system-rules.md` item 118 (jack sizes).
 
 The mechanical contract between the boards, the panels and the frame: what every board layout must fit. Changed only by a confirmed decision (invariant 5 in `ARCHITECTURE.md`).
 
@@ -61,14 +61,16 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 - A 3D-printed locating key under each panel end sits in the rail's top slot and stops the panel rotating in its plane (decision 120). Check rattle and twist on the prototype; the second screw per end (decision 108) returns if needed.
 - The card hangs from its panel by the pots and the fader (decision 107); nothing on the PCB reaches over a rail.
 
-## Chain headers (decision 109)
+## Chain headers (decisions 109, 175)
 
 - Left to right: the channel strips, the master section (4 strips), the power bay (1 strip) (decision 162).
-- Every channel card: audio (2×17) and power (2×4) **IN headers along the left edge, OUT headers along the right edge**, on the underside, long axis front to back, all at one distance from the front.
-- That distance: chosen by the channel card layout (rear half, clear of the fader) and recorded here: *to be filled in*. The master card's headers follow it.
-- Neighbours are linked by identical short jumper cables in a U-loop under the gap between card n's OUT and card n+1's IN (about 12 mm apart; about 60 to 80 mm of cable).
-- Power ribbon: no jumper between the two groups of 8; chain 1 feeds the group next to the master (the prototype's cards), chain 2 the far group, each from the power board (decisions 80, 162). Each feed plugs into the power OUT header of its group's rightmost card, which is otherwise unused. The chain 1 feed runs under the master section; the chain 2 feed (about 0.5 m) along the rear floor in front of the input modules, on printed clips on the rear bottom angle (no cross band under the cards).
-- Header orientation, socket crimping (pin 1 on pin 1 through the U-loop) and cable length: *to be fixed on a mock-up* before the first PCB order (two box headers about 12 mm apart on scrap board, a real 34-way cable).
+- Every channel card: one audio header (2×17) and one power header (2×4) on the underside, long axis front to back, **pin 1 toward the front**, key on the same side on every card (decision 175). Every card is the same, so the sockets sit at the 35 mm strip pitch.
+- Header positions (each header's distance from the front, position across the card): chosen by the channel card layout (rear half, clear of the fader) and recorded here: *to be filled in*. The master card's audio header sits on the same line in the same orientation, near its left edge.
+- Audio cable: multi-drop sections of 34-way flat cable. A standard section has 8 card sockets about 37 mm apart on the cable (35 mm pitch plus about 2 mm so it bows instead of pulling; marked on a crimping guide) and an end socket at each end. The first section's right end plugs into the master; a second section (cards 9-16) joins the first's left end through the coupler board; a free end socket stays unplugged. End-segment lengths: *set at the channel and master layouts*.
+- Coupler board (only for more than 8 cards): a small passive PCB with two shrouded 2×17 headers as on the cards, same orientation, pin n to pin n; held in the cable run under the strips by a cable tie or a printed clip, never on the bottom cover.
+- Power cable: one multi-drop section per group of 8 cards (decisions 80, 175), 10-way flat cable peeled to 8, a feed socket at the power board and 8 card sockets. Chain 1 feeds the group next to the master (the prototype's cards), chain 2 the far group. Chain 1's feed runs under the master section; chain 2's (about 0.5 m) along the rear floor in front of the input modules on printed clips on the rear bottom angle, then forward to the header line (no cross band under the cards). The master card has its own two-socket power ribbon.
+- Unused card sockets may stay free: the prototype has one audio and one chain 1 power section with 4 of the 8 card sockets in use. Any card can be unplugged without breaking the chain.
+- Crimping (by hand, IDC press or smooth-jawed vise): every socket of a section on the same cable face, stripe along the front edge. At card sockets the cable passes straight through; end sockets may take the strain relief (check the Würth drawing).
 
 ## Rear panel and input module (decision 160)
 
@@ -92,7 +94,7 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 | Item | Value |
 |---|---|
 | Width | 4 strips (140 mm), right of the channels; one top panel 139.8 mm wide, at most 360 mm long |
-| Master card | at most 138 mm wide and 318 mm deep, hung 10 mm under its panel like a channel card (decision 107); chain headers on its left edge at the channel distance (decision 109) |
+| Master card | at most 138 mm wide and 318 mm deep, hung 10 mm under its panel like a channel card (decision 107); audio header on the channel cards' header line near its left edge, same orientation (decisions 109, 175) |
 | Controls | 13 pots, 10 buttons, stereo meter, 5 gain-reduction LEDs, headphone jack; three columns (compressor and sidechain, AUX, master/phones/meter) set at layout |
 | Meters | 0805 LEDs under printed bezels as decision 119: 2 × 12 at 6.0 mm pitch plus the 5 gain-reduction LEDs (yellow); the PFL-active LED is an 0805 under a bezel window too (decision 170) |
 | Rear jacks | one rear piece 139.8 mm; 12 positions in 2 rows × 6 at about 23 mm: 11 jacks and the ground-lift switch, on two flat passive row boards fixed only by the jack nuts: output board (main L/R, AUX send 1 L/R, AUX send 2 L/R) and input board (AUX return 1 L/R, AUX return 2 L/R, SC EXT, ground lift), each cabled to the master card by one 26-pin ribbon (J603 outputs, J903 inputs and ground lift; decision 163). Needs the NYS216 at most about 17 mm tall above its board: *measure a sample*; if taller, on-edge 2-jack boards as the input module |
@@ -112,11 +114,11 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 
 | Item | Value |
 |---|---|
-| Underside parts | chain headers at the edges (decision 109); elsewhere only hand-set parts (trimmers, jumper headers; decision 112), at most 10.5 mm below the PCB's bottom face |
-| Keep-out | no underside parts other than the chain headers within 10 mm of each long edge, over the header length plus 15 mm front and back (*provisional until the cable mock-up*) |
+| Underside parts | the chain headers (decision 175); elsewhere only hand-set parts (trimmers, jumper headers; decision 112), at most 10.5 mm below the PCB's bottom face |
+| Keep-out | no underside parts other than the chain headers in a band across the whole card width over each header's length plus 15 mm front and back (decision 175); the cable runs below at the sockets' depth |
 | Bottom cover | perforated as the air intake (decision 167); detachable, a few captive or quarter-turn screws: at the rear into the bottom angle (decision 160), at the front into the front rail's bottom slot (decision 162); off without touching side cheeks, cards or feet |
 | Feet | on the side cheeks or the rails, not on the cover |
-| Inside height | 20 mm at the front rail, about 60 mm at the rear (decisions 160, 162); the mock-up checks that the header zone clears the sockets and U-loops |
+| Inside height | 20 mm at the front rail, about 60 mm at the rear (decisions 160, 162); the channel card layout checks header, socket and cable depth against the inside height at the header distance (decision 175) |
 
 ## Ventilation (decision 167)
 
@@ -139,5 +141,5 @@ Jack sleeves go to their own card's AGND; FR4 panels do not conduct (`CHAIN.md`,
 
 Settled in this order, each by a decision:
 
-1. *Underside:* the keep-out values and a check that the header zone clears sockets and U-loops, from the cable mock-up; the input cable length at the channel card layout (rear, frame shape, master section and power bay settled by decisions 160 and 162; underside rules and cover by decision 121)
+1. *Underside:* the header positions, end-segment lengths and the inside-height check (keep-out settled by decision 175) and the input cable length, all at the channel card layout (rear, frame shape, master section and power bay settled by decisions 160 and 162; underside rules and cover by decision 121)
 2. *Heat (full size):* the cooling for 16 cards after the prototype measurement (decision 167): a quiet fan in the power bay (expected) or less dissipation
