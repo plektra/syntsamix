@@ -4,9 +4,9 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 
 ## Check before layout
 
-- **Chain headers (decision 109; `docs/MECHANICAL.md`):** J101 along the master's left edge, on the underside, long axis front to back, at the distance from the front that the channel card layout records. J901's position is free until the master section is settled.
-- **Rear ribbons (decision 163):** J903 pin 25 (lift return) on its own trace straight to the star point NT901, not through the AGND pour; CHASSIS (pin 26) next to J902, R905 and C913. J603/J903 key slots and pin 1 to match the row boards (conductor n = pin n at both ends); measure the cable length at the mock-up.
-- **Panel stack (decision 107):** top-side parts ≤ 9.0 mm. Still too tall: U901-U903 TO-220 (about 19.7 mm seated) and the HS901/HS902 heatsinks; placement in `/system mechanical`.
+- **Chain headers (decisions 109, 175; `docs/MECHANICAL.md`):** J101 (audio, 2×17) near the master's left edge, on the underside, on the channel cards' header line: same distance from the front as the channel card layout records, long axis front to back, pin 1 toward the front, key on the same side as the cards. The audio section's right end socket plugs in there; no mock-up, the end-segment length is set at the channel card layout. Keep the underside band around J101 free as on the cards (header length plus 15 mm front and back, decision 175). J901 (power, 2×4) keeps its own two-socket ribbon from the power board: its position is free, placed with the master section.
+- **Rear ribbons (decision 163):** J903 pin 25 (lift return) on its own trace straight to the star point NT901, not through the AGND pour; CHASSIS (pin 26) next to J902, R905 and C913. J603/J903 key slots and pin 1 to match the row boards (conductor n = pin n at both ends); measure the cable length at the first fit (no mock-up, decision 175).
+- **Panel stack (decision 107):** top-side parts ≤ 9.0 mm. U901-U903 (TO-220) go on the underside (`docs/MECHANICAL.md`, Master section): U901/U902 on HS901/HS902 Wakefield 637-10ABPE, 25.4 mm below the PCB plus 3 mm to the cover (decision 174; the enclosure depth is a `/system` item, `MECHANICAL.md` still allows 25 mm); U903 L7805 without a heatsink. Heatsink footprint (two pins at 25.4 mm pitch) from the Wakefield drawing. Live tabs (+15 V, raw −20 V): heatsinks ≥ 3 mm from each other, the frame and the cover, or on insulating pads (decision 95).
 - **Footprints:** D705-D712 `D_SOD-123F` pads are 1.1 mm wide; widen to the maker's 1.5 mm (R+O 1N4007W datasheet Rev 2.0). Würth IDC drill 1.1 mm. R421 next to U402 (a tempco part may return on its pads).
 - **Headphone jack (decision 169):** J751 (KK 1x3) near the NYS230 cutout, at least about 90 mm behind the front edge; pin 1 tip, 2 ring, 3 sleeve. The cutout clears the NYS230 body (depth measured on the sample). Bezel windows for the 0805 meter, GR and PFL LEDs (decision 170) placed with the panel artwork.
 - **Back-to-back pairs (decision 172):** place each pair's two CP_Elec_5x5.4 side by side with a short − to − link; DRV135 sense pairs C707/C728 … C710/C731 next to U703/U704.
@@ -18,7 +18,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 
 ## Cost-cut levers still open [proposed]
 
-1. **DG413 ×10:** check which switch sections could move to relay contacts already present or to VCA control (as channel lever 3).
+1. Done: AUX return MUTE and DUCK on the buttons (decision 177), DG413 ×10 → ×8. The other eight switch audio or are driven by logic or comparators; no relay has a spare contact on a switched signal.
 2. Done: master meter, GR and PFL LEDs 0805 (decisions 162, 170, drawn 2026-10-13).
 3. Done: the 16 bipolar 10 µF are back-to-back ROQANG pairs (decision 172), nothing consigned; the X5R ceramic option was dropped as on the channel (dearer than the pair, microphonics).
 4. Not recommended: TPA6120A2 → NE5532 with a discrete buffer (weaker headphone drive); LM339 → LM393 (twice the packages).
