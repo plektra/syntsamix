@@ -204,6 +204,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 177 | AUX return MUTE and DUCK switched by the buttons' spare poles as channel 142 (rule 152); U208/U308 DG413 removed, master DG413 ×10 → ×8; refines 88, 150 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 178 | Chain flat cable Würth WR-CAB 28 AWG with a maker-stated 1 A (34-way and true 8-way, 1 m cut lengths) instead of the unrated 3M 3365; keeps 96's rule; refines 175 | confirmed | [system](system.md) |
 | 179 | Input cable ready-made Molex 217796-1101 (150 mm, 22 AWG) instead of hand crimping; 1:1 wiring checked on the sales drawing or with a meter on delivery; crimp parts the fallback; refines 99, 160 | confirmed | [input-module](input-module.md) |
+| 180 | Input cable a self-made IDC ribbon on shrouded box headers instead of the Molex lead (about €4 per channel); NYS216 jacks kept; size 2x6, pin mapping, keying, no latches **[proposed]** for /system; refines 68, 99, 179 | confirmed (direction), details proposed | [input-module](input-module.md) |
 
 ## Proposed but not confirmed
 

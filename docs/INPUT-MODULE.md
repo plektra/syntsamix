@@ -33,7 +33,9 @@ The module is passive: connectors, normalling and nothing that needs power. The 
 - Connector: a keyed, polarised single-row 1x10 header (Molex KK 254-style friction lock, footprint `Molex_KK-254_AE-6410-10A`). Exact part chosen during the schematic. Its size must not match the chain connectors (`CHAIN.md`).
 - The jack sleeves and the D-SUB shell connect to AGND through the module's AGND pins, matching the grounding rules in `CHAIN.md`.
 
-## Cable (decisions 99, 179)
+## Cable (decisions 99, 179, 180)
+
+**Changing (decision 180):** the cable becomes a self-made IDC ribbon on shrouded box headers on both boards (2x6 proposed), with the same 1:1 wiring and signal roles. The header size, the pin mapping, keying and the parts are settled in a `/system` session before the channel card layout; until then the KK 254 contract below stands.
 
 Both the channel card and the module carry male KK 254 headers. They are linked by a 10-way cable wired 1:1 (pin 1 to pin 1, pin 10 to pin 10):
 
