@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 """Chain and power sheet reference netlist (build/chain.json), written independently of the drawing.
 
-Audio ribbon 34-pin and power ribbon 8-pin, each as an IN/OUT pair wired straight
-through (docs/CHAIN.md). LM317/LM337 make ±15.1 V from the raw ±20 V rails
+One audio (34-pin) and one power (8-pin) header on the multi-drop chain cables
+(docs/CHAIN.md, decision 175); the spare audio lines are not connected on the card. LM317/LM337 make ±15.1 V from the raw ±20 V rails
 (200 Ω / 2.2 kΩ, 10 µF on ADJ, protection diodes per the TI datasheets), a 78L05
 makes +5 V for logic and LEDs. Input capacitors return to PGND; dividers, output
 capacitors and the rail clamp Schottkys return to AGND (grounding rules in CHAIN.md).
@@ -14,12 +14,10 @@ def N(net,*pins):
     for p in pins:
         r,n=p.split('.'); nets.setdefault(net,[]).append({"ref":r,"pin":n})
 AUDIO={2:"MAIN_L",4:"MAIN_R",6:"COMP_L",8:"COMP_R",10:"AUX1_L",12:"AUX1_R",14:"AUX2_L",16:"AUX2_R",
-       18:"CUE_L",20:"CUE_R",22:"SC",24:"SC_ENV",26:"SPARE2",28:"SPARE3",30:"SPARE4",32:"SPARE5",34:"PFL_ACT"}
-for j in ("J501","J502"):
-    for p in range(1,35,2): N("AGND",f"{j}.{p}")
-    for p,net in AUDIO.items(): N(net,f"{j}.{p}")
-for j in ("J503","J504"):
-    N("-20V_RAW",f"{j}.1",f"{j}.2"); N("PGND",f"{j}.3",f"{j}.4",f"{j}.5",f"{j}.6"); N("+20V_RAW",f"{j}.7",f"{j}.8")
+       18:"CUE_L",20:"CUE_R",22:"SC",24:"SC_ENV",34:"PFL_ACT"}   # 26-32 SPARE2-5: no connect
+for p in range(1,35,2): N("AGND",f"J501.{p}")
+for p,net in AUDIO.items(): N(net,f"J501.{p}")
+N("-20V_RAW","J503.1","J503.2"); N("PGND","J503.3","J503.4","J503.5","J503.6"); N("+20V_RAW","J503.7","J503.8")
 # +15 V: LM317 (1 ADJ, 2 VO, 3 VI)
 N("+20V_RAW","U501.3","C501.1","C502.1","D501.1"); N("PGND","C501.2","C502.2")
 N("+15V","U501.2","D501.2","R501.1","D502.1","C504.1","C505.1","D505.1")

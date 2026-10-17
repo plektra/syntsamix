@@ -3,7 +3,8 @@
 """Chain and power sheet, drawn with real wires.
 
 Reference netlist: chain_build.py (check_netlist.py chain.json).
-Layout: audio ribbon IN/OUT (top), power ribbon IN/OUT (left), LM317 (+15 V),
+Layout: audio header (top) and power header (left), one each on the multi-drop
+chain cables (decision 175), LM317 (+15 V),
 LM337 (-15 V) and 78L05 (+5 V) regulators (middle), with their test pads.
 """
 import json,os
@@ -26,26 +27,25 @@ def dn(p,d=2.54): return (p[0],p[1]+d)
 def lt(p,d=2.54): return (p[0]-d,p[1])
 def rt(p,d=2.54): return (p[0]+d,p[1])
 
-# ------------------------------------------------------------- audio ribbon, IN and OUT, straight through by name
+# ------------------------------------------------------------- audio header on the multi-drop cable (decision 175)
 AUDIO={2:"MAIN_L",4:"MAIN_R",6:"COMP_L",8:"COMP_R",10:"AUX1_L",12:"AUX1_R",14:"AUX2_L",16:"AUX2_R",
-       18:"CUE_L",20:"CUE_R",22:"SC",24:"SC_ENV",26:"SPARE2",28:"SPARE3",30:"SPARE4",32:"SPARE5",34:"PFL_ACT"}
-for ref,x,val,hierarchical in (("J501",60.96,"AUDIO IN",True),("J502",152.4,"AUDIO OUT",False)):
-    j=s.place("Connector_Generic","Conn_02x17_Odd_Even",ref,val,x,101.6,0,fp="Connector_IDC:IDC-Header_2x17_P2.54mm_Vertical",
-              props=P("SX-CONN-007",Manufacturer="Wurth Elektronik",MPN="61203421621",Supplier="Mouser",SupplierPN="710-61203421621",Note="34-pin shrouded keyed box header, pinout docs/CHAIN.md; underside (decision 109)"))
-    bx=j(1)[0]-2.54
-    for p in range(1,35,2): s.wire(j(p),(bx,j(p)[1]))
-    for y1,y2 in zip([j(p)[1] for p in range(1,35,2)],[j(p)[1] for p in range(3,35,2)]): s.wire((bx,y1),(bx,y2))
-    s.wire((bx,j(33)[1]),(bx,j(33)[1]+2.54)); gnd((bx,j(33)[1]+2.54))
-    for p,net in AUDIO.items():
-        e=rt(j(p),5.08); s.wire(j(p),e)
-        if hierarchical and not net.startswith("SPARE"):
-            s.label(net,e,0,"hierarchical","output" if net=="SC_ENV" else "input")
-        else: s.label(net,e,0)
+       18:"CUE_L",20:"CUE_R",22:"SC",24:"SC_ENV",34:"PFL_ACT"}
+NOCONNECT=[]
+j=s.place("Connector_Generic","Conn_02x17_Odd_Even","J501","AUDIO",60.96,101.6,0,fp="Connector_IDC:IDC-Header_2x17_P2.54mm_Vertical",
+          props=P("SX-CONN-007",Manufacturer="Wurth Elektronik",MPN="61203421621",Supplier="Mouser",SupplierPN="710-61203421621",Note="34-pin shrouded keyed box header, pinout docs/CHAIN.md; underside, pin 1 toward the front (decisions 109, 175)"))
+bx=j(1)[0]-2.54
+for p in range(1,35,2): s.wire(j(p),(bx,j(p)[1]))
+for y1,y2 in zip([j(p)[1] for p in range(1,35,2)],[j(p)[1] for p in range(3,35,2)]): s.wire((bx,y1),(bx,y2))
+s.wire((bx,j(33)[1]),(bx,j(33)[1]+2.54)); gnd((bx,j(33)[1]+2.54))
+for p,net in AUDIO.items():
+    e=rt(j(p),5.08); s.wire(j(p),e)
+    s.label(net,e,0,"hierarchical","output" if net=="SC_ENV" else "input")
+NOCONNECT+=[j(p) for p in (26,28,30,32)]   # SPARE2-5: carried by the cable, unused on the card (docs/CHAIN.md)
 
-# ------------------------------------------------------------- power ribbon, IN and OUT
-for ref,y,val in (("J503",180.34,"POWER IN"),("J504",226.06,"POWER OUT")):
+# ------------------------------------------------------------- power header on the multi-drop cable (decision 175)
+for ref,y,val in (("J503",180.34,"POWER"),):
     j=s.place("Connector_Generic","Conn_02x04_Odd_Even",ref,val,60.96,y,0,fp="Connector_IDC:IDC-Header_2x04_P2.54mm_Vertical",
-              props=P("SX-CONN-008",Manufacturer="Wurth Elektronik",MPN="61200821621",Supplier="Mouser",SupplierPN="710-61200821621",Note="8-pin shrouded keyed box header: 1-2 V-, 3-6 PGND, 7-8 V+ (docs/CHAIN.md); underside (decision 109)"))
+              props=P("SX-CONN-008",Manufacturer="Wurth Elektronik",MPN="61200821621",Supplier="Mouser",SupplierPN="710-61200821621",Note="8-pin shrouded keyed box header: 1-2 V-, 3-6 PGND, 7-8 V+ (docs/CHAIN.md); underside, pin 1 toward the front (decisions 109, 175)"))
     for side,pins,x in (("L",(1,3,5,7),j(1)[0]-5.08),("R",(2,4,6,8),j(2)[0]+5.08)):
         a,b,c,d=pins
         for p in pins: s.wire(j(p),(x,j(p)[1]))
@@ -123,5 +123,5 @@ s.power("PWR_FLAG",(210.82,Y3+2.54)); s.wire((210.82,Y3+2.54),(210.82,Y3+7.62));
 HERE=os.path.dirname(os.path.abspath(__file__)); CARD=os.path.dirname(HERE)+'/'
 T=os.path.join(HERE,'build')+'/'; os.makedirs(T,exist_ok=True)
 json.dump([["kicad_set_project",{"project_dir":CARD.rstrip('/'),"sch_file":CARD+'chain.kicad_sch'}],["sch_build_circuit",s.build_args()]],open(T+'calls_chain_wired.json','w'))
-json.dump({"no_connect":[]},open(T+'chain_wired_extra.json','w'))
+json.dump({"no_connect":NOCONNECT},open(T+'chain_wired_extra.json','w'))
 print(len(s.symbols),"symbols",len(s.wires),"wires",len(s.labels),"labels",len(s.powers),"power symbols")
