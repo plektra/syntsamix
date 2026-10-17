@@ -81,7 +81,7 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 | Input module (6.3 mm) | PCB on edge in the front-to-back vertical plane, below the rear rail, centred on its strip; NYS216 jacks stacked, L/MONO above R, about 19 mm between centres; module about 40 mm tall; fixed only by the jack nuts on the rear strip; KK 254 header facing forward |
 | Why stacked | NYS216 is 17.7 mm wide across its pin rows (footprint from Rean's drawing): two side by side need 35.4 mm, more than the 35.0 mm pitch |
 | Rear inside height | about 60 mm: 20 mm rail plus about 40 mm of jack zone; *from the module layout* |
-| Input cable (decisions 99, 177) | ready-made Molex 217796-1101, 150 mm; the channel card layout places its KK header near the rear edge, within reach |
+| Input cable (decisions 99, 179) | ready-made Molex 217796-1101, 150 mm; the channel card layout places its KK header near the rear edge, within reach |
 
 ## Frame shape (decision 160)
 

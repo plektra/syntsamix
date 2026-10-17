@@ -6,8 +6,8 @@ Per return (decision 51): L/MONO and R 6.3 mm jacks (R normalled to L) on the re
 TL072 difference receiver at G = ½ wired inverting (decision 148, as the channel's decision 143), 1.6 Hz AC coupling,
 inverting gain stage with a jumper per side (fitted -6 dB pro/Eurorack, open +6 dB pedal),
 SSI2162 VCA with the channel fader law (decision 72) on a 10 kΩ linear level pot,
-DG413 mute and duck, unity inverter, 22 kΩ bus resistors switched to MAIN or COMP
-by a DG413 (pressed = COMP). Return n uses references n*100 + 1 ... (2xx, 3xx).
+MUTE and DUCK switched by the buttons' spare poles (decision 177, as the channel's 142), unity inverter,
+22 kΩ bus resistors switched to MAIN or COMP by a DG413 (pressed = COMP). Return n uses references n*100 + 1 ... (2xx, 3xx).
 """
 import json,os,sys
 def build(n):
@@ -55,25 +55,25 @@ def build(n):
     N("SD1IN",f"{r(24)}.2",f"{r(25)}.2",f"{t(7,2)}.5"); N("SD1K",f"{t(7,2)}.6",f"D{B+1}.2",f"{r(26)}.1"); N("SD1O",f"{t(7,2)}.7",f"D{B+1}.1")
     N("SD2IN",f"{r(27)}.2",f"{r(28)}.2",f"{u(7)}.3"); N("SD2K",f"{u(7)}.2",f"D{B+2}.2",f"{r(29)}.1"); N("SD2O",f"{u(7)}.1",f"D{B+2}.1")
     N("VC",f"{t(6,2)}.7",f"{r(30)}.2",f"{c(15)}.2"); N("AGND",f"{t(6,2)}.5")   # summer + input on AGND (decision 97)
-    N("MUTE_V",f"{r(31)}.1",f"{t(8,2)}.7"); N("DUCK_V",f"{r(32)}.1",f"{u(8)}.2")
-    # DG413 U+8: SW1 duck (SC_ENV), SW4 mute (-15 V), SW2/SW3 unused
-    N("DUCK_CTRL",f"{u(8)}.1"); N("SC_ENV",f"{u(8)}.3"); N("MUTE_CTRL",f"{t(8,2)}.8"); N("-15V",f"{t(8,2)}.6")
-    N("AGND",f"{t(8,3)}.9",f"{t(8,3)}.10",f"{t(8,3)}.11",f"{t(8,4)}.16",f"{t(8,4)}.15",f"{t(8,4)}.14")
+    N("MUTE_V",f"{r(31)}.1"); N("DUCK_V",f"{r(32)}.1")
     # bus assign: DG413 U+9, NC to MAIN, NO to COMP (pressed = COMP)
     N("L_BUS",f"{r(34)}.2",f"{t(9,4)}.15",f"{u(9)}.2"); N("MAIN_L",f"{t(9,4)}.14"); N("COMP_L",f"{u(9)}.3")
     N("R_BUS",f"{r(35)}.2",f"{t(9,3)}.10",f"{t(9,2)}.6"); N("MAIN_R",f"{t(9,3)}.11"); N("COMP_R",f"{t(9,2)}.7")
     N("COMP_CTRL",f"{u(9)}.1",f"{t(9,4)}.16",f"{t(9,3)}.9",f"{t(9,2)}.8")
-    # buttons
-    for name,k in (("MUTE",1),("DUCK",2),("COMP",3)):
+    # buttons. MUTE and DUCK (decision 177, as channel 142): pole 1 switches the control voltage itself (pressed 2-3: source into
+    # R31/R32); pin 1 open and the 100k holds the line at AGND when released. COMP stays a logic line to the DG413 U+9
+    for name,k,src in (("MUTE",1,"-15V"),("DUCK",2,"SC_ENV"),("COMP",3,None)):
         sw,led,rl,rp=f"SW{B+k}",f"D{B+2+k}",r(35+2*k-1),r(35+2*k)
-        N(f"{name}_CTRL",f"{sw}.3",f"{rp}.2"); N("+5V",f"{sw}.2"); N(f"{name}_LEDK",f"{sw}.6",f"{led}.1"); N("PGND",f"{sw}.5")
-        N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("PGND",f"{rp}.1")   # pull-downs to PGND (decision 98)
+        if src: N(f"{name}_V",f"{sw}.2",f"{rp}.2"); N(src,f"{sw}.3"); N("AGND",f"{rp}.1")
+        else: N(f"{name}_CTRL",f"{sw}.3",f"{rp}.2"); N("+5V",f"{sw}.2"); N("PGND",f"{rp}.1")   # pull-down to PGND (decision 98)
+        N(f"{name}_LEDK",f"{sw}.6",f"{led}.1"); N("PGND",f"{sw}.5")
+        N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1")
     # test pads
     N("L_RET",f"TP{B+1}.1"); N("R_RET",f"TP{B+2}.1"); N("VC",f"TP{B+3}.1")
     # supplies and decoupling
     for ref in (t(1,3),t(2,3),t(4,3),t(5,3),t(6,3),t(7,3)): N("+15V",f"{ref}.8"); N("-15V",f"{ref}.4")
-    for ref in (t(8,5),t(9,5)): N("+15V",f"{ref}.13"); N("-15V",f"{ref}.4"); N("+5V",f"{ref}.12"); N("AGND",f"{ref}.5")
-    for k in range(9):
+    for ref in (t(9,5),): N("+15V",f"{ref}.13"); N("-15V",f"{ref}.4"); N("+5V",f"{ref}.12"); N("AGND",f"{ref}.5")
+    for k in range(8):   # C232/C233 went with U+8 (decision 177)
         N("+15V",f"{c(16+2*k)}.1"); N("AGND",f"{c(16+2*k)}.2"); N("-15V",f"{c(17+2*k)}.1"); N("AGND",f"{c(17+2*k)}.2")
     return nets
 T=os.path.join(os.path.dirname(os.path.abspath(__file__)),'build')+'/'; os.makedirs(T,exist_ok=True)

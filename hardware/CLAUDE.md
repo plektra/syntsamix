@@ -6,7 +6,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 
 - `<sheet>_build.py` = independent reference netlist, `<sheet>_wired.py` = drawing with real wires (`schlayout.Sheet`). `check_netlist.py` compares them pin by pin; never skip it. Full how-to: `hardware/channel-card/scripts/README.md`. Shared tools live in `hardware/channel-card/scripts/`; the master links to them.
 - Rebuilding replaces the whole sheet; edits made by hand in KiCad are lost.
-- `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. In an isolated worktree session, shell loops or `$(...)` that pick that Python are refused: find it with `ls -d ~/.cache/uv/archive-v0/*/lib/python*/site-packages/mcp` and call `<env>/bin/python` by its plain path. The KiCad MCP server is registered in Claude Code (profile `schematic_authoring`).
+- `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. In an isolated worktree session, shell loops or `$(...)` that pick that Python are refused: find it with `ls -d ~/.cache/uv/archive-v0/*/lib/python*/site-packages/mcp` and call `<env>/bin/python` by its plain path. The same goes for loops over sheet names and for `git -C`: run each check as its own plain command. A fresh worktree has no `scripts/build/`: run each `<sheet>_build.py` before `check_netlist.py`. The KiCad MCP server is registered in Claude Code (profile `schematic_authoring`).
 - Rules learned the hard way:
   - Keep resistor/capacitor pin 1 where the reference has it; swap the reference's pin order instead of rotating a part 180°.
   - A wire end on another wire or a pin connects: never cross through endpoints, and split a wire at every pin it should reach.
@@ -16,6 +16,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
   - Multi-unit parts are built with temporary references `U9<3-digit ref><unit>` (units 1-9) and renamed by `post_wired.py`.
   - Duplicate references across sheets are not reported by ERC; `check_netlist.py` checks them.
   - `check_netlist.py` only checks the pins the reference lists: a pin or net dropped from the reference (for example by a stray `#` mid-line) passes unnoticed. Compare the "nets checked" count with the previous run and explain any change.
+  - Rebuilding one sheet: `mcpcall.py` with its calls file, `post_wired.py`, `fix_paths.py`, `root_links.py`, then restore the root `.kicad_sch` from git and run ERC.
   - Net names in a reference script must be unique: a new net that reuses an existing name (L_INV for a second stage) merges both in the reference, and `check_netlist.py` reports it as SPLIT. After a reference edit, diff the net names against the committed script's output: a removed name means a dropped pin (a `#` comment pasted mid-line did that once).
   - References made in loops (decoupling caps, LED resistors) never appear as literals in the scripts: find free numbers in the committed `.kicad_sch`, not by searching the scripts.
   - Power flags live only on the power sheet of each project.

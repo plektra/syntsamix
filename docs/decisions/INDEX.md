@@ -10,7 +10,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
 | [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135, 150: hand-soldered ICs) |
-| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149, 163, 172-174) |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149, 163, 172-174, 177) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, workflow (availability notes in the record) |
@@ -163,15 +163,15 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
 | 137 | Prefer JLCPCB fee-free parts: basic, then preferred, then extended, then consigned; exceptions with reasons in the board STATUS.md | confirmed | [process](process.md) |
 | 138 | SC LPF pot RV501: standard Alpha dual B100K (Thonk) instead of the unsourced C100K dual; same circuit, middle of the sweep 85 Hz | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 139 | Channel PFL/SC switch U303 a DG413 (SC send on the NC section, driven from the button's released throw); DG412 no longer used | confirmed (delegated) | [channel-card](channel-card.md) |
-| 140 | Channel card values on E24 with fee-free parts: E24 pairs for the V/oct feedback and the fader law, meter ladder and filter scaling re-fitted; R217 30k1 kept (chain line) | confirmed (delegated) | [channel-card](channel-card.md) |
-| 141 | Filter temperature compensation to the backlog: R108/R158 plain 820 Ω with the 180 Ω (FREQ leg still 1 k); TFPT no longer used | confirmed (delegated) | [channel-card](channel-card.md) |
-| 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed (system rule: 152) | confirmed (delegated) | [channel-card](channel-card.md) |
-| 143 | Channel input receiver: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (CMRR ≥ 51.5 dB) | confirmed (delegated) | [channel-card](channel-card.md) |
+| 139 | Channel PFL/SC switch U303 a DG413 (SC send on the NC section, driven from the button's released throw); DG412 no longer used | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 140 | Channel card values on E24 with fee-free parts: E24 pairs for the V/oct feedback and the fader law, meter ladder and filter scaling re-fitted; R217 30k1 kept (chain line) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 141 | Filter temperature compensation to the backlog: R108/R158 plain 820 Ω with the 180 Ω (FREQ leg still 1 k); TFPT no longer used | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed (system rule: 152) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 143 | Channel input receiver: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (CMRR ≥ 51.5 dB) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
 | 144 | Master fader laws (AUX returns, master level) on the channel's E24 values and pairs; 30k1 kept | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 145 | Full-size brick: Mean Well GSM220B24-R7B (221 W, Class II, same R7B plug) instead of the GSM160B24-R7B; prototype keeps the GSM120B24-R7B | confirmed | [power](power.md) |
 | 146 | Master meter ladder (16k … 120, about 0.45 mA) and R732 22k + 560R on fee-free E24 values; thresholds within 0.14 dB | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 147 | Compressor (R420 510k + 51k, R426 120k + 20k, GR ladder 470k/4k3) and SC LPF C503 2 × 47n C0G (Q 0.707) on fee-free parts; master TL072 symbols ST TL072CDT | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
+| 147 | Compressor (R420 510k + 51k, R426 120k + 20k, GR ladder 470k/4k3) and SC LPF C503 2 × 47n C0G (Q 0.707) on fee-free parts; master TL072 symbols ST TL072CDT | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 148 | AUX return receivers: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (as 143); AD8273 no longer used | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 149 | Compressor R421 a plain 1k on the prototype (end-of-life tempco part dropped); detector temperature compensation to the backlog | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 150 | Master DG413, SSI2162, DRV135UA and AS3046D hand-soldered on the prototype (Assembly field, refines 133); potential single point of failure kept in the backlog | confirmed | [master-card](master-card.md) |
@@ -201,8 +201,9 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 174 | Master regulator heatsinks Wakefield 637-10ABPE; junction limit the parts' 125 °C rating instead of 100 °C (refines 95 and 167's junction target); enclosure depth to `/system` | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 175 | Multi-drop chain cables in 8-card sections: one audio and one power header per card (pin 1 to the front), standard audio section of 8 card sockets plus two end sockets joined by a coupler board, one power section per group of 8; replaces the U-loop jumpers and the mock-up; refines 38, 80, 109, 121, 162 | confirmed | [system](system.md) |
 | 176 | Master regulator zone at least about 190 mm behind the front rail's inner face, where the sloped floor clears the 25.4 mm Wakefield heatsinks plus 3 mm; no frame change; refines 162, 174 | confirmed (delegated) | [mechanical](mechanical.md) |
-| 177 | Input cable ready-made Molex 217796-1101 (150 mm, 22 AWG) instead of hand crimping; 1:1 wiring checked on the sales drawing or with a meter on delivery; crimp parts the fallback; refines 99, 160 | confirmed | [input-module](input-module.md) |
+| 177 | AUX return MUTE and DUCK switched by the buttons' spare poles as channel 142 (rule 152); U208/U308 DG413 removed, master DG413 ×10 → ×8; refines 88, 150 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 178 | Chain flat cable Würth WR-CAB 28 AWG with a maker-stated 1 A (34-way and true 8-way, 1 m cut lengths) instead of the unrated 3M 3365; keeps 96's rule; refines 175 | confirmed | [system](system.md) |
+| 179 | Input cable ready-made Molex 217796-1101 (150 mm, 22 AWG) instead of hand crimping; 1:1 wiring checked on the sales drawing or with a meter on delivery; crimp parts the fallback; refines 99, 160 | confirmed | [input-module](input-module.md) |
 
 ## Proposed but not confirmed
 

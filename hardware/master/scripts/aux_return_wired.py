@@ -5,7 +5,7 @@
 Reference netlists: aux_return_build.py (check_netlist.py aux_return1.json / aux_return2.json).
 Top: RFI filters (jacks on the rear input row board, decision 163), TL072 difference receiver (decision 148), gain stage with the PRO/PEDAL jumper,
 SSI2162 VCA with I-V stage and inverter, bus resistors and the MAIN/COMP switch.
-Bottom: level law (as the channel fader), mute/duck switch, buttons, supplies.
+Bottom: level law (as the channel fader), buttons (MUTE and DUCK switch the control voltage, decision 177), supplies.
 """
 SMD={"SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
      "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
@@ -171,29 +171,24 @@ def draw(n):
     f1=R(30,"10k","SX-R-002",254.0,Y-30.48); f2=C(15,"1u","SX-C-010",254.0,Y-38.1)
     s.wire((SUMX,Y-30.48),f1(1)); s.wire((SUMX,Y-38.1),f2(1)); s.wire(f1(2),(so[0],Y-30.48)); s.wire(f2(2),(so[0],Y-38.1))
     s.wire((so[0],Y-38.1),(so[0],Y-30.48)); s.wire((so[0],Y-30.48),so)
-    # ------------------------------------------------ mute and duck (DG413)
-    DGX=330.2
-    d1=DG(uu(8),1,DGX,Y-20.32)
-    s.wire(d1(2),lt(d1(2),7.62)); s.label("DUCK_V",lt(d1(2),7.62),180)
-    s.wire(d1(3),(350.52,d1(3)[1])); s.label("SC_ENV",(350.52,d1(3)[1]),0,"hierarchical","input")
-    s.wire(d1(1),dn(d1(1),5.08)); s.label("DUCK_CTRL",dn(d1(1),5.08),270)
-    d4=DG(tt(8,2),2,DGX,Y+15.24)
-    s.wire(d4(6),lt(d4(6),5.08)); s.power("-15V",lt(d4(6),5.08)); s.wire(d4(7),(345.44,d4(7)[1])); s.label("MUTE_V",(345.44,d4(7)[1]),0)
-    s.wire(d4(8),dn(d4(8),5.08)); s.label("MUTE_CTRL",dn(d4(8),5.08),270)
-    for ref,unit,yy in ((tt(8,3),3,Y+40.64),(tt(8,4),4,Y+66.04)):
-        dx=DG(ref,unit,DGX,yy)
-        for q,(px,py,ang) in pins_of("Analog_Switch","DG413xY",unit).items():
-            p=dx(q); e={0:lt(p,5.08),180:rt(p,5.08),90:dn(p,5.08)}[int(ang)]; s.wire(p,e); gnd(e)
     # ------------------------------------------------ buttons
     # button LED colours as the channel (decision 117): MUTE red, DUCK and COMP BUS green
     LEDPN={"MUTE":P("SX-D-015",Manufacturer="Foshan NationStar",MPN="NCD0805R1",Supplier="LCSC",SupplierPN="C84256"),"DUCK":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"COMP":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297")}
     def button(name,k,x,y):
         sw,led,rl,rp=f"SW{B+k}",f"D{B+2+k}",35+2*k-1,35+2*k
         b=s.place("Switch","SW_Push_DPDT",sw,f"RETURN {n} {name} (latching)",x,y,0,fp=SWFP,props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
-        s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08)); s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
-        nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
-        r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
-        g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
+        s.wire(b(5),lt(b(5),5.08)); s.power("GNDPWR",lt(b(5),5.08))
+        if name=="COMP":   # logic line to the bus-assign DG413
+            s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))
+            nd=(b(3)[0]+10.16,b(3)[1]); s.wire(b(3),nd,rt(nd,10.16)); s.label(f"{name}_CTRL",rt(nd,10.16),0)
+            r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
+            g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); s.power("GNDPWR",g)   # PGND (decision 98); symbol points down beside the resistor
+        else:   # decision 177 (as channel 142): common pin 2 = MUTE_V / DUCK_V, pin 3 = source, pin 1 open, 100k holds the line at AGND
+            nd=lt(b(2),7.62); s.wire(b(2),nd,lt(nd,7.62)); s.label(f"{name}_V",lt(nd,7.62),180)
+            r=R(rp,"100k","SX-R-007",nd[0],nd[1]-7.62,0); s.wire(nd,r(2))
+            g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); gnd(g)   # AGND: the hold resistor carries control current, not logic
+            if name=="MUTE": t=rt(b(3),10.16); s.wire(b(3),t,up(t,5.08)); s.power("-15V",up(t,5.08),180)
+            else: s.wire(b(3),rt(b(3),10.16)); s.label("SC_ENV",rt(b(3),10.16),0,"hierarchical","input")
         ld=s.place("Device","LED",led,f"{name} LED",b(6)[0]+22.86,b(6)[1],0,fp="LED_SMD:LED_0805_2012Metric",props=LEDPN[name])
         s.wire(b(6),ld(1)); r2=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r2(2)); s.wire(r2(1),rt(r2(1),3.81)); s.power("+15V",rt(r2(1),3.81),270)
         NC.extend([b(1),b(4)])
@@ -204,12 +199,12 @@ def draw(n):
         p=OA("TL072",ref,3,x,Y2,"SX-IC-007"); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
     for ref,part,pn in ((tt(1,3),"TL072","SX-IC-007"),(tt(6,3),"OPA2171","SX-IC-021"),(tt(7,3),"TL072","SX-IC-007")):
         p=OA(part,ref,3,x,Y2,pn); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
-    for ref in (tt(8,5),tt(9,5)):
+    for ref in (tt(9,5),):
         p=DG(ref,5,x+5.08,Y2-7.62)
         s.wire(p(13),up(p(13),5.08)); s.power("+15V",up(p(13),5.08)); s.wire(p(12),up(p(12),2.54),rt(up(p(12),2.54),5.08)); s.power("+5V",rt(up(p(12),2.54),5.08))
         s.wire(p(5),dn(p(5),5.08)); gnd(dn(p(5),5.08)); s.wire(p(4),dn(p(4),2.54),rt(dn(p(4),2.54),5.08)); s.power("-15V",rt(dn(p(4),2.54),5.08)); x+=20.32
     x=170.18
-    for k in range(9):
+    for k in range(8):   # C232/C233 went with U+8 (decision 177)
         cp=C(16+2*k,"100n","SX-C-002",x,Y2-17.78,0); s.power("+15V",cp(1)); gnd(cp(2))
         cn=C(17+2*k,"100n","SX-C-002",x,Y2+2.54,0); s.wire(cn(1),up(cn(1),2.54)); s.power("-15V",up(cn(1),2.54),180); gnd(cn(2))
         x+=12.7

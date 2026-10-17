@@ -1,6 +1,6 @@
 # Input module interface
 
-Status: **[confirmed]** by the user (decisions 62, 67, 68, 99, 105, 160 and 177; the pinout below by decision 105).
+Status: **[confirmed]** by the user (decisions 62, 67, 68, 99, 105, 160 and 179; the pinout below by decision 105).
 
 The channel card carries no input jacks. Its input sockets connect to a small **input module** that holds the connectors. The module options are interchangeable:
 
@@ -33,13 +33,13 @@ The module is passive: connectors, normalling and nothing that needs power. The 
 - Connector: a keyed, polarised single-row 1x10 header (Molex KK 254-style friction lock, footprint `Molex_KK-254_AE-6410-10A`). Exact part chosen during the schematic. Its size must not match the chain connectors (`CHAIN.md`).
 - The jack sleeves and the D-SUB shell connect to AGND through the module's AGND pins, matching the grounding rules in `CHAIN.md`.
 
-## Cable (decisions 99, 177)
+## Cable (decisions 99, 179)
 
 Both the channel card and the module carry male KK 254 headers. They are linked by a 10-way cable wired 1:1 (pin 1 to pin 1, pin 10 to pin 10):
 
 | Item | Part |
 |---|---|
-| Cable | Molex 217796-1101, ready-made: KK 254 receptacles both ends, 10 circuits, 150 mm, 22 AWG UL 11028 discrete wires, `SX-CONN-022` (decision 177) |
+| Cable | Molex 217796-1101, ready-made: KK 254 receptacles both ends, 10 circuits, 150 mm, 22 AWG UL 11028 discrete wires, `SX-CONN-022` (decision 179) |
 | Wiring check | 1:1 not yet verified for this MPN: check the Molex sales drawing before ordering, or pin to pin with a meter on delivery before plugging it in |
 | Pairs | hot/cold (pins 2-3 and 5-6) may be twisted by hand |
 | Length | 150 mm; the channel card layout places its KK header near the rear edge, within reach, and reports the position |
