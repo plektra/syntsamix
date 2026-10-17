@@ -163,11 +163,11 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
 | 137 | Prefer JLCPCB fee-free parts: basic, then preferred, then extended, then consigned; exceptions with reasons in the board STATUS.md | confirmed | [process](process.md) |
 | 138 | SC LPF pot RV501: standard Alpha dual B100K (Thonk) instead of the unsourced C100K dual; same circuit, middle of the sweep 85 Hz | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 139 | Channel PFL/SC switch U303 a DG413 (SC send on the NC section, driven from the button's released throw); DG412 no longer used | confirmed (delegated) | [channel-card](channel-card.md) |
-| 140 | Channel card values on E24 with fee-free parts: E24 pairs for the V/oct feedback and the fader law, meter ladder and filter scaling re-fitted; R217 30k1 kept (chain line) | confirmed (delegated) | [channel-card](channel-card.md) |
-| 141 | Filter temperature compensation to the backlog: R108/R158 plain 820 Ω with the 180 Ω (FREQ leg still 1 k); TFPT no longer used | confirmed (delegated) | [channel-card](channel-card.md) |
-| 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed (system rule: 152) | confirmed (delegated) | [channel-card](channel-card.md) |
-| 143 | Channel input receiver: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (CMRR ≥ 51.5 dB) | confirmed (delegated) | [channel-card](channel-card.md) |
+| 139 | Channel PFL/SC switch U303 a DG413 (SC send on the NC section, driven from the button's released throw); DG412 no longer used | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 140 | Channel card values on E24 with fee-free parts: E24 pairs for the V/oct feedback and the fader law, meter ladder and filter scaling re-fitted; R217 30k1 kept (chain line) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 141 | Filter temperature compensation to the backlog: R108/R158 plain 820 Ω with the 180 Ω (FREQ leg still 1 k); TFPT no longer used | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed (system rule: 152) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 143 | Channel input receiver: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (CMRR ≥ 51.5 dB) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
 | 144 | Master fader laws (AUX returns, master level) on the channel's E24 values and pairs; 30k1 kept | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 145 | Full-size brick: Mean Well GSM220B24-R7B (221 W, Class II, same R7B plug) instead of the GSM160B24-R7B; prototype keeps the GSM120B24-R7B | confirmed | [power](power.md) |
 | 146 | Master meter ladder (16k … 120, about 0.45 mA) and R732 22k + 560R on fee-free E24 values; thresholds within 0.14 dB | confirmed | [master-card-sheets](master-card-sheets.md) |
