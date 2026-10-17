@@ -52,12 +52,12 @@ A modular, analog stereo mixer for live electronic music: synthesizers, drum mac
 
 | Part | Schematic | PCB |
 |---|---|---|
-| Channel card | done (6 sheets, ERC clean; mechanical parts chosen) | waits for the filter breadboard and the cable mock-up |
+| Channel card | done (6 sheets, ERC clean; mechanical parts chosen) | waits for the filter breadboard |
 | Master card | done (10 sheets, ERC clean) | not started |
 | Input module (6.3 mm) | done | not started |
 | Power board | done (4 sheets, ERC clean) | not started |
 
-Also done: ngspice simulations of the filter gain structure, the compressor detector, the sidechain/ducking circuits and the fader level control (`simulation/`); the mechanical contract for strips, panels and frame ([`docs/MECHANICAL.md`](docs/MECHANICAL.md)); a RoHS audit of the parts register. Next: the SSI2144 breadboard, a chain cable mock-up, then PCB layout, starting with the channel card. The prototype has 4 channels.
+Also done: ngspice simulations of the filter gain structure, the compressor detector, the sidechain/ducking circuits and the fader level control (`simulation/`); the mechanical contract for strips, panels and frame ([`docs/MECHANICAL.md`](docs/MECHANICAL.md)); a RoHS audit of the parts register. Next: the SSI2144 breadboard, then PCB layout, starting with the channel card. The prototype has 4 channels.
 
 The full roadmap and backlog (more input modules, direct outputs, 32 channels, and more) are in [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
