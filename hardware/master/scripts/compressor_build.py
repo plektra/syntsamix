@@ -21,7 +21,7 @@ def N(net,*pins):
         r,q=p.split('.'); nets.setdefault(net,[]).append({"ref":r,"pin":q})
 # ---------------------------------------------------------------- audio: VCA (U401), I-V (U403), dry inverters (U404)
 N("COMP_L_SUM","C401.1","R408.1"); N("COMP_R_SUM","C402.1","R410.1")
-N("L_VIN","C401.2","R401.1"); N("R_VIN","C402.2","R402.1")
+N("L_VIN_M","C401.2","C432.2"); N("L_VIN","C432.1","R401.1"); N("R_VIN_M","C402.2","C433.2"); N("R_VIN","C433.1","R402.1")   # back to back (decision 172)
 N("L_IIN","R401.2","R403.1","U401.2"); N("L_RC","R403.2","C403.1"); N("AGND","C403.2")
 N("R_IIN","R402.2","R404.2","U401.9"); N("R_RC","R404.1","C404.2"); N("AGND","C404.1")   # R network drawn upwards
 N("VC","U401.3","U401.8"); N("MODE","U401.1","R405.2"); N("+15V","R405.1","U401.10"); N("-15V","U401.6"); N("AGND","U401.5")

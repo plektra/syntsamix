@@ -7,13 +7,13 @@ Top: RFI filters (jacks on the rear input row board, decision 163), TL072 differ
 SSI2162 VCA with I-V stage and inverter, bus resistors and the MAIN/COMP switch.
 Bottom: level law (as the channel fader), mute/duck switch, buttons, supplies.
 """
-SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
-     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+SMD={"SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
      "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os,sys
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
+CP10="Capacitor_SMD:CP_Elec_5x5.4"   # decision 172: two 10 µF electrolytics back to back (− to −) per former bipolar position
+SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
 SWFP="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L"
@@ -24,6 +24,7 @@ def draw(n):
     rr=lambda k:f"R{B+k}"; cc=lambda k:f"C{B+k}"; uu=lambda k:f"U{B+k}"; tt=lambda k,unit:f"U9{B+k}{unit}"
     def R(k,val,pn,x,y,rot=90,**kw): return s.place("Device","R",rr(k),val,x,y,rot,fp=R0805,props=P(pn,**kw))
     def C(k,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",cc(k),val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
+    def CP(k,x,y,rot=90): return s.place("Device","C_Polarized",cc(k),"10u 35V",x,y,rot,fp=CP10,props=P("SX-C-024",**SMD["SX-C-024"]))
     SYM={"OPA2171":"Opamp_Dual"}; MPN={"OPA2171":{"MPN":"OPA2171AIDR"}}   # no OPA2171 symbol in the KiCad library; same pinout
     def OA(part,ref,unit,x,y,pn): return s.place("Amplifier_Operational",SYM.get(part,part),ref,part,x,y,0,unit,SO8,P(pn,**(ST072 if part=="TL072" else {**TI,**MPN.get(part,{})})))
     def DG(ref,unit,x,y): return s.place("Analog_Switch","DG413xY",ref,"DG413DY",x,y,0,unit,SO16,P("SX-IC-005",**VI,Assembly="hand (decision 150)",))
@@ -71,11 +72,11 @@ def draw(n):
         o=RXO[side]; xo=119.38
         s.wire(o,(xo,o[1]))
         if abs(o[1]-y)>0.01: s.wire((xo,o[1]),(xo,y))
-        c=C(ccpl,"10u bipolar","SX-C-023",127.0,y,fp=CBIP); s.wire((xo,y),c(1))
-        r=R(rin,"10k","SX-R-002",140.97,y); s.wire(c(2),r(1))
+        c=CP(ccpl,124.46,y); c2=CP(ccpl+29,134.62,y,270); s.wire((xo,y),c(1)); s.wire(c(2),c2(2))   # back to back: C+5/6 with C+34/35 (decision 172)
+        r=R(rin,"10k","SX-R-002",144.78,y); s.wire(c2(1),r(1))
         SX,TX=152.4,180.34
         s.wire(r(2),(SX,y))
-        a=OA("NE5532",gain[0],gain[1],167.64,y-2.54,"SX-IC-004"); pm,pp,po=gain[2]
+        a=OA("TL072",gain[0],gain[1],167.64,y-2.54,"SX-IC-007"); pm,pp,po=gain[2]   # TL072 since decision 173
         s.wire((SX,y),a(pm)); s.wire(a(pp),lt(a(pp)),up(lt(a(pp)))); gnd(up(lt(a(pp))),180)
         tn=(TX,y-2.54); s.wire(a(po),tn)
         yc,yr=y+7.62,y+17.78
@@ -96,8 +97,8 @@ def draw(n):
             s.wire((TX,yr+7.62),(TX,yr+10.16)); s.label("R_RET",(TX,yr+10.16),270)
         s.tp(f"TP{B+1 if side=='L' else B+2}",f"{side}_RET",(185.42,tn[1]),"up")
         # VCA input
-        cv=C(cvin,"10u bipolar","SX-C-023",195.58,tn[1],fp=CBIP); s.wire(tn,(185.42,tn[1])); s.wire((185.42,tn[1]),cv(1))
-        rv=R(rvin,"10k","SX-R-002",213.36,tn[1]); s.wire(cv(2),rv(1))
+        cv=CP(cvin,195.58,tn[1]); cv2=CP(cvin+27,205.74,tn[1],270); s.wire(tn,(185.42,tn[1])); s.wire((185.42,tn[1]),cv(1)); s.wire(cv(2),cv2(2))   # C+9/10 with C+36/37 (decision 172)
+        rv=R(rvin,"10k","SX-R-002",215.9,tn[1]); s.wire(cv2(1),rv(1))
         node=(228.6,tn[1]); s.wire(rv(2),node)
         sgn=-1 if rc_up else 1
         rn=R(rrc,"100","SX-R-001",node[0],tn[1]+sgn*11.43,0); cn=C(crc,"2n2 C0G","SX-C-009",node[0],tn[1]+sgn*26.67,0)
@@ -107,7 +108,7 @@ def draw(n):
         else: s.wire(node,(iin[0]-5.08,tn[1]),(iin[0]-5.08,iin[1]),iin)
         # I-V converter
         yv=tn[1]; X1=355.6
-        b=OA("NE5532",iv[0],iv[1],X1,yv-2.54,"SX-IC-004"); pm,pp,po=iv[2]
+        b=OA("TL072",iv[0],iv[1],X1,yv-2.54,"SX-IC-007"); pm,pp,po=iv[2]
         if abs(iout[1]-yv)<0.01: s.wire(iout,b(pm))
         else: s.wire(iout,(iout[0]+2.54,iout[1]),(iout[0]+2.54,yv),b(pm))
         s.wire(b(pp),lt(b(pp)),up(lt(b(pp)))); gnd(up(lt(b(pp))),180)
@@ -118,7 +119,7 @@ def draw(n):
         # inverter
         X2=396.24; yi=yv-2.54
         ri=R(rinv,"10k","SX-R-002",378.46,yi); s.wire(out,ri(1))
-        c2=OA("NE5532",inv[0],inv[1],X2,yi-2.54,"SX-IC-004"); pm,pp,po=inv[2]
+        c2=OA("TL072",inv[0],inv[1],X2,yi-2.54,"SX-IC-007"); pm,pp,po=inv[2]
         n2=(X2-10.16,yi); s.wire(ri(2),n2,c2(pm)); s.wire(c2(pp),lt(c2(pp)),up(lt(c2(pp)))); gnd(up(lt(c2(pp))),180)
         o2=(X2+10.16,yi-2.54); s.wire(c2(po),o2)
         rf2=R(rinvf,"10k","SX-R-002",X2,yi+10.16); s.wire(n2,(n2[0],yi+10.16),rf2(1)); s.wire(rf2(2),(o2[0],yi+10.16),o2)
@@ -200,7 +201,7 @@ def draw(n):
     # ------------------------------------------------ supplies and decoupling
     Y2=396.24; x=40.64
     for ref in (tt(2,3),tt(4,3),tt(5,3)):
-        p=OA("NE5532",ref,3,x,Y2,"SX-IC-004"); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
+        p=OA("TL072",ref,3,x,Y2,"SX-IC-007"); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
     for ref,part,pn in ((tt(1,3),"TL072","SX-IC-007"),(tt(6,3),"OPA2171","SX-IC-021"),(tt(7,3),"TL072","SX-IC-007")):
         p=OA(part,ref,3,x,Y2,pn); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
     for ref in (tt(8,5),tt(9,5)):

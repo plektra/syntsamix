@@ -15,7 +15,11 @@ s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn))
 def C(ref,val,pn,x,y,rot=90): return s.place("Device","C",ref,val,x,y,rot,fp=C0805,props=P(pn))
-def OA(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
+ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
+JFET={"U106","U91062","U91063"}   # SC bus and the spare half: TL072 (decision 173); the audible buses stay NE5532 (noise gain up to about 17 at 16 cards)
+def OA(ref,unit,x,y):
+    if ref in JFET: return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**ST072))
+    return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
 def gnd(at,rot=0): s.power("GNDA",at,rot)
 def up(p,d=2.54): return (p[0],p[1]-d)
 def dn(p,d=2.54): return (p[0],p[1]+d)

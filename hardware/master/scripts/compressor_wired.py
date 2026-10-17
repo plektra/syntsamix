@@ -8,13 +8,13 @@ bus resistors). Middle: detector (full-wave rectifier, log converter on the AS30
 gain stage, peak hold, release mirror). Lower: Amount, on/off ramp, gain computer and
 VC summer. Right: gain-reduction LEDs and the ON button. Supplies at the bottom.
 """
-SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
-     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+SMD={"SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
      "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
-CBIP="Capacitor_SMD:C_Elec_6.3x5.4"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+CP10="Capacitor_SMD:CP_Elec_5x5.4"   # decision 172: two 10 µF electrolytics back to back (− to −) per former bipolar position
+SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
 ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
@@ -23,8 +23,8 @@ s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,fp=R0805,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=fp,props=P(pn,**kw))
 def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
+def CP(ref,x,y,rot=90): return s.place("Device","C_Polarized",ref,"10u 35V",x,y,rot,fp=CP10,props=P("SX-C-024",**SMD["SX-C-024"]))
 def D(ref,x,y,rot=0): return s.place("Device","D",ref,"1N4148W",x,y,rot,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
-def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
 LOWP={"U409","U94092","U94093","U410","U94102","U94103"}   # TL062 (decision 126): light DC and meter loads
 def TL(ref,unit,x,y):
     v="TL062" if ref in LOWP else "TL072"
@@ -59,13 +59,13 @@ for side,(cin,rin,rrc,crc,riv,civ,rdi,rdf,iv,dinv,iin,iout,xrc,xjog,fb_up) in (
     s.label(f"COMP_{side}_SUM",(XA,yw),180,"hierarchical","input"); s.wire((XA,yw),(XN,yw))
     # dry inverter (unity), feedback on the outer side
     s.wire((XN,yw),(XN,yd)); r1=R(rdi,"10k","SX-R-002",50.8,yd); s.wire((XN,yd),r1(1))
-    a=NE(dinv[0],dinv[1],76.2,yd-2.54); pm,pp,po=dinv[2]; nd=(60.96,yd); s.wire(r1(2),nd,a(pm)); gnd_plus(a(pp))
+    a=TL(dinv[0],dinv[1],76.2,yd-2.54); pm,pp,po=dinv[2]; nd=(60.96,yd); s.wire(r1(2),nd,a(pm)); gnd_plus(a(pp))
     on=(91.44,yd-2.54); s.wire(a(po),on); s.wire(on,(101.6,on[1])); lab((101.6,on[1]),f"DRY_{side}",0)
     yf=yd+7.62 if side=="L" else yd+7.62
     r2=R(rdf,"10k","SX-R-002",76.2,yf); s.wire(nd,(nd[0],yf),r2(1)); s.wire(r2(2),(on[0],yf),on)
     # VCA input: 10u, 10k, 100R + 2n2 towards the VCA, jog into IIN
-    c=C(cin,"10u bipolar","SX-C-023",50.8,yw,fp=CBIP); s.wire((XN,yw),c(1))
-    r=R(rin,"10k","SX-R-002",66.04,yw); s.wire(c(2),r(1)); node=(xrc,yw); s.wire(r(2),node)
+    c=CP(cin,45.72,yw); c2=CP({"C401":"C432","C402":"C433"}[cin],55.88,yw,270); s.wire((XN,yw),c(1)); s.wire(c(2),c2(2))   # back to back (decision 172)
+    r=R(rin,"10k","SX-R-002",66.04,yw); s.wire(c2(1),r(1)); node=(xrc,yw); s.wire(r(2),node)
     if side=="L":
         rn=R(rrc,"100","SX-R-001",xrc,yw+11.43,0); cn=C(crc,"2n2 C0G","SX-C-009",xrc,yw+21.59,0)
         s.wire(node,rn(1)); s.wire(rn(2),cn(1)); gnd(cn(2))
@@ -74,7 +74,7 @@ for side,(cin,rin,rrc,crc,riv,civ,rdi,rdf,iv,dinv,iin,iout,xrc,xjog,fb_up) in (
         s.wire(node,rn(2)); s.wire(rn(1),cn(2)); gnd(cn(1),180)
     s.wire(node,(xjog,yw),(xjog,iin[1]),iin)
     # I-V converter, feedback away from the VCA
-    X1=154.94; b=NE(iv[0],iv[1],X1,yw-2.54); pm,pp,po=iv[2]
+    X1=154.94; b=TL(iv[0],iv[1],X1,yw-2.54); pm,pp,po=iv[2]
     s.wire(iout,(134.62,iout[1]),(134.62,yw),b(pm)); gnd_plus(b(pp))
     nf=(140.97,yw); out=(167.64,yw-2.54); s.wire(b(po),out)
     sg=-1 if fb_up else 1
@@ -95,7 +95,7 @@ s.wire(mp(2),up(mp(2),7.62)); lab(up(mp(2),7.62),"L_MIXW",90)
 s.wire(mp(5),up(mp(5),7.62)); lab(up(mp(5),7.62),"R_MIXW",90)
 # followers and bus resistors
 for side,(ref,unit,(pp,pm,po)),y,rb in (("L",("U405",1,(3,2,1)),55.88,"R412"),("R",("U94052",2,(5,6,7)),106.68,"R413")):
-    a=NE(ref,unit,256.54,y+2.54); s.wire(a(pp),lt(a(pp),5.08)); lab(lt(a(pp),5.08),f"{side}_MIXW",180)
+    a=TL(ref,unit,256.54,y+2.54); s.wire(a(pp),lt(a(pp),5.08)); lab(lt(a(pp),5.08),f"{side}_MIXW",180)
     o=follower(a,pm,po)
     r=R(rb,"22k","SX-R-047",281.94,o[1]); s.wire(o,r(1)); s.wire(r(2),(297.18,o[1])); s.label(f"MAIN_{side}",(297.18,o[1]),0,"hierarchical","bidirectional")
 
@@ -271,8 +271,8 @@ NC.extend([b(1),b(4)])
 
 # ======================================================================== supplies and decoupling
 Y2=375.92; x=33.02
-for ref in ("U94033","U94043","U94053"):
-    p=NE(ref,3,x,Y2) ; s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
+for ref in ("U94033","U94043","U94053"):   # TL072 since decision 173
+    p=TL(ref,3,x,Y2) ; s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
 for ref in ("U94063","U94073","U94083","U94093","U94103"):
     p=TL(ref,3,x,Y2); s.wire(p(8),up(p(8),5.08)); s.power("+15V",up(p(8),5.08)); s.wire(p(4),dn(p(4),5.08)); s.power("-15V",dn(p(4),5.08)); x+=15.24
 for ref in ("U94115","U94125"):

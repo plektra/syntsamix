@@ -3,7 +3,8 @@ SX-IC-001,3.75,GBP,Thonk,2026-10-10,consign,"SSI2144; not at LCSC; Thonk 5 % off
 SX-IC-002,3.29,GBP,Thonk,2026-10-10,consign,"SSI2162; not at LCSC; Thonk 5 % off at 10+, 10 % at 25+, 50 % at 100+",,10:0.95;25:0.90;100:0.50
 SX-IC-003,3.82,EUR,Mouser 584-AD8273ARZ (10+),2026-10-10,consign,AD8273ARZ; not at LCSC; 3.52 at 25
 SX-IC-005,1.4526,USD,LCSC C141600 (30+),2026-10-10,extended,DG413DY-T1-E3; 1.6414 at 10+; JLCPCB library mirror 0.9013 at 30+ (which price JLCPCB charges unconfirmed); Mouser EUR 0.98 at 25
-SX-IC-011,0.60,USD,estimate,2026-10-09,hand,LM337 TO-220 (master)
+SX-IC-010,0.635,USD,Mouser 863-LM317TG (10+),2026-10-17,hand,LM317TG TO-220 (master); 0.90 at 1
+SX-IC-011,0.694,USD,Mouser 863-LM337TG (10+),2026-10-17,hand,LM337TG TO-220 (master); 0.96 at 1
 SX-IC-013,2.50,EUR,estimate (Electric Druid),2026-10-09,consign,AS3046D
 SX-IC-015,1.7668,USD,JLCPCB library C70439 (10+),2026-10-10,extended,TPA6120A2DWPR
 SX-IC-016,0.30,USD,estimate,2026-10-09,hand,L7805CV TO-220 (master)
@@ -61,7 +62,7 @@ SX-CONN-022,5.63,USD,Mouser 538-217796-1101,2026-10-13,hand,"Molex 217796-1101 K
 SX-CONN-011,4.00,USD,estimate (DigiKey),2026-10-09,hand,Kycon KPJX-4S
 SX-CONN-014,0.35,GBP,estimate (Thonk),2026-10-09,hand,PJ398SM
 SX-CONN-015,0.68,USD,Mouser 568-NYS216 (50+),2026-10-09,hand,Rean NYS216 (decision 132)
-SX-MECH-002,1.50,EUR,estimate,2026-10-09,hand,TO-220 heatsink
+SX-MECH-002,1.99,USD,Mouser 567-637-10ABPE (1+),2026-10-17,hand,Wakefield 637-10ABPE TO-220 heatsink
 SX-D-004,0.232,EUR,Mouser 604-WP710A10LGD,2026-10-13,hand,"Kingbright WP710A10LGD 3 mm green; power board panel LED (decision 168): off-board, counted with the frame in tools/costs.py; 0.157 at 10, 0.094 at 100",,10:0.677;100:0.405
 SX-D-005,0.15,USD,estimate (Mouser),2026-10-09,hand,Kingbright 3 mm yellow
 SX-D-006,0.15,USD,estimate (Mouser),2026-10-09,hand,Kingbright 3 mm red

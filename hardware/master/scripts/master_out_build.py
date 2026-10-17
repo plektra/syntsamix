@@ -23,7 +23,8 @@ def N(net,*pins):
 for side,(cin,rin,rrc,crc,riv,civ,rz,dza,dzb,iin,iout,(iv,pm,pp,po)) in (
         ("L",("C701","R701","R703","C703","R706","C705","R708","D701","D702","2","4",("U702",2,3,1))),
         ("R",("C702","R702","R704","C704","R707","C706","R709","D703","D704","9","7",("U97022",6,5,7)))):
-    N(f"MAIN_{side}_SUM",f"{cin}.1"); N(f"{side}_VIN",f"{cin}.2",f"{rin}.1")
+    pc={"C701":"C726","C702":"C727"}[cin]   # back to back, − to − (decision 172)
+    N(f"MAIN_{side}_SUM",f"{cin}.1"); N(f"{side}_VIN_M",f"{cin}.2",f"{pc}.2"); N(f"{side}_VIN",f"{pc}.1",f"{rin}.1")
     up=side=="R"   # R network drawn upwards
     N(f"{side}_IIN",f"{rin}.2",f"{rrc}.{2 if up else 1}",f"U701.{iin}"); N(f"{side}_RC",f"{rrc}.{1 if up else 2}",f"{crc}.{2 if up else 1}"); N("AGND",f"{crc}.{1 if up else 2}")
     N(f"{side}_IOUT",f"U701.{iout}",f"{iv}.{pm}",f"{riv}.1",f"{civ}.1",f"{dzb}.1"); N("AGND",f"{iv}.{pp}")
@@ -32,13 +33,13 @@ for side,(cin,rin,rrc,crc,riv,civ,rz,dza,dzb,iin,iout,(iv,pm,pp,po)) in (
 N("VC","U701.3","U701.8","TP703.1"); N("MODE","U701.1","R705.2"); N("+15V","R705.1","U701.10"); N("-15V","U701.6"); N("AGND","U701.5")
 N("MAIN_L_OUT","TP701.1"); N("MAIN_R_OUT","TP702.1")
 # ---------------------------------------------------------------- THAT1646 drivers, clamps, relays, jacks
-for side,(u,ccp,ccn,dpp,dpn,dnp,dnn,k,rgh,rgc,j) in (
-        ("L",("U703","C707","C708","D705","D706","D707","D708","K701","R710","R711","J701")),
-        ("R",("U704","C709","C710","D709","D710","D711","D712","K702","R712","R713","J702"))):
+for side,(u,ccp,ccn,csp,csn,dpp,dpn,dnp,dnn,k,rgh,rgc,j) in (
+        ("L",("U703","C707","C708","C728","C729","D705","D706","D707","D708","K701","R710","R711","J701")),
+        ("R",("U704","C709","C710","C730","C731","D709","D710","D711","D712","K702","R712","R713","J702"))):
     N(f"MAIN_{side}_OUT",f"{u}.4"); N("AGND",f"{u}.3"); N("+15V",f"{u}.6"); N("-15V",f"{u}.5")
     # pole 2 (COM 6, NC 7, NO 5) carries the hot leg, pole 1 (COM 3, NC 2, NO 4) the cold leg
-    N(f"{side}_OP",f"{u}.8",f"{ccp}.1",f"{dpp}.2",f"{dnp}.1",f"{k}.5"); N(f"{side}_SP",f"{u}.7",f"{ccp}.2")
-    N(f"{side}_ON",f"{u}.1",f"{ccn}.2",f"{dpn}.2",f"{dnn}.1",f"{k}.4"); N(f"{side}_SN",f"{u}.2",f"{ccn}.1")
+    N(f"{side}_OP",f"{u}.8",f"{ccp}.1",f"{dpp}.2",f"{dnp}.1",f"{k}.5"); N(f"{side}_SP",f"{u}.7",f"{csp}.1"); N(f"{side}_SPM",f"{ccp}.2",f"{csp}.2")
+    N(f"{side}_ON",f"{u}.1",f"{ccn}.1",f"{dpn}.2",f"{dnn}.1",f"{k}.4"); N(f"{side}_SN",f"{u}.2",f"{csn}.1"); N(f"{side}_SNM",f"{ccn}.2",f"{csn}.2")
     N("+15V",f"{dpp}.1",f"{dpn}.1"); N("-15V",f"{dnp}.2",f"{dnn}.2")      # D pin 1 = K: clamps to the rails
     N(f"MAIN_{side}_HOT",f"{k}.6"); N(f"{side}_GH",f"{k}.7",f"{rgh}.1"); N("AGND",f"{rgh}.2")
     N(f"MAIN_{side}_COLD",f"{k}.3"); N(f"{side}_GC",f"{k}.2",f"{rgc}.1"); N("AGND",f"{rgc}.2")

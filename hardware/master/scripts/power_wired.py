@@ -7,8 +7,7 @@ Regulator blocks follow the channel card (chain_wired.py); +5 V uses an L7805 fo
 heavier LED load. AGND/PGND star point (net tie), the frame bond with its lift network, and the rear input
 ribbon header J903 (decision 163; the lift switch is on the rear input row board).
 """
-SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
-     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+SMD={"SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
      "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os
 from schlayout import Sheet,pins_of
@@ -57,7 +56,7 @@ def rail_out(y,vo,stops):
     for xx in stops: s.wire(x,(xx,y)); x=(xx,y)
 
 Y1=180.34
-u=s.place("Regulator_Linear","LM317_TO-220","U901","LM317",XU,Y1,0,fp=TO220,props=P("SX-IC-010",Manufacturer="Texas Instruments",MPN="LM317"))
+u=s.place("Regulator_Linear","LM317_TO-220","U901","LM317",XU,Y1,0,fp=TO220,props=P("SX-IC-010",Manufacturer="onsemi",MPN="LM317TG",Supplier="Mouser",SupplierPN="863-LM317TG"))
 vin=rail_in(Y1,"+20V_RAW","TP901","up","C901","C902",False); s.wire(vin,u(3))
 s.wire((119.38,Y1),(119.38,Y1+12.7)); s.label("+20V_RAW",(119.38,Y1+12.7),270,"hierarchical","output")   # to the relay drop-out comparator (Master out sheet)
 d=D("D901","1N4148W","SX-D-003","Diode_SMD:D_SOD-123",XU,Y1-7.62,0)
@@ -76,10 +75,10 @@ ds=D("D905","SS14","SX-D-007","Diode_SMD:D_SMA",228.6,Y1+3.81,270); gnd(ds(2))
 s.tp("TP903","+15V",(233.68,Y1),"up"); s.power("+15V",(238.76,Y1))
 
 Y2=236.22
-u=s.place("Regulator_Linear","LM337_TO220","U902","LM337",XU,Y2,0,fp=TO220,props=P("SX-IC-011",Manufacturer="Texas Instruments",MPN="LM337"))
+u=s.place("Regulator_Linear","LM337_TO220","U902","LM337",XU,Y2,0,fp=TO220,props=P("SX-IC-011",Manufacturer="onsemi",MPN="LM337TG",Supplier="Mouser",SupplierPN="863-LM337TG"))
 # board-mount TO-220 heatsinks (decision 95): tabs are live (LM317 = +15 V, LM337 = raw -20 V), keep them apart or insulate
 for ref,y in (("HS901",Y1),("HS902",Y2)):
-    s.place("Mechanical","Heatsink",ref,"TO-220 heatsink <= 10 C/W",XU+48.26,y-25.4,0,fp="",props=P("SX-MECH-002",Note="Board-mount, live at the regulator tab: do not touch the other heatsink or the frame (or use an insulating pad)"))
+    s.place("Mechanical","Heatsink",ref,"637-10ABPE",XU+48.26,y-25.4,0,fp="",props=P("SX-MECH-002",Manufacturer="Wakefield Thermal",MPN="637-10ABPE",Supplier="Mouser",SupplierPN="567-637-10ABPE",Note="Decision 174: vertical board mount on the underside, 25.4 mm deep, 12.67 C/W; live at the regulator tab: keep 3 mm from the other heatsink, the frame and the cover; footprint at layout (two solder pins on 25.4 mm centres)"))
 
 vin=rail_in(Y2,"-20V_RAW","TP902","down","C906","C907",True); s.wire(vin,u(2))
 s.wire((119.38,Y2),(119.38,Y2-12.7)); s.label("-20V_RAW",(119.38,Y2-12.7),90,"hierarchical","output")   # to the relay drop-out comparator (Master out sheet, decision 128)
