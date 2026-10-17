@@ -337,7 +337,23 @@ def estimate_lines(channels, o, per_design=False, sets=1):
     # wired to the power board: no schematic symbols
     frame = (o["frame_fixed_eur"] + o["frame_eur_per_channel"] * channels + prices(o)[brick_pn]["eur"]
              + sum(prices(o)[pn]["eur"] for pn in ("SX-SW-003", "SX-D-004", "SX-MECH-006"))) * sets
-    lines.append((f"Frame, hardware, ribbons, 24 V brick ({brick_pn}), power rocker and LED", frame)); total += frame
+    lines.append((f"Frame, hardware, 24 V brick ({brick_pn}), power rocker and LED", frame)); total += frame
+    # chain cables (decision 175): multi-drop sections of 8 cards, bought per build rather than per card;
+    # each audio section has 8 card sockets and two end sockets, each power section 8 card sockets and a feed
+    # socket; the master has its own two-socket power ribbon; one coupler board joins each further audio section
+    sections = -(-channels // 8)
+    p = prices(o)
+    sockets_a, sockets_p = 10 * sections * sets, (9 * sections + 2) * sets
+    couplers = (sections - 1) * sets
+    # Würth WR-CAB flat cable in 1 m cuts (decision 178)
+    metres_a = o["chain_audio_section_m"] * sections * sets
+    metres_p = (o["chain_power_first_m"] + o["chain_power_further_m"] * (sections - 1)) * sets
+    chain = (sockets_a * unit_eur(p["SX-CONN-023"], sockets_a) + sockets_p * unit_eur(p["SX-CONN-012"], sockets_p)
+             + 2 * couplers * unit_eur(p["SX-CONN-007"], 2 * couplers)
+             + metres_a * unit_eur(p["SX-WIRE-004"], metres_a) + metres_p * unit_eur(p["SX-WIRE-005"], metres_p)
+             + (o["pcb_min_eur_per_design"] if couplers else 0))
+    lines.append((f"Chain cables ({sections} section(s), {sockets_a + sockets_p} IDC sockets, {couplers} coupler(s))", chain))
+    total += chain
     knobs = (o["knobs_eur_per_channel"] * channels + o["knobs_master_eur"]) * sets
     lines.append(("Knobs and fader caps (no schematic symbols)", knobs)); total += knobs
     if any(i["price"] and i["price"]["jlc"] == "consign" and not i["tht"] for items in boms.values() for i in items):   # hand-soldered parts are not consigned

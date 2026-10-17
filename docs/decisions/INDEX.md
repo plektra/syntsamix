@@ -200,6 +200,9 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 173 | Master NE5532 → TL072 in ten packages (AUX returns, compressor, SC bus); audible bus summers, send drivers and master out I-V stay NE5532 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 174 | Master regulator heatsinks Wakefield 637-10ABPE; junction limit the parts' 125 °C rating instead of 100 °C (refines 95 and 167's junction target); enclosure depth to `/system` | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 175 | Multi-drop chain cables in 8-card sections: one audio and one power header per card (pin 1 to the front), standard audio section of 8 card sockets plus two end sockets joined by a coupler board, one power section per group of 8; replaces the U-loop jumpers and the mock-up; refines 38, 80, 109, 121, 162 | confirmed | [system](system.md) |
+| 176 | Master regulator zone at least about 190 mm behind the front rail's inner face, where the sloped floor clears the 25.4 mm Wakefield heatsinks plus 3 mm; no frame change; refines 162, 174 | confirmed (delegated) | [mechanical](mechanical.md) |
+| 177 | Input cable ready-made Molex 217796-1101 (150 mm, 22 AWG) instead of hand crimping; 1:1 wiring checked on the sales drawing or with a meter on delivery; crimp parts the fallback; refines 99, 160 | confirmed | [input-module](input-module.md) |
+| 178 | Chain flat cable Würth WR-CAB 28 AWG with a maker-stated 1 A (34-way and true 8-way, 1 m cut lengths) instead of the unrated 3M 3365; keeps 96's rule; refines 175 | confirmed | [system](system.md) |
 
 ## Proposed but not confirmed
 

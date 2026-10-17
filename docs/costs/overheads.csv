@@ -20,7 +20,10 @@ pcb_rear_row_eur,1.5,"Master rear row board (output or input) per board, about 1
 panel_strip_eur,3,FR4 top panel strip 34.8 x 360 mm per channel (estimate)
 panel_master_rear_eur,40,Master top panel and rear panel (estimate)
 frame_fixed_eur,40,"Rails for the master section, side cheeks, bottom cover, screws (estimate)"
-frame_eur_per_channel,5,"Rail length, T-nuts, screws, printed parts and ribbons per channel strip (estimate)"
+frame_eur_per_channel,5,"Rail length, T-nuts, screws and printed parts per channel strip (estimate; the chain ribbons are counted on their own line since decision 175)"
+chain_audio_section_m,1,"34-way Wurth WR-CAB per audio chain section in 1 m cuts: 8 sockets about 37 mm apart plus two end segments of about 150 mm, about 0.6 m used (decisions 175, 178; end segments set at layout)"
+chain_power_first_m,1,"8-way Wurth WR-CAB in 1 m cuts for the chain 1 power section (8 sockets plus a feed of about 0.3 m under the master section) and the master's own power ribbon (about 0.3 m) (decisions 175, 178; estimate)"
+chain_power_further_m,2,"8-way Wurth WR-CAB for the chain 2 power section: 8 sockets plus a feed of about 0.8 m along the rear floor (decisions 162, 175, 178; estimate)"
 brick_proto_max_channels,8,"Costing assumption, not a checked capacity (whether one power board carries 8 cards plus the master is power lever 1's open check): up to this many channels the estimate takes the prototype brick SX-MECH-003 (GSM120B24-R7B, one power board, chain 1); above it the full-size brick SX-MECH-005 (GSM220B24-R7B, decision 145); prices in prices.csv"
 knobs_eur_per_channel,3.5,Five knobs and a fader cap per channel strip (no schematic symbols; estimate)
 knobs_master_eur,8,Thirteen knobs on the master (estimate)

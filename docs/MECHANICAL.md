@@ -1,6 +1,6 @@
 # Mechanical interface
 
-Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121, 160 and 162; `decisions/system.md` item 175 (multi-drop chain cables); `decisions/system-rules.md` item 118 (jack sizes).
+Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121, 160, 162 and 176; `decisions/power.md` item 168 (power LED); `decisions/system.md` item 175 (multi-drop chain cables); `decisions/system-rules.md` item 118 (jack sizes).
 
 The mechanical contract between the boards, the panels and the frame: what every board layout must fit. Changed only by a confirmed decision (invariant 5 in `ARCHITECTURE.md`).
 
@@ -68,7 +68,7 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 - Header positions (each header's distance from the front, position across the card): chosen by the channel card layout (rear half, clear of the fader) and recorded here: *to be filled in*. The master card's audio header sits on the same line in the same orientation, near its left edge.
 - Audio cable: multi-drop sections of 34-way flat cable. A standard section has 8 card sockets about 37 mm apart on the cable (35 mm pitch plus about 2 mm so it bows instead of pulling; marked on a crimping guide) and an end socket at each end. The first section's right end plugs into the master; a second section (cards 9-16) joins the first's left end through the coupler board; a free end socket stays unplugged. End-segment lengths: *set at the channel and master layouts*.
 - Coupler board (only for more than 8 cards): a small passive PCB with two shrouded 2×17 headers as on the cards, same orientation, pin n to pin n; held in the cable run under the strips by a cable tie or a printed clip, never on the bottom cover.
-- Power cable: one multi-drop section per group of 8 cards (decisions 80, 175), 10-way flat cable peeled to 8, a feed socket at the power board and 8 card sockets. Chain 1 feeds the group next to the master (the prototype's cards), chain 2 the far group. Chain 1's feed runs under the master section; chain 2's (about 0.5 m) along the rear floor in front of the input modules on printed clips on the rear bottom angle, then forward to the header line (no cross band under the cards). The master card has its own two-socket power ribbon.
+- Power cable: one multi-drop section per group of 8 cards (decisions 80, 175), 8-way Würth WR-CAB flat cable (decision 178), a feed socket at the power board and 8 card sockets. Chain 1 feeds the group next to the master (the prototype's cards), chain 2 the far group. Chain 1's feed runs under the master section; chain 2's (about 0.5 m) along the rear floor in front of the input modules on printed clips on the rear bottom angle, then forward to the header line (no cross band under the cards). The master card has its own two-socket power ribbon.
 - Unused card sockets may stay free: the prototype has one audio and one chain 1 power section with 4 of the 8 card sockets in use. Any card can be unplugged without breaking the chain.
 - Crimping (by hand, IDC press or smooth-jawed vise): every socket of a section on the same cable face, stripe along the front edge. At card sockets the cable passes straight through; end sockets may take the strain relief (check the Würth drawing).
 
@@ -81,7 +81,7 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 | Input module (6.3 mm) | PCB on edge in the front-to-back vertical plane, below the rear rail, centred on its strip; NYS216 jacks stacked, L/MONO above R, about 19 mm between centres; module about 40 mm tall; fixed only by the jack nuts on the rear strip; KK 254 header facing forward |
 | Why stacked | NYS216 is 17.7 mm wide across its pin rows (footprint from Rean's drawing): two side by side need 35.4 mm, more than the 35.0 mm pitch |
 | Rear inside height | about 60 mm: 20 mm rail plus about 40 mm of jack zone; *from the module layout* |
-| Input cable (decision 99) | 100 mm, *provisional until the channel card layout places its KK header* |
+| Input cable (decisions 99, 177) | ready-made Molex 217796-1101, 150 mm; the channel card layout places its KK header near the rear edge, within reach |
 
 ## Frame shape (decision 160)
 
@@ -99,13 +99,14 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 | Meters | 0805 LEDs under printed bezels as decision 119: 2 × 12 at 6.0 mm pitch plus the 5 gain-reduction LEDs (yellow); the PFL-active LED is an 0805 under a bezel window too (decision 170) |
 | Rear jacks | one rear piece 139.8 mm; 12 positions in 2 rows × 6 at about 23 mm: 11 jacks and the ground-lift switch, on two flat passive row boards fixed only by the jack nuts: output board (main L/R, AUX send 1 L/R, AUX send 2 L/R) and input board (AUX return 1 L/R, AUX return 2 L/R, SC EXT, ground lift), each cabled to the master card by one 26-pin ribbon (J603 outputs, J903 inputs and ground lift; decision 163). Needs the NYS216 at most about 17 mm tall above its board: *measure a sample*; if taller, on-edge 2-jack boards as the input module |
 | Headphones | panel-mounted 6.3 mm stereo jack, nut on the master top panel, body through a cutout in the master card; Rean NYS230 cabled by a ready-made 150 mm Molex 217797-1031 lead to the KK 1x3 header J751 on the card (decision 169); at least about 90 mm behind the front edge (about 30 mm of depth, to measure on a sample) |
-| Regulators | U901-U903 TO-220 with one heatsink each (about 19.7 mm, ≤ 11.5 °C/W at 40 °C air; recheck for the inside air of decision 167) on the card's underside, hand-soldered, behind the card's middle, up to 25 mm below the PCB (master-only exception to decision 121); ≥ 3 mm from each other, the frame and the cover (live tabs). On hold 2026-10-13: no heatsink checked so far fits both limits; options in `hardware/master/STATUS.md` (Next 2) |
+| Regulators | U901, U902 TO-220 on Wakefield 637-10ABPE heatsinks (12.67 °C/W, 25.4 mm below the PCB; LM317 TJ about 111 °C worst case at decision 167's 57 °C air, within the 125 °C rating, decision 174); U903 without a heatsink. On the card's underside, hand-soldered, at least about 190 mm behind the front rail's inner face, where the sloped floor leaves 40 mm below the panel underside (heatsink bottom 37 mm plus 3 mm to the cover; decision 176; master-only exception to decision 121); ≥ 3 mm from each other, the frame and the cover (live tabs) |
 
 ## Power bay (decision 162)
 
 | Item | Value |
 |---|---|
-| Width | 1 strip (35 mm) at the right end, with a plain top strip (34.8 mm; may carry the power LED) |
+| Width | 1 strip (35 mm) at the right end, with a plain top strip (34.8 mm) |
+| Power LED | on the bay's top strip: 3 mm LED in a Bivar CR-104 clip, Ø4.47 mm (+0.10 / −0.05) hole in the 1.6 mm FR4 (flange 5.3 mm, ring 6.1 mm behind the panel), wired to J103; position along the strip *set at the power board layout*, above J103 (decision 168) |
 | Power board | on edge in the front-to-back plane, outline up to about 300 × 35 mm following the slope; hangs from the bay's top strip on two brackets and is fixed at its rear edge to the bay's rear strip; panels only, nothing on the cheeks; insulating hardware keeps PGND off the frame (invariant 8) |
 | Rear strip | brick jack (KPJX-4S) and power rocker (decision 157, cutout 19.2 × 12.9 mm for a 0.8-1.2 mm panel, 19.4 mm for 1.3-2.0 mm) |
 | Module sizes | planned: one power module for up to 8 channel cards, one for larger builds; same bay and ribbons |

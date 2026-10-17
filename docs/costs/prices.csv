@@ -111,6 +111,8 @@ SX-CONN-023,1.07,EUR,Mouser 710-61203423021 (10+),2026-10-13,hand,"Wurth 6120342
 SX-CONN-012,1.75,EUR,Mouser 710-61200823021 (10+),2026-10-13,hand,"Wurth 61200823021 2x4 IDC socket, off-board (power chain); 1.81 at 1, 1.53 at 25, 1.32 at 50; candidate Adam Tech FCS-08-SG (Mouser 737-FCS-08-SG) 0.518 at 10+, 0.463 at 25, 0.42 at 100 (cost review 2026-10-13, lever C1)",,25:0.874;50:0.754
 SX-WIRE-001,0.912,EUR,Mouser 517-3365/34FT,2026-10-13,hand,"3M 3365/34 flat cable, price per foot; 100 ft roll 118.55",,
 SX-WIRE-002,0.662,EUR,Mouser 517-3365/26FT,2026-10-13,hand,"3M 3365/26 flat cable, price per foot; 100 ft roll 99.42",,
+SX-WIRE-004,6.60,EUR,Mouser 710-63913415521CAB,2026-10-17,hand,"Wurth 63913415521CAB 34-way flat cable, 1 m cut, price per metre; 6.05 at 10, 5.39 at 30, 4.40 at 50; reel 76.2 m 211.23",,10:0.917;30:0.817;50:0.667
+SX-WIRE-005,1.79,EUR,Mouser 710-63910815521CAB,2026-10-17,hand,"Wurth 63910815521CAB 8-way flat cable, 1 m cut, price per metre; 1.64 at 5, 1.49 at 10, 1.31 at 30",,5:0.916;10:0.832;30:0.732
 SX-WIRE-003,0.258,EUR,Mouser 517-3365/10FT,2026-10-13,hand,"3M 3365/10 flat cable, price per foot, split to 8-way; 100 ft roll 46.34 (true 8-way 3365/08 roll 33.33)",,
 SX-D-009,0.054,USD,LCSC C19077578,2026-10-13,preferred,SMBJ24A SMB TVS: JLCPCB preferred (no row before; cost review 2026-10-13)
 SX-D-013,0.0966,USD,LCSC C19229 (50+),2026-10-13,extended,MDD SS510C SMC (no row before; cost review 2026-10-13)
