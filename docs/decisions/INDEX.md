@@ -10,7 +10,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
 | [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135, 150: hand-soldered ICs) |
-| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149, 163) |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149, 163, 172-174) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, workflow (availability notes in the record) |
@@ -196,6 +196,9 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 169 | Headphone jack: panel Rean NYS230, card header J751 Molex KK 254 1x3 (1 T, 2 R, 3 S), ready-made lead Molex 217797-1031; refines 56, 162 | confirmed | [master-card](master-card.md) |
 | 170 | Master LEDs all 0805 basic parts: meter as the channel, gain-reduction LEDs yellow, PFL-active LED D752 0805; no 3 mm LED on the master; refines 86, 162 | confirmed | [master-card](master-card.md) |
 | 171 | Cost estimate counts every off-board part (`docs/costs/offboard.csv`) and the two rear row-board PCBs; refines 136 | confirmed | [process](process.md) |
+| 172 | Master bipolar 10 µF ×16 → back-to-back ROQANG 10 µF pairs (as 161), DRV135 sense capacitors included at 5 µF; nothing consigned; refines 127 | confirmed (delegated) | [master-card-sheets](master-card-sheets.md) |
+| 173 | Master NE5532 → TL072 in ten packages (AUX returns, compressor, SC bus); audible bus summers, send drivers and master out I-V stay NE5532 | confirmed | [master-card-sheets](master-card-sheets.md) |
+| 174 | Master regulator heatsinks Wakefield 637-10ABPE; junction limit the parts' 125 °C rating instead of 100 °C (refines 95 and 167's junction target); enclosure depth to `/system` | confirmed | [master-card-sheets](master-card-sheets.md) |
 
 ## Proposed but not confirmed
 

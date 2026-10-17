@@ -9,8 +9,9 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 - **Panel stack (decision 107):** top-side parts ≤ 9.0 mm. Still too tall: U901-U903 TO-220 (about 19.7 mm seated) and the HS901/HS902 heatsinks; placement in `/system mechanical`.
 - **Footprints:** D705-D712 `D_SOD-123F` pads are 1.1 mm wide; widen to the maker's 1.5 mm (R+O 1N4007W datasheet Rev 2.0). Würth IDC drill 1.1 mm. R421 next to U402 (a tempco part may return on its pads).
 - **Headphone jack (decision 169):** J751 (KK 1x3) near the NYS230 cutout, at least about 90 mm behind the front edge; pin 1 tip, 2 ring, 3 sleeve. The cutout clears the NYS230 body (depth measured on the sample). Bezel windows for the 0805 meter, GR and PFL LEDs (decision 170) placed with the panel artwork.
+- **Back-to-back pairs (decision 172):** place each pair's two CP_Elec_5x5.4 side by side with a short − to − link; DRV135 sense pairs C707/C728 … C710/C731 next to U703/U704.
 - **Hand-soldered ICs (decision 150):** keep them reachable with an iron (no parts tight against the SOIC/SSOP pins), and mark them in the JLCPCB BOM/CPL export as not placed.
-- **Breadboard:** the ducking through the channel's 10 ms smoothing (decision 97); the bottom of the master level pot (about −102 dB, decision 103); the compressor makeup at +22 dB (decision 89); a bipolar-to-ceramic tap test.
+- **Breadboard:** the ducking through the channel's 10 ms smoothing (decision 97); the bottom of the master level pot (about −102 dB, decision 103); the compressor makeup at +22 dB (decision 89); the back-to-back 10 µF pairs (decision 172) ride on the channel's breadboard test 11 (pair against a bipolar at low frequency).
 - **RoHS strict (decision 116):** every part needs a `RoHS: <source>` in `docs/parts.csv` before ordering (this session's parts all have one); lead-free finish and assembly.
 - **Jack sizes (decision 118), panel fixing (decision 120), underside (decision 121):** as the master section decides.
 - **Order codes:** RV501 Thonk dual code by analogy (confirm with the order); Tayda A-5370 (RV402) by hand.
@@ -19,7 +20,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 
 1. **DG413 ×10:** check which switch sections could move to relay contacts already present or to VCA control (as channel lever 3).
 2. Done: master meter, GR and PFL LEDs 0805 (decisions 162, 170, drawn 2026-10-13).
-3. **Bipolar 10 µF → X5R ceramic** (see Open).
+3. Done: the 16 bipolar 10 µF are back-to-back ROQANG pairs (decision 172), nothing consigned; the X5R ceramic option was dropped as on the channel (dearer than the pair, microphonics).
 4. Not recommended: TPA6120A2 → NE5532 with a discrete buffer (weaker headphone drive); LM339 → LM393 (twice the packages).
 
 ## Component values (decision 134)

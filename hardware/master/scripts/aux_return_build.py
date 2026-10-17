@@ -27,9 +27,9 @@ def build(n):
         N(f"{side}_RX",f"{ref}.{po}",f"{r(rf)}.2",f"{c(cpl)}.1")
         N(f"{side}_N",f"{r(rn)}.2",f"{c(cn)}.1",f"{r(rni)}.1"); N(f"{side}_RXP",f"{r(rni)}.2",f"{r(rg)}.2",f"{ref}.{pp}")
         N("AGND",f"{r(rg)}.1",f"{c(cp)}.2",f"{c(cn)}.2")
-    # coupling and gain stage (U+2 NE5532): -1 with the jumper fitted, -4 open
+    # coupling and gain stage (U+2 TL072 since decision 173): -1 with the jumper fitted, -4 open
     for side,cc,rin,rf,rs,cf,(ref,pm,pp,po),jp in (("L",5,5,7,9,7,(u(2),2,3,1),(1,2)),("R",6,6,8,10,8,(t(2,2),6,5,7),(3,4))):
-        N(f"{side}_CPL",f"{c(cc)}.2",f"{r(rin)}.1"); N(f"{side}_SUM",f"{r(rin)}.2",f"{r(rf)}.1",f"{c(cf)}.1",f"{ref}.{pm}")
+        N(f"{side}_CPL_M",f"{c(cc)}.2",f"{c(cc+29)}.2"); N(f"{side}_CPL",f"{c(cc+29)}.1",f"{r(rin)}.1")   # back to back (decision 172); N(f"{side}_SUM",f"{r(rin)}.2",f"{r(rf)}.1",f"{c(cf)}.1",f"{ref}.{pm}")
         N("AGND",f"{ref}.{pp}"); N(f"{side}_MID",f"{r(rf)}.2",f"{r(rs)}.1",f"J{B+3}.{jp[0]}")
         N(f"{side}_RET",f"{r(rs)}.2",f"J{B+3}.{jp[1]}",f"{c(cf)}.2",f"{ref}.{po}",f"{c(9 if side=='L' else 10)}.1")
     # VCA (U+3 SSI2162), I-V (U+4), inverter (U+5)
@@ -37,7 +37,7 @@ def build(n):
         ("L",9,11,13,11,2,4,(u(4),(2,3,1)),(u(5),(2,3,1)),15,13,17,19),
         ("R",10,12,14,12,9,7,(t(4,2),(6,5,7)),(t(5,2),(6,5,7)),16,14,18,20)):
         up=side=="L"   # L network is drawn upwards: pin order follows the drawing (electrically identical)
-        N(f"{side}_VIN",f"{c(cv)}.2",f"{r(rin)}.1"); N(f"{side}_IIN",f"{r(rin)}.2",f"{r(rr)}.{2 if up else 1}",f"{u(3)}.{iin}")
+        N(f"{side}_VIN_M",f"{c(cv)}.2",f"{c(cv+27)}.2"); N(f"{side}_VIN",f"{c(cv+27)}.1",f"{r(rin)}.1"); N(f"{side}_IIN",f"{r(rin)}.2",f"{r(rr)}.{2 if up else 1}",f"{u(3)}.{iin}")
         N(f"{side}_RC",f"{r(rr)}.{1 if up else 2}",f"{c(crc)}.{2 if up else 1}"); N("AGND",f"{c(crc)}.{1 if up else 2}")
         N(f"{side}_IOUT",f"{u(3)}.{iout}",f"{iv}.{ivp[0]}",f"{r(rfb)}.1",f"{c(cfb)}.1"); N("AGND",f"{iv}.{ivp[1]}")
         N(f"{side}_VO",f"{iv}.{ivp[2]}",f"{r(rfb)}.2",f"{c(cfb)}.2",f"{r(rinv)}.1")

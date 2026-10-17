@@ -8,13 +8,14 @@ Right: per side the DRV135 driver (THAT1646 pinout, decision 125) with its commo
 the protection relay (drawn rotated, commons on top) and the output jack.
 Bottom: master level law (as the channel fader), relay control, supplies.
 """
-SMD={"SX-C-023":dict(Manufacturer="Panasonic",MPN="EEE-1VA100NP",Supplier="Mouser",SupplierPN="667-EEE-1VA100NP"),
-     "SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
+SMD={"SX-C-024":dict(Manufacturer="ROQANG",MPN="RVT1V100M0505",Supplier="LCSC",SupplierPN="C72486"),
      "SX-C-025":dict(Manufacturer="ROQANG",MPN="RVT1V470M0605",Supplier="LCSC",SupplierPN="C72522")}   # decision 111 parts, 5.4 mm tall
 import json,os
 from schlayout import Sheet,pins_of
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"; SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
-SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"; CBIP="Capacitor_SMD:C_Elec_6.3x5.4"
+SO14="Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+CP10="Capacitor_SMD:CP_Elec_5x5.4"   # decision 172: two 10 µF electrolytics back to back (− to −) per former bipolar position
+PAIR={"C701":"C726","C702":"C727","C707":"C728","C708":"C729","C709":"C730","C710":"C731"}   # first + toward the source, partner + toward the load (decision 172)
 JK="syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal"
 TI={"Manufacturer":"Texas Instruments"}
 ST072={"Manufacturer":"STMicroelectronics","MPN":"TL072CDT","Supplier":"LCSC","SupplierPN":"C6961"}   # SX-IC-007 fee-free (decision 137)
@@ -22,6 +23,7 @@ s=Sheet(); NC=[]
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**kw): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**kw))
 def C(ref,val,pn,x,y,rot=90,fp=C0805): return s.place("Device","C",ref,val,x,y,rot,fp=fp,props=P(pn,**SMD.get(pn,{})))
+def CP(ref,x,y,rot=90): return s.place("Device","C_Polarized",ref,"10u 35V",x,y,rot,fp=CP10,props=P("SX-C-024",**SMD["SX-C-024"]))
 def NE(ref,unit,x,y): return s.place("Amplifier_Operational","NE5532",ref,"NE5532",x,y,0,unit,SO8,P("SX-IC-004",**TI))
 def TL(ref,unit,x,y): return s.place("Amplifier_Operational","TL072",ref,"TL072",x,y,0,unit,SO8,P("SX-IC-007",**ST072))
 def OPA(ref,unit,x,y): return s.place("Amplifier_Operational","Opamp_Dual",ref,"OPA2171",x,y,0,unit,SO8,P("SX-IC-021",**TI,MPN="OPA2171AIDR"))   # no OPA2171 symbol in the KiCad library; same pinout
@@ -47,8 +49,8 @@ for side,yw,(cin,rin,rrc,crc,riv,civ,rz,dza,dzb,iv,xrc,xjog,iin,iout,fb_up,tp) i
         ("L",55.88,("C701","R701","R703","C703","R706","C705","R708","D701","D702",("U702",1,(2,3,1)),68.58,83.82,v("2"),v("4"),True,"TP701")),
         ("R",106.68,("C702","R702","R704","C704","R707","C706","R709","D703","D704",("U97022",2,(6,5,7)),76.2,86.36,v("9"),v("7"),False,"TP702"))):
     s.label(f"MAIN_{side}_SUM",(25.4,yw),180,"hierarchical","input")
-    c=C(cin,"10u bipolar","SX-C-023",38.1,yw,fp=CBIP); s.wire((25.4,yw),c(1))
-    r=R(rin,"10k","SX-R-002",53.34,yw); s.wire(c(2),r(1)); node=(xrc,yw); s.wire(r(2),node)
+    c=CP(cin,33.02,yw); c2=CP(PAIR[cin],43.18,yw,270); s.wire((25.4,yw),c(1)); s.wire(c(2),c2(2))   # back to back (decision 172)
+    r=R(rin,"10k","SX-R-002",53.34,yw); s.wire(c2(1),r(1)); node=(xrc,yw); s.wire(r(2),node)
     if side=="L":
         rn=R(rrc,"100","SX-R-001",xrc,yw+11.43,0); cn=C(crc,"2n2 C0G","SX-C-009",xrc,yw+21.59,0); s.wire(node,rn(1)); s.wire(rn(2),cn(1)); gnd(cn(2))
     else:
@@ -80,8 +82,11 @@ def output(side,Yt,u_ref,ccp,ccn,dpp,dpn,dnp,dnn,k_ref,rgh,rgc,j_ref,coil_r,fly)
     yop,yon=Yt-15.24,Yt+15.24
     s.wire(u("8"),(Xt+12.7,u("8")[1]),(Xt+12.7,yop))
     s.wire(u("1"),(Xt+12.7,u("1")[1]),(Xt+12.7,yon))
-    cp=C(ccp,"10u bipolar","SX-C-023",Xt+20.32,Yt-6.35,0,fp=CBIP); s.wire(u("7"),(Xt+20.32,u("7")[1])); s.wire(cp(1),(Xt+20.32,yop))
-    cn=C(ccn,"10u bipolar","SX-C-023",Xt+20.32,Yt+6.35,0,fp=CBIP); s.wire(u("2"),(Xt+20.32,u("2")[1])); s.wire(cn(2),(Xt+20.32,yon))
+    # sense capacitors: back-to-back pairs on the sense rows, + toward the output and the sense pin (decision 172)
+    for cref,pin,row in ((ccp,"7",yop),(ccn,"2",yon)):
+        y0=u(pin)[1]; y=y0+(8.89-2.54)*(1 if y0>Yt else -1)   # jog outwards so the two pairs' fields stay apart
+        ca=CP(PAIR[cref],Xt+17.78,y); cb=CP(cref,Xt+26.67,y,270)
+        s.wire(u(pin),(Xt+13.97,y0),ca(1)); s.wire(ca(2),cb(2)); s.wire(cb(1),(Xt+30.48,y),(Xt+30.48,row))
     k=s.place("Relay","G6K-2",k_ref,"G6K-2F-Y DC12",Xr,Yt-30.48,180,fp="Relay_SMD:Relay_DPDT_Omron_G6K-2F-Y",
               props=P("SX-K-001",Manufacturer="Omron",MPN="G6K-2F-Y DC12",Supplier="LCSC",SupplierPN="C397194",Note="Pole 2 (6/7/5) hot, pole 1 (3/2/4) cold; released = output grounded through 1k"))
     xc=Xt+30.48

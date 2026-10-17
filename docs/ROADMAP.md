@@ -12,7 +12,7 @@
    - Routing: pre-fader buffers, AUX sends with pre/post jumpers, bus assign, PFL and SC send, PFL_ACT driver *(done; outputs wait for the Meter and Chain sheets)*
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
-5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then the decision 162 rework (rear ribbons J603/J903 drawn 2026-10-12, decision 163; still the two passive row board projects after measuring an NYS216, panel-mounted headphone jack, 0805 meter LEDs, underside heatsinks), then PCB with the two row boards
+5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then the decision 162 rework (rear ribbons J603/J903 drawn 2026-10-12, decision 163; still the two passive row board projects after measuring an NYS216, panel-mounted headphone jack and 0805 meter LEDs done 2026-10-13; 2026-10-17: back-to-back coupling pairs (172), ten NE5532 → TL072 (173), Wakefield 637-10ABPE heatsinks (174, enclosure depth to /system)), then PCB with the two row boards
 6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB as an on-edge board in the power bay (decision 162)
 7. **Prototype build and measurement** against the targets in SPEC.md section 5
 
@@ -104,9 +104,9 @@ From `/system power conversion` (2026-10-08). About three-quarters of the supply
 
 1. **Done on the channel card (decision 123):** Channel U107 (cutoff CV summer, one unit unused): NE5532 → TL072. Saves 3.2 / 11 mA per rail per card; DC accuracy improves (FET input bias into 100-300 kΩ)
 2. **Done (decisions 123, 126):** channel U401, U404 and master U409, U410, U802, U804 TL072 → TL062; the superdiodes (channel U205, master U207, U307, U706) and the master's log-detector U407 stay TL072. Master saves about 9.6 mA per rail typical
-3. Later cost choice: NE5532 → OPA1678 in low-noise-gain audio stages (channel U3, U106; master U205, U305, U404, U405). Saves 2 / 11 mA per package with equal or better audio; costs more (price not checked)
+3. Later cost choice: NE5532 → OPA1678 in low-noise-gain audio stages (channel U3, U106; the master positions became TL072 by decision 173). Saves 2 / 11 mA per package with equal or better audio; costs more (price not checked)
 
-The channel share is done: decision 123 cut the card from 121 / 103 to 113 / 95 mA typical (the budget in `ARCHITECTURE.md` includes it). The master's share is done too: decision 126 moved four packages (about 9.6 mA per rail typical; master 340 / 269 → 331 / 260 mA with decision 125); `ARCHITECTURE.md` still shows the old master figures until `/system` reruns the budget. NE5532 → TL072 in audio stages was rejected (measurably more noise and distortion).
+The channel share is done: decision 123 cut the card from 121 / 103 to 113 / 95 mA typical (the budget in `ARCHITECTURE.md` includes it). The master's share is done too: decision 126 moved four packages (about 9.6 mA per rail typical; master 340 / 269 → 331 / 260 mA with decision 125); `ARCHITECTURE.md` still shows the old master figures until `/system` reruns the budget. NE5532 → TL072 in audio stages was rejected at first (measurably more noise and distortion); decision 173 (2026-10-17, the user) then moved ten master packages with low noise gain and light loads to TL072 (master 327 / 256 → 295 / 224 mA typical); the audible bus summers, send drivers and master out I-V stay NE5532.
 
 ## KiCad workflow
 

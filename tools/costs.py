@@ -340,7 +340,7 @@ def estimate_lines(channels, o, per_design=False, sets=1):
     lines.append((f"Frame, hardware, ribbons, 24 V brick ({brick_pn}), power rocker and LED", frame)); total += frame
     knobs = (o["knobs_eur_per_channel"] * channels + o["knobs_master_eur"]) * sets
     lines.append(("Knobs and fader caps (no schematic symbols)", knobs)); total += knobs
-    if any(i["price"] and i["price"]["jlc"] == "consign" for items in boms.values() for i in items):
+    if any(i["price"] and i["price"]["jlc"] == "consign" and not i["tht"] for items in boms.values() for i in items):   # hand-soldered parts are not consigned
         lines.append(("Consigned parts handling", o["consign_eur_per_order"])); total += o["consign_eur_per_order"]
     return lines, total, unpriced
 

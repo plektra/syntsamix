@@ -4,7 +4,7 @@
 
 The 34-pin audio ribbon (docs/CHAIN.md) brings the current-summing buses from the
 channel cards. Each bus node is the inverting input of a virtual-earth amplifier
-(NE5532, 22 kΩ ∥ 100 pF feedback: unity gain per 22 kΩ bus resistor, decisions 74 and 79).
+(NE5532, 22 kΩ ∥ 100 pF feedback: unity gain per 22 kΩ bus resistor, decisions 74 and 79; the SC bus on a TL072, decision 173).
 Bus nodes are also hierarchical, so other master sheets can sum into them; the
 amplifier outputs (<bus>_SUM, inverted) feed the rest of the master card.
 PFL_ACT gets its pull-up here.

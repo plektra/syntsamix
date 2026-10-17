@@ -18,8 +18,8 @@ RAW=float(sys.argv[1]) if len(sys.argv)>1 else 20.0
 V15,V5=15.1,5.0
 # part: (count, typ mA, max mA, rails) -- rails "pm" = both ±15 V, "p" = +15 V only
 parts={
- "NE5532 (bus 6, returns 6, compressor 3, sends 2, master out 1)":(18,6.0,16.0,"pm"),
- "TL072 (returns 4 incl. the receivers U201/U301 of decision 148, compressor 3, sidechain 5, master out 1, meter 2)":(15,2.8,5.0,"pm"),
+ "NE5532 (bus 5, sends 2, master out 1; decision 173)":(8,6.0,16.0,"pm"),
+ "TL072 (bus U106; returns 10 incl. the receivers U201/U301 of decision 148; compressor 6; sidechain 5, master out 1, meter 2; decision 173)":(25,2.8,5.0,"pm"),
  "TL062 (compressor U409, U410; meter U802, U804; decision 126)":(4,0.4,0.5,"pm"),
  "OPA2171 (U206, U306, U705: fader-law buffer and control summer)":(3,0.95,1.19,"pm"),
  "SSI2162 (returns 2, compressor 1, master out 1)":(4,6.0,8.0,"pm"),
@@ -50,11 +50,18 @@ for k in ("typ","max"):
     p,m,i5=total(k)
     pl317=(RAW-V15)*p/1000; pl337=(RAW-V15)*m/1000; p7805=(V15-V5)*(i5-l7805_iq[k=="max"])/1000+V15*l7805_iq[k=="max"]/1000
     print(f"{k}: +15 V {p:.0f} mA, -15 V {m:.0f} mA, +5 V {i5:.0f} mA | LM317 {pl317:.2f} W, LM337 {pl337:.2f} W, L7805 {p7805:.2f} W (raw {RAW:g} V)")
-# heatsink needed for TJ <= 100 C at 40 C ambient (TO-220 junction-to-case about 5 C/W, pad about 1 C/W)
+# heatsink needed for TJ <= 100 C (decision 95; TO-220 junction-to-case 5 C/W, onsemi LM317/D and LM337/D, pad about 1 C/W)
+# inside air: 57 C, decision 167's design point (22 K above a 35 C stage); 40 C was decision 95's original figure
+TA,TA_OLD=57.0,40.0
 p,m,_=total("max"); pw=(RAW-V15)*max(p,m)/1000
-print(f"worst regulator {pw:.2f} W: heatsink at most {(100-40)/pw-6:.1f} C/W for TJ <= 100 C at 40 C ambient")
+print(f"worst regulator {pw:.2f} W: heatsink at most {(100-TA)/pw-6:.1f} C/W for TJ <= 100 C at {TA:g} C inside air ({(100-TA_OLD)/pw-6:.1f} C/W at {TA_OLD:g} C)")
 p,m,_=total("typ"); pw=(RAW-V15)*max(p,m)/1000
-print(f"typical regulator {pw:.2f} W: free-air TO-220 (about 50 C/W) would reach TJ {40+pw*50:.0f} C")
+print(f"typical regulator {pw:.2f} W: heatsink at most {(100-TA)/pw-6:.1f} C/W at {TA:g} C; free-air TO-220 (65 C/W) would reach TJ {TA+pw*65:.0f} C")
+# decision 174: Wakefield 637-10ABPE (12.67 C/W) on each regulator, limit the parts' 125 C junction rating
+HS=12.67
+for k in ("max","typ"):
+    p,m,_=total(k); p317,p337=(RAW-V15)*p/1000,(RAW-V15)*m/1000
+    print(f"{k}: with the 637-10ABPE TJ LM317 {TA+p317*(HS+6):.0f} C, LM337 {TA+p337*(HS+6):.0f} C at {TA:g} C air (limit 125 C)")
 # Sizing for shared supply parts (decision 96): IC quiescent current at typical x 1.5,
 # use-dependent loads (relays, LEDs, signal, headphones) at their maximum.
 K=1.5
