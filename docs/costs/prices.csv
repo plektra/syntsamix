@@ -117,3 +117,6 @@ SX-WIRE-003,0.258,EUR,Mouser 517-3365/10FT,2026-10-13,hand,"3M 3365/10 flat cabl
 SX-D-009,0.054,USD,LCSC C19077578,2026-10-13,preferred,SMBJ24A SMB TVS: JLCPCB preferred (no row before; cost review 2026-10-13)
 SX-D-013,0.0966,USD,LCSC C19229 (50+),2026-10-13,extended,MDD SS510C SMC (no row before; cost review 2026-10-13)
 SX-F-002,0.1387,USD,LCSC C7433877 (50+),2026-10-13,extended,BHFUSE BSMD1812-200-33V (no row before; cost review 2026-10-13)
+SX-CONN-024,0.445,EUR,Mouser 737-BHR-12-VUA (10+),2026-10-18,hand,"Adam Tech BHR-12-VUA 2x6 box header, input header (decision 181); 0.354 at 100",,100:0.796
+SX-CONN-025,0.323,EUR,Mouser 737-FCS-12-SG (10+),2026-10-18,hand,"Adam Tech FCS-12-SG 2x6 IDC socket, off-board (input cable, decision 181); 0.266 at 100",,100:0.824
+SX-WIRE-006,0.39,EUR,Mouser 710-63911215521CAB,2026-10-18,hand,"Wurth 63911215521CAB 12-way flat cable, price per 150 mm input cable: a 1 m cut (2.34 at 1, 2.14 at 5, 1.94 at 10, 1.71 at 30) makes six (decision 181)",,

@@ -27,7 +27,7 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 - Modular by design: channel strips can be added one at a time; no channel card depends on another
 - Inputs accept hot Eurorack levels (up to ±12 V peak) as well as line levels
 - Channel HPF is dropped from the prototype to simplify the build (keep room to add it later); a fixed switchable 100 Hz low-cut is included instead
-- Input jacks sit on a separate passive input module (10-pin header, `docs/INPUT-MODULE.md`); the cutoff CV IN and CV OUT jacks are on the channel card's top panel (CV OUT chains the cutoff to other channels; a jumper selects CV only or CV + pot, decision 165)
+- Input jacks sit on a separate passive input module (12-pin IDC header, `docs/INPUT-MODULE.md`); the cutoff CV IN and CV OUT jacks are on the channel card's top panel (CV OUT chains the cutoff to other channels; a jumper selects CV only or CV + pot, decision 165)
 - Stereo button functions switch through DG413 analog switches; audio never runs through a button: buttons carry logic, LED and DC control currents (MUTE and DUCK switch the VCA control voltage directly, decisions 142 and 152)
 
 ## How to work on this project
@@ -66,4 +66,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-180; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-181; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); no PCB yet. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

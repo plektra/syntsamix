@@ -78,10 +78,10 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 |---|---|
 | Rear panel | one black FR4 strip per channel, 34.8 mm wide (as the top panels), 1.6 mm; the master section and the power bay have their own rear pieces (decision 162) |
 | Rear strip fixing | top: one M3 screw into a T-nut in the rear 2020 rail's back slot; bottom: one screw into an aluminium angle (about 20 × 20 × 2 mm, cut to length) along the rear bottom edge |
-| Input module (6.3 mm) | PCB on edge in the front-to-back vertical plane, below the rear rail, centred on its strip; NYS216 jacks stacked, L/MONO above R, about 19 mm between centres; module about 40 mm tall; fixed only by the jack nuts on the rear strip; KK 254 header facing forward |
+| Input module (6.3 mm) | PCB on edge in the front-to-back vertical plane, below the rear rail, centred on its strip; NYS216 jacks stacked, L/MONO above R, about 19 mm between centres; module about 40 mm tall; fixed only by the jack nuts on the rear strip; 2x6 box header facing forward (decision 181) |
 | Why stacked | NYS216 is 17.7 mm wide across its pin rows (footprint from Rean's drawing): two side by side need 35.4 mm, more than the 35.0 mm pitch |
 | Rear inside height | about 60 mm: 20 mm rail plus about 40 mm of jack zone; *from the module layout* |
-| Input cable (decisions 99, 179, 180) | ready-made Molex 217796-1101, 150 mm; the channel card layout places its KK header near the rear edge, within reach. **Changing (decision 180):** a self-made IDC ribbon on box headers (2x6 proposed); the `/system` session that settles it also updates this row, the 10-pin wording here and in `ARCHITECTURE.md` |
+| Input cable (decisions 99, 180, 181) | self-made 12-way IDC flat cable, 150 mm, between the 2x6 box headers; the channel card layout places its header near the rear edge, within reach |
 
 ## Frame shape (decision 160)
 

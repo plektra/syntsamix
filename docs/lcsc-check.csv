@@ -4,7 +4,8 @@ SX-IC-002,Dual VCA SSOP-10 1.00 mm pitch,SSI2162SS-TU / SSI2162,,,,,,not found a
 SX-IC-003,Dual difference amplifier G=1/2 or 2,AD8273ARZ / AD8273,,,,,,not found at LCSC: consign or hand-solder
 SX-POT-001,Fader 60 mm 10 kOhm linear,,,,,,,hand-solder (through-hole or mechanical)
 SX-CONN-001,6.3 mm stereo jack switched (T R S all switched) horizontal PCB,,,,,,,hand-solder (through-hole or mechanical)
-SX-CONN-002,Header 1x10 2.54 mm vertical friction lock (KK 254),,,,,,,hand-solder (through-hole or mechanical)
+SX-CONN-002,(replaced by SX-CONN-024; decision 181) Header 1x10 2.54 mm vertical friction lock (KK 254),,,,,,,hand-solder (through-hole or mechanical)
+SX-CONN-024,Box header 2x6 2.54 mm shrouded straight (Adam Tech BHR-12-VUA),,,,,,,hand-solder (through-hole or mechanical)
 SX-IC-004,Dual low-noise op amp SOIC-8,NE5532DR / NE5532D,C7426,NE5532DR,basic,91852,0.1064,from an earlier query on 2026-10-06 (search flaky); recheck
 SX-IC-005,Quad SPST analog switch 2NO+2NC SOIC-16,DG413DY-T1-E3 / DG413DY,C141600,DG413DY-T1-E3,extended,331,,from an earlier query on 2026-10-06 (search flaky); recheck
 SX-R-001,Resistor 100 Ohm 1% 0805,100 Ohm 0805 1%,C17408,0805W8F1000T5E,basic,2576764,0.0028,

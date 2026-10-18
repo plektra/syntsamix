@@ -17,7 +17,7 @@ The system-level view: how the boards fit together, the numbers that cross board
  cards 1-8   cards 9-16                    ┌──────┴───────┐   ┌──────────────┐
  (each card regulates ±15 V, +5 V)         │ Channel card ├───┤ Channel card ├── ... up to 16
                                            └──────▲───────┘   └──────────────┘
-                                                  │ 10-pin header
+                                                  │ 12-pin header
                                            ┌──────┴───────┐
                                            │ Input module │ (passive, jacks)
                                            └──────────────┘
@@ -31,7 +31,7 @@ The diagram is not to scale: left to right the unit holds the channel strips, th
 |---|---|---|
 | Audio ribbon, 34-pin | `docs/CHAIN.md` | master card, every channel card |
 | Power ribbon, 8-pin | `docs/CHAIN.md` | power board, master card, channel cards |
-| Input header, 10-pin | `docs/INPUT-MODULE.md` | channel card, input module |
+| Input header, 12-pin (2x6 IDC, decision 181) | `docs/INPUT-MODULE.md` | channel card, input module |
 | Strip envelope, panels, frame | `docs/MECHANICAL.md` | every board, panels, frame |
 
 ## Cross-board budgets

@@ -5,4 +5,5 @@ master,SX-CONN-015,11,Rear jacks NYS216 on the two row boards (decisions 162-163
 master,SX-SW-002,1,Ground-lift switch on the rear input row board (part not chosen); move with the row boards
 master,SX-CONN-017,2,26-pin headers on the two rear row boards (decision 163); move with the row boards
 master,SX-CONN-018,4,26-pin IDC sockets: two rear ribbons with a socket at each end (decision 163)
-input-module-6p3,SX-CONN-022,1,Input cable Molex 217796-1101 ready-made (decision 179)
+input-module-6p3,SX-CONN-025,2,Input cable IDC sockets Adam Tech FCS-12-SG (decision 181)
+input-module-6p3,SX-WIRE-006,1,Input cable Wurth 12-way flat cable 150 mm (decision 181)

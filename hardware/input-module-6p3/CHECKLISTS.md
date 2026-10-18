@@ -8,13 +8,18 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 - **Rear strip:** the 34.8 mm FR4 panel with the two 11.4 mm cut-outs and legends is drawn with this board. It carries the exhaust slots of decision 167 (`docs/MECHANICAL.md`, Ventilation): four routed 2 × 30 mm slots in the jack zone, two beside each jack nut, with the legends and the top screw on the 20 mm in front of the rail.
 - Measure the NYS216 nut (taken as about 15 mm across). Check that the rear bottom angle (decision 160, 20 × 20 mm) clears the lower slots and the lower jack's body; if not, propose to /system an angle under the jack zone or a shorter leg. Report the module's final height to /system: it sets the rear inside height (about 60 mm).
 - **Jack pin roles (decision 132):** the footprint `syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal` (rows 16.50 mm apart, cut-out 11.4 mm) has inferred pin roles; check them with a meter on the first delivered jack before ordering this PCB.
-- **Cable header (decision 180):** the footprint follows the `/system` ruling on the IDC box header; until then J3 is the drawn KK 254 1×10.
+- **Cable header (decision 181):** J3 becomes the Adam Tech BHR-12-VUA 2x6 (SX-CONN-024); check the footprint against drawing BHR-XX-VUA (holes 1.02 mm, outer 22.86 × 8.80 mm, key slot 4.50 mm centred on the odd-pin side) and place it facing forward.
+
+## Check on delivery
+
+- Press one test input cable (Würth 12-way SX-WIRE-006 into two FCS-12-SG, SX-CONN-025; the FCS drawing names no cable pitch or gauge) and check it 1:1 with a meter.
+- Dry-fit a 2x4 power socket in the BHR-12-VUA shroud once: it should sit centred on pins 3-10 (decision 181, misplug rule).
 
 ## Cost-cut levers
 
 - Done: Rean NYS216 jacks instead of the Neutrik NMJ6HCD2 (decision 132), about €3.50 per module in parts instead of about €6; through-hole parts hand-soldered by the user (decision 133).
-- Accepted (decision 180, details for /system): an IDC ribbon on 2x6 box headers instead of the Molex 217796-1101 lead, about €1.65 per channel against €5.98, saving about €17 at 4 channels and €69 at 16 (`docs/reviews/2026-10-18-cost-input-module-6p3.md`).
-- Rejected by the user (2026-10-18): cheaper LCSC 6.3 mm jacks (about €5 / €8 / €12 saved at 4 / 8 / 16 channels, no cycle rating, mostly no threaded bushing); latched headers proposed against (+€1 per header).
+- Done (decisions 180, 181): a self-made IDC flat cable on 2x6 box headers instead of the Molex 217796-1101 lead, about €1.85 per channel against €5.98, saving about €16 at 4 channels and €66 at 16 (`docs/reviews/2026-10-18-cost-input-module-6p3.md`). Estimate 2026-10-18 with the cable parts counted (headers still SX-CONN-002 until redrawn): €813 / €1,075 / €1,689 at 4 / 8 / 16 channels.
+- Rejected by the user (2026-10-18): cheaper LCSC 6.3 mm jacks (about €5 / €8 / €12 saved at 4 / 8 / 16 channels, no cycle rating, mostly no threaded bushing); latched headers (+€1 per header; none, decision 181).
 - Not now (the user, 2026-10-18): one board for two channels' jacks (decision 160), a DB25 bundle input module (possible later under `docs/INPUT-MODULE.md`).
 
 ## Component values (decision 134)
@@ -23,4 +28,4 @@ This board has no resistors or capacitors; the rule in `CLAUDE.md` applies if an
 
 ## RoHS
 
-- **RoHS strict (decision 116; invariant 9, decision 122):** every part on this board needs a maker or supplier RoHS statement recorded in `docs/parts.csv` as `RoHS: <source>` before ordering, and the board is ordered with a lead-free finish (lead-free HASL or ENIG) and lead-free assembly. The audit of this board's registered parts runs before the first PCB order (`docs/CONTINUE-FROM-HERE.md`); the IDC parts of decision 180 still need theirs.
+- **RoHS strict (decision 116; invariant 9, decision 122):** every part on this board needs a maker or supplier RoHS statement recorded in `docs/parts.csv` as `RoHS: <source>` before ordering, and the board is ordered with a lead-free finish (lead-free HASL or ENIG) and lead-free assembly. The audit of this board's registered parts runs before the first PCB order (`docs/CONTINUE-FROM-HERE.md`); the IDC parts of decision 181 have theirs (Adam Tech drawings, Würth datasheet).

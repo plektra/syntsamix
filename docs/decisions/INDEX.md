@@ -92,7 +92,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 65 | Switchable fixed low-cut | confirmed | [channel-card](channel-card.md) |
 | 66 | Sidechain ducking through channel VCAs | confirmed | [system](system.md) |
 | 67 | Cutoff CV jack on the channel card | confirmed | [input-module](input-module.md) |
-| 68 | 10-pin input header | confirmed | [input-module](input-module.md) |
+| 68 | Input header (10-pin KK; 2x6 box header since 181) | confirmed, refined | [input-module](input-module.md) |
 | 69 | Stereo buttons switch through DG413 (DC control voltages by the button itself: 152) | confirmed, refined | [system](system.md) |
 | 70 | Licensing: non-commercial source-available | confirmed | [process](process.md) |
 | 71 | Resonance compensation via LM13700 Q VCA | confirmed | [channel-card](channel-card.md) |
@@ -123,13 +123,13 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 96 | Power sizing rule: own parts worst case, shared parts typical × 1.5 plus use loads | confirmed | [system](system.md) |
 | 97 | SC_ENV negative, −1 V = 10 dB, summed into the control summer's virtual earth | confirmed, refined (153) | [system](system.md) |
 | 98 | PFL_ACT drivers and button pull-downs return to PGND | confirmed | [system](system.md) |
-| 99 | Input-module cable: 1:1 KK 254 crimp cable (length: 160) | confirmed, refined | [input-module](input-module.md) |
+| 99 | Input-module cable: 1:1 cable (IDC flat cable since 181; length: 160) | confirmed, refined | [input-module](input-module.md) |
 | 100 | Power board: 24 V Class II brick, non-isolated TPS54560 buck and inverter at 400 kHz, protection and output fusing, start-up ramp | confirmed | [power](power.md) |
 | 101 | Floating supply: the power ribbons' source floats from mains earth (invariant 8); mains supply to the backlog | confirmed | [system](system.md) |
 | 102 | Channel fader buffer and control summer on an OPA2171 (input range includes V−) | confirmed | [channel-card](channel-card.md) |
 | 103 | Master fader-law buffers and summers (U206, U306, U705) on an OPA2171 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 104 | SC_ENV drive: negative DEPTH, follower fed back after 100 Ω, BAT54 clamp | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 105 | Input header pinout confirmed as drawn | confirmed | [input-module](input-module.md) |
+| 105 | Input header signals (pin numbers since 181) | confirmed, refined | [input-module](input-module.md) |
 | 106 | Strip envelope (35 mm pitch, card ≤ 33 mm, control area ≤ 320 mm), CV jack above CUTOFF, `MECHANICAL.md` contract | confirmed, refined | [mechanical](mechanical.md) |
 | 107 | Panel stack: PCB 10 mm below the panel, pots hold the panel, fader screwed to the panel before soldering, top-side parts ≤ 9 mm (underside: 112, 121) | confirmed, refined | [mechanical](mechanical.md) |
 | 108 | Card fixing: panel on both 2020 rails, two M3 screws per end into T-nuts (now one per end, 120); PCB between the rails, ≤ 318 mm | confirmed, refined | [mechanical](mechanical.md) |
@@ -204,7 +204,8 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 177 | AUX return MUTE and DUCK switched by the buttons' spare poles as channel 142 (rule 152); U208/U308 DG413 removed, master DG413 ×10 → ×8; refines 88, 150 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 178 | Chain flat cable Würth WR-CAB 28 AWG with a maker-stated 1 A (34-way and true 8-way, 1 m cut lengths) instead of the unrated 3M 3365; keeps 96's rule; refines 175 | confirmed | [system](system.md) |
 | 179 | Input cable ready-made Molex 217796-1101 (150 mm, 22 AWG) instead of hand crimping; 1:1 wiring checked on the sales drawing or with a meter on delivery; crimp parts the fallback; refines 99, 160 | confirmed | [input-module](input-module.md) |
-| 180 | Input cable a self-made IDC ribbon on shrouded box headers instead of the Molex lead (about €4 per channel); NYS216 jacks kept; size 2x6, pin mapping, keying, no latches **[proposed]** for /system; refines 68, 99, 179 | confirmed (direction), details proposed | [input-module](input-module.md) |
+| 180 | Input cable a self-made IDC flat cable on shrouded box headers instead of the Molex lead (about €4 per channel); NYS216 jacks kept; refines 68, 99, 179; details in 181 | confirmed | [input-module](input-module.md) |
+| 181 | Input header Adam Tech BHR-12-VUA 2x6, no latches; cable Würth WR-CAB 12-way with FCS-12-SG sockets, 150 mm, 1:1; misplug-safe pinout 1 DO_L, 2 AGND, 3 L+, 4 L−, 5-8 AGND, 9 R+, 10 R−, 11 AGND, 12 DO_R; refines 68, 99, 105, 179, 180 | confirmed | [input-module](input-module.md) |
 
 ## Proposed but not confirmed
 
