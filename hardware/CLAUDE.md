@@ -25,6 +25,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
   - Op amps without a KiCad symbol (OPA2171): use `Amplifier_Operational:Opamp_Dual` (same pins and geometry as the TL072) with the part as the value.
   - A ground symbol pointing up (rotation 180) puts its "PGND" text on the part it hangs from; tie such pins to a short ground bar with one downward symbol instead.
   - A local label may share a hierarchical label's name on the same sheet; two different names on one net give a multiple_net_names warning.
+- Hand edits through the KiCad MCP server (input module): `kicad_set_project` needs absolute `sch_file`/`pcb_file` paths in a worktree; `sch_add_symbol` puts the Reference and Value text on the symbol body (move them in the file); `sch_render_png` needs CairoSVG, which is not installed (use the kicad-cli route below; kicad-cli is at `/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli`, not on PATH). Heredocs are refused in a worktree session: write a check script to the job's tmp folder and run it with `python3 -I`.
 - Visual check: `kicad-cli sch export svg -o build/svg ../<project>.kicad_sch`, then crop with a small viewBox script and render with `qlmanage -t` (no rsvg/ImageMagick on this Mac). Look at every new sheet before reporting.
 
 ## Parts

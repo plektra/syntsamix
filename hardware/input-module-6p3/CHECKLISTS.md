@@ -8,7 +8,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 - **Rear strip:** the 34.8 mm FR4 panel with the two 11.4 mm cut-outs and legends is drawn with this board. It carries the exhaust slots of decision 167 (`docs/MECHANICAL.md`, Ventilation): four routed 2 × 30 mm slots in the jack zone, two beside each jack nut, with the legends and the top screw on the 20 mm in front of the rail.
 - Measure the NYS216 nut (taken as about 15 mm across). Check that the rear bottom angle (decision 160, 20 × 20 mm) clears the lower slots and the lower jack's body; if not, propose to /system an angle under the jack zone or a shorter leg. Report the module's final height to /system: it sets the rear inside height (about 60 mm).
 - **Jack pin roles (decision 132):** the footprint `syntsamix:Jack_6.35mm_Rean_NYS216_Horizontal` (rows 16.50 mm apart, cut-out 11.4 mm) has inferred pin roles; check them with a meter on the first delivered jack before ordering this PCB.
-- **Cable header (decision 181):** J3 becomes the Adam Tech BHR-12-VUA 2x6 (SX-CONN-024); check the footprint against drawing BHR-XX-VUA (holes 1.02 mm, outer 22.86 × 8.80 mm, key slot 4.50 mm centred on the odd-pin side) and place it facing forward.
+- **Cable header J3 (decision 181):** Adam Tech BHR-12-VUA 2x6 (SX-CONN-024) on KiCad `Connector_IDC:IDC-Header_2x06_P2.54mm_Vertical`, the same footprint as the channel card's J1 (checked 2026-10-19 against drawing BHR-XX-VUA: drill 1.0 mm against 1.02 mm, fab body 8.90 × 22.90 mm against 22.86 × 8.80 mm, key slot on the odd-pin side and centred; the fab slot is drawn 4.1 mm against 4.50 mm, drawing only). Place it facing forward (the cable leaves towards the channel card), pin 1 marked on the silkscreen.
 
 ## Check on delivery
 
@@ -18,7 +18,7 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 ## Cost-cut levers
 
 - Done: Rean NYS216 jacks instead of the Neutrik NMJ6HCD2 (decision 132), about €3.50 per module in parts instead of about €6; through-hole parts hand-soldered by the user (decision 133).
-- Done (decisions 180, 181): a self-made IDC flat cable on 2x6 box headers instead of the Molex 217796-1101 lead, about €1.85 per channel against €5.98, saving about €16 at 4 channels and €66 at 16 (`docs/reviews/2026-10-18-cost-input-module-6p3.md`). Estimate 2026-10-18 with the cable parts counted (headers still SX-CONN-002 until redrawn): €813 / €1,075 / €1,689 at 4 / 8 / 16 channels.
+- Done (decisions 180, 181): a self-made IDC flat cable on 2x6 box headers instead of the Molex 217796-1101 lead, about €1.85 per channel against €5.98, saving about €16 at 4 channels and €66 at 16 (`docs/reviews/2026-10-18-cost-input-module-6p3.md`). Estimate 2026-10-18 with the cable parts counted (headers still SX-CONN-002 until redrawn): €813 / €1,075 / €1,689 at 4 / 8 / 16 channels; with both headers on SX-CONN-024 (2026-10-19): €811 / €1,072 / €1,684.
 - Rejected by the user (2026-10-18): cheaper LCSC 6.3 mm jacks (about €5 / €8 / €12 saved at 4 / 8 / 16 channels, no cycle rating, mostly no threaded bushing); latched headers (+€1 per header; none, decision 181).
 - Not now (the user, 2026-10-18): one board for two channels' jacks (decision 160), a DB25 bundle input module (possible later under `docs/INPUT-MODULE.md`).
 
