@@ -442,13 +442,15 @@
   ]
  },
  "J1": {
-  "lib": "Connector_Generic:Conn_01x10",
+  "lib": "Connector_Generic:Conn_02x06_Odd_Even",
   "value": "INPUT MODULE",
-  "footprint": "Connector_Molex:Molex_KK-254_AE-6410-10A_1x10_P2.54mm_Vertical",
+  "footprint": "Connector_IDC:IDC-Header_2x06_P2.54mm_Vertical",
   "props": {
-   "ProjectPN": "SX-CONN-002",
-   "Manufacturer": "Molex",
-   "Supplier": "Mouser"
+   "ProjectPN": "SX-CONN-024",
+   "Manufacturer": "Adam Tech",
+   "MPN": "BHR-12-VUA",
+   "Supplier": "Mouser",
+   "SupplierPN": "737-BHR-12-VUA"
   },
   "units": [
    1

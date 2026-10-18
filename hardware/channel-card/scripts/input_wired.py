@@ -25,13 +25,17 @@ def rt(p,d=2.54): return (p[0]+d,p[1])
 NOCONNECT=[]
 
 # ------------------------------------------------------------- input header (labels to the RFI filters)
-j=place("J1",30.48,127.0,180)
-for pin,net in (("1","AGND"),("4","AGND"),("7","AGND"),("10","AGND"),("2","IN_L+"),("3","IN_L-"),("5","IN_R+"),("6","IN_R-")):
-    e=rt(j(pin),5.08)
-    s.wire(j(pin),e)
-    if net=="AGND": gnd(e,90)
-    else: s.label(net,e,0)
-NOCONNECT+=[j("8"),j("9")]
+# 2x6 box header, pinout of decision 181 (docs/INPUT-MODULE.md): odd pins left, even pins right; DO_L/DO_R (1, 12) open
+j=place("J1",45.72,157.48,0)
+for pin,net,side,rot in (("3","IN_L+",lt,180),("9","IN_R+",lt,180),("4","IN_L-",rt,0),("10","IN_R-",rt,0)):
+    e=side(j(pin),5.08); s.wire(j(pin),e); s.label(net,e,rot)
+# AGND pins of each side run past the label text to one vertical ground line with a single downward symbol
+for pins,side in ((("5","7","11"),lt),(("2","6","8"),rt)):
+    xg=side(j(pins[0]),17.78)[0]; ends=[(xg,j(p)[1]) for p in pins]
+    for p,e in zip(pins,ends): s.wire(j(p),e)
+    for a,b_ in zip(ends,ends[1:]): s.wire(a,b_)
+    g=(xg,j("12")[1]+5.08); s.wire(ends[-1],g); gnd(g)
+NOCONNECT+=[j("1"),j("12")]
 
 # ------------------------------------------------------------- receiver: TL072 difference amplifier, G = 1/2 (decision 143)
 # R1-R4 (10k 0.1 %, with the 220p RFI caps) are the first half of each 20k input leg. IN+ drives the inverting leg and
@@ -116,7 +120,7 @@ channel("L",0,outL,("C5","C21"),"R5",("U2",1,"U2",("2","3","1")),"C7","R7","R9",
 channel("R",76.2,outR,("C6","C22"),"R6",("U2",2,"U90022",("6","5","7")),"C8","R8","R10","D3","D4","C11","C12","R13","R14",
         ("U3",2,"U90032",("5","6","7")),("U90042",2,0,"8","6","7"),("U90043",3,180,"9","11","10"),"R16")
 
-gnd((25.4,180.34)); s.tp("TP7","AGND",(25.4,180.34),"up")
+gnd((33.02,180.34)); s.tp("TP7","AGND",(33.02,180.34),"up")
 
 # ------------------------------------------------------------- trim pot (both gangs), labels to the trim stages
 rv=place("RV1",76.2,254.0,0)

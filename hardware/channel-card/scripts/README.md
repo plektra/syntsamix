@@ -40,7 +40,7 @@ Use `filter` with power-reference prefix `1`, `input` with `0`, `routing` with `
   - prefixes power references per sheet;
   - renames the GNDA/GNDPWR ground symbols to the project nets AGND/PGND;
   - adds junctions, no-connect markers, the title block (`reference/<sheet>_title.json`) and DNP flags;
-  - places reference and value text beside each part (`left_fields` in the title file puts it on the left).
+  - places reference and value text beside each part (`left_fields` in the title file puts it on the left; `field_at` gives a part explicit reference and value offsets from its origin, for connectors and other symbols the default rules do not cover).
 - **`fix_paths.py`:** rewrites symbol instance paths to `/<root>/<sheet>`, sets the project name and gives each sheet a unique page number (`sch_create_sheet` numbers every new sheet page 2). Without it the KiCad app reports "An error was found when loading the schematic" and repairs the file itself.
 - **`check_netlist.py`:** exports the card netlist and compares it pin by pin with the reference; also lists duplicate references across sheets, which ERC does not report.
 - **`make_reference.py`:** freezes a sheet's current netlist and part fields into `reference/` before it is redrawn.

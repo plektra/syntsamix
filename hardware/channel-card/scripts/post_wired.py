@@ -10,7 +10,7 @@ no-connect markers, the title block and DNP flags.
 import json,re,sys,uuid,os
 from schlayout import add_junctions
 p,pre,extra,title=sys.argv[1],sys.argv[2],json.load(open(sys.argv[3])),json.load(open(sys.argv[4]))
-LEFT=set(title.get('left_fields',[]))
+LEFT=set(title.get('left_fields',[])); FIELD_AT=title.get('field_at',{})
 s=open(p).read()
 s=re.sub(r'"U9(\d{3})[1-9]"',lambda m:f'"U{int(m.group(1))}"',s)
 s=re.sub(r'"#PWR0*([0-9]+)"',lambda m:f'"#PWR{pre}{int(m.group(1)):03d}"',s)
@@ -44,6 +44,9 @@ def place_fields(blk):
     ref=re.search(r'\(property "Reference" "([^"]+)"',blk).group(1)
     if lib.startswith('power:'):
         return re.sub(r'(\(property "(?:Value|Reference)" "[^"]*"\s*\(at [-\d.]+ [-\d.]+ )180\)',r'\g<1>0)',blk)
+    if ref in FIELD_AT:   # explicit offsets from the title file: {"ref": {"Reference": [dx, dy], "Value": [dx, dy]}}
+        for name,(dx,dy) in FIELD_AT[ref].items(): blk=setf(blk,name,x+dx,y+dy,None)
+        return blk
     vertical=(lib in ('Device:R','Device:C','Device:R_Potentiometer','Device:R_Potentiometer_Trim') and rot in (0,180)) or (lib in ('Device:D','Device:LED') and rot in (90,270))
     horizontal=(lib in ('Device:R','Device:C') and rot in (90,270)) or (lib in ('Device:D','Device:LED') and rot in (0,180))
     if vertical:
