@@ -3,7 +3,7 @@
 """Routing sheet reference netlist (build/routing.json), written independently of the drawing.
 
 Pre-fader buffers, two stereo AUX sends (dual-gang pot, pre/post jumper),
-main/compressor bus assign (DG413), PFL and sidechain send (DG413), the
+main/compressor bus assign (CD4052B), PFL and sidechain send (CD4052B), the
 open-collector PFL_ACT driver and the three buttons. Bus resistors 22 kΩ
 (unity gain into a 22 kΩ virtual-earth amplifier on the master card); the
 sidechain send sums L and R through 44.2 kΩ each, so the SC bus carries (L+R)/2.
@@ -24,16 +24,20 @@ for n,j,rv,rl,rr in ((1,"J301","RV301","R307","R308"),(2,"J302","RV302","R309","
     N("AGND",f"{rv}.1",f"{rv}.4"); N(f"L_AUX{n}_SRC",f"{rv}.3"); N(f"R_AUX{n}_SRC",f"{rv}.6")
     N(f"L_AUX{n}_W",f"{rv}.2",f"{rl}.2"); N(f"AUX{n}_L",f"{rl}.1")
     N(f"R_AUX{n}_W",f"{rv}.5",f"{rr}.2"); N(f"AUX{n}_R",f"{rr}.1")
-# bus assign: U302 DG413, pressed = compressor bus
-N("L_POSTFADE","R301.1"); N("L_BUS","R301.2","U302.2","U93024.15"); N("COMP_L","U302.3"); N("MAIN_L","U93024.14")
-N("R_POSTFADE","R302.1"); N("R_BUS","R302.2","U93023.10","U93022.6"); N("MAIN_R","U93023.11"); N("COMP_R","U93022.7")
-N("COMP_CTRL","U302.1","U93024.16","U93023.9","U93022.8")
-# PFL and SC send: U303 DG413, PFL on the NO sections 1 and 4, SC send on the NC section 2
-N("L_PRE","R303.1","R305.1"); N("L_PFLR","R303.2","U303.2"); N("CUE_L","U303.3")
-N("R_PRE","R304.1","R306.1"); N("R_PFLR","R304.2","U93032.6"); N("CUE_R","U93032.7")
-N("PFL_CTRL","U303.1","U93032.8")
-N("SC_SUM","R305.2","R306.2","U93034.15"); N("SC","U93034.14"); N("SC_OFF","U93034.16")
-N("AGND","U93033.9","U93033.10","U93033.11")
+# CD4052B switches at the bus end of each bus resistor (decision 183): the common sits at
+# virtual-earth level and every throw is a master virtual earth or AGND, so the switch only
+# sees millivolts. A = control, B and INH low: channels 0 and 1 only (X2/X3/Y2/Y3 open).
+# Pins: X 13, X0 12, X1 14, Y 3, Y0 1, Y1 5, A 10, B 9, INH 6, VEE 7, VSS 8, VDD 16.
+for u,ctrl in (("U302","COMP_CTRL"),("U303","PFL_CTRL"),("U304","SC_OFF")):
+    N(ctrl,f"{u}.10"); N("AGND",f"{u}.9",f"{u}.6",f"{u}.8"); N("+5V",f"{u}.16"); N("VEE",f"{u}.7")
+# bus assign: U302, A = COMP_CTRL, pressed = compressor bus
+N("L_POSTFADE","R301.1"); N("L_BUS","R301.2","U302.13"); N("MAIN_L","U302.12"); N("COMP_L","U302.14")
+N("R_POSTFADE","R302.1"); N("R_BUS","R302.2","U302.3"); N("MAIN_R","U302.1"); N("COMP_R","U302.5")
+# PFL: U303, A = PFL_CTRL, released = resistor end to AGND, pressed = cue bus
+N("L_PRE","R303.1","R305.1"); N("L_PFLR","R303.2","U303.13"); N("AGND","U303.12"); N("CUE_L","U303.14")
+N("R_PRE","R304.1","R306.1"); N("R_PFLR","R304.2","U303.3"); N("AGND","U303.1"); N("CUE_R","U303.5")
+# SC send: U304 X, A = SC_OFF (high while SW302 is released): 0 = SC bus, 1 = AGND; Y unused
+N("SC_SUM","R305.2","R306.2","U304.13"); N("SC","U304.12"); N("AGND","U304.14")
 # PFL_ACT open-collector driver
 N("PFL_CTRL","R311.1"); N("Q_B","R311.2","Q301.1"); N("PGND","Q301.2"); N("PFL_ACT","Q301.3")
 # buttons
@@ -42,10 +46,10 @@ for name,sw,led,rl,rp in (("PFL","SW301","D301","R312","R313"),("SC","SW302","D3
     N(f"{name}_LED",f"{led}.2",f"{rl}.2"); N("+15V",f"{rl}.1"); N("PGND",f"{rp}.1")
 N("L_PRE","TP301.1"); N("R_PRE","TP302.1")
 # supplies and decoupling
-N("+15V","U93013.8","U93025.13","U93035.13"); N("-15V","U93013.4","U93025.4","U93035.4")
-N("+5V","U93025.12","U93035.12"); N("AGND","U93025.5","U93035.5")
-for k in (301,303,305): N("+15V",f"C{k}.1"); N("AGND",f"C{k}.2")
-for k in (302,304,306): N("-15V",f"C{k}.1"); N("AGND",f"C{k}.2")
+N("+15V","U93013.8"); N("-15V","U93013.4")
+N("+15V","C301.1"); N("AGND","C301.2"); N("-15V","C302.1"); N("AGND","C302.2")
+for k in (303,305,307): N("+5V",f"C{k}.1"); N("AGND",f"C{k}.2")
+for k in (304,306,308): N("VEE",f"C{k}.1"); N("AGND",f"C{k}.2")   # VEE (about -6.2 V) is made on the Chain and power sheet
 T=os.path.join(os.path.dirname(os.path.abspath(__file__)),'build')+'/'; os.makedirs(T,exist_ok=True)
 json.dump({"nets":[{"name":k,"pins":v} for k,v in nets.items()]},open(T+'routing.json','w'))
 print(len(nets),"nets",sum(len(v) for v in nets.values()),"pins")

@@ -25,6 +25,8 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 - **T18 panel pots:** bushing thread M7×0.75 × 5 mm (Alpha's RD902F drawing; confirmed by Thonk support 2026-10-09 for the Thonk pots): check the nut fit; legs bent back parallel to the shaft and bracket tabs in the footprint slots. Tayda sells 9 mm and 16 mm horizontal Alpha pots under similar names (the C10K dual is an RV16A01F-20): check any further Tayda pot against its own drawing.
 - **CV jack Thonkiconn:** the nut (thickness not on Thonk's drawing, typically about 2 mm) grips the 2.9 mm of thread left above the printed washer and the panel. Pinout settled (1 sleeve, 2 switch, 3 tip; pads S/TN/T).
 - **LED brightness:** even out the button LEDs (12 k from +15 V, about 1 mA) per colour after a test with the printed caps; the same for the meter once its bezel is printed.
+- **BOCHEN 3296W trimmers (decision 184):** the BOCHEN sheet numbers pins 1-2-3 but does not name the wiper: check with a meter that pin 2 is the wiper (as on the Bourns) before soldering, and that the body fits the Bourns 3296W footprint (2.5 mm drawn pitch against 2.54 mm).
+- **CD4052B switches (decision 183):** at bring-up measure VEE at TP507 (about −5.9 to −6.5 V); press and release COMP BUS, PFL and SC SEND with audio running and listen for clicks on the main, cue and SC buses (charge injection into the master's virtual earths, expected no worse than the DG413's); check that a released PFL and SC send leave nothing on the cue and SC buses.
 
 ## Cost-cut levers (open)
 
@@ -37,6 +39,7 @@ Open:
 7. **Coupling capacitors: decided (decision 161, 2026-10-11).** Each 10 µF bipolar became two ROQANG 10 µF (SX-C-024) back to back, placed by JLCPCB with no new fee type; the X5R option is dropped (dearer than the pair). Breadboard test 11 checks the pair.
 11. **Hand-soldering consigned parts: decided (decision 155, 2026-10-10).** The user hand-solders the SSI2144 ×2 (U101/U102) and the SSI2162 (U201) on the prototype (Assembly = "hand (decision 155)"), so neither type is consigned: 38 → 36 fee types, €794 → €788 for 4 channels. The bipolar 10 µF SX-C-023 is gone from the card since decision 161 (lever 7), so nothing here is consigned; the €30 handling ends once the master swaps too.
 13. **Fixed V/oct scale (product):** replace RV182 with an E24 pair if breadboard test 12 shows the chips' scales within about ±2 %; one part and one calibration step fewer per card.
+14. **Done 2026-10-19 (commercial-console comparison, levers 1 and 2):** trimmers BOCHEN 3296W from LCSC (decision 184, about €4.35 per card) and bus assign, PFL and SC send on CD4052B at the virtual-earth bus ends (decision 183, about €2.0 per card). Still open from that comparison: low-cut and filter bypass as virtual-earth switches too (would take the DG413 off the card: about €2.3 per card more, but needs a summing stage around each, so a circuit change), and the same review of the master's eight DG413s.
 
 ## Component values (decision 134)
 

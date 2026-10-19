@@ -5,7 +5,8 @@
 Reference netlist: chain_build.py (check_netlist.py chain.json).
 Layout: audio header (top) and power header (left), one each on the multi-drop
 chain cables (decision 175), LM317 (+15 V),
-LM337 (-15 V) and 78L05 (+5 V) regulators (middle), with their test pads.
+LM337 (-15 V) and 78L05 (+5 V) regulators (middle), with their test pads, and
+the zener VEE for the routing CD4052Bs (bottom left).
 """
 import json,os
 from schlayout import Sheet,pins_of
@@ -118,6 +119,15 @@ for xx in (175.26,180.34,185.42): s.wire(x,(xx,Y3)); x=(xx,Y3)
 c=CP("C512","10u 35V","SX-C-024",CP10,175.26,Y3+3.81); pgnd(c(2))
 s.tp("TP505","+5V",(180.34,Y3),"up"); s.power("+5V",(185.42,Y3))
 pgnd((200.66,Y3+7.62)); s.tp("TP506","PGND",(200.66,Y3+7.62),"up")
+
+# ------------------------------------------------------------- VEE (about -6.2 V) for the routing CD4052Bs (decision 183)
+XV=96.52
+r=R("R505","10k","SX-R-002",XV,Y3-8.89); s.wire(r(1),up(r(1),2.54)); s.power("-15V",up(r(1),2.54),180)
+v=(XV,Y3); s.wire(r(2),v)
+z=s.place("Device","D_Zener","D507","6V2",XV+10.16,Y3,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-001"))
+s.wire(v,z(2)); s.wire(z(1),rt(z(1),2.54)); gnd(rt(z(1),2.54))
+e=(XV-12.7,Y3); s.wire(v,(XV-5.08,Y3),e); s.tp("TP507","VEE",(XV-5.08,Y3),"down"); s.power("VEE",e,90)
+s.power("PWR_FLAG",up(e,5.08)); s.wire(up(e,5.08),e)
 s.power("PWR_FLAG",(210.82,Y3+2.54)); s.wire((210.82,Y3+2.54),(210.82,Y3+7.62)); gnd((210.82,Y3+7.62))
 
 HERE=os.path.dirname(os.path.abspath(__file__)); CARD=os.path.dirname(HERE)+'/'

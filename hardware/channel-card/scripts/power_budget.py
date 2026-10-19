@@ -11,7 +11,8 @@ sheets (scripts/build/bom.csv) and add their supply currents, typical and worst 
 SNOSBW2 (2.6 / 4 mA, both channels at IABC 500 uA) plus the Q current; LM339 TI SLCS006
 (0.8 / 2.5 mA, as in the master script; V- on PGND, so +15 V only); uA78L05 TI SLVS010X (3.6 / 6 mA, stand-in for the
 ST part). The AD8273 receiver became a TL072 (decision 143).
-DG412/DG413 draw microamps and are left out.
+DG413 and CD4052B (TI SCHS047O: IDD 60 uA max) draw microamps and are left out; the CD4052B VEE
+zener (R505 10k from -15 V, decision 183) is counted.
 Also prints the decision 96 sizing figure.
 Usage: python3 power_budget.py [raw rail, default 20]
 """
@@ -31,7 +32,7 @@ parts={
 }
 led_btn=(V15-2.0)/12.0                     # 7 button LEDs, 12k from +15 V
 fixed_p={"LM317 divider 2k4":(6.25,6.25),"CUTOFF and offset pots, refs (+15 V)":(1.8,1.8)}
-fixed_m={"LM337 divider 2k4":(6.25,6.25),"fader and pots (-15 V)":(1.5,1.5)}
+fixed_m={"LM337 divider 2k4":(6.25,6.25),"fader and pots (-15 V)":(1.5,1.5),"VEE zener, R505 10k (BZT52C6V2, 5.89 V min)":((V15-6.2)/10.0,(V15-5.89)/10.0)}
 btn=(3.5*led_btn,7*led_btn)                # typical: about half the buttons lit
 # +5 V from the 78L05, taken from +15 V: 8 meter LEDs, 1k5 from +5 V (about 2 mA each)
 led5=(8.0,16.0)                            # typical: about half the meter lit

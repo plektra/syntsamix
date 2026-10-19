@@ -5,13 +5,14 @@
 Reference netlist: routing_build.py (check_netlist.py routing.json).
 Layout: pre-fader buffers (top left), bus assign (top middle), AUX sends with
 their pre/post jumpers (right), PFL and sidechain send with the PFL_ACT driver
-(middle), buttons and supplies (bottom).
+(middle), buttons and supplies (bottom). The CD4052B VEE rail comes from the
+Chain and power sheet.
 """
 import json,os
-from schlayout import Sheet,pins_of
+from schlayout import Sheet
 R0805="Resistor_SMD:R_0805_2012Metric"; C0805="Capacitor_SMD:C_0805_2012Metric"
 SO8="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"; SO16="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
-TI={"Manufacturer":"Texas Instruments"}; VI={"Manufacturer":"Vishay"}
+TI={"Manufacturer":"Texas Instruments"}
 s=Sheet()
 P=lambda pn,**k: {"ProjectPN":pn,**k}
 def R(ref,val,pn,x,y,rot=90,**k): return s.place("Device","R",ref,val,x,y,rot,fp=R0805,props=P(pn,**k))
@@ -36,35 +37,40 @@ for Pn,ref,unit,pins,y in (("L","U301",1,(3,2,1),50.8),("R","U93012",2,(5,6,7),7
     s.tp("TP301" if Pn=="L" else "TP302",f"{Pn}_PRE",(63.5,o[1]),"up")
     s.wire(o,(o[0],o[1]+7.62),(35.56,o[1]+7.62),(35.56,a(pm)[1]),a(pm))
 
-# ------------------------------------------------------------- bus assign (DG413, pressed = compressor bus)
-def switch(lib,ref,unit,x,y,pn,left,right,ctrl,ctrl_net):
-    d=s.place("Analog_Switch",lib,ref,lib[:5]+("DY" if lib=="DG413xY" else "DY"),x,y,0,unit,SO16,P(pn,**VI))
-    s.wire(d(ctrl),dn(d(ctrl),2.54)); lab(dn(d(ctrl),2.54),ctrl_net,270)
-    return d(left),d(right)
-for Pn,rref,y,main,comp in (("L","R301",50.8,("U93024",4,15,14,16),("U302",1,2,3,1)),
-                            ("R","R302",101.6,("U93023",3,10,11,9),("U93022",2,6,7,8))):
+# ------------------------------------------------------------- CD4052B switches at the bus end of each bus resistor (decision 183)
+# Every throw is a master virtual earth or AGND, so the switch only sees millivolts.
+# A = control; B and INH low: channels 0 and 1 only, X2/X3/Y2/Y3 open.
+# Drawn with the HEF4052BT symbol (same 4052 pinout, switch pins passive) as the CD4052B.
+def mux(ref,yc,ctrl_net,nc):
+    d=s.place("Analog_Switch","HEF4052BT",ref,"CD4052B",137.16,yc,0,None,SO16,P("SX-IC-026",**TI,MPN="CD4052BM96",Supplier="LCSC",SupplierPN="C6521"))
+    s.wire(d(10),lt(d(10),10.16)); lab(lt(d(10),10.16),ctrl_net,180)
+    b,i=lt(d(9),5.08),lt(d(6),5.08); s.wire(d(9),b); s.wire(d(6),i); s.wire(b,i); gnd(i)
+    s.wire(d(16),up(d(16),2.54)); s.power("+5V",up(d(16),2.54))
+    s.wire(d(8),dn(d(8),5.08)); gnd(dn(d(8),5.08))
+    v=lt(dn(d(7),5.08),7.62); s.wire(d(7),dn(d(7),5.08),v); s.power("VEE",v,180)
+    NOCONNECT.extend(d(n) for n in nc)
+    return d
+def off(p): e=(167.64,p[1]); s.wire(p,e); gnd(e,90)   # released throw: resistor end to AGND, ground beyond the bus labels
+def out(p,bus): s.wire(p,(154.94,p[1])); hier((154.94,p[1]),bus,0,"output")
+def to_x(e,d): s.wire(e,(124.46,e[1]),(124.46,d(13)[1]),d(13))   # resistor 5.08 above the X common
+# bus assign: pressed = compressor bus
+d=mux("U302",73.66,"COMP_CTRL",(15,11,2,4))
+for Pn,rref,y,p0,p1 in (("L","R301",d(13)[1]-5.08,12,14),("R","R302",d(3)[1],1,5)):
     hier((101.6,y),f"{Pn}_POSTFADE",180,"input")
     r=R(rref,BUS,"SX-R-047",114.3,y); s.wire((101.6,y),r(1))
-    node=(124.46,y); s.wire(r(2),node)
-    for (ref,unit,pl,pr,pc),yy,bus in ((main,y,f"MAIN_{Pn}"),(comp,y+20.32,f"COMP_{Pn}")):
-        l,rr=switch("DG413xY",ref,unit,137.16,yy,"SX-IC-005",pl,pr,pc,"COMP_CTRL")
-        s.wire(node,(node[0],yy)) if yy!=y else None
-        s.wire((node[0],yy),l); s.wire(rr,(154.94,yy)); hier((154.94,yy),bus,0,"output")
+    to_x(r(2),d) if Pn=="L" else s.wire(r(2),d(3))
+    out(d(p0),f"MAIN_{Pn}"); out(d(p1),f"COMP_{Pn}")
 
-# ------------------------------------------------------------- PFL to the cue bus (NO sections 1, 4), SC send (NC section 2, on while SW302 pin 1 is open)
+# ------------------------------------------------------------- PFL to the cue bus, SC send (on while SW302 pin 1 is open)
 def tap(name,ref,val,pn,y):
     lab((101.6,y),name,180); r=R(ref,val,pn,114.3,y); s.wire((101.6,y),r(1)); return r(2)
-for Pn,rref,y,(ref,unit,pl,pr,pc) in (("L","R303",147.32,("U303",1,2,3,1)),("R","R304",167.64,("U93032",2,6,7,8))):
-    e=tap(f"{Pn}_PRE",rref,BUS,"SX-R-047",y)
-    l,rr=switch("DG413xY",ref,unit,137.16,y,"SX-IC-005",pl,pr,pc,"PFL_CTRL")
-    s.wire(e,l); s.wire(rr,(154.94,y)); hier((154.94,y),f"CUE_{Pn}",0,"output")
-e1=tap("L_PRE","R305","47k","SX-R-032",193.04); e2=tap("R_PRE","R306","47k","SX-R-032",203.2)
-nd=(124.46,193.04); s.wire(e1,nd); s.wire(e2,(nd[0],203.2),nd)
-l,rr=switch("DG413xY","U93034",4,137.16,193.04,"SX-IC-005",15,14,16,"SC_OFF")
-s.wire(nd,l); s.wire(rr,(154.94,193.04)); hier((154.94,193.04),"SC",0,"output")
-u=s.place("Analog_Switch","DG413xY","U93033","DG413DY",137.16,223.52,0,3,SO16,P("SX-IC-005",**VI))
-for n,(px,py,ang) in pins_of("Analog_Switch","DG413xY",3).items():
-    p=u(n); e={0:lt(p,5.08),180:rt(p,5.08),90:dn(p,5.08)}[int(ang)]; s.wire(p,e); gnd(e)
+d=mux("U303",134.62,"PFL_CTRL",(15,11,2,4))
+to_x(tap("L_PRE","R303",BUS,"SX-R-047",d(13)[1]-5.08),d); off(d(12)); out(d(14),"CUE_L")
+s.wire(tap("R_PRE","R304",BUS,"SX-R-047",d(3)[1]),d(3)); off(d(1)); out(d(5),"CUE_R")
+d=mux("U304",190.5,"SC_OFF",(3,1,5,2,4,15,11))
+e1=tap("L_PRE","R305","47k","SX-R-032",d(13)[1]-12.7); e2=tap("R_PRE","R306","47k","SX-R-032",d(13)[1]-5.08)
+s.wire(e1,(124.46,e1[1]),(124.46,e2[1])); to_x(e2,d)
+out(d(12),"SC"); off(d(14))
 # PFL_ACT open-collector driver
 rb=R("R311","10k","SX-R-002",175.26,157.48); lab((166.37,157.48),"PFL_CTRL",180); s.wire((166.37,157.48),rb(1))
 q=s.place("Transistor_BJT","Q_NPN_BEC","Q301","MMBT3904",190.5,157.48,0,fp="Package_TO_SOT_SMD:SOT-23",props=P("SX-Q-001",Manufacturer="onsemi",MPN="MMBT3904LT1G"))
@@ -112,17 +118,13 @@ button("COMP","SW303","D303","R316","R317",233.68,279.4,"COMP BUS")
 Y2=340.36
 u=s.place("Amplifier_Operational","NE5532","U93013","NE5532",50.8,Y2,0,3,SO8,P("SX-IC-004",**TI))
 s.wire(u(8),up(u(8),5.08)); s.power("+15V",up(u(8),5.08)); s.wire(u(4),dn(u(4),5.08)); s.power("-15V",dn(u(4),5.08))
-for ref,lib,pn,x in (("U93025","DG413xY","SX-IC-005",76.2),("U93035","DG413xY","SX-IC-005",101.6)):
-    u=s.place("Analog_Switch",lib,ref,lib[:5]+"DY",x,Y2,0,5,SO16,P(pn,**VI))
-    s.wire(u(13),up(u(13),5.08)); s.power("+15V",up(u(13),5.08))
-    s.wire(u(12),up(u(12),2.54),rt(up(u(12),2.54),5.08)); s.power("+5V",rt(up(u(12),2.54),5.08))
-    s.wire(u(5),dn(u(5),5.08)); gnd(dn(u(5),5.08))
-    s.wire(u(4),dn(u(4),2.54),rt(dn(u(4),2.54),5.08)); s.power("-15V",rt(dn(u(4),2.54),5.08))
 x=137.16
-for k in (301,303,305):
-    cp=C(f"C{k}","100n","SX-C-002",x,Y2-7.62); s.power("+15V",cp(1)); gnd(cp(2))
-    cn=C(f"C{k+1}","100n","SX-C-002",x,Y2+20.32); s.wire(cn(1),up(cn(1),2.54)); s.power("-15V",up(cn(1),2.54),180); gnd(cn(2))
+cp=C("C301","100n","SX-C-002",x,Y2-7.62); s.power("+15V",cp(1)); gnd(cp(2))
+cn=C("C302","100n","SX-C-002",x,Y2+20.32); s.wire(cn(1),up(cn(1),2.54)); s.power("-15V",up(cn(1),2.54),180); gnd(cn(2))
+for k in (303,305,307):
     x+=12.7
+    cp=C(f"C{k}","100n","SX-C-002",x,Y2-7.62); s.power("+5V",cp(1)); gnd(cp(2))
+    cn=C(f"C{k+1}","100n","SX-C-002",x,Y2+20.32); s.wire(cn(1),up(cn(1),2.54)); s.power("VEE",up(cn(1),2.54)); gnd(cn(2))
 
 HERE=os.path.dirname(os.path.abspath(__file__)); CARD=os.path.dirname(HERE)+'/'
 T=os.path.join(HERE,'build')+'/'; os.makedirs(T,exist_ok=True)

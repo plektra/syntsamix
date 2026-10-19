@@ -93,12 +93,12 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 66 | Sidechain ducking through channel VCAs | confirmed | [system](system.md) |
 | 67 | Cutoff CV jack on the channel card | confirmed | [input-module](input-module.md) |
 | 68 | Input header (10-pin KK; 2x6 box header since 181) | confirmed, refined | [input-module](input-module.md) |
-| 69 | Stereo buttons switch through DG413 (DC control voltages by the button itself: 152) | confirmed, refined | [system](system.md) |
+| 69 | Stereo buttons switch through DG413 (DC control voltages by the button itself: 152; CD4052B at virtual-earth bus ends: 183) | confirmed, refined | [system](system.md) |
 | 70 | Licensing: non-commercial source-available | confirmed | [process](process.md) |
 | 71 | Resonance compensation via LM13700 Q VCA | confirmed | [channel-card](channel-card.md) |
 | 72 | Level sheet: SSI2162 implementation | confirmed | [channel-card](channel-card.md) |
 | 73 | Low-cut at 100 Hz | confirmed | [channel-card](channel-card.md) |
-| 74 | Routing sheet: buffers and bus resistors | confirmed | [channel-card](channel-card.md) |
+| 74 | Routing sheet: buffers and bus resistors | confirmed, refined (183: CD4052B bus switches) | [channel-card](channel-card.md) |
 | 75 | Buttons: GPBS850L with printed caps | confirmed | [mechanical](mechanical.md) |
 | 76 | Channel meter sheet (LEDs 0805 under a printed bezel: 119) | confirmed, refined | [channel-card](channel-card.md) |
 | 77 | Test points: bare SMD pads | confirmed | [process](process.md) |
@@ -163,7 +163,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
 | 137 | Prefer JLCPCB fee-free parts: basic, then preferred, then extended, then consigned; exceptions with reasons in the board STATUS.md | confirmed | [process](process.md) |
 | 138 | SC LPF pot RV501: standard Alpha dual B100K (Thonk) instead of the unsourced C100K dual; same circuit, middle of the sweep 85 Hz | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 139 | Channel PFL/SC switch U303 a DG413 (SC send on the NC section, driven from the button's released throw); DG412 no longer used | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
+| 139 | Channel PFL/SC switch U303 a DG413 (SC send on the NC section, driven from the button's released throw); DG412 no longer used | confirmed (delegated; reviewed by the user 2026-10-17), refined (183: CD4052B) | [channel-card](channel-card.md) |
 | 140 | Channel card values on E24 with fee-free parts: E24 pairs for the V/oct feedback and the fader law, meter ladder and filter scaling re-fitted; R217 30k1 kept (chain line) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
 | 141 | Filter temperature compensation to the backlog: R108/R158 plain 820 Ω with the 180 Ω (FREQ leg still 1 k); TFPT no longer used | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
 | 142 | MUTE and DUCK switched by the buttons' spare pole into the control summer (10 ms ramp kept); channel U206 DG413 removed (system rule: 152) | confirmed (delegated; reviewed by the user 2026-10-17) | [channel-card](channel-card.md) |
@@ -206,6 +206,8 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 179 | Input cable ready-made Molex 217796-1101 (150 mm, 22 AWG) instead of hand crimping; 1:1 wiring checked on the sales drawing or with a meter on delivery; crimp parts the fallback; refines 99, 160 | confirmed | [input-module](input-module.md) |
 | 180 | Input cable a self-made IDC flat cable on shrouded box headers instead of the Molex lead (about €4 per channel); NYS216 jacks kept; refines 68, 99, 179; details in 181 | confirmed | [input-module](input-module.md) |
 | 181 | Input header Adam Tech BHR-12-VUA 2x6, no latches; cable Würth WR-CAB 12-way with FCS-12-SG sockets, 150 mm, 1:1; misplug-safe pinout 1 DO_L, 2 AGND, 3 L+, 4 L−, 5-8 AGND, 9 R+, 10 R−, 11 AGND, 12 DO_R; refines 68, 99, 105, 179, 180 | confirmed | [input-module](input-module.md) |
+| 183 | Channel bus assign, PFL and SC send on three CD4052B (JLCPCB preferred) at the virtual-earth bus ends instead of two DG413; released throws to AGND; VDD +5 V, VEE about −6.2 V from a zener on the chain sheet; low-cut and bypass stay DG413; refines 69, 74, 139 | confirmed (the user chose the lever 2026-10-19; circuit details for review) | [channel-card](channel-card.md) |
+| 184 | Channel trimmers BOCHEN 3296W-1-503 from LCSC (SX-TRIM-002) instead of Bourns from Mouser; same outline and footprint, ±250 ppm/K | confirmed (the user chose the lever 2026-10-19) | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 

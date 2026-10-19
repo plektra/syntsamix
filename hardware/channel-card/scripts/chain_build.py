@@ -5,7 +5,8 @@
 One audio (34-pin) and one power (8-pin) header on the multi-drop chain cables
 (docs/CHAIN.md, decision 175); the spare audio lines are not connected on the card. LM317/LM337 make ±15.1 V from the raw ±20 V rails
 (200 Ω / 2.2 kΩ, 10 µF on ADJ, protection diodes per the TI datasheets), a 78L05
-makes +5 V for logic and LEDs. Input capacitors return to PGND; dividers, output
+makes +5 V for logic and LEDs, a zener from -15 V makes VEE (about -6.2 V) for the
+routing CD4052Bs. Input capacitors return to PGND; dividers, output
 capacitors and the rail clamp Schottkys return to AGND (grounding rules in CHAIN.md).
 """
 import json,os
@@ -28,6 +29,9 @@ N("-15V","U502.3","D503.1","R503.2","D504.2","C509.2","C510.1","D506.2")
 N("ADJ_N","U502.1","R503.1","R504.2","C508.2","D504.1"); N("AGND","R504.1","C508.1","C509.1","C510.2","D506.1")
 # +5 V: 78L05 (1 OUT, 2 GND, 3 IN)
 N("+15V","U503.3","C511.1"); N("PGND","U503.2","C511.2","C512.2"); N("+5V","U503.1","C512.1")
+# VEE for the routing CD4052Bs (decision 183): about -6.2 V from -15 V through R505 and the zener D507
+# (cathode pin 1 on AGND); the switches draw only leakage, so VDD - VEE stays near 11 V, under the 20 V limit
+N("-15V","R505.1"); N("VEE","R505.2","D507.2","TP507.1"); N("AGND","D507.1")
 # test pads
 for tp,net in (("TP501","+20V_RAW"),("TP502","-20V_RAW"),("TP503","+15V"),("TP504","-15V"),("TP505","+5V"),("TP506","PGND")): N(net,f"{tp}.1")
 T=os.path.join(os.path.dirname(os.path.abspath(__file__)),'build')+'/'; os.makedirs(T,exist_ok=True)

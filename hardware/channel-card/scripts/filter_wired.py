@@ -86,7 +86,7 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     tc=(157.48,r8(2)[1]); s.wire(r8(2),tc)
     r22=R(rr(122),"180","SX-R-090",tc[0],tc[1]+3.81,0,Note="With R108/R158 820R = 1k FREQ leg (decision 141)"); gnd(r22(2))
     r9=R(rr(109),"470k","SX-R-048",n2[0],fq[1]+3.81,0); s.wire(n2,r9(1))
-    tv=s.place("Device","R_Potentiometer_Trim",f"RV{101+o}","50k OFFSET",144.78,fq[1]+11.43,0,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF",Supplier="Mouser",SupplierPN="652-3296W-1-503LF"))
+    tv=s.place("Device","R_Potentiometer_Trim",f"RV{101+o}","50k OFFSET",144.78,fq[1]+11.43,0,fp=TRIM,props=P("SX-TRIM-002",Manufacturer="BOCHEN",MPN="3296W-1-503",Supplier="LCSC",SupplierPN="C118911"))
     s.wire(r9(2),(n2[0],tv(2)[1]),tv(2))
     s.wire(tv(1),up(tv(1),2.54)); s.power("+15V",up(tv(1),2.54))
     s.wire(tv(3),dn(tv(3),2.54)); s.power("-15V",dn(tv(3),2.54))
@@ -190,7 +190,7 @@ z2=s.place("Device","D","D185","BZT52C11",101.6,YZ,180,fp="Diode_SMD:D_SOD-123",
 s.wire(FS,(FS[0],YZ),z1(1)); s.wire(z1(2),z2(2)); s.wire(z2(1),(fcv[0],YZ),fcv)
 # V/oct feedback: R183 + R187 (E24 pair, 162k) in series with RV182 (decision 140)
 YR=Y+38.1
-tr=s.place("Device","R_Potentiometer_Trim","RV182","50k V/OCT",fcv[0],Y+30.48,180,fp=TRIM,props=P("SX-TRIM-001",Manufacturer="Bourns",MPN="3296W-1-503LF",Supplier="Mouser",SupplierPN="652-3296W-1-503LF"))
+tr=s.place("Device","R_Potentiometer_Trim","RV182","50k V/OCT",fcv[0],Y+30.48,180,fp=TRIM,props=P("SX-TRIM-002",Manufacturer="BOCHEN",MPN="3296W-1-503",Supplier="LCSC",SupplierPN="C118911"))
 s.wire(FS,(FS[0],Y+20.32)); s.wire((FS[0],Y+20.32),(FS[0],YQ)); s.wire((FS[0],YQ),(FS[0],YR))
 r183=R("R183","150k","SX-R-098",78.74+DX,YR); r187=R("R187","12k","SX-R-008",88.9+DX,YR)
 s.wire((FS[0],YR),r183(1)); s.wire(r183(2),r187(1)); s.wire(r187(2),(fcv[0],YR),tr(1))
