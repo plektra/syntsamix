@@ -13,7 +13,7 @@
    - Meter: 8-segment peak meter (full-wave superdiode peak detector, LM339 comparators) *(done)*
    - Chain and power: ribbon connectors, ±15 V regulation, +5 V logic supply, test pads for the rails and PGND *(done; schematic complete, ERC 0 errors 0 warnings)*
 5. **Master/compressor card** (`hardware/master`): schematic sheet by sheet *(schematic complete: ten sheets, ERC 0/0; decisions 97, 98, 103, 104 drawn; pre-layout parts session 2026-10-09, decisions 125-128)*, then the decision 162 rework (rear ribbons J603/J903 drawn 2026-10-12, decision 163; still the two passive row board projects after measuring an NYS216, panel-mounted headphone jack and 0805 meter LEDs done 2026-10-13; 2026-10-17: back-to-back coupling pairs (172), ten NE5532 → TL072 (173), Wakefield 637-10ABPE heatsinks (174, enclosure depth to /system)), then PCB with the two row boards
-6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB as an on-edge board in the power bay (decision 162)
+6. **Power board** (`hardware/power`, decisions 81, 100): 24 V brick input, protection, non-isolated TPS54560 buck and inverter to ±20 V; *(schematic complete, ERC 0 errors 0 warnings)*, then PCB as an on-edge board in the power bay (decision 162), the first PCB of the project (/system 2026-10-19)
 7. **Prototype build and measurement** against the targets in SPEC.md section 5
 
 ## Backlog (after the prototype)
