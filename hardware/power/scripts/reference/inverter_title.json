@@ -2,7 +2,7 @@
  "title": "Power board: -20 V inverter",
  "date": "2026-10-07",
  "rev": "0.1",
- "dnp": [],
+ "dnp": ["R308", "C315"],
  "left_fields": ["C306"],
  "comments": [
   "TPS54560 as inverting buck-boost (TI SLVA317B): IC ground = -20V_CONV, 22 uH from SW to PGND",

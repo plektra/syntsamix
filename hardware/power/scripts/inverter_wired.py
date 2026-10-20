@@ -15,9 +15,12 @@ pg,ng=c.pgnd,c.neg
 u=c.left(300,ng,[("4u7 100V","4u7 100V",ng)]*2+[("4u7 100V","4u7 100V",pg),("100n 100V","100n 100V",ng)],"CLK_B")
 # bootstrap, switch node, catch diode to -20V_CONV, inductor to PGND
 cb=c.C("C308","100n","100n",175.26,u(1)[1],90); s.wire(u(1),cb(1)); s.wire(cb(2),(179.07,YU))
-d=c.pl("Device","D_Schottky","D301","SS510C","SS510C",184.15,132.08,270); ng(d(2),"R",5.08)
-l=c.pl("Device","L","L301","22u","22u",199.39,130.81,0); pg(l(2))
-c.chain(YU,(u(8)[0],179.07,184.15,l(1)[0])); s.wire((184.15,YU),d(1))
+d=c.pl("Device","D_Schottky","D301","SS510C","SS510C",184.15,132.08,270); ng(d(2),"L",6.35)
+l=c.pl("Device","L","L301","22u","22u",205.74,130.81,0); pg(l(2))
+c.chain(YU,(u(8)[0],179.07,184.15,189.23,l(1)[0])); s.wire((184.15,YU),d(1))
+# switch-node RC snubber across D301 (SW to the IC ground), not fitted (decision 189): values from the bench
+rs=c.R("R308","4R7","4R7 snub",189.23,130.81); cs=c.C("C315","470p 100V","470p snub",189.23,138.43)
+s.wire(cs(2),(184.15,cs(2)[1]))   # to the -20V_CONV stub under D301
 # -20 V node: output capacitors up to a PGND bar, feedback divider below the rail
 YN,YB=157.48,142.24
 s.label("-20V_CONV",(203.2,YN),180)

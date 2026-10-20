@@ -73,6 +73,7 @@ P = {
  "C204": (161.6, 101.4, 0), "C208": (157.8, 101.4, 0),
  "U201": (161.0, 107.0, 0),
  "D201": (167.6, 106.6, 270),
+ "R208": (165.2, 101.0, 0), "C215": (168.8, 101.0, 0),   # DNP snubber above D201 (decision 189)
  "R201": (151.6, 115.4, 0), "R202": (155.4, 115.4, 0),
  "R204": (159.2, 115.4, 0), "C207": (162.9, 115.4, 0),
  "R203": (157.2, 112.2, 90), "C205": (159.4, 112.2, 90), "C206": (161.6, 112.2, 90),
@@ -90,6 +91,7 @@ P = {
  "C304": (161.0, 132.4, 0), "C308": (157.0, 132.4, 0),
  "U301": (161.0, 126.6, 0),
  "D301": (170.4, 126.6, 270),
+ "R308": (175.5, 124.4, 270), "C315": (177.6, 124.4, 90),   # DNP snubber right of D301 (decision 189)
  "R301": (151.6, 118.6, 0), "R302": (155.4, 118.6, 0),
  "R304": (159.2, 118.6, 0), "C307": (162.9, 118.6, 0),
  "R303": (157.2, 121.6, 90), "C305": (159.4, 121.6, 90), "C306": (161.6, 121.6, 90),
@@ -260,6 +262,9 @@ def apply():
                 f.SetVisible(False)
         new.SetPath(pcbnew.KIID_PATH(sch[r][1])); new.SetSheetname(old.GetSheetname()); new.SetSheetfile(old.GetSheetfile())
         new.SetAttributes(old.GetAttributes())
+        props = {p.get("name") for p in comps[r].iter("property")}   # DNP and BOM flags follow the symbol
+        for flag, attr in (("dnp", pcbnew.FP_DNP), ("exclude_from_bom", pcbnew.FP_EXCLUDE_FROM_BOM)):
+            new.SetAttributes(new.GetAttributes() | attr if flag in props else new.GetAttributes() & ~attr)
         nets = {p.GetNumber(): p.GetNet() for p in old.Pads()}
         for p in new.Pads():
             if (r, p.GetNumber()) in padnet:

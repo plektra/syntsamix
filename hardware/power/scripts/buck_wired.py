@@ -15,8 +15,10 @@ u=c.left(200,pg,[("4u7 100V","4u7 100V",pg)]*3+[("100n 100V","100n 100V",pg)],"C
 # bootstrap, switch node, catch diode, inductor
 cb=c.C("C208","100n","100n",175.26,u(1)[1],90); s.wire(u(1),cb(1)); s.wire(cb(2),(179.07,YU))
 d=c.pl("Device","D_Schottky","D201","SS54","SS54",184.15,132.08,270); pg(d(2))
-l=c.pl("Device","L","L201","15u","15u",196.85,YU,90)
-c.chain(YU,(u(8)[0],179.07,184.15,l(1)[0])); s.wire((184.15,YU),d(1))
+l=c.pl("Device","L","L201","15u","15u",200.66,YU,90)
+c.chain(YU,(u(8)[0],179.07,184.15,189.23,l(1)[0])); s.wire((184.15,YU),d(1))
+# switch-node RC snubber across D201, not fitted (decision 189): values from the bench
+rs=c.R("R208","4R7","4R7 snub",189.23,130.81); cs=c.C("C215","470p 100V","470p snub",189.23,138.43); pg(cs(2))
 # converter output and feedback (taken before the LC filter)
 co=c.CP("C209","330u 35V","330u 35V",208.28,130.81); pg(co(2))
 cc=c.C("C210","4u7 100V","4u7 100V",220.98,130.81); pg(cc(2))

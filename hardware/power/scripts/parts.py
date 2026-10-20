@@ -21,6 +21,9 @@ P={
  "330u 35V":("SX-C-019","Capacitor_SMD:CP_Elec_10x10.5",lcsc("SX-C-019","Panasonic","EEHZK1V331P","C278516")),
  "100u 35V":("SX-C-020","Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",lcsc("SX-C-020","KNSCHA","KNM2100UF35V149EC0055","C2982822")),
  "100u 50V":("SX-C-028","Capacitor_THT:CP_Radial_D8.0mm_P3.50mm",lcsc("SX-C-028","Nichicon","UHE1H101MPD","C116229")),
+ # switch-node snubbers (decision 189): footprints only, fitted by hand with values from the bench measurement
+ "4R7 snub":("none (DNP snubber, value from the bench, decision 189)",R0805,{}),
+ "470p snub":("none (DNP snubber, value from the bench, decision 189)",C0805,{}),
  # inductors and fuses
  "2u2":("SX-L-001","Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm",lcsc("SX-L-001","Bourns","SRP7028A-2R2M","C1329579")),
  "15u":("SX-L-002","syntsamix:L_Bourns_SRP1265A",lcsc("SX-L-002","Bourns","SRP1265A-150M","C189912")),

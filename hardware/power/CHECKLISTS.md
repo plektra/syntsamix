@@ -10,6 +10,14 @@ Read for layout, ordering, assembly, cost and value work; the session state is i
 - RoHS audit of this board's parts; LCSC stock (`tools/lcsc_check.py` not run yet for these parts; recheck the EEHZK1V331P hybrid capacitors).
 - Rebuild with `scripts/build_pcb.sh` after any schematic change and check DRC with schematic parity.
 
+## Bench, first boards (EMI, decisions 187, 189)
+
+To do when the first power boards arrive, with the prototype cards connected; record results in `STATUS.md`.
+
+- **Input filter (decision 187):** the 400 kHz ripple on the brick lead (current probe or a small loop around the lead, or the voltage at J101 against VIN_SW) with all prototype cards connected, compared with the model's roughly 36 dB gain; the start-up with C108 and L101 in (no change expected: the soft start charges them); no ringing on VIN_SW at a load step (filter damping by C103's ESR, assumed 0.05-0.4 Ω, not taken from the UHE datasheet). A medium-wave radio held near the brick lead and the ribbons is a cheap first check.
+- **Switch-node ringing (decision 189):** on each switch node (buck: D201 cathode; inverter: D301 cathode, referred to the -20 V node: probe ground to -20V_CONV, not PGND), with a short ground spring on the probe, at light and full load: read the ringing frequency f1 and its amplitude on each edge. If it is large or the medium-wave radio or a stage wireless receiver near the board picks it up: solder a known capacitor across the diode until the frequency halves (added C ≈ 3 C0), compute L = 1/((2π f1)² C0), fit C215/C315 at about 3-4 C0 and R208/R308 at about √(L/C0), and check the resistor's loss (C V² f: an 0805 takes about 0.125-0.25 W, so about 1 nF on the buck, 270 pF on the inverter; more needs a larger resistor wired on) and the converters' temperature. Record the values in the schematic (remove DNP) and the decision.
+- If the snubbers are not enough: a resistor in series with the BOOT capacitor (check the TPS54560 datasheet first, decision 189), then the common-mode path through the brick and the audio cable shields.
+
 ## Check before layout (kept for the bench and the full-size module)
 
 - **Start-up ramp (settled in decision 100, check on the bench):** `scripts/startup_sim.py` (averaged ngspice model) showed the fixed 2.6 ms soft-start into about 1.1 mF per rail takes 183 to 262 W from the brick (hiccup threshold 126 W). The 47 nF / 1N4148W ramp into FB keeps it at about 54 W; rails reach 19 V about 40 ms after switch-on (rerun 2026-10-10 with the 21.31 V UVLO start of decision 156 and the GSM220B24's 232 W limit: unchanged). On the bench: the start-up with all prototype cards connected (brick input current, no hiccup), and that the output does not misbehave while FB is held up at low output voltage (frequency foldback does not act then; the ramp current is far below the switch limit, so the minimum on-time should only cause pulse skipping).
@@ -23,7 +31,6 @@ Read for layout, ordering, assembly, cost and value work; the session state is i
 - Power LED (decision 168), on assembly: solder the pre-crimped XH leads to the LED with one heat-shrink sleeve per lead (Kingbright precautions), pin 1 to the anode (long lead); leave enough length to lift the top strip off. Check the brightness at about 2.2 mA under stage light; if it is too dim, R104 can drop to 4k7 (about 4.7 mA, IF max 25 mA).
 - Unverified facts: L78M05 DPAK pinout (from KiCad's LM78M05_TO252: 1 IN, 2 GND tab, 3 OUT; ST DS0425 Figure 2 not read as text); Würth header 3 A per contact (PDF text, not the rendered page); KNSCHA 100 µF size (radial footprint assumed).
 - The level of the AC-coupled sync clock at RT/CLK (10 pF into 243 kΩ, TI's recommended network) should cross 1.7 V cleanly: check on the bench.
-- **Input EMI filter (decision 187), on the bench:** the 400 kHz ripple on the brick lead (current probe or a small loop around the lead, or the voltage at J101 against VIN_SW) with all prototype cards connected, compared with the model's roughly 36 dB gain; the start-up with C108 and L101 in (no change expected: the soft start charges them); no ringing on VIN_SW at a load step (filter damping by C103's ESR, assumed 0.05-0.4 Ω, not taken from the UHE datasheet). A medium-wave radio held near the brick lead and the ribbons is a cheap first check.
 - The SMBJ24A's 24 V standoff is below the brick's 24.7 V maximum; leakage at 24.7 V is not specified (breakdown 26.7 V minimum).
 
 ## Layout notes (as routed, decision 186)

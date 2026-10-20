@@ -2,7 +2,7 @@
  "title": "Power board: +20 V buck",
  "date": "2026-10-07",
  "rev": "0.1",
- "dnp": [],
+ "dnp": ["R208", "C215"],
  "left_fields": ["C206"],
  "comments": [
   "TPS54560 buck, 24 V to +20 V at 2 A, synced to CLK_A (about 400 kHz; RT alone gives 400 kHz)",
