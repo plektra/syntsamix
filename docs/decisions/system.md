@@ -19,7 +19,7 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 34. Chainable bus from the start, no fixed slot count (form: 38)
 38. Chain per card: one audio and one power header per card on multi-drop flat cables (175), master at one end; no backplane
 39. Practical maximum: 16 channel cards
-40. Chain power: unregulated about ±20 V nominal; each card regulates its own ±15 V; audio ground and power ground on separate conductors
+40. Chain power: unregulated about ±20 V nominal; each card regulates its own ±15 V (reaffirmed by the user 2026-10-21: no regulated ±15 V from the power board, as rail noise and ribbon drop would reach the rail-referenced controls); audio ground and power ground on separate conductors
 41. Separate ribbons: 34-pin IDC audio (buses, logic lines, interleaved audio grounds, spares) and keyed 8-pin IDC power (2× V+, 2× V−, 4× ground). No 10- or 16-pin sizes, so a Eurorack power cable cannot be plugged in
 42. Chain pinouts, signals and grounding rules as in `CHAIN.md`; the sidechain bus is mono. Power enters at the power board (80, 81); the master card's star point is the only AGND-PGND join
 46. Batch: analog path; +4 dBu nominal, about +20 dBu internal maximum, +24 dBu only at balanced outputs; targets in `SPEC.md` section 5; DC-coupled receivers with about 3 Hz AC coupling after them; click-free mute via the VCA; fader bottom takes the VCA past −100 dB; sidechain LPF 40-500 Hz, 12 dB/oct, with bypass; channel independence (identical slots, master-side bus summing, wired-OR logic, no shared parts, per-card regulation); master level through an SSI2162 and a linear pot; headphone volume knob; balanced outputs on 6.3 mm TRS; unregulated about ±20 V chain supply

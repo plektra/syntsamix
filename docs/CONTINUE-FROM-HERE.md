@@ -1,6 +1,6 @@
 # Continue from here
 
-Project-level handoff, updated 2026-10-20. Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
+Project-level handoff, updated 2026-10-21 (/system: local regulation on every card kept, the user; channel 78L05 too hot at 57 °C air, `hardware/channel-card/STATUS.md` Next 5). Read `CLAUDE.md` first. Board detail lives in each board's `STATUS.md` and `CLAUDE.md`; shared schematic workflow in `hardware/CLAUDE.md`; decisions in `docs/decisions/` (start at `INDEX.md`; area files hold short current rulings, `record/` the full text, decision 154).
 
 ## Boards
 

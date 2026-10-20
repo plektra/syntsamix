@@ -61,6 +61,7 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 | Inside air | design point 22 K above room temperature (57 °C on a 35 °C stage), up to 8 cards; estimate 19 / 22 / 23 K for 4 / 8 / 16 cards (sealed box 23-30 K) | decision 167, `tools/heat_budget.py` (coefficients **[estimate]** until the prototype is measured) |
 | Vents | perforated bottom cover; four 2 × 30 mm slots per channel rear strip (about 2.4 cm²), master and bay rear pieces; none in the cheeks or top panels | decision 167, `MECHANICAL.md`, Ventilation |
 | Tightest parts | 0 to +70 °C ambient (TL072CDT, NE5532, TL062C, LM339, LM13700): about 13 K above the design air | decision 167 (datasheets in its record) |
+| Channel regulators at 57 °C air (no heatsink, copper only, decision 110) | LM317 D²PAK about 97-107 °C worst case (1.12 W on 36-45 °C/W), LM337 about 92-100 °C (0.96 W), within 125 °C **[estimate]**; 78L05 SOT-89 about 146 °C worst case (0.25 W at about 357 °C/W), above the usual 125 °C (UTC's rating unverified) **[estimate]**: fix in the channel card session | `hardware/channel-card/scripts/power_budget.py`, `docs/parts.csv` (SX-IC-012, SX-IC-022), hand calculation 2026-10-21 |
 | Master heatsinks at 57 °C air | Wakefield 637-10ABPE (12.67 °C/W): LM317 TJ about 111 °C at the worst-case 2.90 W, 84 °C typical, within the 125 °C rating (decision 174's limit; 95's 100 °C would need about 8.8 °C/W) | decisions 167, 173, 174; `tools/heat_budget.py`, `hardware/master/scripts/power_budget.py` |
 
 ### Signal levels
