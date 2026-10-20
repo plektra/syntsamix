@@ -5,7 +5,8 @@
 24 V brick on a locking 4-pin DIN jack (Kycon KPJX-4S; brick plug pins 1, 4 = +24 V, 2, 3 = 0 V,
 polarity to check on the first brick), 4 A PTC, SMBJ24A TVS, two SQJ457EP P-MOSFETs back to back:
 Q101 blocks a reversed brick, Q102 turns on slowly (Miller ramp, C102 47 nF through R103) so the
-converter input capacitors charge gently. The power switch (a rear-panel rocker on J102, two wires) only pulls the shared gate to PGND
+converter input capacitors charge gently. After Q102 a pi filter (C108 4.7 uF, L101 2.2 uH, then C103) keeps the
+converters' 400 kHz input current off the brick lead (decision 187). The power switch (a rear-panel rocker on J102, two wires) only pulls the shared gate to PGND
 through R102; R101 / R102 bias the gate to -12 V, D102 clamps it. Power LED on the switched side: R104 on the board, the LED itself
 on the power bay's top strip, wired to J103 (decision 168).
 Clock: L78M05 to +5 V, 74HC14 RC oscillator about 400 kHz (4.7k / 560p), two inverters give
@@ -22,7 +23,8 @@ N("VSRC","Q101.1","Q101.2","Q101.3","Q102.1","Q102.2","Q102.3","R101.1","D102.1"
 N("GATE","Q101.4","Q102.4","R101.2","D102.2","R102.1","R103.1")
 N("SW_ON","R102.2","J102.1"); N("PGND","J102.2")
 N("MILLER","R103.2","C102.1")
-N("VIN_SW","Q102.5","C102.2","C103.1","R104.1","U101.1","C104.1","TP101.1")
+N("VIN_PRE","Q102.5","C102.2","C108.1","L101.1"); N("PGND","C108.2")   # input pi filter (decision 187)
+N("VIN_SW","L101.2","C103.1","R104.1","U101.1","C104.1","TP101.1")
 N("PGND","C103.2","J103.2","U101.2","C104.2","TP102.1")
 N("LED_A","R104.2","J103.1")
 N("+5V_CLK","U101.3","C105.1","C106.1","U102.14"); N("PGND","C105.2","C106.2","U102.7")

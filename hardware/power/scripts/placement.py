@@ -43,16 +43,19 @@ P = {
  "J101": (103.5, 128.3, 0),     # brick jack lead (decision 182), along the bottom at the rear
  "J102": (121.5, 129.6, 0),     # rocker lead
  "R102": (130.5, 132.0, 0),
- "TP102": (119.5, 125.0, 0),
- "F101": (116.5, 118.0, 0),
- "D101": (116.5, 112.0, 180),  # cathode toward the fuse
- "C101": (116.5, 108.0, 180),
- "Q101": (127.0, 120.0, 180),   # drain to the fuse, sources to Q102
- "Q102": (136.5, 120.0, 0),     # drain to VIN_SW
+ "TP102": (112.6, 121.4, 0),   # between F101 and J101, clear of Q101
+ "F101": (105.5, 116.0, 90),    # upright in the rear corner, VBRICK pad down, VFUSED up
+ "D101": (116.5, 112.0, 0),    # cathode toward the fuse
+ "C101": (116.5, 108.0, 0),
+ "Q101": (118.3, 120.0, 180),   # drain to the fuse, sources to Q102
+ "Q102": (127.8, 120.0, 0),     # drain to VIN_PRE
+ # input pi filter (decision 187): C108 and the Miller capacitor C102 on the VIN_PRE copper under L101
+ "L101": (136.4, 120.0, 0),
+ "C108": (133.0, 125.3, 180),
  "D102": (130.5, 128.5, 0),
  "R101": (135.5, 128.5, 0),
  "R103": (139.5, 128.5, 0),
- "C102": (143.5, 128.5, 0),
+ "C102": (137.6, 125.3, 180),
  "C103": (143.5, 120.0, 0),     # VIN_SW bulk, radial, hand-soldered
  "C104": (146.0, 132.4, 0),
  "TP101": (147.6, 114.0, 0),
@@ -110,17 +113,42 @@ def outline_bottom(x):
     (xa, ya), (xb, yb) = OUTLINE[3], OUTLINE[2]
     return ya if x <= xa else ya + (x - xa) * (yb - ya) / (xb - xa)
 
+_NETLIST = []
+
+
+def netlist():
+    """The schematic's netlist (kicadxml root), exported once per run."""
+    if not _NETLIST:
+        import subprocess, tempfile, xml.etree.ElementTree as ET
+        with tempfile.TemporaryDirectory() as d:
+            out = os.path.join(d, "n.xml")
+            subprocess.run(["/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli", "sch", "export", "netlist", "--format",
+                            "kicadxml", "-o", out, os.path.join(os.path.dirname(PCB), "power.kicad_sch")], capture_output=True, check=True)
+            _NETLIST.append(ET.parse(out).getroot())
+    return _NETLIST[0]
+
+
 def schematic():
     """ref -> (footprint lib id, KiCad symbol path, fields) from the schematic's netlist."""
-    import subprocess, tempfile, xml.etree.ElementTree as ET
-    with tempfile.TemporaryDirectory() as d:
-        out = os.path.join(d, "n.xml")
-        subprocess.run(["/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli", "sch", "export", "netlist", "--format",
-                        "kicadxml", "-o", out, os.path.join(os.path.dirname(PCB), "power.kicad_sch")], capture_output=True, check=True)
-        root = ET.parse(out).getroot()
     return {c.get("ref"): (c.findtext("footprint"), c.find("sheetpath").get("tstamps") + c.findtext("tstamps").strip(),
                            {f.get("name"): (f.text or "") for f in c.iter("field")})
-            for c in root.iter("comp")}
+            for c in netlist().iter("comp")}
+
+
+def pad_nets():
+    """(ref, pad number) -> net name, from the schematic (the board follows the schematic's nets)."""
+    return {(n.get("ref"), n.get("pin")): net.get("name") for net in netlist().iter("net") for n in net.iter("node")}
+
+
+def lib_courtyard(fpid):
+    """Courtyard box of a library footprint, for parts not on the board yet."""
+    lib, name = fpid.split(":")
+    s = open(os.path.join(FP_LIBS.get(lib, os.path.join(STD_FP, lib + ".pretty")), name + ".kicad_mod")).read()
+    pts = []
+    for it in re.split(r'\n\t\(', s)[1:]:
+        if it.startswith("fp_") and '(layer "F.CrtYd")' in it:
+            pts += [(float(a), float(b)) for a, b in re.findall(r'\((?:start|end|xy|mid) ([-\d.]+) ([-\d.]+)\)', it)]
+    return (min(p[0] for p in pts), max(p[0] for p in pts), min(p[1] for p in pts), max(p[1] for p in pts))
 
 
 def courtyards():
@@ -149,11 +177,14 @@ def check():
     cy = courtyards(); boxes = {}; bad = 0; sch = schematic()
     gone = sorted(set(cy) - set(sch) - set(HOLES))
     if gone: print("on the board but not in the schematic (removed by --apply):", gone)
-    missing = sorted(set(sch) - set(P)); extra = sorted(set(P) - set(sch)) + sorted(set(sch) - set(cy))
+    missing = sorted(set(sch) - set(P)); extra = sorted(set(P) - set(sch))
     if missing or extra: print("missing:", missing, "unknown:", extra); bad += 1
+    new = sorted(set(sch) - set(cy))
+    for r in new:   # parts new in the schematic: courtyard from the library
+        cy[r] = lib_courtyard(sch[r][0])
     for r, (x, y, a) in P.items():
         if r in cy: boxes[r] = placed_box(cy[r], x, y, a)
-    if sorted(set(sch) - set(cy)): print("in the schematic but not on the board (sync first):", sorted(set(sch) - set(cy)))
+    if new: print("new in the schematic (--apply adds them):", new)
     for r, (x0, x1, y0, y1) in boxes.items():
         if x0 < 100.3 or x1 > OUTLINE[1][0] - 0.3 or y0 < 99.3 or y1 > min(outline_bottom(x0), outline_bottom(x1)) - 0.3:
             print(f"outside: {r} x {x0:.2f}..{x1:.2f} y {y0:.2f}..{y1:.2f}"); bad += 1
@@ -192,9 +223,28 @@ def apply():
     footprints = [f for f in board.Footprints()]
     old_zones = [z for z in board.Zones() if z.GetIsRuleArea() and z.GetZoneName().startswith("bracket")]
     add = []
+    padnet = pad_nets(); comps = {c.get("ref"): c for c in netlist().iter("comp")}
+
+    def net(name):
+        if name.startswith("Net-("):   # the board escapes a slash inside a pin name (RT/CLK), the netlist does not
+            name = "Net-(" + name[5:-1].replace("/", "{slash}") + ")"
+        n = board.FindNet(name)
+        if n is None:   # a net new in the schematic
+            n = pcbnew.NETINFO_ITEM(board, name); board.Add(n)
+        return n
+    # parts new in the schematic (KiCad's Update PCB from Schematic): a library footprint with the symbol's
+    # reference, value and sheet; configured below like the others
+    known = {f.GetReference() for f in footprints}
+    born = []
+    for r in sorted(set(sch) - known):
+        fpid = pcbnew.LIB_ID(*sch[r][0].split(":"))
+        fp = load(fpid); fp.SetFPID(fpid); fp.SetReference(r); fp.SetValue(comps[r].findtext("value"))
+        props = {p.get("name"): p.get("value") for p in comps[r].iter("property")}
+        fp.SetSheetname(props.get("Sheetname", "")); fp.SetSheetfile(props.get("Sheetfile", ""))
+        born.append(fp)
     # fresh copies of every footprint from its library (KiCad's Update Footprints from Library), keeping the
-    # fields, schematic link, attributes and pad nets, placed from P
-    for old in footprints:
+    # fields, schematic link and attributes, pad nets from the schematic, placed from P
+    for old in footprints + born:
         r = old.GetReference()
         if r in HOLES or r not in sch:   # holes are rebuilt; parts gone from the schematic are dropped
             continue
@@ -212,7 +262,9 @@ def apply():
         new.SetAttributes(old.GetAttributes())
         nets = {p.GetNumber(): p.GetNet() for p in old.Pads()}
         for p in new.Pads():
-            if p.GetNumber() in nets:
+            if (r, p.GetNumber()) in padnet:
+                p.SetNet(net(padnet[(r, p.GetNumber())]))
+            elif p.GetNumber() in nets:   # unnumbered pads (exposed pads drawn without a number) keep theirs
                 p.SetNet(nets[p.GetNumber()])
         x, y, a = P[r]
         new.SetPosition(pt(x, y)); new.SetOrientationDegrees(a)

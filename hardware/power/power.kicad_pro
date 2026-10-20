@@ -552,6 +552,10 @@
       },
       {
         "netclass": "Power",
+        "pattern": "/Input and clock/VIN_PRE"
+      },
+      {
+        "netclass": "Power",
         "pattern": "/VIN_SW"
       },
       {

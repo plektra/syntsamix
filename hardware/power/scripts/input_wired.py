@@ -4,7 +4,7 @@
 
 Reference netlist: input_build.py (check_netlist.py input.json).
 Top: brick jack, PTC, TVS, back-to-back P-MOSFETs with the gate network below and the Miller
-ramp above, power switch and the power LED header. Bottom: +5 V and the 400 kHz two-phase clock.
+ramp above, the input pi filter (decision 187), power switch and the power LED header. Bottom: +5 V and the 400 kHz two-phase clock.
 """
 import json,os
 from schlayout import Sheet
@@ -52,8 +52,12 @@ YM=Y-12.7
 s.wire(q2(4),(q2(4)[0],YM)); s.wire((q2(4)[0],YM),(q2(4)[0]-5.08,YM)); s.label("GATE",(q2(4)[0]-5.08,YM),180)
 r=R("R103","1k","1k",149.86,YM,90); s.wire((q2(4)[0],YM),r(1))
 c=C("C102","47n C0G","47n",162.56,YM,90); s.wire(r(2),c(1)); s.wire(c(2),(c(2)[0],Y))
-# switched rail: VIN_SW
-chain(Y,(q2(5)[0],c(2)[0],180.34,187.96,198.12,210.82,238.76))
+# input EMI filter (decision 187): C108 on the brick side, L101 in series, C103 and the converter ceramics after it
+cf=C("C108","4u7 100V","4u7 100V",167.64,Y+7.62); pgnd(cf(2))
+lf=pl("Device","L","L101","2u2","2u2",175.26,Y,90,Note="Input EMI filter (decision 187): with C108 a pi filter against the brick lead; C103 damps it")
+chain(Y,(q2(5)[0],c(2)[0],167.64,lf(1)[0])); s.wire((167.64,Y),cf(1)); s.label("VIN_PRE",(167.64,Y),90)
+# switched, filtered rail: VIN_SW
+chain(Y,(lf(2)[0],180.34,187.96,198.12,210.82,238.76))
 s.power("PWR_FLAG",(180.34,Y-5.08)); s.wire((180.34,Y),(180.34,Y-5.08))
 s.tp("TP101","VIN_SW",(187.96,Y),"up")
 cb=pl("Device","C_Polarized","C103","100u 50V","100u 50V",198.12,Y+7.62); s.wire((198.12,Y),cb(1)); pgnd(cb(2))

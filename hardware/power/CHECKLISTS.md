@@ -23,12 +23,14 @@ Read for layout, ordering, assembly, cost and value work; the session state is i
 - Power LED (decision 168), on assembly: solder the pre-crimped XH leads to the LED with one heat-shrink sleeve per lead (Kingbright precautions), pin 1 to the anode (long lead); leave enough length to lift the top strip off. Check the brightness at about 2.2 mA under stage light; if it is too dim, R104 can drop to 4k7 (about 4.7 mA, IF max 25 mA).
 - Unverified facts: L78M05 DPAK pinout (from KiCad's LM78M05_TO252: 1 IN, 2 GND tab, 3 OUT; ST DS0425 Figure 2 not read as text); Würth header 3 A per contact (PDF text, not the rendered page); KNSCHA 100 µF size (radial footprint assumed).
 - The level of the AC-coupled sync clock at RT/CLK (10 pF into 243 kΩ, TI's recommended network) should cross 1.7 V cleanly: check on the bench.
+- **Input EMI filter (decision 187), on the bench:** the 400 kHz ripple on the brick lead (current probe or a small loop around the lead, or the voltage at J101 against VIN_SW) with all prototype cards connected, compared with the model's roughly 36 dB gain; the start-up with C108 and L101 in (no change expected: the soft start charges them); no ringing on VIN_SW at a load step (filter damping by C103's ESR, assumed 0.05-0.4 Ω, not taken from the UHE datasheet). A medium-wave radio held near the brick lead and the ribbons is a cheap first check.
 - The SMBJ24A's 24 V standoff is below the brick's 24.7 V maximum; leakage at 24.7 V is not specified (breakdown 26.7 V minimum).
 
 ## Layout notes (as routed, decision 186)
 
 - Each converter's input loop is tight (input ceramics turned with VIN to the IC's VIN pin, their ground by vias to the plane; catch diode at the SW pin); on the inverter the input ceramics go from VIN to the −20 V node, and C310 sits at D301's anode.
 - D201 (SS54, SMA) gets a copper pad for heat (decision 159: up to about 0.5 W worst case with hot leakage); check its temperature at full load on the bench.
+- Input pi filter (decision 187): F101 upright in the rear corner, Q101/Q102 moved 8.7 mm to the rear, L101 between Q102 and C103, C108 and C102 on the VIN_PRE copper under L101 (C108's ground by a via next to it), the VIN_SW spine from L101's output.
 - Q102 (soft start) gets a copper pad; the 4 A input fuse stays away from the converters' heat (it holds only 3.0 A at 50 °C).
 - The power board has no connection to AGND or the frame: the bracket holes are unplated with a 5 mm copper keep-out (the star point is on the master card).
 

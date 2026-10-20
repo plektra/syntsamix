@@ -24,7 +24,7 @@ BUILD = os.path.join(PROJ, "scripts", "build") if len(sys.argv) > 1 else os.path
 JAVA = os.path.expanduser("~/.local/opt/jdk-25.0.4.1+1/Contents/Home/bin/java")
 FREEROUTING = os.path.expanduser("~/.local/opt/freerouting-2.5.0/freerouting-2.5.0.jar")
 
-POWER_NETS = ["/Input and clock/VBRICK", "Net-(D101-K)", "Net-(D102-K)", "/VIN_SW", "Net-(D201-K)",
+POWER_NETS = ["/Input and clock/VBRICK", "Net-(D101-K)", "Net-(D102-K)", "/Input and clock/VIN_PRE", "/VIN_SW", "Net-(D201-K)",
               "Net-(C209-Pad1)", "/+20V_RAW", "Net-(D301-K)", "/-20V_RAW", "/Outputs/*", "PGND",
               "/-20 V inverter/-20V_CONV"]
 sys.path.insert(0, HERE)
