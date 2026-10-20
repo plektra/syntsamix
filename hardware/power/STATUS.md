@@ -1,6 +1,6 @@
 # Power board status
 
-Updated 2026-10-20 (power board EMI session: input pi filter C108/L101, decision 187, schematic and PCB rebuilt). 2026-10-20 (power board PCB session 2026-10-19/20: PCB placed, routed and reviewed by the user; panel-mount brick jack, decision 182; small module without chain 2, decision 185; PCB form, decision 186). 2026-10-19 (/system: this board's PCB goes first). 2026-10-17 (/system: chain feeds are multi-drop power sections, decision 175).
+Updated 2026-10-20 (/system mechanical: power bay layout, brackets, LED hole and position across the bay, decision 188). 2026-10-20 (power board EMI session: input pi filter C108/L101, decision 187, schematic and PCB rebuilt). 2026-10-20 (power board PCB session 2026-10-19/20: PCB placed, routed and reviewed by the user; panel-mount brick jack, decision 182; small module without chain 2, decision 185; PCB form, decision 186). 2026-10-19 (/system: this board's PCB goes first). 2026-10-17 (/system: chain feeds are multi-drop power sections, decision 175).
 
 Reference lists: `CHECKLISTS.md` (checks before layout, before ordering and on delivery, cost-cut levers, component values; decision 151). How the PCB is built: `CLAUDE.md`.
 
@@ -19,7 +19,7 @@ Reference lists: `CHECKLISTS.md` (checks before layout, before ordering and on d
 
 1. Review the input area of the rebuilt PCB in KiCad (decision 187: F101 upright, Q101/Q102 moved, L101/C108 on the VIN_PRE copper).
 2. EMI, the remaining topics one at a time (decision 187): switch-node snubber or edge-control footprints (fitted only if the bench needs them), then common-mode noise through the brick and the audio cable shields (only if the bench shows a problem).
-3. Before ordering (one JLCPCB order for all boards, `docs/ROADMAP.md`): the checks in `CHECKLISTS.md`, "Before ordering": footprint prints, the bracket design and the top strip's holes (/system), the RoHS audit, LCSC stock.
+3. Before ordering (one JLCPCB order for all boards, `docs/ROADMAP.md`): the checks in `CHECKLISTS.md`, "Before ordering": footprint prints, the bracket drawing and the top strip's holes (decision 188), the RoHS audit, LCSC stock.
 4. Report the converters' real efficiency (from `scripts/design.py` or the TPS54560 datasheet) for `tools/heat_budget.py`, replacing its 88 % estimate (decision 167).
 5. Full-size supply, the larger module with chain 2 (about 4 A per rail), after the prototype cards are measured (decision 96): the −20 V inverter needs a controller with external MOSFETs, the input an 8-10 A fuse and lower-resistance reverse-polarity MOSFETs, the headers 2.5-3 A fuses, the bay probably a fan (decision 167).
 
@@ -29,8 +29,9 @@ Reference lists: `CHECKLISTS.md` (checks before layout, before ordering and on d
 
 ## For /system
 
-- Mounting (decision 186): two brackets to the bay's top strip only, no fixing to the rear strip (`MECHANICAL.md`, Power bay: "fixed at its rear edge to the bay's rear strip"). Brackets not designed yet; proposal: 3D-printed PETG or ASA (not PLA: 57 °C design air, decision 167), L-shaped with a vertical slot for the height tolerance, some width along the board or two screws each, on the board's back face; M3 screw and nut through H1/H2; M3 button-head screws (ISO 7380) through the top strip into a nut or heat-set insert. The top strip's holes go into the panel drawing.
-- Rear strip (decision 182): the brick jack is the panel-mount Kycon KPJX-PM-4S (flange 25.2 × 14.2 mm, two M2.5 screws 19.0 mm apart, about Ø13 hole for the body), beside the rocker, both upright; exhaust slots where they leave room (decision 167).
-- Power LED hole (decision 168): above J103, about 300 mm behind the front rail's inner face along the board, at its top edge; its position across the strip follows where the board sits across the bay (set with the brackets).
-- Two module sizes (decision 185): `docs/CHAIN.md` ("the power board has three power headers", Current per rail) and the `docs/ARCHITECTURE.md` diagram describe the full system: word them for the small module (master, chain 1) and the full-size module (adds chain 2). `tools/costs.py` prices the small module for every build.
-- Master heatsinks next to the bay (the user, 2026-10-20): the master's Wakefield 637-10ABPE heatsinks (25.4 mm below the master card, at least 190 mm behind the front rail, decisions 174, 176) share the height range of the power board, whose parts side faces the master with parts up to about 17 mm tall (mated J101 lead, ribbon sockets). Not checked yet: set the power board's position across the bay with the brackets (for example near the right cheek, parts ending about 20 mm from it) and a keep-out for the master heatsinks at the master section's right edge; also keep the power board's hottest parts away from them (shared air, decision 167).
+- Settled by /system 2026-10-20 (decision 188, `docs/MECHANICAL.md`, Power bay): mounting, rear strip, LED hole and position across the bay. Board follow-ups:
+  - Bracket drawing (printed PETG or ASA, inverted L): vertical leg on the back face holds the board's back face 6 mm from the bay's right edge (vertical slot, M3 from the parts side through H1/H2 into a heat-set insert); horizontal leg about 4 mm thick in the 5 mm gap above the top edge; one M3 button-head screw per bracket through the top strip on its centreline above H1 (about 309 mm behind the front rail) and H2 (about 144 mm), plus an anti-twist peg. Keep parts near H1/H2 clear of the leg.
+  - Power LED hole on the top strip's centreline about 290 mm behind the front rail (J103 lead long enough to reach it).
+  - Back-face copper at least 5 mm from the cheek: true with the 6 mm spacing; keep through-hole pins and the brackets' screws within it.
+  - On the frame: the rocker's tabs with 4.8 mm receptacles against the about 25 mm gap to the board's rear edge.
+- Still open with /system: the wording of `docs/CHAIN.md` ("three power headers") and the `docs/ARCHITECTURE.md` diagram for the small module (decision 185).

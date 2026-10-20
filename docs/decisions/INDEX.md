@@ -212,6 +212,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 185 | Power board is the small module (up to 8 cards): two power headers, master and chain 1 (J401, J402, F401-F404); chain 2 header J403 and fuses F405/F406 removed; board 177 mm; full-size module after the prototype measurement; refines 100, 162 | confirmed | [power](power.md) |
 | 186 | Power board PCB: 2 layers 1 oz lead-free HASL; outline 177 × 35 mm referenced to the panel; two M3 bracket holes to the top strip, no rear fixing (MECHANICAL change for /system); ribbon headers flat, pin 1 to the front; built by scripts; refines 100, 162 | confirmed | [power](power.md) |
 | 187 | Power board input EMI filter: pi filter after Q102, C108 4.7 µF 100 V, L101 2.2 µH SRP7028A, then C103; no new part type; refines 100 | confirmed | [power](power.md) |
+| 188 | Power bay layout: power board back face 6 mm from the cheek, master heatsinks at least 10 mm inside the master card's right edge, inverted-L printed brackets to the top strip's centreline (about 309 and 144 mm), power LED hole about 290 mm, chain cables cross in front of the heatsink zone; refines 162, 168, 174, 176, 186 | confirmed | [mechanical](mechanical.md) |
 
 ## Proposed but not confirmed
 

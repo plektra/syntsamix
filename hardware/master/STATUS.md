@@ -1,6 +1,6 @@
 # Master card status
 
-Updated 2026-10-17 (/system: J101 on the cards' header line, decision 175; regulator zone at least about 190 mm behind the front rail, decision 176; ready-made input cable, decision 179; budgets and heatsink line in ARCHITECTURE refreshed. /board master: `CHECKLISTS.md` brought to decisions 174 and 175; AUX return MUTE and DUCK on the buttons, decision 177; decision 147 confirmed). Earlier the same day: decisions 172-175 (onsemi regulators, back-to-back pairs, NE5532 → TL072, Wakefield heatsinks, multi-drop chain cables).
+Updated 2026-10-20 (/system mechanical: heatsink keep-out at the right edge and power ribbon route, decision 188). 2026-10-17 (/system: J101 on the cards' header line, decision 175; regulator zone at least about 190 mm behind the front rail, decision 176; ready-made input cable, decision 179; budgets and heatsink line in ARCHITECTURE refreshed. /board master: `CHECKLISTS.md` brought to decisions 174 and 175; AUX return MUTE and DUCK on the buttons, decision 177; decision 147 confirmed). Earlier the same day: decisions 172-175 (onsemi regulators, back-to-back pairs, NE5532 → TL072, Wakefield heatsinks, multi-drop chain cables).
 
 Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut levers, component values; decision 151).
 
@@ -28,11 +28,11 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 1. **Rear row boards** (decisions 162, 163), after measuring an NYS216 sample: two new KiCad projects (6 jacks in a row at about 23 mm, the 26-pin header SX-CONN-017, SW901 on the input board between conductors 25 and 26, insulated from the row board's ground; the return normalling R-to-L wired jack to jack). If the NYS216 is taller than about 17 mm: on-edge 2-jack boards with the AUX returns reusing `input-module-6p3`, and decision 163's pinout is revisited. Add both projects to `BOARDS` in `tools/costs.py` and move their parts out of `docs/costs/offboard.csv`.
 2. **Heatsinks: settled by decision 174** (Wakefield 637-10ABPE, 25.4 mm, 12.67 °C/W; junction limit 125 °C). Zone (decision 176): U901/U902 with HS901/HS902 at least about 190 mm behind the front rail's inner face, where the sloped floor clears 25.4 mm plus 3 mm; footprint for the two 25.4 mm-pitch pins from the Wakefield drawing at layout; L7805 U903 without a heatsink (about 104 °C free-air worst case at 57 °C). Earlier candidates that failed: Aavid 577202B00000G (24.4 °C/W), Aavid 7021B-MTG (about 37 mm), Same Sky HSE-BX-02 (14.3 °C/W at 25.4 mm). Leave room on the rear piece for exhaust slots (about 3 cm², `docs/MECHANICAL.md`, Ventilation).
-3. At layout: card at most 138 × 318 mm; the NYS230 cutout at least about 90 mm behind the front edge (chain header and regulator checks in `CHECKLISTS.md`).
+3. At layout: card at most 138 × 318 mm; heatsinks at least 10 mm inside the right edge and the power ribbon in front of the heatsink zone (decision 188); the NYS230 cutout at least about 90 mm behind the front edge (chain header and regulator checks in `CHECKLISTS.md`).
 4. PCB layout, after the SSI2144 breadboard and the channel card layout (`docs/CONTINUE-FROM-HERE.md`); the AS3046D declaration before ordering.
 
 ## For /system
 
-- From the power board session (2026-10-20): at master layout, keep the regulator heatsinks HS901/HS902 (25.4 mm below the card) clear of the master section's right edge, where the power board stands in the bay with parts up to about 17 mm tall facing the master; the clearance is set in /system mechanical with the power board brackets (`hardware/power/STATUS.md`, For /system).
+- Settled by /system 2026-10-20 (decision 188, `docs/MECHANICAL.md`, Master section): at layout, HS901/HS902 and the TO-220 tabs at least 10 mm inside the card's right edge (preferably near the middle), about 20 mm of air to the power board's parts; place the power header so the ribbon from the power board's J401 (about 164 mm behind the front rail, at the floor) reaches it in front of the heatsink zone (less than about 185 mm behind the front rail); the chain 1 feed also crosses there, and no chain cable passes under a heatsink.
 
 - (Settled 2026-10-17, the user: "let's keep the heatsink and 20V rails": the board heatsinks of decision 174 and decision 40's ±20 V chain stay; ±18 V raw rails and regulators bolted to a 2020 rail are not pursued.)

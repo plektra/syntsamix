@@ -5,8 +5,8 @@ Read for layout, ordering, assembly, cost and value work; the session state is i
 ## Before ordering
 
 - Footprints drawn from the maker drawings: print `L_Bourns_SRP1265A` (L201, L301) 1:1 and check it against the part; the board's other footprints are KiCad's own.
-- Brackets and the top strip's holes (decision 186, /system): the board side is two M3 holes H1/H2 with a 5 mm copper keep-out; check the bracket against the parts near H1 (J103) and H2 (the fuses) on the parts side.
-- Power LED hole position in the top strip above J103 (decision 168, /system).
+- Bracket drawing and the top strip's holes (decisions 186, 188, `docs/MECHANICAL.md`, Power bay): printed inverted-L brackets holding the back face 6 mm from the bay's right edge, M3 through H1/H2 (5 mm copper keep-out) into heat-set inserts, one M3 screw per bracket through the top strip's centreline about 309 and 144 mm behind the front rail, plus an anti-twist peg; check the leg against the parts near H1 (J103) and H2 (the fuses).
+- Power LED hole on the top strip's centreline about 290 mm behind the front rail, a few mm in front of J103 (about 300 mm; decision 188): make the J103 lead long enough.
 - RoHS audit of this board's parts; LCSC stock (`tools/lcsc_check.py` not run yet for these parts; recheck the EEHZK1V331P hybrid capacitors).
 - Rebuild with `scripts/build_pcb.sh` after any schematic change and check DRC with schematic parity.
 
