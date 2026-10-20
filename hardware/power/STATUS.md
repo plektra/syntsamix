@@ -1,6 +1,6 @@
 # Power board status
 
-Updated 2026-10-20 (/system mechanical: power bay layout, brackets, LED hole and position across the bay, decision 188). 2026-10-20 (power board EMI session: input pi filter C108/L101, decision 187, schematic and PCB rebuilt). 2026-10-20 (power board PCB session 2026-10-19/20: PCB placed, routed and reviewed by the user; panel-mount brick jack, decision 182; small module without chain 2, decision 185; PCB form, decision 186). 2026-10-19 (/system: this board's PCB goes first). 2026-10-17 (/system: chain feeds are multi-drop power sections, decision 175).
+Updated 2026-10-20 (/system: `CHAIN.md` and `ARCHITECTURE.md` worded for the two module sizes, decision 185). 2026-10-20 (/system mechanical: power bay layout, brackets, LED hole and position across the bay, decision 188). 2026-10-20 (power board EMI session: input pi filter C108/L101, decision 187, schematic and PCB rebuilt). 2026-10-20 (power board PCB session 2026-10-19/20: PCB placed, routed and reviewed by the user; panel-mount brick jack, decision 182; small module without chain 2, decision 185; PCB form, decision 186). 2026-10-19 (/system: this board's PCB goes first). 2026-10-17 (/system: chain feeds are multi-drop power sections, decision 175).
 
 Reference lists: `CHECKLISTS.md` (checks before layout, before ordering and on delivery, cost-cut levers, component values; decision 151). How the PCB is built: `CLAUDE.md`.
 
@@ -34,4 +34,3 @@ Reference lists: `CHECKLISTS.md` (checks before layout, before ordering and on d
   - Power LED hole on the top strip's centreline about 290 mm behind the front rail (J103 lead long enough to reach it).
   - Back-face copper at least 5 mm from the cheek: true with the 6 mm spacing; keep through-hole pins and the brackets' screws within it.
   - On the frame: the rocker's tabs with 4.8 mm receptacles against the about 25 mm gap to the board's rear edge.
-- Still open with /system: the wording of `docs/CHAIN.md` ("three power headers") and the `docs/ARCHITECTURE.md` diagram for the small module (decision 185).

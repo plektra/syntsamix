@@ -11,7 +11,7 @@ The system-level view: how the boards fit together, the numbers that cross board
  │ Power board   ├────────────────────────►│ Master card  │◄── star point: AGND-PGND join (net tie)
  │ buck/inverter │                         │ ±15 V, +5 V  │──► main out (DRV135), headphones,
  └──┬─────────┬──┘                         │ bus summing, │    AUX sends/returns, SC EXT jack
-    │ chain 1 │ chain 2                    │ compressor   │
+    │ chain 1 │ chain 2 (full-size only)   │ compressor   │
     │ power   │ power                      └──────▲───────┘
     ▼         ▼                                   │ audio cable (34-way), multi-drop past all cards
  cards 1-8   cards 9-16                    ┌──────┴───────┐   ┌──────────────┐
@@ -23,7 +23,7 @@ The system-level view: how the boards fit together, the numbers that cross board
                                            └──────────────┘
 ```
 
-The diagram is not to scale: left to right the unit holds the channel strips, the master section (4 strips) and the power bay (1 strip) (decisions 109, 162, `MECHANICAL.md`); chain 1 feeds the group next to the master. Each channel card has one audio and one power header on multi-drop flat cables in 8-card sections; audio sections join through a coupler board, each group of 8 has its own power section (decisions 38, 80, 175). The prototype has 4 channel cards on chain 1.
+The diagram is not to scale: left to right the unit holds the channel strips, the master section (4 strips) and the power bay (1 strip) (decisions 109, 162, `MECHANICAL.md`); chain 1 feeds the group next to the master. Each channel card has one audio and one power header on multi-drop flat cables in 8-card sections; audio sections join through a coupler board, each group of 8 has its own power section (decisions 38, 80, 175). The prototype has 4 channel cards on chain 1, fed by the small power module (master and chain 1 headers, up to 8 cards, decision 185); chain 2 belongs to the full-size module, designed after the prototype cards are measured (decision 96).
 
 ## Interfaces (contracts)
 
@@ -47,8 +47,8 @@ Sizing rule (decision 96): a card's own parts are sized for its worst case (ever
 | Local rails on every card | ±15.1 V (LM317/LM337), +5 V (78L05 on channel cards, L7805 on the master); channel cards also VEE about −6.2 V for the CD4052B switches (10k and zener from −15 V, about 0.9 mA returning to AGND, not on the ribbons) | decisions 78, 87, 183 |
 | Channel card load (+15 / −15 V) | typical 110 / 94 mA; worst case 229 / 195 mA; sizing 171 / 140 mA (TL072 receiver; CD4052B VEE zener, decision 183) | decisions 96, 102, 123, 143, `hardware/channel-card/scripts/power_budget.py` |
 | Master card load (+15 / −15 V) | typical 295 / 224 mA; worst case 591 / 466 mA; sizing 522 / 408 mA | decisions 95, 96, 103, 125-128, 146, 148, 173, `hardware/master/scripts/power_budget.py` |
-| Prototype, 4 cards + master | sizing 1.21 / 0.97 A, about 43 W (typical 0.73 / 0.60 A, 27 W; worst case 1.51 / 1.25 A, 55 W); power board converters about 2 A per rail | decisions 96, 100, 123, 143, 146, 148, 173 |
-| Full size, 16 cards + master | sizing 3.26 / 2.65 A, about 118 W (typical 2.06 / 1.73 A, 76 W; worst case 4.25 / 3.59 A, 157 W, not used for sizing) | decisions 96, 123, 143, 146, 148, 173 |
+| Prototype, 4 cards + master | sizing 1.21 / 0.97 A, about 43 W (typical 0.73 / 0.60 A, 27 W; worst case 1.51 / 1.25 A, 55 W); small power module (master and chain 1), converters about 2 A per rail | decisions 96, 100, 123, 143, 146, 148, 173, 185 |
+| Full size, 16 cards + master (full-size power module, still to design) | sizing 3.26 / 2.65 A, about 118 W (typical 2.06 / 1.73 A, 76 W; worst case 4.25 / 3.59 A, 157 W, not used for sizing) | decisions 96, 123, 143, 146, 148, 173 |
 | Brick (24 V, Class II, floating, R7B plug) | prototype Mean Well GSM120B24-R7B (120 W); full size GSM220B24-R7B (221 W): about 131 W at sizing and 173 W at worst case into the brick at about 90 % conversion **[estimate]**, 59 / 78 % of its rating | decisions 100, 145 |
 | Power ribbon | one multi-drop section per group of 8 cards (decision 175); about 0.68 A per conductor from the feed (sizing; 0.92 A at worst case), about 0.11 A per contact at each card's socket; connectors and cable rated at least 1 A per contact (the Würth 61200823021 IDC socket is the limit at 1 A at the feed socket, the worst case 8 % below it; the header is 3 A; the Würth WR-CAB 8-way flat cable, `SX-WIRE-005`, is rated 1 A max at 25 °C (decision 178); its derating at the 57 °C inside air is to confirm for a full group of 8) | decisions 80, 96, 100, 123, 175, 178 |
 | Capacitance on each raw rail at switch-on | about 0.37 mF (prototype), 1.2 mF (full size), plus about 0.76 mF on the power board; the start-up ramp on both converters holds the brick at about 54 W while charging it (rails at 19 V about 40 ms after switch-on; bench check in `hardware/power/STATUS.md`) | system validation, finding 6; decision 100, `hardware/power/scripts/startup_sim.py` |
