@@ -7,3 +7,6 @@ master,SX-CONN-017,2,26-pin headers on the two rear row boards (decision 163); m
 master,SX-CONN-018,4,26-pin IDC sockets: two rear ribbons with a socket at each end (decision 163)
 input-module-6p3,SX-CONN-025,2,Input cable IDC sockets Adam Tech FCS-12-SG (decision 181)
 input-module-6p3,SX-WIRE-006,1,Input cable Wurth 12-way flat cable 150 mm (decision 181)
+power,SX-CONN-027,1,brick jack Kycon KPJX-PM-4S on the bay's rear strip (decision 182)
+power,SX-CONN-028,1,J101 lead housing JST VHR-4N
+power,SX-CONN-029,4,J101 lead contacts JST SVH-21T-P1.1

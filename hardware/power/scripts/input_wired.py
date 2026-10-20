@@ -19,9 +19,9 @@ def chain(y,xs):
     for a,b in zip(xs,xs[1:]): s.wire((a,y),(b,y))
 
 Y=101.6
-# ------------------------------------------------------------- brick jack: pins 1, 4 = +24 V, 2, 3 = 0 V (diagonal pairs)
-j=pl("Connector_Generic","Conn_01x04","J101","24V IN","KPJX-4S",40.64,Y,180,
-     Note="Locking 4-pin power DIN, PCB right angle at the rear edge; mates Mean Well R7B (KPPX-4P). Check polarity on the first brick")
+# ------------------------------------------------------------- brick jack lead (decision 182): header pin n = panel jack pin n; 1, 4 = +24 V, 2, 3 = 0 V
+j=pl("Connector_Generic","Conn_01x04","J101","24V IN","VH 4P",40.64,Y,180,
+     Note="Brick jack lead: Kycon KPJX-PM-4S panel jack (SX-CONN-027) on the bay's rear strip, four 18 AWG wires, pin n to jack pin n (1, 4 = +24 V; 2, 3 = 0 V); VHR-4N housing with SVH-21T-P1.1 contacts (decision 182). Check polarity on the first brick")
 s.wire(j(4),(j(4)[0]+10.16,j(4)[1])); s.label("VBRICK",(j(4)[0]+10.16,j(4)[1]))
 s.wire(j(1),(j(1)[0]+2.54,j(1)[1]),(j(1)[0]+2.54,Y+7.62),(j(1)[0]+10.16,Y+7.62)); s.label("VBRICK",(j(1)[0]+10.16,Y+7.62))
 for p in (2,3): s.wire(j(p),(j(p)[0]+5.08,j(p)[1]))

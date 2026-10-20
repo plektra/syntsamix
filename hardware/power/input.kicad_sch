@@ -8165,7 +8165,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_VH_B4P-VH_1x04_P3.96mm_Vertical"
 			(at 40.64 101.6 180)
 			(hide yes)
 			(show_name no)
@@ -8197,7 +8197,7 @@
 				)
 			)
 		)
-		(property "ProjectPN" "SX-CONN-011"
+		(property "ProjectPN" "SX-CONN-026"
 			(at 40.64 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -8208,7 +8208,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Kycon"
+		(property "Manufacturer" "JST"
 			(at 40.64 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -8219,7 +8219,7 @@
 				)
 			)
 		)
-		(property "MPN" "KPJX-4S"
+		(property "MPN" "B4P-VH(LF)(SN)"
 			(at 40.64 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -8230,7 +8230,7 @@
 				)
 			)
 		)
-		(property "Supplier" "DigiKey"
+		(property "Supplier" "LCSC"
 			(at 40.64 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -8241,7 +8241,7 @@
 				)
 			)
 		)
-		(property "SupplierPN" ""
+		(property "SupplierPN" "C160317"
 			(at 40.64 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -8252,7 +8252,7 @@
 				)
 			)
 		)
-		(property "Note" "Locking 4-pin power DIN, PCB right angle at the rear edge; mates Mean Well R7B (KPPX-4P). Check polarity on the first brick"
+		(property "Note" "Brick jack lead: Kycon KPJX-PM-4S panel jack (SX-CONN-027) on the bay's rear strip, four 18 AWG wires, pin n to jack pin n (1, 4 = +24 V; 2, 3 = 0 V); VHR-4N housing with SVH-21T-P1.1 contacts (decision 182). Check polarity on the first brick"
 			(at 40.64 101.6 0)
 			(hide yes)
 			(show_name no)

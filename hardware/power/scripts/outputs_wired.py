@@ -17,14 +17,14 @@ YP,YNR=60.96,86.36
 s.label("+20V_RAW",(40.64,YP),180,"hierarchical","input")
 s.label("-20V_RAW",(40.64,YNR),180,"hierarchical","input")
 xp,xn=[40.64],[40.64]
-NOTE=("Power ribbon to the master card","Power ribbon chain 1 (cards 1-8)","Power ribbon chain 2 (cards 9-16)")
-for g,name in enumerate(("M","C1","C2")):
+NOTE=("Power ribbon to the master card","Power ribbon chain 1 (cards 1-8)")
+for g,name in enumerate(("M","C1")):   # small module: no chain 2 (decision 185)
     X0=76.2+76.2*g; xp.append(X0); xn.append(X0+10.16)
     f=pl("Device","Polyfuse",f"F{401+2*g}","2A 33V","PTC 2A",X0,68.58,0)
     s.wire((X0,YP),f(1)); s.wire(f(2),(X0,74.93)); s.label(f"+20V_{name}",(X0,74.93),0)
     f=pl("Device","Polyfuse",f"F{402+2*g}","2A 33V","PTC 2A",X0+10.16,93.98,0)
     s.wire((X0+10.16,YNR),f(1)); s.wire(f(2),(X0+10.16,100.33)); s.label(f"-20V_{name}",(X0+10.16,100.33),0)
-    j=pl("Connector_Generic","Conn_02x04_Odd_Even",f"J{401+g}",("MASTER","CHAIN 1","CHAIN 2")[g],"HDR 2x4",X0+20.32,127.0,0,
+    j=pl("Connector_Generic","Conn_02x04_Odd_Even",f"J{401+g}",("MASTER","CHAIN 1")[g],"HDR 2x4",X0+20.32,127.0,0,
          Note=NOTE[g]+": 8-pin shrouded keyed box header, 1-2 V-, 3-6 PGND, 7-8 V+ (docs/CHAIN.md); 3 A per contact")
     for side,pins in (("L",(1,3,5,7)),("R",(2,4,6,8))):
         a,b,cc,d=pins; x=j(a)[0]+(-5.08 if side=="L" else 5.08); sg=-1 if side=="L" else 1

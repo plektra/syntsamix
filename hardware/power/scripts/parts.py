@@ -23,12 +23,12 @@ P={
  "100u 50V":("SX-C-028","Capacitor_THT:CP_Radial_D8.0mm_P3.50mm",lcsc("SX-C-028","Nichicon","UHE1H101MPD","C116229")),
  # inductors and fuses
  "2u2":("SX-L-001","Inductor_SMD:L_Bourns_SRP7028A_7.3x6.6mm",lcsc("SX-L-001","Bourns","SRP7028A-2R2M","C1329579")),
- "15u":("SX-L-002","",lcsc("SX-L-002","Bourns","SRP1265A-150M","C189912")),
- "22u":("SX-L-003","",lcsc("SX-L-003","Bourns","SRP1265A-220M","C2041465")),
+ "15u":("SX-L-002","syntsamix:L_Bourns_SRP1265A",lcsc("SX-L-002","Bourns","SRP1265A-150M","C189912")),
+ "22u":("SX-L-003","syntsamix:L_Bourns_SRP1265A",lcsc("SX-L-003","Bourns","SRP1265A-220M","C2041465")),
  "PTC 4A":("SX-F-001","Fuse:Fuse_2920_7451Metric",lcsc("SX-F-001","LUTE","2920L400/30GR","C19078761")),
  "PTC 2A":("SX-F-002","Fuse:Fuse_1812_4532Metric",lcsc("SX-F-002","BHFUSE","BSMD1812-200-33V","C7433877")),
  # semiconductors
- "TPS54560":("SX-IC-018","Package_SO:Texas_R-PDSO-G8_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias",lcsc("SX-IC-018","Texas Instruments","TPS54560DDAR","C31966")),
+ "TPS54560":("SX-IC-018","Package_SO:Texas_R-PDSO-G8_EP2.95x4.9mm_Mask2.4x3.1mm",lcsc("SX-IC-018","Texas Instruments","TPS54560DDAR","C31966")),
  "74HC14":("SX-IC-019","Package_SO:SOIC-14_3.9x8.7mm_P1.27mm",lcsc("SX-IC-019","Nexperia","74HC14D,653","C5605")),
  "L78M05":("SX-IC-020","Package_TO_SOT_SMD:TO-252-2",lcsc("SX-IC-020","STMicroelectronics","L78M05ABDT-TR","C58069")),
  "SQJ457EP":("SX-Q-002","Package_SO:PowerPAK_SO-8L_Single",lcsc("SX-Q-002","Vishay","SQJ457EP-T1_GE3","C511548")),
@@ -38,7 +38,7 @@ P={
  "SS54":("SX-D-012","Diode_SMD:D_SMA",lcsc("SX-D-012","MDD","SS54","C22452")),
  "SS510C":("SX-D-013","Diode_SMD:D_SMC",lcsc("SX-D-013","MDD","SS510C","C19229")),
  # connectors and switch
- "KPJX-4S":("SX-CONN-011","",{"ProjectPN":"SX-CONN-011","Manufacturer":"Kycon","MPN":"KPJX-4S","Supplier":"DigiKey","SupplierPN":""}),
+ "VH 4P":("SX-CONN-026","Connector_JST:JST_VH_B4P-VH_1x04_P3.96mm_Vertical",lcsc("SX-CONN-026","JST","B4P-VH(LF)(SN)","C160317")),
  "HDR 2x4":("SX-CONN-008","Connector_IDC:IDC-Header_2x04_P2.54mm_Vertical",{"ProjectPN":"SX-CONN-008","Manufacturer":"Wurth Elektronik","MPN":"61200821621","Supplier":"","SupplierPN":""}),
  "XH 2P":("SX-CONN-016","Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",lcsc("SX-CONN-016","JST","B2B-XH-A(LF)(SN)","C158012")),
 }

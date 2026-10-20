@@ -206,8 +206,11 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 179 | Input cable ready-made Molex 217796-1101 (150 mm, 22 AWG) instead of hand crimping; 1:1 wiring checked on the sales drawing or with a meter on delivery; crimp parts the fallback; refines 99, 160 | confirmed | [input-module](input-module.md) |
 | 180 | Input cable a self-made IDC flat cable on shrouded box headers instead of the Molex lead (about €4 per channel); NYS216 jacks kept; refines 68, 99, 179; details in 181 | confirmed | [input-module](input-module.md) |
 | 181 | Input header Adam Tech BHR-12-VUA 2x6, no latches; cable Würth WR-CAB 12-way with FCS-12-SG sockets, 150 mm, 1:1; misplug-safe pinout 1 DO_L, 2 AGND, 3 L+, 4 L−, 5-8 AGND, 9 R+, 10 R−, 11 AGND, 12 DO_R; refines 68, 99, 105, 179, 180 | confirmed | [input-module](input-module.md) |
+| 182 | Brick jack Kycon KPJX-PM-4S panel mount on the bay's rear strip, wired pin n to pin n by four 18 AWG wires to a JST VH 4-pin header J101, instead of the PCB jack KPJX-4S; refines 100 | confirmed | [power](power.md) |
 | 183 | Channel bus assign, PFL and SC send on three CD4052B (JLCPCB preferred) at the virtual-earth bus ends instead of two DG413; released throws to AGND; VDD +5 V, VEE about −6.2 V from a zener on the chain sheet; low-cut and bypass stay DG413; refines 69, 74, 139 | confirmed (the user chose the lever 2026-10-19; circuit details for review) | [channel-card](channel-card.md) |
 | 184 | Channel trimmers BOCHEN 3296W-1-503 from LCSC (SX-TRIM-002) instead of Bourns from Mouser; same outline and footprint, ±250 ppm/K | confirmed (the user chose the lever 2026-10-19) | [channel-card](channel-card.md) |
+| 185 | Power board is the small module (up to 8 cards): two power headers, master and chain 1 (J401, J402, F401-F404); chain 2 header J403 and fuses F405/F406 removed; board 177 mm; full-size module after the prototype measurement; refines 100, 162 | confirmed | [power](power.md) |
+| 186 | Power board PCB: 2 layers 1 oz lead-free HASL; outline 177 × 35 mm referenced to the panel; two M3 bracket holes to the top strip, no rear fixing (MECHANICAL change for /system); ribbon headers flat, pin 1 to the front; built by scripts; refines 100, 162 | confirmed | [power](power.md) |
 
 ## Proposed but not confirmed
 

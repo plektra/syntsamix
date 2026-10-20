@@ -122,3 +122,7 @@ SX-F-002,0.1387,USD,LCSC C7433877 (50+),2026-10-13,extended,BHFUSE BSMD1812-200-
 SX-CONN-024,0.445,EUR,Mouser 737-BHR-12-VUA (10+),2026-10-18,hand,"Adam Tech BHR-12-VUA 2x6 box header, input header (decision 181); 0.354 at 100",,100:0.796
 SX-CONN-025,0.323,EUR,Mouser 737-FCS-12-SG (10+),2026-10-18,hand,"Adam Tech FCS-12-SG 2x6 IDC socket, off-board (input cable, decision 181); 0.266 at 100",,100:0.824
 SX-WIRE-006,0.39,EUR,Mouser 710-63911215521CAB,2026-10-18,hand,"Wurth 63911215521CAB 12-way flat cable, price per 150 mm input cable: a 1 m cut (2.34 at 1, 2.14 at 5, 1.94 at 10, 1.71 at 30) makes six (decision 181)",,
+SX-CONN-026,0.1223,USD,LCSC C160317,2026-10-19,hand,JST B4P-VH(LF)(SN) brick jack lead header J101 (decision 182),,
+SX-CONN-027,2.30,EUR,Mouser 806-KPJX-PM-4S,2026-10-19,hand,"Kycon KPJX-PM-4S panel brick jack (decision 182); 2.01 at 10, 1.74 at 100",,
+SX-CONN-028,0.103,EUR,Mouser 306-VHR-4N,2026-10-19,hand,"JST VHR-4N housing (decision 182); 0.078 at 100",,
+SX-CONN-029,0.198,EUR,Mouser 306-SVH-21T-P1.1,2026-10-19,hand,"JST SVH-21T-P1.1 contact (decision 182); 0.077 at 10",,

@@ -1,30 +1,36 @@
 # Power board: checklists and reference
 
-Read for layout, assembly, cost and value work; the session state is in `STATUS.md` (decision 151).
+Read for layout, ordering, assembly, cost and value work; the session state is in `STATUS.md` (decision 151).
 
-## Check before layout
+## Before ordering
 
-- **Placement (decision 162, `docs/MECHANICAL.md`, Power bay):** the power board stands on edge in the power bay at the right end, hung from the bay's top strip and fixed to its rear strip, which carries the brick jack J101 and the rocker on J102 (decision 157). The power LED sits in the bay's top strip (decision 168): put J103 near the board's top edge below it. Output headers face left: master and chain 1 (into the power OUT header of the channel card next to the master) under the master section; chain 2 about 0.5 m along the rear floor. Insulating mounting, no PGND to the frame.
+- Footprints drawn from the maker drawings: print `L_Bourns_SRP1265A` (L201, L301) 1:1 and check it against the part; the board's other footprints are KiCad's own.
+- Brackets and the top strip's holes (decision 186, /system): the board side is two M3 holes H1/H2 with a 5 mm copper keep-out; check the bracket against the parts near H1 (J103) and H2 (the fuses) on the parts side.
+- Power LED hole position in the top strip above J103 (decision 168, /system).
+- RoHS audit of this board's parts; LCSC stock (`tools/lcsc_check.py` not run yet for these parts; recheck the EEHZK1V331P hybrid capacitors).
+- Rebuild with `scripts/build_pcb.sh` after any schematic change and check DRC with schematic parity.
+
+## Check before layout (kept for the bench and the full-size module)
+
 - **Start-up ramp (settled in decision 100, check on the bench):** `scripts/startup_sim.py` (averaged ngspice model) showed the fixed 2.6 ms soft-start into about 1.1 mF per rail takes 183 to 262 W from the brick (hiccup threshold 126 W). The 47 nF / 1N4148W ramp into FB keeps it at about 54 W; rails reach 19 V about 40 ms after switch-on (rerun 2026-10-10 with the 21.31 V UVLO start of decision 156 and the GSM220B24's 232 W limit: unchanged). On the bench: the start-up with all prototype cards connected (brick input current, no hiccup), and that the output does not misbehave while FB is held up at low output voltage (frequency foldback does not act then; the ramp current is far below the switch limit, so the minimum on-time should only cause pulse skipping).
 - **Minimum off-time at 445 kHz:** the buck runs at about 83 % duty, an off-time near 375 ns at the fast end of the oscillator spread; the TPS54560 refreshes BOOT by skipping pulses near 100 % duty. Check SLVSBN0C for a minimum off-time figure before layout.
 - **Per-header fuse coordination:** BSMD1812-200 holds 1.66 A at 50 °C; a full chain of 8 cards at the sizing figure is 1.40 A but 1.84 A at worst case (decisions 96, 123; `ARCHITECTURE.md`, Power, updated by /system 2026-10-09), and a 2-4 A fault may not trip it while the 1 A IDC socket contacts carry up to 2 A each. Recheck at full size (larger fuse or 3 pins per rail is a `/system` matter).
 - Voltage drop through the per-header fuse (resistance not found) and the 2.2 µH filter against the 19 V raw minimum.
-- Brick polarity: Mean Well R7B pins 1 and 4 = +24 V; the jack is wired by Kycon's numbering. Work the pin mapping through the key position on Mean Well's drawing, and check with a meter on the first brick.
+- Brick polarity: Mean Well R7B pins 1 and 4 = +24 V; the panel jack (KPJX-PM-4S, decision 182) is wired pin n to J101 pin n by Kycon's numbering. Work the pin mapping through the key position on Mean Well's drawing, and check with a meter on the first brick.
+- Brick jack lead (decision 182), on assembly: four 18 AWG wires crimped with SVH-21T-P1.1 contacts into a VHR-4N housing, soldered to the KPJX-PM-4S tails with heat-shrink, pin n to pin n; long enough to take the rear strip off. Screws: two M2.5 self-tapping, 6.6 mm plus the strip's 1.6 mm (about 8 mm), from the front.
 - Parts: all chosen. Power switch: Legion SS11-BBIWG-R20-R rocker on the rear panel, wired to J102 (JST XH 2-pin; decision 157). C103: Nichicon UHE1H101MPD radial, hand-soldered; C207/C307: Samsung CL10C100JB8NNNC 10 pF C0G 50 V 0603 (decision 158). Power LED: Kingbright WP710A10LGD in a Bivar CR-104 clip on the top strip, wired to J103 (decision 168).
 - Power rocker (decision 157), on delivery: the cheap rockers state no DC rating, minimum load or contact material; check that it switches the gate (about 0.12 mA, 24.7 V open) reliably over many operations. Make up the two leads (pre-crimped XH leads, soldered or crimped to the 4.8 mm tabs), long enough to take the rear panel off.
 - Power LED (decision 168), on assembly: solder the pre-crimped XH leads to the LED with one heat-shrink sleeve per lead (Kingbright precautions), pin 1 to the anode (long lead); leave enough length to lift the top strip off. Check the brightness at about 2.2 mA under stage light; if it is too dim, R104 can drop to 4k7 (about 4.7 mA, IF max 25 mA).
-- Footprints to draw from the maker's drawings: Kycon KPJX-4S, Bourns SRP1265A (L201, L301).
 - Unverified facts: L78M05 DPAK pinout (from KiCad's LM78M05_TO252: 1 IN, 2 GND tab, 3 OUT; ST DS0425 Figure 2 not read as text); Würth header 3 A per contact (PDF text, not the rendered page); KNSCHA 100 µF size (radial footprint assumed).
 - The level of the AC-coupled sync clock at RT/CLK (10 pF into 243 kΩ, TI's recommended network) should cross 1.7 V cleanly: check on the bench.
 - The SMBJ24A's 24 V standoff is below the brick's 24.7 V maximum; leakage at 24.7 V is not specified (breakdown 26.7 V minimum).
-- LCSC stock check not yet run through `tools/lcsc_check.py` for these parts.
 
-## Layout notes
+## Layout notes (as routed, decision 186)
 
-- Keep each converter's input loop (VIN ceramics, IC, catch diode) tight; on the inverter, its input ceramics go from VIN to the −20 V node.
+- Each converter's input loop is tight (input ceramics turned with VIN to the IC's VIN pin, their ground by vias to the plane; catch diode at the SW pin); on the inverter the input ceramics go from VIN to the −20 V node, and C310 sits at D301's anode.
 - D201 (SS54, SMA) gets a copper pad for heat (decision 159: up to about 0.5 W worst case with hot leakage); check its temperature at full load on the bench.
 - Q102 (soft start) gets a copper pad; the 4 A input fuse stays away from the converters' heat (it holds only 3.0 A at 50 °C).
-- The power board has no connection to AGND or the frame: mounting holes isolated (the star point is on the master card).
+- The power board has no connection to AGND or the frame: the bracket holes are unplated with a 5 mm copper keep-out (the star point is on the master card).
 
 ## Cost-cut levers [proposed] (2026-10-09)
 

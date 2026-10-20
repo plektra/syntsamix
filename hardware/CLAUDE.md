@@ -6,7 +6,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 
 - `<sheet>_build.py` = independent reference netlist, `<sheet>_wired.py` = drawing with real wires (`schlayout.Sheet`). `check_netlist.py` compares them pin by pin; never skip it. Full how-to: `hardware/channel-card/scripts/README.md`. Shared tools live in `hardware/channel-card/scripts/`; the master links to them.
 - Rebuilding replaces the whole sheet; edits made by hand in KiCad are lost.
-- `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. In an isolated worktree session, shell loops or `$(...)` that pick that Python are refused: find it with `ls -d ~/.cache/uv/archive-v0/*/lib/python*/site-packages/mcp` and call `<env>/bin/python` by its plain path. The same goes for loops over sheet names and for `git -C`: run each check as its own plain command. A fresh worktree has no `scripts/build/`: run each `<sheet>_build.py` before `check_netlist.py`. The KiCad MCP server is registered in Claude Code (profile `schematic_authoring`).
+- `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. In an isolated worktree session, shell loops or `$(...)` that pick that Python are refused: find it with `ls -d ~/.cache/uv/archive-v0/*/lib/python*/site-packages/mcp` and call `<env>/bin/python` by its plain path. The same goes for loops over sheet names and for `git -C`: run each check as its own plain command. A fresh worktree has no `scripts/build/`: run each `<sheet>_build.py` before `check_netlist.py`. The KiCad MCP server is registered in Claude Code (profile `builder` since 2026-10-19; `mcpcall.py` sets `schematic_authoring` for the sheet builds).
 - Rules learned the hard way:
   - Keep resistor/capacitor pin 1 where the reference has it; swap the reference's pin order instead of rotating a part 180°.
   - A wire end on another wire or a pin connects: never cross through endpoints, and split a wire at every pin it should reach.
@@ -55,6 +55,15 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 - Hand-soldered SMD parts: give the symbol the field Assembly = "hand (decision N)"; `tools/costs.py` then counts that symbol as user-soldered, per symbol, so the same part type can stay JLCPCB-placed on another board.
 - Cost before/after a change: run `tools/costs.py estimate` on the branch's starting commit (`git archive HEAD` into the job's tmp folder), not in the main checkout, which may hold another session's uncommitted edits.
 - Mouser catalogue (keyword and part-number search, stock, price breaks, datasheets; no parametric filters): `python3 tools/mouser.py` (key in the macOS Keychain, service `mouser-api`).
+
+## PCB workflow (learned on the power board, 2026-10-19)
+
+- The KiCad MCP server's PCB write tools work, but this Claude Code session only lists its read tools: call them through `mcpcall.py` with `KICAD_MCP_PROFILE=builder`. They edit the file on disk; KiCad usually reloads it by itself.
+- Never edit the board file directly while KiCad has it open: KiCad (or the server's `pcb_save`, which saves KiCad's copy) writes its own copy back. Close KiCad first.
+- The server's `pcb_sync_from_schematic` stores footprints without their library name and with altered pads (every one shows as a library mismatch): refresh them from the libraries afterwards (`hardware/power/scripts/placement.py` does it).
+- Better than the server for a whole board: KiCad's own Python (`pcbnew`, in `/Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/3.9/bin/python3`) with KiCad closed. It also exports Specctra DSN and imports SES, which `kicad-cli` cannot. Its SWIG layer returns untyped objects after the first `board.Remove`: build every new item first, remove last.
+- Freerouting alone handles switching power stages poorly (long tracks across the ground plane, connections left open): lay the power stage as locked copper areas and tracks first, let Freerouting route the small signals, then pour, stitch and remove dangling vias. Same-net copper areas do not join each other: link them with tracks. Check each run with `kicad-cli pcb drc`; render a layer with `kicad-cli pcb export pdf` and `qlmanage -t` (SVG thumbnails come out blank or zoomed).
+- A TPS54560-style IC with signal pins on the side where the input copper arrives leaves one track's room between the copper and the pins: plan vias for EN/COMP/BOOT hops early.
 
 ## Interfaces between boards
 

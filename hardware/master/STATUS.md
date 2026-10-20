@@ -33,4 +33,6 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 
 ## For /system
 
+- From the power board session (2026-10-20): at master layout, keep the regulator heatsinks HS901/HS902 (25.4 mm below the card) clear of the master section's right edge, where the power board stands in the bay with parts up to about 17 mm tall facing the master; the clearance is set in /system mechanical with the power board brackets (`hardware/power/STATUS.md`, For /system).
+
 - (Settled 2026-10-17, the user: "let's keep the heatsink and 20V rails": the board heatsinks of decision 174 and decision 40's ±20 V chain stay; ±18 V raw rails and regulators bolted to a 2020 rail are not pursued.)

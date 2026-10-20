@@ -3607,7 +3607,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "syntsamix:L_Bourns_SRP1265A"
 			(at 199.39 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -3684,17 +3684,6 @@
 			)
 		)
 		(property "SupplierPN" "C2041465"
-			(at 199.39 130.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Note" "Footprint to draw from the maker's drawing at PCB layout"
 			(at 199.39 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -5178,7 +5167,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:Texas_R-PDSO-G8_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias"
+		(property "Footprint" "Package_SO:Texas_R-PDSO-G8_EP2.95x4.9mm_Mask2.4x3.1mm"
 			(at 152.4 127 0)
 			(hide yes)
 			(show_name no)
