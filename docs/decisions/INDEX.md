@@ -157,7 +157,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 130 | Tempco leg R108/R158: end-of-life ERA-V33J102V replaced by Vishay TFPT0603L8200FV 820 Ω plus 180 Ω in series (1 k, about +3370 ppm/K); new R122/R172 | confirmed | [channel-card](channel-card.md) |
 | 131 | RELEASE pot RV402 within Alpha's 0.02 W non-B rating: C10K → C100K (RD901F-40-15K-C100K) with R425 620 Ω → 6.2 kΩ, same release law, about 2 mW | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 132 | 6.3 mm jacks: Rean NYS216 replaces the Neutrik NMJ6HCD2 on every board (cost); new footprint, pin roles to check on the first part | confirmed (delegated) | [system-rules](system-rules.md) |
-| 133 | Through-hole parts hand-soldered by the user; JLCPCB places SMD only (master's expensive ICs hand-soldered on the prototype: 150) | confirmed, refined | [process](process.md) |
+| 133 | Through-hole parts hand-soldered by the user; JLCPCB places SMD only (master's expensive ICs hand-soldered on the prototype: 150; prototype only: 190) | confirmed, refined | [process](process.md) |
 | 134 | Component values from E24 (capacitors preferably E12/E6); each board owns its value selection and lists justified exceptions in its STATUS.md | confirmed | [process](process.md) |
 | 135 | Cost principle: a live performance device, not studio equipment (what may be relaxed for cost, what must stay; the filter stays) | confirmed | [system-rules](system-rules.md) |
 | 136 | Cost control: `/cost` and the cost-controller sub-agent, `tools/costs.py` estimate, private ledger of realized costs | confirmed | [process](process.md) |
@@ -174,12 +174,12 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 147 | Compressor (R420 510k + 51k, R426 120k + 20k, GR ladder 470k/4k3) and SC LPF C503 2 × 47n C0G (Q 0.707) on fee-free parts; master TL072 symbols ST TL072CDT | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 148 | AUX return receivers: TL072 difference amplifier G = ½ with 10k 0.1 % resistors instead of the AD8273 (as 143); AD8273 no longer used | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 149 | Compressor R421 a plain 1k on the prototype (end-of-life tempco part dropped); detector temperature compensation to the backlog | confirmed | [master-card-sheets](master-card-sheets.md) |
-| 150 | Master DG413, SSI2162, DRV135UA and AS3046D hand-soldered on the prototype (Assembly field, refines 133); potential single point of failure kept in the backlog | confirmed | [master-card](master-card.md) |
+| 150 | Master DG413, SSI2162, DRV135UA and AS3046D hand-soldered on the prototype (Assembly field, refines 133); production machine-placed (190) | confirmed, refined | [master-card](master-card.md) |
 | 151 | Models per role (design sessions Opus; architect, cost controller, validator Sonnet, `/validate … deep` and `/cost … deep` Opus; helpers part-facts Sonnet, build-check, sim-run, stock-check Haiku) and a lighter `/board` start-up (decision files by phase, `STATUS.md` split into `CHECKLISTS.md`, architect review only on contract changes) | confirmed | [process](process.md) |
 | 152 | Buttons may switch DC control voltages directly (sequence-independent wiring, smoothing ramp); audio still never through a button; refines 69, confirms 142 and the scope wording | confirmed | [system](system.md) |
 | 153 | SC_ENV load 30 kΩ (E24, basic) instead of 30k1 on channel R217 and master R232/R332; ducking 0.03 dB per volt deeper; refines 97 | confirmed | [system](system.md) |
 | 154 | Decision log in two tiers: short current rulings in the area files, full text in `record/` (`tools/check_decisions.py`) | confirmed | [process](process.md) |
-| 155 | Channel SSI2144 ×2 and SSI2162 hand-soldered by the user on the prototype (cost lever 11); bipolar caps replaced by 161 | confirmed | [channel-card](channel-card.md) |
+| 155 | Channel SSI2144 ×2 and SSI2162 hand-soldered by the user on the prototype (cost lever 11); bipolar caps replaced by 161; production machine-placed (190) | confirmed, refined | [channel-card](channel-card.md) |
 | 156 | Power board dividers on fee-free E24 values: UVLO 680k / 39k (start 21.3 V, stop 19.0 V), RT 240k, buck compensation 16k; refines 100 | confirmed | [power](power.md) |
 | 157 | Power switch: snap-in rear-panel rocker (Legion SS11-BBIWG-R20-R) wired to a JST XH header J102 instead of a board-mounted switch; refines 100 | confirmed, refined | [power](power.md) |
 | 158 | Power board C103 Nichicon UHE 100 µF 50 V radial (hand-soldered); sync capacitors 10 pF C0G 50 V 0603 basic instead of 100 V 0805; refines 100 | confirmed | [power](power.md) |
@@ -214,6 +214,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 187 | Power board input EMI filter: pi filter after Q102, C108 4.7 µF 100 V, L101 2.2 µH SRP7028A, then C103; no new part type; refines 100 | confirmed | [power](power.md) |
 | 188 | Power bay layout: power board back face 6 mm from the cheek, master heatsinks at least 10 mm inside the master card's right edge, inverted-L printed brackets to the top strip's centreline (about 309 and 144 mm), power LED hole about 290 mm, chain cables cross in front of the heatsink zone; refines 162, 168, 174, 176, 186 | confirmed | [mechanical](mechanical.md) |
 | 189 | Power board switch-node RC snubber footprints across D201 and D301 (R208/C215, R308/C315, 0805), DNP, fitted only if the bench shows ringing; refines 100 | confirmed | [power](power.md) |
+| 190 | Hand-soldered SMD chips (150, 155) are prototype-only: the first prototype keeps them; production machine-places every SMD part; prototype consignment of the SSI chips rejected (about €52, logistics, likely MOQ); refines 133, 150, 155 | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 
