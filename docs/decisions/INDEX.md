@@ -103,7 +103,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 76 | Channel meter sheet (LEDs 0805 under a printed bezel: 119) | confirmed, refined | [channel-card](channel-card.md) |
 | 77 | Test points: bare SMD pads | confirmed | [process](process.md) |
 | 78 | Channel chain and power sheet | confirmed | [channel-card](channel-card.md) |
-| 79 | Assembly at JLCPCB, LCSC basic parts | confirmed | [process](process.md) |
+| 79 | Assembly at JLCPCB, LCSC basic parts (stays JLCPCB after the supplier comparison: 191) | confirmed, refined | [process](process.md) |
 | 80 | Power injected in groups of 8 cards | confirmed, refined | [system](system.md) |
 | 81 | Separate power board | confirmed, refined | [power](power.md) |
 | 82 | Log detector: AS3046D | confirmed | [master-card](master-card.md) |
@@ -215,6 +215,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 188 | Power bay layout: power board back face 6 mm from the cheek, master heatsinks at least 10 mm inside the master card's right edge, inverted-L printed brackets to the top strip's centreline (about 309 and 144 mm), power LED hole about 290 mm, chain cables cross in front of the heatsink zone; refines 162, 168, 174, 176, 186 | confirmed | [mechanical](mechanical.md) |
 | 189 | Power board switch-node RC snubber footprints across D201 and D301 (R208/C215, R308/C315, 0805), DNP, fitted only if the bench shows ringing; refines 100 | confirmed | [power](power.md) |
 | 190 | Hand-soldered SMD chips (150, 155) are prototype-only: the first prototype keeps them; production machine-places every SMD part; prototype consignment of the SSI chips rejected (about €52, logistics, likely MOQ); refines 133, 150, 155 | confirmed | [process](process.md) |
+| 191 | PCBA supplier stays JLCPCB; AISLER and PCBWay rejected on cost (per-part fees on 230 SMD types); pre-reflow fee avoided by SMD-only order files; refines 79 | confirmed | [process](process.md) |
 
 ## Proposed but not confirmed
 

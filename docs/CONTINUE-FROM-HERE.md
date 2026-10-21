@@ -13,7 +13,7 @@ Project-level handoff, updated 2026-10-21 (/system: local regulation on every ca
 | Chain coupler | not needed for the prototype: two shrouded 2x17 headers joining the 8-card audio cable sections, drawn before the first build of more than 8 cards (decision 175) | not started | (none yet; `docs/MECHANICAL.md`, Chain headers) |
 | Rear row boards (master; output and input) | not started: new KiCad projects, jacks + 26-pin header (+ SW901 on the input board), pinouts decision 163; measure an NYS216 sample first | not started | `hardware/master/STATUS.md` |
 
-Decisions 1-190; last pushed commit: see `git log -1`.
+Decisions 1-191; last pushed commit: see `git log -1`.
 
 ## Order of work
 
