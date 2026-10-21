@@ -39,13 +39,14 @@ ZONES = [
     ("power VIN inverter", VIN, F, 7, [(150.9, 127.6), (154.3, 127.6), (154.3, 120.5), (156.5, 120.5), (156.5, 125.4),
                                        (158.7, 125.4), (158.7, 126.6), (156.5, 126.6), (156.5, 130.9), (154.6, 130.9),
                                        (154.6, 133.5), (150.9, 133.5)]),
-    ("power SW buck", SW1, F, 5, [(162.6, 102.8), (163.5, 102.8), (163.5, 100.0), (165.0, 100.0), (165.0, 102.8), (174.2, 102.8), (174.2, 109.3), (169.3, 109.3), (169.3, 106.5),
-                                  (165.0, 106.5), (165.0, 105.7), (162.6, 105.7)]),
+    # switch nodes kept small (EMI review 2026-10-21): pin 8, the diode's cathode, the inductor's pad, the snubber tap
+    ("power SW buck", SW1, F, 5, [(162.6, 103.3), (163.5, 103.3), (163.5, 100.0), (165.0, 100.0), (165.0, 103.3), (171.6, 103.3),
+                                  (171.6, 106.5), (165.0, 106.5), (165.0, 105.8), (162.6, 105.8)]),
     ("power out buck", OUT1, F, 5, [(181.8, 103.4), (203.4, 103.4), (203.4, 109.9), (192.8, 109.9), (192.8, 115.9),
                                     (189.8, 115.9), (189.8, 109.9), (181.8, 109.9)]),
     ("power +20V_RAW", P20, F, 5, [(205.6, 103.6), (216.3, 103.6), (216.3, 109.6), (205.6, 109.6)]),
-    ("power SW inverter", SW2, F, 5, [(163.0, 123.6), (167.4, 123.6), (167.4, 120.4), (183.2, 120.4), (183.2, 129.5),
-                                      (179.6, 129.5), (179.6, 125.3), (163.0, 125.3)]),
+    ("power SW inverter", SW2, F, 5, [(162.6, 123.6), (168.4, 123.6), (168.4, 121.6), (172.6, 121.6), (172.6, 125.4),
+                                      (162.6, 125.4)]),
     ("power -20V_RAW", M20, F, 5, [(214.9, 121.0), (234.9, 121.0), (234.9, 132.9), (214.9, 132.9)]),
     # inverter output return on top (L301 to PGND, C309 PGND side): the bottom under it is the -20V_CONV island,
     # so it reaches the PGND plane by vias above the island (y < 116.8)
@@ -83,7 +84,12 @@ TRACKS = [
     (GND, 0.6, F, [(131.5, 125.3), (130.2, 125.3)]),                                       # C108 to its ground via
     (SW1, 1.0, F, [(163.56, 105.09), (167.6, 105.09), (171.0, 105.09), (172.45, 106.6)]),   # U201 SW, D201, L201
     (SW2, 1.0, F, [(163.56, 124.69), (168.0, 124.69), (169.4, 123.4)]),                    # U301 SW to D301
-    (SW2, 1.5, F, [(170.4, 123.2), (171.6, 121.1), (178.8, 121.1), (181.45, 123.6)]),      # D301 to L301, above the snubber
+    (SW2, 1.5, F, [(170.4, 123.2), (171.6, 121.1), (178.8, 121.1), (181.45, 123.6), (181.45, 125.2)]),   # D301 to L301, above the snubber
+    (SW2, 0.6, F, [(175.5, 121.1), (175.5, 123.4)]),                                       # snubber tap R308
+    (SW1, 0.6, F, [(158.75, 101.4), (158.75, 102.4), (159.4, 103.0), (162.9, 103.0), (163.2, 103.6)]),   # C208 to the switch node, on top
+    # MOSFET sources to the gate clamp D102 and R101, on top round C108 (keeps the bottom plane under the filter whole)
+    (SRC, 0.6, F, [(121.6, 122.0), (121.6, 123.0), (124.0, 125.4), (127.4, 125.4), (128.85, 126.9), (128.85, 128.5)]),
+    (SRC, 0.6, F, [(128.85, 128.5), (128.85, 130.2), (134.6, 130.2), (134.6, 128.5)]),
     # DNP snubbers (decision 189): R to C, and C315 to the -20V_CONV island
     ("Net-(C215-Pad1)", 0.4, F, [(166.15, 101.0), (167.85, 101.0)]),
     (SW1, 0.6, F, [(164.25, 101.0), (164.25, 103.6)]),                                    # R208 into the buck switch-node area
@@ -144,6 +150,19 @@ TRACKS = [
     ("Net-(U301-COMP)", 0.3, F, [(161.6, 123.65), (161.6, 123.0)]),
 ]
 
+# no tracks on the bottom under the hot loops and the input filter, so the plane stays whole where the switching
+# currents return (EMI review 2026-10-21); gaps for the planned hops (buck EN, inverter BOOT and COMP); vias allowed
+# the inverter's EN, RT/CLK and FB have no top path out from under the IC to their dividers above it, so the area
+# under and beside the IC stays open to the router; the band below the IC, where the return current runs, is kept
+KEEPOUTS = [
+    ("buck loop", [(150.6, 99.6), (170.0, 99.6), (170.0, 110.4), (157.6, 110.4), (157.6, 107.1), (156.6, 107.1),
+                   (156.6, 110.4), (150.6, 110.4)]),
+    ("inverter loop left", [(150.6, 120.6), (155.5, 120.6), (155.5, 133.7), (150.6, 133.7)]),
+    ("inverter loop below", [(157.35, 130.0), (176.5, 130.0), (176.5, 133.7), (157.35, 133.7)]),
+    ("inverter loop right", [(165.8, 123.0), (176.5, 123.0), (176.5, 128.0), (165.8, 128.0)]),
+    ("input filter", [(126.5, 116.8), (140.0, 116.8), (140.0, 127.2), (126.5, 127.2)]),
+]
+
 # vias: (net, x, y); 0.8/0.4 for the feeds, 0.6/0.3 for ground stitching at pads
 VIAS = [
     (M20, 234.2, 126.8, 0.8), (M20, 249.36, 121.2, 0.8), (M20, 268.26, 118.7, 0.8),
@@ -179,7 +198,8 @@ def apply():
     # build everything first: after a Remove, KiCad's SWIG layer returns untyped objects
     # start from an unrouted board: every track, via and copper zone goes (rule areas stay); autoroute.py adds the
     # planes and pours again
-    old = [t for t in board.GetTracks()] + [z for z in board.Zones() if not z.GetIsRuleArea()]
+    old = [t for t in board.GetTracks()] + [z for z in board.Zones()
+                                            if not z.GetIsRuleArea() or z.GetZoneName().startswith("keepout")]
     add = []
     for name, net, layer, prio, pts in ZONES:
         z = pcbnew.ZONE(board); z.SetZoneName(name); z.SetLayer(layer); z.SetNet(nets[net])
@@ -187,6 +207,14 @@ def apply():
         z.SetPadConnection(pcbnew.ZONE_CONNECTION_THT_THERMAL)
         z.SetThermalReliefGap(mm(0.4)); z.SetThermalReliefSpokeWidth(mm(0.6)); z.SetLocked(True)
         z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
+        o = z.Outline(); o.NewOutline()
+        for x, y in pts:
+            o.Append(mm(x + DX), mm(y + DY))
+        add.append(z)
+    for name, pts in KEEPOUTS:
+        z = pcbnew.ZONE(board); z.SetIsRuleArea(True); z.SetZoneName("keepout " + name); z.SetLayer(B)
+        z.SetDoNotAllowTracks(True); z.SetDoNotAllowVias(False); z.SetDoNotAllowZoneFills(False)
+        z.SetDoNotAllowPads(False); z.SetDoNotAllowFootprints(False)
         o = z.Outline(); o.NewOutline()
         for x, y in pts:
             o.Append(mm(x + DX), mm(y + DY))
@@ -203,7 +231,7 @@ def apply():
     for item in add:
         board.Add(item)
     pcbnew.SaveBoard(PCB, board)
-    print(f"power stage written: {len(ZONES)} areas, {sum(len(t[3]) - 1 for t in TRACKS)} track segments, {len(VIAS)} vias")
+    print(f"power stage written: {len(ZONES)} areas, {len(KEEPOUTS)} bottom keep-outs, {sum(len(t[3]) - 1 for t in TRACKS)} track segments, {len(VIAS)} vias")
 
 
 if __name__ == "__main__":
