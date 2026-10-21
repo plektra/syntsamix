@@ -1,6 +1,6 @@
 # Power board status
 
-Updated 2026-10-21 (EMI layout review: switch-node copper cut down, bottom-plane keep-outs under the hot loops, PCB rebuilt; `CHECKLISTS.md`, Layout notes). 2026-10-20 (power board EMI session: DNP switch-node snubber footprints, decision 189, schematic and PCB rebuilt). 2026-10-20 (/system: `CHAIN.md` and `ARCHITECTURE.md` worded for the two module sizes, decision 185). 2026-10-20 (/system mechanical: power bay layout, brackets, LED hole and position across the bay, decision 188). 2026-10-20 (power board EMI session: input pi filter C108/L101, decision 187, schematic and PCB rebuilt). 2026-10-20 (power board PCB session 2026-10-19/20: PCB placed, routed and reviewed by the user; panel-mount brick jack, decision 182; small module without chain 2, decision 185; PCB form, decision 186). 2026-10-19 (/system: this board's PCB goes first). 2026-10-17 (/system: chain feeds are multi-drop power sections, decision 175).
+Updated 2026-10-21 (EMI layout review: switch-node copper cut down, bottom-plane keep-outs under the hot loops; then the inverter control corner reworked, C308 above the IC and the compensation network below it; PCB rebuilt, reviewed by the user; `CHECKLISTS.md`, Layout notes). 2026-10-20 (power board EMI session: DNP switch-node snubber footprints, decision 189, schematic and PCB rebuilt). 2026-10-20 (/system: `CHAIN.md` and `ARCHITECTURE.md` worded for the two module sizes, decision 185). 2026-10-20 (/system mechanical: power bay layout, brackets, LED hole and position across the bay, decision 188). 2026-10-20 (power board EMI session: input pi filter C108/L101, decision 187, schematic and PCB rebuilt). 2026-10-20 (power board PCB session 2026-10-19/20: PCB placed, routed and reviewed by the user; panel-mount brick jack, decision 182; small module without chain 2, decision 185; PCB form, decision 186). 2026-10-19 (/system: this board's PCB goes first). 2026-10-17 (/system: chain feeds are multi-drop power sections, decision 175).
 
 Reference lists: `CHECKLISTS.md` (checks before layout, before ordering and on delivery, cost-cut levers, component values; decision 151). How the PCB is built: `CLAUDE.md`.
 
@@ -18,11 +18,10 @@ Reference lists: `CHECKLISTS.md` (checks before layout, before ordering and on d
 
 ## Next
 
-1. Review the EMI layout changes in KiCad (2026-10-21: smaller switch-node copper, the buck boot link and the MOSFET source link on top, bottom keep-outs; DRC 0 violations, 0 unconnected, schematic parity).
-2. EMI on the first boards: the bench list in `CHECKLISTS.md`, "Bench, first boards" (input filter ripple, switch-node ringing and snubber values); common-mode noise through the brick and the audio cable shields only if the bench shows a problem.
-3. Before ordering (one JLCPCB order for all boards, `docs/ROADMAP.md`): the checks in `CHECKLISTS.md`, "Before ordering": footprint prints, the bracket drawing and the top strip's holes (decision 188), the RoHS audit, LCSC stock.
-4. Report the converters' real efficiency (from `scripts/design.py` or the TPS54560 datasheet) for `tools/heat_budget.py`, replacing its 88 % estimate (decision 167).
-5. Full-size supply, the larger module with chain 2 (about 4 A per rail), after the prototype cards are measured (decision 96): the −20 V inverter needs a controller with external MOSFETs, the input an 8-10 A fuse and lower-resistance reverse-polarity MOSFETs, the headers 2.5-3 A fuses, the bay probably a fan (decision 167).
+1. EMI on the first boards: the bench list in `CHECKLISTS.md`, "Bench, first boards" (input filter ripple, switch-node ringing and snubber values); common-mode noise through the brick and the audio cable shields only if the bench shows a problem.
+2. Before ordering (one JLCPCB order for all boards, `docs/ROADMAP.md`): the checks in `CHECKLISTS.md`, "Before ordering": footprint prints, the bracket drawing and the top strip's holes (decision 188), the RoHS audit, LCSC stock.
+3. Report the converters' real efficiency (from `scripts/design.py` or the TPS54560 datasheet) for `tools/heat_budget.py`, replacing its 88 % estimate (decision 167).
+4. Full-size supply, the larger module with chain 2 (about 4 A per rail), after the prototype cards are measured (decision 96): the −20 V inverter needs a controller with external MOSFETs, the input an 8-10 A fuse and lower-resistance reverse-polarity MOSFETs, the headers 2.5-3 A fuses, the bay probably a fan (decision 167).
 
 ## RoHS
 

@@ -45,13 +45,13 @@ ZONES = [
     ("power out buck", OUT1, F, 5, [(181.8, 103.4), (203.4, 103.4), (203.4, 109.9), (192.8, 109.9), (192.8, 115.9),
                                     (189.8, 115.9), (189.8, 109.9), (181.8, 109.9)]),
     ("power +20V_RAW", P20, F, 5, [(205.6, 103.6), (216.3, 103.6), (216.3, 109.6), (205.6, 109.6)]),
-    ("power SW inverter", SW2, F, 5, [(162.6, 123.6), (168.4, 123.6), (168.4, 121.6), (172.6, 121.6), (172.6, 125.4),
-                                      (162.6, 125.4)]),
+    ("power SW inverter", SW2, F, 5, [(161.4, 122.0), (162.8, 122.0), (162.8, 123.6), (168.4, 123.6), (168.4, 121.6),
+                                      (172.6, 121.6), (172.6, 125.4), (162.6, 125.4), (162.6, 123.9), (161.4, 123.9)]),
     ("power -20V_RAW", M20, F, 5, [(214.9, 121.0), (234.9, 121.0), (234.9, 132.9), (214.9, 132.9)]),
     # inverter output return on top (L301 to PGND, C309 PGND side): the bottom under it is the -20V_CONV island,
     # so it reaches the PGND plane by vias above the island (y < 116.8)
     ("power PGND inverter out", GND, F, 4, [(193.0, 112.6), (200.5, 112.6), (200.5, 129.8), (190.2, 129.8),
-                                            (190.2, 120.3), (191.0, 120.3), (191.0, 117.8), (193.0, 117.8)]),  # takes in C314
+                                            (190.2, 117.8), (193.0, 117.8)]),  # takes in C314 and the gap between its pads
 ]
 
 # tracks: (net, width, layer, points)
@@ -99,15 +99,12 @@ TRACKS = [
     (VIN, 0.6, F, [(155.4, 106.36), (158.44, 106.36)]),                                    # to U201 VIN
     (VIN, 1.0, F, [(155.4, 121.0), (155.4, 129.8)]),                                       # inverter input ceramics
     (VIN, 0.6, F, [(155.4, 125.97), (158.44, 125.97)]),                                    # to U301 VIN
-    # small links the 1.0 mm power class cannot reach: feedback divider top and start-up ramp from the buck output,
-    # the inverter's boot capacitor to its switch node (under the IC)
+    # small links the 1.0 mm power class cannot reach: feedback divider top and start-up ramp from the buck output
     (OUT1, 0.4, F, [(182.6, 109.6), (180.45, 111.8), (180.45, 114.6)]),
     (OUT1, 0.4, F, [(180.45, 111.8), (170.0, 111.8), (167.0, 114.3), (163.8, 114.3), (163.8, 113.4)]),
-    (SW2, 0.5, F, [(157.95, 132.4), (158.6, 131.0), (166.2, 131.0), (166.2, 125.0)]),   # clear of U301 pins 5/6
     # 5 V regulator and LED resistor feed, west of the U101 tab; from the spine above L101 and the VIN_PRE copper
     (VIN, 0.5, F, [(138.4, 117.4), (137.0, 115.0), (130.0, 115.0), (129.2, 114.2), (129.2, 102.72), (127.5, 102.72)]),
     (VIN, 0.5, F, [(125.86, 102.72), (124.6, 101.2), (121.59, 101.2), (121.59, 102.4)]),
-    (VIN, 0.3, F, [(154.4, 133.2), (154.9, 133.55), (160.05, 133.55), (160.05, 133.0)]),   # C304, under C308
     # sync clocks from the 74HC14: vias right under their pins (leaving the oscillator's RC a channel), then the
     # bottom layer across the VIN copper in a lane below the EN divider; TP104 joins CLK_B through the bottom
     ("/CLK_A", 0.3, F, [(144.04, 108.2), (144.04, 109.65)]),
@@ -131,23 +128,24 @@ TRACKS = [
     ("Net-(U201-COMP)", 0.3, F, [(157.2, 113.4), (157.2, 114.25)]),                       # R203 to C206 through the bottom
     ("Net-(U201-COMP)", 0.3, B, [(157.2, 114.25), (161.3, 114.0)]),
     ("Net-(U201-COMP)", 0.3, F, [(161.3, 114.0), (161.4, 113.4)]),
-    # U301 BOOT: from pin 1 down to C308 through the bottom (the left pins' corridor is the VIN finger's)
-    ("Net-(U301-BOOT)", 0.3, F, [(157.8, 124.69), (156.75, 124.0)]),
-    ("Net-(U301-BOOT)", 0.3, B, [(156.75, 124.0), (156.75, 131.25), (156.05, 131.25)]),
-    # U301 COMP: R303 to the COMP via at C306, under C305 and above the IC's pins
-    ("Net-(U301-COMP)", 0.3, F, [(157.6, 122.8), (157.9, 123.7), (161.6, 123.7), (161.6, 123.65)]),
-    # -20V_CONV ends of the inverter's dividers and compensation: one via to the island between R304 and C305
-    (CONV, 0.4, F, [(160.11, 119.2), (160.0, 119.72), (159.9, 120.25)]),
-    ("Net-(U301-BOOT)", 0.3, F, [(156.05, 131.25), (156.05, 131.9)]),
+    # inverter control corner (EMI review 2026-10-21): the boot capacitor C308 sits between pins 1 and 8 above the IC,
+    # the compensation network and C304 below it, so BOOT and COMP stay on top and no switch node runs round the IC
+    ("Net-(U301-BOOT)", 0.3, F, [(160.05, 123.3), (159.2, 123.3), (158.7, 124.5)]),         # C308 to pin 1
+    ("Net-(U301-COMP)", 0.3, F, [(164.45, 127.24), (166.3, 127.24), (166.3, 129.2), (162.9, 129.2), (162.75, 129.9)]),
+    ("Net-(U301-COMP)", 0.3, F, [(166.3, 129.2), (166.15, 129.9)]),                         # pin 6 to C306 and R303
+    ("Net-(C305-Pad1)", 0.3, F, [(160.8, 130.5), (160.8, 132.6)]),                            # R303 to C305
+    (VIN, 0.6, F, [(156.3, 130.5), (157.35, 130.5)]),                                         # C304 from the VIN copper
+    (CONV, 0.4, F, [(159.25, 130.5), (159.25, 131.75)]),                                      # C304, C305, C306 to the island
+    (CONV, 0.4, F, [(162.7, 132.6), (163.75, 132.6)]),
+    (CONV, 0.4, F, [(164.25, 130.5), (164.25, 131.75)]),
+    ("Net-(D302-K)", 0.3, F, [(164.45, 128.51), (165.0, 128.51)]),                                # FB out to its via
+    # -20V_CONV end of R304: one via to the island
+    (CONV, 0.4, F, [(160.11, 119.2), (160.0, 119.72)]),
     # PGND ends of the EN and RT dividers: the clock lanes run below them on the bottom, so a via east of C207
     (GND, 0.3, F, [(156.31, 116.0), (156.31, 116.6), (160.1, 116.6), (160.1, 116.0)]),
     (GND, 0.3, F, [(160.1, 116.6), (164.6, 116.6), (165.5, 116.2)]),
     (GND, 0.4, F, [(191.75, 118.8), (195.5, 118.8)]),                                       # C314 to the PGND area
     (GND, 0.4, F, [(191.75, 118.8), (192.6, 117.6), (192.6, 116.5)]),                       # and a via above the island
-    # U301 COMP is boxed in by the switch-node copper: a hop through the bottom to C306
-    ("Net-(U301-COMP)", 0.3, F, [(164.2, 127.24), (165.2, 127.24)]),
-    ("Net-(U301-COMP)", 0.3, B, [(165.2, 127.24), (165.2, 123.65), (161.6, 123.65)]),
-    ("Net-(U301-COMP)", 0.3, F, [(161.6, 123.65), (161.6, 123.0)]),
 ]
 
 # no tracks on the bottom under the hot loops and the input filter, so the plane stays whole where the switching
@@ -158,7 +156,7 @@ KEEPOUTS = [
     ("buck loop", [(150.6, 99.6), (170.0, 99.6), (170.0, 110.4), (157.6, 110.4), (157.6, 107.1), (156.6, 107.1),
                    (156.6, 110.4), (150.6, 110.4)]),
     ("inverter loop left", [(150.6, 120.6), (155.5, 120.6), (155.5, 133.7), (150.6, 133.7)]),
-    ("inverter loop below", [(157.35, 130.0), (176.5, 130.0), (176.5, 133.7), (157.35, 133.7)]),
+    ("inverter loop below", [(155.5, 130.0), (176.5, 130.0), (176.5, 133.7), (155.5, 133.7)]),
     ("inverter loop right", [(165.8, 123.0), (176.5, 123.0), (176.5, 128.0), (165.8, 128.0)]),
     ("input filter", [(126.5, 116.8), (140.0, 116.8), (140.0, 127.2), (126.5, 127.2)]),
 ]
@@ -179,11 +177,11 @@ VIAS = [
     ("/CLK_A", 144.04, 109.65, 0.6), ("/CLK_A", 162.1, 114.45, 0.6),
     ("/CLK_B", 142.13, 109.65, 0.6), ("/CLK_B", 161.2, 118.6, 0.6), ("/CLK_B", 147.6, 105.0, 0.6),
     ("Net-(U201-EN)", 157.1, 107.64, 0.6), ("Net-(U201-EN)", 155.3, 114.0, 0.6), ("Net-(U201-COMP)", 157.2, 114.25, 0.6),
-    ("Net-(U301-BOOT)", 156.75, 124.0, 0.6), (CONV, 160.0, 119.72, 0.6), ("Net-(U301-BOOT)", 156.05, 131.25, 0.6),
+    (CONV, 160.0, 119.72, 0.6),
+    (CONV, 159.25, 131.75, 0.6), (CONV, 163.75, 132.6, 0.6), (CONV, 164.25, 131.75, 0.6), ("Net-(D302-K)", 165.0, 128.51, 0.6),
     (GND, 165.5, 116.2, 0.6), (GND, 192.6, 116.5, 0.6), (GND, 130.2, 125.3, 0.6),   # C108
     (GND, 169.75, 102.25, 0.6), (CONV, 177.6, 122.45, 0.6),       # snubbers C215, C315 (decision 189)
     ("Net-(U201-COMP)", 161.3, 114.0, 0.6),
-    ("Net-(U301-COMP)", 165.2, 127.24, 0.6), ("Net-(U301-COMP)", 161.6, 123.65, 0.6),
 ]
 
 
