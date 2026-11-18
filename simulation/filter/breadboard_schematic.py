@@ -8,7 +8,7 @@ Pinout and the ladder/output/Q component values follow the SSI2144 datasheet
 (Rev 3.0, Figures 1 and 3, read from the datasheet images). Input attenuator,
 drive jumper, resonance limit and cutoff scaling are this project's values
 (see BREADBOARD.md and ../../docs/decisions/channel-card.md items 12 and 50),
-on E24 values from the user's resistor kit (the card's values where it has them).
+on the user's E12 resistor kit and E24 values from the second order (the card's values where it has them).
 
 Usage:  python3 simulation/filter/breadboard_schematic.py [--literal]
 Writes breadboard-schematic.svg next to this file. Colours come from CSS
@@ -239,13 +239,13 @@ text(456, 232, "3.3 nF", "start", cls="val", size=10)
 text(456, 244, "optional", "start", cls="val", size=10)
 dot(445, 270)
 wire((470, 270), (445, 270))
-resistor(445, 270, 385, 270, "R4", "220 Ω", lpos="above")
+resistor(445, 270, 385, 270, "R4", "200 Ω", lpos="above")
 gnd(385, 270)
-resistor(350, 200, 350, 250, "R2", "2 × 100 Ω", lpos="right")
+resistor(350, 200, 350, 250, "R2", "200 Ω", lpos="right")
 gnd(350, 250)
 wire((350, 200), (300, 200))
 dot(300, 200)
-resistor(300, 200, 300, 240, "R3", "330 Ω (−4 dB)\nor 220 Ω (−5.6 dB)", lpos="left")
+resistor(300, 200, 300, 240, "R3", "330 Ω (−4 dB)\nor 200 Ω (−6 dB)", lpos="left")
 jumper(300, 240, 272, "")
 text(286, 266, "J1 = medium drive", "end", size=11, color=ACCENT, weight=600)
 gnd(300, 272)
@@ -273,10 +273,10 @@ term(100, 850, "OUT", "left")
 # ------------------------------------------------------------------ resonance (pin 14)
 wire((690, 340), (760, 340))
 dot(760, 340)
-resistor(760, 340, 760, 400, "R7", "470 Ω", lpos="right")
+resistor(760, 340, 760, 400, "R7", "510 Ω", lpos="right")
 capacitor(760, 400, 760, 460, "C8", "10 nF", lpos="right")
 gnd(760, 460)
-resistor(760, 340, 866, 340, "R6", "33 kΩ test → 51 kΩ", lpos="above")
+resistor(760, 340, 866, 340, "R6", "33 kΩ (test 2)", lpos="above")
 pot(900, 296, 384, 340, "left", "RV2 10 kΩ lin", "RESONANCE", "right")
 tag(900, 296, "+15 V", "right")
 gnd(900, 384)
@@ -287,7 +287,7 @@ dot(1000, 270)
 resistor(1000, 270, 1000, 330, "R8", "1 kΩ", lpos="left")
 gnd(1000, 330)
 resistor(1000, 270, 1086, 270, "R10", "470 kΩ", lpos="below")
-pot(1120, 226, 314, 270, "left", "RV4 50 kΩ", "offset trim", "right", ly=262)
+pot(1120, 226, 314, 270, "left", "RV4 50 kΩ trim", "cutoff offset", "right", ly=262)
 tag(1120, 226, "+15 V", "right")
 tag(1120, 314, "−15 V", "right")
 # summer
@@ -300,9 +300,9 @@ gnd(840, 120)
 wire(i2, (810, 80))
 dot(810, 80)
 wire((810, 80), (810, 36))
-resistor(810, 36, 1000, 36, "R11 150 kΩ + RV5 50 kΩ trim", "(1 V/oct)", lpos="above")
+resistor(810, 36, 1000, 36, "R11 160 kΩ + RV5 50 kΩ trim", "(1 V/oct)", lpos="above")
 wire((1000, 36), (1000, 100))
-resistor(810, 80, 714, 80, "R12", "2 × 150 kΩ", lpos="above")
+resistor(810, 80, 714, 80, "R12", "300 kΩ", lpos="above")
 pot(680, 36, 124, 80, "right", "RV1 10 kΩ lin", "CUTOFF", "left", ly=72)
 tag(680, 36, "+15 V (CW end)", "left")
 tag(680, 124, "−15 V", "left")
@@ -312,10 +312,10 @@ term(720, 150, "CV (optional)", "left")
 
 # notes
 text(540, 790, "U2 = TL072: pin 8 to +15 V, pin 4 to −15 V, 100 nF to ground at each.", "start", cls="val", size=11)
-text(540, 806, "U1: 100 nF from pin 16 and from pin 8 to ground, right at the adapter.", "start", cls="val", size=11)
+text(540, 806, "U1: 100 nF from each rail to ground next to the adapter (EKB14 board).", "start", cls="val", size=11)
 text(540, 822, "Unmarked values from SSI2144 datasheet Rev 3.0, Figures 1 and 3.", "start", cls="val", size=11)
 text(540, 838, "Rails: 10 µF at the supply entry, + to +15 V and + to GND on the −15 V rail;", "start", cls="val", size=11)
-text(540, 854, "1N4001 from each rail to ground on the board (D1, D2 at column 4).", "start", cls="val", size=11)
+text(540, 854, "1N4001 from each rail to ground at the supply entry (D1, D2).", "start", cls="val", size=11)
 text(540, 870, "Test 13 only: zener pair back to back across R11 + RV5 (C10, then C12; second order).", "start", cls="val", size=11)
 
 W, H = 1250, 930

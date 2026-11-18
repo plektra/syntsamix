@@ -24,7 +24,7 @@ C10–C13,6,100 nF,X7R ceramic 50 V 2.54/5.08 mm,,Electrokit,Rail decoupling
 "C14, C15",2,10 µF,Electrolytic 25 V ø4×5 (ordered),,Electrokit,Bulk decoupling where the supply enters the rails (column 1)
 RV1,1,10 kΩ lin,Panel potentiometer linear (B),,Electrokit,Cutoff
 RV2,1,10 kΩ lin,PC16SH linear (ordered; reverse-audio not taken),,Electrokit,Resonance
-"RV3, RV4, RV5",3,50 kΩ,Multiturn trimmer with in-line pins (Bourns 3296W-1-503),,Electrokit,Output gain / cutoff offset / V per octave
+"RV3, RV4, RV5",3,50 kΩ,Multiturn trimmer with in-line pins (Bourns 3296W-1-503),,Electrokit,"Output gain / cutoff offset / V per octave; soldered on the EKB14 board"
 —,3,6.3 mm jack,"Mono with switch, PCB pins (ordered); leads to tip and sleeve",,Electrokit,IN / OUT / CV
 —,1,Breadboard,830 tie-point solderless breadboard,,Electrokit,
 —,1,Jumper wires,Pre-cut breadboard jumper kit plus some flexible hook-up wire,,Electrokit,Flying leads to pots and jacks
@@ -48,7 +48,7 @@ Order 2,10,1N4148,Small-signal diode DO-35,,Electrokit,Q pot bias diodes (D1 and
 Order 2,3,6.8 nF,Same film capacitor as the first order (41015666),,Electrokit,Second core for test 8 (L/R tracking) needs 3 more; first order had 4
 Order 2,1,Breadboard,840 tie-point solderless breadboard (same as first order),,Electrokit,Room for the second core (test 8) and the LM13700 Q VCA (test 9)
 Order 2,2,TL072,Dual JFET op amp DIP-8,,Electrokit,Test 10 fader law (Level sheet control circuit)
-Order 2,3,ProtoPCB EKB14,"Breadboard-pattern prototype PCB, 270 plated holes, 71 x 43 mm (Electrokit 41003657)",,Electrokit,"Soldered filter core (2026-10-20: the ladder capacitors' breadboard contacts were loose): adapter on female header sockets, C1-C4, C9, R7/C8, R1, R2, R4, R8 and decoupling; one for the test 8 second core, one spare"
+Order 2,3,ProtoPCB EKB14,"Breadboard-pattern prototype PCB, 270 plated holes, 71 x 43 mm (Electrokit 41003657)",,Electrokit,"Soldered filter core (2026-10-20: the ladder capacitors' breadboard contacts were loose; layout 2026-11-14 in ekb14-layout.svg): the whole test circuit (U1 on female header sockets, U2, every resistor and capacitor, J1, supply entry); only the RV1/RV2 pots, jacks and supply are off board. One for the test 8 second core, one spare"
 Order 2,3,SSI2144,Sound Semiconductor SSI2144SS-TU (Electrokit 41019301),,Electrokit,"Chip 1 damaged, chip 2 faulty (2026-10-20); chip 3 plus these cover test 2 and test 8"
 Order 2,2,33 kΩ,"1% metal film (Electrokit 40811433)",,Electrokit,"R6 for test 2 and the test 10 mute check (the kit's 33k compartment held 19.2 kΩ parts)"
 Order 2,4,200 Ω,"1% metal film (Electrokit 40811220)",,Electrokit,R2 and R4 on two cores (replace 2 × 100 Ω and 220 Ω)
@@ -58,3 +58,5 @@ Order 2,2,300 kΩ,"1% metal film (Electrokit 40811530)",,Electrokit,R12 (replace
 Order 2,10,Latching push switch,CW Industries GPBS850L DPDT 8.5x8.5 mm,,Electrokit,"Button switch for the channel cards (decision 75): test fit and feel, and print translucent cap prototypes"
 Order 2,2,10 V zener,BZX55C10V 0.5 W DO-35 (Electrokit 40310030),,Electrokit,Test 13 summer clamp (decision 165): no 11 V at Electrokit; brackets the card's BZT52C11 with the C12 pair
 Order 2,2,12 V zener,BZX55C12V 0.5 W DO-35 (Electrokit 40310033),,Electrokit,Test 13 summer clamp: the other neighbour of C11
+—,2,Female header 1x8,"2.54 mm female header strip, 8 pins (or cut from a longer strip)",,Electrokit or any,"In hand (2026-11-14), not from either order: the U1 adapter's sockets on the EKB14 (rows D and G), so chips can be swapped"
+—,1,Pin header 1x2 + jumper shunt,2.54 mm,,Electrokit or any,"In hand (2026-11-14): J1 drive jumper on the EKB14"
