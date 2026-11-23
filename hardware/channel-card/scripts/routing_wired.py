@@ -39,12 +39,17 @@ for Pn,ref,unit,pins,y in (("L","U301",1,(3,2,1),50.8),("R","U93012",2,(5,6,7),7
 
 # ------------------------------------------------------------- CD4052B switches at the bus end of each bus resistor (decision 183)
 # Every throw is a master virtual earth or AGND, so the switch only sees millivolts.
-# A = control; B and INH low: channels 0 and 1 only, X2/X3/Y2/Y3 open.
+# A = control; B and INH low: channels 0 and 1 only, X2/X3/Y2/Y3 open (U302: to FLT1/FLT2, decision 192).
 # Drawn with the HEF4052BT symbol (same 4052 pinout, switch pins passive) as the CD4052B.
-def mux(ref,yc,ctrl_net,nc):
+def mux(ref,yc,ctrl_net,nc,bjumper=False):
     d=s.place("Analog_Switch","HEF4052BT",ref,"CD4052B",137.16,yc,0,None,SO16,P("SX-IC-026",**TI,MPN="CD4052BM96",Supplier="LCSC",SupplierPN="C6521"))
     s.wire(d(10),lt(d(10),10.16)); lab(lt(d(10),10.16),ctrl_net,180)
-    b,i=lt(d(9),5.08),lt(d(6),5.08); s.wire(d(9),b); s.wire(d(6),i); s.wire(b,i); gnd(i)
+    b,i=lt(d(9),5.08),lt(d(6),5.08); s.wire(d(6),i); gnd(i)
+    if bjumper:   # B on a solder jumper, default AGND (decision 192)
+        jp=s.place("Jumper","SolderJumper_3_Bridged12","JP301","1-2 BUS, 2-3 FLT",99.06,yc+10.16,90,fp="Jumper:SolderJumper-3_P1.3mm_Bridged12_Pad1.0x1.5mm",props=P("none (PCB solder jumper)"))
+        s.wire(d(9),(119.38,d(9)[1]),(119.38,jp(2)[1]),jp(2))
+        s.wire(jp(3),up(jp(3),2.54)); s.power("+5V",up(jp(3),2.54)); s.wire(jp(1),dn(jp(1),2.54)); gnd(dn(jp(1),2.54))
+    else: s.wire(d(9),b); s.wire(b,i)
     s.wire(d(16),up(d(16),2.54)); s.power("+5V",up(d(16),2.54))
     s.wire(d(8),dn(d(8),5.08)); gnd(dn(d(8),5.08))
     v=lt(dn(d(7),5.08),7.62); s.wire(d(7),dn(d(7),5.08),v); s.power("VEE",v,180)
@@ -54,12 +59,12 @@ def off(p): e=(167.64,p[1]); s.wire(p,e); gnd(e,90)   # released throw: resistor
 def out(p,bus): s.wire(p,(154.94,p[1])); hier((154.94,p[1]),bus,0,"output")
 def to_x(e,d): s.wire(e,(124.46,e[1]),(124.46,d(13)[1]),d(13))   # resistor 5.08 above the X common
 # bus assign: pressed = compressor bus
-d=mux("U302",73.66,"COMP_CTRL",(15,11,2,4))
-for Pn,rref,y,p0,p1 in (("L","R301",d(13)[1]-5.08,12,14),("R","R302",d(3)[1],1,5)):
+d=mux("U302",73.66,"COMP_CTRL",(),bjumper=True)
+for Pn,rref,y,p0,p1,p2,p3 in (("L","R301",d(13)[1]-5.08,12,14,15,11),("R","R302",d(3)[1],1,5,2,4)):
     hier((101.6,y),f"{Pn}_POSTFADE",180,"input")
     r=R(rref,BUS,"SX-R-047",114.3,y); s.wire((101.6,y),r(1))
     to_x(r(2),d) if Pn=="L" else s.wire(r(2),d(3))
-    out(d(p0),f"MAIN_{Pn}"); out(d(p1),f"COMP_{Pn}")
+    out(d(p0),f"MAIN_{Pn}"); out(d(p1),f"COMP_{Pn}"); out(d(p2),f"FLT1_{Pn}"); out(d(p3),f"FLT2_{Pn}")   # FLT: reserved (decision 192)
 
 # ------------------------------------------------------------- PFL to the cue bus, SC send (on while SW302 pin 1 is open)
 def tap(name,ref,val,pn,y):

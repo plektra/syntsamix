@@ -26,13 +26,17 @@ for n,j,rv,rl,rr in ((1,"J301","RV301","R307","R308"),(2,"J302","RV302","R309","
     N(f"R_AUX{n}_W",f"{rv}.5",f"{rr}.2"); N(f"AUX{n}_R",f"{rr}.1")
 # CD4052B switches at the bus end of each bus resistor (decision 183): the common sits at
 # virtual-earth level and every throw is a master virtual earth or AGND, so the switch only
-# sees millivolts. A = control, B and INH low: channels 0 and 1 only (X2/X3/Y2/Y3 open).
+# sees millivolts. A = control, B and INH low: channels 0 and 1 only (X2/X3/Y2/Y3 open,
+# except on U302, decision 192).
 # Pins: X 13, X0 12, X1 14, Y 3, Y0 1, Y1 5, A 10, B 9, INH 6, VEE 7, VSS 8, VDD 16.
 for u,ctrl in (("U302","COMP_CTRL"),("U303","PFL_CTRL"),("U304","SC_OFF")):
-    N(ctrl,f"{u}.10"); N("AGND",f"{u}.9",f"{u}.6",f"{u}.8"); N("+5V",f"{u}.16"); N("VEE",f"{u}.7")
+    N(ctrl,f"{u}.10"); N("AGND",*([] if u=="U302" else [f"{u}.9"]),f"{u}.6",f"{u}.8"); N("+5V",f"{u}.16"); N("VEE",f"{u}.7")
 # bus assign: U302, A = COMP_CTRL, pressed = compressor bus
 N("L_POSTFADE","R301.1"); N("L_BUS","R301.2","U302.13"); N("MAIN_L","U302.12"); N("COMP_L","U302.14")
 N("R_POSTFADE","R302.1"); N("R_BUS","R302.2","U302.3"); N("MAIN_R","U302.1"); N("COMP_R","U302.5")
+# reserved filter buses on U302 channels 2 and 3; B on solder jumper JP301, default AGND (decision 192)
+N("FLT1_L","U302.15"); N("FLT1_R","U302.2"); N("FLT2_L","U302.11"); N("FLT2_R","U302.4")
+N("COMP_B","U302.9","JP301.2"); N("AGND","JP301.1"); N("+5V","JP301.3")
 # PFL: U303, A = PFL_CTRL, released = resistor end to AGND, pressed = cue bus
 N("L_PRE","R303.1","R305.1"); N("L_PFLR","R303.2","U303.13"); N("AGND","U303.12"); N("CUE_L","U303.14")
 N("R_PRE","R304.1","R306.1"); N("R_PFLR","R304.2","U303.3"); N("AGND","U303.1"); N("CUE_R","U303.5")

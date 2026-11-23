@@ -20,6 +20,8 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
   - Net names in a reference script must be unique: a new net that reuses an existing name (L_INV for a second stage) merges both in the reference, and `check_netlist.py` reports it as SPLIT. After a reference edit, diff the net names against the committed script's output: a removed name means a dropped pin (a `#` comment pasted mid-line did that once).
   - References made in loops (decoupling caps, LED resistors) never appear as literals in the scripts: find free numbers in the committed `.kicad_sch`, not by searching the scripts.
   - Power flags live only on the power sheet of each project.
+  - A resistor put in front of a regulator's input makes that input a local net: it needs its own PWR_FLAG. Read the netlist, not a status note, for what feeds a part.
+  - New hierarchical labels need sheet pins added to the root `.kicad_sch` (and a taller sheet box) before `root_links.py`, which only labels existing pins.
   - Diodes at 90/270° render vertical field text; draw them horizontally where text matters.
   - `Device:D` pin 1 is the cathode, pin 2 the anode: read netlists (and write SPICE models from them) with that in mind.
   - Op amps without a KiCad symbol (OPA2171): use `Amplifier_Operational:Opamp_Dual` (same pins and geometry as the TL072) with the part as the value.

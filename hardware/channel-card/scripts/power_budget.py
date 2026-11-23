@@ -19,6 +19,7 @@ Usage: python3 power_budget.py [raw rail, default 20]
 import sys
 RAW=float(sys.argv[1]) if len(sys.argv)>1 else 20.0
 V15,V5=15.1,5.0
+RDROP=300.0   # R506 + R507 in front of the 78L05 (decision 193)
 # part: (count, typ mA, max mA, rails) -- "pm" = both ±15 V, "p" = +15 V only
 parts={
  "NE5532":(8,6.0,16.0,"pm"),
@@ -46,11 +47,14 @@ def total(i):
     i5=led5[i]+iq78[i]; p+=i5
     p+=sig[i]; mneg+=sig[i]
     return p,mneg,i5
+def p78(i):
+    vin=V15-RDROP*(led5[i]+iq78[i])/1000   # V at the 78L05 input
+    return (vin-V5)*led5[i]/1000+vin*iq78[i]/1000, vin, RDROP/2*((led5[i]+iq78[i])/1000)**2
 for i,k in enumerate(("typ","max")):
     p,m,i5=total(i)
     print(f"{k}: +15 V {p:.0f} mA, -15 V {m:.0f} mA, +5 V {i5:.0f} mA | "
           f"LM317 {(RAW-V15)*p/1000:.2f} W, LM337 {(RAW-V15)*m/1000:.2f} W, "
-          f"78L05 {(V15-V5)*led5[i]/1000+V15*iq78[i]/1000:.2f} W (raw {RAW:g} V)")
+          f"78L05 {p78(i)[0]:.3f} W at {p78(i)[1]:.1f} V in, R506/R507 {p78(i)[2]*1000:.0f} mW each (raw {RAW:g} V)")
 # Sizing for shared supply parts (decision 96): IC quiescent current at typical x 1.5,
 # use-dependent loads (LEDs, signal) at their maximum. Read by tools/system_power_budget.py.
 K=1.5

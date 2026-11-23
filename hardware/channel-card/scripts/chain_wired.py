@@ -30,7 +30,7 @@ def rt(p,d=2.54): return (p[0]+d,p[1])
 
 # ------------------------------------------------------------- audio header on the multi-drop cable (decision 175)
 AUDIO={2:"MAIN_L",4:"MAIN_R",6:"COMP_L",8:"COMP_R",10:"AUX1_L",12:"AUX1_R",14:"AUX2_L",16:"AUX2_R",
-       18:"CUE_L",20:"CUE_R",22:"SC",24:"SC_ENV",34:"PFL_ACT"}
+       18:"CUE_L",20:"CUE_R",22:"SC",24:"SC_ENV",26:"FLT1_L",28:"FLT1_R",30:"FLT2_L",32:"FLT2_R",34:"PFL_ACT"}
 NOCONNECT=[]
 j=s.place("Connector_Generic","Conn_02x17_Odd_Even","J501","AUDIO",60.96,101.6,0,fp="Connector_IDC:IDC-Header_2x17_P2.54mm_Vertical",
           props=P("SX-CONN-007",Manufacturer="Wurth Elektronik",MPN="61203421621",Supplier="Mouser",SupplierPN="710-61203421621",Note="34-pin shrouded keyed box header, pinout docs/CHAIN.md; underside, pin 1 toward the front (decisions 109, 175)"))
@@ -41,7 +41,6 @@ s.wire((bx,j(33)[1]),(bx,j(33)[1]+2.54)); gnd((bx,j(33)[1]+2.54))
 for p,net in AUDIO.items():
     e=rt(j(p),5.08); s.wire(j(p),e)
     s.label(net,e,0,"hierarchical","output" if net=="SC_ENV" else "input")
-NOCONNECT+=[j(p) for p in (26,28,30,32)]   # SPARE2-5: carried by the cable, unused on the card (docs/CHAIN.md)
 
 # ------------------------------------------------------------- power header on the multi-drop cable (decision 175)
 for ref,y,val in (("J503",180.34,"POWER"),):
@@ -111,7 +110,11 @@ s.tp("TP504","-15V",(233.68,Y2),"down"); s.power("-15V",(238.76,Y2))
 # ------------------------------------------------------------- +5 V (78L05) for logic and LEDs
 Y3=279.4
 u=s.place("Regulator_Linear","L78L05_SOT89","U503","78L05",160.02,Y3,0,fp="Package_TO_SOT_SMD:SOT-89-3",props=P("SX-IC-012",Manufacturer="UTC",MPN="78L05G-AB3-R",Supplier="LCSC",SupplierPN="C71136"))   # pins 1 O 2 G 3 I (UTC QW-R101-001.R; -AB3-C differs)
-s.power("+15V",(142.24,Y3)); s.wire((142.24,Y3),(147.32,Y3)); s.wire((147.32,Y3),u(3))
+# 2 x 150 Ω in front of the regulator: the resistors take part of the heat (decision 193)
+RU=dict(Manufacturer="UNI-ROYAL",MPN="0805W8F1500T5E",Supplier="LCSC",SupplierPN="C17471")
+ra,rb=(s.place("Device","R",ref,"150",xx,Y3,90,fp=R0805,props=P("SX-R-117",**RU)) for ref,xx in (("R506",127.0),("R507",138.43)))
+s.power("+15V",(119.38,Y3)); s.wire((119.38,Y3),ra(1)); s.wire(ra(2),rb(1)); s.wire(rb(2),(147.32,Y3)); s.wire((147.32,Y3),u(3))
+s.wire((147.32,Y3),(147.32,Y3-5.08)); s.power("PWR_FLAG",(147.32,Y3-5.08))
 c=C("C511","100n","SX-C-002",147.32,Y3+3.81); pgnd(c(2))
 s.wire(u(2),dn(u(2),2.54)); pgnd(dn(u(2),2.54))
 x=u(1)

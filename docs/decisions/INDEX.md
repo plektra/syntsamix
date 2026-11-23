@@ -217,6 +217,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 190 | Hand-soldered SMD chips (150, 155) are prototype-only: the first prototype keeps them; production machine-places every SMD part; prototype consignment of the SSI chips rejected (about €52, logistics, likely MOQ); refines 133, 150, 155 | confirmed | [process](process.md) |
 | 191 | PCBA supplier stays JLCPCB; AISLER and PCBWay rejected on cost (per-part fees on 230 SMD types); pre-reflow fee avoided by SMD-only order files; refines 79 | confirmed | [process](process.md) |
 | 192 | Filter stays on every channel; SPARE2-5 reserved as two stereo filter buses FLT1/FLT2 on U302's free throws, B on a solder jumper (default AGND); master 100 Ω terminations; refines 175, 183 | confirmed | [system](system.md) |
+| 193 | Channel 78L05 fed through two 150 Ω 0805 in series (R506/R507): about 95 °C instead of 146 °C worst case at 57 °C air; refines 78 | confirmed | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 
