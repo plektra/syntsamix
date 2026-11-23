@@ -216,6 +216,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 189 | Power board switch-node RC snubber footprints across D201 and D301 (R208/C215, R308/C315, 0805), DNP, fitted only if the bench shows ringing; refines 100 | confirmed | [power](power.md) |
 | 190 | Hand-soldered SMD chips (150, 155) are prototype-only: the first prototype keeps them; production machine-places every SMD part; prototype consignment of the SSI chips rejected (about €52, logistics, likely MOQ); refines 133, 150, 155 | confirmed | [process](process.md) |
 | 191 | PCBA supplier stays JLCPCB; AISLER and PCBWay rejected on cost (per-part fees on 230 SMD types); pre-reflow fee avoided by SMD-only order files; refines 79 | confirmed | [process](process.md) |
+| 192 | Filter stays on every channel; SPARE2-5 reserved as two stereo filter buses FLT1/FLT2 on U302's free throws, B on a solder jumper (default AGND); master 100 Ω terminations; refines 175, 183 | confirmed | [system](system.md) |
 
 ## Proposed but not confirmed
 

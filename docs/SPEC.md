@@ -15,7 +15,7 @@ Items marked **[confirmed]** were agreed with the user. Items marked **[proposed
 ## 2. Architecture
 
 - Identical stereo channel cards, 1 to 16 (the prototype has 4), chained by multi-drop ribbon cables in 8-card sections (decision 175), with the master card at one end. No backplane PCB **[confirmed]**
-- Each channel card has one connector of each kind, on multi-drop cables (decision 175): a 34-pin IDC audio ribbon (buses, logic lines, interleaved audio grounds, spares) and a keyed 8-pin IDC power ribbon (2× V+, 2× V−, 4× ground; 10- and 16-pin avoided so Eurorack cables cannot be plugged in) **[confirmed]**
+- Each channel card has one connector of each kind, on multi-drop cables (decision 175): a 34-pin IDC audio ribbon (buses, logic lines, interleaved audio grounds, two reserved stereo filter buses (decision 192)) and a keyed 8-pin IDC power ribbon (2× V+, 2× V−, 4× ground; 10- and 16-pin avoided so Eurorack cables cannot be plugged in) **[confirmed]**
 - Chain power: about ±20 V nominal (unregulated in general; on the prototype it comes from the converters on the power board, decision 100), entering at the power board; each card regulates its own ±15 V; audio ground and power ground on separate conductors **[confirmed]**
 - Pinouts, signal definitions and grounding rules: see `CHAIN.md` **[confirmed]**
 - Summing buses: main L/R, compressor L/R, AUX1 L/R, AUX2 L/R (8 lines), plus cue L/R (2 lines), a "PFL active" logic line and the sidechain bus (pinout in `CHAIN.md`) **[confirmed]**

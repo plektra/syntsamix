@@ -26,7 +26,8 @@
 - More input modules (the interface exists from the prototype, `INPUT-MODULE.md`): 3.5 mm, D-SUB bundle, XLR
 - More CV control options
 - Pre-fader direct output per channel for multitrack recording (input header pins 1 and 12, DO_L and DO_R, already reserved, decision 181; jacks on the input module)
-- Momentary buttons with flip-flop logic and LEDs instead of latching switches, enabling CV/MIDI control and mute groups over the spare chain lines. Must keep button states through a power cycle (for example after a power cut during a gig), so the states need non-volatile storage (FRAM or microcontroller EEPROM) restored at power-up
+- Momentary buttons with flip-flop logic and LEDs instead of latching switches, enabling CV/MIDI control and mute groups over chain lines (none spare since decision 192 reserved them as filter buses; another path is needed). Must keep button states through a power cycle (for example after a power cut during a gig), so the states need non-volatile storage (FRAM or microcontroller EEPROM) restored at power-up
+- Two master filters on the reserved buses FLT1/FLT2 (decision 192), for a cheaper variant without channel filters: saves an estimated €80 at 8 and €213 at 16 channels, about nothing at 4; still to design: master filters and summing amps, assign button, a filter bypass link on the channel card
 - Insert points on the channel strips
 - Power modules in two sizes for the power bay (decision 162): one for up to 8 channel cards (the prototype design) and one for larger builds, so small units do not pay for the full-size supply
 - Microphone channel strip: mic preamp input (XLR) for vocals or acoustic sources

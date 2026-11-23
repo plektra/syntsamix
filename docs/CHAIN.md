@@ -1,6 +1,6 @@
 # Chain interface
 
-Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98, 101, 153, 175 and 178; `decisions/mechanical.md` item 162 (feed entry); `decisions/power.md` item 185 (module sizes).
+Status: **[confirmed]** by the user. Decisions behind this file: `decisions/system.md` items 30, 38 to 42, 66, 97, 98, 101, 153, 175, 178 and 192; `decisions/mechanical.md` item 162 (feed entry); `decisions/power.md` item 185 (module sizes).
 
 Every channel card has one audio and one power connector, each on a multi-drop flat cable that passes under all the cards with a socket at each card (decision 175). The audio cable comes in standard sections of 8 cards joined by a passive coupler board; the power cable is one section per group of 8 from the power board. The master card has one copy of each connector and sits at one end of the chain (the right end, decision 109). Any card can be unplugged without breaking the chain. Pin numbers follow the IDC convention: on the flat cable, pin n lies next to pin n+1, and pin 1 is on the red stripe.
 
@@ -22,18 +22,18 @@ Pattern: ground on every odd pin, signal on every even pin, so each signal has a
 | 19 | AGND | 20 | CUE_R |
 | 21 | AGND | 22 | SC |
 | 23 | AGND | 24 | SC_ENV |
-| 25 | AGND | 26 | SPARE2 |
-| 27 | AGND | 28 | SPARE3 |
-| 29 | AGND | 30 | SPARE4 |
-| 31 | AGND | 32 | SPARE5 |
+| 25 | AGND | 26 | FLT1_L |
+| 27 | AGND | 28 | FLT1_R |
+| 29 | AGND | 30 | FLT2_L |
+| 31 | AGND | 32 | FLT2_R |
 | 33 | AGND | 34 | PFL_ACT |
 
 Signal definitions:
 - **MAIN, COMP, AUX1, AUX2, CUE (L/R):** current-summing buses. Each channel card drives them through a series resistor; the master card holds the virtual-earth summing amplifier for each. Each channel drives every bus through 22 kΩ; the master's summing amplifiers use 22 kΩ feedback, so each channel sums at unity gain (decisions 74 and 79).
 - **SC:** sidechain bus, mono. A channel with SC send on adds (L+R) through resistors, tapped pre-fader and pre-mute; the master sums it like the audio buses.
-- **PFL_ACT:** logic, active low, open-collector (wired-OR). Pulled up on the master card; any channel with PFL pressed (or the master's SC listen button) pulls it to PGND (decision 98), so the LED and pull-up current returns through the power ribbons, not AGND. Placed at the cable edge, away from the audio buses, with the spares as a buffer.
+- **PFL_ACT:** logic, active low, open-collector (wired-OR). Pulled up on the master card; any channel with PFL pressed (or the master's SC listen button) pulls it to PGND (decision 98), so the LED and pull-up current returns through the power ribbons, not AGND. Placed at the cable edge, away from the audio buses in use, with the idle FLT lines (decision 192) as a buffer.
 - **SC_ENV:** ducking envelope (decisions 66 and 97), a negative control voltage driven by the master card at low impedance (feedback taken after its series resistor): 0 V = no ducking, −1 V = 10 dB of gain reduction at the channel VCA; the master's DEPTH sets the peak, 0 to −4 V (0 to 40 dB). A Schottky clamp on the master keeps it below about +0.3 V. A channel card (or AUX return) with DUCK on loads it with 30 kΩ (decision 153) into a virtual earth; with DUCK off it draws nothing. The scale does not depend on the fader position or the number of cards ducking.
-- **SPARE2 to SPARE5:** unconnected on the prototype; reserved for future CV, mute groups and similar. They are carried by the multi-drop cable; channel cards leave them unconnected (decision 175).
+- **FLT1, FLT2 (L/R):** two stereo filter buses, reserved (decision 192; formerly SPARE2 to SPARE5), not used on the prototype. Current-summing buses like MAIN: a channel card reaches them through 22 kΩ and the free throws of its bus assign switch (CD4052B U302), which its solder jumper keeps unselected by default. Until the master has summing amplifiers for them it ties each to AGND through 100 Ω. No other driver may be put on these lines (the switch pins must stay within about −6.2 V to +5 V).
 
 ## Power ribbon: 8-pin IDC (2x4), shrouded and keyed
 
