@@ -7,8 +7,8 @@ Drawn by hardware/channel-card/scripts/panel_render.py on the same page (it impo
 (104.8 x 360 mm; decision 162 says four) with the functions as bands across the panel, rear to front: compressor,
 sidechain, AUX, master. Positions are x across the panel and d from the card's front edge as on the channel card
 (panel front end = d - 21). Only the panel is drafted: nothing here is checked against the master PCB (its 768
-parts on a narrower board, the heatsink zone, the headers). The controls come from the schematic; the master level
-is a rotary pot there (decision 92), so it is drawn as a knob.
+parts on a narrower board, the heatsink zone, the headers). The controls come from the schematic, except the master
+level: the user chose a fader (2026-11-24) where the schematic still has a rotary pot (RV701, decision 92).
 """
 PW, PL = 104.8, 360.0
 OFF_D = 21.0
@@ -29,7 +29,6 @@ CONTROLS = [
     ("SEND 2", 16, 170, "pot", 16), ("RETURN 2", 40, 170, "pot", 16),
     ("MUTE", 64, 170, "button", "red"), ("DUCK", 75, 170, "button", "green"), ("COMP", 86, 170, "button", "green"),
     # master
-    ("MASTER", 56, 72, "pot", 24),
     ("PFL", 90, 140, "led", "yellow"), ("PHONES LEVEL", 88, 118, "pot", 16), ("PHONES", 88, JACK_D, "jack63", None),
 ]
 LABEL_DY = {"SC LPF": 10.0, "BYPASS": 10.0}
@@ -40,7 +39,10 @@ GR_X, GR_TOP = 97.0, 303.0
 METER = [("CLIP", "red"), ("+12", "red"), ("+9", "yellow"), ("+6", "yellow"), ("+3", "yellow"), ("0", "green"),
          ("−3", "green"), ("−6", "green"), ("−10", "green"), ("−15", "green"), ("−20", "green"),
          ("−30", "green")]
-METER_X, METER_TOP = (12.0, 19.0), 132.0     # L and R columns; CLIP; 12 LEDs at 6.0 mm pitch
+METER_X, METER_TOP = (12.0, 19.0), 90.0      # L and R columns; CLIP; 12 LEDs at 6.0 mm pitch, beside the fader
+FADER_X, FADER_D = 56.0, 57.0                # master fader: 60 mm travel, level with the channel faders
+FADER = [("+10", 100), ("+5", 87.5), ("0", 75), ("\u22125", 64), ("\u221210", 53), ("\u221220", 42), ("\u221230", 30.5),
+         ("\u221240", 19), ("\u221260", 14), ("\u2212\u221e", 0)]     # the channel fader's marks (same law, decision 144)
 
 
 def svg(x0, title="master section, second draft"):
@@ -90,6 +92,15 @@ def svg(x0, title="master section, second draft"):
             if side == "R":
                 o.append(f'<text x="{x0 + mx + 3.4}" y="{y + 0.75}" class="sm">{lab}</text>')
         o.append(f'<text x="{x0 + mx}" y="{Y(METER_TOP - 66) + 6.4}" class="sm" text-anchor="middle">{side}</text>')
+    # master fader, drawn at 0 dB, marks at its left as on the channel strips
+    fx = x0 + FADER_X
+    o.append(f'<rect x="{fx - 2.25}" y="{Y(FADER_D) - 32.5}" width="4.5" height="65" rx="1" class="slotf"/>')
+    for lab, pc in FADER:
+        y = Y(FADER_D - 30 + 0.6 * pc)
+        o.append(f'<path d="M{fx - 3.4} {y}h{-2.6 if lab == "0" else -1.6}" class="tick"/><text x="{fx - 6.8}" y="{y + 0.75}" class="sm" text-anchor="end">{lab}</text>')
+    y0 = Y(FADER_D - 30 + 0.6 * 75)
+    o.append(f'<rect x="{fx - 4.5}" y="{y0 - 7.5}" width="9" height="15" rx="1.2" class="fcap"/><path d="M{fx - 4.5} {y0}h9" class="fline"/>')
+    o.append(f'<text x="{fx}" y="{Y(FADER_D) + 37.5}" class="leg" text-anchor="middle">MASTER</text>')
     o.append("</g>")
     return "\n".join(o)
 
@@ -98,5 +109,5 @@ def table():
     groups = [("Compressor (rear)", "COMP ON button, AMOUNT, RELEASE and MIX knobs, five gain-reduction LEDs (1, 3, 6, 10, 15 dB) at the right"),
               ("Sidechain", "SC BUS and LISTEN buttons, SC LPF knob with its BYPASS button; below them THRESHOLD, DECAY and DEPTH"),
               ("AUX", "one row per bus: SEND and RETURN knobs, then MUTE, DUCK and COMP buttons for the return"),
-              ("Master (front)", "stereo meter of 2 × 12 LEDs at the left, MASTER knob, PFL light, PHONES LEVEL knob and the headphone jack at the right")]
+              ("Master (front)", "stereo meter of 2 × 12 LEDs at the left, MASTER fader, PFL light, PHONES LEVEL knob and the headphone jack at the right")]
     return "\n".join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in groups)

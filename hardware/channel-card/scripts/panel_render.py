@@ -196,7 +196,7 @@ __MTABLE__
 <li><strong>No columns.</strong> Each function is a band across the panel with a line and its name: compressor at the rear, then sidechain, AUX, and the master at the front.</li>
 <li><strong>Three strips wide instead of four</strong> (104.8 mm against 139.8 mm). The four-strip width is a recorded decision, and the master board carries 768 parts, about twice a channel card, so the narrower width needs a fit trial before it can be promised.</li>
 <li><strong>Headphone jack as far forward as it can go:</strong> 92 mm behind the card's front edge. Closer to the front the jack's body does not fit under the panel, by the recorded estimate of about 90 mm; a sample still has to be measured.</li>
-<li><strong>MASTER is a knob</strong> here because the schematic has a rotary pot. A 60 mm fader like the channels' would fit in the same band, level with the channel faders.</li>
+<li><strong>MASTER is a fader,</strong> your choice: 60 mm travel, level with the channel faders, the meter beside it. The schematic still has a rotary pot there, so the circuit sheet has to follow.</li>
 <li><strong>Button colours are assumed</strong> from the channel strip; the master's LED colours are not checked.</li>
 <li><strong>Only the panel is drafted.</strong> Nothing is checked against the master board yet.</li>
 </ul>
