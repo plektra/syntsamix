@@ -116,6 +116,90 @@ def power_strip(x0, title="power"):
     return "\n".join(o)
 
 
+# ---- underside view: what hangs below the cards, seen from above through the panels (same left and right) ----------
+PWR_HDR = (131.1, 150.1, 0.0, 10.0)      # channel power header body (d0, d1, u0, u1), from floorplan.py
+AUD_HDR = (154.0, 206.0, 23.0, 33.0)     # channel audio header body
+IN_HDR = (290.0, 314.0, 0.0, 10.0)       # input header J1
+BAND = (116.1, 221.0)                    # no hand-set parts: the cables run here (decision 175)
+REGS = [(62.0, 79.0, 3.0, 14.4), (62.0, 79.0, 18.6, 30.0)]    # regulators underneath, proposed
+M_AUD = (154.0, 206.0, 0.0, 10.0)        # master audio header at its left edge, on the channels' audio row
+M_PWR = (154.0, 173.0, 93.0, 103.0)      # master power header, proposed: opposite the power board's master header
+M_HS_ZONE = (189.0, 318.0, 20.0, 93.0)   # heatsinks: 190 mm or more behind the front rail, 10 mm inside the right edge
+M_HS = [(213.0, 225.7, 28.0, 62.9), (247.0, 259.7, 28.0, 62.9)]     # two 34.9 x 12.7 mm heatsinks between the pot rows, position not set
+PB_D = (137.0, 314.0)                    # power board on edge, 138 to 315 mm behind the front rail's inner face
+PB_HDR = {"chain": 144.2, "master": 163.5}    # its ribbon headers (centres, d), from hardware/power/scripts/placement.py
+
+
+def underside():
+    Y = lambda d: PL - (d + OFF_D) + 8
+    o = []
+
+    def box(x0, b, cls, extra=""):
+        o.append(f'<rect x="{x0 + OFF_U + b[2]:.2f}" y="{Y(b[1]):.2f}" width="{b[3] - b[2]:.2f}" height="{b[1] - b[0]:.2f}" class="{cls}" {extra}/>')
+
+    def text(x, d, t, anchor="start", cls="ut"):
+        o.append(f'<text x="{x:.2f}" y="{Y(d) + 0.8:.2f}" class="{cls}" text-anchor="{anchor}">{t}</text>')
+
+    xm = 22 + 140; xp = xm + master.PW + 0.2
+    xb = xp + PW - 6 - 1.6                    # power board's parts face
+    for k in range(4):                        # panels as a dark ground, the cards on them
+        x0 = 22 + 35 * k
+        o.append(f'<rect x="{x0}" y="8" width="{PW}" height="{PL}" class="panel"/>')
+        box(x0, (0, 318, 0, 33), "card")
+    o.append(f'<rect x="{xm}" y="8" width="{master.PW}" height="{PL}" class="panel"/>')
+    box(xm, (0, 318, 0, master.PW - 1.8), "card")
+    o.append(f'<rect x="{xp}" y="8" width="{PW}" height="{PL}" class="panel"/>')
+    o.append(f'<text x="{22 + 70}" y="4.5" class="cap" text-anchor="middle">channel cards 1 to 4</text><text x="{xm + master.PW / 2}" y="4.5" class="cap" text-anchor="middle">master card</text><text x="{xp + PW / 2}" y="4.5" class="cap" text-anchor="middle">power bay</text>')
+    # control positions as faint dots, to see what sits above each header
+    for k in range(4):
+        x0 = 22 + 35 * k
+        for name, row, u, kind, arg in CONTROLS:
+            o.append(f'<circle cx="{x0 + OFF_U + u}" cy="{Y(ROW[row])}" r="1.6" class="ghost"/>')
+        box(x0, (FADER_D - 38, FADER_D + 38, FADER_U - 5, FADER_U + 5), "ghostbox")
+    for name, cx, d, kind, arg in master.controls(LINES[2] - 11.6, LINES[1] + 16.2):
+        o.append(f'<circle cx="{xm + cx}" cy="{Y(d)}" r="1.6" class="ghost"/>')
+    o.append(f'<rect x="{xm + master.FADER_X - 5}" y="{Y(master.FADER_D + 38)}" width="10" height="76" class="ghostbox"/>')
+    # cables first, the headers on top of them
+    y_p, y_a = Y(140.6), Y(180.0)
+    o.append(f'<path d="M{22 + OFF_U + 5} {y_p}H{xm + master.PW - 8}L{xb - 9} {Y(PB_HDR["chain"])}" class="cabp"/>')
+    o.append(f'<path d="M{22 + OFF_U + 28} {y_a}H{xm + OFF_U + 5}" class="caba"/>')
+    o.append(f'<path d="M{xm + OFF_U + 98} {Y(163.5)}H{xb - 9}" class="cabp"/>')
+    for k in range(4):
+        x0 = 22 + 35 * k
+        box(x0, (0, 41, 0.6, 32.4), "zone")
+        box(x0, (BAND[0], BAND[1], 0.6, 32.4), "zone")
+        for b in (PWR_HDR, AUD_HDR, IN_HDR):
+            box(x0, b, "hdr")
+        for b in REGS:
+            box(x0, b, "reg")
+    x1 = 22 + OFF_U
+    text(x1 + 16.5, 20, "nothing below", "middle"); text(x1 + 16.5, 16.8, "the front 41 mm", "middle")
+    text(x1 + 16.5, 83, "regulators", "middle"); text(x1 + 16.5, 58, "(proposed)", "middle")
+    text(x1 + 11, 128, "power"); text(x1 + 11, 124.8, "header")
+    text(x1 + 22, 210, "audio", "end"); text(x1 + 22, 206.8, "header", "end")
+    text(x1 + 16.5, 255, "trimmers and", "middle"); text(x1 + 16.5, 251.8, "jumpers here", "middle")
+    text(x1 + 11, 303, "input"); text(x1 + 11, 299.8, "header")
+    # master card
+    box(xm, M_HS_ZONE, "zone")
+    for b in M_HS:
+        box(xm, b, "hs")
+    box(xm, M_AUD, "hdr"); box(xm, M_PWR, "hdr")
+    o.append(f'<circle cx="{xm + 90}" cy="{Y(master.JACK_D)}" r="7" class="hs"/>')
+    xmc = xm + OFF_U
+    text(xmc + 56.5, 312, "heatsink zone: 190 mm or more behind the front rail", "middle")
+    text(xmc + 45.5, 263, "two heatsinks, position not set", "middle")
+    text(xmc + 11.5, 210, "audio header"); text(xmc + 91.5, 177, "power header", "end"); text(xmc + 91.5, 173.8, "(proposed)", "end")
+    text(xm + 90, 81, "headphone jack body", "middle")
+    text(xmc + 50, 146, "chain 1 power feed crosses in front of the heatsink zone", "middle")
+    # power bay: the board on edge, its parts toward the master
+    o.append(f'<rect x="{xb - 17}" y="{Y(PB_D[1])}" width="17" height="{PB_D[1] - PB_D[0]}" class="zone"/>')
+    o.append(f'<rect x="{xb}" y="{Y(PB_D[1])}" width="1.6" height="{PB_D[1] - PB_D[0]}" class="card"/>')
+    for d in PB_HDR.values():
+        o.append(f'<rect x="{xb - 9}" y="{Y(d + 9.5)}" width="9" height="19" class="hdr"/>')
+    text(xb - 8.5, 240, "power board on edge,", "middle"); text(xb - 8.5, 236.8, "parts this side", "middle")
+    return "\n".join(o)
+
+
 def dims(x):
     """Distance of each row from the panel's front end, as a ruler left of the first strip."""
     o = []
@@ -186,6 +270,15 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 .tape { fill: #e9e2c8; opacity: 0.16; stroke: #e9e2c8; stroke-width: 0.25; stroke-dasharray: 1.2 1; }
 .tapet { fill: #cfc9b2; font: 500 2.6px var(--body); letter-spacing: 0.3px; }
 .sc { fill: #f4f4f4; font: 500 1.9px var(--body); }
+.card { fill: #1d3a2b; stroke: #37694f; stroke-width: 0.3; }
+.ghost { fill: none; stroke: #7d8c84; stroke-width: 0.25; } .ghostbox { fill: none; stroke: #7d8c84; stroke-width: 0.25; }
+.hdr { fill: #d8d8d2; stroke: #6d6d6d; stroke-width: 0.3; }
+.reg { fill: #6a5d4d; stroke: #a3927b; stroke-width: 0.3; }
+.hs { fill: #55595c; stroke: #a9aeb2; stroke-width: 0.3; }
+.zone { fill: #ffffff; fill-opacity: 0.05; stroke: #e9e9e9; stroke-width: 0.25; stroke-dasharray: 1.4 1.1; }
+.cabp { fill: none; stroke: #e0a13a; stroke-opacity: 0.6; stroke-width: 10.2; stroke-linejoin: round; }
+.caba { fill: none; stroke: #7fb0e6; stroke-opacity: 0.45; stroke-width: 43.2; }
+.ut { fill: #f4f4f4; font: 500 2.2px var(--body); }
 .leg { fill: #f4f4f4; font: 600 2.5px var(--body); letter-spacing: 0.12px; }
 .sm { fill: #f4f4f4; font: 500 2.1px var(--body); }
 .cap { fill: var(--muted); font: 500 3.2px var(--body); }
@@ -202,6 +295,22 @@ __SVG__
 </svg>
 </div>
 <p class="note">Left ruler: distance from the panel's front end in mm. Lighter bands at both ends rest on the frame rails. The dashed field is where tape goes; it is not printed. White lines separate the sections. Button colours are the LED colours already chosen.</p>
+<section>
+<h2>Underneath</h2>
+<p>The same six strips seen from above through the panels, so left and right match the drawing above. Rings mark where the controls sit on top.</p>
+<div class="fig" style="margin-top:12px">
+<svg viewBox="0 0 304 372" role="img" aria-label="Underside view: the chain headers on each card, the power and audio cables crossing under the cards, the master's heatsink zone and the power board">
+__UNDER__
+</svg>
+</div>
+<ul style="margin-top:12px">
+<li><strong>Orange: power.</strong> One flat cable links the power headers at the left edge of every channel card and runs on under the master to the power board. A second short one feeds the master.</li>
+<li><strong>Blue: audio.</strong> One wide flat cable links the audio headers at the right edge of every channel card and ends at the master's left edge. The last step, from channel 4 to the master, is only about 12 mm.</li>
+<li><strong>The two cables run at different depths</strong> and do not cross. Trimmers and jumpers stay out of the dashed band they run in.</li>
+<li><strong>Checked by the placement script:</strong> the three headers on the channel card, against the pins of the controls above them.</li>
+<li><strong>Not checked, drawn as proposals:</strong> everything on the master card (its headers, the two heatsinks, the headphone jack's body), the regulators under the channel faders, and the exact height of the power board's headers, which I took from its layout script.</li>
+</ul>
+</section>
 <section>
 <h2>Channel strip positions</h2>
 <div class="tw"><table>
@@ -256,5 +365,5 @@ if __name__ == "__main__":
     svg += master.svg(22 + 140, (LINES[2], LINES[1]), "master section") + power_strip(22 + 140 + master.PW + 0.2)
     os.makedirs(os.path.join(HERE, "build"), exist_ok=True)
     out = os.path.join(HERE, "build", "panel.html")
-    open(out, "w").write(PAGE.replace("__SVG__", svg).replace("__TABLE__", table()).replace("__MTABLE__", master.table()))
+    open(out, "w").write(PAGE.replace("__SVG__", svg).replace("__TABLE__", table()).replace("__MTABLE__", master.table()).replace("__UNDER__", underside()))
     print(out)
