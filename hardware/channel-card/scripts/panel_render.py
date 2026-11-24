@@ -18,14 +18,20 @@ import panel_draft as master     # the master section's draft, drawn on the same
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
-ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=170, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
-           LOWCUT=284, TRIM=304)
-LINES = [115.6, 135.6, 188.6, 270.6]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
+ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=173, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
+           LOWCUT=282, TRIM=304)
+LINES = [115.6, 134.3, 188.6, 269.6]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
 FADER_D = 57.0                # travel centre; travel 60 mm
 FADER_U = 25.5                # 9 mm right of the card's centreline (the user, 2026-11-24)
 METER_U = 4.0
 TAPE = (14.0, 39.0)           # tape strip, from the panel's front end: behind the screw head, in front of the fader
-LABEL_DY = {"RESONANCE": 10.0, "BYPASS": 10.0}   # one baseline for the two legends of a shared row
+LABEL_DY = {"RESONANCE": 13.2, "BYPASS": 13.2}
+# scale marks (fraction of the rotation, text): TRIM decision 26; CUTOFF decision 52, one octave per tick on a linear
+# pot; AUX sends decision 74 (audio taper, so only the ends carry a value); RESONANCE has no unit
+SCALES = {"TRIM": [(0.0, "\u221214"), (1.0, "+28")],
+          "CUTOFF": [(0.0, "20"), (0.2, "80"), (0.4, "320"), (0.6, "1.2k"), (0.8, "5k"), (1.0, "20k")],
+          "RESONANCE": [(0.0, "0"), (1.0, "10")],
+          "AUX 1": [(0.0, "\u2212\u221e"), (1.0, "0")], "AUX 2": [(0.0, "\u2212\u221e"), (1.0, "0")]}   # one baseline for the two legends of a shared row
 LED = {"red": "#e0483f", "yellow": "#e6bd3a", "green": "#46b46a", "white": "#ecebe6"}
 # (name on the panel, row, u, kind, knob diameter or LED colour)
 CONTROLS = [
@@ -33,7 +39,7 @@ CONTROLS = [
     ("CV IN", "JACKS", CEN - 8, "jack", None), ("CV OUT", "JACKS", CEN + 8, "jack", None),
     ("CUTOFF", "CUTOFF", CEN, "pot", 20), ("RESONANCE", "RES", CEN - 8, "pot", 14),
     ("BYPASS", "BYPASS", CEN + 8, "button", "white"),
-    ("AUX 1", "AUX1", CEN - 8, "pot", 16), ("AUX 2", "AUX2", CEN + 8, "pot", 16),
+    ("AUX 1", "AUX1", CEN - 6.5, "pot", 16), ("AUX 2", "AUX2", CEN + 6.5, "pot", 16),   # staggered, 6.5 mm each side: room for the scale
     ("SC", "ROW3", 5.5, "button", "green"), ("DUCK", "ROW3", 16.5, "button", "green"),
     ("COMP", "ROW3", 27.5, "button", "green"),
     ("PFL", "PFL", CEN - 7, "button", "yellow"), ("MUTE", "MUTE", CEN + 7, "button", "red"),
@@ -63,9 +69,7 @@ def strip(x0, title):
     for name, row, u, kind, arg in CONTROLS:
         x, y = X(u), Y(ROW[row])
         if kind == "pot":
-            r = arg / 2
-            o.append(f'<circle cx="{x}" cy="{y}" r="{r}" class="knob"/><path d="M{x} {y - r + 0.7}v{r * 0.5}" class="pointer"/>')
-            o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, r + 3.5)}" class="leg" text-anchor="middle">{name}</text>')
+            o.append(master.knob(x, y, arg, name, SCALES[name], LABEL_DY.get(name)))
         elif kind == "button":
             o.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="1.6" fill="{LED[arg]}" class="capbtn"/>')
             o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, 8.5)}" class="leg" text-anchor="middle">{name}</text>')
@@ -109,7 +113,7 @@ def table():
             ("CV IN / CV OUT", "JACKS", "3.5 mm jacks", "8 mm left and right"),
             ("CUTOFF", "CUTOFF", "pot, 20 mm knob", "centreline"),
             ("RESONANCE / BYPASS", "RES", "pot with a 14 mm knob; button, white", "8 mm left; 8 mm right"),
-            ("AUX 1", "AUX1", "pot, 16 mm knob", "8 mm left"), ("AUX 2", "AUX2", "pot, 16 mm knob", "8 mm right"),
+            ("AUX 1", "AUX1", "pot, 16 mm knob", "6.5 mm left"), ("AUX 2", "AUX2", "pot, 16 mm knob", "6.5 mm right"),
             ("SC / DUCK / COMP", "ROW3", "three buttons, green", "11 mm apart"),
             ("PFL / MUTE", "MUTE", "two buttons, yellow and red", "7 mm left and right")]
     out = []
@@ -161,6 +165,7 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 .sect { stroke: #f2f2f2; stroke-width: 0.3; fill: none; }
 .tape { fill: #e9e2c8; opacity: 0.16; stroke: #e9e2c8; stroke-width: 0.25; stroke-dasharray: 1.2 1; }
 .tapet { fill: #cfc9b2; font: 500 2.6px var(--body); letter-spacing: 0.3px; }
+.sc { fill: #f4f4f4; font: 500 1.9px var(--body); }
 .leg { fill: #f4f4f4; font: 600 2.5px var(--body); letter-spacing: 0.12px; }
 .sm { fill: #f4f4f4; font: 500 2.1px var(--body); }
 .cap { fill: var(--muted); font: 500 3.2px var(--body); }
@@ -169,7 +174,7 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 <main>
 <header>
 <h1>Channel strip and master panels</h1>
-<p class="lede">Two channel strips (34.8 &times; 360 mm each) beside the master section (drawn 104.8 mm wide), front edge at the bottom. The channel strip follows your choices; the master section is a second draft.</p>
+<p class="lede">Two channel strips (34.8 &times; 360 mm each) beside the master section (drawn 104.8 mm wide), front edge at the bottom. The channel strip follows your choices; the master section is a third draft.</p>
 </header>
 <div class="fig">
 <svg viewBox="0 0 200 372" role="img" aria-label="Drawing of two channel strip panels and the master section panel with every control labelled">
@@ -186,13 +191,14 @@ __TABLE__
 </tbody></table></div>
 </section>
 <section>
-<h2>Master section, second draft</h2>
+<h2>Master section, third draft</h2>
 <div class="tw"><table>
 <thead><tr><th>Band</th><th>Controls, left to right</th></tr></thead>
 <tbody>
 __MTABLE__
 </tbody></table></div>
 <ul style="margin-top:12px">
+<li><strong>AUX lined up with the channels.</strong> The master's AUX band sits between the same two lines as the channel strips' AUX section.</li>
 <li><strong>No columns.</strong> Each function is a band across the panel with a line and its name: compressor at the rear, then sidechain, AUX, and the master at the front.</li>
 <li><strong>Three strips wide instead of four</strong> (104.8 mm against 139.8 mm). The four-strip width is a recorded decision, and the master board carries 768 parts, about twice a channel card, so the narrower width needs a fit trial before it can be promised.</li>
 <li><strong>Headphone jack as far forward as it can go:</strong> 92 mm behind the card's front edge. Closer to the front the jack's body does not fit under the panel, by the recorded estimate of about 90 mm; a sample still has to be measured.</li>
@@ -207,7 +213,8 @@ __MTABLE__
 <li><strong>Tape strip.</strong> 25 mm of blank panel between the front screw and the fader; the fader cap at its lowest point stops 1.5 mm short of it.</li>
 <li><strong>Sections,</strong> front to rear: fader with PFL and MUTE; SC, DUCK and COMP; the two AUX sends; the filter with its CV jacks; the input.</li>
 <li><strong>Knob sizes.</strong> CUTOFF 20 mm, RESONANCE 14 mm, the others 16 mm. No knob is chosen yet, and the supplier's list for these shafts stops at about 19 mm, so the 20 mm one needs finding.</li>
-<li><strong>AUX sends.</strong> 19 mm apart front to back and 16 mm across, so the knob centres are 25 mm apart. AUX 2 cannot move further back: the audio header underneath needs the run between it and BYPASS.</li>
+<li><strong>AUX sends.</strong> 22 mm apart front to back and 13 mm across (6.5 mm each side, so the printed scales stay on the panel); the knob centres are 26 mm apart. AUX 2 cannot move further back: the audio header underneath needs the run between it and BYPASS.</li>
+<li><strong>Scales.</strong> Eleven ticks around each pot. CUTOFF is marked in octaves from 20 Hz to 20 kHz, TRIM with its ends in dB, the sends from off to 0 dB. Where only the end values are known, only the ends carry a number; the marks in between depend on the pot's taper and would need measuring.</li>
 <li><strong>Legends below the controls,</strong> on the operator's side, so a knob or cap does not hide its own name. MUTE's legend stays 4.7 mm clear of the fader cap at the top of its travel.</li>
 <li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS; BYPASS stands for FILTER BYPASS.</li>
 </ul>
@@ -216,7 +223,7 @@ __MTABLE__
 """
 
 if __name__ == "__main__":
-    svg = dims(22) + strip(22, "channel strip") + strip(22 + 35, "its neighbour") + master.svg(22 + 70)
+    svg = dims(22) + strip(22, "channel strip") + strip(22 + 35, "its neighbour") + master.svg(22 + 70, (LINES[2], LINES[1]))
     os.makedirs(os.path.join(HERE, "build"), exist_ok=True)
     out = os.path.join(HERE, "build", "panel.html")
     open(out, "w").write(PAGE.replace("__SVG__", svg).replace("__TABLE__", table()).replace("__MTABLE__", master.table()))

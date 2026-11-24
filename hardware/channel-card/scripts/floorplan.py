@@ -58,8 +58,8 @@ GROUNDS = {"AGND", "PGND"}
 # ---- panel rows: distance of each control's centre from the card's front edge (MECHANICAL.md row order) --------
 FADER_D, FADER_U = 57.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
 METER_U = 4.0                     # meter LED column; CLIP level with the fader's top travel end, 6.0 mm pitch
-ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=170, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
-           LOWCUT=284, TRIM=304)
+ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=173, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
+           LOWCUT=282, TRIM=304)
 CEN = 16.5
 # ref: (d, u, rotation, side, what the point is)
 FIX = {
@@ -67,7 +67,7 @@ FIX = {
     "SW201": (ROW["MUTE"], CEN + 7, 0, "F", "origin"), "SW301": (ROW["PFL"], CEN - 7, 0, "F", "origin"),
     "SW302": (ROW["ROW3"], 5.5, 0, "F", "origin"), "SW202": (ROW["ROW3"], 16.5, 0, "F", "origin"),
     "SW303": (ROW["ROW3"], 27.5, 0, "F", "origin"),
-    "RV302": (ROW["AUX2"], CEN + 8, 0, "F", "shaft"), "RV301": (ROW["AUX1"], CEN - 8, 0, "F", "shaft"),
+    "RV302": (ROW["AUX2"], CEN + 6.5, 0, "F", "shaft"), "RV301": (ROW["AUX1"], CEN - 6.5, 0, "F", "shaft"),
     "SW181": (ROW["BYPASS"], CEN + 8, 0, "F", "origin"),
     "RV183": (ROW["RES"], CEN - 8, 0, "F", "shaft"), "RV181": (ROW["CUTOFF"], CEN, 0, "F", "shaft"),
     "J181": (ROW["JACKS"], CEN - 8, 270, "F", "barrel"), "J182": (ROW["JACKS"], CEN + 8, 270, "F", "barrel"),
