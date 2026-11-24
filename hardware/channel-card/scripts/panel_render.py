@@ -97,6 +97,25 @@ def strip(x0, title):
     return "\n".join(o)
 
 
+def power_strip(x0, title="power"):
+    """The power bay's plain top strip (MECHANICAL.md, power bay): the power LED and the two bracket screws."""
+    Y = lambda d: PL - (d + OFF_D) + 8
+    cx = x0 + PW / 2
+    o = [f'<g><text x="{cx}" y="4.5" class="cap" text-anchor="middle">{title}</text>',
+         f'<rect x="{x0}" y="8" width="{PW}" height="{PL}" class="panel"/>']
+    for y in (8, 8 + PL - 20):
+        o.append(f'<rect x="{x0}" y="{y}" width="{PW}" height="20" class="rail"/>')
+    # distances in MECHANICAL.md are from the front rail's inner face: d = that - 1
+    for d in (-11, 143, 308, 329):      # rail screws at the ends, bracket screws H2 and H1 (decision 188)
+        y = Y(d)
+        o.append(f'<circle cx="{cx}" cy="{y}" r="2.6" class="screw"/><path d="M{cx - 1.4} {y}h2.8M{cx} {y - 1.4}v2.8" class="slot"/>')
+    y = Y(289)                           # power LED: 3 mm LED in a clip, ring 6.1 mm (decision 168)
+    o.append(f'<circle cx="{cx}" cy="{y}" r="3.05" class="nut"/><circle cx="{cx}" cy="{y}" r="1.5" fill="{LED["green"]}"/>')
+    o.append(f'<text x="{cx}" y="{y + 7.2}" class="leg" text-anchor="middle">POWER</text>')
+    o.append("</g>")
+    return "\n".join(o)
+
+
 def dims(x):
     """Distance of each row from the panel's front end, as a ruler left of the first strip."""
     o = []
@@ -126,7 +145,7 @@ def table():
     return "\n".join(out)
 
 
-PAGE = """<title>Channel Strip Panel</title>
+PAGE = """<title>Mixer Top Panels</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
 <style>
@@ -137,13 +156,13 @@ PAGE = """<title>Channel Strip Panel</title>
 :root[data-theme="dark"] { --bg: #141716; --surface: #1c201e; --fg: #e9ece9; --muted: #9aa5a0; --line: #303733; --accent: #58c79b; color-scheme: dark }
 body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55;
   padding-block: 28px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-main { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+main { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
 h1 { font-family: var(--display); font-size: 1.9rem; line-height: 1.15; margin: 0; text-wrap: balance; }
 h2 { font-family: var(--display); font-size: 1.15rem; margin: 0 0 8px; }
 p { margin: 0; max-width: 65ch; }
 .lede { color: var(--muted); }
 .fig { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; overflow-x: auto; }
-.fig svg { display: block; width: 100%; min-width: 620px; max-width: 900px; height: auto; margin: 0 auto; }
+.fig svg { display: block; width: 100%; min-width: 860px; height: auto; margin: 0 auto; }
 ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
 .tw { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
@@ -174,11 +193,11 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 </style>
 <main>
 <header>
-<h1>Channel strip and master panels</h1>
-<p class="lede">Two channel strips (34.8 &times; 360 mm each) beside the master section (drawn 104.8 mm wide), front edge at the bottom. The channel strip follows your choices; the master section is a third draft.</p>
+<h1>Mixer top panels</h1>
+<p class="lede">The prototype's top: four channel strips (34.8 &times; 360 mm each), the master section (drawn 104.8 mm wide) and the power bay strip, front edge at the bottom. The channel strip follows your choices; the master section is a third draft.</p>
 </header>
 <div class="fig">
-<svg viewBox="0 0 200 372" role="img" aria-label="Drawing of two channel strip panels and the master section panel with every control labelled">
+<svg viewBox="0 0 304 372" role="img" aria-label="Drawing of four channel strip panels, the master section panel and the power bay strip with every control labelled">
 __SVG__
 </svg>
 </div>
@@ -209,6 +228,14 @@ __MTABLE__
 </ul>
 </section>
 <section>
+<h2>Power bay</h2>
+<ul>
+<li><strong>A plain strip, one channel wide.</strong> The power board hangs under it; the only thing on the panel is the power light, about 290 mm behind the front rail, as recorded.</li>
+<li><strong>Four screws on the centreline:</strong> one at each end into the rails and two for the brackets that carry the power board.</li>
+<li><strong>The light's colour and the POWER legend are my assumptions.</strong> The power switch and the supply socket are on the rear panel, not here.</li>
+</ul>
+</section>
+<section>
 <h2>What the channel drawing assumes</h2>
 <ul>
 <li><strong>Tape strip.</strong> 25 mm of blank panel between the front screw and the fader; the fader cap at its lowest point stops 1.5 mm short of it.</li>
@@ -225,7 +252,8 @@ __MTABLE__
 """
 
 if __name__ == "__main__":
-    svg = dims(22) + strip(22, "channel strip") + strip(22 + 35, "its neighbour") + master.svg(22 + 70, (LINES[2], LINES[1]))
+    svg = dims(22) + "".join(strip(22 + 35 * k, f"channel {k + 1}") for k in range(4))
+    svg += master.svg(22 + 140, (LINES[2], LINES[1]), "master section") + power_strip(22 + 140 + master.PW + 0.2)
     os.makedirs(os.path.join(HERE, "build"), exist_ok=True)
     out = os.path.join(HERE, "build", "panel.html")
     open(out, "w").write(PAGE.replace("__SVG__", svg).replace("__TABLE__", table()).replace("__MTABLE__", master.table()))
