@@ -40,8 +40,8 @@ CONTROLS = [
     ("CUTOFF", "CUTOFF", CEN, "pot", 20), ("RESONANCE", "RES", CEN - 8, "pot", 14),
     ("BYPASS", "BYPASS", CEN + 8, "button", "white"),
     ("AUX 1", "AUX1", CEN - 6.5, "pot", 16), ("AUX 2", "AUX2", CEN + 6.5, "pot", 16),   # staggered, 6.5 mm each side: room for the scale
-    ("SC", "ROW3", 5.5, "button", "green"), ("DUCK", "ROW3", 16.5, "button", "green"),
-    ("COMP", "ROW3", 27.5, "button", "green"),
+    ("SC", "ROW3", 5.0, "button", "green"), ("DUCK", "ROW3", 16.5, "button", "green"),
+    ("COMP", "ROW3", 28.0, "button", "green"),   # 11.5 mm apart, the widest the card allows
     ("PFL", "PFL", CEN - 7, "button", "yellow"), ("MUTE", "MUTE", CEN + 7, "button", "red"),
 ]
 METER = [("CLIP", "red"), ("+6", "yellow"), ("+3", "yellow"), ("0", "green"), ("−5", "green"),
@@ -71,8 +71,9 @@ def strip(x0, title):
         if kind == "pot":
             o.append(master.knob(x, y, arg, name, SCALES[name], LABEL_DY.get(name)))
         elif kind == "button":
-            o.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="1.6" fill="{LED[arg]}" class="capbtn"/>')
-            o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, 8.5)}" class="leg" text-anchor="middle">{name}</text>')
+            c = master.CAP
+            o.append(f'<rect x="{x - c / 2}" y="{y - c / 2}" width="{c}" height="{c}" rx="1.4" fill="{LED[arg]}" class="capbtn"/>')
+            o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, c / 2 + 3.5)}" class="leg" text-anchor="middle">{name}</text>')
         else:
             o.append(f'<circle cx="{x}" cy="{y}" r="4" class="nut"/><circle cx="{x}" cy="{y}" r="1.8" class="hole"/>')
             o.append(f'<text x="{x}" y="{y + 7.5}" class="leg" text-anchor="middle">{name}</text>')
@@ -114,7 +115,7 @@ def table():
             ("CUTOFF", "CUTOFF", "pot, 20 mm knob", "centreline"),
             ("RESONANCE / BYPASS", "RES", "pot with a 14 mm knob; button, white", "8 mm left; 8 mm right"),
             ("AUX 1", "AUX1", "pot, 16 mm knob", "6.5 mm left"), ("AUX 2", "AUX2", "pot, 16 mm knob", "6.5 mm right"),
-            ("SC / DUCK / COMP", "ROW3", "three buttons, green", "11 mm apart"),
+            ("SC / DUCK / COMP", "ROW3", "three buttons, green", "11.5 mm apart"),
             ("PFL / MUTE", "MUTE", "two buttons, yellow and red", "7 mm left and right")]
     out = []
     for i, (name, row, what, across) in enumerate(rows):
@@ -216,6 +217,7 @@ __MTABLE__
 <li><strong>AUX sends.</strong> 22 mm apart front to back and 13 mm across (6.5 mm each side, so the printed scales stay on the panel); the knob centres are 26 mm apart. AUX 2 cannot move further back: the audio header underneath needs the run between it and BYPASS.</li>
 <li><strong>Scales.</strong> Eleven ticks around each pot. CUTOFF is marked in octaves from 20 Hz to 20 kHz, TRIM with its ends in dB, the sends from off to 0 dB. Where only the end values are known, only the ends carry a number; the marks in between depend on the pot's taper and would need measuring.</li>
 <li><strong>Legends below the controls,</strong> on the operator's side, so a knob or cap does not hide its own name. MUTE's legend stays 4.7 mm clear of the fader cap at the top of its travel.</li>
+<li><strong>Button caps 8 mm square</strong> instead of 10 mm, so a finger on one does not press its neighbour: 3.5 mm between the caps in the row of three (they are 11.5 mm apart, the widest the card allows), 6 mm between PFL and MUTE. The switch body under the panel is 8.5 mm, and each cap is lit by an LED beside the switch, so the printed cap needs a wider skirt under the panel to catch the light: to try on a print.</li>
 <li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS; BYPASS stands for FILTER BYPASS.</li>
 </ul>
 </section>

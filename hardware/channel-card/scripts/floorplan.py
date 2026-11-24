@@ -65,8 +65,8 @@ CEN = 16.5
 FIX = {
     "RV201": (FADER_D, FADER_U, 0, "F", "mid"),
     "SW201": (ROW["MUTE"], CEN + 7, 0, "F", "origin"), "SW301": (ROW["PFL"], CEN - 7, 0, "F", "origin"),
-    "SW302": (ROW["ROW3"], 5.5, 0, "F", "origin"), "SW202": (ROW["ROW3"], 16.5, 0, "F", "origin"),
-    "SW303": (ROW["ROW3"], 27.5, 0, "F", "origin"),
+    "SW302": (ROW["ROW3"], 5.0, 0, "F", "origin"), "SW202": (ROW["ROW3"], 16.5, 0, "F", "origin"),
+    "SW303": (ROW["ROW3"], 28.0, 0, "F", "origin"),
     "RV302": (ROW["AUX2"], CEN + 6.5, 0, "F", "shaft"), "RV301": (ROW["AUX1"], CEN - 6.5, 0, "F", "shaft"),
     "SW181": (ROW["BYPASS"], CEN + 8, 0, "F", "origin"),
     "RV183": (ROW["RES"], CEN - 8, 0, "F", "shaft"), "RV181": (ROW["CUTOFF"], CEN, 0, "F", "shaft"),

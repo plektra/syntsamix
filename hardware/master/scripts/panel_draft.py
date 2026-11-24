@@ -19,6 +19,7 @@ import math
 PW, PL = 104.8, 360.0
 OFF_D = 21.0
 LED = {"red": "#e0483f", "yellow": "#e6bd3a", "green": "#46b46a", "white": "#ecebe6"}
+CAP = 8.0         # visible button cap, square (the user, 2026-11-24: smaller than 10 mm, room between neighbours)
 JACK_D = 92.0     # headphone jack: decision 162 keeps it about 90 mm behind the front edge (its depth under the panel)
 ENDS = lambda a, b: [(0.0, a), (1.0, b)]
 # scale marks: (fraction of the rotation, text); sources in the comments
@@ -112,8 +113,8 @@ def svg(x0, aux_band, title="master section, third draft"):
         if kind == "pot":
             o.append(knob(x, y, arg, name, SCALES[name], LABEL_DY.get(name)))
         elif kind == "button":
-            o.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="1.6" fill="{LED[arg]}" class="capbtn"/>')
-            o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, 8.5)}" class="leg" text-anchor="middle">{name}</text>')
+            o.append(f'<rect x="{x - CAP / 2}" y="{y - CAP / 2}" width="{CAP}" height="{CAP}" rx="1.4" fill="{LED[arg]}" class="capbtn"/>')
+            o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, CAP / 2 + 3.5)}" class="leg" text-anchor="middle">{name}</text>')
         elif kind == "jack63":
             o.append(f'<circle cx="{x}" cy="{y}" r="6.5" class="nut"/><circle cx="{x}" cy="{y}" r="3.2" class="hole"/>')
             o.append(f'<text x="{x}" y="{y + 10}" class="leg" text-anchor="middle">{name}</text>')
