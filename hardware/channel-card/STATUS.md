@@ -72,21 +72,23 @@ Positions used in the trial, all **[proposed]** (d = distance from the card's fr
 
 | Item | Position |
 |---|---|
-| Fader | **chosen by the user 2026-11-24:** 9 mm right of the centreline (travel centre d 42, u 25.5; body d 4 to 80); panel drawing `scripts/panel_render.py` |
-| Meter column | u 4.0 (12.5 mm left of the centreline); CLIP at d 72 (the fader's top travel end), −30 at d 30 |
-| Rows (centres, d), 2026-11-24 after the user's layout ideas | PFL (u 9.5) and MUTE (u 23.5) side by side at 92; SC SEND / DUCK / COMP BUS 106 (u 5.5, 16.5, 27.5); AUX 2 at 129, 8 mm right of the centreline (u 24.5), and AUX 1 at 141, 8 mm left of it (u 8.5): the user's symmetric stagger, knob centres 20 mm apart, in the CV jacks' columns (side by side two 16 to 19 mm knobs do not fit the 34.8 mm strip); BYPASS 160, RESONANCE 180, CUTOFF 205, CV jacks 225 (u 8.5 and 24.5), LOW-CUT 241, TRIM 261; other single controls on the centreline u 16.5 |
-| Legends (drawing only) | TRIM, LOW CUT, CV IN, CV OUT, CUTOFF, RESONANCE, BYPASS, AUX 1, AUX 2, SC, DUCK, COMP, PFL, MUTE; fader marks +10 to −∞ on decision 72's law, meter marks of decision 43; about 58 mm of blank panel behind TRIM |
+| Fader | **the user 2026-11-24:** 9 mm right of the centreline (u 25.5); travel centre d 57 (body d 19 to 95), moved back so 25 mm of blank panel stays in front of it for tape (panel 14 to 39 mm from its front end, behind the screw head); panel drawing `scripts/panel_render.py` |
+| Meter column | u 4.0 (12.5 mm left of the centreline); CLIP at d 87 (the fader's top travel end), −30 at d 45 |
+| Rows (centres, d), the user's arrangement 2026-11-24 | controls pushed up to the rear rail, the freed depth as finger room: PFL (u 9.5) and MUTE (u 23.5) side by side at 105; SC SEND / DUCK / COMP BUS 124 (u 5.5, 16.5, 27.5); AUX 2 at 151 (u 24.5) and AUX 1 at 176 (u 8.5), 25 mm apart front to back; RESONANCE (u 8.5, small knob) and BYPASS (u 24.5) side by side at 210; CUTOFF 237 (larger knob); CV jacks 262 (u 8.5 and 24.5); LOW-CUT 284; TRIM 304 |
+| Section lines (legend) | at d 116.4, 137.5, 196 and 274: fader with PFL and MUTE / SC, DUCK, COMP / AUX / filter with the CV jacks / input |
+| Knob sizes (drawing) | CUTOFF 20 mm, RESONANCE 14 mm, the others 16 mm; none chosen yet, and decision 114's list for these shafts ends at about 19 mm |
+| Legends (drawing only) | TRIM, LOW CUT, CV IN, CV OUT, CUTOFF, RESONANCE, BYPASS, AUX 1, AUX 2, SC, DUCK, COMP, PFL, MUTE; fader marks +10 to −∞ on decision 72's law, meter marks of decision 43 |
 | Button LEDs | behind each plunger (5.9 mm toward the rear) |
-| Power header J503 | underside, centre d 120.1, u 5.0 (body d 110.6 to 129.6, between the SC SEND button's pins and the AUX 1 pot's), pin 1 at d 116.3 toward the front, odd pins at u 3.73 |
-| Audio header J501 | underside, same line, behind the AUX 1 pot's pins: centre d 169 (body d 143 to 195), pin 1 at d 148.7; 13.4 mm between the two header bodies |
-| Underside keep-out band (decision 175) | d 95.6 to 210 |
-| Input header J1 | underside, centre d 259, u 5.0, beside TRIM |
-| Regulators | rear edge, side by side, tabs to the rear (d 296 to 317.5) |
+| Power header J503 | underside, left edge (u 5.0), centre d 137.6 (body d 128.1 to 147.1, between the SC SEND button's pins and the AUX 1 pot's), pin 1 at d 133.8 toward the front |
+| Audio header J501 | underside, right edge (u 28.0), centre d 180 (body d 154 to 206, between the AUX 2 pot's pins and the BYPASS button's), pin 1 at d 159.7 toward the front. The two headers are no longer on one line: with pots and buttons off the centreline neither edge has 71 mm free of control pins; the cables still do not share a depth |
+| Underside keep-out band (decision 175) | d 113 to 221 |
+| Input header J1 | underside, centre d 302, u 5.0, beside TRIM |
+| Regulators | **[proposed]** on the underside under the fader's middle (d about 62 to 79, no control pins there), facing the perforated cover: TRIM now takes the rear, and decision 110 puts them on top. Copper to check at layout |
 | Hand-set parts | J301/J302 in front of the band; filter trimmers and jumpers behind it |
 
-With these rows the two-sided placement still places every part with 4 mm cans; with the 5 mm cans one of the coupling capacitors is left for the underside (the IC anchors in `floorplan.py` still follow the first rows).
+With this arrangement the two-sided placement places all 395 parts with the 5 mm cans as drawn (top 63 % covered); no underside header sits on a control's pins.
 
-Why the headers sit there: the row of three buttons at d 106 fills the width, so the header line starts behind it; the power header goes in front of the audio header so the chain 1 feed stays in front of the master's heatsink zone (decision 188). Inside height at the power header about 32 mm under the panel, so about 17 mm for header, socket and cable after the PCB and 3 mm to the cover **[estimate: check the Würth drawings]**.
+Why the headers sit there: each header needs a run along one edge with no control pins above its body, 3.5 mm or more behind the front controls for the inside height (about 34 mm under the panel at the power header, so about 19 mm for header, socket and cable after the PCB and 3 mm to the cover **[estimate: check the Würth drawings]**), and the power header stays in front of the master's heatsink zone (decision 188).
 
 ## Provisional until the breadboard
 
@@ -121,11 +123,12 @@ Chosen (fields on the symbols, sources and RoHS in `docs/parts.csv`): regulators
 
 ## For /system
 
-- **2026-11-24, panel positions for `MECHANICAL.md`:** fader 9 mm right of the strip centreline and meter column 12.5 mm left of it (the user); PFL and MUTE side by side and the AUX pots staggered 8 mm left and right of the centreline (the user's ideas, drawn 2026-11-24); row distances and legends proposed in the table above (section "PCB trial floorplan").
+- **2026-11-24, regulators on the underside (proposed):** with TRIM at the rear the D²PAK regulators move under the fader on the bottom side; touches decisions 110 and 121.
+- **2026-11-24, panel positions for `MECHANICAL.md`:** fader 9 mm right of the strip centreline and meter column 12.5 mm left of it (the user); a 25 mm tape strip in front of the fader, the controls pushed to the rear, PFL and MUTE side by side, the AUX pots staggered 8 mm left and right, RESONANCE beside BYPASS, section lines (the user's arrangement, drawn 2026-11-24); row distances and legends proposed in the table above (section "PCB trial floorplan").
 - **2026-11-24: the user chose the single board with SMD parts on both sides.** /system to write the decision and change the contract texts below.
 - **2026-11-23, PCB trial floorplan: SMD parts on the underside?** The card does not fit one-sided (section "PCB trial floorplan"). Needed for the two-sided route: decision 121's underside rule (chip parts under 1.5 mm tall, also inside the header band and near the front, where they stay below the socket and the fader pins), and the Economic PCBA rule in `hardware/CLAUDE.md` (Standard PCBA, about €130 more per order of channel cards, estimate). The user decides first.
-- **2026-11-23, input header J1 on the underside.** The BHR-12-VUA is 9.10 mm tall (limit 9.0 mm on top) and its socket and cable cannot fit in the 10 mm under the panel: J1 has to go underneath, near the rear (trial: d 259, u 5.0), which decision 121 does not list.
-- **2026-11-23, header line (proposed, not final until the layout is routed):** power header centre d 120.1, audio header centre d 169, both at u 5.0, pin 1 toward the front. The audio cable then crosses the master's left edge 144 to 196 mm behind the front rail's inner face: the master keeps its heatsinks off that corner (decision 188).
+- **2026-11-23, input header J1 on the underside.** The BHR-12-VUA is 9.10 mm tall (limit 9.0 mm on top) and its socket and cable cannot fit in the 10 mm under the panel: J1 has to go underneath, near the rear (trial: d 302, u 5.0), which decision 121 does not list.
+- **2026-11-23, header line (proposed, not final until the layout is routed):** power header centre d 137.6 at the left edge (u 5.0), audio header centre d 180 at the right edge (u 28.0); `MECHANICAL.md` says one line, to change, pin 1 toward the front. The audio cable then crosses the master's left edge 155 to 207 mm behind the front rail's inner face: the master keeps its heatsinks off that corner (decision 188).
 
 - Settled by /system 2026-10-21 (the user): local regulation stays (invariant 3, decision 40); a regulated ±15 V from the power board is not pursued (shared-rail noise and ribbon drop would reach the rail-referenced controls; the 2026-10-10 review's scenario B). The card keeps its LM317/LM337 on copper, no heatsink. 78L05 heat: decision 193.
 

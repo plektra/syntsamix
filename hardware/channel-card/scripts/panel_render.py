@@ -4,7 +4,9 @@
 
 Positions are distances from the card's front edge (d), as in floorplan.py; the panel is 34.8 x 360 mm, the card
 (33 mm) centred under it and its front edge 21 mm behind the panel's front end (20 mm on the rail, 1 mm clearance).
-The fader sits 9 mm right of the centreline (the user, 2026-11-24); two neighbouring strips are drawn.
+Layout rules from the user (2026-11-24): fader 9 mm right of the centreline; a 25 mm strip for tape in front of the
+fader; the controls pushed up to the rear rail with the freed depth as finger room; RESONANCE (small knob) beside
+BYPASS, CUTOFF with a larger knob; AUX 1 and AUX 2 staggered 8 mm left and right; a line between sections.
 Usage: python3 panel_render.py
 """
 import os
@@ -13,22 +15,24 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
-ROW = dict(MUTE=92, PFL=92, ROW3=106, AUX2=129, AUX1=141, BYPASS=160, RES=180, CUTOFF=205, JACKS=225,
-           LOWCUT=241, TRIM=261)
-FADER_D = 42.0                # travel centre; travel 60 mm
+ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=176, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
+           LOWCUT=284, TRIM=304)
+LINES = [116.4, 137.5, 196.0, 274.0]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
+FADER_D = 57.0                # travel centre; travel 60 mm
 FADER_U = 25.5                # 9 mm right of the card's centreline (the user, 2026-11-24)
 METER_U = 4.0
+TAPE = (14.0, 39.0)           # tape strip, from the panel's front end: behind the screw head, in front of the fader
 LED = {"red": "#e0483f", "yellow": "#e6bd3a", "green": "#46b46a", "white": "#ecebe6"}
-# (name on the panel, row, u, kind, LED colour)
+# (name on the panel, row, u, kind, knob diameter or LED colour)
 CONTROLS = [
-    ("TRIM", "TRIM", CEN, "pot", None), ("LOW CUT", "LOWCUT", CEN, "button", "white"),
+    ("TRIM", "TRIM", CEN, "pot", 16), ("LOW CUT", "LOWCUT", CEN, "button", "white"),
     ("CV IN", "JACKS", CEN - 8, "jack", None), ("CV OUT", "JACKS", CEN + 8, "jack", None),
-    ("CUTOFF", "CUTOFF", CEN, "pot", None), ("RESONANCE", "RES", CEN, "pot", None),
-    ("BYPASS", "BYPASS", CEN, "button", "white"),
-    ("AUX 1", "AUX1", CEN - 8, "pot", None), ("AUX 2", "AUX2", CEN + 8, "pot", None),   # staggered, 8 mm each side
+    ("CUTOFF", "CUTOFF", CEN, "pot", 20), ("RESONANCE", "RES", CEN - 8, "pot", 14),
+    ("BYPASS", "BYPASS", CEN + 8, "button", "white"),
+    ("AUX 1", "AUX1", CEN - 8, "pot", 16), ("AUX 2", "AUX2", CEN + 8, "pot", 16),
     ("SC", "ROW3", 5.5, "button", "green"), ("DUCK", "ROW3", 16.5, "button", "green"),
     ("COMP", "ROW3", 27.5, "button", "green"),
-    ("PFL", "PFL", CEN - 7, "button", "yellow"), ("MUTE", "MUTE", CEN + 7, "button", "red"),   # one row, 14 mm apart
+    ("PFL", "PFL", CEN - 7, "button", "yellow"), ("MUTE", "MUTE", CEN + 7, "button", "red"),
 ]
 METER = [("CLIP", "red"), ("+6", "yellow"), ("+3", "yellow"), ("0", "green"), ("−5", "green"),
          ("−10", "green"), ("−20", "green"), ("−30", "green")]
@@ -37,7 +41,7 @@ FADER = [("+10", 100), ("+5", 87.5), ("0", 75), ("−5", 64), ("−10", 53), ("�
          ("−40", 19), ("−60", 14), ("−∞", 0)]
 
 
-def strip(x0, fader_u, title):
+def strip(x0, title):
     """One panel strip as SVG, its left edge at x0; the front is at the bottom of the drawing."""
     X = lambda u: x0 + u + OFF_U
     Y = lambda d: PL - (d + OFF_D) + 8
@@ -47,17 +51,19 @@ def strip(x0, fader_u, title):
         o.append(f'<rect x="{x0}" y="{y}" width="{PW}" height="20" class="rail"/>')
     for y in (8 + 10, 8 + PL - 10):
         o.append(f'<circle cx="{x0 + PW / 2}" cy="{y}" r="2.6" class="screw"/><path d="M{x0 + PW / 2 - 1.4} {y}h2.8M{x0 + PW / 2} {y - 1.4}v2.8" class="slot"/>')
-    for name, row, u, kind, col in CONTROLS:
+    for d in LINES:
+        o.append(f'<path d="M{x0 + 2} {Y(d)}h{PW - 4}" class="sect"/>')
+    ty = 8 + PL - TAPE[1]
+    o.append(f'<rect x="{x0 + 2}" y="{ty}" width="{PW - 4}" height="{TAPE[1] - TAPE[0]}" rx="0.8" class="tape"/>'
+             f'<text x="{x0 + PW / 2}" y="{ty + (TAPE[1] - TAPE[0]) / 2 + 1}" class="tapet" text-anchor="middle">tape</text>')
+    for name, row, u, kind, arg in CONTROLS:
         x, y = X(u), Y(ROW[row])
-        if kind in ("pot", "potleft"):
-            o.append(f'<circle cx="{x}" cy="{y}" r="9.5" class="knobmax"/><circle cx="{x}" cy="{y}" r="8" class="knob"/>'
-                     f'<path d="M{x} {y - 7.4}v4.2" class="pointer"/>')
-            if kind == "pot":
-                o.append(f'<text x="{x}" y="{y - 10.6}" class="leg" text-anchor="middle">{name}</text>')
-            else:
-                o.append(f'<text x="{x - 11}" y="{y + 0.9}" class="leg" text-anchor="end">{name}</text>')
+        if kind == "pot":
+            r = arg / 2
+            o.append(f'<circle cx="{x}" cy="{y}" r="{r}" class="knob"/><path d="M{x} {y - r + 0.7}v{r * 0.5}" class="pointer"/>')
+            o.append(f'<text x="{x}" y="{y - r - 1.6}" class="leg" text-anchor="middle">{name}</text>')
         elif kind == "button":
-            o.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="1.6" fill="{LED[col]}" class="capbtn"/>')
+            o.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="1.6" fill="{LED[arg]}" class="capbtn"/>')
             o.append(f'<text x="{x}" y="{y - 6.6}" class="leg" text-anchor="middle">{name}</text>')
         else:
             o.append(f'<circle cx="{x}" cy="{y}" r="4" class="nut"/><circle cx="{x}" cy="{y}" r="1.8" class="hole"/>')
@@ -70,15 +76,12 @@ def strip(x0, fader_u, title):
         y = Y(top - 6 * i)
         o.append(f'<rect x="{mx - 2}" y="{y - 2.25}" width="4" height="4.5" rx="0.4" fill="{LED[col]}" opacity="0.92"/>')
         o.append(f'<text x="{mx + 3.4}" y="{y + 0.75}" class="sm">{lab}</text>')
-    # fader: slot 4.5 x 65 mm, cap drawn at 0 dB
-    fx = X(fader_u); right = fader_u <= CEN
+    # fader: slot 4.5 x 65 mm, cap drawn at 0 dB, marks at its left
+    fx = X(FADER_U)
     o.append(f'<rect x="{fx - 2.25}" y="{Y(FADER_D) - 32.5}" width="4.5" height="65" rx="1" class="slotf"/>')
     for lab, pc in FADER:
         y = Y(FADER_D - 30 + 0.6 * pc)
-        if right:
-            o.append(f'<path d="M{fx + 3.4} {y}h{2.6 if lab == "0" else 1.6}" class="tick"/><text x="{fx + 6.8}" y="{y + 0.75}" class="sm">{lab}</text>')
-        else:
-            o.append(f'<path d="M{fx - 3.4} {y}h{-2.6 if lab == "0" else -1.6}" class="tick"/><text x="{fx - 6.8}" y="{y + 0.75}" class="sm" text-anchor="end">{lab}</text>')
+        o.append(f'<path d="M{fx - 3.4} {y}h{-2.6 if lab == "0" else -1.6}" class="tick"/><text x="{fx - 6.8}" y="{y + 0.75}" class="sm" text-anchor="end">{lab}</text>')
     y0 = Y(FADER_D - 30 + 0.6 * 75)
     o.append(f'<rect x="{fx - 4.5}" y="{y0 - 7.5}" width="9" height="15" rx="1.2" class="fcap"/><path d="M{fx - 4.5} {y0}h9" class="fline"/>')
     o.append("</g>")
@@ -89,7 +92,7 @@ def dims(x):
     """Distance of each row from the panel's front end, as a ruler left of the first strip."""
     o = []
     rows = [("fader, bottom of travel", FADER_D - 30), ("fader, top of travel", FADER_D + 30)] + \
-           [(k, v) for k, v in ROW.items() if k != "PFL"]
+           [(k, v) for k, v in ROW.items() if k not in ("PFL", "BYPASS")]
     for name, d in rows:
         y = PL - (d + OFF_D) + 8
         o.append(f'<path d="M{x - 1} {y}h-5" class="dim"/><text x="{x - 7}" y="{y + 1.1}" class="dimt" text-anchor="end">{d + OFF_D:.0f}</text>')
@@ -98,17 +101,19 @@ def dims(x):
 
 
 def table():
-    rows = [("TRIM", "TRIM", "pot"), ("LOW CUT", "LOWCUT", "button, white"), ("CV IN / CV OUT", "JACKS", "3.5 mm jacks, 16 mm apart"),
-            ("CUTOFF", "CUTOFF", "pot"), ("RESONANCE", "RES", "pot"), ("BYPASS", "BYPASS", "button, white"),
-            ("AUX 1", "AUX1", "pot, 8 mm left of the centreline"), ("AUX 2", "AUX2", "pot, 8 mm right of the centreline"),
-            ("SC / DUCK / COMP", "ROW3", "three buttons, green, 11 mm apart"),
-            ("PFL / MUTE", "MUTE", "two buttons, yellow and red, 14 mm apart")]
+    rows = [("TRIM", "TRIM", "pot, 16 mm knob", "centreline"), ("LOW CUT", "LOWCUT", "button, white", "centreline"),
+            ("CV IN / CV OUT", "JACKS", "3.5 mm jacks", "8 mm left and right"),
+            ("CUTOFF", "CUTOFF", "pot, 20 mm knob", "centreline"),
+            ("RESONANCE / BYPASS", "RES", "pot with a 14 mm knob; button, white", "8 mm left; 8 mm right"),
+            ("AUX 1", "AUX1", "pot, 16 mm knob", "8 mm left"), ("AUX 2", "AUX2", "pot, 16 mm knob", "8 mm right"),
+            ("SC / DUCK / COMP", "ROW3", "three buttons, green", "11 mm apart"),
+            ("PFL / MUTE", "MUTE", "two buttons, yellow and red", "7 mm left and right")]
     out = []
-    for i, (name, row, what) in enumerate(rows):
+    for i, (name, row, what, across) in enumerate(rows):
         nxt = ROW[rows[i + 1][1]] if i + 1 < len(rows) else FADER_D + 30
-        gap = ROW[row] - nxt
-        out.append(f"<tr><td>{name}</td><td>{what}</td><td class='n'>{ROW[row]:.0f}</td><td class='n'>{ROW[row] + OFF_D:.0f}</td><td class='n'>{gap:.0f}</td></tr>")
-    out.append(f"<tr><td>Fader and meter</td><td>60 mm travel; 8 LEDs at 6.0 mm</td><td class='n'>{FADER_D - 30:.0f}–{FADER_D + 30:.0f}</td><td class='n'>{FADER_D - 30 + OFF_D:.0f}–{FADER_D + 30 + OFF_D:.0f}</td><td class='n'></td></tr>")
+        out.append(f"<tr><td>{name}</td><td>{what}</td><td>{across}</td><td class='n'>{ROW[row]:.0f}</td><td class='n'>{ROW[row] + OFF_D:.0f}</td><td class='n'>{ROW[row] - nxt:.0f}</td></tr>")
+    out.append(f"<tr><td>Fader and meter</td><td>60 mm travel; 8 LEDs at 6.0 mm</td><td>fader 9 mm right, meter 12.5 mm left</td><td class='n'>{FADER_D - 30:.0f}–{FADER_D + 30:.0f}</td><td class='n'>{FADER_D - 30 + OFF_D:.0f}–{FADER_D + 30 + OFF_D:.0f}</td><td class='n'></td></tr>")
+    out.append(f"<tr><td>Tape strip</td><td>blank panel, 25 mm</td><td>full width</td><td class='n'></td><td class='n'>{TAPE[0]:.0f}–{TAPE[1]:.0f}</td><td class='n'></td></tr>")
     return "\n".join(out)
 
 
@@ -141,7 +146,7 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 .panel { fill: #131313; stroke: #000; stroke-width: 0.3; }
 .rail { fill: #ffffff; opacity: 0.07; }
 .screw { fill: #8d8d8d; } .slot { stroke: #333; stroke-width: 0.5; fill: none; }
-.knob { fill: #2c2c2c; stroke: #6a6a6a; stroke-width: 0.35; } .knobmax { fill: none; stroke: #5a5a5a; stroke-width: 0.25; stroke-dasharray: 1 1; }
+.knob { fill: #2c2c2c; stroke: #6a6a6a; stroke-width: 0.35; }
 .pointer { stroke: #f2f2f2; stroke-width: 0.9; stroke-linecap: round; fill: none; }
 .capbtn { stroke: #000; stroke-width: 0.3; opacity: 0.92; }
 .nut { fill: #b9b9b9; stroke: #777; stroke-width: 0.3; } .hole { fill: #050505; }
@@ -149,6 +154,9 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 .slotf { fill: #000; stroke: #4a4a4a; stroke-width: 0.25; }
 .fcap { fill: #cfcfcf; stroke: #6d6d6d; stroke-width: 0.3; } .fline { stroke: #222; stroke-width: 0.5; }
 .tick { stroke: #f2f2f2; stroke-width: 0.3; fill: none; }
+.sect { stroke: #f2f2f2; stroke-width: 0.3; fill: none; }
+.tape { fill: #e9e2c8; opacity: 0.16; stroke: #e9e2c8; stroke-width: 0.25; stroke-dasharray: 1.2 1; }
+.tapet { fill: #cfc9b2; font: 500 2.6px var(--body); letter-spacing: 0.3px; }
 .leg { fill: #f4f4f4; font: 600 2.5px var(--body); letter-spacing: 0.12px; }
 .sm { fill: #f4f4f4; font: 500 2.1px var(--body); }
 .cap { fill: var(--muted); font: 500 3.2px var(--body); }
@@ -157,38 +165,37 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 <main>
 <header>
 <h1>Channel strip panel</h1>
-<p class="lede">Control positions for the 34.8 &times; 360 mm top panel, front edge at the bottom. The fader position is chosen; the row distances and legend wording are still proposals.</p>
+<p class="lede">Control positions for the 34.8 &times; 360 mm top panel, front edge at the bottom. The arrangement follows your choices; the exact distances and the legend wording are still proposals.</p>
 </header>
 <div class="fig">
 <svg viewBox="0 0 96 372" role="img" aria-label="Drawing of two neighbouring channel strip panels with every control labelled">
 __SVG__
 </svg>
 </div>
-<p class="note">Left ruler: distance from the panel's front end in mm. Lighter bands at both ends rest on the frame rails. Solid circle: a 16 mm knob; dashed circle: the largest knob the pots take, 19 mm. Button colours are the LED colours already chosen. Legend wording and the fader scale are proposals.</p>
+<p class="note">Left ruler: distance from the panel's front end in mm. Lighter bands at both ends rest on the frame rails. The dashed field is where tape goes; it is not printed. White lines separate the sections. Button colours are the LED colours already chosen.</p>
 <section>
 <h2>Positions</h2>
 <div class="tw"><table>
-<thead><tr><th>Control</th><th>Part</th><th class="n">From card front, mm</th><th class="n">From panel front, mm</th><th class="n">To the next one forward, mm</th></tr></thead>
+<thead><tr><th>Control</th><th>Part</th><th>Across the strip</th><th class="n">From card front, mm</th><th class="n">From panel front, mm</th><th class="n">To the next one forward, mm</th></tr></thead>
 <tbody>
 __TABLE__
 </tbody></table></div>
 </section>
 <section>
-<h2>Decided and open</h2>
+<h2>What the drawing assumes</h2>
 <ul>
-<li><strong>Fader position: decided.</strong> 9 mm right of the centreline, the meter column 12.5 mm left of it.</li>
-<li><strong>PFL and MUTE side by side</strong>, PFL left over the meter, MUTE right over the fader.</li>
-<li><strong>AUX pots staggered.</strong> Side by side they would need more than the strip's width for two knobs, so AUX 1 sits 8 mm left of the centreline and AUX 2 8 mm right of it, 12 mm further forward, in the same columns as the CV jacks; the knob centres are 20 mm apart.</li>
-<li><strong>Spacing.</strong> Knob to knob 20 to 25 mm, a knob and a button 16 to 20 mm. CUTOFF has the most room around it. About 58 mm of panel behind TRIM stays blank.</li>
-<li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS, so they fit the 11 mm pitch. BYPASS stands for FILTER BYPASS.</li>
-<li><strong>Knob size.</strong> Not chosen yet; the drawing shows 16 mm with the 19 mm limit dashed.</li>
+<li><strong>Tape strip.</strong> 25 mm of blank panel between the front screw and the fader; the fader cap at its lowest point stops 1.5 mm short of it.</li>
+<li><strong>Sections,</strong> front to rear: fader with PFL and MUTE; SC, DUCK and COMP; the two AUX sends; the filter with its CV jacks; the input.</li>
+<li><strong>Knob sizes.</strong> CUTOFF 20 mm, RESONANCE 14 mm, the others 16 mm. No knob is chosen yet, and the supplier's list for these shafts stops at about 19 mm, so the 20 mm one needs finding.</li>
+<li><strong>AUX sends.</strong> 25 mm apart front to back and 16 mm across, so the knob centres are 30 mm apart.</li>
+<li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS; BYPASS stands for FILTER BYPASS.</li>
 </ul>
 </section>
 </main>
 """
 
 if __name__ == "__main__":
-    svg = dims(22) + strip(22, FADER_U, "channel strip") + strip(22 + 35, FADER_U, "its neighbour")
+    svg = dims(22) + strip(22, "channel strip") + strip(22 + 35, "its neighbour")
     os.makedirs(os.path.join(HERE, "build"), exist_ok=True)
     out = os.path.join(HERE, "build", "panel.html")
     open(out, "w").write(PAGE.replace("__SVG__", svg).replace("__TABLE__", table()))

@@ -56,10 +56,10 @@ POWER = {"AGND", "PGND", "+15V", "-15V", "+5V", "VEE", "/Chain and power/+20V_RA
 GROUNDS = {"AGND", "PGND"}
 
 # ---- panel rows: distance of each control's centre from the card's front edge (MECHANICAL.md row order) --------
-FADER_D, FADER_U = 42.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
+FADER_D, FADER_U = 57.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
 METER_U = 4.0                     # meter LED column; CLIP level with the fader's top travel end, 6.0 mm pitch
-ROW = dict(MUTE=92, PFL=92, ROW3=106, AUX2=129, AUX1=141, BYPASS=160, RES=180, CUTOFF=205, JACKS=225,
-           LOWCUT=241, TRIM=261)
+ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=176, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
+           LOWCUT=284, TRIM=304)
 CEN = 16.5
 # ref: (d, u, rotation, side, what the point is)
 FIX = {
@@ -68,53 +68,50 @@ FIX = {
     "SW302": (ROW["ROW3"], 5.5, 0, "F", "origin"), "SW202": (ROW["ROW3"], 16.5, 0, "F", "origin"),
     "SW303": (ROW["ROW3"], 27.5, 0, "F", "origin"),
     "RV302": (ROW["AUX2"], CEN + 8, 0, "F", "shaft"), "RV301": (ROW["AUX1"], CEN - 8, 0, "F", "shaft"),
-    "SW181": (ROW["BYPASS"], CEN, 0, "F", "origin"),
-    "RV183": (ROW["RES"], CEN, 0, "F", "shaft"), "RV181": (ROW["CUTOFF"], CEN, 0, "F", "shaft"),
+    "SW181": (ROW["BYPASS"], CEN + 8, 0, "F", "origin"),
+    "RV183": (ROW["RES"], CEN - 8, 0, "F", "shaft"), "RV181": (ROW["CUTOFF"], CEN, 0, "F", "shaft"),
     "J181": (ROW["JACKS"], CEN - 8, 270, "F", "barrel"), "J182": (ROW["JACKS"], CEN + 8, 270, "F", "barrel"),
     "SW1": (ROW["LOWCUT"], CEN, 0, "F", "origin"), "RV1": (ROW["TRIM"], CEN, 0, "F", "shaft"),
-    # underside headers on one line near the left edge, input header beside TRIM; the power header sits between the
-    # SC SEND button's pins and the AUX 1 pot's, the audio header behind that pot
-    "J503": (120.1, 5.0, 270, "B", "mid"), "J501": (169.0, 5.0, 270, "B", "mid"), "J1": (259.0, 5.0, 270, "B", "mid"),
-    # regulators at the rear edge, tabs to the rear
-    "U501": (307.5, 8.6, 0, "F", "mid"), "U502": (307.5, 24.4, 0, "F", "mid"),
+    # underside headers (2026-11-24 rows): each needs a run with no control pins above its body, and the two
+    # cables must not share a depth: power at the left edge between the SC SEND button and the AUX 1 pot, audio at
+    # the right edge between the AUX 2 pot and the BYPASS button; input header at the rear beside TRIM
+    "J503": (137.6, 5.0, 270, "B", "mid"), "J501": (180.0, 28.0, 270, "B", "mid"), "J1": (302.0, 5.0, 270, "B", "mid"),
 }
 BUTTON_LED = {"SW1": "D5", "SW181": "D183", "SW201": "D203", "SW202": "D204", "SW301": "D301", "SW302": "D302",
               "SW303": "D303"}
 METER_LEDS = ["D418", "D417", "D416", "D415", "D414", "D413", "D412", "D411"]   # CLIP first (rear), -30 last
 # areas kept clear: (d0, d1, u0, u1)
-BEZEL = (72 - 42 - 3.5, 72 + 3.5, METER_U - 2.5, METER_U + 2.5)     # printed meter bezel on the top side
-REG_COPPER = [(296.0, 317.5, 0.5, 16.3), (296.0, 317.5, 16.7, 32.5)]   # regulator tab copper (decision 110)
-if REGSMALL:
-    REG_COPPER = [(298.5, 317.5, 2.0, 15.2), (298.5, 317.5, 17.8, 31.0)]
+BEZEL = (FADER_D + 30 - 42 - 3.5, FADER_D + 30 + 3.5, METER_U - 2.5, METER_U + 2.5)     # printed meter bezel on the top side
+REG_COPPER = []   # the regulators sit on the underside under the fader now (TRIM took the rear): copper at layout
 UNDER_FRONT = 41.0             # no underside parts in front of this (decision 162: 40 mm behind the front rail)
 BAND_MARGIN = 15.0             # underside keep-out before and after the chain headers (decision 175)
 # anchors: ICs and hand-set underside parts (d, u, side); the placer takes the nearest free spot
 IC = {
-    # chain and power
-    "U503": (289, 29, "F"),
+    # chain and power: regulators underneath, under the fader's middle (no pins there), 5 V regulator by the header
+    "U501": (70, 24.4, "B"), "U502": (70, 8.6, "B"), "U503": (114, 16, "F"),
     # input: receiver, trim stage, low-cut buffer, low-cut switch
-    "U1": (286, 6, "F"), "U2": (262, 27, "F"), "U3": (250, 27, "F"), "U4": (250, 6, "F"),
+    "U1": (292, 28, "F"), "U2": (292, 6, "F"), "U3": (272, 6, "F"), "U4": (272, 27, "F"),
     # filter: driver, cores (L left, R right), Q VCA, I-V, post gain, CV summer, bypass switch
-    "U104": (227, 16.5, "F"), "U101": (213, 5, "F"), "U102": (213, 28, "F"), "U103": (204, 16.5, "F"),
-    "U105": (203, 5, "F"), "U106": (192, 28, "F"), "U107": (249, 16.5, "F"), "U108": (190, 5, "F"),
-    "RV101": (222, 4.5, "B"), "RV151": (222, 28.5, "B"), "RV182": (251, 22, "B"),
-    "JP101": (228, 12, "B"), "JP151": (228, 21, "B"), "JP102": (210, 12, "B"), "JP152": (210, 21, "B"),
-    "JP181": (249, 10, "B"),
-    # level: VCA, I-V, output, control, fader law
-    "U201": (83, 7, "F"), "U202": (83, 26, "F"), "U203": (97, 27, "F"), "U204": (97, 6, "F"), "U205": (76, 12, "F"),
-    "J301": (102, 5, "B"), "J302": (102, 28, "B"),
-    # routing: pre-fader buffer, bus switches beside the AUX pots
-    "U301": (124.5, 24, "F"), "U302": (135, 28, "F"), "U303": (157, 28, "F"), "U304": (171, 28, "F"),
-    # meter: beside the fader
-    "U401": (68, 12, "F"), "U402": (60, 12, "F"), "U403": (52, 12, "F"), "U404": (44, 12, "F"),
-    "U405": (32, 12, "F"), "U406": (18, 12, "F"),
+    "U104": (250, 16.5, "F"), "U101": (234, 5, "F"), "U102": (234, 28, "F"), "U103": (223, 16.5, "F"),
+    "U105": (221, 5, "F"), "U106": (200, 18, "F"), "U107": (262, 16.5, "F"), "U108": (190, 8, "F"),
+    "RV101": (236, 4.5, "B"), "RV151": (236, 28.5, "B"), "RV182": (268, 22, "B"),
+    "JP101": (246, 12, "B"), "JP151": (246, 21, "B"), "JP102": (226, 6, "B"), "JP152": (226, 27, "B"),
+    "JP181": (268, 10, "B"),
+    # level: fader law, control, VCA, I-V, output
+    "U205": (62, 13, "F"), "U204": (72, 13, "F"), "U201": (82, 13, "F"), "U202": (92, 13, "F"), "U203": (114, 6, "F"),
+    "J301": (98, 4, "B"), "J302": (98, 29, "B"),
+    # routing: pre-fader buffer, bus switches left of the audio header
+    "U301": (132, 18, "F"), "U302": (160, 14, "F"), "U303": (190, 18, "F"), "U304": (164, 20, "F"),
+    # meter: beside the fader and in front of it
+    "U401": (52, 13, "F"), "U402": (44, 13, "F"), "U403": (36, 13, "F"), "U404": (28, 13, "F"),
+    "U405": (12, 10, "F"), "U406": (12, 24, "F"),
 }
 # parts with no signal connection of their own: a target by hand
-MANUAL = {"C501": (289, 6), "C506": (289, 20), "C504": (291, 12), "C509": (291, 26), "C512": (286, 30),
-          "D501": (294, 6), "D503": (294, 22), "D505": (286, 12), "D506": (286, 22), "D507": (150, 30),
-          "R505": (150, 30), "JP301": (140, 30), "Q301": (108, 28)}
-SHEET_ANCHOR = {"Input": (262, 16), "Filter": (215, 16), "Level": (88, 16), "Routing": (140, 28), "Meter": (40, 12),
-                "Chain and power": (290, 16)}
+MANUAL = {"C501": (118, 12), "C506": (118, 22), "C504": (58, 13), "C509": (80, 13), "C512": (112, 26),
+          "D501": (116, 6), "D503": (116, 28), "D505": (56, 16), "D506": (82, 16), "D507": (150, 12),
+          "R505": (150, 12), "JP301": (166, 20), "Q301": (112, 4)}
+SHEET_ANCHOR = {"Input": (285, 16), "Filter": (235, 16), "Level": (80, 13), "Routing": (160, 16), "Meter": (35, 13),
+                "Chain and power": (100, 16)}
 
 # ---- two-board stack (--stack) ---------------------------------------------------------------------------------
 # Upper board: the controls and their LEDs, hung from the panel as before (PCB top 10.0 mm under the panel).
@@ -382,7 +379,7 @@ def run():
         d, u = FIX[sw][0], FIX[sw][1]
         ax, ay = anchor_point(FPID[led], 90, "F", "mid"); put(led, d + 5.9 - ax, u - ay, 90, "F", check=False)
     for i, led in enumerate(METER_LEDS):
-        ax, ay = anchor_point(FPID[led], 90, "F", "mid"); put(led, 72 - 6.0 * i - ax, METER_U - ay, 90, "F", check=False)
+        ax, ay = anchor_point(FPID[led], 90, "F", "mid"); put(led, FADER_D + 30 - 6.0 * i - ax, METER_U - ay, 90, "F", check=False)
     GRID["F"].mark(BEZEL)
     for b in REG_COPPER:
         GRID["B" if STACK else "F"].mark(b)
