@@ -27,8 +27,8 @@ A modular, analog pro audio mixer for connecting synthesizers and instruments in
 - Modular by design: channel strips can be added one at a time; no channel card depends on another
 - Inputs accept hot Eurorack levels (up to ±12 V peak) as well as line levels
 - Channel HPF is dropped from the prototype to simplify the build (keep room to add it later); a fixed switchable 100 Hz low-cut is included instead
-- Input jacks sit on a separate passive input module (12-pin IDC header, `docs/INPUT-MODULE.md`); the cutoff CV IN and CV OUT jacks are on the channel card's top panel (CV OUT chains the cutoff to other channels; a jumper selects CV only or CV + pot, decision 165)
-- Stereo button functions switch through DG413 analog switches (CD4052B at virtual-earth bus ends: bus assign, PFL, SC send, decision 183); audio never runs through a button: buttons carry logic, LED and DC control currents (MUTE and DUCK switch the VCA control voltage directly, decisions 142 and 152)
+- Input jacks sit on a separate passive input module (12-pin IDC header, `docs/INPUT-MODULE.md`); the cutoff CV IN and CV OUT jacks are on the channel card's top panel (CV OUT chains the cutoff to other channels; a CV AMT attenuator sets the depth and a +KNOB button selects CV only or CV + pot, decisions 165 and 197)
+- Stereo button functions switch through DG413 analog switches (CD4052B at virtual-earth bus ends: bus assign, PFL, SC send, decision 183); audio never runs through a button: buttons carry logic, LED and DC control currents (MUTE and DUCK switch the VCA control voltage directly, +KNOB changes the cutoff knob's path over; decisions 142, 152 and 198)
 
 ## How to work on this project
 
@@ -66,4 +66,4 @@ simulation/      ngspice model, filter results, breadboard plan, BOM and order f
 
 ## Current status
 
-Spec v0.7 complete (decisions 1-197; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); the power board PCB is done (2026-10-20, built by scripts, decision 186); the channel card PCB has a trial placement and is planned as one board with SMD parts on both sides (decision 194, 2026-11-24; contract texts wait for /system); the other PCBs follow. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.
+Spec v0.7 complete (decisions 1-198; RoHS is invariant 9). Schematics done for the input module, channel card, master card and power board (ERC 0/0); the power board PCB is done (2026-10-20, built by scripts, decision 186); the channel card PCB has a trial placement and is planned as one board with SMD parts on both sides (decision 194, 2026-11-24; contract texts wait for /system); the other PCBs follow. Per-board detail is in each `STATUS.md`; the order of work is in `docs/CONTINUE-FROM-HERE.md`.

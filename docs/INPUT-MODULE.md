@@ -41,7 +41,7 @@ Both the channel card and the module carry the 2x6 box header. They are linked b
 |---|---|
 | Flat cable | Würth WR-CAB 63911215521CAB, 12-way, 1.27 mm, 28 AWG, 1 A, UL 2651 (`SX-WIRE-006`); one 1 m piece makes six cables |
 | Sockets | Adam Tech FCS-12-SG IDC, 2x6, 1 A per contact (`SX-CONN-025`), one at each end, red conductor at pin 1, pressed with the chain cables' tool (decision 175); no strain relief needed |
-| Length | 150 mm; the channel card layout places its header near the rear edge, within reach, and reports the position |
+| Length | 150 mm; the channel card layout places its header near the rear edge, within reach and clear of the TRIM / LOW CUT row (decision 197), and reports the position |
 | On delivery | press one test cable first (the FCS drawing names no cable pitch or gauge) and check it 1:1 with a meter; dry-fit a 2x4 power socket in the shroud once to confirm it sits centred on pins 3-10 |
 | Former parts | the ready-made Molex 217796-1101 (decision 179) and the hand-crimped KK cable (decision 99) are no longer used |
 

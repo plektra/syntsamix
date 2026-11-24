@@ -1,6 +1,6 @@
 # Mechanical interface
 
-Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121, 160, 162, 176 and 188; `decisions/power.md` items 168 (power LED), 182 (brick jack), 185 and 186 (power board size and form); `decisions/system.md` item 175 (multi-drop chain cables); `decisions/system-rules.md` item 118 (jack sizes).
+Status: **[confirmed]** where a decision is named; sections marked *open* are still to settle in a `/system mechanical` session. Decisions behind this file: `decisions/mechanical.md` items 55, 59, 75, 86, 106 to 109, 119 to 121, 160, 162, 176 and 188; `decisions/power.md` items 168 (power LED), 182 (brick jack), 185 and 186 (power board size and form); `decisions/system.md` item 175 (multi-drop chain cables); `decisions/channel-card.md` item 197 (panel option C); `decisions/system-rules.md` item 118 (jack sizes).
 
 The mechanical contract between the boards, the panels and the frame: what every board layout must fit. Changed only by a confirmed decision (invariant 5 in `ARCHITECTURE.md`).
 
@@ -22,22 +22,19 @@ Desktop unit. One PCB per channel strip under its own top panel strip; channel i
 
 Sixteen strips are 560 mm wide before the master section. Unit width: 35 mm × (channels + 5) plus the cheeks (master 4 strips, power bay 1; decision 162): about 315 mm for the prototype, 735 mm for 16 channels.
 
-## Channel strip panel layout (decisions 55, 106)
+## Channel strip panel layout (decisions 55, 106, 195, 197)
 
-One column, top (rear) to bottom (front), following the signal flow:
+Rows from top (rear) to bottom (front), following the signal flow; within a row, left to right. Distances and knob sizes are **[proposed]** until the channel card layout (decisions 195, 197):
 
-1. TRIM
-2. [LOW-CUT]
-3. Cutoff CV IN and CV OUT jacks (3.5 mm Thonkiconn, vertical, on the channel card; decisions 118, 165), side by side, IN left and OUT right, 16 mm between centres, centred on the strip (decision 166)
-4. CUTOFF
-5. RESONANCE
-6. [FILTER BYPASS]
-7. AUX 1
-8. AUX 2
-9. [SC SEND] [DUCK] [COMP BUS] in one row (caps at most about 10 mm on an 11 mm pitch)
-10. [PFL]
-11. [MUTE]
-12. 8-LED meter beside the 60 mm fader, at the front edge: printed bezel flush in one panel slot, 6.0 mm pitch, CLIP level with the fader's top travel end (decision 119)
+1. TRIM (small knob, about 12 mm) | [LOW CUT] (decision 197)
+2. Cutoff CV IN | CV OUT jacks (3.5 mm Thonkiconn, vertical, on the channel card; decisions 118, 165), IN left and OUT right, 16 mm between centres, centred on the strip (decision 166)
+3. CV AMT (cutoff CV attenuator, small knob, about 11 mm) | [+KNOB] (CV ONLY / CV + POT; decisions 197, 198)
+4. CUTOFF (largest knob, about 18 mm)
+5. RESONANCE (small knob, about 12 mm) | [FILTER BYPASS]
+6. AUX 1 and AUX 2, staggered left and right (decision 195)
+7. [SC SEND] [DUCK] [COMP BUS] in one row (caps at most about 10 mm on an 11 mm pitch; 8 mm caps, decision 195)
+8. [PFL] | [MUTE] (decision 195)
+9. 8-LED meter beside the 60 mm fader, at the front edge: printed bezel flush in one panel slot, 6.0 mm pitch, CLIP level with the fader's top travel end (decision 119)
 
 ## Panel stack (decision 107)
 
@@ -81,7 +78,7 @@ Assembly order: screw the fader to the panel first, then solder it to the PCB, s
 | Input module (6.3 mm) | PCB on edge in the front-to-back vertical plane, below the rear rail, centred on its strip; NYS216 jacks stacked, L/MONO above R, about 19 mm between centres; module about 40 mm tall; fixed only by the jack nuts on the rear strip; 2x6 box header facing forward (decision 181) |
 | Why stacked | NYS216 is 17.7 mm wide across its pin rows (footprint from Rean's drawing): two side by side need 35.4 mm, more than the 35.0 mm pitch |
 | Rear inside height | about 60 mm: 20 mm rail plus about 40 mm of jack zone; *from the module layout* |
-| Input cable (decisions 99, 180, 181) | self-made 12-way IDC flat cable, 150 mm, between the 2x6 box headers; the channel card layout places its header near the rear edge, within reach |
+| Input cable (decisions 99, 180, 181) | self-made 12-way IDC flat cable, 150 mm, between the 2x6 box headers; the channel card layout places its header near the rear edge, within reach, not under the TRIM / LOW CUT row (decision 197), and reports its position here |
 
 ## Frame shape (decision 160)
 

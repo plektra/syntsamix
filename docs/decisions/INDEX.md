@@ -189,7 +189,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 162 | Master section 4 strips with rear jacks on two row boards, power bay (on-edge power board, two module sizes planned), chain 1 next to the master, single front rail, headphones panel-mounted on the master top panel, master heatsinks under the card, master meter 0805 under bezels; refines 56, 80, 86, 109, 121, 157, 160 | confirmed | [mechanical](mechanical.md) |
 | 163 | Rear row-board ribbons: two 26-pin shrouded IDC headers, J603 (outputs, AUX sends sheet) and J903 (inputs and ground lift, Power sheet), pairs with a ground between them; row boards carry only jacks, header and SW901; refines 87, 88, 90-92, 162 | confirmed | [master-card-sheets](master-card-sheets.md) |
 | 164 | A lab's RoHS test report on package families, via the maker or reseller, is a RoHS source; clears SSI2144SS-TU and SSI2162SS-TU (SGS report via Electrokit; coverage of both confirmed by Sound Semiconductor 2026-10-13); refines 124 | confirmed | [process](process.md) |
-| 165 | Cutoff CV chaining: CV OUT jack (total cutoff control, 1 V/oct, from FCV through U107B), jumper JP181 CV ONLY / CV + POT through the CV IN jack's normal contact, BZT52C11 pair clamping the cutoff summer (SSI2144 pin within about ±128 mV); panel row for /system; refines 20, 53 | confirmed | [channel-card](channel-card.md) |
+| 165 | Cutoff CV chaining: CV OUT jack (total cutoff control, 1 V/oct, from FCV through U107B), jumper JP181 CV ONLY / CV + POT through the CV IN jack's normal contact, BZT52C11 pair clamping the cutoff summer (SSI2144 pin within about ±128 mV); panel row for /system; refines 20, 53; jumper replaced by the +KNOB button and the resistor values swapped by 197, 198 | confirmed | [channel-card](channel-card.md) |
 | 166 | Cutoff CV IN and CV OUT jacks side by side in panel row 3 (IN left, 16 mm between centres); a CV patch cable between cards joining their AGNDs is allowed; refines 55, 106 | confirmed | [mechanical](mechanical.md) |
 | 167 | Heat: passive, perforated bottom cover intake, four 2 × 30 mm slots per channel rear strip, no cheek or top openings; design point 22 K above room (57 °C on a 35 °C stage, up to 8 cards); master heatsinks to about 6.5 °C/W under 95; `tools/heat_budget.py` [estimate] until the prototype is measured, full-size cooling after; refines 121, 160, 162 | confirmed | [mechanical](mechanical.md) |
 | 168 | Power LED on the power bay's top strip: 3 mm WP710A10LGD in a Bivar CR-104 clip, wired to JST XH J103 (R104 stays on the board); D103 0805 off the board; refines 60, 100 | confirmed | [power](power.md) |
@@ -221,13 +221,12 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 194 | Channel card PCB: one board with SMD parts on both sides, JLCPCB Standard PCBA (one-sided leaves 33 to 38 of 395 parts, in 0805 and 0603); about €130 more per order [estimate]; two-board stack rejected; underside rule 121, J1 underneath and the Economic PCBA rule to follow in /system; regulators underneath [proposed] | confirmed (the user 2026-11-24); regulator position and contract texts **[proposed]** | [channel-card](channel-card.md) |
 | 195 | Channel strip panel arrangement: fader 9 mm right, 25 mm tape strip, controls to the rear, PFL beside MUTE, AUX pots staggered, RESONANCE beside BYPASS, section lines, legends below, pot scales, 8 mm button caps; refines 55, 106, 119 | confirmed (the user 2026-11-24); distances, knob sizes, legends and scales **[proposed]** | [mechanical](mechanical.md) |
 | 196 | Master level on a 60 mm fader instead of the rotary pot; refines 92; sheet to redraw | confirmed (the user 2026-11-24); not drawn yet | [master-card](master-card.md) |
-| 197 | Cutoff CV attenuator CV AMT (B100K into R182, R181 100k / R188 200k), +KNOB panel button in place of JP181, panel option C (TRIM beside LOW CUT, CV AMT and +KNOB row under the CV jacks, smaller TRIM / RESONANCE / CUTOFF knobs, J1 turned across the card); would refine 53, 165, 166, 195 | **[proposed]** (the user 2026-11-24), to /system then the schematic | [channel-card](channel-card.md) |
+| 197 | Cutoff CV attenuator CV AMT (B100K into R182, R181 100k / R188 200k), +KNOB panel button in place of JP181, panel option C (TRIM beside LOW CUT, CV AMT and +KNOB row under the CV jacks, smaller TRIM / RESONANCE / CUTOFF knobs); J1 placed by the layout; refines 53, 55, 165, 166, 195 | confirmed (the user, /system 2026-11-24); distances and knob sizes **[proposed]**, J1 position at layout | [channel-card](channel-card.md) |
+| 198 | A button pole may change a DC control path over between two resistive paths (no rail or chain line on either throw, wetting-level current); no ramp where the input already accepts steps (cutoff CV); refines 152 | confirmed (the user, /system 2026-11-24) | [system](system.md) |
 
 ## Proposed but not confirmed
 
-- 197: cutoff CV attenuator, +KNOB mode button and panel option C (the user, 2026-11-24)
-
-Otherwise see the **[proposed]** parts of the decisions marked above.
+(none as separate decisions; see the **[proposed]** parts of the decisions marked above)
 
 ## Open items
 
