@@ -169,10 +169,10 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 <main>
 <header>
 <h1>Channel strip and master panels</h1>
-<p class="lede">Two channel strips (34.8 &times; 360 mm each) beside the master section (139.8 &times; 360 mm), front edge at the bottom. The channel strip follows your choices; the master section is a first draft.</p>
+<p class="lede">Two channel strips (34.8 &times; 360 mm each) beside the master section (drawn 104.8 mm wide), front edge at the bottom. The channel strip follows your choices; the master section is a second draft.</p>
 </header>
 <div class="fig">
-<svg viewBox="0 0 236 372" role="img" aria-label="Drawing of two channel strip panels and the master section panel with every control labelled">
+<svg viewBox="0 0 200 372" role="img" aria-label="Drawing of two channel strip panels and the master section panel with every control labelled">
 __SVG__
 </svg>
 </div>
@@ -186,18 +186,19 @@ __TABLE__
 </tbody></table></div>
 </section>
 <section>
-<h2>Master section, first draft</h2>
+<h2>Master section, second draft</h2>
 <div class="tw"><table>
-<thead><tr><th>Column</th><th>Controls, rear to front</th></tr></thead>
+<thead><tr><th>Band</th><th>Controls, left to right</th></tr></thead>
 <tbody>
 __MTABLE__
 </tbody></table></div>
 <ul style="margin-top:12px">
-<li><strong>Four columns of one strip width,</strong> left to right: AUX next to the channels, then sidechain, compressor and master. The mechanical notes so far say three columns.</li>
-<li><strong>Same rules as the channel strip:</strong> legends below the controls, a line between groups, 16 mm knobs with a 24 mm MASTER knob and a 14 mm SC LPF knob beside its BYPASS button.</li>
-<li><strong>Button colours are assumed</strong> from the channel strip (MUTE red, DUCK and COMP green, BYPASS white, LISTEN yellow like PFL); the master's LED colours are not checked.</li>
-<li><strong>Only the panel is drafted.</strong> Nothing is checked against the master board yet: the heatsinks, the headers and the depth of the headphone jack under the panel.</li>
-<li><strong>The front 40 % is empty</strong> in three columns. The controls could spread forward, or the MASTER knob could be a fader there.</li>
+<li><strong>No columns.</strong> Each function is a band across the panel with a line and its name: compressor at the rear, then sidechain, AUX, and the master at the front.</li>
+<li><strong>Three strips wide instead of four</strong> (104.8 mm against 139.8 mm). The four-strip width is a recorded decision, and the master board carries 768 parts, about twice a channel card, so the narrower width needs a fit trial before it can be promised.</li>
+<li><strong>Headphone jack as far forward as it can go:</strong> 92 mm behind the card's front edge. Closer to the front the jack's body does not fit under the panel, by the recorded estimate of about 90 mm; a sample still has to be measured.</li>
+<li><strong>MASTER is a knob</strong> here because the schematic has a rotary pot. A 60 mm fader like the channels' would fit in the same band, level with the channel faders.</li>
+<li><strong>Button colours are assumed</strong> from the channel strip; the master's LED colours are not checked.</li>
+<li><strong>Only the panel is drafted.</strong> Nothing is checked against the master board yet.</li>
 </ul>
 </section>
 <section>
