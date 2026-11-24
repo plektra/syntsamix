@@ -194,7 +194,7 @@ for net in ROOT.iter("net"):
 
 
 def chip(ref):
-    return FPID[ref].split(":")[1][:6] in ("R_0805", "R_0603", "C_0805", "C_0603", "C_1206")
+    return FPID[ref].split(":")[1][:6] in ("R_0805", "R_0603", "C_0805", "C_0603", "C_1206") or ("--diodes" in sys.argv and "SOD-123" in FPID[ref])
 
 
 def signal(net):
