@@ -58,7 +58,7 @@ GROUNDS = {"AGND", "PGND"}
 # ---- panel rows: distance of each control's centre from the card's front edge (MECHANICAL.md row order) --------
 FADER_D, FADER_U = 57.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
 METER_U = 4.0                     # meter LED column; CLIP level with the fader's top travel end, 6.0 mm pitch
-ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=170, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
+ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=170, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
            LOWCUT=284, TRIM=304)
 CEN = 16.5
 # ref: (d, u, rotation, side, what the point is)
@@ -75,7 +75,7 @@ FIX = {
     # underside headers (2026-11-24 rows): each needs a run with no control pins above its body, and the two
     # cables must not share a depth: power at the left edge between the SC SEND button and the AUX 1 pot, audio at
     # the right edge between the AUX 2 pot and the BYPASS button; input header at the rear beside TRIM
-    "J503": (137.6, 5.0, 270, "B", "mid"), "J501": (180.0, 28.0, 270, "B", "mid"), "J1": (302.0, 5.0, 270, "B", "mid"),
+    "J503": (140.6, 5.0, 270, "B", "mid"), "J501": (180.0, 28.0, 270, "B", "mid"), "J1": (302.0, 5.0, 270, "B", "mid"),
 }
 BUTTON_LED = {"SW1": "D5", "SW181": "D183", "SW201": "D203", "SW202": "D204", "SW301": "D301", "SW302": "D302",
               "SW303": "D303"}

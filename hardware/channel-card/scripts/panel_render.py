@@ -6,7 +6,8 @@ Positions are distances from the card's front edge (d), as in floorplan.py; the 
 (33 mm) centred under it and its front edge 21 mm behind the panel's front end (20 mm on the rail, 1 mm clearance).
 Layout rules from the user (2026-11-24): fader 9 mm right of the centreline; a 25 mm strip for tape in front of the
 fader; the controls pushed up to the rear rail with the freed depth as finger room; RESONANCE (small knob) beside
-BYPASS, CUTOFF with a larger knob; AUX 1 and AUX 2 staggered 8 mm left and right; a line between sections.
+BYPASS, CUTOFF with a larger knob; AUX 1 and AUX 2 staggered 8 mm left and right; a line between sections;
+every legend below its control (toward the operator), where the control does not hide it.
 Usage: python3 panel_render.py
 """
 import os
@@ -15,13 +16,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
-ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=170, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
+ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=170, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
            LOWCUT=284, TRIM=304)
-LINES = [116.4, 137.5, 192.5, 274.0]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
+LINES = [115.6, 135.6, 188.6, 270.6]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
 FADER_D = 57.0                # travel centre; travel 60 mm
 FADER_U = 25.5                # 9 mm right of the card's centreline (the user, 2026-11-24)
 METER_U = 4.0
 TAPE = (14.0, 39.0)           # tape strip, from the panel's front end: behind the screw head, in front of the fader
+LABEL_DY = {"RESONANCE": 10.0, "BYPASS": 10.0}   # one baseline for the two legends of a shared row
 LED = {"red": "#e0483f", "yellow": "#e6bd3a", "green": "#46b46a", "white": "#ecebe6"}
 # (name on the panel, row, u, kind, knob diameter or LED colour)
 CONTROLS = [
@@ -61,13 +63,13 @@ def strip(x0, title):
         if kind == "pot":
             r = arg / 2
             o.append(f'<circle cx="{x}" cy="{y}" r="{r}" class="knob"/><path d="M{x} {y - r + 0.7}v{r * 0.5}" class="pointer"/>')
-            o.append(f'<text x="{x}" y="{y - r - 1.6}" class="leg" text-anchor="middle">{name}</text>')
+            o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, r + 3.5)}" class="leg" text-anchor="middle">{name}</text>')
         elif kind == "button":
             o.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="1.6" fill="{LED[arg]}" class="capbtn"/>')
-            o.append(f'<text x="{x}" y="{y - 6.6}" class="leg" text-anchor="middle">{name}</text>')
+            o.append(f'<text x="{x}" y="{y + LABEL_DY.get(name, 8.5)}" class="leg" text-anchor="middle">{name}</text>')
         else:
             o.append(f'<circle cx="{x}" cy="{y}" r="4" class="nut"/><circle cx="{x}" cy="{y}" r="1.8" class="hole"/>')
-            o.append(f'<text x="{x}" y="{y - 5.6}" class="leg" text-anchor="middle">{name}</text>')
+            o.append(f'<text x="{x}" y="{y + 7.5}" class="leg" text-anchor="middle">{name}</text>')
     # meter: bezel 5 x 49 mm, 8 windows at 6.0 mm pitch, CLIP level with the fader's top travel end
     top = FADER_D + 30
     mx = X(METER_U)
@@ -188,6 +190,7 @@ __TABLE__
 <li><strong>Sections,</strong> front to rear: fader with PFL and MUTE; SC, DUCK and COMP; the two AUX sends; the filter with its CV jacks; the input.</li>
 <li><strong>Knob sizes.</strong> CUTOFF 20 mm, RESONANCE 14 mm, the others 16 mm. No knob is chosen yet, and the supplier's list for these shafts stops at about 19 mm, so the 20 mm one needs finding.</li>
 <li><strong>AUX sends.</strong> 19 mm apart front to back and 16 mm across, so the knob centres are 25 mm apart. AUX 2 cannot move further back: the audio header underneath needs the run between it and BYPASS.</li>
+<li><strong>Legends below the controls,</strong> on the operator's side, so a knob or cap does not hide its own name. MUTE's legend stays 4.7 mm clear of the fader cap at the top of its travel.</li>
 <li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS; BYPASS stands for FILTER BYPASS.</li>
 </ul>
 </section>
