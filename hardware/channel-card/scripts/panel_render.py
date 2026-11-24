@@ -13,8 +13,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
-ROW = dict(MUTE=92, PFL=92, ROW3=106, AUX2=125, AUX1=143, BYPASS=162, RES=182, CUTOFF=207, JACKS=227,
-           LOWCUT=243, TRIM=263)
+ROW = dict(MUTE=92, PFL=92, ROW3=106, AUX2=129, AUX1=141, BYPASS=160, RES=180, CUTOFF=205, JACKS=225,
+           LOWCUT=241, TRIM=261)
 FADER_D = 42.0                # travel centre; travel 60 mm
 FADER_U = 25.5                # 9 mm right of the card's centreline (the user, 2026-11-24)
 METER_U = 4.0
@@ -25,7 +25,7 @@ CONTROLS = [
     ("CV IN", "JACKS", CEN - 8, "jack", None), ("CV OUT", "JACKS", CEN + 8, "jack", None),
     ("CUTOFF", "CUTOFF", CEN, "pot", None), ("RESONANCE", "RES", CEN, "pot", None),
     ("BYPASS", "BYPASS", CEN, "button", "white"),
-    ("AUX 1", "AUX1", CEN, "pot", None), ("AUX 2", "AUX2", CEN + 8, "potleft", None),   # staggered, label at its left
+    ("AUX 1", "AUX1", CEN - 8, "pot", None), ("AUX 2", "AUX2", CEN + 8, "pot", None),   # staggered, 8 mm each side
     ("SC", "ROW3", 5.5, "button", "green"), ("DUCK", "ROW3", 16.5, "button", "green"),
     ("COMP", "ROW3", 27.5, "button", "green"),
     ("PFL", "PFL", CEN - 7, "button", "yellow"), ("MUTE", "MUTE", CEN + 7, "button", "red"),   # one row, 14 mm apart
@@ -100,7 +100,7 @@ def dims(x):
 def table():
     rows = [("TRIM", "TRIM", "pot"), ("LOW CUT", "LOWCUT", "button, white"), ("CV IN / CV OUT", "JACKS", "3.5 mm jacks, 16 mm apart"),
             ("CUTOFF", "CUTOFF", "pot"), ("RESONANCE", "RES", "pot"), ("BYPASS", "BYPASS", "button, white"),
-            ("AUX 1", "AUX1", "pot, on the centreline"), ("AUX 2", "AUX2", "pot, 8 mm right of the centreline"),
+            ("AUX 1", "AUX1", "pot, 8 mm left of the centreline"), ("AUX 2", "AUX2", "pot, 8 mm right of the centreline"),
             ("SC / DUCK / COMP", "ROW3", "three buttons, green, 11 mm apart"),
             ("PFL / MUTE", "MUTE", "two buttons, yellow and red, 14 mm apart")]
     out = []
@@ -178,8 +178,8 @@ __TABLE__
 <ul>
 <li><strong>Fader position: decided.</strong> 9 mm right of the centreline, the meter column 12.5 mm left of it.</li>
 <li><strong>PFL and MUTE side by side</strong>, PFL left over the meter, MUTE right over the fader.</li>
-<li><strong>AUX pots staggered.</strong> Side by side they would need more than the strip's width for two knobs, so AUX 1 sits on the centreline and AUX 2 8 mm to the right, 18 mm further forward; the knob centres are 20 mm apart.</li>
-<li><strong>Spacing.</strong> Knob to knob 20 to 25 mm, a knob and a button 16 to 20 mm. CUTOFF has the most room around it. About 56 mm of panel behind TRIM stays blank.</li>
+<li><strong>AUX pots staggered.</strong> Side by side they would need more than the strip's width for two knobs, so AUX 1 sits 8 mm left of the centreline and AUX 2 8 mm right of it, 12 mm further forward, in the same columns as the CV jacks; the knob centres are 20 mm apart.</li>
+<li><strong>Spacing.</strong> Knob to knob 20 to 25 mm, a knob and a button 16 to 20 mm. CUTOFF has the most room around it. About 58 mm of panel behind TRIM stays blank.</li>
 <li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS, so they fit the 11 mm pitch. BYPASS stands for FILTER BYPASS.</li>
 <li><strong>Knob size.</strong> Not chosen yet; the drawing shows 16 mm with the 19 mm limit dashed.</li>
 </ul>

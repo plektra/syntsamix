@@ -58,8 +58,8 @@ GROUNDS = {"AGND", "PGND"}
 # ---- panel rows: distance of each control's centre from the card's front edge (MECHANICAL.md row order) --------
 FADER_D, FADER_U = 42.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
 METER_U = 4.0                     # meter LED column; CLIP level with the fader's top travel end, 6.0 mm pitch
-ROW = dict(MUTE=92, PFL=92, ROW3=106, AUX2=125, AUX1=143, BYPASS=162, RES=182, CUTOFF=207, JACKS=227,
-           LOWCUT=243, TRIM=263)
+ROW = dict(MUTE=92, PFL=92, ROW3=106, AUX2=129, AUX1=141, BYPASS=160, RES=180, CUTOFF=205, JACKS=225,
+           LOWCUT=241, TRIM=261)
 CEN = 16.5
 # ref: (d, u, rotation, side, what the point is)
 FIX = {
@@ -67,13 +67,14 @@ FIX = {
     "SW201": (ROW["MUTE"], CEN + 7, 0, "F", "origin"), "SW301": (ROW["PFL"], CEN - 7, 0, "F", "origin"),
     "SW302": (ROW["ROW3"], 5.5, 0, "F", "origin"), "SW202": (ROW["ROW3"], 16.5, 0, "F", "origin"),
     "SW303": (ROW["ROW3"], 27.5, 0, "F", "origin"),
-    "RV302": (ROW["AUX2"], CEN + 8, 0, "F", "shaft"), "RV301": (ROW["AUX1"], CEN, 0, "F", "shaft"),
+    "RV302": (ROW["AUX2"], CEN + 8, 0, "F", "shaft"), "RV301": (ROW["AUX1"], CEN - 8, 0, "F", "shaft"),
     "SW181": (ROW["BYPASS"], CEN, 0, "F", "origin"),
     "RV183": (ROW["RES"], CEN, 0, "F", "shaft"), "RV181": (ROW["CUTOFF"], CEN, 0, "F", "shaft"),
     "J181": (ROW["JACKS"], CEN - 8, 270, "F", "barrel"), "J182": (ROW["JACKS"], CEN + 8, 270, "F", "barrel"),
     "SW1": (ROW["LOWCUT"], CEN, 0, "F", "origin"), "RV1": (ROW["TRIM"], CEN, 0, "F", "shaft"),
-    # underside headers: power in front of audio, one line near the left edge; input header beside TRIM
-    "J503": (121.0, 5.0, 270, "B", "mid"), "J501": (157.0, 5.0, 270, "B", "mid"), "J1": (261.0, 5.0, 270, "B", "mid"),
+    # underside headers on one line near the left edge, input header beside TRIM; the power header sits between the
+    # SC SEND button's pins and the AUX 1 pot's, the audio header behind that pot
+    "J503": (120.1, 5.0, 270, "B", "mid"), "J501": (169.0, 5.0, 270, "B", "mid"), "J1": (259.0, 5.0, 270, "B", "mid"),
     # regulators at the rear edge, tabs to the rear
     "U501": (307.5, 8.6, 0, "F", "mid"), "U502": (307.5, 24.4, 0, "F", "mid"),
 }
@@ -366,6 +367,17 @@ def run():
     for ref, (d, u, rot, side, what) in FIX.items():
         ax, ay = anchor_point(FPID[ref], rot, side, what)
         put(ref, d - ax, u - ay, rot, side, check=False)
+    for ref, v in FIX.items():      # an underside part's body must not sit on a top part's through-hole joints
+        if v[3] != "B":
+            continue
+        b = BOX[ref]
+        for r2, v2 in FIX.items():
+            if v2[3] == "F":
+                for pl in geom(FPID[r2], v2[2], "F")[1].values():
+                    for (x, y, pb, tht) in pl:
+                        px, py = PL[r2][0], PL[r2][1]
+                        if tht and b[0] < px + pb[1] and px + pb[0] < b[1] and b[2] < py + pb[3] and py + pb[2] < b[3]:
+                            print(f"conflict: {ref} body over a pin of {r2} at d {px + x:.1f} u {py + y:.1f}")
     for sw, led in BUTTON_LED.items():      # LED behind each plunger, lying across the card
         d, u = FIX[sw][0], FIX[sw][1]
         ax, ay = anchor_point(FPID[led], 90, "F", "mid"); put(led, d + 5.9 - ax, u - ay, 90, "F", check=False)
