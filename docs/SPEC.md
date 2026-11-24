@@ -99,11 +99,11 @@ Notes on mono/stereo (L/MONO convention everywhere):
 - Compressor with selectable/routable sidechain input **[confirmed]**
 - The compressor processes a dedicated **compressor bus**; each channel chooses main or compressor bus, and the compressor output sums into the main bus **[confirmed]**
 - Sidechain has an LPF so the detector reacts mainly to bass; purpose is bass pumping **[confirmed]**
-- Sidechain LPF adjustable about 40 to 500 Hz, 12 dB/octave, with bypass switch **[confirmed]**
+- Sidechain LPF adjustable about 40 to 500 Hz, 12 dB/octave, switched in by an LPF button (lit = filter in, decision 199) **[confirmed]**
 - Sidechain source: INT (the compressor bus itself, L+R) / BUS (the mono sidechain bus) / EXT (external jack). A plug in the EXT jack overrides; otherwise an SC BUS button picks BUS or INT (decision 90) **[confirmed]**
 - Channels feed the sidechain bus through a per-channel SC send button, tapped after the filter and before fader and mute (same point as PFL and the meter), so a muted channel can still trigger the pumping ("ghost triggering"). The master card never addresses a specific slot **[confirmed]**
 - EXT sidechain input: DC-coupled, accepts audio and Eurorack envelopes or gates up to ±12 V **[confirmed]**; 6.3 mm on the master's rear input row board (decisions 118, 162)
-- Sidechain ducking (decision 66): an envelope follower on the master card takes the sidechain signal after the source switch and the sidechain LPF and drives the SC_ENV chain line. Controls: THRESHOLD, DEPTH and DECAY; attack fast and fixed. Each channel's DUCK button adds SC_ENV (negative, −1 V = 10 dB; decision 97) to its VCA control, so the channel ducks with the trigger independently of the compressor bus. Each AUX return also has a DUCK switch **[confirmed]**
+- Sidechain ducking (decision 66): an envelope follower on the master card takes the sidechain signal after the source switch and the sidechain LPF and drives the SC_ENV chain line. Controls: THRESHOLD, DEPTH and DECAY; attack fast and fixed. THRESHOLD runs about 0.26 to 1.8 V peak; a ducking LED on the master follows SC_ENV with its brightness (decision 199). Each channel's DUCK button adds SC_ENV (negative, −1 V = 10 dB; decision 97) to its VCA control, so the channel ducks with the trigger independently of the compressor bus. Each AUX return also has a DUCK switch **[confirmed]**
 - SC listen button: sends the filtered sidechain signal to the cue bus (headphones) and pulls the PFL-active line **[confirmed]**
 - Stereo-linked VCA compressor (SSI2162) with a performance control set **[confirmed]**:
   - **Amount:** one knob that lowers the threshold and raises makeup gain together, through the VCA control circuit
@@ -111,12 +111,12 @@ Notes on mono/stereo (L/MONO convention everywhere):
   - **Mix:** dry/wet blend of the uncompressed and compressed compressor bus (parallel compression)
   - **On/off button:** click-free bypass
   - **Gain-reduction LEDs:** about 5 segments
-  - Sidechain LPF frequency and bypass, and the sidechain source selector (below)
+  - Sidechain LPF frequency and in/out button, and the sidechain source selector (below)
 - Preset inside (trimmers or jumpers, no panel knobs): attack about 1 ms, ratio 4:1, makeup range tied to Amount **[confirmed]**
 - Detector: feed-forward, peak-sensing, log conversion with a matched transistor array (Alfa AS3046 / CA3046 class or THAT300 series; the THAT2252 RMS detector is obsolete) **[confirmed]**
 - Ranges: Amount 0 to about 30 dB (threshold down to -30 dB below nominal, makeup tied); Release about 50 ms to 1.5 s; gain-reduction LEDs at 1, 3, 6, 10, 15 dB **[confirmed]**
 - Soft clipping on the master bus output, same onset as the channels **[confirmed]**
-- Master level: linear pot controlling an SSI2162 VCA (accurate L/R tracking) **[confirmed]**
+- Master level: linear control (60 mm fader, decision 196) of an SSI2162 VCA (accurate L/R tracking) **[confirmed]**
 - Headphone output **[confirmed for the prototype]**: dual-gang volume pot; TI TPA6120A2 headphone amplifier on ±15 V (decision 84, replaces the NJM4556A whose package cannot dissipate the power); for 32 to 600 Ω headphones; 6.3 mm stereo jack panel-mounted on the master top panel and wired to the card (decision 162), the only jack not on the rear
 - AUX send outputs: L/MONO and R jacks per send (impedance-balanced TRS, TS works); with only L plugged in, L outputs (L+R)/2 **[confirmed]**
 - AUX send master: dual-gang pot per send, -∞ to 0 dB, ahead of the output stage; full up gives +4 dBu nominal, turned down suits pedals and other low-level gear **[confirmed]**

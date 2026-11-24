@@ -4,9 +4,9 @@
 
 Reference netlist: sidechain_build.py (check_netlist.py sidechain.json).
 Top: sources (INT summer, BUS inverter, EXT buffer; the jack is on the rear input row board), the two-stage selector,
-the Sallen-Key LPF with its dual pot as a labelled block, bypass, the SC_DET buffer and
+the Sallen-Key LPF with its dual pot as a labelled block, its LPF button switch, the SC_DET buffer and
 SC listen with the PFL_ACT driver. Bottom: the ducker (THRESHOLD, window comparator,
-DEPTH, charge switches, hold, DECAY, SC_ENV buffer), buttons and supplies.
+DEPTH, charge switches, hold, DECAY, SC_ENV buffer, ducking LED), buttons and supplies.
 """
 import json,os
 from schlayout import Sheet,pins_of
@@ -90,11 +90,11 @@ for pin,name,d in (("1","LPF_A","l"),("2","LPF_A","u"),("3","LPF_P1","d"),("4","
     else: e=dn(p,12.7); rot=270
     s.wire(p,e); lab(e,name,rot)
 
-# ======================================================================== bypass, SC_DET buffer, SC listen
+# ======================================================================== LPF in/out (pressed = in, decision 199), SC_DET buffer, SC listen
 XB=lo[0]+25.4
-b3=DG("U95073",3,XB,lo[1]); s.wire(lo,b3(10)); s.wire(b3(9),dn(b3(9),7.62)); lab(dn(b3(9),7.62),"BYP_CTRL",270)
-b1=DG("U507",1,XB,YF-27.94); s.wire(sel2,(sel2[0],b1(2)[1]),b1(2)); s.wire(b1(1),dn(b1(1),5.08)); lab(dn(b1(1),5.08),"BYP_CTRL",270)
-fi=(XB+15.24,lo[1]); s.wire(b3(11),fi); s.wire(b1(3),(fi[0],b1(3)[1]),fi)
+b3=DG("U507",1,XB,lo[1]); s.wire(lo,b3(2)); s.wire(b3(1),dn(b3(1),7.62)); lab(dn(b3(1),7.62),"LPF_CTRL",270)
+b1=DG("U95073",3,XB,YF-27.94); s.wire(sel2,(sel2[0],b1(10)[1]),b1(10)); s.wire(b1(9),dn(b1(9),5.08)); lab(dn(b1(9),5.08),"LPF_CTRL",270)
+fi=(XB+15.24,lo[1]); s.wire(b3(3),fi); s.wire(b1(11),(fi[0],b1(11)[1]),fi)
 a=TL("U503",1,fi[0]+20.32,fi[1]+2.54); s.wire(fi,a(3)); so=follower(a,2,1)
 sd=(so[0]+25.4,so[1]); s.wire(so,sd); hier(sd,"SC_DET",0,"output"); s.tp("TP501","SC_DET",(so[0]+12.7,so[1]),"up")
 s.wire((so[0]+5.08,so[1]),(so[0]+5.08,so[1]-10.16)); lab((so[0]+5.08,so[1]-10.16),"SC_DET",90)
@@ -117,10 +117,10 @@ for n,(px,py,ang) in pins_of("Analog_Switch","DG413xY",4).items():
 
 # ======================================================================== ducker
 YD=190.5
-rv=s.place("Device","R_Potentiometer","RV502","THRESHOLD 10k log",40.64,YD,0,fp=POT1,
-           props=P("SX-POT-009",Note="Panel THRESHOLD: log (A) taper, CCW = 0.1 V, CW = 5 V peak"))
-r=R("R515","200","SX-R-010",rv(1)[0],rv(1)[1]-7.62,0); s.wire(rv(1),r(2)); s.wire(r(1),up(r(1),5.08)); gnd(up(r(1),5.08),180)
-r=R("R514","20k","SX-R-051",rv(3)[0],rv(3)[1]+7.62,0); s.wire(rv(3),r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("+15V",dn(r(2),5.08),180)
+rv=s.place("Device","R_Potentiometer","RV502","THRESHOLD 10k lin",40.64,YD,0,fp=POT1,
+           props=P("SX-POT-006",Note="Panel THRESHOLD: linear (B) taper, CCW = 0.26 V, CW = 1.8 V peak (decision 199)"))
+r=R("R515","1k5","SX-R-044",rv(1)[0],rv(1)[1]-7.62,0); s.wire(rv(1),r(2)); s.wire(r(1),up(r(1),5.08)); gnd(up(r(1),5.08),180)
+r=R("R514","75k","SX-R-061",rv(3)[0],rv(3)[1]+7.62,0); s.wire(rv(3),r(1)); s.wire(r(2),dn(r(2),5.08)); s.power("+15V",dn(r(2),5.08),180)
 thr=(58.42,YD); s.wire(rv(2),thr)
 c1=TL("U504",1,96.52,YD-2.54); s.wire(thr,c1(2)); s.wire(c1(3),lt(c1(3),7.62)); lab(lt(c1(3),7.62),"SC_DET",180)
 s.wire(c1(1),rt(c1(1),7.62)); lab(rt(c1(1),7.62),"TRIG1",0)
@@ -157,6 +157,20 @@ hier(se,"SC_ENV",0,"output"); s.tp("TP502","SC_ENV",tp,"up")
 dc=(q[0]-3.81,o[1]+15.24); s.wire(q,(q[0],dc[1]))
 dd=s.place("Device","D","D504","BAT54W",dc[0],dc[1],0,fp="Diode_SMD:D_SOD-123",props=P("SX-D-014",Manufacturer="hongjiacheng",MPN="BAT54W",Supplier="LCSC",SupplierPN="C7502705",Note="SC_ENV clamp to AGND (decision 97)"))
 s.wire(dd(1),dn(dd(1),2.54)); gnd(dn(dd(1),2.54))
+# ducking LED (decision 199): the follower's and the source's base-emitter drops cancel; R530 keeps the LED dark at rest
+XL,YL=205.74,299.72
+q2=s.place("Transistor_BJT","Q_NPN_BEC","Q502","MMBT3904",XL,YL,0,fp="Package_TO_SOT_SMD:SOT-23",props=P("SX-Q-001",Manufacturer="onsemi",MPN="MMBT3904LT1G"))
+s.wire(q2(1),lt(q2(1),5.08)); lab(lt(q2(1),5.08),"SC_ENV",180)
+g=lt(up(q2(3),5.08),7.62); s.wire(q2(3),up(q2(3),5.08),g); s.power("GNDPWR",g)
+nb=dn(q2(2),5.08); s.wire(q2(2),nb)
+r=R("R528","47k","SX-R-032",nb[0],nb[1]+7.62,0); s.wire(nb,r(1)); s.wire(r(2),dn(r(2),7.62)); s.power("-15V",dn(r(2),7.62),180)
+q3=s.place("Transistor_BJT","Q_PNP_BEC","Q503","MMBT3906",XL-22.86,nb[1],180,fp="Package_TO_SOT_SMD:SOT-23",props=P("SX-Q-003",Manufacturer="hongjiacheng",MPN="MMBT3906",Supplier="LCSC",SupplierPN="C7420354"))
+s.wire(nb,q3(1))
+r=R("R529","2k","SX-R-003",q3(2)[0],q3(2)[1]-7.62,0); s.wire(q3(2),r(2)); g=lt(up(r(1),2.54),5.08); s.wire(r(1),up(r(1),2.54),g); s.power("GNDPWR",g)
+na=dn(q3(3),5.08); s.wire(q3(3),na)
+ld=s.place("Device","LED","D505","Ducking LED",na[0]-10.16,na[1],0,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297",Note="Panel DUCKING beside DEPTH, brightness follows SC_ENV"))
+s.wire(na,ld(2)); r=R("R530","22k","SX-R-047",na[0]-10.16,na[1]+10.16); s.wire(na,(na[0],r(2)[1]),r(2))
+nk=(ld(1)[0]-5.08,ld(1)[1]); s.wire(ld(1),nk); s.wire(nk,(nk[0],r(1)[1])); s.wire((nk[0],r(1)[1]),r(1)); s.wire((nk[0],r(1)[1]),dn((nk[0],r(1)[1]),10.16)); s.power("-15V",dn((nk[0],r(1)[1]),10.16),180)
 # spare sections of U508
 for i,(ref,unit) in enumerate((("U95083",3),("U95084",4))):
     sp=DG(ref,unit,104.14+i*25.4,YQ+45.72)
@@ -164,8 +178,8 @@ for i,(ref,unit) in enumerate((("U95083",3),("U95084",4))):
         p=sp(n); e={0:lt(p,5.08),180:rt(p,5.08),90:dn(p,5.08)}[int(ang)]; s.wire(p,e); gnd(e)
 
 # ======================================================================== buttons
-# button LED colours as the channel (decision 117): SC BUS green, LPF bypass white (as FILTER BYPASS), SC LISTEN yellow (a listen, as PFL)
-LEDPN={"BUS":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"BYP":P("SX-D-017",Manufacturer="Hubei KENTO",MPN="KT-0805W",Supplier="LCSC",SupplierPN="C34499"),"LISTEN":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296")}
+# button LED colours as the channel (decision 117): SC BUS green, LPF white (as LOW CUT, lit = filter in, decision 199), SC LISTEN yellow (a listen, as PFL)
+LEDPN={"BUS":P("SX-D-011",Manufacturer="Hubei KENTO",MPN="KT-0805G",Supplier="LCSC",SupplierPN="C2297"),"LPF":P("SX-D-017",Manufacturer="Hubei KENTO",MPN="KT-0805W",Supplier="LCSC",SupplierPN="C34499"),"LISTEN":P("SX-D-016",Manufacturer="Hubei KENTO",MPN="KT-0805Y",Supplier="LCSC",SupplierPN="C2296")}
 def button(name,title,sw,led,rl,rp,x,y):
     b=s.place("Switch","SW_Push_DPDT",sw,f"{title} (latching)",x,y,0,fp=SWFP,
               props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
@@ -177,7 +191,7 @@ def button(name,title,sw,led,rl,rp,x,y):
     s.wire(b(6),ld(1)); r=R(rl,"12k","SX-R-008",ld(2)[0]+8.89,b(6)[1],270); s.wire(ld(2),r(2)); s.wire(r(1),rt(r(1),3.81)); s.power("+15V",rt(r(1),3.81),270)
     NC.extend([b(1),b(4)])
 button("BUS","SC BUS","SW501","D501","R522","R523",261.62,198.12)
-button("BYP","SC LPF BYPASS","SW502","D502","R524","R525",261.62,236.22)
+button("LPF","SC LPF","SW502","D502","R524","R525",261.62,236.22)
 button("LISTEN","SC LISTEN","SW503","D503","R526","R527",261.62,274.32)
 
 # ======================================================================== supplies and decoupling

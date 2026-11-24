@@ -26,6 +26,7 @@ for i,b in enumerate(BUSES):
     N(b,f"J101.{PIN[b]}",f"{u}.{pm}",f"R{111+i}.1",f"C{121+i}.1")
     N("AGND",f"{u}.{pp}"); N(f"{b}_SUM",f"{u}.{po}",f"R{111+i}.2",f"C{121+i}.2")
     if b in TPS: N(f"{b}_SUM",f"TP{TPS[b]}.1")
+for k,(p,b) in enumerate(((26,"FLT1_L"),(28,"FLT1_R"),(30,"FLT2_L"),(32,"FLT2_R"))): N(b,f"J101.{p}",f"R{102+k}.1"); N("AGND",f"R{102+k}.2")   # decision 192
 N("SC_ENV","J101.24"); N("PFL_ACT","J101.34","R101.2"); N("+5V","R101.1")
 N("AGND","U91062.5"); N("SPARE_OA","U91062.6","U91062.7")      # spare half of U106
 for k,ref in enumerate(["U91013","U91023","U91033","U91043","U91053","U91063"]):

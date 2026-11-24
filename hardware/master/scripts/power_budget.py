@@ -30,7 +30,7 @@ parts={
 coil=(15.0-0.2)/(1315+330)*1000
 fixed_p={"relay coils (3)":(3*coil,3*coil),"button LEDs from +15 V via 12k (10)":(11.0,11.0),
          "dividers, pots, ladders (+15 V; raw -20 V watch 0.3 mA, decision 128; meter ladder 0.45 mA, decision 146)":(3.2,3.2)}
-fixed_m={"pots and dividers (-15 V)":(6.0,6.0)}
+fixed_m={"pots and dividers (-15 V)":(6.0,6.0),"ducking LED and its follower (decision 199; typical about 10 dB)":(0.7,2.2)}
 # +5 V from the L7805, taken from +15 V: meter LEDs 24 x 2 mA, GR LEDs 5 x 2 mA, PFL LED 2 mA
 led5_typ,led5_max=24.0,60.0          # typical: about half the meter lit
 l7805_iq=(5.0,8.0)

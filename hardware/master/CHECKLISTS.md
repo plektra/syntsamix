@@ -33,7 +33,7 @@ Values outside E24 after decisions 144, 146, 147 and 153, each with its reason:
 
 Remaining extended SMD types on the master that have no fee-free part: DG413 (hand-soldered here, JLCPCB on the channel), TPA6120A2, OPA2171, LM339, TL062, 10k 0.1 % (SX-R-107, receiver match), 220p C0G, 47n C0G, 10 µF / 47 µF 35 V electrolytics, 39R2 2512; `python3 tools/costs.py extended` lists them.
 
-Fee-free part swaps already drawn (decision 137, 2026-10-10): button LEDs on the per-colour basic parts (MUTE red; DUCK, COMP BUS, COMP ON, SC BUS green; SC LPF BYPASS white; SC LISTEN yellow); D504 BAT54W; D705-D712 1N4007W SOD-123FL; U641 DG411 → DG413 with a Q601 inverter (R612, R613) making MONO1 for send 1, Q601's emitter on PGND (invariant 4; the user chose PGND over the architect's AGND). R232/R332 30k1 → 30k (decision 153; SX-R-087 no longer used).
+Fee-free part swaps already drawn (decision 137, 2026-10-10): button LEDs on the per-colour basic parts (MUTE red; DUCK, COMP BUS, COMP ON, SC BUS green; SC LPF white (lit = filter in, 199); SC LISTEN yellow); D504 BAT54W; D705-D712 1N4007W SOD-123FL; U641 DG411 → DG413 with a Q601 inverter (R612, R613) making MONO1 for send 1, Q601's emitter on PGND (invariant 4; the user chose PGND over the architect's AGND). R232/R332 30k1 → 30k (decision 153; SX-R-087 no longer used).
 
 ## Checks on delivery
 

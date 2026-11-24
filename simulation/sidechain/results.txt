@@ -12,3 +12,12 @@ Ducker (THRESHOLD 0.6 V peak, DEPTH -4 V = 40 dB, 100 Hz kick burst of 30 ms at 
   DECAY CW: peak -4.00 V (40 dB), 90 % after 2.9 ms, half (20 dB) recovered 823 ms after the burst, most positive -0.0 mV
   signal 3 dB below threshold: SC_ENV peak -0.0 mV (no trigger)
   Eurorack gate 10 V for 100 ms: SC_ENV peak -3.91 V
+
+THRESHOLD (B10K, R514 75k, R515 1k5, loaded by R516 100k, decision 199)
+  0 %: 0.26 V, 25 %: 0.67 V, 50 %: 1.07 V, 75 %: 1.45 V, 100 %: 1.83 V
+
+Ducking LED current against SC_ENV (R529 2k, R528 47k; decision 199)
+  22k across the LED, VF about 2.3 V: 0 dB 0 uA, 1 dB 0 uA, 2 dB 11 uA, 3 dB 51 uA, 5 dB 142 uA, 10 dB 378 uA, 20 dB 863 uA, 40 dB 1843 uA; -15 V load at 40 dB 2.17 mA
+  22k, VF about 2.8 V (KT-0805G mid): 0 dB 0 uA, 1 dB 0 uA, 2 dB 0 uA, 3 dB 31 uA, 5 dB 120 uA, 10 dB 356 uA, 20 dB 841 uA, 40 dB 1821 uA; -15 V load at 40 dB 2.17 mA
+  no bleed, VF about 2.3 V: 0 dB 21 uA, 1 dB 58 uA, 2 dB 100 uA, 3 dB 145 uA, 5 dB 238 uA, 10 dB 477 uA, 20 dB 965 uA, 40 dB 1948 uA; -15 V load at 40 dB 2.17 mA
+  22k, 57 C: 0 dB 0 uA, 1 dB 0 uA, 2 dB 8 uA, 3 dB 47 uA, 5 dB 137 uA, 10 dB 372 uA, 20 dB 855 uA, 40 dB 1834 uA; -15 V load at 40 dB 2.17 mA

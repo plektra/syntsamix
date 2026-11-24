@@ -5,6 +5,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 ## Schematics are scripts
 
 - `<sheet>_build.py` = independent reference netlist, `<sheet>_wired.py` = drawing with real wires (`schlayout.Sheet`). `check_netlist.py` compares them pin by pin; never skip it. Full how-to: `hardware/channel-card/scripts/README.md`. Shared tools live in `hardware/channel-card/scripts/`; the master links to them.
+- In a worktree session `bash <script>` is refused too: drive build, post-processing and checks from one Python script with no git in it, and run `git checkout -- <root>.kicad_sch` as its own command.
 - Rebuilding replaces the whole sheet; edits made by hand in KiCad are lost.
 - `mcpcall.py` must run with the Python of the kicad-mcp-pro uv environment (it has the `mcp` package); `rebuild_all.sh` finds it. In an isolated worktree session, shell loops or `$(...)` that pick that Python are refused: find it with `ls -d ~/.cache/uv/archive-v0/*/lib/python*/site-packages/mcp` and call `<env>/bin/python` by its plain path. The same goes for loops over sheet names and for `git -C`: run each check as its own plain command. A fresh worktree has no `scripts/build/`: run each `<sheet>_build.py` before `check_netlist.py`. The KiCad MCP server is registered in Claude Code (profile `builder` since 2026-10-19; `mcpcall.py` sets `schematic_authoring` for the sheet builds).
 - Rules learned the hard way:

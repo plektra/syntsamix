@@ -6,7 +6,7 @@ Drawn by hardware/channel-card/scripts/panel_render.py on the same page (it impo
 for its own pots). Third draft (the user, 2026-11-24): no columns, three strips wide (104.8 x 360 mm; decision 162
 says four), the functions as bands across the panel, rear to front: compressor, sidechain, AUX, master; the AUX
 band between the same two lines as the channel strips' AUX section; the headphone jack as far forward as it can
-go; a master fader (the schematic still has the rotary pot RV701, decision 92); a printed scale at every pot.
+go; a master fader (RV701, decision 196); a printed scale at every pot.
 Positions are x across the panel and d from the card's front edge as on the channel card (panel front end =
 d - 21). Only the panel is drafted: nothing here is checked against the master PCB.
 
@@ -32,7 +32,7 @@ SCALES = {
     "RELEASE": ENDS("44ms", "1.4s"),                # decision 89, per 10 dB
     "MIX": ENDS("DRY", "WET"),                      # decision 89
     "SC LPF": ENDS("45", "480"),                    # decision 90: about 44 to 478 Hz
-    "THRESHOLD": ENDS("LO", "HI"),                  # decision 90: 0.1 to 5 V peak
+    "THRESHOLD": ENDS("LO", "HI"),                  # decision 199: 0.26 to 1.8 V peak
     "DECAY": ENDS("48ms", "1.2s"),                  # decision 90
     "DEPTH": [(0.0, "0"), (0.25, "10"), (0.5, "20"), (0.75, "30"), (1.0, "40")],   # decision 97: linear, 0 to 40 dB
     "PHONES LEVEL": ENDS("0", "10"),
@@ -65,8 +65,8 @@ def controls(aux_hi, aux_lo):
         ("MIX", 80, 280, "pot", 16),
         # sidechain: source and filter, then the envelope
         ("SC BUS", 16, 238, "button", "green"), ("LISTEN", 30, 238, "button", "yellow"),
-        ("SC LPF", 56, 238, "pot", 14), ("BYPASS", 72, 238, "button", "white"),
-        ("THRESHOLD", 20, 210, "pot", 16), ("DECAY", 52, 210, "pot", 16), ("DEPTH", 84, 210, "pot", 16),
+        ("SC LPF", 56, 238, "pot", 14), ("LPF", 72, 238, "button", "white"),
+        ("THRESHOLD", 20, 210, "pot", 16), ("DECAY", 52, 210, "pot", 16), ("DEPTH", 80, 210, "pot", 16), ("DUCKING", 97, 210, "led", "green"),
         # AUX 1 and AUX 2, one row each, in the channel strips' AUX band
         ("SEND 1", 16, aux_hi, "pot", 16), ("RETURN 1", 42, aux_hi, "pot", 16),
         ("MUTE", 66, aux_hi, "button", "red"), ("DUCK", 77, aux_hi, "button", "green"), ("COMP", 88, aux_hi, "button", "green"),
@@ -77,7 +77,7 @@ def controls(aux_hi, aux_lo):
     ]
 
 
-LABEL_DY = {"SC LPF": 13.2, "BYPASS": 13.2}
+LABEL_DY = {"SC LPF": 13.2, "LPF": 13.2}
 TOP_TITLE = "COMPRESSOR"
 SC_LINE = 254.0
 GR = ["1", "3", "6", "10", "15"]     # gain-reduction LEDs top to bottom, yellow (decision 170)
@@ -154,7 +154,7 @@ def svg(x0, aux_band, title="master section, third draft"):
 
 def table():
     groups = [("Compressor (rear)", "COMP ON button, AMOUNT, RELEASE and MIX knobs, five gain-reduction LEDs (1, 3, 6, 10, 15 dB) at the right"),
-              ("Sidechain", "SC BUS and LISTEN buttons, SC LPF knob with its BYPASS button; below them THRESHOLD, DECAY and DEPTH"),
+              ("Sidechain", "SC BUS and LISTEN buttons, SC LPF knob with its LPF button (lit = filter in); below them THRESHOLD, DECAY and DEPTH with the DUCKING LED"),
               ("AUX", "one row per bus: SEND and RETURN knobs, then MUTE, DUCK and COMP buttons for the return; between the same lines as the channels' AUX section"),
               ("Master (front)", "stereo meter of 2 × 12 LEDs at the left, MASTER fader, PFL light, PHONES LEVEL knob and the headphone jack at the right")]
     return "\n".join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in groups)

@@ -10,7 +10,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | [channel-card-parts.md](channel-card-parts.md) | Channel card: part and mechanical choices (110-115, 117) |
 | [input-module.md](input-module.md) | Input module |
 | [master-card.md](master-card.md) | Master/compressor card: scope and part choices (125: DRV135, 150: hand-soldered ICs) |
-| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149, 163, 172-174, 177) |
+| [master-card-sheets.md](master-card-sheets.md) | Master/compressor card: sheet implementations (87-95, 103, 104, 126-128, 131, 138, 144, 146-149, 163, 172-174, 177, 199) |
 | [power.md](power.md) | Power board |
 | [mechanical.md](mechanical.md) | Frame, panels, strip layout, front-panel parts |
 | [process.md](process.md) | Tools, part numbering, licensing, test points, assembly, workflow (availability notes in the record) |
@@ -220,9 +220,10 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 193 | Channel 78L05 fed through two 150 Ω 0805 in series (R506/R507): about 95 °C instead of 146 °C worst case at 57 °C air; refines 78 | confirmed | [channel-card](channel-card.md) |
 | 194 | Channel card PCB: one board with SMD parts on both sides, JLCPCB Standard PCBA (one-sided leaves 33 to 38 of 395 parts, in 0805 and 0603); about €130 more per order [estimate]; two-board stack rejected; underside rule 121, J1 underneath and the Economic PCBA rule to follow in /system; regulators underneath [proposed] | confirmed (the user 2026-11-24); regulator position and contract texts **[proposed]** | [channel-card](channel-card.md) |
 | 195 | Channel strip panel arrangement: fader 9 mm right, 25 mm tape strip, controls to the rear, PFL beside MUTE, AUX pots staggered, RESONANCE beside BYPASS, section lines, legends below, pot scales, 8 mm button caps; refines 55, 106, 119 | confirmed (the user 2026-11-24); distances, knob sizes, legends and scales **[proposed]** | [mechanical](mechanical.md) |
-| 196 | Master level on a 60 mm fader instead of the rotary pot; refines 92; sheet to redraw | confirmed (the user 2026-11-24); not drawn yet | [master-card](master-card.md) |
+| 196 | Master level on a 60 mm fader instead of the rotary pot; refines 92 | confirmed (the user 2026-11-24); drawn 2026-11-24 | [master-card](master-card.md) |
 | 197 | Cutoff CV attenuator CV AMT (B100K into R182, R181 100k / R188 200k), +KNOB panel button in place of JP181, panel option C (TRIM beside LOW CUT, CV AMT and +KNOB row under the CV jacks, smaller TRIM / RESONANCE / CUTOFF knobs); J1 placed by the layout; refines 53, 55, 165, 166, 195 | confirmed (the user, /system 2026-11-24); distances and knob sizes **[proposed]**, J1 position at layout | [channel-card](channel-card.md) |
 | 198 | A button pole may change a DC control path over between two resistive paths (no rail or chain line on either throw, wetting-level current); no ramp where the input already accepts steps (cutoff CV); refines 152 | confirmed (the user, /system 2026-11-24) | [system](system.md) |
+| 199 | Sidechain: THRESHOLD B10K 0.26-1.8 V, LPF button inverted (lit = filter in), ducking LED following SC_ENV; refines 44, 45, 46, 90 | confirmed (the user 2026-11-24); legends and LED position **[proposed]** | [master-card-sheets](master-card-sheets.md) |
 
 ## Proposed but not confirmed
 

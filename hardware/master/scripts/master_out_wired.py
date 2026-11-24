@@ -116,8 +116,8 @@ output("R",203.2,"U704","C709","C710","D709","D710","D711","D712","K702","R712",
 
 # ======================================================================== master level law (as the channel fader, decision 72)
 Y=279.4; VBX=96.52; SUMX=241.3
-fv=s.place("Device","R_Potentiometer","RV701","MASTER 10k lin",45.72,Y,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
-           props=P("SX-POT-006",Note="Panel MASTER: pin 1 = fully counter-clockwise (off); 0 dB at 75 %, +10 dB at full"))
+fv=s.place("Device","R_Potentiometer","RV701","MASTER 10k lin FADER",45.72,Y,0,fp="Potentiometer_THT:Potentiometer_Bourns_PTA6043_Single_Slide",
+           props=P("SX-POT-001",Manufacturer="Bourns",MPN="PTA6043-2015DPB103",Note="Panel MASTER fader (decision 196): pin 1 = bottom of travel (off); 0 dB at 75 %, +10 dB at the top"))
 s.wire(fv(1),up(fv(1),5.08)); s.power("-15V",up(fv(1),5.08),180); s.wire(fv(3),dn(fv(3),5.08)); gnd(dn(fv(3),5.08))
 # U705 = OPA2171: input range includes V- (the wiper reaches -15 V), no phase reversal (TI SBOS516H).
 # Its inputs have back-to-back diodes, so the superdiodes (open loop when off) stay on the TL072 U706 (decision 102)

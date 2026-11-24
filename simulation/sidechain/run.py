@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2026 Lari Mahlio
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-"""Sidechain sheet simulations (master card): sidechain LPF range and the trigger-style ducker.
+"""Sidechain sheet simulations (master card): sidechain LPF range, the trigger-style ducker, THRESHOLD range and ducking LED.
 
 LPF: unity-gain Sallen-Key, 22 nF / 47 nF, 10 kOhm + 100 kOhm dual linear (B) pot per side (decision 138).
 Ducker: window comparator (TL072s) against +-THRESHOLD, two DG413 NO switches charge
@@ -72,6 +72,37 @@ Dcl scenv 0 BAT54
     return run(net)
 
 
+def led(env, bleed=22e3, is_=1e-20, n=2.2, tc=27):
+    """Ducking LED current (A) at SC_ENV = env (decision 199): NPN follower, PNP current source, bleed across the LED."""
+    net = f"""* ducking LED
+Vm vee 0 -15.1
+Vs sc 0 {env:g}
+Qn 0 sc en QN
+Rn en vee 47k
+Qp c en ep QP
+Re 0 ep 2k
+Vl c cl 0
+Dl cl vee LEDG
+Rb c vee {bleed:g}
+.model QN NPN(IS=6.7f BF=200 VAF=74)
+.model QP PNP(IS=1.4f BF=180 VAF=18.7 BR=5)
+.model LEDG D(IS={is_:g} N={n:g} RS=20)
+.temp {tc}
+.tran 1u 10u
+.measure tran il AVG i(Vl) FROM=5u TO=10u
+.measure tran im AVG i(Vm) FROM=5u TO=10u
+.end
+"""
+    return run(net)
+
+
+def threshold(x, top=75e3, bot=1.5e3, pot=10e3, load=100e3):
+    """THRESHOLD wiper voltage at rotation x of a linear pot (R514, R515, loaded by R516 into a virtual earth)."""
+    rl, rh = bot + x * pot, top + (1 - x) * pot
+    rl = rl * load / (rl + load)
+    return 15.1 * rl / (rl + rh)
+
+
 def main():
     print("Sidechain LPF (Sallen-Key, 22n/47n, 10k + 100k pot):")
     # B100K linear dual (decision 138): rheostat wiper to CW end, so the resistance is 100k x (1 - rotation)
@@ -100,6 +131,15 @@ def main():
     print(f"  signal 3 dB below threshold: SC_ENV peak {v['vpk']*1e3:.1f} mV (no trigger)")
     v = ducker("Vsc sc 0 PWL(0 0 0.1 0 0.1001 10 0.2 10 0.2001 0)", 0.6, extra=extra)
     print(f"  Eurorack gate 10 V for 100 ms: SC_ENV peak {v['vpk']:.2f} V")
+
+    print("\nTHRESHOLD (B10K, R514 75k, R515 1k5, loaded by R516 100k, decision 199)")
+    print("  " + ", ".join(f"{int(100 * x)} %: {threshold(x):.2f} V" for x in (0, 0.25, 0.5, 0.75, 1)))
+
+    print("\nDucking LED current against SC_ENV (R529 2k, R528 47k; decision 199)")
+    for name, kw in (("22k across the LED, VF about 2.3 V", {}), ("22k, VF about 2.8 V (KT-0805G mid)", dict(is_=2e-24)),
+                     ("no bleed, VF about 2.3 V", dict(bleed=1e9)), ("22k, 57 C", dict(tc=57))):
+        r = [(db, led(-db / 10, **kw)) for db in (0, 1, 2, 3, 5, 10, 20, 40)]
+        print(f"  {name}: " + ", ".join(f"{db} dB {1e6 * v['il']:.0f} uA" for db, v in r) + f"; -15 V load at 40 dB {1e3 * abs(r[-1][1]['im']):.2f} mA")
 
 
 if __name__ == "__main__":
