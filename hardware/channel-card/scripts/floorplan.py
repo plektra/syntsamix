@@ -15,7 +15,7 @@ underside. Courtyards never overlap; a through-hole pad blocks the other side to
 It is a trial, not the final placement: it shows how full the card is and gives a starting point.
 
 Usage (KiCad's Python, it needs pcbnew):
-  <KiCad python> floorplan.py [--0603] [--cans4] [--regsmall] [--twosided]
+  <KiCad python> floorplan.py [--0603] [--cans4] [--regsmall] [--twosided | --stack [--gap=2.54]]
     --0603      every 0805 resistor and capacitor as 0603
     --cans4     the 10 uF electrolytics in 4 x 5.4 mm cans instead of 5 x 5.4
     --regsmall  less copper kept free around the regulator tabs
@@ -25,6 +25,8 @@ Writes build/floorplan<flags>.json (positions) and -top.svg / -under.svg (drawin
 Result 2026-11-23 (STATUS.md): with every SMD part on the top side 33 to 38 parts find no place within 90 mm of
 their circuit, in 0805 and in 0603, with small cans and less regulator copper; with the chips underneath
 everything is placed (top 67 % covered, 4 mm cans).
+Two-board stack (--stack [--gap=mm]): the controls on an upper board, everything else on the bottom face of a
+lower board on pin rows; it fits only with a 2.54 mm gap and 4 mm cans (lower face 80 % covered).
 """
 import collections, json, math, os, subprocess, sys, tempfile
 import xml.etree.ElementTree as ET
@@ -37,7 +39,10 @@ SMALL = "--0603" in sys.argv
 CANS4 = "--cans4" in sys.argv        # 10 uF electrolytics in 4 x 5.4 mm cans instead of 5 x 5.4
 REGSMALL = "--regsmall" in sys.argv  # regulator copper cut to the part plus a strip (planes carry the heat)
 TWOSIDED = "--twosided" in sys.argv  # chip resistors and capacitors on the underside (needs /system: decision 121)
-TAG = "".join(t for t, on in (("-0603", SMALL), ("-cans4", CANS4), ("-regsmall", REGSMALL), ("-twosided", TWOSIDED)) if on)
+STACK = "--stack" in sys.argv        # two boards: controls on the upper one, the rest on one face of a lower one
+TAG = "".join(t for t, on in (("-0603", SMALL), ("-cans4", CANS4), ("-regsmall", REGSMALL), ("-twosided", TWOSIDED),
+                              ("-stack", STACK)) if on)
+TAG += next((a.replace("--gap=", "-gap") for a in sys.argv if a.startswith("--gap=")), "")
 W, L = 33.0, 318.0          # card width and depth (MECHANICAL.md, strip envelope)
 X0, Y0 = 50.0, 100.0        # design (d, u) -> KiCad sheet (x, y)
 G = 0.25                    # placement grid
@@ -109,6 +114,60 @@ MANUAL = {"C501": (289, 6), "C506": (289, 20), "C504": (291, 12), "C509": (291, 
           "R505": (150, 30), "JP301": (140, 30), "Q301": (108, 28)}
 SHEET_ANCHOR = {"Input": (262, 16), "Filter": (215, 16), "Level": (88, 16), "Routing": (140, 28), "Meter": (40, 12),
                 "Chain and power": (290, 16)}
+
+# ---- two-board stack (--stack) ---------------------------------------------------------------------------------
+# Upper board: the controls and their LEDs, hung from the panel as before (PCB top 10.0 mm under the panel).
+# Lower board: every other part on its bottom face (one-sided assembly), GAP below the upper board on pin rows.
+# Inside height under the panel: 20 mm at the front rail's inner face, rising 0.105 mm per mm (about 6 degrees,
+# MECHANICAL.md: 40 mm at 190 mm); the card's front edge is 1 mm behind the rail face; 3 mm kept to the cover.
+GAP = next((float(a.split("=")[1]) for a in sys.argv if a.startswith("--gap=")), 6.0)   # between the boards
+LOWER_FACE = 10.0 + 1.6 + GAP + 1.6      # lower board's bottom face, below the panel underside
+
+
+def first_d(height):
+    """Smallest d at which a part this tall fits under the lower board."""
+    return (LOWER_FACE + height + 3.0 - 20.0) / 0.105 - 1.0
+
+
+MAIN_START = math.ceil(first_d(5.4))     # SMD parts up to the 5.4 mm cans
+HAND_START = math.ceil(first_d(10.1))    # 3296W trimmers (10.03 mm), jumper headers with their jumpers
+CHAIN_START = math.ceil(first_d(15.0))   # chain header with socket and cable (estimate, check the Wuerth drawings)
+if STACK:
+    CONTROL = {r for r, v in FIX.items() if v[3] == "F" and not r.startswith("U")} | set(BUTTON_LED.values()) | set(METER_LEDS)
+    # zones along the lower board, front to rear: meter, level, regulators, chain headers with the power parts and
+    # the routing beside them, input header and input stage, filter (its hand-set parts behind the header band)
+    m = MAIN_START; c = CHAIN_START + 1.0; e = c + 72.0; f = e + 28.0; sp = L - f
+    FIX.update({"J503": (c + 9.5, 5.0, 270, "B", "mid"), "J501": (c + 45.5, 5.0, 270, "B", "mid"),
+                "J1": (e + 13.0, 5.0, 270, "B", "mid"),
+                "U501": (c - 12.0, 24.4, 0, "B", "mid"), "U502": (c - 12.0, 8.6, 0, "B", "mid")})
+    REG_COPPER = [(c - 23.0, c - 1.0, 0.5, 16.3), (c - 23.0, c - 1.0, 16.7, 32.5)]
+    UNDER_FRONT = HAND_START
+    # pin rows between the boards (2.54 mm): (d0, d1, u0, u1) kept free on both boards; 2 x 13 and 1 x 11 beside
+    # the single buttons for the front controls and the meter, 1 x 15 on each edge further back
+    PIN_ROWS = [(77.0, 110.0, 0.5, 5.6), (81.0, 109.0, 30.0, 32.5),
+                (max(252.0, e + 26.0), max(252.0, e + 26.0) + 38.0, 0.5, 3.0), (185.0, 223.0, 30.0, 32.5)]
+    IC = {
+        "U401": (m + 4, 8, "B"), "U402": (m + 4, 17, "B"), "U403": (m + 4, 26, "B"), "U404": (m + 14, 8, "B"),
+        "U405": (m + 16, 20, "B"), "U406": (m + 25, 10, "B"),
+        "U204": (c - 55, 8, "B"), "U205": (c - 58, 24, "B"), "U201": (c - 46, 10, "B"), "U202": (c - 46, 24, "B"),
+        "U203": (c - 36, 24, "B"), "J301": (c - 32, 8, "B"), "J302": (c - 32, 28, "B"),
+        "U503": (c + 8, 28, "B"),
+        "U301": (c + 20, 24, "B"), "U302": (c + 32, 15, "B"), "U303": (c + 44, 15, "B"), "U304": (c + 56, 15, "B"),
+        "U4": (e + 8, 15, "B"), "U3": (e + 6, 26, "B"), "U2": (e + 16, 26, "B"), "U1": (e + 20, 15, "B"),
+        "U108": (f + 6, 28, "B"), "U104": (f + 8, 17, "B"), "JP101": (f + 0.12 * sp, 8, "B"), "JP151": (f + 0.12 * sp, 24, "B"),
+        "U101": (f + 0.3 * sp, 12, "B"), "U102": (f + 0.3 * sp, 22, "B"),
+        "RV101": (f + 0.3 * sp, 5, "B"), "RV151": (f + 0.3 * sp, 28, "B"),
+        "U103": (f + 0.5 * sp, 17, "B"), "JP102": (f + 0.5 * sp, 8, "B"), "JP152": (f + 0.5 * sp, 26, "B"),
+        "U105": (f + 0.62 * sp, 8, "B"), "U106": (f + 0.62 * sp, 26, "B"),
+        "U107": (f + 0.85 * sp, 16, "B"), "JP181": (f + 0.85 * sp, 6, "B"), "RV182": (f + 0.85 * sp, 27, "B"),
+    }
+    MANUAL = {"C501": (c + 4, 14), "C506": (c + 4, 22), "C504": (c - 26, 24), "C509": (c - 26, 9), "C512": (c + 14, 28),
+              "D501": (c + 1, 14), "D503": (c + 1, 22), "D505": (c - 27, 16), "D506": (c - 27, 18),
+              "D507": (c + 61, 24), "R505": (c + 61, 24), "JP301": (c + 36, 24), "Q301": (c + 51, 24)}
+    SHEET_ANCHOR = {"Input": (e + 12, 20), "Filter": (f + 0.5 * sp, 16), "Level": (c - 46, 16), "Routing": (c + 40, 22),
+                    "Meter": (m + 14, 16), "Chain and power": (c - 5, 16)}
+else:
+    CONTROL = set()
 
 
 # ---- schematic ---------------------------------------------------------------------------------------------------
@@ -243,7 +302,7 @@ def put(ref, d, u, rot, side, check=True):
     other = GRID["B" if side == "F" else "F"]
     for plist in pads.values():
         for (x, y, pb, tht) in plist:
-            if tht:   # the joint and the lead end on the other side
+            if tht and not STACK:   # the joint and the lead end on the other side
                 other.mark((d + pb[0] - 0.4, d + pb[1] + 0.4, u + pb[2] - 0.4, u + pb[3] + 0.4))
     PL[ref] = (round(d, 3), round(u, 3), rot, side); BOX[ref] = box
     PAD[ref] = {n: (d + pl[0][0], u + pl[0][1]) for n, pl in pads.items()}
@@ -275,7 +334,7 @@ def pin_targets(ref):
     for pin, net in PIN_NET[ref].items():
         if not signal(net):
             continue
-        pts = [PAD[r][p] for r, p in NET_PINS[net] if r != ref and r in PAD and p in PAD[r]]
+        pts = [PAD[r][p] for r, p in NET_PINS[net] if r != ref and r in PAD and p in PAD[r] and r not in CONTROL]
         if pts:
             out[pin] = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
     return out
@@ -314,13 +373,26 @@ def run():
         ax, ay = anchor_point(FPID[led], 90, "F", "mid"); put(led, 72 - 6.0 * i - ax, METER_U - ay, 90, "F", check=False)
     GRID["F"].mark(BEZEL)
     for b in REG_COPPER:
-        GRID["F"].mark(b)
+        GRID["B" if STACK else "F"].mark(b)
+    if STACK:
+        GRID["B"].mark((0, MAIN_START, 0, W))
+        for b in PIN_ROWS:
+            GRID["B"].mark(b)
+            if not GRID["F"].free(b):
+                print("pin row over a control:", b)
     hd = [BOX["J503"], BOX["J501"]]
     band = (min(b[0] for b in hd) - BAND_MARGIN, max(b[1] for b in hd) + BAND_MARGIN, 0, W)
     keep = Grid(); keep.r = [bytearray(r) for r in GRID["B"].r]
     GRID["B"].mark(band); GRID["B"].mark((0, UNDER_FRONT, 0, W))
     # 2. ICs and hand-set parts at their anchors
-    for ref, (d, u, side) in IC.items():
+    order = sorted(IC, key=lambda r: r.startswith("U")) if STACK else list(IC)   # stack: hand-set parts first
+    for ref in order:
+        if STACK and ref.startswith("U") and GRID["B"] is not keep:   # ICs may sit in the header band
+            for r2, v in PL.items():
+                if v[3] == "B":
+                    keep.mark(BOX[r2])
+            GRID["B"] = keep
+        d, u, side = IC[ref]
         if not place(ref, (d, u), side, rots=(0, 90, 180, 270)):
             failed.append(ref)
     if TWOSIDED:   # chip parts may sit in the header band and at the front: they are lower than the socket
@@ -347,11 +419,11 @@ def run():
         if not cands:
             continue
         _, ic, pin = min(cands); count[(ic, rail)] += 1
-        if not place(ref, PAD[ic][pin], "B" if TWOSIDED else "F", rots=(0, 90)):
+        if not place(ref, PAD[ic][pin], "B" if TWOSIDED or STACK else "F", rots=(0, 90)):
             failed.append(ref)
     # 4. manual targets
     for ref, t in MANUAL.items():
-        if ref not in PL and not place(ref, t, "F", rots=(0, 90)):
+        if ref not in PL and not place(ref, t, "B" if STACK else "F", rots=(0, 90)):
             failed.append(ref)
     # 5. the rest, most connected first
     def area(ref):
@@ -372,7 +444,7 @@ def run():
             t = (sum(p[0] for p in tg.values()) / len(tg), sum(p[1] for p in tg.values()) / len(tg))
         else:
             t = SHEET_ANCHOR[SHEET[ref]]
-        side = "B" if ref.startswith("TP") or (TWOSIDED and chip(ref)) else "F"
+        side = "B" if ref.startswith("TP") or STACK or (TWOSIDED and chip(ref)) else "F"
         if ref.startswith("TP") and not tg:      # a ground test pad: near its sheet, off the header band
             net = next(iter(PIN_NET[ref].values()))
             pts = [PAD[r][p] for r, p in NET_PINS[net] if r in PAD and SHEET[r] == SHEET[ref] and p in PAD[r]]
@@ -389,7 +461,7 @@ def hpwl():
     for net, pins in NET_PINS.items():
         if not signal(net):
             continue
-        pts = [PAD[r][p] for r, p in pins if r in PAD and p in PAD[r]]
+        pts = [PAD[r][p] for r, p in pins if r in PAD and p in PAD[r] and r not in CONTROL]
         if len(pts) > 1:
             w = max(p[0] for p in pts) - min(p[0] for p in pts) + max(p[1] for p in pts) - min(p[1] for p in pts)
             tot += w; worst.append((w, net))
@@ -412,9 +484,11 @@ def svg(band):
             Y = lambda u: oy + u * S
             out.append(f'<svg x="0" y="{oy - 14}" width="{(SEG + 4) * S}" height="{RH}"><g transform="translate(0,{14 - oy})">')
             out.append(f'<rect x="{X(0)}" y="{Y(0)}" width="{L * S}" height="{W * S}" fill="#f4f4f0" stroke="black"/>')
-            out.append(f'<text x="{X(d0)}" y="{oy - 3}" font-size="11">{"top" if side == "F" else "underside, seen through the board"}'
+            out.append(f'<text x="{X(d0)}" y="{oy - 3}" font-size="11">{("control board" if STACK else "top") if side == "F" else ("lower board, seen through it" if STACK else "underside, seen through the board")}'
                        f', d {d0:.0f} to {d0 + SEG:.0f} mm from the front; {"0603" if SMALL else "0805"} passives</text>')
             zones = [BEZEL] + REG_COPPER if side == "F" else [band, (0, UNDER_FRONT, 0, W)]
+            if STACK:
+                zones = [BEZEL] + PIN_ROWS if side == "F" else [band, (0, UNDER_FRONT, 0, W), (0, MAIN_START, 0, W)] + REG_COPPER + PIN_ROWS
             for b in zones:
                 out.append(f'<rect x="{X(b[0])}" y="{Y(b[2])}" width="{(b[1] - b[0]) * S}" height="{(b[3] - b[2]) * S}" fill="#ddd" stroke="#999" stroke-dasharray="3"/>')
             for ref, (d, u, rot, sd) in PL.items():
@@ -426,7 +500,7 @@ def svg(band):
                                f'fill="{COLOUR[SHEET[ref]]}" fill-opacity="{0.35 if ref in FIX else 0.8}" stroke="black" stroke-width="0.4"/>')
                     if (b[1] - b[0]) * (b[3] - b[2]) > 20 or ref.startswith("TP"):
                         out.append(f'<text x="{X((b[0] + b[1]) / 2):.1f}" y="{Y((b[2] + b[3]) / 2) + 3:.1f}" text-anchor="middle">{ref}</text>')
-                else:   # through-hole pads of the other side's parts
+                elif not STACK:   # through-hole pads of the other side's parts
                     _, pads = geom(FPID[ref], rot, sd)
                     for pl in pads.values():
                         for (x, y, pb, tht) in pl:
@@ -457,3 +531,14 @@ if __name__ == "__main__":
     print("headers: " + "; ".join(f"{r} pin 1 at d {PAD[r]['1'][0]:.2f} u {PAD[r]['1'][1]:.2f}, pin 2 at d {PAD[r]['2'][0]:.2f} u {PAD[r]['2'][1]:.2f}, "
                                   f"body d {BOX[r][0]:.1f}..{BOX[r][1]:.1f}" for r in ("J503", "J501", "J1")))
     print(f"underside keep-out band d {band[0]:.1f}..{band[1]:.1f}")
+    if STACK:
+        cross = [n for n, pins in NET_PINS.items() if not n.startswith("unconnected-")
+                 and any(r in CONTROL for r, _ in pins) and any(r not in CONTROL for r, _ in pins)]
+        sup = [n for n in cross if n in POWER]
+        low = W * (L - MAIN_START); usedlow = GRID["B"].used() - W * MAIN_START
+        print(f"stack: gap {GAP} mm, lower board from d {MAIN_START} (SMD), hand-set parts from d {HAND_START}, chain headers from d {CHAIN_START}")
+        print(f"lower board {low:.0f} mm2, covered {usedlow:.0f} mm2 ({100 * usedlow / low:.0f} %) with pin rows and regulator copper")
+        print(f"nets between the boards: {len(cross)} ({len(cross) - len(sup)} signals, supplies {sorted(sup)}); pin places kept: "
+              f"{sum((int(max(b[1] - b[0], b[3] - b[2]) / 2.54) + 1) * (2 if min(b[1] - b[0], b[3] - b[2]) > 4 else 1) for b in PIN_ROWS)}")
+        for r in ("J503", "J501", "J1", "RV101", "RV151", "RV182", "J301", "J302", "JP101", "JP181"):
+            print(f"  {r}: d {BOX[r][0]:.1f}..{BOX[r][1]:.1f}, u {BOX[r][2]:.1f}..{BOX[r][3]:.1f}")

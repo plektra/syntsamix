@@ -48,6 +48,25 @@ Reference lists: `CHECKLISTS.md` (checks before layout and on delivery, cost-cut
 - **With the chip parts underneath everything fits** with a third of the top free. That breaks the underside rule (decision 121: only chain headers and hand-set parts) and Economic PCBA (every SMD part on one side, `hardware/CLAUDE.md`): **[proposed], for the user and /system.** Cost by hand from `docs/costs/overheads.csv`: Standard PCBA set-up and stencil for two sides about $68 against $10, loading $1.53 for each of the card's 81 types about $124 against about $40 of extended fees: about €130 more per order of channel cards, whatever their number **[estimate; JLCPCB's two-sided set-up figure not checked]**.
 - Other ways out, not tried: the 21 electrolytics as through-hole radials on the underside (hand-soldered, at most 10.5 mm; frees about 700 mm² of the top; also touches decision 121) together with 0603; a second small board under the rear (connectors, a second assembled design); fewer parts (the meter is 56 parts, about 620 mm²).
 
+### Two-board stack (the user's idea, 2026-11-24; `floorplan.py --stack`)
+
+Upper board: the controls and their 15 LEDs only, hand-soldered, hung from the panel as before. Lower board: every other part on its bottom face (one-sided Economic PCBA; trimmers, jumpers, test pads and the three ribbon headers on the same face), joined by 2.54 mm pin rows. The lower board starts where the sloped floor leaves room: inside height taken as 20 mm at the front rail plus 0.105 mm per mm, 3 mm kept to the cover **[estimate]**.
+
+| Gap between the boards | Lower board starts at d | Chain headers from d | Variant | Not placed | Lower face covered |
+|---|---|---|---|---|---|
+| 2.54 mm (the pin header's own body) | 39 | 130 | 0805, 5 mm cans | 11 | 81 % |
+| 2.54 mm | 39 | 130 | 0805, 4 mm cans | 0 | 80 % |
+| 2.54 mm | 39 | 130 | 0603, 4 mm cans | 0 | 78 % |
+| 4 mm | 53 | 144 | 0805, 4 mm cans | 7 | 84 % |
+| 6 mm | 72 | 163 | 0603, 4 mm cans | 50 | 84 % |
+
+- It fits only with the smallest gap and 4 mm cans, and then the parts face is about 80 % covered (the single two-sided board: 67 % on top, about 40 % underneath). The lower board's upper face carries no parts, so it is a free routing layer; whether 80 % routes is not shown by this trial.
+- Why it is tighter than the first estimate: the header bodies (about 940 mm²), trimmers, jumpers and test pads share the one parts face, and the low front keeps the board from reaching under the fader's front part.
+- With a 2.54 mm gap the upper board's through-hole leads (about 1.9 mm long below the board) end about 0.6 mm above the lower board: they must be cut flush and an insulating sheet is needed between the boards. The pin rows are soldered, so the two boards do not come apart without desoldering about 60 pins.
+- Nets between the boards as drawn: 56 (51 signals and the five supplies); 68 pin places kept in the trial (2 × 13 and 1 × 11 beside MUTE and PFL, 1 × 15 on each edge further back).
+- Hand joints per card: 181 through-hole and 42 chip pins as today (decision 155 stays, the user 2026-11-24), about 120 for the pin rows, 30 for the LEDs if hand-soldered: about 370.
+- Cost by hand: a second bare PCB design, about €15 to €35 per order, plus pin headers; no Standard PCBA **[estimate]**. Needs /system as the two-sided route does (decision 121: the stack hangs about 11 mm below the upper board before its parts).
+
 Positions used in the trial, all **[proposed]** (d = distance from the card's front edge, u = from the left edge seen from above; the card's front edge is 1 mm behind the front rail's inner face):
 
 | Item | Position |
