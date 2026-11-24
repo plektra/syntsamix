@@ -26,5 +26,6 @@ Current rulings (decision 154): each entry says what holds now, with later refin
 150. Master DG413 ×8 (177), SSI2162 ×4, DRV135UA ×2 and AS3046D ×1 are hand-soldered by the user on the prototype's populated master (Assembly = "hand (decision 150)", counted by `tools/costs.py`). A production build machine-places them (190; one bad joint on the only master silences the mixer)
 169. Headphone jack (162): panel-mounted Rean NYS230 (SX-CONN-019, open-frame 3-pole, no switch contacts used) on the master top panel; on the card J751 is a Molex KK 254 1x3 header 22-27-2031 (SX-CONN-020: 1 tip, 2 ring, 3 sleeve/AGND); the cable is the ready-made Molex 217797-1031 (SX-CONN-021, 150 mm, free ends soldered to the jack), nothing crimped by hand
 170. Master LEDs all 0805 JLCPCB basic parts under printed bezels (162): meter as the channel (KT-0805G, KT-0805Y, NCD0805R1), the five gain-reduction LEDs yellow KT-0805Y, the PFL-active LED D752 KT-0805Y; no 3 mm LED left on the master
+196. Master level on a 60 mm fader instead of the rotary pot (the user, 2026-11-24; refines 92): same 10 kΩ linear law (144), level with the channel faders, the stereo meter beside it. The Master out sheet still has RV701 as a pot: to redraw in a master session
 
 Rationale notes (performance compressor; send master pot vs return gain jumper): `record/master-card.md`.

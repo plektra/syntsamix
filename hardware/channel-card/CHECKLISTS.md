@@ -19,6 +19,33 @@ Read for layout, assembly, cost and value work; the session state is in `STATUS.
 - **SSI2144 footprint (U101/U102):** `Package_SO:QSOP-16_3.9x4.9mm_P0.635mm` matches Sound Semiconductor's drawing PODPSSL16 (16-lead SSOP, JEDEC MO-137-AB, 0.635 mm pitch) and a measured chip (2026-10-14); pin 1 top-left at the notch, as the footprint. No further check before ordering.
 - **Pot footprints:** the stock KiCad RD901F/RD902F footprints (slots 9.6 mm centre to centre, 7.5 mm from the pins) match Alpha's drawing SLH-211-414 (its 11.4 mm spans the slot ends).
 
+## Panel and underside positions (decisions 194, 195; distances proposed)
+
+d = distance from the card's front edge, u = from its left edge seen from above; the card's front edge is 1 mm behind the front rail's inner face and 21 mm behind the panel's front end. Source of truth: `ROW` and `FIX` in `scripts/floorplan.py` and `ROW` in `scripts/panel_render.py` (change them together).
+
+| Item | Position |
+|---|---|
+| Fader | **the user 2026-11-24:** 9 mm right of the centreline (u 25.5); travel centre d 57 (body d 19 to 95), moved back so 25 mm of blank panel stays in front of it for tape (panel 14 to 39 mm from its front end, behind the screw head); panel drawing `scripts/panel_render.py` |
+| Meter column | u 4.0 (12.5 mm left of the centreline); CLIP at d 87 (the fader's top travel end), −30 at d 45 |
+| Rows (centres, d), the user's arrangement 2026-11-24 | controls pushed up to the rear rail, the freed depth as finger room: PFL (u 9.5) and MUTE (u 23.5) side by side at 108; SC SEND / DUCK / COMP BUS 127 (u 5.0, 16.5, 28.0: 11.5 mm apart, the widest the card allows; visible caps 8 mm square instead of 10 mm, the user 2026-11-24, on all buttons; the cap print needs a skirt under the panel to catch the LED beside the 8.5 mm switch body); AUX 2 at 151 (u 23.0) and AUX 1 at 173 (u 10.0), 6.5 mm each side of the centreline and 22 mm apart front to back (room for the printed scales; AUX 2 stays put because the audio header needs the run between it and BYPASS); RESONANCE (u 8.5, small knob) and BYPASS (u 24.5) side by side at 210; CUTOFF 237 (larger knob); CV jacks 262 (u 8.5 and 24.5); LOW-CUT 282; TRIM 304 |
+| Section lines (legend) | at d 115.6, 134.3, 188.6 and 269.6: fader with PFL and MUTE / SC, DUCK, COMP / AUX / filter with the CV jacks / input |
+| Knob sizes (drawing) | CUTOFF 20 mm, RESONANCE 14 mm, the others 16 mm; none chosen yet, and decision 114's list for these shafts ends at about 19 mm |
+| Scales (drawing only, the user 2026-11-24) | eleven ticks around each pot: TRIM −14 and +28 dB at the ends (decision 26), CUTOFF one octave per tick, 20 Hz to 20 kHz (decision 52), RESONANCE 0 to 10, AUX −∞ to 0; marks between the ends of the audio-taper pots would need measuring |
+| Legends (drawing only) | below each control, on the operator's side (the user, 2026-11-24): TRIM, LOW CUT, CV IN, CV OUT, CUTOFF, RESONANCE, BYPASS, AUX 1, AUX 2, SC, DUCK, COMP, PFL, MUTE; fader marks +10 to −∞ on decision 72's law, meter marks of decision 43 |
+| Button LEDs | behind each plunger (5.9 mm toward the rear) |
+| Power header J503 | underside, left edge (u 5.0), centre d 140.6 (body d 131.1 to 150.1, between the SC SEND button's pins and the AUX 1 pot's), pin 1 at d 136.8 toward the front |
+| Audio header J501 | underside, right edge (u 28.0), centre d 180 (body d 154 to 206, between the AUX 2 pot's pins and the BYPASS button's), pin 1 at d 159.7 toward the front. The two headers are no longer on one line: with pots and buttons off the centreline neither edge has 71 mm free of control pins; the cables still do not share a depth |
+| Underside keep-out band (decision 175) | d 116 to 221 |
+| Input header J1 | underside, centre d 302, u 5.0, beside TRIM |
+| Regulators | **[proposed]** on the underside under the fader's middle (d about 62 to 79, no control pins there), facing the perforated cover: TRIM now takes the rear, and decision 110 puts them on top. Copper to check at layout |
+| Hand-set parts | J301/J302 in front of the band; filter trimmers and jumpers behind it |
+
+With this arrangement the two-sided placement places all 395 parts with the 5 mm cans as drawn (top 63 % covered); no underside header sits on a control's pins.
+
+Why the headers sit there: each header needs a run along one edge with no control pins above its body, 3.5 mm or more behind the front controls for the inside height (about 34 mm under the panel at the power header, so about 19 mm for header, socket and cable after the PCB and 3 mm to the cover **[estimate: check the Würth drawings]**), and the power header stays in front of the master's heatsink zone (decision 188).
+
+Still to check at layout: the header, socket and cable depth on the Würth drawings; the printed button cap with its skirt (8 mm face over the 8.5 mm switch, LED beside it); a knob of about 20 mm for CUTOFF on the T18 shaft; the scale marks between the ends of the audio-taper pots (measure); the regulator copper underneath against decision 110's figures.
+
 ## Check on first delivery or assembly
 
 - **GPBS850L buttons (Electrokit 41012905):** the MPN was corrected on 2026-10-10 from GPBS850N, which is the momentary twin (Electrokit 41015527). When the second Electrokit order arrives, check that the delivered switches latch and that the pins match the GPBS850L datasheet Rev 2 (pin grid 2.5 mm, rows 5.4 mm, pressed = 2-3 and 5-6); size the printed caps for the 4.0 mm plunger.

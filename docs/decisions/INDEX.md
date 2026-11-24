@@ -218,6 +218,9 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 191 | PCBA supplier stays JLCPCB; AISLER and PCBWay rejected on cost (per-part fees on 230 SMD types); pre-reflow fee avoided by SMD-only order files; refines 79 | confirmed | [process](process.md) |
 | 192 | Filter stays on every channel; SPARE2-5 reserved as two stereo filter buses FLT1/FLT2 on U302's free throws, B on a solder jumper (default AGND); master 100 Ω terminations; refines 175, 183 | confirmed | [system](system.md) |
 | 193 | Channel 78L05 fed through two 150 Ω 0805 in series (R506/R507): about 95 °C instead of 146 °C worst case at 57 °C air; refines 78 | confirmed | [channel-card](channel-card.md) |
+| 194 | Channel card PCB: one board with SMD parts on both sides, JLCPCB Standard PCBA (one-sided leaves 33 to 38 of 395 parts, in 0805 and 0603); about €130 more per order [estimate]; two-board stack rejected; underside rule 121, J1 underneath and the Economic PCBA rule to follow in /system; regulators underneath [proposed] | confirmed (the user 2026-11-24); regulator position and contract texts **[proposed]** | [channel-card](channel-card.md) |
+| 195 | Channel strip panel arrangement: fader 9 mm right, 25 mm tape strip, controls to the rear, PFL beside MUTE, AUX pots staggered, RESONANCE beside BYPASS, section lines, legends below, pot scales, 8 mm button caps; refines 55, 106, 119 | confirmed (the user 2026-11-24); distances, knob sizes, legends and scales **[proposed]** | [mechanical](mechanical.md) |
+| 196 | Master level on a 60 mm fader instead of the rotary pot; refines 92; sheet to redraw | confirmed (the user 2026-11-24); not drawn yet | [master-card](master-card.md) |
 
 ## Proposed but not confirmed
 
