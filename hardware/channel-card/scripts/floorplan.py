@@ -58,8 +58,8 @@ GROUNDS = {"AGND", "PGND"}
 # ---- panel rows: distance of each control's centre from the card's front edge (MECHANICAL.md row order) --------
 FADER_D, FADER_U = 42.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
 METER_U = 4.0                     # meter LED column; CLIP level with the fader's top travel end, 6.0 mm pitch
-ROW = dict(MUTE=90, PFL=103, ROW3=116, AUX2=139, AUX1=161, BYPASS=178, RES=196, CUTOFF=218, JACKS=238,
-           LOWCUT=258, TRIM=277)
+ROW = dict(MUTE=92, PFL=106, ROW3=120, AUX2=140, AUX1=164, BYPASS=183, RES=203, CUTOFF=228, JACKS=248,
+           LOWCUT=264, TRIM=284)
 CEN = 16.5
 # ref: (d, u, rotation, side, what the point is)
 FIX = {
@@ -73,7 +73,7 @@ FIX = {
     "J181": (ROW["JACKS"], CEN - 8, 270, "F", "barrel"), "J182": (ROW["JACKS"], CEN + 8, 270, "F", "barrel"),
     "SW1": (ROW["LOWCUT"], CEN, 0, "F", "origin"), "RV1": (ROW["TRIM"], CEN, 0, "F", "shaft"),
     # underside headers: power in front of audio, one line near the left edge; input header beside TRIM
-    "J503": (131.0, 5.0, 270, "B", "mid"), "J501": (167.0, 5.0, 270, "B", "mid"), "J1": (275.0, 5.0, 270, "B", "mid"),
+    "J503": (135.0, 5.0, 270, "B", "mid"), "J501": (171.0, 5.0, 270, "B", "mid"), "J1": (282.0, 5.0, 270, "B", "mid"),
     # regulators at the rear edge, tabs to the rear
     "U501": (307.5, 8.6, 0, "F", "mid"), "U502": (307.5, 24.4, 0, "F", "mid"),
 }
