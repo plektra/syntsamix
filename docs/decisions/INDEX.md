@@ -221,10 +221,13 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 194 | Channel card PCB: one board with SMD parts on both sides, JLCPCB Standard PCBA (one-sided leaves 33 to 38 of 395 parts, in 0805 and 0603); about €130 more per order [estimate]; two-board stack rejected; underside rule 121, J1 underneath and the Economic PCBA rule to follow in /system; regulators underneath [proposed] | confirmed (the user 2026-11-24); regulator position and contract texts **[proposed]** | [channel-card](channel-card.md) |
 | 195 | Channel strip panel arrangement: fader 9 mm right, 25 mm tape strip, controls to the rear, PFL beside MUTE, AUX pots staggered, RESONANCE beside BYPASS, section lines, legends below, pot scales, 8 mm button caps; refines 55, 106, 119 | confirmed (the user 2026-11-24); distances, knob sizes, legends and scales **[proposed]** | [mechanical](mechanical.md) |
 | 196 | Master level on a 60 mm fader instead of the rotary pot; refines 92; sheet to redraw | confirmed (the user 2026-11-24); not drawn yet | [master-card](master-card.md) |
+| 197 | Cutoff CV attenuator CV AMT (B100K into R182, R181 100k / R188 200k), +KNOB panel button in place of JP181, panel option C (TRIM beside LOW CUT, CV AMT and +KNOB row under the CV jacks, smaller TRIM / RESONANCE / CUTOFF knobs, J1 turned across the card); would refine 53, 165, 166, 195 | **[proposed]** (the user 2026-11-24), to /system then the schematic | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 
-(none as separate decisions; see the **[proposed]** parts of the decisions marked above)
+- 197: cutoff CV attenuator, +KNOB mode button and panel option C (the user, 2026-11-24)
+
+Otherwise see the **[proposed]** parts of the decisions marked above.
 
 ## Open items
 

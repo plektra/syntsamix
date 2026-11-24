@@ -13,7 +13,7 @@ Project-level handoff, updated 2026-11-24 (channel card PCB: trial floorplan, on
 | Chain coupler | not needed for the prototype: two shrouded 2x17 headers joining the 8-card audio cable sections, drawn before the first build of more than 8 cards (decision 175) | not started | (none yet; `docs/MECHANICAL.md`, Chain headers) |
 | Rear row boards (master; output and input) | not started: new KiCad projects, jacks + 26-pin header (+ SW901 on the input board), pinouts decision 163; measure an NYS216 sample first | not started | `hardware/master/STATUS.md` |
 
-Decisions 1-196; last pushed commit: see `git log -1`.
+Decisions 1-197; last pushed commit: see `git log -1`.
 
 ## Order of work
 
