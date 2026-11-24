@@ -7,7 +7,8 @@ Positions are distances from the card's front edge (d), as in floorplan.py; the 
 Layout rules from the user (2026-11-24): fader 9 mm right of the centreline; a 25 mm strip for tape in front of the
 fader; the controls pushed up to the rear rail with the freed depth as finger room; RESONANCE (small knob) beside
 BYPASS, CUTOFF with a larger knob; AUX 1 and AUX 2 staggered 8 mm left and right; a line between sections;
-every legend below its control (toward the operator), where the control does not hide it.
+every legend below its control (toward the operator), where the control does not hide it. Rear rows from panel
+option C (decision 197): TRIM beside LOW CUT, the CV jacks, CV AMT beside +KNOB, CUTOFF, RESONANCE beside BYPASS.
 Usage: python3 panel_render.py
 """
 import os, sys
@@ -18,26 +19,28 @@ import panel_draft as master     # the master section's draft, drawn on the same
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
-ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=173, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
-           LOWCUT=282, TRIM=304)
-LINES = [115.6, 134.3, 188.6, 269.6]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
+ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=173, RES=211, BYPASS=211, CUTOFF=236, CVAMT=261,
+           JACKS=281, LOWCUT=303, TRIM=303)   # rear rows: panel option C (decision 197)
+LINES = [115.6, 134.3, 188.6, 288.0]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
 FADER_D = 57.0                # travel centre; travel 60 mm
 FADER_U = 25.5                # 9 mm right of the card's centreline (the user, 2026-11-24)
 METER_U = 4.0
 TAPE = (14.0, 39.0)           # tape strip, from the panel's front end: behind the screw head, in front of the fader
-LABEL_DY = {"RESONANCE": 13.2, "BYPASS": 13.2}
+LABEL_DY = {"RESONANCE": 12.0, "BYPASS": 12.0, "CV AMT": 10.8, "+KNOB": 10.8, "TRIM": 11.0, "LOW CUT": 11.0,
+            "CUTOFF": 14.2}
 # scale marks (fraction of the rotation, text): TRIM decision 26; CUTOFF decision 52, one octave per tick on a linear
 # pot; AUX sends decision 74 (audio taper, so only the ends carry a value); RESONANCE has no unit
 SCALES = {"TRIM": [(0.0, "\u221214"), (1.0, "+28")],
           "CUTOFF": [(0.0, "20"), (0.2, "80"), (0.4, "320"), (0.6, "1.2k"), (0.8, "5k"), (1.0, "20k")],
-          "RESONANCE": [(0.0, "0"), (1.0, "10")],
+          "RESONANCE": [(0.0, "0"), (1.0, "10")], "CV AMT": [(0.0, "0"), (1.0, "1")],
           "AUX 1": [(0.0, "\u2212\u221e"), (1.0, "0")], "AUX 2": [(0.0, "\u2212\u221e"), (1.0, "0")]}   # one baseline for the two legends of a shared row
 LED = {"red": "#e0483f", "yellow": "#e6bd3a", "green": "#46b46a", "white": "#ecebe6"}
 # (name on the panel, row, u, kind, knob diameter or LED colour)
 CONTROLS = [
-    ("TRIM", "TRIM", CEN, "pot", 16), ("LOW CUT", "LOWCUT", CEN, "button", "white"),
+    ("TRIM", "TRIM", CEN - 8, "pot", 12), ("LOW CUT", "LOWCUT", CEN + 8, "button", "white"),
     ("CV IN", "JACKS", CEN - 8, "jack", None), ("CV OUT", "JACKS", CEN + 8, "jack", None),
-    ("CUTOFF", "CUTOFF", CEN, "pot", 20), ("RESONANCE", "RES", CEN - 8, "pot", 14),
+    ("CV AMT", "CVAMT", CEN - 8, "pot", 11), ("+KNOB", "CVAMT", CEN + 8, "button", "white"),
+    ("CUTOFF", "CUTOFF", CEN, "pot", 18), ("RESONANCE", "RES", CEN - 8, "pot", 12),
     ("BYPASS", "BYPASS", CEN + 8, "button", "white"),
     ("AUX 1", "AUX1", CEN - 6.5, "pot", 16), ("AUX 2", "AUX2", CEN + 6.5, "pot", 16),   # staggered, 6.5 mm each side: room for the scale
     ("SC", "ROW3", 5.0, "button", "green"), ("DUCK", "ROW3", 16.5, "button", "green"),
@@ -119,7 +122,7 @@ def power_strip(x0, title="power"):
 # ---- underside view: what hangs below the cards, seen from above through the panels (same left and right) ----------
 PWR_HDR = (131.1, 150.1, 0.0, 10.0)      # channel power header body (d0, d1, u0, u1), from floorplan.py
 AUD_HDR = (154.0, 206.0, 23.0, 33.0)     # channel audio header body
-IN_HDR = (290.0, 314.0, 0.0, 10.0)       # input header J1
+IN_HDR = (287.1, 295.9, 5.0, 28.0)       # input header J1: one candidate, across the card (decision 197: set at layout)
 BAND = (116.1, 221.0)                    # no hand-set parts: the cables run here (decision 175)
 REGS = [(62.0, 79.0, 3.0, 14.4), (62.0, 79.0, 18.6, 30.0)]    # regulators underneath, proposed
 M_AUD = (154.0, 206.0, 0.0, 10.0)        # master audio header at its left edge, on the channels' audio row
@@ -178,7 +181,7 @@ def underside():
     text(x1 + 11, 128, "power"); text(x1 + 11, 124.8, "header")
     text(x1 + 22, 210, "audio", "end"); text(x1 + 22, 206.8, "header", "end")
     text(x1 + 16.5, 255, "trimmers and", "middle"); text(x1 + 16.5, 251.8, "jumpers here", "middle")
-    text(x1 + 11, 303, "input"); text(x1 + 11, 299.8, "header")
+    text(x1 + 16.5, 284.2, "input header (candidate)", "middle")
     # master card
     box(xm, M_HS_ZONE, "zone")
     for b in M_HS:
@@ -204,7 +207,7 @@ def dims(x):
     """Distance of each row from the panel's front end, as a ruler left of the first strip."""
     o = []
     rows = [("fader, bottom of travel", FADER_D - 30), ("fader, top of travel", FADER_D + 30)] + \
-           [(k, v) for k, v in ROW.items() if k not in ("PFL", "BYPASS")]
+           [(k, v) for k, v in ROW.items() if k not in ("PFL", "BYPASS", "LOWCUT")]
     for name, d in rows:
         y = PL - (d + OFF_D) + 8
         o.append(f'<path d="M{x - 1} {y}h-5" class="dim"/><text x="{x - 7}" y="{y + 1.1}" class="dimt" text-anchor="end">{d + OFF_D:.0f}</text>')
@@ -213,10 +216,11 @@ def dims(x):
 
 
 def table():
-    rows = [("TRIM", "TRIM", "pot, 16 mm knob", "centreline"), ("LOW CUT", "LOWCUT", "button, white", "centreline"),
+    rows = [("TRIM / LOW CUT", "TRIM", "pot with a 12 mm knob; button, white", "8 mm left; 8 mm right"),
             ("CV IN / CV OUT", "JACKS", "3.5 mm jacks", "8 mm left and right"),
-            ("CUTOFF", "CUTOFF", "pot, 20 mm knob", "centreline"),
-            ("RESONANCE / BYPASS", "RES", "pot with a 14 mm knob; button, white", "8 mm left; 8 mm right"),
+            ("CV AMT / +KNOB", "CVAMT", "pot with an 11 mm knob; button, white", "8 mm left; 8 mm right"),
+            ("CUTOFF", "CUTOFF", "pot, 18 mm knob", "centreline"),
+            ("RESONANCE / BYPASS", "RES", "pot with a 12 mm knob; button, white", "8 mm left; 8 mm right"),
             ("AUX 1", "AUX1", "pot, 16 mm knob", "6.5 mm left"), ("AUX 2", "AUX2", "pot, 16 mm knob", "6.5 mm right"),
             ("SC / DUCK / COMP", "ROW3", "three buttons, green", "11.5 mm apart"),
             ("PFL / MUTE", "MUTE", "two buttons, yellow and red", "7 mm left and right")]
@@ -307,7 +311,7 @@ __UNDER__
 <li><strong>Orange: power.</strong> One flat cable links the power headers at the left edge of every channel card and runs on under the master to the power board. A second short one feeds the master.</li>
 <li><strong>Blue: audio.</strong> One wide flat cable links the audio headers at the right edge of every channel card and ends at the master's left edge. The last step, from channel 4 to the master, is only about 12 mm.</li>
 <li><strong>The two cables run at different depths</strong> and do not cross. Trimmers and jumpers stay out of the dashed band they run in.</li>
-<li><strong>Checked by the placement script:</strong> the three headers on the channel card, against the pins of the controls above them.</li>
+<li><strong>Checked by the placement script:</strong> the two chain headers on the channel card, against the pins of the controls above them. The input header is drawn at one candidate position, across the card between the CV jacks and the TRIM row: its place is set at layout (decision 197).</li>
 <li><strong>Not checked, drawn as proposals:</strong> everything on the master card (its headers, the two heatsinks, the headphone jack's body), the regulators under the channel faders, and the exact height of the power board's headers, which I took from its layout script.</li>
 </ul>
 </section>
@@ -348,8 +352,9 @@ __MTABLE__
 <h2>What the channel drawing assumes</h2>
 <ul>
 <li><strong>Tape strip.</strong> 25 mm of blank panel between the front screw and the fader; the fader cap at its lowest point stops 1.5 mm short of it.</li>
-<li><strong>Sections,</strong> front to rear: fader with PFL and MUTE; SC, DUCK and COMP; the two AUX sends; the filter with its CV jacks; the input.</li>
-<li><strong>Knob sizes.</strong> CUTOFF 20 mm, RESONANCE 14 mm, the others 16 mm. No knob is chosen yet, and the supplier's list for these shafts stops at about 19 mm, so the 20 mm one needs finding.</li>
+<li><strong>Sections,</strong> front to rear: fader with PFL and MUTE; SC, DUCK and COMP; the two AUX sends; the filter with its CV controls; the input, where TRIM and LOW CUT now share one row (decision 197).</li>
+<li><strong>CV controls.</strong> CV AMT sets how much of the CV IN signal reaches the cutoff; +KNOB (lit) adds the CUTOFF knob as an offset, dark lets a plugged CV replace it.</li>
+<li><strong>Knob sizes.</strong> CUTOFF 18 mm, TRIM and RESONANCE 12 mm, CV AMT 11 mm, the AUX sends 16 mm. No knob is chosen yet; the supplier's list for these shafts stops at about 19 mm, and the small ones still need finding.</li>
 <li><strong>AUX sends.</strong> 22 mm apart front to back and 13 mm across (6.5 mm each side, so the printed scales stay on the panel); the knob centres are 26 mm apart. AUX 2 cannot move further back: the audio header underneath needs the run between it and BYPASS.</li>
 <li><strong>Scales.</strong> Eleven ticks around each pot. CUTOFF is marked in octaves from 20 Hz to 20 kHz, TRIM with its ends in dB, the sends from off to 0 dB. Where only the end values are known, only the ends carry a number; the marks in between depend on the pot's taper and would need measuring.</li>
 <li><strong>Legends below the controls,</strong> on the operator's side, so a knob or cap does not hide its own name. MUTE's legend stays 4.7 mm clear of the fader cap at the top of its travel.</li>
