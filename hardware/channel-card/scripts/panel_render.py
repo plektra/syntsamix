@@ -10,9 +10,11 @@ BYPASS, CUTOFF with a larger knob; AUX 1 and AUX 2 staggered 8 mm left and right
 every legend below its control (toward the operator), where the control does not hide it.
 Usage: python3 panel_render.py
 """
-import os
+import os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(HERE, "..", "..", "master", "scripts"))
+import panel_draft as master     # the master section's draft, drawn on the same page
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
@@ -136,7 +138,7 @@ h2 { font-family: var(--display); font-size: 1.15rem; margin: 0 0 8px; }
 p { margin: 0; max-width: 65ch; }
 .lede { color: var(--muted); }
 .fig { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px; overflow-x: auto; }
-.fig svg { display: block; width: 100%; max-width: 380px; height: auto; margin: 0 auto; }
+.fig svg { display: block; width: 100%; min-width: 620px; max-width: 900px; height: auto; margin: 0 auto; }
 ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
 .tw { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
@@ -166,17 +168,17 @@ td.n, th.n { text-align: right; white-space: nowrap; }
 </style>
 <main>
 <header>
-<h1>Channel strip panel</h1>
-<p class="lede">Control positions for the 34.8 &times; 360 mm top panel, front edge at the bottom. The arrangement follows your choices; the exact distances and the legend wording are still proposals.</p>
+<h1>Channel strip and master panels</h1>
+<p class="lede">Two channel strips (34.8 &times; 360 mm each) beside the master section (139.8 &times; 360 mm), front edge at the bottom. The channel strip follows your choices; the master section is a first draft.</p>
 </header>
 <div class="fig">
-<svg viewBox="0 0 96 372" role="img" aria-label="Drawing of two neighbouring channel strip panels with every control labelled">
+<svg viewBox="0 0 236 372" role="img" aria-label="Drawing of two channel strip panels and the master section panel with every control labelled">
 __SVG__
 </svg>
 </div>
 <p class="note">Left ruler: distance from the panel's front end in mm. Lighter bands at both ends rest on the frame rails. The dashed field is where tape goes; it is not printed. White lines separate the sections. Button colours are the LED colours already chosen.</p>
 <section>
-<h2>Positions</h2>
+<h2>Channel strip positions</h2>
 <div class="tw"><table>
 <thead><tr><th>Control</th><th>Part</th><th>Across the strip</th><th class="n">From card front, mm</th><th class="n">From panel front, mm</th><th class="n">To the next one forward, mm</th></tr></thead>
 <tbody>
@@ -184,7 +186,22 @@ __TABLE__
 </tbody></table></div>
 </section>
 <section>
-<h2>What the drawing assumes</h2>
+<h2>Master section, first draft</h2>
+<div class="tw"><table>
+<thead><tr><th>Column</th><th>Controls, rear to front</th></tr></thead>
+<tbody>
+__MTABLE__
+</tbody></table></div>
+<ul style="margin-top:12px">
+<li><strong>Four columns of one strip width,</strong> left to right: AUX next to the channels, then sidechain, compressor and master. The mechanical notes so far say three columns.</li>
+<li><strong>Same rules as the channel strip:</strong> legends below the controls, a line between groups, 16 mm knobs with a 24 mm MASTER knob and a 14 mm SC LPF knob beside its BYPASS button.</li>
+<li><strong>Button colours are assumed</strong> from the channel strip (MUTE red, DUCK and COMP green, BYPASS white, LISTEN yellow like PFL); the master's LED colours are not checked.</li>
+<li><strong>Only the panel is drafted.</strong> Nothing is checked against the master board yet: the heatsinks, the headers and the depth of the headphone jack under the panel.</li>
+<li><strong>The front 40 % is empty</strong> in three columns. The controls could spread forward, or the MASTER knob could be a fader there.</li>
+</ul>
+</section>
+<section>
+<h2>What the channel drawing assumes</h2>
 <ul>
 <li><strong>Tape strip.</strong> 25 mm of blank panel between the front screw and the fader; the fader cap at its lowest point stops 1.5 mm short of it.</li>
 <li><strong>Sections,</strong> front to rear: fader with PFL and MUTE; SC, DUCK and COMP; the two AUX sends; the filter with its CV jacks; the input.</li>
@@ -198,8 +215,8 @@ __TABLE__
 """
 
 if __name__ == "__main__":
-    svg = dims(22) + strip(22, "channel strip") + strip(22 + 35, "its neighbour")
+    svg = dims(22) + strip(22, "channel strip") + strip(22 + 35, "its neighbour") + master.svg(22 + 70)
     os.makedirs(os.path.join(HERE, "build"), exist_ok=True)
     out = os.path.join(HERE, "build", "panel.html")
-    open(out, "w").write(PAGE.replace("__SVG__", svg).replace("__TABLE__", table()))
+    open(out, "w").write(PAGE.replace("__SVG__", svg).replace("__TABLE__", table()).replace("__MTABLE__", master.table()))
     print(out)
