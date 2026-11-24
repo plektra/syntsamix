@@ -13,8 +13,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
-ROW = dict(MUTE=92, PFL=106, ROW3=120, AUX2=140, AUX1=164, BYPASS=183, RES=203, CUTOFF=228, JACKS=248,
-           LOWCUT=264, TRIM=284)
+ROW = dict(MUTE=92, PFL=92, ROW3=106, AUX2=125, AUX1=143, BYPASS=162, RES=182, CUTOFF=207, JACKS=227,
+           LOWCUT=243, TRIM=263)
 FADER_D = 42.0                # travel centre; travel 60 mm
 FADER_U = 25.5                # 9 mm right of the card's centreline (the user, 2026-11-24)
 METER_U = 4.0
@@ -25,10 +25,10 @@ CONTROLS = [
     ("CV IN", "JACKS", CEN - 8, "jack", None), ("CV OUT", "JACKS", CEN + 8, "jack", None),
     ("CUTOFF", "CUTOFF", CEN, "pot", None), ("RESONANCE", "RES", CEN, "pot", None),
     ("BYPASS", "BYPASS", CEN, "button", "white"),
-    ("AUX 1", "AUX1", CEN, "pot", None), ("AUX 2", "AUX2", CEN, "pot", None),
+    ("AUX 1", "AUX1", CEN, "pot", None), ("AUX 2", "AUX2", CEN + 8, "potleft", None),   # staggered, label at its left
     ("SC", "ROW3", 5.5, "button", "green"), ("DUCK", "ROW3", 16.5, "button", "green"),
     ("COMP", "ROW3", 27.5, "button", "green"),
-    ("PFL", "PFL", CEN, "button", "yellow"), ("MUTE", "MUTE", CEN, "button", "red"),
+    ("PFL", "PFL", CEN - 7, "button", "yellow"), ("MUTE", "MUTE", CEN + 7, "button", "red"),   # one row, 14 mm apart
 ]
 METER = [("CLIP", "red"), ("+6", "yellow"), ("+3", "yellow"), ("0", "green"), ("−5", "green"),
          ("−10", "green"), ("−20", "green"), ("−30", "green")]
@@ -49,10 +49,13 @@ def strip(x0, fader_u, title):
         o.append(f'<circle cx="{x0 + PW / 2}" cy="{y}" r="2.6" class="screw"/><path d="M{x0 + PW / 2 - 1.4} {y}h2.8M{x0 + PW / 2} {y - 1.4}v2.8" class="slot"/>')
     for name, row, u, kind, col in CONTROLS:
         x, y = X(u), Y(ROW[row])
-        if kind == "pot":
+        if kind in ("pot", "potleft"):
             o.append(f'<circle cx="{x}" cy="{y}" r="9.5" class="knobmax"/><circle cx="{x}" cy="{y}" r="8" class="knob"/>'
                      f'<path d="M{x} {y - 7.4}v4.2" class="pointer"/>')
-            o.append(f'<text x="{x}" y="{y - 10.6}" class="leg" text-anchor="middle">{name}</text>')
+            if kind == "pot":
+                o.append(f'<text x="{x}" y="{y - 10.6}" class="leg" text-anchor="middle">{name}</text>')
+            else:
+                o.append(f'<text x="{x - 11}" y="{y + 0.9}" class="leg" text-anchor="end">{name}</text>')
         elif kind == "button":
             o.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="1.6" fill="{LED[col]}" class="capbtn"/>')
             o.append(f'<text x="{x}" y="{y - 6.6}" class="leg" text-anchor="middle">{name}</text>')
@@ -86,7 +89,7 @@ def dims(x):
     """Distance of each row from the panel's front end, as a ruler left of the first strip."""
     o = []
     rows = [("fader, bottom of travel", FADER_D - 30), ("fader, top of travel", FADER_D + 30)] + \
-           [(k, v) for k, v in ROW.items()]
+           [(k, v) for k, v in ROW.items() if k != "PFL"]
     for name, d in rows:
         y = PL - (d + OFF_D) + 8
         o.append(f'<path d="M{x - 1} {y}h-5" class="dim"/><text x="{x - 7}" y="{y + 1.1}" class="dimt" text-anchor="end">{d + OFF_D:.0f}</text>')
@@ -97,8 +100,9 @@ def dims(x):
 def table():
     rows = [("TRIM", "TRIM", "pot"), ("LOW CUT", "LOWCUT", "button, white"), ("CV IN / CV OUT", "JACKS", "3.5 mm jacks, 16 mm apart"),
             ("CUTOFF", "CUTOFF", "pot"), ("RESONANCE", "RES", "pot"), ("BYPASS", "BYPASS", "button, white"),
-            ("AUX 1", "AUX1", "pot"), ("AUX 2", "AUX2", "pot"), ("SC / DUCK / COMP", "ROW3", "three buttons, green, 11 mm apart"),
-            ("PFL", "PFL", "button, yellow"), ("MUTE", "MUTE", "button, red")]
+            ("AUX 1", "AUX1", "pot, on the centreline"), ("AUX 2", "AUX2", "pot, 8 mm right of the centreline"),
+            ("SC / DUCK / COMP", "ROW3", "three buttons, green, 11 mm apart"),
+            ("PFL / MUTE", "MUTE", "two buttons, yellow and red, 14 mm apart")]
     out = []
     for i, (name, row, what) in enumerate(rows):
         nxt = ROW[rows[i + 1][1]] if i + 1 < len(rows) else FADER_D + 30
@@ -173,7 +177,9 @@ __TABLE__
 <h2>Decided and open</h2>
 <ul>
 <li><strong>Fader position: decided.</strong> 9 mm right of the centreline, the meter column 12.5 mm left of it.</li>
-<li><strong>Spacing.</strong> Knobs sit 24 to 25 mm apart, a knob and a button 16 to 20 mm, buttons 14 mm. CUTOFF has the most room around it.</li>
+<li><strong>PFL and MUTE side by side</strong>, PFL left over the meter, MUTE right over the fader.</li>
+<li><strong>AUX pots staggered.</strong> Side by side they would need more than the strip's width for two knobs, so AUX 1 sits on the centreline and AUX 2 8 mm to the right, 18 mm further forward; the knob centres are 20 mm apart.</li>
+<li><strong>Spacing.</strong> Knob to knob 20 to 25 mm, a knob and a button 16 to 20 mm. CUTOFF has the most room around it. About 56 mm of panel behind TRIM stays blank.</li>
 <li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS, so they fit the 11 mm pitch. BYPASS stands for FILTER BYPASS.</li>
 <li><strong>Knob size.</strong> Not chosen yet; the drawing shows 16 mm with the 19 mm limit dashed.</li>
 </ul>
