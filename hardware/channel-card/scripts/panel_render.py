@@ -15,9 +15,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PW, PL = 34.8, 360.0          # panel
 OFF_U, OFF_D = 0.9, 21.0      # card (u, d) -> panel (x, distance from the panel's front end)
 CEN = 16.5
-ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=176, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
+ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=170, RES=210, BYPASS=210, CUTOFF=237, JACKS=262,
            LOWCUT=284, TRIM=304)
-LINES = [116.4, 137.5, 196.0, 274.0]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
+LINES = [116.4, 137.5, 192.5, 274.0]     # between fader/PFL/MUTE, the bus buttons, the AUX sends, the filter, the input
 FADER_D = 57.0                # travel centre; travel 60 mm
 FADER_U = 25.5                # 9 mm right of the card's centreline (the user, 2026-11-24)
 METER_U = 4.0
@@ -187,7 +187,7 @@ __TABLE__
 <li><strong>Tape strip.</strong> 25 mm of blank panel between the front screw and the fader; the fader cap at its lowest point stops 1.5 mm short of it.</li>
 <li><strong>Sections,</strong> front to rear: fader with PFL and MUTE; SC, DUCK and COMP; the two AUX sends; the filter with its CV jacks; the input.</li>
 <li><strong>Knob sizes.</strong> CUTOFF 20 mm, RESONANCE 14 mm, the others 16 mm. No knob is chosen yet, and the supplier's list for these shafts stops at about 19 mm, so the 20 mm one needs finding.</li>
-<li><strong>AUX sends.</strong> 25 mm apart front to back and 16 mm across, so the knob centres are 30 mm apart.</li>
+<li><strong>AUX sends.</strong> 19 mm apart front to back and 16 mm across, so the knob centres are 25 mm apart. AUX 2 cannot move further back: the audio header underneath needs the run between it and BYPASS.</li>
 <li><strong>Legend wording.</strong> SC, DUCK and COMP are short forms of SC SEND, DUCK and COMP BUS; BYPASS stands for FILTER BYPASS.</li>
 </ul>
 </section>

@@ -58,7 +58,7 @@ GROUNDS = {"AGND", "PGND"}
 # ---- panel rows: distance of each control's centre from the card's front edge (MECHANICAL.md row order) --------
 FADER_D, FADER_U = 57.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
 METER_U = 4.0                     # meter LED column; CLIP level with the fader's top travel end, 6.0 mm pitch
-ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=176, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
+ROW = dict(MUTE=105, PFL=105, ROW3=124, AUX2=151, AUX1=170, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
            LOWCUT=284, TRIM=304)
 CEN = 16.5
 # ref: (d, u, rotation, side, what the point is)
