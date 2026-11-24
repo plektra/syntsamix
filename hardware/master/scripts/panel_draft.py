@@ -10,7 +10,8 @@ go; a master fader (the schematic still has the rotary pot RV701, decision 92); 
 Positions are x across the panel and d from the card's front edge as on the channel card (panel front end =
 d - 21). Only the panel is drafted: nothing here is checked against the master PCB.
 
-Scales: eleven ticks over the pot's 300 degrees, with the values the decisions give. Where only the end values
+Scales: evenly spaced ticks over the pot's 300 degrees (eleven, or nine where a value sits on a quarter), with the
+values the decisions give. Where only the end values
 are known (the taper sets the rest) only the ends carry a number.
 """
 import math
@@ -23,9 +24,9 @@ ENDS = lambda a, b: [(0.0, a), (1.0, b)]
 # scale marks: (fraction of the rotation, text); sources in the comments
 SCALES = {
     "SEND 1": ENDS("−∞", "0"), "SEND 2": ENDS("−∞", "0"),            # decision 51: off to 0 dB
-    # decisions 88, 144: the fader law on a linear pot; ticks at off, -20, -10, 0 and +10 dB, the two unnamed for room
-    "RETURN 1": [(0.0, "−∞"), (0.42, ""), (0.53, ""), (0.75, "0"), (1.0, "+10")],
-    "RETURN 2": [(0.0, "−∞"), (0.42, ""), (0.53, ""), (0.75, "0"), (1.0, "+10")],
+    # decisions 88, 144: the fader law on a linear pot: 0 dB at three quarters, +10 dB at the top
+    "RETURN 1": [(0.0, "−∞"), (0.75, "0"), (1.0, "+10")],
+    "RETURN 2": [(0.0, "−∞"), (0.75, "0"), (1.0, "+10")],
     "AMOUNT": ENDS("0", "30"),                      # decision 89: lowers the threshold by up to 30 dB
     "RELEASE": ENDS("44ms", "1.4s"),                # decision 89, per 10 dB
     "MIX": ENDS("DRY", "WET"),                      # decision 89
@@ -41,7 +42,9 @@ def knob(x, y, dia, name, marks, dy=None):
     """A knob with its scale and, below both, its legend (SVG, mm units)."""
     r = dia / 2
     o = [f'<circle cx="{x}" cy="{y}" r="{r}" class="knob"/><path d="M{x} {y - r + 0.7}v{r * 0.5}" class="pointer"/>']
-    fractions = [k / 10 for k in range(11)] if len(marks) <= 2 or len(marks) > 5 else [f for f, _ in marks]
+    # evenly spaced ticks: ten steps, or eight when a named mark sits on a quarter (0 dB at 75 %, DEPTH's quarters)
+    n = 10 if all(abs(f * 10 - round(f * 10)) < 1e-6 for f, _ in marks) else 8
+    fractions = [k / n for k in range(n + 1)]
     for f in fractions:
         t = math.radians(-150 + 300 * f); s, c = math.sin(t), math.cos(t)
         o.append(f'<path d="M{x + (r + 0.7) * s:.2f} {y - (r + 0.7) * c:.2f}L{x + (r + 1.7) * s:.2f} {y - (r + 1.7) * c:.2f}" class="tick"/>')
