@@ -20,7 +20,7 @@ HERE = Path(__file__).resolve().parent
 
 NOTES = {
     "C5": "10 µF 100 V bipolar electrolytic from the order (ø8 mm); either way round. Nothing else in column 3 under its body. Test 11 swaps it for two 10 µF 25 V back to back, − to −",
-    "R1": "Input attenuator, the card's 18 kΩ: +4 dBu becomes about ±19 mV at pin 1",
+    "R1": "Input attenuator, the card's 18 kΩ: +4 dBu becomes about ±19 mV at pin 1 (±19.3 mV with the measured 17.59 kΩ and 198 Ω)",
     "R2": "Attenuator shunt (hot drive), the card's 200 Ω",
     "R3": "330 Ω gives about −4 dB; try 200 Ω for −6 dB",
     "J1": "2-pin header with a jumper shunt. Fitted = medium drive, removed = hot drive",
@@ -56,12 +56,12 @@ NOTES = {
     "W30": "RV4 pin 1 to +15 V; insulated, up the right edge",
     "RV3": "Output gain: wiper and pin 1 form the feedback resistor; pin 3 is not used: bend it up so it stays out of 17H. Start at about 9 kΩ between pin 1 and the wiper (unity predicted near 8.8 kΩ), set in test 5",
     "RV4": "Cutoff offset: the full track as a divider between +15 V (pin 1, via W30) and −15 V (pin 3, on U2 pin 4's strip); wiper to R10 by W28. Centre it before power-up",
-    "RV5": "V/oct scale: pin 1 and the wiper in series with R11 (wiper on U2 pin 7 via W29); pin 3 hangs past column 23: bend it up. Start at about 32 kΩ (1 V/oct needs about 192 kΩ in total)",
+    "RV5": "V/oct scale: pin 1 and the wiper in series with R11 (wiper on U2 pin 7 via W29); pin 3 hangs past column 23: bend it up. Start at about 32.5 kΩ (1 V/oct needs about 192 kΩ in total; R11 measured 159.5 kΩ)",
     "W5": "U1 output (pin 3) to U2 pin 2; insulated, along the bottom edge, away from the supply leads",
     "W14": "Joins the input node at column 7 to U1 pin 1",
     "W2": "U1 pin 9 (GND) to the GND rail at column 16",
 }
-VALUES = {"R6": "33 kΩ (32.6 kΩ measured)", "R7": "510 Ω (506 Ω measured)", "R9": "100 kΩ (101.8 kΩ measured)", "C10": "100 nF (88.9 nF measured)", "C14": "10 µF (9.05 µF measured)", "C9": "3.3 nF", "J1": "jumper", "R3": "330 Ω (or 200 Ω)"}
+VALUES = {"R6": "33 kΩ (32.6 kΩ measured)", "R7": "510 Ω (506 Ω measured)", "R9": "100 kΩ (101.8 kΩ measured)", "R10": "470 kΩ (467 kΩ measured)", "R8": "1 kΩ (983 Ω measured)", "C8": "10 nF (9.85 nF measured)", "R12": "300 kΩ (302 kΩ measured)", "R13": "100 kΩ (100 kΩ measured)", "R11": "160 kΩ (159.5 kΩ measured)", "C15": "10 µF (9 µF measured)", "R2": "200 Ω (198 Ω measured)", "R1": "18 kΩ (17.59 kΩ measured)", "C10": "100 nF (88.9 nF measured)", "C14": "10 µF (9.05 µF measured)", "C9": "3.3 nF", "J1": "jumper", "R3": "330 Ω (320 Ω measured; or 200 Ω)"}
 # What each part is, to pick it out of the bags: capacitor dielectric and body, resistor type.
 TYPES = {
     "C1": "Film, R82 box 100 V 10 %, 5 mm pitch", "C2": "Film, R82 box 100 V 10 %, 5 mm pitch",
