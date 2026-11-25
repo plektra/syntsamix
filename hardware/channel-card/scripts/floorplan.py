@@ -58,8 +58,8 @@ GROUNDS = {"AGND", "PGND"}
 # ---- panel rows: distance of each control's centre from the card's front edge (MECHANICAL.md row order) --------
 FADER_D, FADER_U = 57.0, 25.5     # fader travel centre; travel 60 mm, so its top end is at d = 72
 METER_U = 4.0                     # meter LED column; CLIP level with the fader's top travel end, 6.0 mm pitch
-ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=173, BYPASS=210, RES=210, CUTOFF=237, JACKS=262,
-           LOWCUT=282, TRIM=304)
+ROW = dict(MUTE=108, PFL=108, ROW3=127, AUX2=151, AUX1=173, BYPASS=211, RES=211, CUTOFF=236, CVAMT=261,
+           JACKS=281, LOWCUT=303, TRIM=303)   # rear rows: panel option C (decision 197)
 CEN = 16.5
 # ref: (d, u, rotation, side, what the point is)
 FIX = {
@@ -71,13 +71,15 @@ FIX = {
     "SW181": (ROW["BYPASS"], CEN + 8, 0, "F", "origin"),
     "RV183": (ROW["RES"], CEN - 8, 0, "F", "shaft"), "RV181": (ROW["CUTOFF"], CEN, 0, "F", "shaft"),
     "J181": (ROW["JACKS"], CEN - 8, 270, "F", "barrel"), "J182": (ROW["JACKS"], CEN + 8, 270, "F", "barrel"),
-    "SW1": (ROW["LOWCUT"], CEN, 0, "F", "origin"), "RV1": (ROW["TRIM"], CEN, 0, "F", "shaft"),
+    "RV184": (ROW["CVAMT"], CEN - 8, 0, "F", "shaft"), "SW182": (ROW["CVAMT"], CEN + 8, 0, "F", "origin"),
+    "SW1": (ROW["LOWCUT"], CEN + 8, 0, "F", "origin"), "RV1": (ROW["TRIM"], CEN - 8, 0, "F", "shaft"),
     # underside headers (2026-11-24 rows): each needs a run with no control pins above its body, and the two
     # cables must not share a depth: power at the left edge between the SC SEND button and the AUX 1 pot, audio at
-    # the right edge between the AUX 2 pot and the BYPASS button; input header at the rear beside TRIM
-    "J503": (140.6, 5.0, 270, "B", "mid"), "J501": (180.0, 28.0, 270, "B", "mid"), "J1": (302.0, 5.0, 270, "B", "mid"),
+    # the right edge between the AUX 2 pot and the BYPASS button; input header along the card
+    # between the two CV jacks (across, between the jack and TRIM rows, sits on their pins)
+    "J503": (140.6, 5.0, 270, "B", "mid"), "J501": (180.0, 28.0, 270, "B", "mid"), "J1": (282.0, 17.6, 270, "B", "mid"),
 }
-BUTTON_LED = {"SW1": "D5", "SW181": "D183", "SW201": "D203", "SW202": "D204", "SW301": "D301", "SW302": "D302",
+BUTTON_LED = {"SW1": "D5", "SW181": "D183", "SW182": "D186", "SW201": "D203", "SW202": "D204", "SW301": "D301", "SW302": "D302",
               "SW303": "D303"}
 METER_LEDS = ["D418", "D417", "D416", "D415", "D414", "D413", "D412", "D411"]   # CLIP first (rear), -30 last
 # areas kept clear: (d0, d1, u0, u1)
@@ -96,7 +98,7 @@ IC = {
     "U105": (221, 5, "F"), "U106": (200, 18, "F"), "U107": (262, 16.5, "F"), "U108": (190, 8, "F"),
     "RV101": (236, 4.5, "B"), "RV151": (236, 28.5, "B"), "RV182": (268, 22, "B"),
     "JP101": (246, 12, "B"), "JP151": (246, 21, "B"), "JP102": (226, 6, "B"), "JP152": (226, 27, "B"),
-    "JP181": (268, 10, "B"),
+    "JP182": (226, 16.5, "B"),
     # level: fader law, control, VCA, I-V, output
     "U205": (62, 13, "F"), "U204": (72, 13, "F"), "U201": (82, 13, "F"), "U202": (92, 13, "F"), "U203": (114, 6, "F"),
     "J301": (98, 4, "B"), "J302": (98, 29, "B"),
@@ -157,7 +159,7 @@ if STACK:
         "RV101": (f + 0.3 * sp, 5, "B"), "RV151": (f + 0.3 * sp, 28, "B"),
         "U103": (f + 0.5 * sp, 17, "B"), "JP102": (f + 0.5 * sp, 8, "B"), "JP152": (f + 0.5 * sp, 26, "B"),
         "U105": (f + 0.62 * sp, 8, "B"), "U106": (f + 0.62 * sp, 26, "B"),
-        "U107": (f + 0.85 * sp, 16, "B"), "JP181": (f + 0.85 * sp, 6, "B"), "RV182": (f + 0.85 * sp, 27, "B"),
+        "U107": (f + 0.85 * sp, 16, "B"), "JP182": (f + 0.85 * sp, 6, "B"), "RV182": (f + 0.85 * sp, 27, "B"),
     }
     MANUAL = {"C501": (c + 4, 14), "C506": (c + 4, 22), "C504": (c - 26, 24), "C509": (c - 26, 9), "C512": (c + 14, 28),
               "D501": (c + 1, 14), "D503": (c + 1, 22), "D505": (c - 27, 16), "D506": (c - 27, 18),
@@ -549,5 +551,5 @@ if __name__ == "__main__":
         print(f"lower board {low:.0f} mm2, covered {usedlow:.0f} mm2 ({100 * usedlow / low:.0f} %) with pin rows and regulator copper")
         print(f"nets between the boards: {len(cross)} ({len(cross) - len(sup)} signals, supplies {sorted(sup)}); pin places kept: "
               f"{sum((int(max(b[1] - b[0], b[3] - b[2]) / 2.54) + 1) * (2 if min(b[1] - b[0], b[3] - b[2]) > 4 else 1) for b in PIN_ROWS)}")
-        for r in ("J503", "J501", "J1", "RV101", "RV151", "RV182", "J301", "J302", "JP101", "JP181"):
+        for r in ("J503", "J501", "J1", "RV101", "RV151", "RV182", "J301", "J302", "JP101", "JP182"):
             print(f"  {r}: d {BOX[r][0]:.1f}..{BOX[r][1]:.1f}, u {BOX[r][2]:.1f}..{BOX[r][3]:.1f}")

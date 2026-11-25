@@ -102,7 +102,11 @@ def side(Pn,o,y0,ssi,ota,pre,iv,post,dg_dry,dg_filt):
     s.wire(q(po),(160.02,YO),(160.02,sn[1]),sn)
     s.wire(q(pi),rt(q(pi))); r20=R(rr(120),"36k","SX-R-097",q(pi)[0]+2.54,q(pi)[1]+7.62,0,Note=PROV)
     s.wire(rt(q(pi)),r20(1)); s.wire(r20(2),dn(r20(2),2.54)); s.label("QW",dn(r20(2),2.54),270)
-    qs=(106.68,q(pm)[1]); s.wire(q(pm),(134.62,qs[1])); s.wire((134.62,qs[1]),(121.92,qs[1])); s.wire((121.92,qs[1]),qs)
+    # resonance limit (decision 200): R123/R173 join R120/R170 through JP182 (QLIM to QW)
+    r23=R(rr(123),"30k","SX-R-050",167.64,q(pi)[1]+3.81,0,Note="Resonance limit, in parallel with R120/R170 when JP182 is fitted (decision 200). "+PROV)
+    s.wire(rt(q(pi)),r23(1)); s.wire(r23(2),dn(r23(2),2.54)); s.label("QLIM",dn(r23(2),2.54),270)
+    qs=(106.68,q(pm)[1]); s.wire(q(pm),(134.62,qs[1])); s.wire((134.62,qs[1]),(127.0,qs[1])); s.wire((127.0,qs[1]),(121.92,qs[1])); s.wire((121.92,qs[1]),qs)
+    s.wire((127.0,qs[1]),(127.0,qs[1]+10.16)); s.label(f"{Pn}_QSUM",(127.0,qs[1]+10.16),270)   # to the L/R link R194 (decision 200)
     r17=R(rr(117),"18k","SX-R-092",134.62,qs[1]-3.81,0); s.wire(r17(2),(134.62,qs[1])); s.wire(r17(1),up(r17(1),2.54)); s.label(f"{Pn}_IV",up(r17(1),2.54),90)
     r16=R(rr(116),"560","SX-R-094",121.92,qs[1]-3.81,0); s.wire(r16(2),(121.92,qs[1])); gnd(r16(1),180)
     s.wire(q(pp),(134.62,q(pp)[1])); r15=R(rr(115),"560","SX-R-094",134.62,q(pp)[1]+3.81,0); s.wire((134.62,q(pp)[1]),r15(1)); gnd(r15(2))
@@ -160,26 +164,37 @@ side("R",50,205.74,"U102",("U91031",1,(13,14,15,12,16)),("U91042",2,(6,5,7)),("U
      ("U91082",2,0,8,6,7),("U91083",3,180,9,11,10))
 
 # ------------------------------------------------------------- shared: cutoff summer
-# Cutoff CV chaining (decision 165): CV IN jack on top, its tip straight into the summer; the
-# jack's normal contact, the pot leg and the summer leg meet on JP181 (1-2 CV ONLY: the pot
-# reaches the summer through the normal, so a plugged CV replaces it; 2-3 CV + POT); the
-# summer is clamped by D184/D185 (BZT52C11 back to back); U107B makes CV OUT from FCV.
+# Cutoff CV (decisions 165, 197, 198): CV IN jack on top, its tip through the CV AMT attenuator
+# RV184 into the summer; the CUTOFF pot reaches SW182 (+KNOB) through R181: released (2-1) it
+# goes to the jack's normal contact (CV ONLY: a plugged CV replaces the pot), pressed (2-3)
+# through R188 to the summer (CV + POT, LED lit). The summer is clamped by D184/D185
+# (BZT52C11 back to back); U107B makes CV OUT from FCV.
 Y=300.0; DX=10.16   # summer moved right by DX for the jumper column
-jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV IN 1 V/oct",35.56,Y,0,fp="Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles",props=P("SX-CONN-014",Manufacturer="Qingpu",MPN="PJ398SM",Supplier="Thonk",Note="3.5 mm Thonkiconn on the top panel with a 1 mm M6 washer (SX-MECH-004); 3 mm PCB hole under the barrel; normal contact TN to JP181 (decision 165)"))
+jk=s.place("Connector_Audio","AudioJack2_SwitchT","J181","CUTOFF CV IN 1 V/oct",35.56,Y,0,fp="Connector_Audio:Jack_3.5mm_QingPu_WQP-PJ398SM_Vertical_CircularHoles",props=P("SX-CONN-014",Manufacturer="Qingpu",MPN="PJ398SM",Supplier="Thonk",Note="3.5 mm Thonkiconn on the top panel with a 1 mm M6 washer (SX-MECH-004); 3 mm PCB hole under the barrel; normal contact TN to SW182 (decisions 165, 197)"))
 FS=(71.12+DX,jk("T")[1])
-r182=R("R182","100k","SX-R-007",66.04,FS[1]); s.wire(jk("T"),r182(1)); s.wire(r182(2),FS)
-s.wire(jk("S"),(58.42,jk("S")[1])); gnd((58.42,jk("S")[1]),180)
+r182=R("R182","100k","SX-R-007",66.04,FS[1]); s.wire(r182(2),FS)
+ca=s.place("Device","R_Potentiometer","RV184","100k lin CV AMT",50.8,FS[1]-3.81,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
+           props=P("SX-POT-016",Manufacturer="Alpha",MPN="RD901F-40-15K-B100K",Note="Panel CV AMT (decision 197); clockwise end (pin 3) on the CV IN tip = 1 V/oct; order code to verify"))
+s.wire(jk("T"),ca(3)); s.wire(ca(2),(58.42,ca(2)[1]),(58.42,r182(1)[1]),r182(1))
+gt=ca(1)[1]-2.54; s.wire(ca(1),(ca(1)[0],gt),(45.72,gt)); s.wire((45.72,gt),(45.72,jk("S")[1]),jk("S")); gnd((45.72,gt),180)
 YJ=FS[1]+25.4
-jp=s.place("Connector_Generic","Conn_01x03","JP181","1-2 CV, 2-3 SUM",60.96,YJ,0,
-           fp="Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",props=P("SX-CONN-005",Note="Cutoff mode (decision 165), underside (decision 112): 1-2 CV ONLY (a plugged CV replaces the CUTOFF pot), 2-3 CV + POT (the pot adds an offset)"))
-s.wire(jk("TN"),(53.34,jk("TN")[1]),(53.34,jp(1)[1]),jp(1))
 cp=s.place("Device","R_Potentiometer","RV181","50k lin CUTOFF",40.64,YJ,0,fp="Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical",
            props=P("SX-POT-003",Manufacturer="Alpha",MPN="RD901F-40-15K-B50K",Supplier="Tayda",SupplierPN="A-4730",Note="Panel; clockwise end (pin 3) raises the cutoff"))
 s.wire(cp(1),up(cp(1),5.08)); s.power("-15V",up(cp(1),5.08),180)
 s.wire(cp(3),dn(cp(3),5.08)); s.power("+15V",dn(cp(3),5.08),180)
-r181=R("R181","200k","SX-R-116",48.26,YJ,Note="With R188 100k the pot leg is 300k in either jumper position (decision 165)"); s.wire(cp(2),r181(1)); s.wire(r181(2),jp(2))
-YQ=YJ+10.16
-r188=R("R188","100k","SX-R-007",62.23,YQ); s.wire(jp(3),(54.61,jp(3)[1]),(54.61,YQ),r188(1)); s.wire(r188(2),(FS[0],YQ))
+r181=R("R181","100k","SX-R-007",49.53,YJ,Note="With R188 200k the pot leg is 300k in CV + POT; in CV ONLY with CV AMT at full the pot acts as through 300k (decision 197)"); s.wire(cp(2),r181(1))
+kb=s.place("Switch","SW_Push_DPDT","SW182","+KNOB (latching)",60.96,YJ+5.08,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L",
+           props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905",Note="Cutoff mode (decisions 197, 198): released CV ONLY, pressed (lit) CV + POT"))
+s.wire(r181(2),(r181(2)[0],kb(2)[1]),kb(2))
+s.wire(jk("TN"),(45.72,jk("TN")[1]),(45.72,YJ-12.7),(69.85,YJ-12.7),(69.85,kb(1)[1]),kb(1))
+YQ=kb(3)[1]
+r188=R("R188","200k","SX-R-116",74.93,YQ); s.wire(kb(3),r188(1)); s.wire(r188(2),(FS[0],YQ))
+s.wire(kb(5),lt(kb(5),2.54)); pgnd(lt(kb(5),2.54))
+YL=YJ+25.4
+kl=s.place("Device","LED","D186","+KNOB LED",58.42,YL,180,fp="LED_SMD:LED_0805_2012Metric",props=P("SX-D-017",Manufacturer="Hubei KENTO",MPN="KT-0805W",Supplier="LCSC",SupplierPN="C34499"))
+s.wire(kb(6),(69.85,kb(6)[1]),(69.85,YL),kl(1))
+r193=R("R193","12k","SX-R-008",45.72,YL); s.wire(kl(2),r193(2)); s.wire(r193(1),lt(r193(1),3.81)); s.power("+15V",lt(r193(1),3.81),90)
+NOCONNECT.append(kb(4))
 sm=OA("TL072","U107",1,86.36+DX,Y-2.54,"SX-IC-007")   # DC control stage: TL072 (power lever 1, 2026-10-09)
 s.wire(FS,sm(2)); s.wire(sm(3),lt(sm(3)),up(lt(sm(3)))); gnd(up(lt(sm(3))),180)
 fcv=(99.06+DX,sm(1)[1]); s.wire(sm(1),fcv); s.wire(fcv,(106.68+DX,fcv[1])); s.label("FCV",(106.68+DX,fcv[1]),0)
@@ -225,6 +240,12 @@ yd=Y+8.89
 d1=s.place("Device","D","D181","1N4148W",144.78,yd,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
 d2=s.place("Device","D","D182","1N4148W",157.48,yd,180,fp="Diode_SMD:D_SOD-123",props=P("SX-D-003"))
 s.wire(rp(1),(rp(1)[0],yd),d1(2)); s.wire(d1(1),d2(2)); s.wire(d2(1),rt(d2(1),2.54),dn(rt(d2(1),2.54),2.54)); s.power("-15V",dn(rt(d2(1),2.54),2.54))
+# resonance limit jumper and L/R link (decision 200)
+jl=s.place("Connector_Generic","Conn_01x02","JP182","RES LIMIT: fitted = full",160.02,Y-20.32,0,fp="Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
+           props=P("SX-CONN-030",Note="Underside (decision 112). Fitted (default): resonance reaches self-oscillation; open: limited to about k = 3 (decision 200)"))
+s.wire(jl(1),lt(jl(1),5.08)); s.label("QW",lt(jl(1),5.08),180); s.wire(jl(2),lt(jl(2),5.08)); s.label("QLIM",lt(jl(2),5.08),180)
+r94=R("R194","10k","SX-R-002",185.42,Y-20.32,Note="L/R resonance link, locks the two oscillations (about 5 %); provisional (decision 200)")
+s.wire(r94(1),lt(r94(1),5.08)); s.label("L_QSUM",lt(r94(1),5.08),180); s.wire(r94(2),rt(r94(2),5.08)); s.label("R_QSUM",rt(r94(2),5.08),0)
 # bypass button
 b=s.place("Switch","SW_Push_DPDT","SW181","FILTER BYPASS (latching)",185.42,Y,0,fp="syntsamix:SW_Latching_8.5x8.5mm_CW_GPBS850L",props=P("SX-SW-001",Manufacturer="CW Industries",MPN="GPBS850L",Supplier="Electrokit",SupplierPN="41012905"))
 s.wire(b(2),lt(b(2),5.08)); s.power("+5V",lt(b(2),5.08))

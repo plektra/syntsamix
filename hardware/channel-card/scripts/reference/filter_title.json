@@ -7,8 +7,9 @@
   "SSI2144 x2 (datasheet Fig. 1), LM13700 Q VCA (Fig. 9)",
   "JP102/JP152 bass comp: 1-2 half (default), 2-3 full, open none",
   "JP101/JP151 open = hot drive; both fitted = medium",
-  "Provisional: R111/R161, R120/R170 (set by breadboard)"
+  "JP182 fitted (default) = self-oscillation, open = limited; provisional: R111/161, R120/170, R123/173, R194"
  ],
+ "field_at": {"RV184": {"Reference": [10.16, -6.35], "Value": [10.16, -3.81]}, "JP182": {"Reference": [1.27, -3.81], "Value": [2.54, 6.35]}},
  "left_fields": [
   "R120",
   "R170",

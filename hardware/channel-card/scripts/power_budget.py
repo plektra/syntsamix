@@ -28,13 +28,13 @@ parts={
  "OPA2171 (U204, fader buffer and control summer)":(1,0.95,1.19,"pm"),
  "SSI2144 (ICC/IEE, worse rail)":(2,5.2,6.4,"pm"),
  "SSI2162":(1,6.0,8.0,"pm"),
- "LM13700 incl. Q current":(1,3.2,4.6,"pm"),
+ "LM13700 incl. Q current (both IABC at 482 uA, JP182 fitted, decision 200)":(1,3.6,5.0,"pm"),
  "LM339 (meter)":(2,0.8,2.5,"p"),
 }
-led_btn=(V15-2.0)/12.0                     # 7 button LEDs, 12k from +15 V
+led_btn=(V15-2.0)/12.0                     # 8 button LEDs, 12k from +15 V
 fixed_p={"LM317 divider 2k4":(6.25,6.25),"CUTOFF and offset pots, refs (+15 V)":(1.8,1.8)}
 fixed_m={"LM337 divider 2k4":(6.25,6.25),"fader and pots (-15 V)":(1.5,1.5),"VEE zener, R505 10k (BZT52C6V2, 5.89 V min)":((V15-6.2)/10.0,(V15-5.89)/10.0)}
-btn=(3.5*led_btn,7*led_btn)                # typical: about half the buttons lit
+btn=(4*led_btn,8*led_btn)                # typical: about half the buttons lit
 # +5 V from the 78L05, taken from +15 V: 8 meter LEDs, 1k5 from +5 V (about 2 mA each)
 led5=(8.0,16.0)                            # typical: about half the meter lit
 iq78=(3.6,6.0)

@@ -20,7 +20,7 @@ A modular, analog stereo mixer for live electronic music: synthesizers, drum mac
 - Balanced 6.3 mm TRS inputs (L/MONO and R) on a separate, swappable passive input module; a mono source in L/MONO feeds both sides
 - One wide input trim (about -20 to +20 dB) with **soft clipping**, so overloads saturate gently
 - Switchable 100 Hz low-cut
-- **24 dB/octave ladder low-pass filter** (Sound Semiconductor SSI2144) with cutoff (20 Hz to 20 kHz), resonance and bypass. Driven "hot" for character, with resonance capped below self-oscillation and the bass loss half compensated
+- **24 dB/octave ladder low-pass filter** (Sound Semiconductor SSI2144) with cutoff (20 Hz to 20 kHz), resonance and bypass. Driven "hot" for character, with resonance up to self-oscillation (a jumper limits it; breadboard pending) and the bass loss half compensated
 - Cutoff CV input at about 1 V/octave for modulation from modular gear
 - 60 mm fader driving a VCA (SSI2162) with a console-style law: +10 dB at the top, 0 dB at 75 % of travel, fully off at the bottom; click-free mute
 - Two stereo AUX sends (post-fader, jumper for pre-fader)

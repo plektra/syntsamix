@@ -41,7 +41,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 14 | Stereo AUX, mono-capable | confirmed | [system](system.md) |
 | 15 | Headphone output on the master | confirmed | [master-card](master-card.md) |
 | 16 | L/R filter tracking: offset trim and tempco resistor | confirmed | [channel-card](channel-card.md) |
-| 17 | Fixed maximum Q current | confirmed | [channel-card](channel-card.md) |
+| 17 | Fixed maximum Q current | confirmed, refined (200: jumper) | [channel-card](channel-card.md) |
 | 18 | Resonance bass-loss compensation | confirmed | [channel-card](channel-card.md) |
 | 19 | Fader controls a VCA | confirmed | [channel-card](channel-card.md) |
 | 20 | Per-channel cutoff CV input | confirmed, refined | [channel-card](channel-card.md) |
@@ -224,6 +224,7 @@ The decision log, split by area and kept in two tiers (decision 154). Read this 
 | 197 | Cutoff CV attenuator CV AMT (B100K into R182, R181 100k / R188 200k), +KNOB panel button in place of JP181, panel option C (TRIM beside LOW CUT, CV AMT and +KNOB row under the CV jacks, smaller TRIM / RESONANCE / CUTOFF knobs); J1 placed by the layout; refines 53, 55, 165, 166, 195 | confirmed (the user, /system 2026-11-24); distances and knob sizes **[proposed]**, J1 position at layout | [channel-card](channel-card.md) |
 | 198 | A button pole may change a DC control path over between two resistive paths (no rail or chain line on either throw, wetting-level current); no ramp where the input already accepts steps (cutoff CV); refines 152 | confirmed (the user, /system 2026-11-24) | [system](system.md) |
 | 199 | Sidechain: THRESHOLD B10K 0.26-1.8 V, LPF button inverted (lit = filter in), ducking LED following SC_ENV; refines 44, 45, 46, 90 | confirmed (the user 2026-11-24); legends and LED position **[proposed]** | [master-card-sheets](master-card-sheets.md) |
+| 200 | Filter self-oscillation: resonance limit jumper JP182 (fitted by default, 30k in parallel with R120/R170), L/R link R194 10k; refines 17 | confirmed (the user 2026-11-25), values provisional (breadboard test 2) | [channel-card](channel-card.md) |
 
 ## Proposed but not confirmed
 

@@ -70,6 +70,7 @@ Applies to every board under `hardware/`. Each board folder has its own `CLAUDE.
 - A TPS54560-style IC with signal pins on the side where the input copper arrives leaves one track's room between the copper and the pins: plan vias for EN/COMP/BOOT hops early.
 - Try the placement before promising a board fits (`hardware/channel-card/scripts/floorplan.py`): a greedy courtyard placer stops near 80 % coverage, and the channel card left 38 of 395 parts there (decision 194). Count the header bodies, trimmers, test pads and the pin fields of the other side's through-hole parts, not only the SMD courtyards; a part's 0603 twin saves little when electrolytic cans are what is left over.
 - A header under the board needs a run with no control pins above its body: move a pot or button off the centreline and the run is gone. Check it in the placement script, not by eye.
+- `floorplan.py` prints a `conflict:` line when an underside header sits on a top part's pins: run it before recording a candidate position (decision 197's J1 candidate, read off the drawing, failed it).
 - pcbnew: `Footprint.Flip` crashes on a footprint that is on no board; add it to `pcbnew.CreateEmptyBoard()` first.
 - `qlmanage -t` gives a square thumbnail: to look at a long board or page, write crops of the SVG by `viewBox` and render each.
 
