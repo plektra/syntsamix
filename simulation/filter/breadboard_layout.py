@@ -67,7 +67,7 @@ PARTS = [
     ("W14", "", "wire", ("E", 7, "H"), ("E", 8, "H")),
     ("J1", "drive", "jumper", ("E", 5, "H"), ("E", 6, "H")),
     ("W20", "", "wire", ("E", 6, "F"), ("ER", "GND", 6)),
-    ("R4", "200 Ω", "res", ("E", 9, "I"), ("E", 6, "I")),
+    ("R4", "220 Ω", "res", ("E", 9, "I"), ("E", 6, "I")),
     ("C9", "3.3 nF opt.", "cap", ("E", 8, "J"), ("E", 9, "H")),
     # ---- ladder capacitors, straight across neighbouring adapter pins
     ("C4", "560 pF", "cap", ("E", 11, "H"), ("E", 12, "H")),

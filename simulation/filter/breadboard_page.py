@@ -25,7 +25,7 @@ NOTES = {
     "R3": "330 Ω gives about −4 dB; try 200 Ω for −6 dB",
     "J1": "2-pin header with a jumper shunt. Fitted = medium drive, removed = hot drive",
     "C9": "Optional (datasheet): steadier resonance over the sweep. R82 film, 5 mm pitch: sits diagonally",
-    "R4": "Terminates the unused SIG IN− (the datasheet's 200 Ω; not critical)",
+    "R4": "Terminates the unused SIG IN− (the kit's 220 Ω for the datasheet's 200 Ω; not critical)",
     "C1": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
     "C2": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
     "C3": "Ladder capacitor, datasheet Figure 1. R82 film 10 %, 5 mm pitch: sits diagonally",
@@ -61,7 +61,7 @@ NOTES = {
     "W14": "Joins the input node at column 7 to U1 pin 1",
     "W2": "U1 pin 9 (GND) to the GND rail at column 16",
 }
-VALUES = {"R6": "33 kΩ (32.6 kΩ measured)", "R7": "510 Ω (506 Ω measured)", "R9": "100 kΩ (101.8 kΩ measured)", "R10": "470 kΩ (467 kΩ measured)", "R8": "1 kΩ (983 Ω measured)", "C8": "10 nF (9.85 nF measured)", "R12": "300 kΩ (302 kΩ measured)", "R13": "100 kΩ (100 kΩ measured)", "R11": "160 kΩ (159.5 kΩ measured)", "C15": "10 µF (9 µF measured)", "R2": "200 Ω (198 Ω measured)", "R1": "18 kΩ (17.59 kΩ measured)", "C10": "100 nF (88.9 nF measured)", "C14": "10 µF (9.05 µF measured)", "C9": "3.3 nF", "J1": "jumper", "R3": "330 Ω (320 Ω measured; or 200 Ω)"}
+VALUES = {"R6": "33 kΩ (32.6 kΩ measured)", "R7": "510 Ω (506 Ω measured)", "R9": "100 kΩ (101.8 kΩ measured)", "R10": "470 kΩ (467 kΩ measured)", "R8": "1 kΩ (983 Ω measured)", "C8": "10 nF (9.85 nF measured)", "R12": "300 kΩ (302 kΩ measured)", "R13": "100 kΩ (100 kΩ measured)", "R11": "160 kΩ (159.5 kΩ measured)", "C15": "10 µF (9 µF measured)", "R2": "200 Ω (198 Ω measured)", "R1": "18 kΩ (17.59 kΩ measured)", "R4": "220 Ω (217 Ω measured)", "C10": "100 nF (88.9 nF measured)", "C14": "10 µF (9.05 µF measured)", "C9": "3.3 nF", "J1": "jumper", "R3": "330 Ω (320 Ω measured; or 200 Ω)"}
 # What each part is, to pick it out of the bags: capacitor dielectric and body, resistor type.
 TYPES = {
     "C1": "Film, R82 box 100 V 10 %, 5 mm pitch", "C2": "Film, R82 box 100 V 10 %, 5 mm pitch",
@@ -85,10 +85,10 @@ SKUS = {
     "C10": "41016717", "C11": "41016717", "C12": "41016717", "C13": "41016717",
     "C5": "41018168", "C7": "41018168", "C14": "41019084", "C15": "41019084",
     "D1": "40310001", "D2": "40310001", "RV3": "40900268", "RV4": "40900268", "RV5": "40900268",
-    "R2": "40811220", "R4": "40811220", "R7": "40811251", "R11": "40811516", "R12": "40811530",
+    "R2": "40811220", "R7": "40811251", "R11": "40811516", "R12": "40811530",
     "R6": "40811433 (33k)",
 }
-for _r in ("R2", "R4", "R7", "R11", "R12", "R6"):
+for _r in ("R2", "R7", "R11", "R12", "R6"):
     TYPES[_r] = "Metal film 1 %, second order"
 # Where each part comes from (a: the user's E12 kit, b: first Electrokit order, c: second order)
 SRC = {
@@ -97,8 +97,8 @@ SRC = {
 }
 SOURCE = {
     "U1": "o12", "U2": "o1",
-    "R1": "kit", "R3": "kit", "R8": "kit", "R9": "kit", "R10": "kit", "R13": "kit",
-    "R2": "o2", "R4": "o2", "R6": "o2", "R7": "o2", "R11": "o2", "R12": "o2",
+    "R1": "kit", "R3": "kit", "R4": "kit", "R8": "kit", "R9": "kit", "R10": "kit", "R13": "kit",
+    "R2": "o2", "R6": "o2", "R7": "o2", "R11": "o2", "R12": "o2",
     "C1": "o1", "C2": "o1", "C3": "o1", "C4": "o1", "C5": "o1", "C6": "o1", "C7": "o1", "C8": "o1", "C9": "o1",
     "C10": "o1", "C11": "o1", "C12": "o1", "C13": "o1", "C14": "o1", "C15": "o1",
     "D1": "o1", "D2": "o1", "RV3": "o1", "RV4": "o1", "RV5": "o1", "J1": "own",
